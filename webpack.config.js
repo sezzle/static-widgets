@@ -22,6 +22,15 @@ module.exports = {
                  'file-loader'
                ]
             }
+        ],
+        loaders: [
+            {
+                test: /\.js$/,
+                loader: 'babel-loader',
+                query: {
+                    presets: ['es2015']
+                }
+            }
         ]
     }
   };
