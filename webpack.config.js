@@ -1,10 +1,14 @@
+var path = require('path')
+
 module.exports = {
     entry: './src/awesomeSezzle.js',
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: 'bundle.js',
       libraryTarget: 'var',
-      library: 'AwesomeSezzle'
+      library: 'AwesomeSezzle',
+      libraryExport: "default",
+      publicPath:'dist/'
     },
     module: {
         rules: [
@@ -21,16 +25,22 @@ module.exports = {
                use: [
                  'file-loader'
                ]
-            }
-        ],
-        loaders: [
+            },
             {
-                test: /\.js$/,
-                loader: 'babel-loader',
-                query: {
-                    presets: ['es2015']
+                test: /\.m?js$/,
+                exclude: /(node_modules|bower_components)/,
+                use: {
+                  loader: 'babel-loader',   
+                  options: {
+                    presets: ['@babel/preset-env']
+                  }
                 }
-            }
-        ]
+              },
+
+    
+        
+        ],
+       
+           
     }
   };

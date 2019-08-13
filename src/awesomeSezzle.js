@@ -1,4 +1,4 @@
-import Helper from './helper'
+import HelperClass from './awesomeHelper'
 import QuestionMark from './icons/question_mark.png';
 import APLogoDark from './icons/ap-logo-widget.png';
 import APLogoGrayScale from './icons/ap-logo-widget-grayscale.png';
@@ -8,6 +8,7 @@ import QPLogoGrayScale from './icons/qp-logo-widget-grayscale.png';
 import '../css/global.scss';
 import '../css/sezzle.css';
 import '../css/style.css';
+
 
 class AwesomeSezzle {
     constructor(options){
@@ -20,12 +21,12 @@ class AwesomeSezzle {
         var isOldConfig = typeof (options.configGroups) === 'undefined';
 
         if (isOldConfig) {
-            options = Helper.makeCompatible(options)
+            options = HelperClass.makeCompatible(options)
             console.warn('Deprecated configurations are used. This will soon not be supported');
         };
 
         // validate config structure
-        Helper.validateConfig(options);
+        HelperClass.validateConfig(options);
         // filter off config groups which do not match the current URL
         options.configGroups = options.configGroups.filter(function (configGroup) {
             // if no URL match is provided, consider the group for backwards compatability reasons
@@ -34,6 +35,7 @@ class AwesomeSezzle {
 
         // properties that do not belong to a config group
         this.merchantID = options.merchantID || '';
+        this.HTMLObject = options.HTMLObject || null;
         this.forcedShow = options.forcedShow || false;
         this.numberOfPayments = options.numberOfPayments || 4;
         this.minPrice = options.minPrice || 0; // in cents
@@ -52,8 +54,11 @@ class AwesomeSezzle {
         // map config group props
         this.configGroups = [];
         options.configGroups.forEach(function (configGroup) {
-            this.configGroups.push(Helper.mapGroupToDefault(configGroup, options.defaultConfig, this.numberOfPayments));
+            this.configGroups.push(HelperClass.mapGroupToDefault(configGroup, options.defaultConfig, this.numberOfPayments));
         }.bind(this));
+    }
+    getElementByHTMLObject(){
+      
     }
     //1
     /**
@@ -135,7 +140,8 @@ class AwesomeSezzle {
      * @return void
      */
     loadCSS(callback){
-        this.getCSSVersionForMerchant(function (version) {
+      console.log('inside loadCSS')
+        this.getCSSVersionForMerchant(function () {
             var head = document.head;
             var link = document.createElement('link');
             link.type = 'text/css';
@@ -464,21 +470,26 @@ class AwesomeSezzle {
             if (typeof (customClass.configGroupIndex) !== 'number') {
               customClass.configGroupIndex = -1; // set the default value
             }
-            if (customClass.index === index || customClass.configGroupIndex === configGroupIndex) {
-              var path = Helper.breakXPath(customClass.xpath);
-              this.getElementsByXPath(path, 0, [sezzle])
-                .forEach(function (el) {
-                  el.className += ' ' + customClass.className;
-                })
+            if(this.HTMLObject === null){
+              if (customClass.index === index || customClass.configGroupIndex === configGroupIndex) {
+                var path = HelperClass.breakXPath(customClass.xpath);
+                this.getElementsByXPath(path, 0, [sezzle])
+                  .forEach(function (el) {
+                    el.className += ' ' + customClass.className;
+                  })
+              }
+            }else{
+
             }
+         
           }
         }.bind(this));
       
         // Adding sezzle to parent node
         if (this.configGroups[configGroupIndex].widgetIsFirstChild) {
-          Helper.insertAsFirstChild(sezzle, parent);
+          HelperClass.insertAsFirstChild(sezzle, parent);
         } else {
-          Helper.insertAfter(sezzle, parent);
+          HelperClass.insertAfter(sezzle, parent);
         }
         return sezzle;
     }
@@ -488,7 +499,7 @@ class AwesomeSezzle {
         var toRenderElement = null;
       
         if (this.configGroups[index].rendertopath !== null) {
-          var path = Helper.breakXPath(this.configGroups[index].rendertopath);
+          var path = HelperClass.breakXPath(this.configGroups[index].rendertopath);
           var toRenderElement = element;
       
           for (var i = 0; i < path.length; i++) {
@@ -538,7 +549,7 @@ class AwesomeSezzle {
     }
     //17
     isProductEligible(priceText, configGroupIndex){
-        var price = Helper.parsePrice(priceText);
+        var price = HelperClass.parsePrice(priceText);
         this.configGroups[configGroupIndex].productPrice = price;
         var priceInCents = price * 100;
         return priceInCents >= this.minPrice && priceInCents <= this.maxPrice;
@@ -581,13 +592,13 @@ class AwesomeSezzle {
     }
     //19
     getFormattedPrice(element, configGroupIndex){
-        priceText = this.getPriceText(element, configGroupIndex);
-
+        var priceText = this.getPriceText(element, configGroupIndex);
+      console.log(priceText)
         // Get the price string - useful for formtting Eg: 120.00(string)
-        var priceString = Helper.parsePriceString(priceText, true);
+        var priceString = HelperClass.parsePriceString(priceText, true);
       
         // Get the price in float from the element - useful for calculation Eg : 120.00(float)
-        var price = Helper.parsePrice(priceText);
+        var price = HelperClass.parsePrice(priceText);
       
         // Will be used later to replace {price} with price / this.numberOfPayments Eg: ${price} USD
         var formatter = priceText.replace(priceString, '{price}');
@@ -764,8 +775,9 @@ class AwesomeSezzle {
 
     }
     //27
-    getCSSVersionForMerchant(){
-
+    getCSSVersionForMerchant(callback){
+        // make request
+      callback()
     }
     //28
     hideSezzleHideElements(configGroupIndex){
@@ -795,16 +807,17 @@ class AwesomeSezzle {
         // no widget to render
         if (!this.configGroups.length) return;
         this.loadCSS(this.initWidget.bind(this));
+        //var win = window.frames.szl;
         
     }
     //33
-    observeRelatedElements(){
+    observeRelatedElements(priceElement, sezzleElement, targets){
         if (targets) {
             targets.forEach(function (target) {
               if (typeof (target.relatedPath) === 'string' &&
                 (typeof (target.action) === 'function' || typeof (target.initialAction) === 'function')) {
                 var elements = this.getElementsByXPath(
-                  Helper.breakXPath(target.relatedPath),
+                  HelperClass.breakXPath(target.relatedPath),
                   0,
                   [priceElement]
                 );
@@ -826,10 +839,18 @@ class AwesomeSezzle {
     initWidget(){
         const intervalInMs = 2000;
         var els = [];
+        
+        
+        console.log('inside initWidget')
+
+
 
         // only render the modal once for all widgets
         function renderModals() {
             // This should always happen before rendering the widget
+
+            console.log('inside renderModals')
+
             this.renderModal();
             // only render APModal if ap-modal-link exists
             if (document.getElementsByClassName('ap-modal-info-link').length > 0) {
@@ -842,6 +863,9 @@ class AwesomeSezzle {
         };
 
         function sezzleWidgetCheckInterval() {
+
+          console.log('inside sezzleWidgetCheckInterval')
+
             // Look for newly added price elements
             this.configGroups.forEach(function (configGroup, index) {
             if (configGroup.xpath === []) return;
@@ -919,5 +943,12 @@ class AwesomeSezzle {
 
         if (!allConfigsUsePriceClassElement) sezzleWidgetCheckInterval.call(this);
         renderModals.call(this);
+
+
+        console.log('end')
         }
+        
 }
+
+
+export default AwesomeSezzle;
