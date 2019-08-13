@@ -731,6 +731,11 @@ class AwesomeSezzle {
           event.stopPropagation();
         });
     }
+    renderModalByfunction(){
+      var modalNode = document.getElementsByClassName('sezzle-checkout-modal-lightbox')[0];
+      modalNode.style.display = 'block';
+      modalNode.getElementsByClassName('sezzle-modal')[0].className = 'sezzle-modal';
+    }
     //25
     addClickEventForModal(sezzleElement, configGroupIndex){
         var modalLinks = sezzleElement.getElementsByClassName('sezzle-modal-link');
@@ -742,8 +747,7 @@ class AwesomeSezzle {
               modalNode.style.display = 'block';
               // Remove hidden class to show the item
               modalNode.getElementsByClassName('sezzle-modal')[0].className = 'sezzle-modal';
-              // log on click event
-              this.logEvent('onclick', configGroupIndex);
+            
             }
           }.bind(this));
         }.bind(this));
