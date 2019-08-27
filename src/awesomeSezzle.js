@@ -1,13 +1,28 @@
-import Helper from './helper'
+import HelperClass from './awesomeHelper'
 import QuestionMark from './icons/question_mark.png';
 import APLogoDark from './icons/ap-logo-widget.png';
 import APLogoGrayScale from './icons/ap-logo-widget-grayscale.png';
 import QPLogoDark from './icons/qp-logo-widget.png';
 import QPLogoLight from './icons/qp-logo-widget-white.png';
 import QPLogoGrayScale from './icons/qp-logo-widget-grayscale.png';
+import SezzleLight from './icons/sezzle-logo-white-sm-100w.png'
+import SezzleDark from './icons/sezzle-logo-sm-100w.png'
+import SezzleGrayScale from './icons/sezzle-logo-all-black-sm-100w.png'
 import '../css/global.scss';
 import '../css/sezzle.css';
 import '../css/style.css';
+
+
+/**
+ * Sample Config  supplied to the init function could be a string or an object like follows
+ * '$ 10' or
+ * {
+ *  amount:'$ 10',
+ *  fontSize:13
+ * }
+ * Our Widget would detect element with id  - sezzle-widget
+ * and render our widget there with default config unless over ridden 
+ */
 
 class AwesomeSezzle {
     constructor(options){
@@ -15,26 +30,8 @@ class AwesomeSezzle {
             options = {}
             console.error('Config for widget is not supplied')
         }
-
-        // convert to new config if options passed in is old config
-        var isOldConfig = typeof (options.configGroups) === 'undefined';
-
-        if (isOldConfig) {
-            options = Helper.makeCompatible(options)
-            console.warn('Deprecated configurations are used. This will soon not be supported');
-        };
-
-        // validate config structure
-        Helper.validateConfig(options);
-        // filter off config groups which do not match the current URL
-        options.configGroups = options.configGroups.filter(function (configGroup) {
-            // if no URL match is provided, consider the group for backwards compatability reasons
-            return !configGroup.urlMatch || RegExp(configGroup.urlMatch).test(window.location.href);
-        });
-
-        // properties that do not belong to a config group
-        this.merchantID = options.merchantID || '';
-        this.forcedShow = options.forcedShow || false;
+       
+        this.amount = options.amount || null;
         this.numberOfPayments = options.numberOfPayments || 4;
         this.minPrice = options.minPrice || 0; // in cents
         this.maxPrice = options.maxPrice || 250000; // in cents
@@ -43,99 +40,44 @@ class AwesomeSezzle {
         this.apModalHTML = options.apModalHTML || '';
         // if doing widget with both Sezzle or quadpay - the modal to display:
         this.qpModalHTML = options.qpModalHTML || '';
-        // countries widget should show in
-        this.supportedCountryCodes = options.supportedCountryCodes || ['US', 'IN', 'CA'];
 
-        // Non configurable options
-        this._config = { attributes: true, childList: true, characterData: true };
+        var templateString  = options.widgetTemplate || 'or ' + this.numberOfPayments + ' interest-free payments of %%price%% with %%logo%% %%info%%';
+        this.widgetTemplate  = templateString.split('%%');
+        this.alignmentSwitchMinWidth = options.alignmentSwitchMinWidth || 760;
+        this.alignmentSwitchType = options.alignmentSwitchType || '';
+        this.alignment = options.alignment || 'left';
 
-        // map config group props
-        this.configGroups = [];
-        options.configGroups.forEach(function (configGroup) {
-            this.configGroups.push(Helper.mapGroupToDefault(configGroup, options.defaultConfig, this.numberOfPayments));
-        }.bind(this));
-    }
-    //1
-    /**
-     * This function fetches all the elements that is pointed to by the given xpath
-     * @param xindex - Current xpath index value to be resolved [initial value is always 0]
-     * @param elements - Array of current elements to be resolved [initial value is the element root(s) of the search path]
-     *
-     * @return All the elements which are pointed to by the xpath
-     */
-     getElementsByXPath(xpath, xindex, elements){
-        var xpath = xpath || [];
-        var xindex = xindex || 0;
-        var elements = elements || null;
+        this.fontWeight = options.fontWeight || 300;
+        this.fontSize = options.fontSize || 12; //pixels
+        this.fontFamily = options.fontFamily || "inherit";
 
-        // Break condition
-        if (xindex === xpath.length) {
-            return elements;
-        }
-        // If elements are not provided, root the search at the document object
-        if (elements === null) {
-            elements = [document];
-        }
-        var children = [];
-        var elementArray = Array.prototype.slice.call(elements);
-        for (var index = 0; index < elementArray.length; index++) {
-            var element = elementArray[index];
-        
-            // If parent path
-            if (xpath[xindex] === '..') {
-              children.push(element.parentElement);
-            } else if (xpath[xindex][0] === '#') { // If this is an ID
-              children.push(element.getElementById(xpath[xindex].substr(1)));
-              // If this is a class
-            } else if (xpath[xindex][0] === '.') {
-              // If there is only one '.' return the element
-              if (xpath[xindex].trim().length === 1) {
-                children.push(element);
-              }
-              Array.prototype.forEach.call(element.getElementsByClassName(xpath[xindex].substr(1)), function (el) {
-                children.push(el);
-              });
-        
-            } else if (xpath[xindex].indexOf('child') === 0) { // If this is a child indicator
-              var childNumber = xpath[xindex].split('-')[1];
-              var childElement = element.childNodes[childNumber];
-              if (typeof (childElement) !== 'undefined') {
-                if (childElement.nodeName === '#text') { // if it's a text node we wrap it
-                  newSpan = document.createElement('span');
-                  newSpan.appendChild(document.createTextNode(childElement.nodeValue));
-                  element.replaceChild(newSpan, childElement)
-                  children.push(newSpan);
-                } else {
-                  children.push(childElement);
-                }
-              } else {
-                children.push(element);
-              }
-            } else { // If this is a tag
-              var indexToTake = 0;
-              if (xpath[xindex].split('-').length > 1) {
-                if (xpath[xindex].split('-')[1] >= 0) {
-                  indexToTake = parseInt(xpath[xindex].split('-')[1]);
-                }
-              }
-              Array.prototype.forEach.call(element.getElementsByTagName(xpath[xindex].split('-')[0]), function (el, index) {
-                if (index === indexToTake) children.push(el);
-              });
-            }
-          }
-        
-          children = children.filter(function (c) { return c !== null });
-          return this.getElementsByXPath(xpath, xindex + 1, children);
-        }
+        this.maxWidth = options.maxWidth || 400;
 
+        this.textColor = options.textColor || '#111';
+        this.renderElement = document.getElementById(options.renderElement) || document.getElementById('sezzle-widget');
+        this.apLink = options.apLink || 'https://www.afterpay.com/terms-of-service';
+
+        this.widgetType = options.widgetType || 'product-page';
+        this.bannerURL = options.bannerURL ||  '';
+        this.bannerClass = options.bannerClass || '';
+        this.bannerLink = options.bannerLink || '';
     
+        this.marginTop = options.marginTop || 0;
+        this.marginBottom = options.marginBottom || 0;
+        this.marginLeft = options.marginLeft || 0;
+        this.marginRight = options.marginRight || 0;
+        this.logoSize = options.logoSize || 1.0;
+        this.fixedHeight = options.fixedHeight || 0;
+
+    }
     //2
     /**
      * This function loads up CSS dynamically to clients page
      * @return void
      */
     loadCSS(callback){
-        this.getCSSVersionForMerchant(function (version) {
+    
+        this.getCSSVersionForMerchant(function () {
             var head = document.head;
             var link = document.createElement('link');
             link.type = 'text/css';
@@ -145,187 +87,160 @@ class AwesomeSezzle {
             link.onload = callback;
           }.bind(this));
     }
-    //3
-    /**
-     * Add CSS alignment class as required based on the viewport width
-     * @param element Element to add to
-     * @param configGroupIndex index of the config group that element belongs to
-     */
-    addCSSAlignment(element, configGroupIndex){
+
+    addCSSAlignment(){
         var newAlignment = '';
-        if (matchMedia && this.configGroups[configGroupIndex].alignmentSwitchMinWidth && this.configGroups[configGroupIndex].alignmentSwitchType) {
-          var queryString = '(min-width: ' + this.configGroups[configGroupIndex].alignmentSwitchMinWidth + 'px)';
+        if (matchMedia && this.alignmentSwitchMinWidth && this.alignmentSwitchType) {
+          var queryString = '(min-width: ' + this.alignmentSwitchMinWidth + 'px)';
           var mq = window.matchMedia(queryString);
           if (!mq.matches) {
-            newAlignment = this.confiGroups[configGroupIndex].alignmentSwitchType
+            newAlignment = this.alignmentSwitchType
           }
         }
-        switch (newAlignment || this.configGroups[configGroupIndex].alignment) {
+        switch (newAlignment || this.alignment) {
           case 'left':
-            element.className += ' sezzle-left';
+            this.renderElement.className += ' sezzle-left';
             break;
           case 'right':
-            element.className += ' sezzle-right';
+            this.renderElement.className += ' sezzle-right';
             break;
           case 'center':
-            element.className += ' sezzle-center';
+            this.renderElement.className += ' sezzle-center';
           default:
             // if there is no alignment specified, it will be auto
             break;
         }
     }
-    //4
-    guessWidgetAlignment(priceElement){
-        if (!priceElement) return 'left'; //default
 
-        var textAlignment = window.getComputedStyle(priceElement).textAlign
-        if (textAlignment === 'start' || textAlignment === 'justify') {
-          // start is a CSS3  value for textAlign to accommodate for other languages which may be RTL (right to left), for instance Arabic
-          // Since the sites we are adding the widgets to are mostly, if not all in English, it will be LTR (left to right), which implies
-          // that 'start' and 'justify' would mean 'left'
-          return 'left';
-        } else if (textAlignment === 'end') {
-          // end is a CSS3  value for textAlign to accommodate for other languages which may be RTL (right to left), for instance Arabic
-          // Since the sites we are adding to are mostly, if not all in English, it will be LTR (left to right), hence 'right' at the end
-          return 'right';
+    addCSSFontStyle(){
+        if (this.fontWeight) {
+          this.renderElement.style.fontWeight = this.fontWeight;
         }
-        return textAlignment;
-    }
-    //5
-    addCSSFontStyle(element, configGroupIndex){
-        if (this.configGroups[configGroupIndex].fontWeight) {
-            element.style.fontWeight = this.configGroups[configGroupIndex].fontWeight;
+        if (this.fontFamily) {
+          this.renderElement.style.fontFamily = this.fontFamily;
         }
-        if (this.configGroups[configGroupIndex].fontFamily) {
-        element.style.fontFamily = this.configGroups[configGroupIndex].fontFamily;
-        }
-        if (this.configGroups[configGroupIndex].fontSize != 'inherit') {
-        element.style.fontSize = this.configGroups[configGroupIndex].fontSize + 'px';
+        if (this.fontSize != 'inherit') {
+          this.renderElement.style.fontSize = this.fontSize + 'px';
         }
     }
     //6
-    addCSSWidth(element, configGroupIndex){
-        if (this.configGroups[configGroupIndex].maxWidth) {
-            element.style.maxWidth = this.configGroups[configGroupIndex].maxWidth + 'px';
+    addCSSWidth(){
+        if (this.maxWidth) {
+            this.renderElement.style.maxWidth = this.maxWidth + 'px';
         }
     }
     //7
-    addCSSTextColor(element, configGroupIndex){
-        if (this.configGroups[configGroupIndex].textColor) {
-            element.style.color = this.configGroups[configGroupIndex].textColor;
+    addCSSTextColor(){
+        if (this.textColor) {
+          this.renderElement.style.color = this.textColor;
         }
     }
     //8
-    addCSSTheme(element, configGroupIndex){
-        switch (this.configGroups[configGroupIndex].theme) {
+    async addCSSTheme(){
+        switch (this.theme) {
             case 'dark':
-              element.className += ' szl-dark';
+                console.log('dark')
+              this.imageUrl =  SezzleLight;
+              this.renderElement.className += ' szl-dark';
               break;
+            case 'grayscale':
+                console.log('gray')
+                this.imageURL =  SezzleGrayScale;
+                this.renderElement.className = 'szl-grayscale-image';
             default:
-              element.className += ' szl-light';
+                console.log('light')
+              this.imageUrl =  SezzleDark;
+              this.renderElement.className += ' szl-light';
               break;
         }
+        console.log(this.imageURL,SezzleDark)
     }
+
     //9
-    addCSSCustomisation(element, configGroupIndex){
-        this.addCSSAlignment(element, configGroupIndex);
-        this.addCSSFontStyle(element, configGroupIndex);
-        this.addCSSTextColor(element, configGroupIndex);
-        this.addCSSTheme(element, configGroupIndex);
-        this.addCSSWidth(element, configGroupIndex);
+    addCSSCustomisation(){
+        this.addCSSAlignment();
+        this.addCSSFontStyle();
+        this.addCSSTextColor();
+        this.addCSSTheme();
+        this.addCSSWidth();
     }
-    //10
-    insertStoreCSSClassInElement(element){
-        element.className += ' sezzle-' + this.merchantID;
-    }
+
+
     //11
-    insertWidgetTypeCSSClassInElement(element, configGroupIndex){
-        switch (this.configGroups[configGroupIndex].widgetType) {
+    insertWidgetTypeCSSClassInElement(){
+        switch (this.widgetType) {
             case 'cart':
-              element.className += ' sezzle-cart-page-widget';
+                this.renderElement.className += ' sezzle-cart-page-widget';
               break;
             case 'product-page':
-              element.className += ' sezzle-product-page-widget';
+                this.renderElement.className += ' sezzle-product-page-widget';
               break;
             case 'product-preview':
-              element.className += ' sezzle-product-preview-widget';
+                this.renderElement.className += ' sezzle-product-preview-widget';
               break;
             default:
-              element.className += ' sezzle-product-page-widget';
+                this.renderElement.className += ' sezzle-product-page-widget';
               break;
           }
     }
     //12
-    setElementMargins(element, configGroupIndex){
-        element.style.marginTop = this.configGroups[configGroupIndex].marginTop + 'px';
-        element.style.marginBottom = this.configGroups[configGroupIndex].marginBottom + 'px';
-        element.style.marginLeft = this.configGroups[configGroupIndex].marginLeft + 'px';
-        element.style.marginRight = this.configGroups[configGroupIndex].marginRight + 'px';
+    setElementMargins(){
+        this.renderElement.style.marginTop = this.marginTop + 'px';
+        this.renderElement.style.marginBottom = this.marginBottom + 'px';
+        this.renderElement.style.marginLeft = this.marginLeft + 'px';
+        this.renderElement.style.marginRight = this.marginRight + 'px';
     }
     //13
-    setWidgetSize(element, configGroupIndex){
-        element.style.transformOrigin = 'top ' + this.configGroups[configGroupIndex].alignment;
-        element.style.transform = 'scale(' + this.configGroups[configGroupIndex].scaleFactor + ')';
-        if (this.configGroups[configGroupIndex].fixedHeight) {
-          element.style.height = this.configGroups[configGroupIndex].fixedHeight + 'px';
-          element.style.overflow = 'hidden';
+    setWidgetSize(){
+      this.renderElement.style.transformOrigin = 'top ' + this.alignment;
+      this.renderElement.style.transform = 'scale(' + this.scaleFactor + ')';
+        if (this.fixedHeight) {
+          this.renderElement.style.height = this.fixedHeight + 'px';
+          this.renderElement.style.overflow = 'hidden';
         }
     }
     //14
-    setLogoSize(element, configGroupIndex){
-        element.style.transformOrigin = 'top ' + this.configGroups[configGroupIndex].alignment;
-        element.style.transform = 'scale(' + this.configGroups[configGroupIndex].logoSize + ')'
+    setLogoSize(element){
+        element.style.transformOrigin = 'top ' + this.alignment;
+        element.style.transform = 'scale(' + this.logoSize + ')'
     }
     //15
-    renderAwesomeSezzle(element, renderelement, index, configGroupIndex){
-        var index = index || 0;
+    renderAwesomeSezzle(){
 
         // Do not render this product if it is not eligible
-        if (!this.isProductEligible(element.textContent, configGroupIndex)) return false;
-        // Do not render if sezzle ignored price element
-        if (element.classList.contains('sezzle-ignored-price-element')) return false;
-        // Set data index to each price element for tracking
-        element.dataset.sezzleindex = index;
-        // Get element to be rendered with sezzle's widget
-        var parent = renderelement;
+        if (!this.isProductEligible(this.amount)) return false;
 
-        if (this.configGroups[configGroupIndex].alignment === 'auto') {
-          this.configGroups[configGroupIndex].alignment = this.guessWidgetAlignment(element);
-        }
-        var sezzle = document.createElement('div');
-        sezzle.className = "sezzle-shopify-info-button sezzlewidgetindex-" + index;
 
-        this.insertWidgetTypeCSSClassInElement(sezzle, configGroupIndex);
-        this.insertStoreCSSClassInElement(sezzle);
-        this.setElementMargins(sezzle, configGroupIndex);
-        if (this.scaleFactor) this.setWidgetSize(sezzle, configGroupIndex);
+        this.insertWidgetTypeCSSClassInElement();
+       
+        this.setElementMargins();
+        if (this.scaleFactor) this.setWidgetSize();
       
         var node = document.createElement('div');
         node.className = 'sezzle-checkout-button-wrapper sezzle-modal-link';
         node.style.cursor = 'pointer';
-        this.insertStoreCSSClassInElement(node);
-        this.addCSSAlignment(node, configGroupIndex);
+        this.addCSSAlignment();
       
         var sezzleButtonText = document.createElement('div');
         sezzleButtonText.className = 'sezzle-button-text';
-        this.addCSSCustomisation(sezzleButtonText, configGroupIndex);
+        this.addCSSCustomisation();
       
-        this.configGroups[configGroupIndex].widgetTemplate.forEach(function (subtemplate) {
+        this.widgetTemplate.forEach(function (subtemplate) {
           switch (subtemplate) {
             case 'price':
               var priceSpanNode = document.createElement('span');
-              priceSpanNode.className = 'sezzle-payment-amount sezzle-button-text sezzleindex-' + index;
-              var priceValueText = document.createTextNode(this.getFormattedPrice(element, configGroupIndex));
+              priceSpanNode.className = 'sezzle-payment-amount sezzle-button-text';
+              var priceValueText = document.createTextNode(this.getFormattedPrice());
               priceSpanNode.appendChild(priceValueText);
               sezzleButtonText.appendChild(priceSpanNode);
               break;
       
             case 'logo':
               var logoNode = document.createElement('img');
-              logoNode.className = 'sezzle-logo ' + this.configGroups[configGroupIndex].imageClassName;
-              logoNode.src = this.configGroups[configGroupIndex].imageURL;
+              logoNode.className = 'sezzle-logo ' + this.imageClassName;
+              logoNode.src = this.imageURL;
               sezzleButtonText.appendChild(logoNode);
-              this.setLogoSize(logoNode, configGroupIndex);
+              this.setLogoSize(logoNode);
               break;
             // changed from learn-more to link as that is what current altVersionTemplates use
             case 'link':
@@ -373,7 +288,7 @@ class AwesomeSezzle {
       
             case 'afterpay-link-icon':
               var apAnchor = document.createElement('a');
-              apAnchor.href = this.configGroups[configGroupIndex].apLink;
+              apAnchor.href = this.apLink;
               apAnchor.target = '_blank';
               var apLinkIconNode = document.createElement('code');
               apLinkIconNode.className = 'ap-info-link';
@@ -409,37 +324,8 @@ class AwesomeSezzle {
               quadpayInfoIconNode.innerHTML = '&#9432;';
               sezzleButtonText.appendChild(quadpayInfoIconNode);
               break;
-      
-            case 'price-split':
-              var priceSplitNode = document.createElement('span');
-              priceSplitNode.className = 'sezzle-payment-amount sezzle-price-split sezzleindex-' + index;
-              var priceElemTexts = element.textContent.split(this.configGroups[configGroupIndex].splitPriceElementsOn);
-              var priceSplitText = '';
-              if (priceElemTexts.length == 1) { //if the text is not being splitted (this check is needed in order to support sites with multiple types of product pricing)
-                //give the original element in the case there might be some ignored elements present
-                priceSplitText = this.getFormattedPrice(element, configGroupIndex);
-              } else {
-                var priceElems = [];
-                priceElemTexts.forEach(function (text) {
-                  var priceElemSpan = document.createElement('span');
-                  priceElemSpan.textContent = text;
-                  priceElems.push(priceElemSpan);
-                });
-                priceElems.forEach(function (elem, index) {
-                  if (index == 0) {
-                    priceSplitText = this.getFormattedPrice(elem, configGroupIndex);
-                  } else {
-                    priceSplitText = priceSplitText + ' ' + this.configGroups[configGroupIndex].splitPriceElementsOn + ' ' + this.getFormattedPrice(elem, configGroupIndex);
-                  }
-                }.bind(this));
-              }
-      
-              var priceSplitTextNode = document.createTextNode(priceSplitText);
-              priceSplitNode.appendChild(priceSplitTextNode);
-              sezzleButtonText.appendChild(priceSplitNode);
-              break;
-      
-            case 'line-break':
+  
+             case 'line-break':
               var lineBreakNode = document.createElement('br');
               sezzleButtonText.appendChild(lineBreakNode);
               break;
@@ -453,187 +339,70 @@ class AwesomeSezzle {
       
         node.appendChild(sezzleButtonText);
       
-        // Adding main node to sezzel node
-        sezzle.appendChild(node);
-      
-        this.configGroups[configGroupIndex].customClasses.forEach(function (customClass) {
-          if (customClass.xpath && customClass.className) {
-            if (typeof (customClass.index) !== 'number') {
-              customClass.index = -1; // set the default value
-            }
-            if (typeof (customClass.configGroupIndex) !== 'number') {
-              customClass.configGroupIndex = -1; // set the default value
-            }
-            if (customClass.index === index || customClass.configGroupIndex === configGroupIndex) {
-              var path = Helper.breakXPath(customClass.xpath);
-              this.getElementsByXPath(path, 0, [sezzle])
-                .forEach(function (el) {
-                  el.className += ' ' + customClass.className;
-                })
-            }
-          }
-        }.bind(this));
-      
-        // Adding sezzle to parent node
-        if (this.configGroups[configGroupIndex].widgetIsFirstChild) {
-          Helper.insertAsFirstChild(sezzle, parent);
-        } else {
-          Helper.insertAfter(sezzle, parent);
-        }
-        return sezzle;
+        // Adding main node to sezzle node
+        this.renderElement.appendChild(node);
     }
     //16
-    getElementToRender(element, index){
-        var index = index || 0;
-        var toRenderElement = null;
-      
-        if (this.configGroups[index].rendertopath !== null) {
-          var path = Helper.breakXPath(this.configGroups[index].rendertopath);
-          var toRenderElement = element;
-      
-          for (var i = 0; i < path.length; i++) {
-            var p = path[i];
-      
-            if (toRenderElement === null) {
-              break;
-            } else if (p === '.') {
-              continue;
-            } else if (p === '..') {
-              // One level back
-              toRenderElement = toRenderElement.parentElement;
-            } else if (p[0] === '.') {
-              // The class in the element
-              toRenderElement =
-                toRenderElement.getElementsByClassName(p.substr(1)).length ?
-                  toRenderElement.getElementsByClassName(p.substr(1))[0] :
-                  null;
-            } else if (p[0] === '#') {
-              // The ID in the element
-              toRenderElement =
-                document.getElementById(p.substr(1));
-            } else if (p === '::first-child') {
-              //rendered as first child
-              toRenderElement =
-                toRenderElement.children.length > 0 ?
-                  toRenderElement.firstElementChild :
-                  null;
-              this.configGroups[index].widgetIsFirstChild = true;
-            } else {
-              // If this is a tag
-              // indexes are 0-indexed (e.g. span-2 means third span)
-              var indexToTake = 0;
-              if (p.split('-').length > 1) {
-                if (p.split('-')[1] >= 0) {
-                  indexToTake = parseInt(p.split('-')[1]);
-                }
-              }
-              toRenderElement =
-                toRenderElement.getElementsByTagName(p.split('-')[0]).length > indexToTake ?
-                  toRenderElement.getElementsByTagName(p.split('-')[0])[indexToTake] :
-                  null;
-            }
-          }
-        }
-        return toRenderElement ? toRenderElement : element.parentElement; // return the element's parent if toRenderElement is null
+    getElementToRender(){
+      return this.renderElement
     }
     //17
-    isProductEligible(priceText, configGroupIndex){
-        var price = Helper.parsePrice(priceText);
-        this.configGroups[configGroupIndex].productPrice = price;
+    isProductEligible(priceText){
+        var price = HelperClass.parsePrice(priceText);
+        this.productPrice = price;
         var priceInCents = price * 100;
         return priceInCents >= this.minPrice && priceInCents <= this.maxPrice;
     }
-    //18
-    getPriceText(element, configGroupIndex){
-        if (this.configGroups[configGroupIndex].ignoredPriceElements == []) {
-            return element.textContent;
-          } else {
-            this.configGroups[configGroupIndex].ignoredPriceElements.forEach(function (subpaths) {
-              // get all elements pointed to by the xPath. Search is rooted at element
-              this.getElementsByXPath(subpaths, 0, [element]).forEach(function (ignoredPriceElement) {
-                //mark the element to be ignored
-                ignoredPriceElement.classList.add('sezzle-ignored-price-element');
-              });
-            }.bind(this));
-          }
-        
-          // if no ignored elements are found, return the whole inner text of the element
-          if (!element.getElementsByClassName('sezzle-ignored-price-element').length) {
-            return element.textContent;
-          }
-        
-          // deep clone
-          var clone = element.cloneNode(true);
-        
-          //remove all marked elements
-          Array.prototype.forEach.call(clone.getElementsByTagName('*'), function (element) {
-            if (Array.prototype.slice.call(element.classList).indexOf('sezzle-ignored-price-element') !== -1) {
-              clone.removeChild(element);
-            }
-          });
-        
-          //remove all markers
-          Array.prototype.forEach.call(element.getElementsByClassName('sezzle-ignored-price-element'), function (element) {
-            element.classList.remove('sezzle-ignored-price-element');
-          });
-        
-          return clone.textContent;
-    }
-    //19
-    getFormattedPrice(element, configGroupIndex){
-        priceText = this.getPriceText(element, configGroupIndex);
 
+    getFormattedPrice(){
+
+
+          var priceText = this.amount;
+     
         // Get the price string - useful for formtting Eg: 120.00(string)
-        var priceString = Helper.parsePriceString(priceText, true);
+        var priceString = HelperClass.parsePriceString(priceText, true);
       
         // Get the price in float from the element - useful for calculation Eg : 120.00(float)
-        var price = Helper.parsePrice(priceText);
+        var price = HelperClass.parsePrice(priceText);
       
         // Will be used later to replace {price} with price / this.numberOfPayments Eg: ${price} USD
         var formatter = priceText.replace(priceString, '{price}');
-      
-        // replace other strings not wanted in text
-        this.configGroups[configGroupIndex].ignoredFormattedPriceText.forEach(function (ignoredString) {
-          formatter = formatter.replace(ignoredString, '');
-        }.bind(this));
-      
-        // get the sezzle installment price
+
         var sezzleInstallmentPrice = (price / this.numberOfPayments).toFixed(2);
       
         // format the string
         var sezzleInstallmentFormattedPrice = formatter.replace('{price}', sezzleInstallmentPrice);
       
         return sezzleInstallmentFormattedPrice;
+        
+        
     }
-    //20
-    mutationCallBack(mutations, configGroupIndex){
-        mutations
-        .filter(function (mutation) { return mutation.type === 'childList' })
-        .forEach(function (mutation) {
-          try {
-            var priceIndex = mutation.target.dataset.sezzleindex;
-            var price = this.getFormattedPrice(mutation.target, configGroupIndex);
-            var sezzlePriceElement = document.getElementsByClassName('sezzleindex-' + priceIndex)[0];
-            if (sezzlePriceElement) {
-              if (!/\d/.test(price)) {
-                sezzlePriceElement.parentElement.parentElement.parentElement.classList.add('sezzle-hidden');
-              } else {
-                sezzlePriceElement.parentElement.parentElement.parentElement.classList.remove('sezzle-hidden');
-              }
-              sezzlePriceElement.textContent = price;
-            }
-          } catch(e) {
-            console.warn(e);
-          }
-        }.bind(this));
-    }
-    //21
-    startObserve(element, callback){
-        var observer = new MutationObserver(callback);
-        observer.observe(element, this._config);
-        return observer;
-    }
-    //22
+    // mutationCallBack(mutations, configGroupIndex){
+    //     mutations
+    //     .filter(function (mutation) { return mutation.type === 'childList' })
+    //     .forEach(function (mutation) {
+    //       try {
+    //         var priceIndex = mutation.target.dataset.sezzleindex;
+    //         var price = this.getFormattedPrice(mutation.target, configGroupIndex);
+    //         var sezzlePriceElement = document.getElementsByClassName('sezzleindex-' + priceIndex)[0];
+    //         if (sezzlePriceElement) {
+    //           if (!/\d/.test(price)) {
+    //             sezzlePriceElement.parentElement.parentElement.parentElement.classList.add('sezzle-hidden');
+    //           } else {
+    //             sezzlePriceElement.parentElement.parentElement.parentElement.classList.remove('sezzle-hidden');
+    //           }
+    //           sezzlePriceElement.textContent = price;
+    //         }
+    //       } catch(e) {
+    //         console.warn(e);
+    //       }
+    //     }.bind(this));
+    // }
+    // startObserve(element, callback){
+    //     var observer = new MutationObserver(callback);
+    //     observer.observe(element, this._config);
+    //     return observer;
+    // }
     renderModal(){
         if (!document.getElementsByClassName('sezzle-checkout-modal-lightbox').length) {
             var modalNode = document.createElement('div');
@@ -668,7 +437,7 @@ class AwesomeSezzle {
             event.stopPropagation();
           });
     }
-    //23
+
     renderAPModal(){
         var modalNode = document.createElement('div');
         modalNode.className = 'sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-ap-modal';
@@ -694,7 +463,6 @@ class AwesomeSezzle {
           event.stopPropagation();
         });
     }
-    //24
     renderQPModal(){
         var modalNode = document.createElement('div');
         modalNode.className = 'sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-qp-modal';
@@ -720,8 +488,12 @@ class AwesomeSezzle {
           event.stopPropagation();
         });
     }
-    //25
-    addClickEventForModal(sezzleElement, configGroupIndex){
+    renderModalByfunction(){
+      var modalNode = document.getElementsByClassName('sezzle-checkout-modal-lightbox')[0];
+      modalNode.style.display = 'block';
+      modalNode.getElementsByClassName('sezzle-modal')[0].className = 'sezzle-modal';
+    }
+    addClickEventForModal(sezzleElement){
         var modalLinks = sezzleElement.getElementsByClassName('sezzle-modal-link');
         Array.prototype.forEach.call(modalLinks, function (modalLink) {
           modalLink.addEventListener('click', function (event) {
@@ -731,8 +503,7 @@ class AwesomeSezzle {
               modalNode.style.display = 'block';
               // Remove hidden class to show the item
               modalNode.getElementsByClassName('sezzle-modal')[0].className = 'sezzle-modal';
-              // log on click event
-              this.logEvent('onclick', configGroupIndex);
+            
             }
           }.bind(this));
         }.bind(this));
@@ -744,7 +515,7 @@ class AwesomeSezzle {
             // Show modal node
             document.getElementsByClassName('sezzle-ap-modal')[0].style.display = 'block';
             // log on click event
-            this.logEvent('onclick-afterpay', configGroupIndex);
+           
           }.bind(this));
         }.bind(this));
       
@@ -755,81 +526,32 @@ class AwesomeSezzle {
             // Show modal node
             document.getElementsByClassName('sezzle-qp-modal')[0].style.display = 'block';
             // log on click event
-            this.logEvent('onclick-quadpay', configGroupIndex);
+           
           }.bind(this));
         }.bind(this));
     }
-    //26
-    getCountryCodeFromIP(){
+    getCSSVersionForMerchant(callback){
+      callback()
+    }
 
-    }
-    //27
-    getCSSVersionForMerchant(){
-
-    }
-    //28
-    hideSezzleHideElements(configGroupIndex){
-        this.configGroups[configGroupIndex].hideClasses.forEach(function (subpaths) {
-            this.getElementsByXPath(subpaths).forEach(function (element) {
-              if (!element.classList.contains('sezzle-hidden')) {
-                element.classList.add('sezzle-hidden');
-              }
-            })
-          }.bind(this));
-    }
-    //29
-    logEvent(){
-
-    }
-    //30
-    getCookie(){
-
-    }
-    //31
     isMobileBrowser(){
         return /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent)
         || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(navigator.userAgent.substr(0, 4));
     }
-    //32
     init(){
         // no widget to render
-        if (!this.configGroups.length) return;
         this.loadCSS(this.initWidget.bind(this));
+        //var win = window.frames.szl;
         
     }
-    //33
-    observeRelatedElements(){
-        if (targets) {
-            targets.forEach(function (target) {
-              if (typeof (target.relatedPath) === 'string' &&
-                (typeof (target.action) === 'function' || typeof (target.initialAction) === 'function')) {
-                var elements = this.getElementsByXPath(
-                  Helper.breakXPath(target.relatedPath),
-                  0,
-                  [priceElement]
-                );
-                if (elements.length > 0) {
-                  if (typeof (target.action) === 'function') {
-                    this.startObserve(elements[0], function (mutation) {
-                      target.action(mutation, sezzleElement);
-                    });
-                  }
-                  if (typeof (target.initialAction) === 'function') {
-                    target.initialAction(elements[0], sezzleElement);
-                  }
-                }
-              }
-            }.bind(this));
-          }
-    }
-    //34
+
     initWidget(){
         const intervalInMs = 2000;
         var els = [];
-
         // only render the modal once for all widgets
         function renderModals() {
             // This should always happen before rendering the widget
+
             this.renderModal();
             // only render APModal if ap-modal-link exists
             if (document.getElementsByClassName('ap-modal-info-link').length > 0) {
@@ -842,37 +564,17 @@ class AwesomeSezzle {
         };
 
         function sezzleWidgetCheckInterval() {
-            // Look for newly added price elements
-            this.configGroups.forEach(function (configGroup, index) {
-            if (configGroup.xpath === []) return;
-            this.getElementsByXPath(configGroup.xpath).forEach(function (e) {
-                if (!e.hasAttribute('data-sezzleindex')) {
+            
+                if (!this.renderElement.hasAttribute('data-sezzleindex')) {
                 els.push({
-                    element: e,
-                    toRenderElement: this.getElementToRender(e, index),
-                    deleted: false,
-                    observer: null,
-                    configGroupIndex: index
+                    element: this.renderElement,
                 });
                 }
-            }.bind(this));
-            }.bind(this));
             // add the sezzle widget to the price elements
             els.forEach(function (el, index) {
             if (!el.element.hasAttribute('data-sezzleindex')) {
-                var sz = this.renderAwesomeSezzle(
-                el.element, el.toRenderElement,
-                index, el.configGroupIndex
-                );
-                if (sz) {
-                el.observer = this.startObserve(el.element, function (mutations) {
-                    this.mutationCallBack.bind(this)(mutations, el.configGroupIndex);
-                }.bind(this));
-                this.addClickEventForModal(sz, el.configGroupIndex);
-                this.observeRelatedElements(el.element, sz, this.configGroups[el.configGroupIndex].relatedElementActions);
-                } else { // remove the element from the els array
-                delete els[index];
-                }
+                var sz = this.renderAwesomeSezzle();
+                sz?this.addClickEventForModal(sz):delete els[index]; 
             }
             }.bind(this));
             // refresh the array
@@ -880,44 +582,28 @@ class AwesomeSezzle {
             return e !== undefined;
             })
 
-            // Find the deleted price elements
-            // remove corresponding Sezzle widgets if exists
-            els.forEach(function (el, index) {
-            if (el.element.parentElement === null && !el.deleted) { // element is deleted
-                // Stop observing for changes in the element
-                if (el.observer !== null) el.observer.disconnect();
-                // Mark that element as deleted
-                el.deleted = true;
-                // Delete the corresponding sezzle widget if exist
-                var tmp = document.getElementsByClassName("sezzlewidgetindex-" + index);
-                if (tmp.length) {
-                var sw = tmp[0];
-                sw.parentElement.removeChild(sw);
-                }
-            }
-            });
-
-            // Hide elements ex: afterpay
-            for (var index = 0, len = this.configGroups.length; index < len; index++) {
-            this.hideSezzleHideElements(index);
-            }
-
-            setTimeout(sezzleWidgetCheckInterval.bind(this), intervalInMs)
+            //setTimeout(sezzleWidgetCheckInterval.bind(this), intervalInMs)
         };
 
         var allConfigsUsePriceClassElement = true;
-        this.configGroups.forEach(function (configGroup, index) {
-            if (configGroup.hasPriceClassElement) {
-            var sz = this.renderAwesomeSezzle(configGroup.priceElements[0], configGroup.renderElements[0], 0, index);
-            this.startObserve(configGroup.priceElements[0], function (mutations) {
-                this.mutationCallBack.bind(this)(mutations, index);
-            });
-            } else {
-            allConfigsUsePriceClassElement = false;
-            }
-        }.bind(this));
+        // this.configGroups.forEach(function (configGroup, index) {
+        //     if (configGroup.hasPriceClassElement) {
+        //     var sz = this.renderAwesomeSezzle(configGroup.priceElements[0], configGroup.renderElements[0], 0, index);
+        //     this.startObserve(configGroup.priceElements[0], function (mutations) {
+        //         this.mutationCallBack.bind(this)(mutations, index);
+        //     });
+        //     } else {
+        //     allConfigsUsePriceClassElement = false;
+        //     }
+        // }.bind(this));
 
-        if (!allConfigsUsePriceClassElement) sezzleWidgetCheckInterval.call(this);
+        // if (!allConfigsUsePriceClassElement) sezzleWidgetCheckInterval.call(this);
+        sezzleWidgetCheckInterval.call(this);
         renderModals.call(this);
+
         }
+        
 }
+
+
+export default AwesomeSezzle;
