@@ -76,16 +76,16 @@ class AwesomeSezzle {
      * @return void
      */
     loadCSS(callback){
-    
-        this.getCSSVersionForMerchant(function () {
-            var head = document.head;
-            var link = document.createElement('link');
-            link.type = 'text/css';
-            link.rel = 'stylesheet';
-            link.href = '../css/style.css';
-            head.appendChild(link);
-            link.onload = callback;
-          }.bind(this));
+      callback();
+        // this.getCSSVersionForMerchant(function () {
+        //     var head = document.head;
+        //     var link = document.createElement('link');
+        //     link.type = 'text/css';
+        //     link.rel = 'stylesheet';
+        //     link.href = '../css/style.css';
+        //     head.appendChild(link);
+        //     link.onload = callback;
+        //   }.bind(this));
     }
 
     addCSSAlignment(){
@@ -139,22 +139,47 @@ class AwesomeSezzle {
      addCSSTheme(){
         switch (this.theme) {
             case 'dark':
-                console.log('dark')
-              this.imageUrl =  SezzleLight;
+               
+             
               this.renderElement.children[0].children[0].className += ' szl-dark';
+              
               break;
             case 'grayscale':
-                console.log('gray')
-                this.imageURL =  SezzleGrayScale;
+               
+               
                 this.renderElement.children[0].children[0].className = 'szl-grayscale-image';
             default:
-                console.log('light')
-              this.imageUrl =  SezzleDark;
+               
+            
               this.renderElement.children[0].children[0].className += ' szl-light';
+              
               break;
         }
-        console.log(this.imageURL,SezzleDark)
+       
     }
+
+        //8
+        setImageURL(){
+          switch (this.theme) {
+              case 'dark':
+                  
+                this.imageUrl =  SezzleLight;
+                this.imageClassName = 'szl-dark-image'
+ 
+                break;
+              case 'grayscale':
+                this.imageClassName = 'szl-grayscale-image'
+                  this.imageUrl =  SezzleGrayScale;
+
+              default:
+                this.imageClassName = 'szl-light-image'
+                this.imageUrl =  SezzleDark;
+
+                break;
+          }
+
+
+      }
 
     //9
     addCSSCustomisation(){
@@ -223,7 +248,10 @@ class AwesomeSezzle {
       
         var sezzleButtonText = document.createElement('div');
         sezzleButtonText.className = 'sezzle-button-text';
-       
+        
+        this.setImageURL();
+
+        console.log(this.imageURL)
       
         this.widgetTemplate.forEach(function (subtemplate) {
           switch (subtemplate) {
@@ -238,7 +266,7 @@ class AwesomeSezzle {
             case 'logo':
               var logoNode = document.createElement('img');
               logoNode.className = 'sezzle-logo ' + this.imageClassName;
-              logoNode.src = this.imageURL;
+              logoNode.src = this.imageUrl;
               sezzleButtonText.appendChild(logoNode);
               this.setLogoSize(logoNode);
               break;
