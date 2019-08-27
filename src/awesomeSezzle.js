@@ -99,13 +99,13 @@ class AwesomeSezzle {
         }
         switch (newAlignment || this.alignment) {
           case 'left':
-            this.renderElement.className += ' sezzle-left';
+            this.renderElement.children[0].children[0].className += ' sezzle-left';
             break;
           case 'right':
-            this.renderElement.className += ' sezzle-right';
+            this.renderElement.children[0].children[0].className += ' sezzle-right';
             break;
           case 'center':
-            this.renderElement.className += ' sezzle-center';
+            this.renderElement.children[0].children[0].className += ' sezzle-center';
           default:
             // if there is no alignment specified, it will be auto
             break;
@@ -114,43 +114,43 @@ class AwesomeSezzle {
 
     addCSSFontStyle(){
         if (this.fontWeight) {
-          this.renderElement.style.fontWeight = this.fontWeight;
+          this.renderElement.children[0].children[0].style.fontWeight = this.fontWeight;
         }
         if (this.fontFamily) {
-          this.renderElement.style.fontFamily = this.fontFamily;
+          this.renderElement.children[0].children[0].style.fontFamily = this.fontFamily;
         }
         if (this.fontSize != 'inherit') {
-          this.renderElement.style.fontSize = this.fontSize + 'px';
+          this.renderElement.children[0].children[0].style.fontSize = this.fontSize + 'px';
         }
     }
     //6
     addCSSWidth(){
         if (this.maxWidth) {
-            this.renderElement.style.maxWidth = this.maxWidth + 'px';
+            this.renderElement.children[0].children[0].style.maxWidth = this.maxWidth + 'px';
         }
     }
     //7
     addCSSTextColor(){
         if (this.textColor) {
-          this.renderElement.style.color = this.textColor;
+          this.renderElement.children[0].children[0].style.color = this.textColor;
         }
     }
     //8
-    async addCSSTheme(){
+     addCSSTheme(){
         switch (this.theme) {
             case 'dark':
                 console.log('dark')
               this.imageUrl =  SezzleLight;
-              this.renderElement.className += ' szl-dark';
+              this.renderElement.children[0].children[0].className += ' szl-dark';
               break;
             case 'grayscale':
                 console.log('gray')
                 this.imageURL =  SezzleGrayScale;
-                this.renderElement.className = 'szl-grayscale-image';
+                this.renderElement.children[0].children[0].className = 'szl-grayscale-image';
             default:
                 console.log('light')
               this.imageUrl =  SezzleDark;
-              this.renderElement.className += ' szl-light';
+              this.renderElement.children[0].children[0].className += ' szl-light';
               break;
         }
         console.log(this.imageURL,SezzleDark)
@@ -219,11 +219,11 @@ class AwesomeSezzle {
         var node = document.createElement('div');
         node.className = 'sezzle-checkout-button-wrapper sezzle-modal-link';
         node.style.cursor = 'pointer';
-        this.addCSSAlignment();
+        
       
         var sezzleButtonText = document.createElement('div');
         sezzleButtonText.className = 'sezzle-button-text';
-        this.addCSSCustomisation();
+       
       
         this.widgetTemplate.forEach(function (subtemplate) {
           switch (subtemplate) {
@@ -341,6 +341,8 @@ class AwesomeSezzle {
       
         // Adding main node to sezzle node
         this.renderElement.appendChild(node);
+        this.addCSSAlignment();
+        this.addCSSCustomisation();
     }
     //16
     getElementToRender(){
@@ -377,32 +379,7 @@ class AwesomeSezzle {
         
         
     }
-    // mutationCallBack(mutations, configGroupIndex){
-    //     mutations
-    //     .filter(function (mutation) { return mutation.type === 'childList' })
-    //     .forEach(function (mutation) {
-    //       try {
-    //         var priceIndex = mutation.target.dataset.sezzleindex;
-    //         var price = this.getFormattedPrice(mutation.target, configGroupIndex);
-    //         var sezzlePriceElement = document.getElementsByClassName('sezzleindex-' + priceIndex)[0];
-    //         if (sezzlePriceElement) {
-    //           if (!/\d/.test(price)) {
-    //             sezzlePriceElement.parentElement.parentElement.parentElement.classList.add('sezzle-hidden');
-    //           } else {
-    //             sezzlePriceElement.parentElement.parentElement.parentElement.classList.remove('sezzle-hidden');
-    //           }
-    //           sezzlePriceElement.textContent = price;
-    //         }
-    //       } catch(e) {
-    //         console.warn(e);
-    //       }
-    //     }.bind(this));
-    // }
-    // startObserve(element, callback){
-    //     var observer = new MutationObserver(callback);
-    //     observer.observe(element, this._config);
-    //     return observer;
-    // }
+
     renderModal(){
         if (!document.getElementsByClassName('sezzle-checkout-modal-lightbox').length) {
             var modalNode = document.createElement('div');
