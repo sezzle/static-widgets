@@ -1,5 +1,4 @@
 import HelperClass from './awesomeHelper'
-import QuestionMark from './icons/question_mark.png';
 import '../css/global.scss';
 import '../css/sezzle.css';
 import '../css/style.css';
@@ -285,9 +284,31 @@ class AwesomeSezzle {
               break;
       
             case 'question-mark':
-              var questionMarkIconNode = document.createElement('img');
-              questionMarkIconNode.className = 'sezzle-question-mark-icon';
-              questionMarkIconNode.src = QuestionMark;
+              var questionMarkIconNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
+              questionMarkIconNode.setAttribute('width','369');
+              questionMarkIconNode.setAttribute('height','371');
+              questionMarkIconNode.setAttribute('viewBox','0 0 369 371');
+              questionMarkIconNode.setAttribute('class','sezzle-question-mark-icon');
+              questionMarkIconNode.innerHTML = `<g transform="translate(0.000000,371.000000) scale(0.100000,-0.100000)"
+              fill="#000000" stroke="none">
+              <path d="M1579 3595 c-659 -107 -1193 -556 -1399 -1174 -73 -219 -84 -295 -84
+              -566 0 -212 2 -252 22 -345 155 -712 670 -1227 1382 -1382 93 -20 133 -22 345
+              -22 212 0 252 2 345 22 712 155 1227 670 1382 1382 20 93 22 133 22 345 0 212
+              -2 252 -22 345 -154 710 -671 1229 -1377 1380 -130 28 -483 37 -616 15z m419
+              -286 c648 -70 1172 -559 1289 -1202 23 -125 23 -379 0 -504 -52 -286 -185
+              -546 -384 -754 -157 -163 -320 -275 -513 -350 -364 -143 -741 -142 -1098 4
+              -462 187 -798 604 -889 1100 -23 125 -23 379 0 504 91 496 434 920 894 1103
+              233 93 463 125 701 99z"/>
+              <path d="M1798 2920 c-264 -48 -444 -199 -512 -429 -27 -91 -31 -87 102 -101
+              64 -7 125 -13 136 -14 14 -1 21 10 30 44 30 116 107 213 204 258 50 24 69 27
+              162 27 86 0 113 -4 151 -21 60 -28 118 -86 149 -149 22 -44 25 -63 25 -160 0
+              -102 -2 -114 -29 -165 -41 -78 -73 -117 -227 -277 -75 -77 -149 -162 -165
+              -188 -41 -71 -54 -142 -54 -307 l0 -148 129 0 129 0 4 153 c3 147 4 154 33
+              206 20 35 71 93 148 165 241 228 317 364 317 571 0 159 -51 286 -153 381 -76
+              71 -137 105 -237 134 -84 24 -265 35 -342 20z"/>
+              <path d="M1825 1001 c-50 -22 -91 -69 -105 -119 -12 -46 -12 -48 1 -95 23 -83
+              116 -145 200 -134 179 24 219 274 55 348 -52 23 -100 24 -151 0z"/>
+              </g>`
               sezzleButtonText.appendChild(questionMarkIconNode);
               break;
       
