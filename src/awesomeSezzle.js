@@ -201,18 +201,18 @@ class AwesomeSezzle {
             logoNode.innerHTML = this.imageInnerHTML;
             sezzleButtonText.appendChild(logoNode);
             this.setLogoSize(logoNode);
-            if(this.options.logoStyle != {}) this.setLogoStyle(logoNode);
+            if(this.logoStyle != {}) this.setLogoStyle(logoNode);
             break;
           case 'link':
             var learnMoreNode = document.createElement('span');
-            learnMoreNode.className = 'sezzle-learn-more';
+            learnMoreNode.className = 'sezzle-learn-more sezzle-modal-open-link';
             var learnMoreText = document.createTextNode('Learn more');
             learnMoreNode.appendChild(learnMoreText);
             sezzleButtonText.appendChild(learnMoreNode);
             break;
           case 'info':
             var infoIconNode = document.createElement('code');
-            infoIconNode.className = 'sezzle-info-icon';
+            infoIconNode.className = 'sezzle-info-icon sezzle-modal-open-link';
             infoIconNode.innerHTML = '&#9432;';
             sezzleButtonText.appendChild(infoIconNode);
             break;
@@ -221,7 +221,7 @@ class AwesomeSezzle {
             questionMarkIconNode.setAttribute('width','369');
             questionMarkIconNode.setAttribute('height','371');
             questionMarkIconNode.setAttribute('viewBox','0 0 369 371');
-            questionMarkIconNode.setAttribute('class','sezzle-question-mark-icon');
+            questionMarkIconNode.setAttribute('class','sezzle-question-mark-icon sezzle-modal-open-link');
             questionMarkIconNode.innerHTML = HelperClass.svgImages().questionMarkIcon
             sezzleButtonText.appendChild(questionMarkIconNode);
             break;
@@ -427,7 +427,7 @@ class AwesomeSezzle {
   }
 
   addClickEventForModal(sezzleElement){
-    var modalLinks = sezzleElement.getElementsByClassName('sezzle-modal-link');
+    var modalLinks = sezzleElement.getElementsByClassName('sezzle-modal-open-link');
     Array.prototype.forEach.call(modalLinks, function (modalLink) {
       modalLink.addEventListener('click', function (event) {
         if (!event.target.classList.contains('no-sezzle-info')) {
@@ -492,7 +492,7 @@ class AwesomeSezzle {
       els.forEach(function (el, index) {
       if (!el.element.hasAttribute('data-sezzleindex')) {
           var sz = this.renderAwesomeSezzle();
-          sz?this.addClickEventForModal(sz):delete els[index]; 
+          this.addClickEventForModal(document) 
       }
       }.bind(this));
       // refresh the array
