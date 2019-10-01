@@ -71,5 +71,10 @@ We have also introduced functions like ->
 ```
 renderModalByfunction()
 ```
-This invokes sezzle Modal by a function
+ - This invokes sezzle Modal by a function
+```
+alterPrice(newPrice) 
+```
+ - Alters price on widget
+
 

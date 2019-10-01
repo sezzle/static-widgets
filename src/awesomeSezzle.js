@@ -171,7 +171,13 @@ class AwesomeSezzle {
     element.style = this.logoStyle;
   }
 
-  
+  alterPrice(newVal){
+      var priceNode = document.getElementsByClassName('sezzle-payment-amount')[0];
+      var priceValueText = document.createTextNode(this.getFormattedPrice(newVal));
+      priceNode.innerHTML = '';
+      priceNode.appendChild(priceValueText)
+  }
+
   renderAwesomeSezzle(){
     if (!this.isProductEligible(this.amount)) return false;
     this.insertWidgetTypeCSSClassInElement();
@@ -325,8 +331,8 @@ class AwesomeSezzle {
     return priceInCents >= this.minPrice && priceInCents <= this.maxPrice;
   }
 
-  getFormattedPrice(){
-    var priceText = this.amount;
+  getFormattedPrice(amount = this.amount){
+    var priceText = amount;
     // Get the price string - useful for formtting Eg: 120.00(string)
     var priceString = HelperClass.parsePriceString(priceText, true);
     // Get the price in float from the element - useful for calculation Eg : 120.00(float)
