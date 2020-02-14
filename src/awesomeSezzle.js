@@ -112,7 +112,7 @@ class AwesomeSezzle {
         this.imageInnerHTML = HelperClass.svgImages().sezzleDark
         break;
       case 'grayscale':
-        this.imageClassName = 'szl-grayscale-image'
+        this.imageClassName = 'szl-light-image'
         this.imageInnerHTML = HelperClass.svgImages().sezzleGrey
         break;
       case 'black':
