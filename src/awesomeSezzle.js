@@ -41,6 +41,7 @@ class AwesomeSezzle {
     this.logoSize = options.logoSize || 1.0;
     this.fixedHeight = options.fixedHeight || 0;
     this.logoStyle = options.logoStyle  || {};
+    this.theme = options.theme || 'light';
   }
 
   addCSSAlignment(){
@@ -112,11 +113,19 @@ class AwesomeSezzle {
         break;
       case 'grayscale':
         this.imageClassName = 'szl-grayscale-image'
-          this.imageInnerHTML = HelperClass.svgImages().sezzleGrey
-
-      default:
+        this.imageInnerHTML = HelperClass.svgImages().sezzleGrey
+        break;
+      case 'black':
+        this.imageClassName = 'szl-light-image'
+        this.imageInnerHTML = HelperClass.svgImages().sezzleBlack
+        break;
+      case 'white':
         this.imageClassName = 'szl-light-image'
         this.imageInnerHTML = HelperClass.svgImages().sezzleWhite
+        break;
+      default:
+        this.imageClassName = 'szl-light-image'
+        this.imageInnerHTML = HelperClass.svgImages().sezzleLight
         break;
     }
   }
@@ -171,7 +180,7 @@ class AwesomeSezzle {
     element.style = this.logoStyle;
   }
 
-  alterPrice(newVal){
+  n(newVal){
       var priceNode = document.getElementsByClassName('sezzle-payment-amount')[0];
       var priceValueText = document.createTextNode(this.getFormattedPrice(newVal));
       priceNode.innerHTML = '';
@@ -200,9 +209,9 @@ class AwesomeSezzle {
             break;
           case 'logo':
             var logoNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
-            logoNode.setAttribute('width','103');
-            logoNode.setAttribute('height','34');
-            logoNode.setAttribute('viewBox','0 0 103 34');
+            logoNode.setAttribute('width','798.16');
+            logoNode.setAttribute('height','199.56');
+            logoNode.setAttribute('viewBox','0 0 798.16 199.56');
             logoNode.setAttribute('class',`sezzle-logo ${this.imageClassName}`);
             logoNode.innerHTML = this.imageInnerHTML;
             sezzleButtonText.appendChild(logoNode);
