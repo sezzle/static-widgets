@@ -1,423 +1,433 @@
-var cloneDeep = require('lodash.clonedeep')
-import SezzleLight from './icons/sezzle-logo-white-sm-100w.png'
-import SezzleDark from './icons/sezzle-logo-sm-100w.png'
-import SezzleGrayScale from './icons/sezzle-logo-all-black-sm-100w.png'
-
-
 class Helper {
-    constructor(){
-        this.propsNotInConfigGroup = [
-          "merchantID",
-          "forcedShow",
-          "minPrice",
-          "maxPrice",
-          "numberOfPayments",
-          "altLightboxHTML",
-          "apModalHTML",
-          "qpModalHTML",
-          "noGtm",
-          "noTracking",
-          "testID"
-        ];
-        this.mustInclude = ['targetXPath']
-    }
-    /**
-     * This is a function to validate configs
-     * @param options new config to validate
-     * @return nothing. If config is invalid, error is thrown and program execution is stopped.
-     */
-    validateConfig(options) {
-        if (!Array.isArray(options.configGroups)) {
-            throw new Error("options.configGroups is not an array");
-          } else {
-            if (!options.configGroups.length) {
-              throw new Error("options.configGroups must have at least one config object");
-            }
-          }
-        
-          // checking fields which MUST be specified in configGroups. (Only one as of now :D)
-          const mustInclude = ["targetXPath"];
-          options.configGroups.forEach(function (group) {
-            mustInclude.forEach(function (field) {
-              if (!group.hasOwnProperty(field)) {
-                throw new Error(field + " must be specified in all configs in options.configGroups");
-              }
-            });
-          });
-        
-          // type checks for crucial fields
-        
-          // expected types for crucial fields in the config
-          // may do type checking for all fields in the future but it's just not necessary as of now
-          const expectedTypes = {
-            "targetXPath": "string",
-            "renderToPath": "string",
-            "urlMatch": "string"
-          }
-          options.configGroups.forEach(function (group) {
-            Object.keys(expectedTypes).forEach(function (key) {
-              if (group.hasOwnProperty(key) && typeof (group[key]) !== expectedTypes[key]) {
-                throw new Error(key + " must be of type " + expectedTypes[key]);
-              }
-            });
-          });
-          var self = this;
-          // check correct factorization
-          options.configGroups.forEach(function (group) {
-            Object.keys(group).forEach(function (key) {
-              if (self.propsNotInConfigGroup.indexOf(key) >= 0) {
-                throw new Error(key + " is not a property of a configGroup. Specify this key at the outermost layer");
-              }
-            });
-          });
-        
-          // if control reaches this point, the config is acceptable. It may not be perfect since the checks
-          // are pretty loose, but at least the crucial parts of it are OK. May add more checks in the future.
-          return;
-    }
 
-    /**
-     * This is a helper function to convert an old
-     * config passed into SezzleJS' constructor to a
-     * new one which is compatible with the current
-     * SezzleJS version. In other words, this
-     * function is used for backwards compatability
-     * with older versions.
-     * @param options old config passed into SezzleJS' constructor
-     * @return compatible object with current SezzleJS version
-     */
-    makeCompatible(options) {
-        // place fields which do not belong in a group outside of configGroups
-        var compatible = this.factorize(options);
-        // split the configs up if necessary
-        compatible.configGroups = this.splitConfig(options);
-        // should we factorize common field values and place in defaultConfig? I don't think so
-        return compatible;
-    }
-
-    /**
-     * Function to split configs up according to the targetXPath
-     * Every config should have at most one targetXPath.
-     * @param options Old config
-     * @return split array of configs
-     */
-    splitConfig(options) {
-    var res = [];
-    if (typeof (options.targetXPath) !== 'undefined') {
-      // everything revolves around an xpath
-      if (Array.isArray(options.targetXPath)) {
-        // group up custom classes according to index
-        var groupedCustomClasses = this.groupCustomClasses(options.customClasses);
-  
-        // need to ensure it's array and not string so that code doesnt mistakenly separate chars
-        var renderToPathIsArray = Array.isArray(options.renderToPath);
-        // a group should revolve around targetXPath
-        // break up the array, starting from the first element
-        options.targetXPath.forEach(function (xpath, inner) {
-          // deep clone as config may have nested objects
-          var config = cloneDeep(options);
-  
-          // overwrite targetXPath
-          config.targetXPath = xpath;
-  
-          // sync up renderToPath array
-          if (renderToPathIsArray && typeof (options.renderToPath[inner]) !== 'undefined') {
-            config.renderToPath = options.renderToPath[inner] ? options.renderToPath[inner] : null;
-          } else {
-            // by default, below parent of target
-            config.renderToPath = "..";
-          }
-  
-          // sync up relatedElementActions array
-          if (options.relatedElementActions &&
-            typeof (options.relatedElementActions[inner]) !== 'undefined' &&
-            Array.isArray(options.relatedElementActions[inner])) {
-            config.relatedElementActions = options.relatedElementActions[inner];
-          }
-  
-          // sync up customClasses
-          if (typeof (groupedCustomClasses[inner]) !== 'undefined') {
-            config.customClasses = groupedCustomClasses[inner];
-          }
-  
-          // duplicate ignoredPriceElements string / array if exists
-          if (options.ignoredPriceElements) {
-            config.ignoredPriceElements = options.ignoredPriceElements;
-          }
-  
-          // that's all, append
-          res.push(config);
-        });
-      } else {
-        // must be a single string
-        res.push(options);
-      }
-    }
-    return res;
-  }
-    /**
-     * Group customClasses by targetXPathIndex
-     * @param customClasses array of customClass objects
-     * @return groupedCustomClasses, an array of array of customClass objects
-     */
-    groupCustomClasses(customClasses) {
-        var result = [];
-        if (customClasses && Array.isArray(customClasses)) {
-        customClasses.forEach(function (customClass) {
-            if (typeof (customClass.targetXPathIndex) === 'number') {
-            if (typeof (result[customClass.targetXPathIndex]) === 'undefined') {
-                result[customClass.targetXPathIndex] = [customClass];
-            } else {
-                result[customClass.targetXPathIndex].push(customClass);
-            }
-            delete customClass.targetXPathIndex;
-            }
-        });
-        }
-        return result;
-    }
-    /**
-    * This is a helper function to move fields which do not belong to a
-    * config group outside of the group and also place them outside
-    * configGroups in order to be compatible with latest structure.
-    * @param options old sezzle config
-    * @return Factorized fields
-    */
-   factorize(options) {
-     var factorized = {};
-   
-     // assumption is being made that all these fields are the same across all config groups
-     // it is a reasonable assumption to make as :
-     // - one config as a whole should only be assigned to one merchantID
-     // - forcedShow is only useful if the country in which the widget is served is not in the supported list
-     //   so it's reasonable to assume that forcedShow should be the same value for all configs
-     // - as the widget only supports one modal currently, there is no capability of loading multiple modals
-     
-     this.propsNotInConfigGroup.forEach(function (field) {
-       if (options[field] !== undefined) {
-         factorized[field] = options[field];
-         delete options[field];
-       }
-     });
-   
-     return factorized;
-   }
-   /**
- * Maps the props of configGroups passed by input into a default configGroup object
- * @param configGroup input by user
- * @param defaultConfig default config specified by the user (optional)
- * @param numberOfPayments number of split payments for the widget
- * @return default configGroup object, specifying all fields and taking into account overrides by input
- */
-mapGroupToDefault(configGroup, defaultConfig, numberOfPayments) {
-    var result = {};
-  
-    // targetXPath SHOULD NOT be specified in defaultConfig since
-    // it is like an ID for a configGroup (except if adding the price element class is used)
-    result.xpath = this.breakXPath(configGroup.targetXPath);
-  
-    result.rendertopath = configGroup.renderToPath || (defaultConfig && defaultConfig.renderToPath) || '..';
-  
-    // This array in which its elements are objects with two keys
-    // relatedPath - this is a xpath of an element related to the price element
-    // action - this is a function triggered when the element has a mutation
-    // initialAction - this is a function to act upon a pre existing element's condition
-    result.relatedElementActions = configGroup.relatedElementActions || (defaultConfig && defaultConfig.relatedElementActions) || [];
-  
-    result.ignoredPriceElements = configGroup.ignoredPriceElements || (defaultConfig && defaultConfig.ignoredPriceElements) || [];
-    if (typeof (result.ignoredPriceElements) === 'string') {
-      // Only one x-path is given
-      result.ignoredPriceElements = [this.breakXPath(result.ignoredPriceElements.trim())];
-    } else {
-      // result.ignoredPriceElements is an array of x-paths
-      result.ignoredPriceElements = result.ignoredPriceElements.map(function (path) {
-        return this.breakXPath(path.trim());
-      }.bind(this));
-    }
-  
-    result.alignment = configGroup.alignment || (defaultConfig && defaultConfig.alignment) || 'auto';
-    result.widgetType = configGroup.widgetType || (defaultConfig && defaultConfig.widgetType) || 'product-page';
-    result.bannerURL = configGroup.bannerURL || (defaultConfig && defaultConfig.bannerURL) || '';
-    result.bannerClass = configGroup.bannerClass || (defaultConfig && defaultConfig.bannerClass) || '';
-    result.bannerLink = configGroup.bannerLink || (defaultConfig && defaultConfig.bannerLink) || '';
-    result.fontWeight = configGroup.fontWeight || (defaultConfig && defaultConfig.fontWeight) | 300;
-    result.alignmentSwitchMinWidth = configGroup.alignmentSwitchMinWidth || (defaultConfig && defaultConfig.alignmentSwitchMinWidth); //pixels
-    result.alignmentSwitchType = configGroup.alignmentSwitchType || (defaultConfig && defaultConfig.alignmentSwitchType);
-    result.marginTop = configGroup.marginTop || (defaultConfig && defaultConfig.marginTop) || 0; //pixels
-    result.marginBottom = configGroup.marginBottom || (defaultConfig && defaultConfig.marginBottom) || 0; //pixels
-    result.marginLeft = configGroup.marginLeft || (defaultConfig && defaultConfig.marginLeft) || 0; //pixels
-    result.marginRight = configGroup.marginRight || (defaultConfig && defaultConfig.marginRight) || 0; //pixels
-    result.scaleFactor = configGroup.scaleFactor || (defaultConfig && defaultConfig.scaleFactor);
-    result.logoSize = configGroup.logoSize || (defaultConfig && defaultConfig.logoSize) || 1.0;
-    result.fontFamily = configGroup.fontFamily || (defaultConfig && defaultConfig.fontFamily) || 'inherit';
-    result.textColor = configGroup.color || (defaultConfig && defaultConfig.color) || 'inherit';
-    result.fontSize = configGroup.fontSize || (defaultConfig && defaultConfig.fontSize) || 12;
-    result.maxWidth = configGroup.maxWidth || (defaultConfig && defaultConfig.maxWidth) || 400; //pixels
-    result.fixedHeight = configGroup.fixedHeight || (defaultConfig && defaultConfig.fixedHeight) || 0; //pixels
-    // This is used to get price of element
-    result.priceElementClass = configGroup.priceElementClass || (defaultConfig && defaultConfig.priceElementClass) || 'sezzle-price-element';
-    // This is used to tell where to render sezzle element to
-    result.sezzleWidgetContainerClass = configGroup.sezzleWidgetContainerClass || (defaultConfig && defaultConfig.sezzleWidgetContainerClass) || 'sezzle-widget-container';
-    // splitPriceElementsOn is used to deal with price ranges which are separated by arbitrary strings
-    result.splitPriceElementsOn = configGroup.splitPriceElementsOn || (defaultConfig && defaultConfig.splitPriceElementsOn) || '';
-    // after pay link
-    result.apLink = configGroup.apLink || (defaultConfig && defaultConfig.apLink) || 'https://www.afterpay.com/terms-of-service';
-    // This option is to render custom class in sezzle widget
-    // This option contains an array of objects
-    // each of the objects should have two properties
-    // xpath -> the path from the root of sezzle element
-    // className -> a string of classname that is to be added
-    // index -> this is optional, if provided then only the widget with
-    // configGroupIndex -> It's a map to the element that match the configGroup of that index
-    // the same sezzle index value will be effected with the class name
-    // Example : [
-    // {xpath:'.', className: 'test-1', index: 0, configGroupIndex: 0},
-    // {xpath: './.hello', className: 'test-2', index: 0, configGroupIndex: 0}
-    //]
-    result.customClasses = Array.isArray(configGroup.customClasses) ? configGroup.customClasses : [];
-  
-    result.widgetTemplate = configGroup.altVersionTemplate || (defaultConfig && defaultConfig.altVersionTemplate);
-    if (result.widgetTemplate) {
-      result.widgetTemplate = result.widgetTemplate.split('%%');
-    } else {
-      var defaultWidgetTemplate = 'or ' + numberOfPayments + ' interest-free payments of %%price%% with %%logo%% %%info%%';
-      result.widgetTemplate = defaultWidgetTemplate.split('%%');
-    }
-  
-    if (result.splitPriceElementsOn) {
-      result.widgetTemplate = result.widgetTemplate.map(function (subtemplate) {
-        return subtemplate === 'price' ? 'price-split' : subtemplate;
-      });
-    }
-  
-    // Search for price elements. If found, assume there is only one in this page
-    result.hasPriceClassElement = false;
-    result.priceElements = Array.prototype.slice.
-      call(document.getElementsByClassName(result.priceElementClass));
-  
-    result.renderElements = Array.prototype.slice.
-      call(document.getElementsByClassName(result.sezzleWidgetContainerClass));
-  
-    if (result.priceElements.length == 1) {
-      result.hasPriceClassElement = true;
-    }
-  
-    result.theme = configGroup.theme || (defaultConfig && defaultConfig.theme) || 'light';
-    if (result.theme == 'dark') {
-      result.imageURL = SezzleLight;
-      result.imageClassName = 'szl-dark-image';
-    } else if(result.theme == 'light') {
-      result.imageURL = SezzleDark;
-      result.imageClassName = 'szl-light-image';
-    }else{
-      result.imageURL = SezzleGrayScale;
-      result.imageClassName = 'szl-grayscale-image';
-    }
-  
-    result.hideClasses = configGroup.hideClasses || (defaultConfig && defaultConfig.hideClasses) || [];
-    if (typeof (result.hideClasses) === 'string') {
-      // Only one x-path is given
-      result.hideClasses = [this.breakXPath(result.hideClasses.trim())];
-    } else {
-      // result.hideClasses is an array of x-paths
-      result.hideClasses = result.hideClasses.map(function (path) {
-        return this.breakXPath(path.trim());
-      }.bind(this));
-    }
-  
-    result.ignoredFormattedPriceText = configGroup.ignoredFormattedPriceText || (defaultConfig && defaultConfig.ignoredFormattedPriceText) || ['Subtotal', 'Total:', 'Sold Out'];
-    if(!Array.isArray(result.ignoredFormattedPriceText)) {
-      result.ignoredFormattedPriceText = [result.ignoredFormattedPriceText]
-    }
-  
-    // variables set by the JS
-    result.productPrice = null;
-    result.widgetIsFirstChild = false; //private boolean variable set to true if widget is to be rendered as first child of the parent
-  
-    return result;
-  }
-  
-  /**
-   * This is helper function for formatPrice
-   * @param n char value
-   * @return boolean [if it's numeric or not]
-   */
   isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
   }
-  
-  /**
-   * This is a helper function to break xpath into array
-   * @param xpath string Ex: './.class1/#id'
-   * @returns string[] Ex: ['.', '.class', '#id']
-   */
-  breakXPath(xpath) {
-    return xpath.split('/')
-      .filter(function (subpath) {
-        return subpath !== ''
-      });
-  }
-  
-  /**
-   * This is helper function for formatPrice
-   * @param n char value
-   * @return boolean [if it's alphabet or not]
-   */
+
+  svgImages() {
+    return{
+      questionMarkIcon:`<g transform="translate(0.000000,371.000000) scale(0.100000,-0.100000)"
+      fill="#000000" stroke="none">
+      <path d="M1579 3595 c-659 -107 -1193 -556 -1399 -1174 -73 -219 -84 -295 -84
+      -566 0 -212 2 -252 22 -345 155 -712 670 -1227 1382 -1382 93 -20 133 -22 345
+      -22 212 0 252 2 345 22 712 155 1227 670 1382 1382 20 93 22 133 22 345 0 212
+      -2 252 -22 345 -154 710 -671 1229 -1377 1380 -130 28 -483 37 -616 15z m419
+      -286 c648 -70 1172 -559 1289 -1202 23 -125 23 -379 0 -504 -52 -286 -185
+      -546 -384 -754 -157 -163 -320 -275 -513 -350 -364 -143 -741 -142 -1098 4
+      -462 187 -798 604 -889 1100 -23 125 -23 379 0 504 91 496 434 920 894 1103
+      233 93 463 125 701 99z"/>
+      <path d="M1798 2920 c-264 -48 -444 -199 -512 -429 -27 -91 -31 -87 102 -101
+      64 -7 125 -13 136 -14 14 -1 21 10 30 44 30 116 107 213 204 258 50 24 69 27
+      162 27 86 0 113 -4 151 -21 60 -28 118 -86 149 -149 22 -44 25 -63 25 -160 0
+      -102 -2 -114 -29 -165 -41 -78 -73 -117 -227 -277 -75 -77 -149 -162 -165
+      -188 -41 -71 -54 -142 -54 -307 l0 -148 129 0 129 0 4 153 c3 147 4 154 33
+      206 20 35 71 93 148 165 241 228 317 364 317 571 0 159 -51 286 -153 381 -76
+      71 -137 105 -237 134 -84 24 -265 35 -342 20z"/>
+      <path d="M1825 1001 c-50 -22 -91 -69 -105 -119 -12 -46 -12 -48 1 -95 23 -83
+      116 -145 200 -134 179 24 219 274 55 348 -52 23 -100 24 -151 0z"/>
+      </g>`,
+      apNodeColor:`<g fill="none" fill-rule="nonzero">
+      <path fill="#31322F" d="M68.615 14.612c0-1.918-1.57-3.517-3.43-3.517s-3.43 1.599-3.43 3.517c0 1.89 1.57 3.517 3.43 3.517s3.43-1.628 3.43-3.517zM70.098 9.7c1.308 1.337 2.034 3.08 2.034 4.912 0 1.831-.726 3.575-2.034 4.912-1.308 1.308-3.052 2.006-4.912 2.006-1.221 0-2.326-.436-3.285-1.308l-.146-.116v7.784L58.24 29V7.955h3.517v1.047l.145-.146c1.047-1.017 2.238-1.162 3.285-1.162 1.83 0 3.575.698 4.912 2.006zM76.9 14.612c0 1.918 1.57 3.517 3.43 3.517s3.43-1.599 3.43-3.517c0-1.89-1.57-3.517-3.43-3.517s-3.43 1.628-3.43 3.517zm-1.483 4.912c-1.308-1.337-2.034-3.08-2.034-4.912 0-1.831.726-3.575 2.034-4.912 1.308-1.308 3.052-2.006 4.913-2.006 1.22 0 2.325.436 3.284 1.308l.146.116V7.955h3.517v13.313H83.76v-1.046l-.146.145c-1.046 1.017-2.238 1.163-3.284 1.163a6.979 6.979 0 0 1-4.913-2.006zM90.794 29l3.169-7.703-5.32-13.342h3.895l3.314 8.285 3.372-8.285h3.866L94.602 29h-3.808M6.804 9.935c-2.562 0-4.647 2.098-4.647 4.677 0 2.578 2.085 4.676 4.647 4.676 2.563 0 4.648-2.098 4.648-4.676 0-2.579-2.085-4.677-4.648-4.677zm0 11.452a6.852 6.852 0 0 1-4.821-1.956A6.866 6.866 0 0 1 0 14.61c0-1.8.705-3.512 1.986-4.82a6.85 6.85 0 0 1 4.818-1.955c1.841 0 3.391.974 4.367 1.791l.281.236V8.127h2.157v12.97h-2.157v-1.736l-.281.235c-.976.817-2.526 1.791-4.367 1.791zM17.514 21.097v-10.93h-1.976v-2.04h1.976V4.293c0-2.349 1.866-4.189 4.247-4.189h2.713l-.548 2.041H21.82c-1.144 0-2.148 1.031-2.148 2.207v3.775h4.099v2.04H19.67v10.93h-2.157M31.905 21.097a4.252 4.252 0 0 1-4.247-4.247v-6.682h-1.977V8.127h1.977V.104h2.157v8.023h4.098v2.04h-4.098v6.625c0 1.185 1.024 2.264 2.148 2.264h2.107l.547 2.041h-2.712M41.194 10.022c-1.668 0-3.216 1.203-3.853 2.992l-.021.039-.124.248h7.997l-.155-.307c-.598-1.768-2.146-2.972-3.844-2.972zM41.19 21.33a5.79 5.79 0 0 1-4.374-1.977 6.668 6.668 0 0 1-1.76-4.084c-.028-.203-.028-.395-.028-.598 0-.508.058-1.024.17-1.532a6.843 6.843 0 0 1 1.617-3.149 5.935 5.935 0 0 1 4.379-1.95c1.67 0 3.236.694 4.409 1.952.841.931 1.4 2.018 1.614 3.141.169.993.173 1.61.155 1.919H37.098v.23c.301 2.297 2.035 4.035 4.035 4.066 1.23-.06 2.442-.563 3.283-1.353l1.8 1.075a7.617 7.617 0 0 1-1.594 1.297c-.95.57-2.136.903-3.432.963zM49.49 21.097V8.127h2.158v1.64l.298-.33c.765-.844 3.013-1.532 4.508-1.596l-.526 2.154c-2.373.068-4.28 1.918-4.28 4.18v6.922H49.49"/>
+      <path fill="#306E9A" d="M121.714 11.632l3.777-2.186c-.417-.733-.315-.557-.696-1.248-.403-.732-.25-1.02.582-1.026 2.423-.017 4.847-.019 7.27-.006.72.004.894.312.533.947a632.803 632.803 0 0 1-3.634 6.302c-.39.669-.732.667-1.14.013-.42-.672-.308-.506-.756-1.268l-3.765 2.187c.074.194.169.318.246.453.933 1.623 1.35 2.398 2.313 4.003 1.142 1.902 3.536 2.016 4.895.259.151-.196.29-.403.413-.617 2.287-3.962 4.575-7.922 6.849-11.892.23-.401.438-.84.538-1.289a2.85 2.85 0 0 0-2.79-3.486c-4.9-.026-9.803-.03-14.704.014-2.232.02-3.574 2.254-2.593 4.219.32.64.703 1.247 1.062 1.867.676 1.166.854 1.473 1.6 2.754"/>
+      <path fill="#1F4066" d="M110.817 23.871l.006-4.348s-.603-.006-1.417-.006c-.83 0-1-.293-.591-1.01a585.204 585.204 0 0 1 3.617-6.241c.362-.616.682-.67 1.078.015 1.203 2.083 2.41 4.164 3.597 6.257.379.668.207.96-.558.985l-1.464-.001v4.361h5.099c2.2-.032 3.49-2.028 2.66-4.07a5.465 5.465 0 0 0-.323-.662c-2.26-3.936-4.518-7.872-6.79-11.8-.23-.398-.503-.795-.838-1.104a2.827 2.827 0 0 0-4.38.657c-2.465 4.192-4.91 8.395-7.315 12.621-1.096 1.926.153 4.19 2.328 4.328.707.044 3.73.018 5.29.018"/>
+      </g>`,
+      apNodeGrey:`<g fill="#31322F" fill-rule="nonzero">
+      <path d="M68.615 14.612c0-1.918-1.57-3.517-3.43-3.517s-3.43 1.599-3.43 3.517c0 1.89 1.57 3.517 3.43 3.517s3.43-1.628 3.43-3.517zM70.098 9.7c1.308 1.337 2.034 3.08 2.034 4.912 0 1.831-.726 3.575-2.034 4.912-1.308 1.308-3.052 2.006-4.912 2.006-1.221 0-2.326-.436-3.285-1.308l-.146-.116v7.784L58.24 29V7.955h3.517v1.047l.145-.146c1.047-1.017 2.238-1.162 3.285-1.162 1.83 0 3.575.698 4.912 2.006zM76.9 14.612c0 1.918 1.57 3.517 3.43 3.517s3.43-1.599 3.43-3.517c0-1.89-1.57-3.517-3.43-3.517s-3.43 1.628-3.43 3.517zm-1.483 4.912c-1.308-1.337-2.034-3.08-2.034-4.912 0-1.831.726-3.575 2.034-4.912 1.308-1.308 3.052-2.006 4.913-2.006 1.22 0 2.325.436 3.284 1.308l.146.116V7.955h3.517v13.313H83.76v-1.046l-.146.145c-1.046 1.017-2.238 1.163-3.284 1.163a6.979 6.979 0 0 1-4.913-2.006zM90.794 29l3.169-7.703-5.32-13.342h3.895l3.314 8.285 3.372-8.285h3.866L94.602 29h-3.808M6.804 9.935c-2.562 0-4.647 2.098-4.647 4.677 0 2.578 2.085 4.676 4.647 4.676 2.563 0 4.648-2.098 4.648-4.676 0-2.579-2.085-4.677-4.648-4.677zm0 11.452a6.852 6.852 0 0 1-4.821-1.956A6.866 6.866 0 0 1 0 14.61c0-1.8.705-3.512 1.986-4.82a6.85 6.85 0 0 1 4.818-1.955c1.841 0 3.391.974 4.367 1.791l.281.236V8.127h2.157v12.97h-2.157v-1.736l-.281.235c-.976.817-2.526 1.791-4.367 1.791zM17.514 21.097v-10.93h-1.976v-2.04h1.976V4.293c0-2.349 1.866-4.189 4.247-4.189h2.713l-.548 2.041H21.82c-1.144 0-2.148 1.031-2.148 2.207v3.775h4.099v2.04H19.67v10.93h-2.157M31.905 21.097a4.252 4.252 0 0 1-4.247-4.247v-6.682h-1.977V8.127h1.977V.104h2.157v8.023h4.098v2.04h-4.098v6.625c0 1.185 1.024 2.264 2.148 2.264h2.107l.547 2.041h-2.712M41.194 10.022c-1.668 0-3.216 1.203-3.853 2.992l-.021.039-.124.248h7.997l-.155-.307c-.598-1.768-2.146-2.972-3.844-2.972zM41.19 21.33a5.79 5.79 0 0 1-4.374-1.977 6.668 6.668 0 0 1-1.76-4.084c-.028-.203-.028-.395-.028-.598 0-.508.058-1.024.17-1.532a6.843 6.843 0 0 1 1.617-3.149 5.935 5.935 0 0 1 4.379-1.95c1.67 0 3.236.694 4.409 1.952.841.931 1.4 2.018 1.614 3.141.169.993.173 1.61.155 1.919H37.098v.23c.301 2.297 2.035 4.035 4.035 4.066 1.23-.06 2.442-.563 3.283-1.353l1.8 1.075a7.617 7.617 0 0 1-1.594 1.297c-.95.57-2.136.903-3.432.963zM49.49 21.097V8.127h2.158v1.64l.298-.33c.765-.844 3.013-1.532 4.508-1.596l-.526 2.154c-2.373.068-4.28 1.918-4.28 4.18v6.922H49.49M121.714 11.632l3.777-2.186c-.417-.733-.315-.557-.696-1.248-.403-.732-.25-1.02.582-1.026 2.423-.017 4.847-.019 7.27-.006.72.004.894.312.533.947a632.803 632.803 0 0 1-3.634 6.302c-.39.669-.732.667-1.14.013-.42-.672-.308-.506-.756-1.268l-3.765 2.187c.074.194.169.318.246.453.933 1.623 1.35 2.398 2.313 4.003 1.142 1.902 3.536 2.016 4.895.259.151-.196.29-.403.413-.617 2.287-3.962 4.575-7.922 6.849-11.892.23-.401.438-.84.538-1.289a2.85 2.85 0 0 0-2.79-3.486c-4.9-.026-9.803-.03-14.704.014-2.232.02-3.574 2.254-2.593 4.219.32.64.703 1.247 1.062 1.867.676 1.166.854 1.473 1.6 2.754M110.817 23.871l.006-4.348s-.603-.006-1.417-.006c-.83 0-1-.293-.591-1.01a585.204 585.204 0 0 1 3.617-6.241c.362-.616.682-.67 1.078.015 1.203 2.083 2.41 4.164 3.597 6.257.379.668.207.96-.558.985l-1.464-.001v4.361h5.099c2.2-.032 3.49-2.028 2.66-4.07a5.465 5.465 0 0 0-.323-.662c-2.26-3.936-4.518-7.872-6.79-11.8-.23-.398-.503-.795-.838-1.104a2.827 2.827 0 0 0-4.38.657c-2.465 4.192-4.91 8.395-7.315 12.621-1.096 1.926.153 4.19 2.328 4.328.707.044 3.73.018 5.29.018"/>
+      </g>`,
+      qpNodeColor:`<g fill="none" fill-rule="evenodd">
+      <path fill="#1D75EC" d="M20.249 16.342a.47.47 0 0 1 .101.292.48.48 0 0 1-.484.474h-2.598l.001 4.34c0 .096-.03.19-.085.27a.49.49 0 0 1-.673.12l-2.542-1.717a.472.472 0 0 1-.21-.39v-2.622h-.683l-4.27-.001a40.892 40.892 0 0 1-.79-.037C3.66 16.663.374 13.094.374 8.769c0-4.598 3.79-8.34 8.449-8.34 4.46 0 8.165 3.441 8.433 7.835.002.038.005.973.007 2.805a.48.48 0 0 1-.483.475h-2.537a.48.48 0 0 1-.483-.474V8.357l-.005-.085c-.119-1.242-.464-2.391-1.412-3.236a5.185 5.185 0 0 0-3.46-1.312c-2.833 0-5.138 2.255-5.138 5.025 0 2.585 1.978 4.734 4.6 4.999h9.613c.15 0 .29.067.382.183l1.91 2.411z"/>
+      <path fill="#13131F" d="M22.087 10.842V.692c0-.238.217-.453.459-.453h2.975c.266 0 .46.215.46.453v9.959c0 1.743 1.257 2.722 2.975 2.722 1.741 0 3.023-.979 3.023-2.722V.692c0-.238.193-.453.46-.453h2.975c.241 0 .46.215.46.453v10.15c0 3.63-3.097 6.352-6.918 6.352-3.798 0-6.87-2.722-6.87-6.352zm16.375 6.114c-.363 0-.556-.31-.41-.621L45.621.263a.491.491 0 0 1 .41-.263h.243c.17 0 .338.12.41.263l7.571 16.072c.146.31-.048.62-.41.62H51.16c-.436 0-.63-.143-.847-.596l-.87-1.887h-6.58l-.87 1.91a.9.9 0 0 1-.871.574h-2.66zm5.852-5.732h3.676l-1.838-3.94h-.024l-1.814 3.94zm12.818 5.278V.692c0-.238.193-.453.435-.453h5.902c4.668 0 8.49 3.749 8.49 8.334 0 4.633-3.822 8.382-8.49 8.382h-5.902c-.242 0-.435-.215-.435-.453zm3.774-3.08h2.54c2.733 0 4.499-2.126 4.499-4.849 0-2.698-1.766-4.824-4.499-4.824h-2.54v9.672zm14.9 3.08V.692c0-.238.192-.453.459-.453h5.829c3.193 0 5.418 2.388 5.418 5.277 0 2.962-2.225 5.374-5.395 5.374h-2.539v5.612a.473.473 0 0 1-.46.454h-2.853a.456.456 0 0 1-.46-.454zm3.774-9.099h2.443c1.04 0 1.766-.812 1.766-1.887 0-1.003-.725-1.767-1.766-1.767H79.58v3.654zm8.32 9.553c-.362 0-.556-.31-.41-.621L95.06.263A.49.49 0 0 1 95.471 0h.242c.169 0 .338.12.411.263l7.57 16.072c.146.31-.048.62-.41.62h-2.685c-.436 0-.63-.143-.847-.596l-.87-1.887h-6.58l-.87 1.91a.9.9 0 0 1-.87.574H87.9zm5.854-5.732h3.677l-1.838-3.94h-.025l-1.814 3.94zm14.585 5.278V8.907L102.994.931c-.194-.31 0-.692.387-.692h3.144c.193 0 .315.119.387.215l3.363 4.895 3.361-4.895c.072-.096.17-.215.387-.215h3.145c.387 0 .58.382.387.692l-5.418 7.953v7.618a.473.473 0 0 1-.46.453H108.8a.456.456 0 0 1-.46-.453z"/>
+      </g>`,
+      qpNodeGrey:`<g fill="#13131F" fill-rule="evenodd">
+      <path d="M20.249 16.342a.47.47 0 0 1 .101.292.48.48 0 0 1-.484.474h-2.598l.001 4.34c0 .096-.03.19-.085.27a.49.49 0 0 1-.673.12l-2.542-1.717a.472.472 0 0 1-.21-.39v-2.622h-.683l-4.27-.001a40.892 40.892 0 0 1-.79-.037C3.66 16.663.374 13.094.374 8.769c0-4.598 3.79-8.34 8.449-8.34 4.46 0 8.165 3.441 8.433 7.835.002.038.005.973.007 2.805a.48.48 0 0 1-.483.475h-2.537a.48.48 0 0 1-.483-.474V8.357l-.005-.085c-.119-1.242-.464-2.391-1.412-3.236a5.185 5.185 0 0 0-3.46-1.312c-2.833 0-5.138 2.255-5.138 5.025 0 2.585 1.978 4.734 4.6 4.999h9.613c.15 0 .29.067.382.183l1.91 2.411zM22.087 10.842V.692c0-.238.217-.453.459-.453h2.975c.266 0 .46.215.46.453v9.959c0 1.743 1.257 2.722 2.975 2.722 1.741 0 3.023-.979 3.023-2.722V.692c0-.238.193-.453.46-.453h2.975c.241 0 .46.215.46.453v10.15c0 3.63-3.097 6.352-6.918 6.352-3.798 0-6.87-2.722-6.87-6.352zm16.375 6.114c-.363 0-.556-.31-.41-.621L45.621.263a.491.491 0 0 1 .41-.263h.243c.17 0 .338.12.41.263l7.571 16.072c.146.31-.048.62-.41.62H51.16c-.436 0-.63-.143-.847-.596l-.87-1.887h-6.58l-.87 1.91a.9.9 0 0 1-.871.574h-2.66zm5.852-5.732h3.676l-1.838-3.94h-.024l-1.814 3.94zm12.818 5.278V.692c0-.238.193-.453.435-.453h5.902c4.668 0 8.49 3.749 8.49 8.334 0 4.633-3.822 8.382-8.49 8.382h-5.902c-.242 0-.435-.215-.435-.453zm3.774-3.08h2.54c2.733 0 4.499-2.126 4.499-4.849 0-2.698-1.766-4.824-4.499-4.824h-2.54v9.672zm14.9 3.08V.692c0-.238.192-.453.459-.453h5.829c3.193 0 5.418 2.388 5.418 5.277 0 2.962-2.225 5.374-5.395 5.374h-2.539v5.612a.473.473 0 0 1-.46.454h-2.853a.456.456 0 0 1-.46-.454zm3.774-9.099h2.443c1.04 0 1.766-.812 1.766-1.887 0-1.003-.725-1.767-1.766-1.767H79.58v3.654zm8.32 9.553c-.362 0-.556-.31-.41-.621L95.06.263A.49.49 0 0 1 95.471 0h.242c.169 0 .338.12.411.263l7.57 16.072c.146.31-.048.62-.41.62h-2.685c-.436 0-.63-.143-.847-.596l-.87-1.887h-6.58l-.87 1.91a.9.9 0 0 1-.87.574H87.9zm5.854-5.732h3.677l-1.838-3.94h-.025l-1.814 3.94zm14.585 5.278V8.907L102.994.931c-.194-.31 0-.692.387-.692h3.144c.193 0 .315.119.387.215l3.363 4.895 3.361-4.895c.072-.096.17-.215.387-.215h3.145c.387 0 .58.382.387.692l-5.418 7.953v7.618a.473.473 0 0 1-.46.453H108.8a.456.456 0 0 1-.46-.453z"/>
+      </g>`,
+      qpNodeWhite:`<g fill="#FFF" fill-rule="evenodd">
+      <path d="M20.249 16.342a.47.47 0 0 1 .101.292.48.48 0 0 1-.484.474h-2.598l.001 4.34c0 .096-.03.19-.085.27a.49.49 0 0 1-.673.12l-2.542-1.717a.472.472 0 0 1-.21-.39v-2.622h-.683l-4.27-.001a40.892 40.892 0 0 1-.79-.037C3.66 16.663.374 13.094.374 8.769c0-4.598 3.79-8.34 8.449-8.34 4.46 0 8.165 3.441 8.433 7.835.002.038.005.973.007 2.805a.48.48 0 0 1-.483.475h-2.537a.48.48 0 0 1-.483-.474V8.357l-.005-.085c-.119-1.242-.464-2.391-1.412-3.236a5.185 5.185 0 0 0-3.46-1.312c-2.833 0-5.138 2.255-5.138 5.025 0 2.585 1.978 4.734 4.6 4.999h9.613c.15 0 .29.067.382.183l1.91 2.411zM22.087 10.842V.692c0-.238.217-.453.459-.453h2.975c.266 0 .46.215.46.453v9.959c0 1.743 1.257 2.722 2.975 2.722 1.741 0 3.023-.979 3.023-2.722V.692c0-.238.193-.453.46-.453h2.975c.241 0 .46.215.46.453v10.15c0 3.63-3.097 6.352-6.918 6.352-3.798 0-6.87-2.722-6.87-6.352zm16.375 6.114c-.363 0-.556-.31-.41-.621L45.621.263a.491.491 0 0 1 .41-.263h.243c.17 0 .338.12.41.263l7.571 16.072c.146.31-.048.62-.41.62H51.16c-.436 0-.63-.143-.847-.596l-.87-1.887h-6.58l-.87 1.91a.9.9 0 0 1-.871.574h-2.66zm5.852-5.732h3.676l-1.838-3.94h-.024l-1.814 3.94zm12.818 5.278V.692c0-.238.193-.453.435-.453h5.902c4.668 0 8.49 3.749 8.49 8.334 0 4.633-3.822 8.382-8.49 8.382h-5.902c-.242 0-.435-.215-.435-.453zm3.774-3.08h2.54c2.733 0 4.499-2.126 4.499-4.849 0-2.698-1.766-4.824-4.499-4.824h-2.54v9.672zm14.9 3.08V.692c0-.238.192-.453.459-.453h5.829c3.193 0 5.418 2.388 5.418 5.277 0 2.962-2.225 5.374-5.395 5.374h-2.539v5.612a.473.473 0 0 1-.46.454h-2.853a.456.456 0 0 1-.46-.454zm3.774-9.099h2.443c1.04 0 1.766-.812 1.766-1.887 0-1.003-.725-1.767-1.766-1.767H79.58v3.654zm8.32 9.553c-.362 0-.556-.31-.41-.621L95.06.263A.49.49 0 0 1 95.471 0h.242c.169 0 .338.12.411.263l7.57 16.072c.146.31-.048.62-.41.62h-2.685c-.436 0-.63-.143-.847-.596l-.87-1.887h-6.58l-.87 1.91a.9.9 0 0 1-.87.574H87.9zm5.854-5.732h3.677l-1.838-3.94h-.025l-1.814 3.94zm14.585 5.278V8.907L102.994.931c-.194-.31 0-.692.387-.692h3.144c.193 0 .315.119.387.215l3.363 4.895 3.361-4.895c.072-.096.17-.215.387-.215h3.145c.387 0 .58.382.387.692l-5.418 7.953v7.618a.473.473 0 0 1-.46.453H108.8a.456.456 0 0 1-.46-.453z"/>
+      </g>`,
+      sezzleLight:`<style type="text/css">
+      .st0{fill:url(#SVGID_1_);}
+      .st1{fill:url(#SVGID_2_);}
+      .st2{fill:url(#SVGID_6_);}
+      .st3{fill:#382757;}
+    </style>
+    <linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="76.8588" y1="136.1435" x2="44.4249" y2="97.4903">
+      <stop  offset="0" style="stop-color:#CE5DCB"/>
+      <stop  offset="0.2095" style="stop-color:#C558CC"/>
+      <stop  offset="0.5525" style="stop-color:#AC4ACF"/>
+      <stop  offset="0.9845" style="stop-color:#8534D4"/>
+      <stop  offset="1" style="stop-color:#8333D4"/>
+    </linearGradient>
+    <path class="st0" d="M13.54,134.2c18.05,18.05,47.31,18.05,65.36,0l1.73-1.73c9.02-9.02-9.03-56.34,0-65.36L13.54,134.2z"/>
+    <linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="78.0353" y1="92.1462" x2="147.7278" y2="92.1462">
+      <stop  offset="0.0237" style="stop-color:#FF5667"/>
+      <stop  offset="0.6592" style="stop-color:#FC8B82"/>
+      <stop  offset="1" style="stop-color:#FBA28E"/>
+    </linearGradient>
+    <path class="st1" d="M82.37,65.37l-1.73,1.73c-9.02,9.02,9.02,56.34,0,65.36l67.09-67.09c-9.03-9.02-20.85-13.53-32.68-13.53
+      C103.22,51.83,91.39,56.35,82.37,65.37"/>
+    <g>
+      <defs>
+        <path id="SVGID_3_" d="M13.54,68.84c-18.05,18.05-18.05,47.31,0,65.36l68.84-68.84c18.05-18.05,18.05-47.31,0-65.36L13.54,68.84z"
+          />
+      </defs>
+      <linearGradient id="SVGID_4_" gradientUnits="userSpaceOnUse" x1="0" y1="67.1002" x2="95.9173" y2="67.1002">
+        <stop  offset="0" style="stop-color:#00B874"/>
+        <stop  offset="0.5126" style="stop-color:#29D3A2"/>
+        <stop  offset="0.6817" style="stop-color:#53DFB6"/>
+        <stop  offset="1" style="stop-color:#9FF4D9"/>
+      </linearGradient>
+      <use xlink:href="#SVGID_3_"  style="overflow:visible;fill:url(#SVGID_4_);"/>
+      <clipPath id="SVGID_5_">
+        <use xlink:href="#SVGID_3_"  style="overflow:visible;"/>
+      </clipPath>
+    </g>
+    <linearGradient id="SVGID_6_" gradientUnits="userSpaceOnUse" x1="65.3598" y1="132.4593" x2="161.2761" y2="132.4593">
+      <stop  offset="0" style="stop-color:#FCD77E"/>
+      <stop  offset="0.5241" style="stop-color:#FEA500"/>
+      <stop  offset="1" style="stop-color:#FF5B00"/>
+    </linearGradient>
+    <path class="st2" d="M78.9,134.2c-18.05,18.05-18.05,47.31,0,65.36l68.84-68.84c18.05-18.05,18.05-47.31,0-65.36L78.9,134.2z"/>
+    <g>
+      <path class="st3" d="M415.54,100.14c-1.39-4.76-3.46-9.31-6.17-13.5c-4.63-7.17-11.06-13.15-18.62-17.29
+        c-11.93-6.51-26.18-8.04-39.29-4.22c-13.24,3.86-24.17,12.66-30.79,24.79c-6.58,12.07-8.1,25.97-4.27,39.17l0.04,0.13
+        c0.88,2.94,2.29,6.7,2.32,6.76c4.39,10.28,11.75,18.13,22.48,23.99c7.58,4.15,16.11,6.34,24.67,6.34c4.92,0,9.83-0.71,14.6-2.12
+        c10.09-2.95,18.89-8.77,25.54-16.95l0.42-0.52c1.7-2.14,3.23-4.43,4.56-6.82c2.37-4.23,0.85-9.6-3.38-11.97
+        c-1.31-0.73-2.79-1.12-4.29-1.12c-3.19,0-6.13,1.72-7.68,4.5c-2.17,3.88-5.05,7.26-8.55,10.02c-0.3,0.24-0.59,0.5-0.74,0.68
+        c-3.22,2.4-6.86,4.2-10.8,5.36c-8.62,2.53-18.02,1.52-25.95-2.8c-5.23-2.85-9.6-7.08-12.71-12.26L409.6,111
+        C414.23,109.64,416.89,104.77,415.54,100.14z M366.05,80.53c5.62,0,11.25,1.45,16.29,4.19c4.97,2.71,9.23,6.66,12.31,11.41
+        c0.17,0.27,0.35,0.55,0.52,0.83l-63.27,18.56c-0.16-5.97,1.28-11.91,4.18-17.22c4.36-7.99,11.57-13.8,20.31-16.37
+        C359.57,81,362.82,80.53,366.05,80.53z M405.48,146.54L405.48,146.54L405.48,146.54L405.48,146.54z"/>
+      <path class="st3" d="M508.81,149.61h-48.08l53.77-78.98c1.02-1.49,1.12-3.41,0.28-5.01c-0.84-1.6-2.49-2.59-4.3-2.59h-68.36
+        c-4.54,0-8.23,3.69-8.23,8.23c0,4.54,3.69,8.23,8.23,8.23h45.81l-53.75,78.98c-1.02,1.5-1.12,3.42-0.28,5.01
+        c0.84,1.6,2.49,2.58,4.3,2.58h70.6c4.54,0,8.23-3.69,8.23-8.23C517.04,153.31,513.35,149.61,508.81,149.61z"/>
+      <path class="st3" d="M615.33,149.61h-48.07l53.76-78.98c1.02-1.49,1.12-3.41,0.28-5.01c-0.84-1.59-2.49-2.58-4.3-2.58h-68.35
+        c-4.54,0-8.23,3.69-8.23,8.23c0,4.54,3.69,8.23,8.23,8.23h45.81l-53.75,78.98c-1.01,1.5-1.12,3.42-0.28,5.01
+        c0.85,1.6,2.49,2.58,4.3,2.58h70.6c4.54,0,8.23-3.69,8.23-8.23C623.56,153.31,619.87,149.61,615.33,149.61z"/>
+      <path class="st3" d="M662.8,18.47c-4.54,0-8.23,3.69-8.23,8.23v131.43c0,4.54,3.69,8.23,8.23,8.23c4.54,0,8.23-3.7,8.23-8.23V26.7
+        C671.03,22.16,667.34,18.47,662.8,18.47z"/>
+      <path class="st3" d="M797.81,100.15c-1.38-4.76-3.46-9.3-6.16-13.5c-4.63-7.17-11.07-13.15-18.62-17.29
+        c-11.94-6.51-26.17-8.04-39.29-4.22c-13.24,3.86-24.17,12.66-30.78,24.79c-6.59,12.06-8.1,25.97-4.28,39.17l0.04,0.14
+        c0.88,2.93,2.29,6.69,2.32,6.76c4.39,10.28,11.75,18.12,22.48,23.99c7.58,4.15,16.11,6.34,24.67,6.34c4.91,0,9.83-0.71,14.6-2.12
+        c10.09-2.95,18.89-8.77,25.53-16.94l0.43-0.55c1.7-2.15,3.23-4.44,4.55-6.8c2.37-4.23,0.85-9.6-3.38-11.97
+        c-1.31-0.73-2.79-1.12-4.29-1.12c-3.19,0-6.13,1.72-7.68,4.5c-2.17,3.89-5.05,7.26-8.54,10.02c-0.31,0.24-0.59,0.5-0.75,0.68
+        c-3.22,2.4-6.86,4.2-10.81,5.36c-8.61,2.53-18.02,1.52-25.95-2.8c-5.23-2.85-9.61-7.08-12.71-12.26L791.87,111
+        C796.5,109.64,799.16,104.77,797.81,100.15z M748.33,80.53c5.62,0,11.25,1.45,16.29,4.19c4.97,2.71,9.22,6.66,12.31,11.41
+        c0.17,0.27,0.35,0.55,0.52,0.83l-63.27,18.56c-0.16-5.98,1.28-11.91,4.18-17.22c4.36-7.99,11.57-13.8,20.31-16.37
+        C741.84,81,745.09,80.53,748.33,80.53z"/>
+      <path class="st3" d="M288.83,120.31c-2.44-3.57-5.97-6.55-10.47-8.85c-7.37-3.75-16.92-5.47-26.08-6.9l-1.45-0.22
+        c-6.43-1-13.08-2.04-17.35-4.2c-3.23-1.64-4.38-3.48-4.38-7.07c0-6.95,7.57-12.19,17.6-12.19c11.98,0,18.66,3.5,26.16,8.07
+        c1.39,0.85,2.99,1.3,4.61,1.3c3.12,0,5.95-1.58,7.58-4.24c1.23-2.02,1.61-4.4,1.05-6.71c-0.56-2.3-1.98-4.25-4-5.48
+        c-4.15-2.54-8.69-5.18-14.42-7.24c-6.45-2.31-13.31-3.44-20.97-3.44c-9.24,0-17.89,2.81-24.34,7.91c-7.09,5.6-11,13.42-11,22.02
+        c0,10.3,4.88,18.22,14.11,22.89c6.78,3.43,14.84,4.68,22.63,5.89l1.44,0.22c19.98,3.13,25.76,5.95,25.76,12.56
+        c0,8.19-8.2,13.55-20.89,13.66l-0.46,0c-13.62,0-21.26-5.23-25.36-8.04c-0.68-0.46-1.26-0.87-1.84-1.23
+        c-1.41-0.88-3.03-1.34-4.69-1.34c-3.08,0-5.9,1.56-7.53,4.17c-2.59,4.15-1.32,9.63,2.83,12.22c0.23,0.14,0.58,0.38,0.97,0.65
+        l0.24,0.16c4.87,3.33,16.27,11.15,35.38,11.15l0.61,0c11.02-0.1,20.48-3.06,27.38-8.58c7.15-5.73,11.09-13.83,11.09-22.81
+        C293.03,129.19,291.61,124.38,288.83,120.31z"/>
+    </g>`,
+      sezzleDark:`
+      <style type="text/css">
+	.st0{fill:url(#SVGID_1_);}
+	.st1{fill:url(#SVGID_2_);}
+	.st2{fill:url(#SVGID_6_);}
+	.st3{fill:#FFFFFF;}
+</style>
+<g>
+	<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="76.8429" y1="136.1155" x2="44.4158" y2="97.4703">
+		<stop  offset="0" style="stop-color:#CE5DCB"/>
+		<stop  offset="0.2095" style="stop-color:#C558CC"/>
+		<stop  offset="0.5525" style="stop-color:#AC4ACF"/>
+		<stop  offset="0.9845" style="stop-color:#8534D4"/>
+		<stop  offset="1" style="stop-color:#8333D4"/>
+	</linearGradient>
+	<path class="st0" d="M13.53,134.17c18.04,18.05,47.3,18.05,65.35,0l1.73-1.73c9.02-9.02-9.02-56.32,0-65.35L13.53,134.17z"/>
+	<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="78.0192" y1="92.1273" x2="147.6974" y2="92.1273">
+		<stop  offset="0.0237" style="stop-color:#FF5667"/>
+		<stop  offset="0.6592" style="stop-color:#FC8B82"/>
+		<stop  offset="1" style="stop-color:#FBA28E"/>
+	</linearGradient>
+	<path class="st1" d="M82.35,65.36l-1.73,1.73c-9.02,9.02,9.02,56.32,0,65.34l67.07-67.07c-9.02-9.02-20.85-13.53-32.67-13.53
+		C103.2,51.82,91.37,56.33,82.35,65.36"/>
+	<g>
+		<defs>
+			<path id="SVGID_3_" d="M13.53,68.83c-18.05,18.04-18.05,47.3,0,65.34l68.83-68.83c18.04-18.05,18.04-47.3,0-65.34L13.53,68.83z"
+				/>
+		</defs>
+		<linearGradient id="SVGID_4_" gradientUnits="userSpaceOnUse" x1="-1.818989e-12" y1="67.0864" x2="95.8975" y2="67.0864">
+			<stop  offset="0" style="stop-color:#00B874"/>
+			<stop  offset="0.5126" style="stop-color:#29D3A2"/>
+			<stop  offset="0.6817" style="stop-color:#53DFB6"/>
+			<stop  offset="1" style="stop-color:#9FF4D9"/>
+		</linearGradient>
+		<use xlink:href="#SVGID_3_"  style="overflow:visible;fill:url(#SVGID_4_);"/>
+		<clipPath id="SVGID_5_">
+			<use xlink:href="#SVGID_3_"  style="overflow:visible;"/>
+		</clipPath>
+	</g>
+	<linearGradient id="SVGID_6_" gradientUnits="userSpaceOnUse" x1="65.3463" y1="132.4321" x2="161.2429" y2="132.4321">
+		<stop  offset="0" style="stop-color:#FCD77E"/>
+		<stop  offset="0.5241" style="stop-color:#FEA500"/>
+		<stop  offset="1" style="stop-color:#FF5B00"/>
+	</linearGradient>
+	<path class="st2" d="M78.88,134.17c-18.04,18.05-18.04,47.3,0,65.35l68.83-68.83c18.05-18.04,18.05-47.3,0-65.34L78.88,134.17z"/>
+	<g>
+		<path class="st3" d="M415.45,100.12c-1.39-4.76-3.46-9.3-6.16-13.49c-4.62-7.17-11.06-13.15-18.62-17.29
+			c-11.93-6.51-26.17-8.04-39.28-4.22c-13.23,3.86-24.16,12.66-30.78,24.78c-6.58,12.06-8.1,25.96-4.27,39.16l0.04,0.13
+			c0.88,2.94,2.29,6.7,2.32,6.76c4.39,10.28,11.74,18.12,22.47,23.99c7.58,4.15,16.11,6.34,24.66,6.34c4.91,0,9.83-0.71,14.6-2.12
+			c10.09-2.95,18.89-8.77,25.53-16.94l0.42-0.52c1.69-2.14,3.23-4.43,4.56-6.81c2.37-4.23,0.85-9.6-3.38-11.97
+			c-1.31-0.73-2.79-1.12-4.29-1.12c-3.19,0-6.13,1.72-7.68,4.5c-2.17,3.88-5.04,7.25-8.54,10.02c-0.3,0.24-0.59,0.5-0.74,0.68
+			c-3.22,2.4-6.86,4.2-10.8,5.36c-8.62,2.53-18.02,1.52-25.94-2.8c-5.23-2.85-9.6-7.08-12.7-12.26l72.66-21.32
+			C414.14,109.62,416.81,104.75,415.45,100.12z M365.98,80.51c5.62,0,11.25,1.45,16.29,4.19c4.97,2.71,9.22,6.66,12.3,11.41
+			c0.17,0.27,0.35,0.55,0.52,0.83l-63.26,18.56c-0.16-5.97,1.28-11.9,4.18-17.22c4.36-7.99,11.57-13.8,20.31-16.36
+			C359.49,80.98,362.75,80.51,365.98,80.51z M405.39,146.51L405.39,146.51L405.39,146.51L405.39,146.51z"/>
+		<path class="st3" d="M508.71,149.58h-48.07l53.75-78.97c1.02-1.49,1.12-3.41,0.28-5.01c-0.84-1.6-2.49-2.59-4.3-2.59h-68.34
+			c-4.54,0-8.23,3.69-8.23,8.23c0,4.54,3.69,8.23,8.23,8.23h45.8l-53.74,78.97c-1.02,1.5-1.12,3.42-0.28,5.01
+			c0.84,1.59,2.49,2.58,4.3,2.58h70.59c4.54,0,8.23-3.69,8.23-8.23C516.93,153.28,513.24,149.58,508.71,149.58z"/>
+		<path class="st3" d="M615.2,149.58h-48.06l53.75-78.97c1.02-1.49,1.12-3.41,0.28-5.01c-0.84-1.59-2.49-2.58-4.3-2.58h-68.34
+			c-4.54,0-8.23,3.69-8.23,8.23c0,4.54,3.69,8.23,8.23,8.23h45.8l-53.74,78.97c-1.01,1.5-1.12,3.41-0.28,5.01
+			c0.85,1.59,2.49,2.58,4.3,2.58h70.59c4.54,0,8.23-3.69,8.23-8.23C623.43,153.28,619.74,149.58,615.2,149.58z"/>
+		<path class="st3" d="M662.66,18.47c-4.54,0-8.23,3.69-8.23,8.23v131.41c0,4.53,3.69,8.23,8.23,8.23c4.54,0,8.23-3.7,8.23-8.23
+			V26.7C670.89,22.16,667.2,18.47,662.66,18.47z"/>
+		<path class="st3" d="M797.65,100.12c-1.38-4.76-3.46-9.3-6.16-13.49c-4.63-7.17-11.06-13.15-18.62-17.29
+			c-11.94-6.51-26.17-8.04-39.28-4.22c-13.23,3.86-24.17,12.66-30.78,24.78c-6.59,12.06-8.1,25.96-4.28,39.16l0.04,0.14
+			c0.88,2.93,2.29,6.69,2.32,6.76c4.39,10.28,11.74,18.12,22.47,23.99c7.58,4.15,16.11,6.34,24.66,6.34c4.91,0,9.82-0.71,14.6-2.12
+			c10.09-2.95,18.89-8.77,25.53-16.93l0.43-0.55c1.7-2.15,3.23-4.44,4.55-6.8c2.37-4.23,0.85-9.6-3.38-11.97
+			c-1.31-0.73-2.79-1.12-4.29-1.12c-3.18,0-6.13,1.72-7.68,4.5c-2.17,3.88-5.05,7.26-8.54,10.02c-0.31,0.24-0.59,0.5-0.75,0.68
+			c-3.22,2.4-6.86,4.2-10.8,5.36c-8.61,2.53-18.01,1.52-25.94-2.8c-5.23-2.85-9.6-7.08-12.71-12.26l72.66-21.32
+			C796.34,109.62,799,104.75,797.65,100.12z M748.17,80.51c5.62,0,11.25,1.45,16.29,4.19c4.97,2.71,9.22,6.66,12.3,11.41
+			c0.17,0.27,0.35,0.55,0.52,0.83l-63.26,18.56c-0.16-5.98,1.28-11.91,4.18-17.22c4.36-7.99,11.57-13.8,20.31-16.36
+			C741.69,80.98,744.94,80.51,748.17,80.51z"/>
+		<path class="st3" d="M288.77,120.28c-2.44-3.57-5.96-6.55-10.47-8.84c-7.36-3.75-16.92-5.47-26.07-6.9l-1.45-0.22
+			c-6.43-1-13.08-2.04-17.35-4.2c-3.23-1.64-4.38-3.48-4.38-7.07c0-6.95,7.56-12.19,17.6-12.19c11.97,0,18.66,3.5,26.15,8.07
+			c1.39,0.85,2.99,1.3,4.61,1.3c3.12,0,5.95-1.58,7.57-4.24c1.23-2.02,1.61-4.4,1.05-6.7c-0.56-2.3-1.98-4.25-4-5.48
+			c-4.15-2.53-8.68-5.18-14.42-7.23c-6.45-2.31-13.31-3.43-20.97-3.43c-9.24,0-17.88,2.8-24.33,7.91
+			c-7.09,5.6-10.99,13.42-10.99,22.01c0,10.3,4.88,18.22,14.11,22.89c6.78,3.43,14.84,4.68,22.63,5.89l1.43,0.22
+			c19.98,3.13,25.75,5.95,25.75,12.56c0,8.19-8.2,13.55-20.89,13.66l-0.46,0c-13.61,0-21.25-5.23-25.35-8.04
+			c-0.68-0.46-1.26-0.87-1.84-1.23c-1.41-0.88-3.03-1.34-4.68-1.34c-3.08,0-5.9,1.56-7.53,4.17c-2.59,4.15-1.32,9.63,2.83,12.21
+			c0.23,0.14,0.58,0.38,0.97,0.65l0.24,0.16c4.87,3.33,16.26,11.14,35.37,11.14l0.61,0c11.01-0.1,20.48-3.06,27.37-8.58
+			c7.15-5.72,11.09-13.82,11.09-22.81C292.97,129.17,291.55,124.35,288.77,120.28z"/>
+	</g>
+</g>
+      `,
+      sezzleGrey:`<style type="text/css">
+      .st0{fill:url(#SVGID_1_);}
+      .st1{fill:url(#SVGID_2_);}
+      .st2{fill:url(#SVGID_6_);}
+    </style>
+    <g>
+      <path d="M415.45,98.61c-1.39-4.76-3.46-9.3-6.16-13.49c-4.62-7.17-11.06-13.15-18.62-17.29c-11.93-6.51-26.17-8.04-39.28-4.22
+        c-13.23,3.86-24.16,12.66-30.78,24.78c-6.58,12.06-8.1,25.96-4.27,39.16l0.04,0.13c0.88,2.94,2.29,6.7,2.32,6.76
+        c4.39,10.28,11.74,18.12,22.47,23.99c7.58,4.15,16.11,6.34,24.66,6.34c4.91,0,9.83-0.71,14.6-2.12
+        c10.09-2.95,18.89-8.77,25.53-16.94l0.42-0.52c1.69-2.14,3.23-4.43,4.56-6.81c2.37-4.23,0.85-9.6-3.38-11.97
+        c-1.31-0.73-2.79-1.12-4.29-1.12c-3.19,0-6.13,1.72-7.68,4.5c-2.17,3.88-5.04,7.25-8.54,10.02c-0.3,0.24-0.59,0.5-0.74,0.68
+        c-3.22,2.4-6.86,4.2-10.8,5.36c-8.62,2.53-18.02,1.52-25.94-2.8c-5.23-2.85-9.6-7.08-12.7-12.26l72.66-21.32
+        C414.14,108.1,416.81,103.23,415.45,98.61z M365.98,78.99c5.62,0,11.25,1.45,16.29,4.19c4.97,2.71,9.22,6.66,12.3,11.41
+        c0.17,0.27,0.35,0.55,0.52,0.83l-63.26,18.56c-0.16-5.97,1.28-11.9,4.18-17.22c4.36-7.99,11.57-13.8,20.31-16.36
+        C359.49,79.47,362.75,78.99,365.98,78.99z M405.39,145L405.39,145L405.39,145L405.39,145z"/>
+      <path d="M508.71,148.07h-48.07L514.4,69.1c1.01-1.49,1.12-3.41,0.28-5.01c-0.84-1.6-2.49-2.59-4.3-2.59h-68.34
+        c-4.54,0-8.23,3.69-8.23,8.23c0,4.54,3.69,8.23,8.23,8.23h45.8l-53.74,78.97c-1.02,1.5-1.12,3.42-0.28,5.01
+        c0.84,1.59,2.49,2.58,4.3,2.58h70.59c4.54,0,8.23-3.69,8.23-8.23C516.94,151.76,513.24,148.07,508.71,148.07z"/>
+      <path d="M615.2,148.07h-48.06l53.75-78.97c1.02-1.49,1.12-3.41,0.28-5.01c-0.84-1.59-2.49-2.58-4.3-2.58h-68.34
+        c-4.54,0-8.23,3.69-8.23,8.23c0,4.54,3.69,8.23,8.23,8.23h45.8l-53.74,78.97c-1.01,1.5-1.12,3.41-0.28,5.01
+        c0.85,1.59,2.49,2.58,4.3,2.58h70.59c4.54,0,8.23-3.69,8.23-8.23C623.43,151.76,619.74,148.07,615.2,148.07z"/>
+      <path d="M662.66,16.95c-4.54,0-8.23,3.69-8.23,8.23v131.41c0,4.53,3.69,8.23,8.23,8.23c4.53,0,8.22-3.7,8.22-8.23V25.18
+        C670.89,20.64,667.2,16.95,662.66,16.95z"/>
+      <path d="M797.65,98.61c-1.38-4.76-3.46-9.3-6.16-13.49c-4.62-7.17-11.06-13.15-18.62-17.29c-11.94-6.51-26.17-8.04-39.28-4.22
+        c-13.24,3.86-24.17,12.66-30.78,24.78c-6.58,12.06-8.1,25.96-4.28,39.16l0.04,0.14c0.88,2.93,2.29,6.69,2.32,6.76
+        c4.39,10.28,11.74,18.12,22.47,23.99c7.58,4.15,16.11,6.34,24.67,6.34c4.91,0,9.82-0.71,14.6-2.12
+        c10.09-2.95,18.89-8.77,25.53-16.93l0.43-0.55c1.7-2.15,3.23-4.44,4.55-6.8c2.37-4.23,0.85-9.6-3.38-11.97
+        c-1.31-0.73-2.79-1.12-4.29-1.12c-3.18,0-6.13,1.72-7.68,4.5c-2.17,3.88-5.05,7.26-8.54,10.02c-0.31,0.24-0.59,0.5-0.75,0.68
+        c-3.22,2.4-6.86,4.2-10.8,5.36c-8.61,2.53-18.01,1.52-25.94-2.8c-5.23-2.85-9.6-7.08-12.71-12.26l72.66-21.32
+        C796.34,108.1,799,103.23,797.65,98.61z M748.17,78.99c5.62,0,11.25,1.45,16.29,4.19c4.97,2.71,9.22,6.66,12.3,11.41
+        c0.17,0.27,0.35,0.55,0.51,0.83l-63.26,18.56c-0.16-5.98,1.28-11.91,4.18-17.22c4.36-7.99,11.57-13.8,20.31-16.36
+        C741.69,79.47,744.94,78.99,748.17,78.99z"/>
+      <path d="M288.77,118.77c-2.44-3.57-5.96-6.55-10.47-8.84c-7.36-3.75-16.92-5.47-26.07-6.9l-1.45-0.22c-6.43-1-13.08-2.04-17.35-4.2
+        c-3.23-1.64-4.38-3.48-4.38-7.07c0-6.95,7.56-12.19,17.6-12.19c11.97,0,18.66,3.5,26.15,8.07c1.39,0.85,2.99,1.3,4.61,1.3
+        c3.12,0,5.95-1.58,7.57-4.24c1.23-2.02,1.61-4.4,1.05-6.7c-0.56-2.3-1.98-4.25-4-5.48c-4.15-2.53-8.68-5.18-14.42-7.23
+        c-6.45-2.31-13.31-3.43-20.97-3.43c-9.24,0-17.88,2.8-24.33,7.91c-7.09,5.6-10.99,13.42-10.99,22.01c0,10.3,4.88,18.22,14.11,22.89
+        c6.78,3.43,14.84,4.68,22.63,5.89l1.43,0.22c19.98,3.13,25.75,5.95,25.75,12.56c0,8.19-8.2,13.55-20.89,13.66l-0.46,0
+        c-13.61,0-21.25-5.23-25.35-8.04c-0.68-0.46-1.26-0.87-1.84-1.23c-1.41-0.88-3.03-1.34-4.68-1.34c-3.08,0-5.9,1.56-7.53,4.17
+        c-2.59,4.15-1.32,9.63,2.83,12.21c0.23,0.14,0.58,0.38,0.97,0.65l0.24,0.16c4.87,3.33,16.26,11.14,35.37,11.14l0.61,0
+        c11.01-0.1,20.48-3.06,27.37-8.58c7.15-5.72,11.09-13.82,11.09-22.81C292.97,127.65,291.55,122.83,288.77,118.77z"/>
+    </g>
+    <g>
+      <linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="20.1064" y1="143.4209" x2="96.3453" y2="89.2408">
+        <stop  offset="0" style="stop-color:#000000"/>
+        <stop  offset="1" style="stop-color:#000000;stop-opacity:0.3"/>
+      </linearGradient>
+      <path class="st0" d="M13.53,134.17c18.04,18.05,47.3,18.05,65.35,0l1.73-1.73c9.02-9.02-9.02-56.32,0-65.35L13.53,134.17z"/>
+      <linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="94.1703" y1="136.2131" x2="117.9963" y2="50.8778">
+        <stop  offset="0" style="stop-color:#000000"/>
+        <stop  offset="1" style="stop-color:#000000;stop-opacity:0.2"/>
+      </linearGradient>
+      <path class="st1" d="M82.35,65.36l-1.73,1.73c-9.02,9.02,9.02,56.32,0,65.34l67.07-67.07c-9.02-9.02-20.85-13.53-32.67-13.53
+        C103.2,51.82,91.37,56.33,82.35,65.36"/>
+      <g>
+        <defs>
+          <path id="SVGID_3_" d="M13.53,68.83c-18.05,18.04-18.05,47.3,0,65.34l68.83-68.83c18.04-18.05,18.04-47.3,0-65.34L13.53,68.83z"
+            />
+        </defs>
+        <linearGradient id="SVGID_4_" gradientUnits="userSpaceOnUse" x1="62.6974" y1="120.6309" x2="33.2002" y2="13.542">
+          <stop  offset="0.1505" style="stop-color:#000000"/>
+          <stop  offset="1" style="stop-color:#000000;stop-opacity:0.2"/>
+        </linearGradient>
+        <use xlink:href="#SVGID_3_"  style="overflow:visible;fill:url(#SVGID_4_);"/>
+        <clipPath id="SVGID_5_">
+          <use xlink:href="#SVGID_3_"  style="overflow:visible;"/>
+        </clipPath>
+      </g>
+      <linearGradient id="SVGID_6_" gradientUnits="userSpaceOnUse" x1="128.0433" y1="185.9774" x2="98.5456" y2="78.8866">
+        <stop  offset="0.1596" style="stop-color:#000000"/>
+        <stop  offset="1" style="stop-color:#000000;stop-opacity:0.2"/>
+      </linearGradient>
+      <path class="st2" d="M78.88,134.17c-18.04,18.05-18.04,47.3,0,65.35l68.83-68.83c18.05-18.04,18.05-47.3,0-65.34L78.88,134.17z"/>
+    </g>`,
+    sezzleBlack:`<g>
+    <g>
+      <path d="M415.85,100.21c-1.39-4.76-3.46-9.29-6.16-13.48c-4.62-7.16-11.05-13.13-18.6-17.27c-11.92-6.5-26.14-8.03-39.24-4.22
+        c-13.22,3.85-24.14,12.65-30.75,24.75c-6.58,12.05-8.09,25.94-4.27,39.12l0.04,0.13c0.88,2.94,2.29,6.69,2.32,6.75
+        c4.39,10.27,11.73,18.11,22.45,23.96c7.57,4.14,16.09,6.33,24.64,6.33c4.91,0,9.82-0.71,14.59-2.11
+        c10.08-2.94,18.87-8.76,25.51-16.93l0.42-0.52c1.69-2.14,3.23-4.43,4.56-6.81c2.37-4.23,0.85-9.59-3.38-11.96
+        c-1.31-0.73-2.79-1.12-4.28-1.12c-3.18,0-6.12,1.72-7.67,4.5c-2.17,3.88-5.04,7.25-8.54,10.01c-0.3,0.24-0.59,0.5-0.74,0.68
+        c-3.22,2.39-6.85,4.2-10.79,5.36c-8.61,2.53-18,1.52-25.92-2.79c-5.22-2.85-9.59-7.07-12.69-12.25l72.58-21.3
+        C414.54,109.69,417.2,104.83,415.85,100.21z M366.43,80.61c5.61,0,11.24,1.45,16.27,4.19c4.96,2.71,9.21,6.65,12.29,11.39
+        c0.17,0.27,0.34,0.55,0.51,0.83l-63.19,18.54c-0.16-5.97,1.27-11.89,4.18-17.2c4.35-7.98,11.56-13.78,20.29-16.35
+        C359.95,81.09,363.19,80.61,366.43,80.61z M405.8,146.55L405.8,146.55L405.8,146.55L405.8,146.55z"/>
+      <path d="M509.01,149.61h-48.02l53.7-78.89c1.01-1.49,1.12-3.41,0.28-5c-0.84-1.59-2.49-2.58-4.29-2.58H442.4
+        c-4.53,0-8.22,3.69-8.22,8.22c0,4.53,3.69,8.22,8.22,8.22h45.76l-53.68,78.89c-1.01,1.5-1.12,3.41-0.28,5
+        c0.84,1.59,2.49,2.58,4.29,2.58h70.52c4.53,0,8.22-3.69,8.22-8.22C517.23,153.3,513.54,149.61,509.01,149.61z"/>
+      <path d="M615.39,149.61h-48.01l53.7-78.89c1.02-1.49,1.12-3.4,0.28-5.01c-0.84-1.59-2.49-2.58-4.29-2.58h-68.27
+        c-4.53,0-8.22,3.69-8.22,8.22c0,4.53,3.69,8.22,8.22,8.22h45.75l-53.68,78.89c-1.01,1.49-1.12,3.41-0.28,5
+        c0.84,1.59,2.49,2.58,4.29,2.58h70.52c4.53,0,8.22-3.69,8.22-8.22C623.61,153.3,619.92,149.61,615.39,149.61z"/>
+      <path d="M662.8,18.63c-4.53,0-8.22,3.69-8.22,8.22v131.27c0,4.53,3.69,8.22,8.22,8.22c4.53,0,8.22-3.69,8.22-8.22V26.86
+        C671.02,22.32,667.33,18.63,662.8,18.63z"/>
+      <path d="M797.65,100.21c-1.38-4.75-3.45-9.29-6.16-13.48c-4.62-7.16-11.05-13.13-18.6-17.27c-11.92-6.5-26.14-8.03-39.24-4.22
+        c-13.22,3.85-24.14,12.65-30.75,24.75c-6.58,12.05-8.09,25.94-4.27,39.12l0.04,0.14c0.88,2.93,2.29,6.68,2.32,6.75
+        c4.39,10.27,11.73,18.1,22.45,23.96c7.57,4.14,16.09,6.33,24.64,6.33c4.91,0,9.81-0.71,14.59-2.11
+        c10.08-2.94,18.87-8.76,25.5-16.92l0.43-0.55c1.7-2.15,3.22-4.43,4.55-6.79c2.36-4.23,0.85-9.59-3.38-11.96
+        c-1.31-0.73-2.79-1.12-4.28-1.12c-3.18,0-6.12,1.72-7.67,4.5c-2.17,3.88-5.04,7.25-8.53,10.01c-0.31,0.24-0.59,0.5-0.75,0.68
+        c-3.22,2.39-6.85,4.2-10.79,5.36c-8.6,2.53-18,1.52-25.91-2.79c-5.23-2.85-9.59-7.07-12.69-12.25l72.58-21.3
+        C796.34,109.69,799,104.83,797.65,100.21z M748.23,80.61c5.61,0,11.24,1.45,16.27,4.19c4.96,2.71,9.21,6.65,12.29,11.39
+        c0.17,0.27,0.35,0.55,0.51,0.83l-63.19,18.54c-0.16-5.97,1.28-11.89,4.18-17.2c4.35-7.98,11.56-13.78,20.29-16.35
+        C741.75,81.09,745,80.61,748.23,80.61z"/>
+      <path d="M289.29,120.34c-2.44-3.57-5.96-6.54-10.46-8.83c-7.36-3.75-16.9-5.46-26.05-6.89l-1.45-0.22
+        c-6.42-1-13.07-2.03-17.33-4.19c-3.23-1.63-4.38-3.48-4.38-7.06c0-6.94,7.56-12.18,17.58-12.18c11.96,0,18.64,3.49,26.12,8.06
+        c1.39,0.85,2.99,1.29,4.61,1.29c3.12,0,5.95-1.58,7.57-4.24c1.23-2.02,1.61-4.4,1.05-6.7c-0.56-2.3-1.98-4.24-4-5.47
+        c-4.15-2.53-8.68-5.17-14.4-7.23c-6.44-2.31-13.29-3.43-20.95-3.43c-9.23,0-17.86,2.8-24.31,7.9
+        c-7.08,5.59-10.98,13.4-10.98,21.99c0,10.29,4.87,18.2,14.09,22.86c6.77,3.43,14.82,4.67,22.6,5.88l1.43,0.22
+        c19.96,3.13,25.73,5.94,25.73,12.54c0,8.18-8.19,13.53-20.87,13.64l-0.46,0c-13.6,0-21.23-5.23-25.33-8.03
+        c-0.68-0.46-1.26-0.86-1.84-1.22c-1.41-0.88-3.02-1.34-4.68-1.34c-3.08,0-5.89,1.56-7.52,4.17c-2.58,4.14-1.31,9.62,2.83,12.2
+        c0.23,0.14,0.58,0.38,0.97,0.65l0.24,0.16c4.86,3.33,16.25,11.13,35.34,11.13l0.61,0c11-0.1,20.46-3.06,27.34-8.57
+        c7.14-5.72,11.08-13.81,11.08-22.79C293.49,129.22,292.08,124.41,289.29,120.34z"/>
+    </g>
+    <g>
+      <path d="M80.15,61.04c15.74-15.79,17.44-41.08,3.96-58.81l-1.55-2.04L13.03,69.97C-2.7,85.77-4.4,111.05,9.08,128.79l1.55,2.04
+        l67.68-67.93L80.15,61.04z"/>
+      <path d="M78.54,131.41c2.74-3.13,1.7-13.33-1.18-31.05l-0.03-0.19c-1.06-6.55-2.06-12.74-2.52-18.24l-0.4-4.8l-58.62,58.84
+        l2.04,1.54c7.69,5.8,16.88,8.91,26.58,9l0,0c12.19,0.11,23.63-4.57,32.22-13.18L78.54,131.41z"/>
+      <path d="M152.87,70.73l-1.55-2.04l-69.53,69.79c-8.46,8.5-13.11,19.77-13.09,31.76c0.02,9.89,3.17,19.24,9.12,27.05l1.55,2.03
+        l69.53-69.79C164.64,113.75,166.35,88.46,152.87,70.73z"/>
+      <path d="M83.39,68.13c-2.73,3.12-1.69,13.32,1.18,31.04l0.02,0.16c1.06,6.56,2.06,12.76,2.53,18.27l0.4,4.79l58.61-58.83
+        l-2.04-1.54c-7.68-5.81-16.87-8.93-26.57-9.02l-0.52,0c-3.7,0.01-7.38,0.46-10.94,1.36c-7.83,1.97-15.01,6.06-20.78,11.84
+        L83.39,68.13z"/>
+    </g>
+  </g>`,
+      sezzleWhite:`<style type="text/css">
+      .st0{fill:#FFFFFF;}
+      .st1{fill:url(#SVGID_1_);}
+      .st2{fill:url(#SVGID_2_);}
+      .st3{fill:url(#SVGID_6_);}
+    </style>
+    <g>
+      <g>
+        <path class="st0" d="M415.45,100.12c-1.39-4.76-3.46-9.3-6.16-13.49c-4.62-7.17-11.06-13.15-18.62-17.29
+          c-11.93-6.51-26.17-8.04-39.28-4.22c-13.23,3.86-24.16,12.66-30.78,24.78c-6.58,12.06-8.1,25.96-4.27,39.16l0.04,0.13
+          c0.88,2.94,2.29,6.7,2.32,6.76c4.39,10.28,11.74,18.12,22.47,23.99c7.58,4.15,16.11,6.34,24.66,6.34c4.91,0,9.83-0.71,14.6-2.12
+          c10.09-2.95,18.89-8.77,25.53-16.94l0.42-0.52c1.69-2.14,3.23-4.43,4.56-6.81c2.37-4.23,0.85-9.6-3.38-11.97
+          c-1.31-0.73-2.79-1.12-4.29-1.12c-3.19,0-6.13,1.72-7.68,4.5c-2.17,3.88-5.04,7.25-8.54,10.02c-0.3,0.24-0.59,0.5-0.74,0.68
+          c-3.22,2.4-6.86,4.2-10.8,5.36c-8.62,2.53-18.02,1.52-25.94-2.8c-5.23-2.85-9.6-7.08-12.7-12.26l72.66-21.32
+          C414.14,109.62,416.81,104.75,415.45,100.12z M365.98,80.51c5.62,0,11.25,1.45,16.29,4.19c4.97,2.71,9.22,6.66,12.3,11.41
+          c0.17,0.27,0.35,0.55,0.52,0.83l-63.26,18.56c-0.16-5.97,1.28-11.9,4.18-17.22c4.36-7.99,11.57-13.8,20.31-16.36
+          C359.49,80.98,362.75,80.51,365.98,80.51z M405.39,146.51L405.39,146.51L405.39,146.51L405.39,146.51z"/>
+        <path class="st0" d="M508.71,149.58h-48.07l53.76-78.97c1.01-1.49,1.12-3.41,0.28-5.01c-0.84-1.6-2.49-2.59-4.3-2.59h-68.34
+          c-4.54,0-8.23,3.69-8.23,8.23c0,4.54,3.69,8.23,8.23,8.23h45.8l-53.74,78.97c-1.02,1.5-1.12,3.42-0.28,5.01
+          c0.84,1.59,2.49,2.58,4.3,2.58h70.59c4.54,0,8.23-3.69,8.23-8.23C516.94,153.28,513.24,149.58,508.71,149.58z"/>
+        <path class="st0" d="M615.2,149.58h-48.06l53.75-78.97c1.02-1.49,1.12-3.41,0.28-5.01c-0.84-1.59-2.49-2.58-4.3-2.58h-68.34
+          c-4.54,0-8.23,3.69-8.23,8.23c0,4.54,3.69,8.23,8.23,8.23h45.8l-53.74,78.97c-1.01,1.5-1.12,3.41-0.28,5.01
+          c0.85,1.59,2.49,2.58,4.3,2.58h70.59c4.54,0,8.23-3.69,8.23-8.23C623.43,153.28,619.74,149.58,615.2,149.58z"/>
+        <path class="st0" d="M662.66,18.47c-4.54,0-8.23,3.69-8.23,8.23v131.41c0,4.53,3.69,8.23,8.23,8.23c4.53,0,8.22-3.7,8.22-8.23
+          V26.7C670.89,22.16,667.2,18.47,662.66,18.47z"/>
+        <path class="st0" d="M797.65,100.12c-1.38-4.76-3.46-9.3-6.16-13.49c-4.62-7.17-11.06-13.15-18.62-17.29
+          c-11.94-6.51-26.17-8.04-39.28-4.22c-13.24,3.86-24.17,12.66-30.78,24.78c-6.58,12.06-8.1,25.96-4.28,39.16l0.04,0.14
+          c0.88,2.93,2.29,6.69,2.32,6.76c4.39,10.28,11.74,18.12,22.47,23.99c7.58,4.15,16.11,6.34,24.67,6.34c4.91,0,9.82-0.71,14.6-2.12
+          c10.09-2.95,18.89-8.77,25.53-16.93l0.43-0.55c1.7-2.15,3.23-4.44,4.55-6.8c2.37-4.23,0.85-9.6-3.38-11.97
+          c-1.31-0.73-2.79-1.12-4.29-1.12c-3.18,0-6.13,1.72-7.68,4.5c-2.17,3.88-5.05,7.26-8.54,10.02c-0.31,0.24-0.59,0.5-0.75,0.68
+          c-3.22,2.4-6.86,4.2-10.8,5.36c-8.61,2.53-18.01,1.52-25.94-2.8c-5.23-2.85-9.6-7.08-12.71-12.26l72.66-21.32
+          C796.34,109.62,799,104.75,797.65,100.12z M748.17,80.51c5.62,0,11.25,1.45,16.29,4.19c4.97,2.71,9.22,6.66,12.3,11.41
+          c0.17,0.27,0.35,0.55,0.51,0.83l-63.26,18.56c-0.16-5.98,1.28-11.91,4.18-17.22c4.36-7.99,11.57-13.8,20.31-16.36
+          C741.69,80.98,744.94,80.51,748.17,80.51z"/>
+        <path class="st0" d="M288.77,120.28c-2.44-3.57-5.96-6.55-10.47-8.84c-7.36-3.75-16.92-5.47-26.07-6.9l-1.45-0.22
+          c-6.43-1-13.08-2.04-17.35-4.2c-3.23-1.64-4.38-3.48-4.38-7.07c0-6.95,7.56-12.19,17.6-12.19c11.97,0,18.66,3.5,26.15,8.07
+          c1.39,0.85,2.99,1.3,4.61,1.3c3.12,0,5.95-1.58,7.57-4.24c1.23-2.02,1.61-4.4,1.05-6.7c-0.56-2.3-1.98-4.25-4-5.48
+          c-4.15-2.53-8.68-5.18-14.42-7.23c-6.45-2.31-13.31-3.43-20.97-3.43c-9.24,0-17.88,2.8-24.33,7.91
+          c-7.09,5.6-10.99,13.42-10.99,22.01c0,10.3,4.88,18.22,14.11,22.89c6.78,3.43,14.84,4.68,22.63,5.89l1.43,0.22
+          c19.98,3.13,25.75,5.95,25.75,12.56c0,8.19-8.2,13.55-20.89,13.66l-0.46,0c-13.61,0-21.25-5.23-25.35-8.04
+          c-0.68-0.46-1.26-0.87-1.84-1.23c-1.41-0.88-3.03-1.34-4.68-1.34c-3.08,0-5.9,1.56-7.53,4.17c-2.59,4.15-1.32,9.63,2.83,12.21
+          c0.23,0.14,0.58,0.38,0.97,0.65l0.24,0.16c4.87,3.33,16.26,11.14,35.37,11.14l0.61,0c11.01-0.1,20.48-3.06,27.37-8.58
+          c7.15-5.72,11.09-13.82,11.09-22.81C292.97,129.17,291.55,124.35,288.77,120.28z"/>
+      </g>
+      <linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="19.2596" y1="142.5346" x2="96.1929" y2="89.8573">
+        <stop  offset="0" style="stop-color:#FFFFFF"/>
+        <stop  offset="1" style="stop-color:#FFFFFF;stop-opacity:0.3"/>
+      </linearGradient>
+      <path class="st1" d="M13.53,134.17c18.04,18.05,47.3,18.05,65.35,0l1.73-1.73c9.02-9.02-9.02-56.32,0-65.35L13.53,134.17z"/>
+      <linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="94.1703" y1="136.2131" x2="117.9963" y2="50.8778">
+        <stop  offset="0" style="stop-color:#FFFFFF"/>
+        <stop  offset="1" style="stop-color:#FFFFFF;stop-opacity:0.2"/>
+      </linearGradient>
+      <path class="st2" d="M82.35,65.36l-1.73,1.73c-9.02,9.02,9.02,56.32,0,65.34l67.07-67.07c-9.02-9.02-20.85-13.53-32.67-13.53
+        C103.2,51.82,91.37,56.33,82.35,65.36"/>
+      <g>
+        <defs>
+          <path id="SVGID_3_" d="M13.53,68.83c-18.05,18.04-18.05,47.3,0,65.34l68.83-68.83c18.04-18.05,18.04-47.3,0-65.34L13.53,68.83z"
+            />
+        </defs>
+        <linearGradient id="SVGID_4_" gradientUnits="userSpaceOnUse" x1="61.9799" y1="121.7339" x2="33.9177" y2="12.4389">
+          <stop  offset="0.1505" style="stop-color:#FFFFFF"/>
+          <stop  offset="1" style="stop-color:#FFFFFF;stop-opacity:0.2"/>
+        </linearGradient>
+        <use xlink:href="#SVGID_3_"  style="overflow:visible;fill:url(#SVGID_4_);"/>
+        <clipPath id="SVGID_5_">
+          <use xlink:href="#SVGID_3_"  style="overflow:visible;"/>
+        </clipPath>
+      </g>
+      <linearGradient id="SVGID_6_" gradientUnits="userSpaceOnUse" x1="127.3258" y1="187.0804" x2="99.2631" y2="77.7835">
+        <stop  offset="0.1596" style="stop-color:#FFFFFF"/>
+        <stop  offset="1" style="stop-color:#FFFFFF;stop-opacity:0.2"/>
+      </linearGradient>
+      <path class="st3" d="M78.88,134.17c-18.04,18.05-18.04,47.3,0,65.35l68.83-68.83c18.05-18.04,18.05-47.3,0-65.34L78.88,134.17z"/>
+    </g>`
+    };
+  } 
+
   isAlphabet(n) {
     return /^[a-zA-Z()]+$/.test(n);
   }
-  
-  /**
-   * This function will return the price string
-   * @param price - string value
-   * @param includeComma - comma should be added to the string or not
-   * @return string
-   */
+
   parsePriceString(price, includeComma) {
     var formattedPrice = '';
     for (var i = 0; i < price.length; i++) {
       if (this.isNumeric(price[i]) || price[i] == '.' || (includeComma && price[i] == ',')) {
-        // If current is a . and previous is a character, it can be something like Rs.
-        // so ignore it
         if (i > 0 && price[i] == '.' && this.isAlphabet(price[i - 1])) continue;
-  
         formattedPrice += price[i];
       }
     }
     return formattedPrice;
+ 
   }
   
-  /**
-   * This function will format the price
-   * @param price - string value
-   * @return float
-   */
   parsePrice(price) {
     return parseFloat(this.parsePriceString(price, false));
   }
-  
-  /**
-   * Insert child after a given element
-   * @param el Element to insert
-   * @param referenceNode Element to insert after
-   */
-  insertAfter(el, referenceNode) {
-    referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
-  }
-  
-  /**
-   * Insert element as the first child of the parentElement of referenceElement
-   * @param element Element to insert
-   * @param referenceElement Element to grab parent element
-   */
-   insertAsFirstChild(element, referenceElement) {
-    referenceElement.parentElement.insertBefore(element, referenceElement);
-    //bump up element above nodes which are not element nodes (if any)
-    while (element.previousSibling) {
-      element.parentElement.insertBefore(element, element.previousSibling);
-    }
-  }
-  
 }
 
 const HelperClass =  new Helper()

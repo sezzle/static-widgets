@@ -1,38 +1,20 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
     <title>Sezzle SDK Test</title>
+    <style>.container{margin:20px}</style>
   </head>
   <body class='container'>
-    <div>
-    <h1>Test SDK</h1>
-
+    <h1>Test Sezzle SDK</h1>
     <p id='price'>$ 25</p>
-
+    <div id='sezzle-widget'></div>
     <script src='../dist/bundle.js'></script>
     <script>
-        // var renderSezzle = new AwesomeSezzle({
-        // configGroups:[
-        //     {
-        //        targetXPath:'#price',
-        //        renderToPath:'..',
-        //        marginTop:-20
-        //     }
-        // ]
-        // })
-        // renderSezzle.init()
-      </script>
-  </div>
-    
+        const renderSezzle = new AwesomeSezzle({ amount:'$ 25', marginTop:-10})
+        renderSezzle.init();   
+    </script>
   </body>
-  
-  
 </html>
 
