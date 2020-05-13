@@ -1,37 +1,20 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    
-
     <title>Sezzle SDK Test</title>
+    <style>.container{margin:20px}</style>
   </head>
   <body class='container'>
-    <div>
-    <h1>Test SDK</h1>
-
+    <h1>Test Sezzle SDK</h1>
     <p id='price'>$ 25</p>
-    <div id='sezzle-widget'>
-
-    </div>
-
-    <script src='./dist/bundle.js'></script>
+    <div id='sezzle-widget'></div>
+    <script src='../dist/bundle.js'></script>
     <script>
-        var renderSezzle = new AwesomeSezzle({
-               amount:'$ 25',
-               marginTop:-20,
-               theme:'grayscale'
-        })
-        renderSezzle.init();
-     
-      </script>
-  </div>
-    
+        const renderSezzle = new AwesomeSezzle({ amount:'$ 25', marginTop:-10})
+        renderSezzle.init();   
+    </script>
   </body>
-  
-  
 </html>
 
