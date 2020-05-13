@@ -1,6 +1,7 @@
 import HelperClass from './awesomeHelper'
 import '../css/global.scss';
 
+
 class AwesomeSezzle {
   
   constructor(options){

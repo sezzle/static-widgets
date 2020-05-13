@@ -1,7 +1,7 @@
 {
   "name": "sezzle-simple-sdk",
-  "version": "1.0.0",
-  "description": "simple sdk for our widget which will not support targetXpath , renderToPath, and mutation observers",
+  "version": "2.0.0",
+  "description": "Simple SDK is a standlone widget script which helps merchants integrate widget onto their website.",
   "main": "src/awesomeSezzle.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
