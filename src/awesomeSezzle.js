@@ -19,7 +19,7 @@ class AwesomeSezzle {
     this.fontWeight = options.fontWeight || 300;
     this.fontSize = options.fontSize || 12;
     this.fontFamily = options.fontFamily || "inherit";
-    this.maxWidth = options.maxWidth || 400;
+    this.maxWidth = options.maxWidth || 'none';
     this.textColor = options.textColor || '#111';
     this.renderElement = document.getElementById(options.renderElement) || document.getElementById('sezzle-widget');
     this.apLink = options.apLink || 'https://www.afterpay.com/terms-of-service';
