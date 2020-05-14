@@ -7,6 +7,7 @@
         margin-left: 1px;
         margin-bottom: -4px;
 }
+
     // CSS Reset on the modal-lightbox
   .sezzle-checkout-button-wrapper {
     .sezzle-button-text {
@@ -496,3 +497,13 @@ $font-family: Comfortaa;
       float: none;
       text-align: center;
   }
+
+  .sezzle-right {
+    text-align: right !important
+}
+.sezzle-left {
+    text-align: left !important
+}
+.sezzle-center {
+    text-align: center !important
+}
