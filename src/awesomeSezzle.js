@@ -6,6 +6,12 @@ class AwesomeSezzle {
   
   constructor(options){
     if (!options) { options = {}; console.error('Config for widget is not supplied'); }
+    var templateString = options.widgetTemplate || `or ${this.numberOfPayments} interest-free payments of %%price%% with %%logo%% %%info%%`;
+    this.widgetTemplate  = templateString.split("%%") ;
+    this.assignConfigs(options)
+  }
+
+  assignConfigs (options) {
     this.amount = options.amount || null;
     this.numberOfPayments = options.numberOfPayments || 4;
     this.minPrice = options.minPrice || 0;
@@ -35,8 +41,7 @@ class AwesomeSezzle {
     this.fixedHeight = options.fixedHeight || 0;
     this.logoStyle = options.logoStyle  || {};
     this.theme = options.theme || 'light';
-    var templateString = options.widgetTemplate || `or ${this.numberOfPayments} interest-free payments of %%price%% with %%logo%% %%info%%`;
-    this.widgetTemplate  = templateString.split("%%") ;
+    this.widgetTemplate = this.widgetTemplate;
   }
 
   addCSSAlignment(){
@@ -79,6 +84,7 @@ class AwesomeSezzle {
         this.renderElement.children[0].children[0].style.maxWidth = `${this.maxWidth}px`;
     }
   }
+  
     
   addCSSTextColor(){
     if (this.textColor) {
@@ -163,6 +169,19 @@ class AwesomeSezzle {
         this.renderElement.style.height = `${this.fixedHeight}px`;
         this.renderElement.style.overflow = 'hidden';
       }
+  }
+
+
+  alterPrice(amt){
+    this.eraseWidget()
+    this.assignConfigs(this);
+    this.amount = amt;
+    this.init()
+  }
+
+  eraseWidget(){
+    let sezzleElement  = document.getElementById('sezzle-widget');
+    sezzleElement.removeChild(sezzleElement.childNodes[0])
   }
 
   setLogoSize(element){

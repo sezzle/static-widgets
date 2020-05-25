@@ -12,8 +12,13 @@
     <div id='sezzle-widget'></div>
     <script src='../dist/bundle.js'></script>
     <script>
-        const renderSezzle = new AwesomeSezzle({ amount:'$ 25', marginTop:-10})
-        renderSezzle.init();   
+    const renderSezzle = new AwesomeSezzle({ amount:'$ 25', marginTop:-10});
+    renderSezzle.init();
+    setTimeout(()=>{
+      const  amount  = '$ 100';
+      document.getElementById('price').innerText = amount
+      renderSezzle.alterPrice(amount)
+    },3000)
     </script>
   </body>
 </html>

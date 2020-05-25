@@ -67,3 +67,4 @@ Our SDK searches for this element on the DOM and renders our widget.
         renderSezzle.init();
       </script>
  ```
+sezzle-dev.myshopify.com
