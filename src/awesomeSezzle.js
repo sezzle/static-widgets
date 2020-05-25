@@ -6,6 +6,7 @@ class AwesomeSezzle {
   
   constructor(options){
     if (!options) { options = {}; console.error('Config for widget is not supplied'); }
+    this.numberOfPayments = options.numberOfPayments || 4;
     var templateString = options.widgetTemplate || `or ${this.numberOfPayments} interest-free payments of %%price%% with %%logo%% %%info%%`;
     this.widgetTemplate  = templateString.split("%%") ;
     this.assignConfigs(options)
@@ -13,7 +14,6 @@ class AwesomeSezzle {
 
   assignConfigs (options) {
     this.amount = options.amount || null;
-    this.numberOfPayments = options.numberOfPayments || 4;
     this.minPrice = options.minPrice || 0;
     this.maxPrice = options.maxPrice || 250000;
     this.altModalHTML = options.altLightboxHTML || '';
