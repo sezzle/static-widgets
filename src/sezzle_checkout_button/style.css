@@ -15,7 +15,7 @@
   .sezzle-button-logo-img {
     position: relative;
     width: 50px;
-    top: 3px;
+    top: spx;
   }
   
    .sezzle-button-dark {
