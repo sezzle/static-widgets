@@ -3,7 +3,7 @@ class SezzleCheckoutButton {
     this.theme =  options.theme  || "light";
     this.template = options.template || "Checkout with %%logo%%";
     this.paddingX =  options.paddingX ||  "13px";
-    this.borderType =  options.paddingX || "rounded";
+    this.borderType =  options.borderType || "rounded";
    }
 
 /**
