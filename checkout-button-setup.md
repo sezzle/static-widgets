@@ -12,9 +12,7 @@ On the Create a Blank File tab, name it ‘sezzle-static-checkout’ and select 
 Copy the code from the following repository file and paste it into this new file, then click Save:<br/>
 https://gitlab.sezzle.com/sezzle/static-widgets/-/tree/dev/src/sezzle-static-checkout.js
 
-* Note: If bundle.js/awesome-sezzle.js file name or type is changed in Assets folder, it needs to be updated during the next step
-
-Place the following lines of code within the sections/cart-template.liquid or templates/cart.liquid file where the Sezzle checkout button should appear, then click Save
+Place the following lines of code within the sections/cart-template.liquid or templates/cart.liquid file where the Sezzle checkout button should appear (after the Shopify checkout button), then click Save
 
 ```
 <sezzle-button></sezzle-button>
@@ -27,10 +25,10 @@ The button appearance can now be customized as needed using the below keys. Here
 
 ```
 <sezzle-button  
-theme='light' 
-template= 'Checkout with %%logo%%' 
-borderType ='rounded'
-paddingX = '13px'
+  template= 'Checkout with %%logo%%' 
+  theme='light' 
+  borderType ='rounded'
+  paddingX = '13px'
 ></sezzle-button>
 ```
 
@@ -38,23 +36,23 @@ paddingX = '13px'
 
 Purpose: Customizes the text content of the Sezzle checkout button<br/>
 Type: string<br/>
-Default: "Checkout with %%logo%%"<br/>
-Additional Details: `%%logo%%` is a required template that will be replaced with the official Sezzle logo. The accompanying text can be customized. Example: "Pay with %%logo%%"
+Default: 'Checkout with %%logo%%'<br/>
+Additional Details: `%%logo%%` is a required template that will be replaced with the official Sezzle logo. The accompanying text can be customized. Example: 'Pay with %%logo%%'
 
 `theme`
 
 Purpose: Updates the logo color to coordinate and contrast with different background colors of the merchant site.<br/>
 Type: string<br/>
-Options: "light", "dark"<br/>
-Default: "light"<br/>
-Additional Details: Select "dark" if the cart page background is dark
+Options: 'light', 'dark'<br/>
+Default: 'light'<br/>
+Additional Details: Select 'dark' if the cart page background is dark
 
 `borderType`
 
 Purpose: Updates the look of the Sezzle checkout button<br/>
 Type: string<br/>
-Options: "square", "semi-rounded", "rounded"<br/>
-Default: "rounded"
+Options: 'square', 'semi-rounded', 'rounded'<br/>
+Default: 'rounded'
 
 `paddingX`
 
