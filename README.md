@@ -14,7 +14,7 @@ Once the widget is rendering, additional configurations can be added to the Awes
 ```
  <script>  
         var renderSezzle = new AwesomeSezzle({
-        amount: '{{ price | money }}’,
+        amount: '{{ product.selected_or_first_available_variant.price | money }}’,
 		renderElement: ‘new-sezzle-widget-container-id’,
 		theme: ‘light’,
 		maxWidth: 400,
@@ -34,7 +34,7 @@ Once the widget is rendering, additional configurations can be added to the Awes
 </script>
 ```
 
-1. **`amount`** - This config is required. Provide the product price variable,  Example: `{{ product.first_available_or_selected_variant.price | money }}`
+1. **`amount`** - This config is required. Provide the product price variable,  Example: `{{ product.selected_or_first_available_variant.price | money }}`
 2. **`renderElement`** - This config is optional. It defaults to `sezzle-widget`.
 3. **`theme`** - This config is optional. It defaults to `light`. Alternative values include `dark`, `grayscale`, `black`, or `white`.
 4. **`maxWidth`** - This config is optional. It defaults to `none`.
@@ -102,7 +102,7 @@ Add the following lines of code wherever the widget should render on the product
 {{ 'sezzle-static-widget.js' | asset_url | script_tag }}
 <script>  
   var renderSezzle = new AwesomeSezzle({ 
-      amount: '{{ product.first_available_or_selected_variant.price | money }}'
+      amount: '{{ product.selected_or_first_available_variant.price | money }}'
   })
   renderSezzle.init();
 </script>
