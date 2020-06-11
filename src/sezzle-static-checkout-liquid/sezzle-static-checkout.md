@@ -7,12 +7,12 @@ Click Online Store > Themes<br/>
 Next to the theme you wish to edit, click Actions, then select Edit Code<br/>
   Or click Customize. In the lower-left corner, click Theme Actions, then select Edit Code<br/>
 
-Under the Assets folder, click “Add a new asset” <br/>
-On the Create a Blank File tab, name it ‘sezzle-static-checkout’ and select “.js” as the file type, then click Add Asset<br/>
+Under the Assets folder, click `Add a new asset` <br/>
+On the Create a Blank File tab, name it `sezzle-static-checkout` and select `.js` as the file type, then click Add Asset<br/>
 Copy the code from the following repository file and paste it into this new file, then click Save:<br/>
 https://gitlab.sezzle.com/sezzle/static-widgets/-/tree/dev/src/sezzle-static-checkout.js
 
-Place the following lines of code within the sections/cart-template.liquid or templates/cart.liquid file where the Sezzle checkout button should appear (after the Shopify checkout button), then click Save
+Place the following lines of code within the `sections/cart-template.liquid` or `templates/cart.liquid` file where the Sezzle checkout button should appear (after the Shopify checkout button), then click Save
 
 ```
 <sezzle-button></sezzle-button>
@@ -20,13 +20,13 @@ Place the following lines of code within the sections/cart-template.liquid or te
 ```
 
 To hide the checkout button under certain conditions, either:
-    * wrap the <sezzle-button> HTML block in the Liquid conditional 
-        {% if cart.total_price > 100  %}<div>Pay with Sezzle</div>{% endif%}
-        OR
-        {% unless cart.total_price < 100 %}<div>Pay with Sezzle</div>{% endunless %}
-    OR 
-    * create a new <script type="text/javascript"></script> element with an event listener and function that hides or shows the button under certain conditions
-        <script type="text/javascript">document.addEventListener( 'change', function(){if(window.innerWidth < 560){document.querySelector(.sezzle-checkout-button).style.display = 'none !important'} else {document.querySelector('.sezzle-checkout-button').style.display = 'inline-block'} } )</script>
+    * wrap the `<sezzle-button>` HTML block in the Liquid conditional: <br/>
+        `{% if cart.total_price > 100  %}<div>Pay with Sezzle</div>{% endif%}`<br/>
+        OR<br/>
+        `{% unless cart.total_price < 100 %}<div>Pay with Sezzle</div>{% endunless %}`<br/>
+    OR <br/>
+    * create a new `<script type="text/javascript"></script>` element with an event listener and function that hides or shows the button under certain conditions: <br/>
+        `<script type="text/javascript">document.addEventListener( 'change', function(){if(window.innerWidth < 560){document.querySelector(.sezzle-checkout-button).style.display = 'none !important'} else {document.querySelector('.sezzle-checkout-button').style.display = 'inline-block'} } )</script>`
 
 
 ### Options:
