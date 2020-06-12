@@ -7,6 +7,16 @@ To change the button style, change border-radius to 0px for square, 5px for semi
 Padding left and padding right can be updated as desired.
 Text to display can be updated as desired, but Sezzle logo must remain.
 -->
+
+<!-- To hide the checkout button under certain conditions, either:
+    * wrap the below HTML block in the Liquid conditional 
+        {% if cart.total_price > 100  %}<div>Pay with Sezzle</div>{% endif%}
+        OR
+        {% unless cart.total_price < 100 %}<div>Pay with Sezzle</div>{% endunless %}
+    OR 
+    * create a new <script type="text/javascript"></script> element with an event listener and function that hides or shows the button under certain conditions
+        <script type="text/javascript">document.addEventListener( 'change', function(){if(window.innerWidth < 560){document.querySelector(.sezzle-checkout-button).style.display = 'none !important'} else {document.querySelector('.sezzle-checkout-button').style.display = 'inline-block'} } )</script> -->
+
 <style type="text/css">
     .sezzle-checkout-button {
         width: auto;

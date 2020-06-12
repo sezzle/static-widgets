@@ -8,15 +8,23 @@ Next to the theme you wish to edit, click Actions, then select Edit Code<br/>
   Or click Customize. In the lower-left corner, click Theme Actions, then select Edit Code<br/>
 
 Under the Assets folder, click “Add a new asset” <br/>
-On the Create a Blank File tab, name it ‘sezzle-static-checkout’ and select “.js” as the file type, then click Add Asset<br/>
+On the Create a Blank File tab, name it ‘sezzle-checkout-button’ and select “.js” as the file type, then click Add Asset<br/>
 Copy the code from the following repository file and paste it into this new file, then click Save:<br/>
-https://gitlab.sezzle.com/sezzle/static-widgets/-/tree/dev/src/sezzle-static-checkout.js
+https://gitlab.sezzle.com/sezzle/static-widgets/-/tree/dev/src/sezzle-checkout-button/index.js
+
+Under the Assets folder, click “Add a new asset” <br/>
+On the Create a Blank File tab, name it ‘sezzle-checkout-button’ and select “.css” as the file type, then click Add Asset<br/>
+Copy the code from the following repository file and paste it into this new file, then click Save:<br/>
+https://gitlab.sezzle.com/sezzle/static-widgets/-/tree/dev/src/sezzle-checkout-button/style.css
 
 Place the following lines of code within the sections/cart-template.liquid or templates/cart.liquid file where the Sezzle checkout button should appear (after the Shopify checkout button), then click Save
 
 ```
-<sezzle-button></sezzle-button>
-{{ 'sezzle-static-checkout.js' | asset_url | script_tag }}
+{{ 'sezzle-checkout-button.js' | asset_url | script_tag }}
+<script>
+    new SezzleCheckoutButton({}).init();
+</script> 
+<link type="text/css" href="{{ 'sezzle-checkout-button.css' | asset_url }}" rel="stylesheet">
 ```
 
 ### Options:
@@ -24,12 +32,14 @@ Place the following lines of code within the sections/cart-template.liquid or te
 The button appearance can now be customized as needed using the below keys. Here is an example of the default configuration:
 
 ```
-<sezzle-button  
-  template= 'Checkout with %%logo%%' 
-  theme='light' 
-  borderType ='rounded'
-  paddingX = '13px'
-></sezzle-button>
+    <script>
+    new SezzleCheckoutButton({
+        template: "Checkout with %%logo%%",
+        theme: "light",
+        borderType: "rounded",
+        paddingX: "13px"
+    }).init();
+    </script> 
 ```
 
 `template`
