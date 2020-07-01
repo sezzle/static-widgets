@@ -21,27 +21,22 @@
     <h1>Test Sezzle SDK</h1>
     <p id='price'>$ 25</p>
     <div id='sezzle-widget'></div>
-    <div class="checkout-block">
-      <button class='checkout-button' name='checkout' >Checkout</button>
-    </div>
+
     <script src='../dist/bundle.js'></script>
     <script>
-    const renderSezzle = new AwesomeSezzle({ amount:'$ 25', marginTop:-10});
+    const renderSezzle = new AwesomeSezzle({ 
+      amount:'$ 25', 
+      marginTop:-10, 
+      language: function () {
+        return 'fr'
+      }
+    });
     renderSezzle.init();
     setTimeout(()=>{
       const  amount  = '$ 100';
       document.getElementById('price').innerText = amount
       renderSezzle.alterPrice(amount)
     },3000)
-    </script>
-    <script src='../src/sezzle_checkout_button/index.js'></script>
-    <script>
-      new SezzleCheckoutButton({
-        theme: "light",
-        template: "Pay  with  %%logo%%",
-        paddingX: "20px",
-        borderType: "square"
-      }).init();
     </script>
   </body>
 </html>
