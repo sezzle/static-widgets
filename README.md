@@ -54,7 +54,7 @@ Once the widget is rendering, additional configurations can be added to the Awes
 17. **`fixedHeight`** - This config is optional. It defaults to `0`.
 18. **`logoSize`** - This config is optional. It defaults to `1.0`.
 19. **`logoStyle`** - This config is optional. It defaults to `{}`.
-20. **`language`** - This config is optional. It defaults to `en`. Only French translation is currently supported.
+20. **`language`** - This config is optional. It defaults to `en`. Only French translation is currently supported. Language value may be given as a string or function, but must return the two-character <a href="https://www.w3schools.com/tags/ref_language_codes.asp">ISO code</a>.
 
 ### <b>Please discuss with Sezzle point of contact before using the below config options:</b>
 21. **`widgetTemplate`**  - This config is optional. It defaults to `or 4 interest-free payments of %%price%% with %%logo%% %%info%%`. Available templates include `%%price%%`, `%%logo%%`, `%%link%%`, `%%info%%`, `%%question-mark%%`, `%%line-break%%`, `%%afterpay-logo%%`, `%%afterpay-logo-grey%%`, `%%afterpay-info-icon%%`, `%%afterpay-link-icon%%`, `%%quadpay-logo%%`, `%%quadpay-logo-grey%%`, `%%quadpay-logo-white%%`, or `%%quadpay-info-icon%%`.
