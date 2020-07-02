@@ -17,7 +17,7 @@ class AwesomeSezzle {
       default:
         this.language = "en";
     }
-    var templateString = this.widgetLanguageTranslation(this.language, this.numberOfPayments)
+    var templateString = this.widgetLanguageTranslation(this.language.substring(0, 2).toLowerCase(), this.numberOfPayments)
     this.widgetTemplate  = templateString.split("%%") ;
     this.assignConfigs(options)
   }
