@@ -13,28 +13,29 @@ Once the widget is rendering, additional configurations can be added to the Awes
 
 ```
  <script>  
-        var renderSezzle = new AwesomeSezzle({
+  var renderSezzle = new AwesomeSezzle({ 
         amount: '{{ product.selected_or_first_available_variant.price | money }}’,
-		renderElement: ‘new-sezzle-widget-container-id’,
-		theme: ‘light’,
+		renderElement: 'new-sezzle-widget-container-id',
+		theme: 'light',
 		maxWidth: 400,
 		marginTop: 0,
 		marginBottom, 0,
 		marginLeft: 0,
 		marginRight: 0,
-		alignment: ‘left’,
+		alignment: 'left',
 		alignmentSwitchMinWidth: 576,
-		alignmentSwitchType: ‘center’,
-		textColor: ‘black’,
-		fontFamily: ‘Comfortaa, sans-serif’,
+		alignmentSwitchType: 'center',
+		textColor: 'black',
+		fontFamily: 'Comfortaa, sans-serif',
 		fontSize: 12,
-		fontWeight: 400
-        })
-        renderSezzle.init();
+		fontWeight: 400,
+      language: 'en'
+  })
+  renderSezzle.init();
 </script>
 ```
 
-1. **`amount`** - This config is required. Provide the product price variable,  Example: `{{ product.selected_or_first_available_variant.price | money }}`
+1. **`amount`** - This config is required. Provide the product price variable as a template-literal,  Shopify.Liquid Example: `'{{ product.selected_or_first_available_variant.price | money }}'`
 2. **`renderElement`** - This config is optional. It defaults to `sezzle-widget`.
 3. **`theme`** - This config is optional. It defaults to `light`. Alternative values include `dark`, `grayscale`, `black`, or `white`.
 4. **`maxWidth`** - This config is optional. It defaults to `none`.
@@ -53,31 +54,67 @@ Once the widget is rendering, additional configurations can be added to the Awes
 17. **`fixedHeight`** - This config is optional. It defaults to `0`.
 18. **`logoSize`** - This config is optional. It defaults to `1.0`.
 19. **`logoStyle`** - This config is optional. It defaults to `{}`.
+20. **`language`** - This config is optional. It defaults to `en`. Only French translation is currently supported. Language value may be given as a string or function. Supported options available are `en`, `fr`, `french`
 
-* Please discuss with Sezzle point of contact before using the below config options:
-20. **`widgetTemplate`**  - This config is optional. It defaults to `or 4 interest-free payments of %%price%% with %%logo%% %%info%%`. Available templates include `%%price%%`, `%%logo%%`, `%%link%%`, `%%info%%`, `%%question-mark%%`, `%%line-break%%`, `%%afterpay-logo%%`, `%%afterpay-logo-grey%%`, `%%afterpay-info-icon%%`, `%%afterpay-link-icon%%`, `%%quadpay-logo%%`, `%%quadpay-logo-grey%%`, `%%quadpay-logo-white%%`, or `%%quadpay-info-icon%%`.
-21. **`numberOfPayments`** - This config is optional. defaults to `4`.
-22. **`minPrice`** - This config is optional. It defaults to `0` - <small>in cents</small>.
-23. **`maxPrice`** - This config is optional. It defaults to `250000` - <small>in cents</small>.
-24. **`altModalHTML`** - This config is optional.
-25. **`qpModalHTML`** -This config is optional.
-26. **`apModalHTML`** - This config is optional.
-27. **`apLink`** = - This config is optional. It defaults to `https://www.afterpay.com/terms-of-service`.
+### <b>Please discuss with Sezzle point of contact before using the below config options:</b>
+21. **`widgetTemplate`**  - This config is optional. It defaults to `or 4 interest-free payments of %%price%% with %%logo%% %%info%%`. Available templates include `%%price%%`, `%%logo%%`, `%%link%%`, `%%info%%`, `%%question-mark%%`, `%%line-break%%`, `%%afterpay-logo%%`, `%%afterpay-logo-grey%%`, `%%afterpay-info-icon%%`, `%%afterpay-link-icon%%`, `%%quadpay-logo%%`, `%%quadpay-logo-grey%%`, `%%quadpay-logo-white%%`, or `%%quadpay-info-icon%%`.
+22. **`numberOfPayments`** - This config is optional. defaults to `4`.
+23. **`minPrice`** - This config is optional. It defaults to `0` - <small>in cents</small>.
+24. **`maxPrice`** - This config is optional. It defaults to `250000` - <small>in cents</small>.
+25. **`altModalHTML`** - This config is optional.
+26. **`qpModalHTML`** -This config is optional.
+27. **`apModalHTML`** - This config is optional.
+28. **`apLink`** - This config is optional. It defaults to `https://www.afterpay.com/terms-of-service`.
 
 
 ## Functions
 
-1. `renderModalByfunction()`
-   **Note** - Opens the Sezzle modal by a function. Create an event listener that invokes this function if the event location is other than the info icon.
+1. `alterPrice(newPrice)` - Alters price on widget. Create an event listener after `renderSezzle.init()` that invokes this function where `newPrice` is the new price value of the selected variant. Example:
+    ```
+      document.onchange = function(){
+        var newPrice = '${yourPriceVariableHere}'; 
+        renderSezzle.alterPrice(newPrice);
+      }
+    ```
 
-2. `alterPrice(newPrice)`
-    **Note** - Alters price on widget. Create an event listener that invokes this function where `newPrice` is the new price value of the selected variant.
+2. `renderModalByfunction()` - Opens the Sezzle modal by a function. Create an event listener that invokes this function if the event location is other than the info icon.
 
-3. `isMobileBrowser()`
-    **Note** - Returns true on mobile browser. Use this event to show or hide the widget in different page locations based on device.
+3. `isMobileBrowser()` - Returns true on mobile browser. Use this event to show or hide the widget in different page locations based on device.
 
-4. `getElementToRender()`
-    **Note** - Returns Element where the widget will be rendered. Create an event listener that invokes this function if the widget should appear when the event occurs.
+4. `getElementToRender()` - Returns Element where the widget will be rendered. Create an event listener that invokes this function if the widget should appear when the event occurs.
+
+
+## Implementation General Overview
+
+* Note: Implementation varies greatly by platform, theme, etc. Below is a general overview of the process. The code snippets below are <i>samples</i> and may need to be modified to fit your site.
+
+Create a new Javascript file within your site's code where appropriate. <br/>
+Copy+paste  <a href="https://github.com/sezzle/static-widgets/blob/production/dist/bundle.js">this minified code</a> into this newly created file.<br/>
+Import this new file into the page(s) where the Sezzle widget will be added.<br/>
+ ```
+  <script src="../scripts/sezzle-static-widget.js"></script>
+ ```
+Create a placeholder element where the Sezzle widget should be rendered on the page(s), usually below the price container element:<br/>
+  ```
+    <div id="sezzle-widget"></div>
+  ```
+Add the following script below the placeholder element, updating the amount value to reflect your price variable which renders the current product price or cart total as applicable.<br/>
+  ```
+    <script>  
+    var renderSezzle = new AwesomeSezzle({ 
+        amount: `${yourPriceVariableHere}`
+    })
+    renderSezzle.init();
+    </script>
+  ```
+Preview your changes to confirm the widget is displaying correctly.<br/>
+  - Regular Price<br/>
+  - Sale Price<br/>
+  - Variant Selection<br/>
+  - Desktop<br/>
+  - Mobile<br/>
+
+Use the Configuration options above to customize the widget appearance as desired.<br/>
 
 
 ## Shopify Implementation
@@ -105,6 +142,10 @@ Add the following lines of code wherever the widget should render on the product
       amount: '{{ product.selected_or_first_available_variant.price | money }}'
   })
   renderSezzle.init();
+  document.onchange = function(){
+    var newPrice = '{{product.selected_or_first_available_variant.price | money}}'; 
+    renderSezzle.alterPrice(newPrice);
+  }
 </script>
 <!-- End Sezzle Static Widget -->
 ```

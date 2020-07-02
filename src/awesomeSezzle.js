@@ -7,7 +7,18 @@ class AwesomeSezzle {
   constructor(options){
     if (!options) { options = {}; console.error('Config for widget is not supplied'); }
     this.numberOfPayments = options.numberOfPayments || 4;
-    var templateString = options.widgetTemplate || `or ${this.numberOfPayments} interest-free payments of %%price%% with %%logo%% %%info%%`;
+    switch (typeof (options.language)) {
+      case 'string':
+        this.language = options.language;
+        break;
+      case 'function':
+        this.language = options.language();
+        break;
+      default:
+        this.language = "en";
+    }
+    if (this.language === 'french') this.language = 'fr';
+    var templateString = this.widgetLanguageTranslation(this.language, this.numberOfPayments)
     this.widgetTemplate  = templateString.split("%%") ;
     this.assignConfigs(options)
   }
@@ -43,6 +54,14 @@ class AwesomeSezzle {
     this.theme = options.theme || 'light';
     this.widgetTemplate = this.widgetTemplate;
   }
+
+  widgetLanguageTranslation(language, numberOfPayments) {
+    const translations = {
+      'en': 'or ' + numberOfPayments + ' interest-free payments of %%price%% with %%logo%% %%info%%',
+      'fr': 'ou ' + numberOfPayments + ' paiements de %%price%% sans intérêts avec %%logo%% %%info%%'
+    };
+    return translations[language] || translations.en;
+  };
 
   addCSSAlignment(){
     var newAlignment = '';
@@ -368,7 +387,12 @@ class AwesomeSezzle {
       if (this.altModalHTML) {
         modalNode.innerHTML = this.altModalHTML;
       } else {
-        modalNode.innerHTML = `<meta name="viewport" content="width=device-width, initial-scale=1.0"><div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal"> <div class="sezzle-modal-content"> <div class="sezzle-logo"></div><div class="close-sezzle-modal"></div><div class="sezzle-header"> Sezzle it now. <span class="header-desktop">Pay us back later.</span> <div class="header-mobile">Pay us back later.</div></div><div class="sezzle-row"> <div class="desktop"> Check out with Sezzle and split your entire order into <div>4 interest-free payments over 6 weeks.</div></div><div class="mobile"> Check out with Sezzle and split your entire order into 4 interest-free payments over 6 weeks. </div></div><div class="sezzle-payment-pie"> </div><div class="sezzle-features"> <div class="single-feature"> <div>No Interest, Ever</div><div class="sub-feature">Plus no fees if you pay on time</div></div><div class="single-feature"> <div style="line-height: 1.2;">No Impact to Your<div>Credit Score</div></div></div><div class="single-feature"> <div>Instant Approval</div><div>Decisions</div></div></div><div class="sezzle-row"> <div class="desktop"> <div class="just-select-sezzle">Just select <span>Sezzle</span> at checkout!</div></div><div class="mobile"> <div class="just-select-sezzle-mobile"> <div>Just select Sezzle</div><div>at checkout!</div></div></div></div><div class="terms">Subject to approval.</div></div></div></div>`;
+        if (this.language === "en") {
+          modalNode.innerHTML = `<meta name="viewport" content="width=device-width, initial-scale=1.0"><div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal"> <div class="sezzle-modal-content"> <div class="sezzle-logo"></div><div class="close-sezzle-modal"></div><div class="sezzle-header"> Sezzle it now. <span class="header-desktop">Pay us back later.</span> <div class="header-mobile">Pay us back later.</div></div><div class="sezzle-row"> <div class="desktop"> Check out with Sezzle and split your entire order into <div>4 interest-free payments over 6 weeks.</div></div><div class="mobile"> Check out with Sezzle and split your entire order into 4 interest-free payments over 6 weeks. </div></div><div class="sezzle-payment-pie"> </div><div class="sezzle-features"> <div class="single-feature"> <div>No Interest, Ever</div><div class="sub-feature">Plus no fees if you pay on time</div></div><div class="single-feature"> <div style="line-height: 1.2;">No Impact to Your<div>Credit Score</div></div></div><div class="single-feature"> <div>Instant Approval</div><div>Decisions</div></div></div><div class="sezzle-row"> <div class="desktop"> <div class="just-select-sezzle">Just select <span>Sezzle</span> at checkout!</div></div><div class="mobile"> <div class="just-select-sezzle-mobile"> <div>Just select Sezzle</div><div>at checkout!</div></div></div></div><div class="terms">Subject to approval.</div></div></div></div>`;
+        } else {
+          modalNode.innerHTML = `<meta name="viewport" content="width=device-width, initial-scale=1.0" /><div class="sezzle-checkout-modal-hidden"><div class="sezzle-modal"><div class="sezzle-modal-content"><div class="sezzle-logo"></div><div class="close-sezzle-modal"></div><div class="sezzle-header">Sezzlez maintenant.<span class="header-desktop">Payez-nous plus tard.</span><div class="header-mobile">Payez-nous plus tard.</div></div><div class="sezzle-row"><div class="desktop">Payez avec Sezzle pour répartir le montant de votre commande en 4 versements sans intérêts <div>étalés sur 6 semaines.</div></div><div class="mobile">Payez avec Sezzle pour répartir le montant de votre commande en 4 versements sans intérêts étalés sur 6 semaines.</div></div><div class="sezzle-payment-pie-fr"></div><div class="sezzle-features"><div class="single-feature"><div>Pas d'intérêts jamais.</div><div class="sub-feature">Pas de frais non plus si vous payez aux dates prévues </div></div><div class="single-feature"><div style="line-height: 1.2;">Pas d'impact sur<div> votre cote de crédit</div></div></div><div class="single-feature"><div>Décisions d'approbation</div><div>instantanées</div></div></div><div class="sezzle-row"><div class="desktop"><div class="just-select-sezzle"> Vous n'avez qu'à choisir <span>Sezzle</span> au moment de régler&nbsp;!</div></div><div class="mobile"><div class="just-select-sezzle-mobile"><div>Vous n'avez qu'à choisir Sezzle</div><div>au moment de régler&nbsp;!</div></div></div></div><div class="terms">Sous réserve d'approbation.</div></div></div></div>`;
+        }
+       
       }
       document.getElementsByTagName('html')[0].appendChild(modalNode);
     } else {
