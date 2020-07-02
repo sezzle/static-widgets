@@ -4,29 +4,22 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Sezzle SDK Test</title>
-    <style>
-    .container {
-      margin:20px;
-    }
-    .checkout-button {
-      background: green;
-      color: white;
-      padding : 15px 45px;
-      font-size: 16px;
-    }
-    </style>
-    <link rel="stylesheet" href='../src/sezzle_checkout_button/style.css'>
+   
   </head>
   <body class='container'>
     <h1>Test Sezzle SDK</h1>
     <p id='price'>$ 25</p>
     <div id='sezzle-widget'></div>
-    <div class="checkout-block">
-      <button class='checkout-button' name='checkout' >Checkout</button>
-    </div>
+
     <script src='../dist/bundle.js'></script>
     <script>
-    const renderSezzle = new AwesomeSezzle({ amount:'$ 25', marginTop:-10});
+    const renderSezzle = new AwesomeSezzle({ 
+      amount:'$ 25', 
+      marginTop:-10, 
+      language: function () {
+        return 'french'
+      }
+    });
     renderSezzle.init();
     setTimeout(()=>{
       const  amount  = '$ 100';
@@ -34,15 +27,5 @@
       renderSezzle.alterPrice(amount)
     },3000)
     </script>
-    <script src='../src/sezzle_checkout_button/index.js'></script>
-    <script>
-      new SezzleCheckoutButton({
-        theme: "light",
-        template: "Pay  with  %%logo%%",
-        paddingX: "20px",
-        borderType: "square"
-      }).init();
-    </script>
   </body>
 </html>
-
