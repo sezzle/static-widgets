@@ -29,7 +29,7 @@ Once the widget is rendering, additional configurations can be added to the Awes
 		fontFamily: 'Comfortaa, sans-serif',
 		fontSize: 12,
 		fontWeight: 400,
-        language: 'en'
+      language: 'en'
   })
   renderSezzle.init();
 </script>
@@ -85,6 +85,8 @@ Once the widget is rendering, additional configurations can be added to the Awes
 
 
 ## Implementation General Overview
+
+* Note: Implementation varies greatly by platform, theme, etc. Below is a general overview of the process. The code snippets below are <i>samples</i> and may need to be modified to fit your site.
 
 Create a new Javascript file within your site's code where appropriate. <br/>
 Copy+paste  <a href="https://github.com/sezzle/static-widgets/blob/production/dist/bundle.js">this minified code</a> into this newly created file.<br/>
