@@ -127,7 +127,7 @@ Next to the theme you wish to edit, click Actions, then select Edit Code<br/>
 Under the Assets folder, click “Add a new asset” <br/>
 On the Create a Blank File tab, name it 'sezzle-static-widget’ and select “.js” as the file type, then click Add Asset<br/>
 Copy the code from the below repository file and paste it into this new file, then click Save<br/>
-* https://gitlab.sezzle.com/sezzle/static-widgets/-/edit/dev/dist/bundle.js
+* https://github.com/sezzle/static-widgets/blob/production/dist/bundle.js
 
 * If bundle.js/sezzle-static-widget.js file name or type is changed in Assets folder, it needs to be updated during the next step,
 
