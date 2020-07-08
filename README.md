@@ -14,22 +14,22 @@ Once the widget is rendering, additional configurations can be added to the Awes
 ```
  <script>  
   var renderSezzle = new AwesomeSezzle({ 
-        amount: '{{ product.selected_or_first_available_variant.price | money }}’,
-		renderElement: 'new-sezzle-widget-container-id',
-		theme: 'light',
-		maxWidth: 400,
-		marginTop: 0,
-		marginBottom, 0,
-		marginLeft: 0,
-		marginRight: 0,
-		alignment: 'left',
-		alignmentSwitchMinWidth: 576,
-		alignmentSwitchType: 'center',
-		textColor: 'black',
-		fontFamily: 'Comfortaa, sans-serif',
-		fontSize: 12,
-		fontWeight: 400,
-      language: 'en'
+    amount: '{{ product.selected_or_first_available_variant.price | money }}’,
+    renderElement: 'new-sezzle-widget-container-id',
+    theme: 'light',
+    maxWidth: 400,
+    marginTop: 0,
+    marginBottom, 0,
+    marginLeft: 0,
+    marginRight: 0,
+    alignment: 'left',
+    alignmentSwitchMinWidth: 576,
+    alignmentSwitchType: 'center',
+    textColor: 'black',
+    fontFamily: 'Comfortaa, sans-serif',
+    fontSize: 12,
+    fontWeight: 400,
+    language: 'en'
   })
   renderSezzle.init();
 </script>
@@ -78,6 +78,10 @@ Once the widget is rendering, additional configurations can be added to the Awes
     ```
 
 2. `renderModalByfunction()` - Opens the Sezzle modal by a function. Create an event listener that invokes this function if the event location is other than the info icon.
+    ```
+      var clickElement = document.querySelector('#yourClickableElementIdHere')
+      clickElement.addEventListener("click", function() { renderSezzle.renderModalByfunction() });
+    ```
 
 3. `isMobileBrowser()` - Returns true on mobile browser. Use this event to show or hide the widget in different page locations based on device.
 
@@ -127,7 +131,7 @@ Next to the theme you wish to edit, click Actions, then select Edit Code<br/>
 Under the Assets folder, click “Add a new asset” <br/>
 On the Create a Blank File tab, name it 'sezzle-static-widget’ and select “.js” as the file type, then click Add Asset<br/>
 Copy the code from the below repository file and paste it into this new file, then click Save<br/>
-* https://gitlab.sezzle.com/sezzle/static-widgets/-/edit/dev/dist/bundle.js
+* https://github.com/sezzle/static-widgets/blob/production/dist/bundle.js
 
 * If bundle.js/sezzle-static-widget.js file name or type is changed in Assets folder, it needs to be updated during the next step,
 
@@ -158,7 +162,7 @@ Add the following lines of code wherever the widget should render on the cart pa
 {{ 'sezzle-static-widget.js' | asset_url | script_tag }}
 <script>  
   var renderSezzle = new AwesomeSezzle({ 
-      amount: '{{ cart.total_price | money }}',
+    amount: '{{ cart.total_price | money }}',
     alignment: 'right'
   })
   renderSezzle.init();
