@@ -17,9 +17,6 @@ class SezzleCheckoutButton {
      };
      const chosenImage = sezzleImage[this.theme];
      const templateArray = this.template.split(' ');
-     console.log(templateArray)
-     console.log(this.template)
-     console.log(this.template.split(' '))
      var templateString = '';
      templateArray.forEach((subtemplate)=>{
        switch(subtemplate) {

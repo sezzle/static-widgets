@@ -20,7 +20,7 @@ class AwesomeSezzle {
     if (this.language === 'french') this.language = 'fr';
     var templateString = this.widgetLanguageTranslation(this.language, this.numberOfPayments)
     this.widgetTemplate  = templateString.split("%%") ;
-    this.assignConfigs(options)
+    this.assignConfigs(options);
   }
 
   assignConfigs (options) {
@@ -52,7 +52,9 @@ class AwesomeSezzle {
     this.fixedHeight = options.fixedHeight || 0;
     this.logoStyle = options.logoStyle  || {};
     this.theme = options.theme || 'light';
+    this.parseMode = options.parseMode || 'default'; // other available option is comma (For french)
     this.widgetTemplate = this.widgetTemplate;
+
   }
 
   widgetLanguageTranslation(language, numberOfPayments) {
@@ -363,7 +365,7 @@ class AwesomeSezzle {
   getElementToRender(){ return this.renderElement; }
 
   isProductEligible(priceText){
-    var price = HelperClass.parsePrice(priceText);
+    var price = this.parseMode ==='default' ? HelperClass.parsePrice(priceText) : HelperClass.parsePrice(priceText,this.parseMode);
     this.productPrice = price;
     var priceInCents = price * 100;
     return priceInCents >= this.minPrice && priceInCents <= this.maxPrice;
@@ -371,9 +373,9 @@ class AwesomeSezzle {
 
   getFormattedPrice(amount = this.amount){
     var priceText = amount;
-    var priceString = HelperClass.parsePriceString(priceText, true);
-    var price = HelperClass.parsePrice(priceText);
-    var formatter = priceText.replace(priceString, '{price}');
+    var priceString =  HelperClass.parsePriceString(priceText, true) ;
+    var price = this.parseMode ==='default' ? HelperClass.parsePrice(priceText) : HelperClass.parsePrice(priceText,this.parseMode);
+    var formatter =  priceText.replace(priceString, '{price}');
     var sezzleInstallmentPrice = (price / this.numberOfPayments).toFixed(2);
     var sezzleInstallmentFormattedPrice = formatter.replace('{price}', sezzleInstallmentPrice);
     return sezzleInstallmentFormattedPrice;      
