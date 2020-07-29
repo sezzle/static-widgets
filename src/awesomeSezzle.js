@@ -377,8 +377,21 @@ class AwesomeSezzle {
     var price = this.parseMode ==='default' ? HelperClass.parsePrice(priceText) : HelperClass.parsePrice(priceText,this.parseMode);
     var formatter =  priceText.replace(priceString, '{price}');
     var sezzleInstallmentPrice = (price / this.numberOfPayments).toFixed(2);
-    var sezzleInstallmentFormattedPrice = formatter.replace('{price}', sezzleInstallmentPrice);
-    return sezzleInstallmentFormattedPrice;      
+    if(this.parseMode  === 'comma') {
+      var sezzleInstallmentFormattedPrice = formatter.replace('{price}', this.formatCommaPrice(sezzleInstallmentPrice));
+    } else {
+      var sezzleInstallmentFormattedPrice = formatter.replace('{price}', sezzleInstallmentPrice);
+    }
+    return sezzleInstallmentFormattedPrice;
+    
+  }
+
+  formatCommaPrice(price) {
+    var alteredPrice,beforeDecimal,afterDecimal;
+    beforeDecimal = Math.floor(price);
+    afterDecimal  = (price - beforeDecimal).toFixed(2).split(".")[1];
+    alteredPrice = `${beforeDecimal},${afterDecimal}`
+    return alteredPrice;
   }
 
   renderModal(){

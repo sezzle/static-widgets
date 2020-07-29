@@ -46,6 +46,7 @@ function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
+
 if (isProductEligible()) {
     console.log(parsePrice(price))
 }
