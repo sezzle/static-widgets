@@ -29,7 +29,8 @@ Once the widget is rendering, additional configurations can be added to the Awes
     fontFamily: 'Comfortaa, sans-serif',
     fontSize: 12,
     fontWeight: 400,
-    language: 'en'
+    language: 'en',
+    parseMode: 'default'
   })
   renderSezzle.init();
 </script>
@@ -54,17 +55,18 @@ Once the widget is rendering, additional configurations can be added to the Awes
 17. **`fixedHeight`** - This config is optional. It defaults to `0`.
 18. **`logoSize`** - This config is optional. It defaults to `1.0`.
 19. **`logoStyle`** - This config is optional. It defaults to `{}`.
-20. **`language`** - This config is optional. It defaults to `en`. Only French translation is currently supported. Language value may be given as a string or function. Supported options available are `en`, `fr`, `french`
+20. **`language`** - This config is optional. It defaults to `en`. Only French translation is currently supported. Language value may be given as a string or function. Supported options available are `en`, `fr`, `french`.
+21. **`parseMode`** - This config is optional. It defaults to `default`. Alternative values include `comma`.
 
 ### <b>Please discuss with Sezzle point of contact before using the below config options:</b>
-21. **`widgetTemplate`**  - This config is optional. It defaults to `or 4 interest-free payments of %%price%% with %%logo%% %%info%%`. Available templates include `%%price%%`, `%%logo%%`, `%%link%%`, `%%info%%`, `%%question-mark%%`, `%%line-break%%`, `%%afterpay-logo%%`, `%%afterpay-logo-grey%%`, `%%afterpay-info-icon%%`, `%%afterpay-link-icon%%`, `%%quadpay-logo%%`, `%%quadpay-logo-grey%%`, `%%quadpay-logo-white%%`, or `%%quadpay-info-icon%%`.
-22. **`numberOfPayments`** - This config is optional. defaults to `4`.
-23. **`minPrice`** - This config is optional. It defaults to `0` - <small>in cents</small>.
-24. **`maxPrice`** - This config is optional. It defaults to `250000` - <small>in cents</small>.
-25. **`altModalHTML`** - This config is optional.
-26. **`qpModalHTML`** -This config is optional.
-27. **`apModalHTML`** - This config is optional.
-28. **`apLink`** - This config is optional. It defaults to `https://www.afterpay.com/terms-of-service`.
+22. **`widgetTemplate`**  - This config is optional. It defaults to `or 4 interest-free payments of %%price%% with %%logo%% %%info%%`. Available templates include `%%price%%`, `%%logo%%`, `%%link%%`, `%%info%%`, `%%question-mark%%`, `%%line-break%%`, `%%afterpay-logo%%`, `%%afterpay-logo-grey%%`, `%%afterpay-info-icon%%`, `%%afterpay-link-icon%%`, `%%quadpay-logo%%`, `%%quadpay-logo-grey%%`, `%%quadpay-logo-white%%`, or `%%quadpay-info-icon%%`.
+23. **`numberOfPayments`** - This config is optional. defaults to `4`.
+24. **`minPrice`** - This config is optional. It defaults to `0` - <small>in cents</small>.
+25. **`maxPrice`** - This config is optional. It defaults to `250000` - <small>in cents</small>.
+26. **`altModalHTML`** - This config is optional.
+27. **`qpModalHTML`** -This config is optional.
+28. **`apModalHTML`** - This config is optional.
+29. **`apLink`** - This config is optional. It defaults to `https://www.afterpay.com/terms-of-service`.
 
 
 ## Functions
