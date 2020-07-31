@@ -8,25 +8,36 @@
   </head>
   <body class='container'>
     <h1>Test Sezzle SDK</h1>
-    <p id='price'>$ 25</p>
+    <p id='price'>$ 24,22</p>
     <div id='sezzle-widget'></div>
-
+    <!-- <button name="checkout">Checkout</button> -->
     <script src='../dist/bundle.js'></script>
+    <!-- <script src='../src/sezzle_checkout_button_dynamic/index.js'></script>
+    <link href='../src/sezzle_checkout_button_dynamic/style.css' rel="stylesheet"/> -->
     <script>
     const renderSezzle = new AwesomeSezzle({ 
-      amount:'$ 25', 
+      amount:'$ 24,22', 
       marginTop:-10, 
+      parseMode: 'comma',
       language: function () {
         return 'french'
       }
     });
     renderSezzle.init();
-    setTimeout(()=>{
-      const  amount  = '$ 100';
-      document.getElementById('price').innerText = amount
-      renderSezzle.alterPrice(amount)
-    },3000)
+    // setTimeout(()=>{
+    //   const  amount  = '$ 100';
+    //   document.getElementById('price').innerText = amount
+    //   renderSezzle.alterPrice(amount)
+    // },3000)
     </script>
+    <!-- <script>
+       new SezzleCheckoutButton({
+        template: "Checkout with %%logo%%",
+        theme: "light",
+        borderType: "rounded",
+        paddingX: "13px"
+    }).init();
+    </script> -->
   </body>
 </html>
 

@@ -413,6 +413,21 @@ class Helper {
     return /^[a-zA-Z()]+$/.test(n);
   }
 
+  parsePriceStringModeComma(price) {
+    var formattedPrice = '';
+    for (var i = 0; i < price.length; i++) {
+      if (this.isNumeric(price[i]) || price[i] == ',') {
+        if (i > 0 && price[i] == ',' && this.isAlphabet(price[i - 1])) continue;   
+        if(price[i] === ',') {
+            formattedPrice +=   '.';
+        } else{
+            formattedPrice += price[i];
+        }
+      }
+    }
+    return formattedPrice;
+  }
+
   parsePriceString(price, includeComma) {
     var formattedPrice = '';
     for (var i = 0; i < price.length; i++) {
@@ -425,8 +440,12 @@ class Helper {
  
   }
   
-  parsePrice(price) {
-    return parseFloat(this.parsePriceString(price, false));
+  parsePrice(price, mode = "default") {
+    if(mode === 'default') {
+      return parseFloat(this.parsePriceString(price, false));
+    } else {
+      return parseFloat(this.parsePriceStringModeComma(price));
+    }
   }
 }
 
