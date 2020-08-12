@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
+    <meta charset="ISO-8859-1">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Sezzle SDK Test</title>
    
@@ -12,13 +12,13 @@
     <div id='sezzle-widget'></div>
 
     <script src='../dist/bundle.js'></script>
+
     <script>
-    const renderSezzle = new AwesomeSezzle({ 
-      amount:'$ 25', 
+      document.querySelector('#price').innerText
+      const renderSezzle = new AwesomeSezzle({ 
+      amount: document.querySelector('#price').innerText, 
       marginTop:-10, 
-      language: function () {
-        return 'french'
-      }
+      widgetTemplate: `or 4 interest-free payments of %%price%% with %%logo%% %%info%% or %%afterpay-logo%% %%afterpay-info-icon%%`
     });
     renderSezzle.init();
     setTimeout(()=>{
