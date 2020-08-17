@@ -59,7 +59,7 @@ class AwesomeSezzle {
   widgetLanguageTranslation(language, numberOfPayments) {
     const translations = {
       'en': 'or ' + numberOfPayments + ' interest-free payments of %%price%% with %%logo%% %%info%%',
-      'fr': 'ou ' + numberOfPayments + ' paiements de %%price%% sans int&#233;r&#234;ts avec %%logo%% %%info%%'
+      'fr': 'ou ' + numberOfPayments + ' paiements de %%price%% sans int%%&eacute;%%r%%&ecirc;%%ts avec %%logo%% %%info%%'
     };
     return translations[language] || translations.en;
   };
@@ -359,6 +359,16 @@ class AwesomeSezzle {
             var lineBreakNode = document.createElement('br');
             sezzleButtonText.appendChild(lineBreakNode);
             break;
+          case '&eacute;':
+            var eacute = document.createElement('span');
+            eacute.innerHTML = '&#233;';
+            sezzleButtonText.appendChild(eacute);
+            break;
+            case '&ecirc;':
+              var ecirc = document.createElement('span');
+              ecirc.innerHTML = '&#234;';
+              sezzleButtonText.appendChild(ecirc);
+              break;
           default:
             var widgetTextNode = document.createTextNode(subtemplate);
             sezzleButtonText.appendChild(widgetTextNode);
