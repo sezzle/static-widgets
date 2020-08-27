@@ -19,7 +19,7 @@ class AwesomeSezzle {
     }
     if (this.language === 'french') this.language = 'fr';
     var templateString = this.widgetLanguageTranslation(this.language, this.numberOfPayments)
-    this.widgetTemplate  = options.widgetTemplate ? options.widgetTemplate.split("%%") : templateString.split("%%") ;
+    this.widgetTemplate  = options.widgetTemplate || templateString;
     this.assignConfigs(options);
   }
 
@@ -53,7 +53,7 @@ class AwesomeSezzle {
     this.logoStyle = options.logoStyle  || {};
     this.theme = options.theme || 'light';
     this.parseMode = options.parseMode || 'default'; // other available option is comma (For french)
-    this.widgetTemplate = this.widgetTemplate;
+    this.widgetTemplate = this.widgetTemplate.split("%%");
   }
 
   widgetLanguageTranslation(language, numberOfPayments) {
