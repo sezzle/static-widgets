@@ -19,7 +19,7 @@ class AwesomeSezzle {
     }
     if (this.language === 'french') this.language = 'fr';
     var templateString = this.widgetLanguageTranslation(this.language, this.numberOfPayments)
-    this.widgetTemplate  = options.widgetTemplate.split("%%") || templateString.split("%%") ;
+    this.widgetTemplate  = options.widgetTemplate ? options.widgetTemplate.split("%%") : templateString.split("%%") ;
     this.assignConfigs(options);
   }
 
