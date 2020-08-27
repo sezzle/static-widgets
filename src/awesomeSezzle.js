@@ -5,6 +5,8 @@ import '../css/global.scss';
 class AwesomeSezzle {
   
   constructor(options){
+    console.log('constructor');
+    console.log(this.renderElementArray);
     if (!options) { options = {}; console.error('Config for widget is not supplied'); }
     this.numberOfPayments = options.numberOfPayments || 4;
     switch (typeof (options.language)) {
@@ -20,11 +22,14 @@ class AwesomeSezzle {
     if (this.language === 'french') this.language = 'fr';
     var templateString = this.widgetLanguageTranslation(this.language, this.numberOfPayments)
     this.widgetTemplate  = options.widgetTemplate ? options.widgetTemplate.split('%%') : templateString.split('%%');
-    this.renderElement = document.getElementById(options.renderElement) || document.getElementById('sezzle-widget')
+    // this.renderElement = document.getElementById(options.renderElement) || document.getElementById('sezzle-widget')
+    this.renderElementInitial = options.renderElement || 'sezzle-widget';
     this.assignConfigs(options);
   }
 
   assignConfigs (options) {
+    console.log('assignConfigs');
+    console.log(this.renderElementArray);
     this.amount = options.amount || null;
     this.minPrice = options.minPrice || 0;
     this.maxPrice = options.maxPrice || 250000;
@@ -39,7 +44,8 @@ class AwesomeSezzle {
     this.fontFamily = options.fontFamily || "inherit";
     this.maxWidth = options.maxWidth || 'none';
     this.textColor = options.textColor || '#111';
-    this.renderElement = this.renderElement;
+    this.renderElementArray = typeof(this.renderElementInitial) === 'string' ? [this.renderElementInitial] : this.renderElementInitial;
+    this.renderElement = this.renderElementInitial;
     this.apLink = options.apLink || 'https://www.afterpay.com/terms-of-service';
     this.widgetType = options.widgetType || 'product-page';
     this.bannerURL = options.bannerURL ||  '';
@@ -194,15 +200,20 @@ class AwesomeSezzle {
 
 
   alterPrice(amt){
-    this.eraseWidget()
+    console.log('alterPrice');
+    console.log(this.renderElementArray);
+    this.eraseWidget();
     this.assignConfigs(this);
     this.amount = amt;
     this.init()
   }
 
   eraseWidget(){
-    let sezzleElement  = this.renderElement;
-    sezzleElement.removeChild(sezzleElement.childNodes[0])
+    this.renderElementArray.forEach(function(element, index){
+      let sezzleElement = document.getElementById(element);
+      console.log(sezzleElement)
+      sezzleElement.removeChild(sezzleElement.childNodes[0])
+    })
   }
 
   setLogoSize(element){
@@ -222,6 +233,8 @@ class AwesomeSezzle {
   }
 
   renderAwesomeSezzle(){
+    console.log('renderAwesomeSezzle');
+    console.log(this.renderElementArray);
     if (!this.isProductEligible(this.amount)) return false;
     this.insertWidgetTypeCSSClassInElement();
     this.setElementMargins();
@@ -385,7 +398,11 @@ class AwesomeSezzle {
     this.addCSSCustomisation();
   }
  
-  getElementToRender(){ return this.renderElement; }
+  getElementToRender(){     
+    console.log('getElementToRender');
+    console.log(this.renderElementArray);
+    return this.renderElement; 
+  }
 
   isProductEligible(priceText){
     var price = this.parseMode ==='default' ? HelperClass.parsePrice(priceText) : HelperClass.parsePrice(priceText,this.parseMode);
@@ -524,30 +541,36 @@ class AwesomeSezzle {
   }
 
   init(){
+    console.log('init');
+    console.log(this.renderElementArray);
     var els = [];
     function renderModals() {
       this.renderModal();
       if (document.getElementsByClassName('ap-modal-info-link').length > 0) {
-      this.renderAPModal();
+        this.renderAPModal();
       }
       if (document.getElementsByClassName('quadpay-modal-info-link').length > 0) {
-      this.renderQPModal();
+        this.renderQPModal();
       }
     };
     function sezzleWidgetCheckInterval() {
-    if (!this.renderElement.hasAttribute('data-sezzleindex')) {
-      els.push({
-          element: this.renderElement,
-      });
-      }
+      // if (!this.renderElement.hasAttribute('data-sezzleindex')) {
+        this.renderElementArray.forEach(function(el, index){
+          els.push({
+            element: document.getElementById(el),
+          });
+        })
+        console.log(els)
+      // }
       els.forEach(function (el, index) {
-      if (!el.element.hasAttribute('data-sezzleindex')) {
+        if (!el.element.hasAttribute('data-sezzleindex')) {
+          this.renderElement = el.element;
           var sz = this.renderAwesomeSezzle();
           this.addClickEventForModal(document) 
-      }
+        }
       }.bind(this));
       els = els.filter(function (e) {
-      return e !== undefined;
+        return e !== undefined;
       })
     };
     sezzleWidgetCheckInterval.call(this);
