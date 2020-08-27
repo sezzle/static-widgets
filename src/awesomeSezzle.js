@@ -19,7 +19,7 @@ class AwesomeSezzle {
     }
     if (this.language === 'french') this.language = 'fr';
     var templateString = this.widgetLanguageTranslation(this.language, this.numberOfPayments)
-    this.widgetTemplate  = templateString.split("%%") ;
+    this.widgetTemplate  = options.widgetTemplate.split("%%") || templateString.split("%%") ;
     this.assignConfigs(options);
   }
 
@@ -279,6 +279,7 @@ class AwesomeSezzle {
             apNode.setAttribute('height','29');
             apNode.setAttribute('viewBox','0 0 140 29');
             apNode.setAttribute('class',`sezzle-afterpay-logo ap-modal-info-link no-sezzle-info`);
+            apNode.setAttribute('style', `height: 18px !important;width: auto !important;margin-bottom: -5px;`)
             apNode.innerHTML = HelperClass.svgImages().apNodeColor;
             sezzleButtonText.appendChild(apNode);
             this.setLogoSize(apNode);
@@ -289,6 +290,7 @@ class AwesomeSezzle {
             apNode.setAttribute('height','29');
             apNode.setAttribute('viewBox','0 0 140 29');
             apNode.setAttribute('class',`sezzle-afterpay-logo ap-modal-info-link no-sezzle-info`);
+            apNode.setAttribute('style', `height: 18px !important;width: auto !important;margin-bottom: -5px;`)
             apNode.innerHTML = HelperClass.svgImages().apNodeGrey;
             sezzleButtonText.appendChild(apNode);
             this.setLogoSize(apNode);
@@ -299,6 +301,7 @@ class AwesomeSezzle {
               apNode.setAttribute('height','29');
               apNode.setAttribute('viewBox','0 0 140 29');
               apNode.setAttribute('class',`sezzle-afterpay-logo ap-modal-info-link no-sezzle-info`);
+              apNode.setAttribute('style', `height: 18px !important;width: auto !important;margin-bottom: -5px;`)
               apNode.innerHTML = HelperClass.svgImages().apNodeWhite;
               sezzleButtonText.appendChild(apNode);
               this.setLogoSize(apNode);
