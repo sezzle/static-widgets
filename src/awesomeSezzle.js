@@ -19,7 +19,8 @@ class AwesomeSezzle {
     }
     if (this.language === 'french') this.language = 'fr';
     var templateString = this.widgetLanguageTranslation(this.language, this.numberOfPayments)
-    this.widgetTemplate  = options.widgetTemplate || templateString;
+    this.widgetTemplate  = options.widgetTemplate ? options.widgetTemplate.split('%%') : templateString.split('%%');
+    this.renderElement = document.getElementById(options.renderElement) || document.getElementById('sezzle-widget')
     this.assignConfigs(options);
   }
 
@@ -38,7 +39,7 @@ class AwesomeSezzle {
     this.fontFamily = options.fontFamily || "inherit";
     this.maxWidth = options.maxWidth || 'none';
     this.textColor = options.textColor || '#111';
-    this.renderElement = document.getElementById(options.renderElement) || document.getElementById('sezzle-widget');
+    this.renderElement = this.renderElement;
     this.apLink = options.apLink || 'https://www.afterpay.com/terms-of-service';
     this.widgetType = options.widgetType || 'product-page';
     this.bannerURL = options.bannerURL ||  '';
@@ -53,7 +54,7 @@ class AwesomeSezzle {
     this.logoStyle = options.logoStyle  || {};
     this.theme = options.theme || 'light';
     this.parseMode = options.parseMode || 'default'; // other available option is comma (For french)
-    this.widgetTemplate = this.widgetTemplate.split("%%");
+    this.widgetTemplate = this.widgetTemplate;
   }
 
   widgetLanguageTranslation(language, numberOfPayments) {
@@ -200,7 +201,7 @@ class AwesomeSezzle {
   }
 
   eraseWidget(){
-    let sezzleElement  = document.getElementById('sezzle-widget');
+    let sezzleElement  = this.renderElement;
     sezzleElement.removeChild(sezzleElement.childNodes[0])
   }
 
