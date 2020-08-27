@@ -5,8 +5,6 @@ import '../css/global.scss';
 class AwesomeSezzle {
   
   constructor(options){
-    console.log('constructor');
-    console.log(this.renderElementArray);
     if (!options) { options = {}; console.error('Config for widget is not supplied'); }
     this.numberOfPayments = options.numberOfPayments || 4;
     switch (typeof (options.language)) {
@@ -28,8 +26,6 @@ class AwesomeSezzle {
   }
 
   assignConfigs (options) {
-    console.log('assignConfigs');
-    console.log(this.renderElementArray);
     this.amount = options.amount || null;
     this.minPrice = options.minPrice || 0;
     this.maxPrice = options.maxPrice || 250000;
@@ -200,8 +196,6 @@ class AwesomeSezzle {
 
 
   alterPrice(amt){
-    console.log('alterPrice');
-    console.log(this.renderElementArray);
     this.eraseWidget();
     this.assignConfigs(this);
     this.amount = amt;
@@ -211,7 +205,6 @@ class AwesomeSezzle {
   eraseWidget(){
     this.renderElementArray.forEach(function(element, index){
       let sezzleElement = document.getElementById(element);
-      console.log(sezzleElement)
       sezzleElement.removeChild(sezzleElement.childNodes[0])
     })
   }
@@ -233,8 +226,6 @@ class AwesomeSezzle {
   }
 
   renderAwesomeSezzle(){
-    console.log('renderAwesomeSezzle');
-    console.log(this.renderElementArray);
     if (!this.isProductEligible(this.amount)) return false;
     this.insertWidgetTypeCSSClassInElement();
     this.setElementMargins();
@@ -399,8 +390,6 @@ class AwesomeSezzle {
   }
  
   getElementToRender(){     
-    console.log('getElementToRender');
-    console.log(this.renderElementArray);
     return this.renderElement; 
   }
 
@@ -541,8 +530,6 @@ class AwesomeSezzle {
   }
 
   init(){
-    console.log('init');
-    console.log(this.renderElementArray);
     var els = [];
     function renderModals() {
       this.renderModal();
@@ -554,14 +541,11 @@ class AwesomeSezzle {
       }
     };
     function sezzleWidgetCheckInterval() {
-      // if (!this.renderElement.hasAttribute('data-sezzleindex')) {
         this.renderElementArray.forEach(function(el, index){
           els.push({
             element: document.getElementById(el),
           });
         })
-        console.log(els)
-      // }
       els.forEach(function (el, index) {
         if (!el.element.hasAttribute('data-sezzleindex')) {
           this.renderElement = el.element;
