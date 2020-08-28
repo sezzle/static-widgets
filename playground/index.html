@@ -7,13 +7,15 @@
     <title>Sezzle SDK Test</title>
    
   </head>
-  <body class='container'>
+  <body class='container' style="background: lightslategray;">
     <h1>Test Sezzle SDK</h1>
     <p id='price'>$ 25</p>
     Desktop
     <div id='sezzle-widget'></div>
     Mobile
     <div id='sezzle-widget-mobile'></div>
+
+    <button id='yourClickableElementIdHere'>Show Me the Modal</button>
 
     <script src='../dist/bundle.js'></script>
     <!-- <p>ou 4 paiements de %%price%% sans int&#233;r&#234;ts avec %%logo%% %%info%%</p>
@@ -25,17 +27,336 @@
     <script>
       document.querySelector('#price').innerText
       const renderSezzle = new AwesomeSezzle({ 
+        // string, variable or document...innerText
+      amount: document.querySelector('#price').innerText,
+      // null, string, or array of strings
       renderElement: ['sezzle-widget','sezzle-widget-mobile'],
-      amount: document.querySelector('#price').innerText, 
-      widgetTemplate: `or 4 interest-free payments of %%price%% with %%logo%% %%info%% or %%afterpay-logo%% %%afterpay-info-icon%%`,
-      language: document.querySelector('html').lang
+      // null, light, dark, grayscale, white, white-flat, black-flat
+      theme: 'grayscale',
+      // null or >0 other than 400 (default)
+      maxWidth: 600,
+      // null, >0 or <0
+      marginTop:5,
+      // null, >0 or <0
+      marginBottom: 10,
+      // null, >0 or <0
+      marginLeft: 5,
+      // null, >0 or <0
+      marginRight: 10,
+      //  null, auto, left, center, or right
+      alignment: 'right',
+      //  null or >0 other than 750 (default)
+      alignmentSwitchMinWidth: 768,
+      // null, eft, center, or right
+      alignmentSwitchType: 'center',
+      // name, RGB(), r HEX#
+      textColor: 'purple',
+      // name(s), comma-delimited
+      fontFamily: 'Comfortaa, sans-serif',
+      // null or >0 other than 12 (default)
+      fontSize: 16,
+      // null or number 100-900 other than 300 (default)
+      fontWeight: 600,
+      // null, en, fr, or french
+      language: 'fr',
+      // null, default, or comma
+      parseMode: 'comma',
+      // null or >0 other than 4 (default)
+      numberOfPayments: 6,
+      // null or >0 (default)
+      minPrice: 100,
+      // null or >0 other than 250000(default),
+      maxPrice: 10100,
+      // null or string with the below templates, or object with 'en' and 'fr' keys
+      // %%price%% %%logo%% %%info%% %%question-mark%% %%link%% %%afterpay-logo%% %%afterpay-logo-grey%% %%afterpay-logo-white%% %%afterpay-info-icon%% %%afterpay-link-icon%% %%quadpay-logo%% %%quadpay-logo-grey%% %%quadpay-logo-white%% %%quadpay-info-icon%%
+      widgetTemplate: 'or 4 interest-free payments of %%price%% with %%logo%% %%info%% %%question-mark%% %%link%% or %%afterpay-logo%% %%afterpay-logo-grey%% %%afterpay-logo-white%% %%afterpay-info-icon%% %%afterpay-link-icon%% %%quadpay-logo%% %%quadpay-logo-grey%% %%quadpay-logo-white%% %%quadpay-info-icon%%',
+      // altModalHTML: '',
+      // null or outerHTML
+      apModalHTML: '<div id="afterpay-popup-wrapper" style="position: fixed; z-index: 2147483647; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: auto;"><div id="afterpay-popup-outer" style="display: flex; place-content: center; align-items: center; width: 100%; min-height: 100%; background-color: rgba(0, 0, 0, 0.8);"><div id="afterpay-popup-inner" style="position: relative; background-color: rgb(255, 255, 255);"><a href="https://www.afterpay.com/purchase-payment-agreement" target="_blank" style="display: block;"><img src="https://static.afterpay.com/us-popup-medium.png" srcset="https://static.afterpay.com/us-popup-medium.png 1x, https://static.afterpay.com/us-popup-medium@2x.png 2x" style="max-width: 597px; display: block; width: 100%;"></a><a href="#" style="position: absolute; right: 8px; top: 8px;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" width="32px" height="32px"><g id="surface1"><path style=" " d="M 16 3 C 8.832031 3 3 8.832031 3 16 C 3 23.167969 8.832031 29 16 29 C 23.167969 29 29 23.167969 29 16 C 29 8.832031 23.167969 3 16 3 Z M 16 5 C 22.085938 5 27 9.914063 27 16 C 27 22.085938 22.085938 27 16 27 C 9.914063 27 5 22.085938 5 16 C 5 9.914063 9.914063 5 16 5 Z M 12.21875 10.78125 L 10.78125 12.21875 L 14.5625 16 L 10.78125 19.78125 L 12.21875 21.21875 L 16 17.4375 L 19.78125 21.21875 L 21.21875 19.78125 L 17.4375 16 L 21.21875 12.21875 L 19.78125 10.78125 L 16 14.5625 Z "></path></g></svg></a></div></div></div>',
+      // null or URL
+      apLink: '',
+      // null or outerHTML
+      qpModalHTML: `<div id="qp-modal__overlay" class="qp-modal__overlay" style="display: block;">
+    <style>
+    .qp-modal__overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow-y: auto;
+        width: 100%;
+        height: 100%;
+        display: none;
+        background: rgba(15, 15, 17, .66);
+        z-index: 200000001 !important;
+    }
+
+    .qp-modal__container {
+        font-family: Montserrat, sans-serif;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+                justify-content: space-between;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        max-width: 420px;
+        width: 90%;
+        padding: 20px 20px 20px 20px;
+        margin: 1em auto;
+        color: #13131F;
+        background: white;
+        position: relative;
+        opacity: 1;
+        z-index: 200000002;
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-box-shadow: 0px 6px 20px 2px rgba(100, 100, 100, .5);
+                box-shadow: 0px 6px 20px 2px rgba(100, 100, 100, .5);
+    }
+    
+    .hidden {
+    position:absolute;
+    left:-10000px;
+    top:auto;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+    }
+
+    .qp-modal__close {
+        width: 20px;
+        height: 20px;
+        -ms-flex-item-align: end;
+            align-self: flex-end;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        opacity: 1;
+        cursor: pointer;
+    }
+
+    .qp-modal__close:before,
+    .qp-modal__close:after {
+        position: absolute;
+        bottom: 0;
+        right: 8px;
+        content: ' ';
+        height: 22px;
+        width: 4px;
+        background-color: #1D73EC;
+    }
+
+    .qp-modal__close:before {
+        -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+                transform: rotate(45deg);
+    }
+
+    .qp-modal__close:after {
+        -webkit-transform: rotate(-45deg);
+            -ms-transform: rotate(-45deg);
+                transform: rotate(-45deg);
+    }
+
+    .qp-modal__close:hover::before,
+    .qp-modal__close:hover::after {
+        background-color: #13131F;
+        -webkit-box-shadow: 0 1px 1px 1px rgba(100, 100, 100, .1);
+                box-shadow: 0 1px 1px 1px rgba(100, 100, 100, .1);
+    }
+
+    .qp-modal__logo {
+        margin-top: 2em;
+    }
+
+    .outline-red {
+        outline-color: red;
+        border: 1px solid red;
+    }
+
+    .qp-modal__step-container {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        -webkit-box-pack: space-evenly;
+            -ms-flex-pack: space-evenly;
+                justify-content: space-evenly;
+        margin: 0.2em 0 0.8em 0;
+        max-width: 80%;
+    }
+
+    .qp-modal__step-icon {
+        margin-bottom: 0.75em;
+    }
+
+    .qp-modal__tag {
+        font-size: 110%;
+        font-weight: 700;
+        width: 80%;
+        text-align: center;
+        margin: 1em 0;
+        max-width: 80%;
+    }
+
+    .qp-modal__subtitle {
+        text-align: center;
+        margin: 0 0 2em 0;
+        color: #4C515D;
+        width: 90%;
+        font-weight: 500;
+        font-size: 95%;
+    }
+
+    .qp-modal__subhead {
+        text-align: center;
+        margin: 0 0 2em 0;
+        color: #4C515D;
+        font-weight: 500;
+        font-size: 95%;
+    }
+
+    .qp-modal__step-header {
+        font-size: 110%;
+        font-weight: bold;
+        margin: 0 0 0.4em 0;
+        text-align: center;
+        font-weight: 700;
+    }
+
+    .qp-modal--nowrap {
+        white-space: nowrap;
+        font-weight: inherit;
+        font-family: inherit;
+        font-size: inherit;
+    }
+
+    .qp-modal__footnote {
+        text-align: center;
+        margin: 0 0 2em 0;
+        color: #4C515D;
+        font-weight: 500;
+        font-size: 90%;
+    }
+
+    .qp-modal__service-fee {
+        margin-top: 10px;
+    }
+
+    /* To handle when parent site specifies SVG fill and stroke globally */
+    #qp-modal__logo-q {
+        fill: #1D73EC;
+    }
+    #qp-modal__logo-uqadpay {
+        fill: #13131F;
+    }
+    .qp-modal__logo svg *
+    {
+        stroke: none;
+    }
+    #qp-modal__step-icon--choose path,
+    #qp-modal__step-icon--pay path
+    {
+        fill: none;
+    }
+
+    @media screen and (max-width: 420px) {
+        .qp-modal__container {
+          padding: 20px 6px 20px 6px;
+          width: 96%;
+        }
+
+        .qp-modal__tag { width: 85%; }
+
+        .qp-modal__step-container { width: 85%; }
+      }    
+
+    </style>
+    
+    <div class="qp-modal__container" id="qp-modal__container" aria-describedby="popup">
+    <p id="popup" class="hidden">An automatic popup has been triggered.</p>
+    <div class="qp-modal__close" id="qp-modal__close" role="button"></div>
+    <div class="qp-modal__logo" id="qp-modal__logo">    
+            <svg xmlns="http://www.w3.org/2000/svg" width="140" height="27" viewBox="0 0 108 21" version="1.1">
+            <g style="fill-rule:evenodd;fill:none">'''<a id="qp-howitworks" xlink:href="https://www.quadpay.com/how-it-works/" target="new"><path id="qp-modal__logo-q" d="M18.27 15.61L16.5 13.26C16.41 13.15 16.28 13.08 16.14 13.08L7.32 13.08C4.91 12.82 3.1 10.75 3.1 8.26 3.1 5.58 5.21 3.41 7.81 3.41 7.93 3.41 8.04 3.41 8.15 3.42 9.21 3.5 10.2 3.94 10.99 4.67 11.86 5.49 12.18 6.6 12.29 7.8L12.29 7.88 12.29 10.51C12.29 10.76 12.49 10.95 12.73 10.95L15.07 10.95C15.31 10.95 15.51 10.76 15.51 10.51 15.51 10.51 15.51 10.51 15.51 10.51 15.51 8.73 15.5 7.82 15.5 7.79 15.26 3.55 11.85 0.23 7.76 0.23 3.48 0.23 0 3.84 0 8.28 0 12.45 3.02 15.89 7.02 16.29 7.04 16.29 7.17 16.3 7.74 16.32L11.66 16.32 12.29 16.32 12.29 17.2 12.29 18.19 12.29 18.87C12.29 19.01 12.36 19.14 12.48 19.23L14.82 20.89C15.02 21.03 15.29 20.98 15.43 20.78 15.49 20.71 15.52 20.62 15.52 20.52L15.51 17.2 15.51 16.32 16.36 16.32 17.92 16.32C18.16 16.32 18.36 16.12 18.36 15.88 18.36 15.78 18.33 15.69 18.27 15.61Z" fill="#1D73EC"></path><path id="qp-modal__logo-uqadpay" d="M20 10.36C20 13.83 22.82 16.43 26.31 16.43 29.82 16.43 32.67 13.83 32.67 10.36L32.67 0.66C32.67 0.43 32.47 0.23 32.24 0.23L29.51 0.23C29.27 0.23 29.09 0.43 29.09 0.66L29.09 10.18C29.09 11.85 27.91 12.78 26.31 12.78 24.73 12.78 23.58 11.85 23.58 10.18L23.58 0.66C23.58 0.43 23.4 0.23 23.16 0.23L20.42 0.23C20.2 0.23 20 0.43 20 0.66L20 10.36ZM35.04 16.21C34.71 16.21 34.53 15.91 34.67 15.61L41.62 0.25C41.69 0.11 41.84 0 42 0L42.22 0C42.38 0 42.53 0.11 42.6 0.25L49.56 15.61C49.69 15.91 49.51 16.21 49.18 16.21L46.71 16.21C46.31 16.21 46.13 16.07 45.93 15.64L45.13 13.83 39.09 13.83 38.29 15.66C38.18 15.93 37.93 16.21 37.49 16.21L35.04 16.21ZM40.42 10.73L43.8 10.73 42.11 6.96 42.09 6.96 40.42 10.73ZM52.2 15.77L52.2 0.66C52.2 0.43 52.38 0.23 52.6 0.23L58.02 0.23C62.31 0.23 65.82 3.81 65.82 8.19 65.82 12.62 62.31 16.21 58.02 16.21L52.6 16.21C52.38 16.21 52.2 16 52.2 15.77ZM55.67 12.83L58 12.83C60.51 12.83 62.13 10.8 62.13 8.19 62.13 5.62 60.51 3.58 58 3.58L55.67 3.58 55.67 12.83ZM69.36 15.77L69.36 0.66C69.36 0.43 69.53 0.23 69.78 0.23L75.13 0.23C78.07 0.23 80.11 2.51 80.11 5.27 80.11 8.1 78.07 10.41 75.16 10.41L72.82 10.41 72.82 15.77C72.82 16 72.62 16.21 72.4 16.21L69.78 16.21C69.53 16.21 69.36 16 69.36 15.77ZM72.82 7.08L75.07 7.08C76.02 7.08 76.69 6.3 76.69 5.27 76.69 4.31 76.02 3.58 75.07 3.58L72.82 3.58 72.82 7.08ZM80.47 16.21C80.13 16.21 79.96 15.91 80.09 15.61L87.04 0.25C87.11 0.11 87.27 0 87.42 0L87.64 0C87.8 0 87.96 0.11 88.02 0.25L94.98 15.61C95.11 15.91 94.93 16.21 94.6 16.21L92.13 16.21C91.73 16.21 91.56 16.07 91.36 15.64L90.56 13.83 84.51 13.83 83.71 15.66C83.6 15.93 83.36 16.21 82.91 16.21L80.47 16.21ZM85.84 10.73L89.22 10.73 87.53 6.96 87.51 6.96 85.84 10.73ZM99.24 15.77L99.24 8.51 94.33 0.89C94.16 0.59 94.33 0.23 94.69 0.23L97.58 0.23C97.76 0.23 97.87 0.34 97.93 0.43L101.02 5.11 104.11 0.43C104.18 0.34 104.27 0.23 104.47 0.23L107.36 0.23C107.71 0.23 107.89 0.59 107.71 0.89L102.73 8.49 102.73 15.77C102.73 16 102.53 16.21 102.31 16.21L99.67 16.21C99.42 16.21 99.24 16 99.24 15.77Z" fill="#13131F"></path></a>'''</g></svg>
+        </div>
+        <div class="qp-modal__tag" id="qp-modal__tag">Shop online now, pay over time. <span class="qp-modal--nowrap">Zero interest.</span></div>
+        <div class="qp-modal__subtitle" id="qp-modal__subtitle">We split the purchase amount into 4 payments, spread over 6 weeks.</div>
+    
+        <div class="qp-modal__step-container" id="qp-modal__step-icon--choose">
+            <div class="qp-modal__step-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="33" viewBox="0 0 30 33" version="1.1"><title>  Choose QuadPay at checkout</title><g style="fill-rule:evenodd;fill:none;stroke-linecap:round;stroke-linejoin:round"><g style="stroke-width:2.87999975;stroke:#13131F"><path d="M3.78 11.39C3.9 10.21 4.97 9.25 6.17 9.25L23.83 9.25C25.03 9.25 26.1 10.21 26.22 11.39L27.99 28.86C28.11 30.04 27.24 31 26.05 31L3.95 31C2.76 31 1.89 30.04 2.01 28.86L3.78 11.39Z"></path><path d="M20.06 13.6L20.06 7.07C20.06 4.28 17.79 2 15 2 12.21 2 9.94 4.28 9.94 7.07L9.94 13.6"></path></g></g></svg>
+            </div>
+            <div class="qp-modal__step-header">Choose QuadPay at checkout</div>
+            <div class="qp-modal__subhead">Quick and easy.</div>
+        </div>
+    
+        <div class="qp-modal__step-container">
+            <div class="qp-modal__step-icon" id="qp-modal__step-icon--use">
+                <svg xmlns="http://www.w3.org/2000/svg" width="33" height="24" viewBox="0 0 33 24" version="1.1"><style>.a{stroke-linecap:round;stroke-linejoin:round;stroke-width:2.87999975;stroke:#000;}</style><title>  QuadPay works with debit and credit cards</title><g style="fill-rule:evenodd;fill:none;stroke-width:1;stroke:none"><rect x="2" y="2" width="29" height="20" rx="2.16" class="a"></rect><rect x="2" y="6.29" width="29" height="4.29" fill="#000"></rect><path d="M7.08 17L8.52 17" class="a"></path><path d="M13.6 17L17.95 17" style="stroke-linecap:round;stroke-linejoin:round;stroke-width:2.87999975;stroke:#13131F"></path></g></svg>
+            </div>
+            <div class="qp-modal__step-header">Use your debit or your credit card</div>
+            <div class="qp-modal__subhead">No long forms, instant approval.</div>
+        </div>
+    
+        <div class="qp-modal__step-container">
+            <div class="qp-modal__step-icon" id="qp-modal__step-icon--pay">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="33" viewBox="0 0 28 33" version="1.1"><title>  Pay over 4 payments and enjoy your purchase straight away.</title><g style="fill-rule:evenodd;fill:none;stroke-linecap:round;stroke-linejoin:round"><g style="stroke-width:2.87999975;stroke:#13131F"><path d="M21.62 13.37C20.78 13.01 19.79 12.62 18.64 12.24 17.29 11.79 16.17 11.47 15.27 11.25L14.84 4.17C14.76 2.97 13.75 2 12.58 2L11.89 2C10.72 2 9.76 2.98 9.76 4.18L9.76 18.76 4 17.41C2.9 17.41 2 18.32 2 19.44L2 21.48C2 21.48 7.51 24.29 8.51 24.81 9.75 25.45 11.28 26.53 12.26 28.86 12.66 29.8 13.54 31 14.7 31L23.89 31C25.05 31 26 30.03 26 28.82L26 8.53C26 7.32 25.05 6.35 23.89 6.35 23.1 6.35 22.39 7 22.29 7.8L21.62 13.37 21.62 13.37Z"></path></g></g></svg>
+            </div>
+            <div class="qp-modal__step-header">Pay over 4 payments</div>
+            <div class="qp-modal__subhead">Enjoy your purchase straight away.</div>
+            
+        </div>
+    </div></div>`,
     });
     renderSezzle.init();
     setTimeout(()=>{
       const  amount  = '$ 100';
       document.getElementById('price').innerText = amount
       renderSezzle.alterPrice(amount)
-    },3000)
+    },3000);
+
+      var clickElement = document.querySelector('#yourClickableElementIdHere')
+      clickElement.addEventListener("click", function() { renderSezzle.renderModalByfunction() });
+
+      document.onreadystatechange = function(){
+        if(renderSezzle.isMobileBrowser()){
+          document.getElementById('sezzle-widget-mobile').style.display = "block";
+          document.getElementById('sezzle-widget').style.display = "none";
+        } else {
+          document.getElementById('sezzle-widget').style.display = "block";
+          document.getElementById('sezzle-widget-mobile').style.display = "none";
+        }
+      } 
+
     </script>
   </body>
 </html>
+
+<!-- add theme: white-flat -->
+<!-- add theme: black-flat -->
+<!-- alignment is not working -->
+<!-- Why is `textColor` not `color`, as in sezzle-js? -->
+<!-- Why is `widgetTemplate` not `altVersionTemplate` as in sezzle-js? -->
+<!-- Get widgetTemplate to accept object with 'en' and 'fr' keys -->
+<!-- %%question-mark%% is too large -->
+<!-- Update AP logo svgs in awesomeHelper per rebranding -->
+<!-- Scale down Quadpay logos in awesomeHelper -->
+<!-- Add Affirm templates to widgetTemplate and awesomeHelper -->
+<!-- What innerHTML is needed for the altModalHTML to work? -->
+<!-- Update alterPrice to render widget if price crosses minPrice/maxPrice threshold -->
+<!-- How does "getElementToRender work?" -->

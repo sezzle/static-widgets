@@ -85,7 +85,19 @@ Once the widget is rendering, additional configurations can be added to the Awes
       clickElement.addEventListener("click", function() { renderSezzle.renderModalByfunction() });
     ```
 
-3. `isMobileBrowser()` - Returns true on mobile browser. Use this event to show or hide the widget in different page locations based on device.
+3. `isMobileBrowser()` - Returns true on mobile browser. Use this event to show or hide the widget in different page locations based on device type.
+
+    ```
+      document.onreadystatechange = function(){
+        if(renderSezzle.isMobileBrowser()){
+          document.getElementById('sezzle-widget-mobile').style.display = "block";
+          document.getElementById('sezzle-widget').style.display = "none";
+        } else {
+          document.getElementById('sezzle-widget').style.display = "block";
+          document.getElementById('sezzle-widget-mobile').style.display = "none";
+        }
+      } 
+    ```
 
 4. `getElementToRender()` - Returns Element where the widget will be rendered. Create an event listener that invokes this function if the widget should appear when the event occurs.
 
