@@ -11,10 +11,10 @@ What makes this SDK interesting is that it has a different approach compared to 
 
 Once the widget is rendering, additional configurations can be added to the AwesomeSezzle to change the appearance. Below is an example featuring all the options. However, amount is the only required value.
 
-```
+```html
  <script>  
   var renderSezzle = new AwesomeSezzle({ 
-    amount: '{{ product.selected_or_first_available_variant.price | money }}’,
+    amount: '{{ product.selected_or_first_available_variant.price | money }}',
     renderElement: 'new-sezzle-widget-container-id',
     theme: 'light',
     maxWidth: 400,
@@ -29,6 +29,9 @@ Once the widget is rendering, additional configurations can be added to the Awes
     fontFamily: 'Comfortaa, sans-serif',
     fontSize: 12,
     fontWeight: 400,
+    widgetType: 'product-page',
+    logoSize: 1.0,
+    logoStyle: {},
     language: 'en',
     parseMode: 'default'
   })
@@ -37,8 +40,8 @@ Once the widget is rendering, additional configurations can be added to the Awes
 ```
 
 1. **`amount`** - This config is required. Provide the product price variable as a template-literal,  Shopify.Liquid Example: `'{{ product.selected_or_first_available_variant.price | money }}'`
-2. **`renderElement`** - This config is optional. It defaults to `sezzle-widget`.
-3. **`theme`** - This config is optional. It defaults to `light`. Alternative values include `dark`, `grayscale`, `black`, or `white`.
+2. **`renderElement`** - This config is optional. Provide the ID name or array of ID names that correspond to the widget placeholder elements. It defaults to `sezzle-widget`.
+3. **`theme`** - This config is optional. It defaults to `light`. Alternative values include `dark`, `grayscale`, `black`, `white`, or `white-flat`.
 4. **`maxWidth`** - This config is optional. It defaults to `none`.
 5. **`marginTop`** - This config is optional. It defaults to `0`.
 6. **`marginBottom`** - This config is optional. It defaults to `0`.
@@ -72,7 +75,7 @@ Once the widget is rendering, additional configurations can be added to the Awes
 ## Functions
 
 1. `alterPrice(newPrice)` - Alters price on widget. Create an event listener after `renderSezzle.init()` that invokes this function where `newPrice` is the new price value of the selected variant. Example:
-    ```
+    ```js
       document.onchange = function(){
         var newPrice = '${yourPriceVariableHere}'; 
         renderSezzle.alterPrice(newPrice);
@@ -80,14 +83,13 @@ Once the widget is rendering, additional configurations can be added to the Awes
     ```
 
 2. `renderModalByfunction()` - Opens the Sezzle modal by a function. Create an event listener that invokes this function if the event location is other than the info icon.
-    ```
+    ```js
       var clickElement = document.querySelector('#yourClickableElementIdHere')
       clickElement.addEventListener("click", function() { renderSezzle.renderModalByfunction() });
     ```
 
 3. `isMobileBrowser()` - Returns true on mobile browser. Use this event to show or hide the widget in different page locations based on device type.
-
-    ```
+    ```js
       document.onreadystatechange = function(){
         if(renderSezzle.isMobileBrowser()){
           document.getElementById('sezzle-widget-mobile').style.display = "block";
@@ -109,15 +111,15 @@ Once the widget is rendering, additional configurations can be added to the Awes
 Create a new Javascript file within your site's code where appropriate. <br/>
 Copy+paste  <a href="https://github.com/sezzle/static-widgets/blob/production/dist/bundle.js">this minified code</a> into this newly created file.<br/>
 Import this new file into the page(s) where the Sezzle widget will be added.<br/>
- ```
+ ```html
   <script src="../scripts/sezzle-static-widget.js"></script>
  ```
 Create a placeholder element where the Sezzle widget should be rendered on the page(s), usually below the price container element:<br/>
-  ```
+  ```html
     <div id="sezzle-widget"></div>
   ```
 Add the following script below the placeholder element, updating the amount value to reflect your price variable which renders the current product price or cart total as applicable.<br/>
-  ```
+  ```html
     <script>  
     var renderSezzle = new AwesomeSezzle({ 
         amount: `${yourPriceVariableHere}`
@@ -151,7 +153,7 @@ Copy the code from the below repository file and paste it into this new file, th
 
 Add the following lines of code wherever the widget should render on the product page within `templates/product.liquid` or `sections/product-template.liquid` as applicable:
 
-```
+```html
 <!-- Sezzle Static Widget -->
 <div id="sezzle-widget"></div>
 {{ 'sezzle-static-widget.js' | asset_url | script_tag }}
@@ -170,7 +172,7 @@ Add the following lines of code wherever the widget should render on the product
 
 Add the following lines of code wherever the widget should render on the cart page within `templates/cart.liquid` or `sections/cart-template.liquid` as applicable:
 
-```
+```html
 <!-- Sezzle Static Widget -->
 <div id="sezzle-widget"></div>
 {{ 'sezzle-static-widget.js' | asset_url | script_tag }}

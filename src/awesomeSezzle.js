@@ -52,6 +52,7 @@ class AwesomeSezzle {
     this.marginLeft = options.marginLeft || 0;
     this.marginRight = options.marginRight || 0;
     this.logoSize = options.logoSize || 1.0;
+    this.scaleFactor = options.scaleFactor || 1.0;
     this.fixedHeight = options.fixedHeight || 0;
     this.logoStyle = options.logoStyle  || {};
     this.theme = options.theme || 'light';
@@ -192,19 +193,19 @@ class AwesomeSezzle {
   }
 
   setWidgetSize(){
-    this.renderElement.style.transformOrigin = `top ${this.alignment}`;
-    this.renderElement.style.transform = `scale(${this.scaleFactor})`;
-      if (this.fixedHeight) {
-        this.renderElement.style.height = `${this.fixedHeight}px`;
-        this.renderElement.style.overflow = 'hidden';
-      }
+    if(this.scaleFactor){
+      this.renderElement.style.transformOrigin = `top ${this.alignment}`;
+      this.renderElement.style.transform = `scale(${this.scaleFactor})`;
+    }
+    if (this.fixedHeight) {
+      this.renderElement.style.height = `${this.fixedHeight}px`;
+      this.renderElement.style.overflow = 'hidden';
+    }
   }
 
 
   alterPrice(amt){
-    if(this.renderElement.length){
       this.eraseWidget();
-    }
     this.assignConfigs(this);
     this.amount = amt;
     this.init()
@@ -213,7 +214,9 @@ class AwesomeSezzle {
   eraseWidget(){
     this.renderElementArray.forEach(function(element, index){
       let sezzleElement = document.getElementById(element);
-      sezzleElement.removeChild(sezzleElement.childNodes[0])
+      if(sezzleElement.innerHTML.length){
+        sezzleElement.removeChild(sezzleElement.childNodes[0]);
+      }
     })
   }
 
@@ -223,7 +226,10 @@ class AwesomeSezzle {
   }
 
   setLogoStyle(element) {
-    element.style = this.logoStyle;
+    var newStyles = Object.keys(this.logoStyle);
+    for(let i = 0; i< newStyles.length; i++){
+      element.style[newStyles[i]] = this.logoStyle[newStyles[i]];
+    }
   }
 
   n(newVal){
@@ -237,7 +243,7 @@ class AwesomeSezzle {
     if (!this.isProductEligible(this.amount)) return false;
     this.insertWidgetTypeCSSClassInElement();
     this.setElementMargins();
-    if (this.scaleFactor) this.setWidgetSize();
+    if (this.scaleFactor || this.fixedHeight) this.setWidgetSize();
     var node = document.createElement('div');
     node.className = 'sezzle-checkout-button-wrapper sezzle-modal-link';
     node.style.cursor = 'pointer';
@@ -261,8 +267,9 @@ class AwesomeSezzle {
             logoNode.setAttribute('class',`sezzle-logo ${this.imageClassName}`);
             logoNode.innerHTML = this.imageInnerHTML;
             sezzleButtonText.appendChild(logoNode);
-            this.setLogoSize(logoNode);
             if(this.logoStyle != {}) this.setLogoStyle(logoNode);
+            this.setLogoSize(logoNode);
+
             break;
           case 'link':
             var learnMoreNode = document.createElement('span');

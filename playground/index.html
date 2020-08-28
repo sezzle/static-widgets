@@ -37,8 +37,7 @@ renderSezzle2.init();
         // string, variable or document...innerText
       amount: document.querySelector('#price').innerText,
       // null, string, or array of strings
-      renderElement: ['sezzle-widget-mobile', 'sezzle-widget'],
-      // renderElement: ['sezzle-widget','sezzle-widget-mobile'],
+      renderElement: ['sezzle-widget','sezzle-widget-mobile'],
       // null, light, dark, grayscale, white, white-flat, black-flat
       // theme: 'white-flat',
       // null or >0 other than 400 (default)
@@ -65,6 +64,16 @@ renderSezzle2.init();
       // fontSize: 16,
       // null or number 100-900 other than 300 (default)
       // fontWeight: 600,
+      // null, cart, product-page, or product-preview
+      // widgetType: 'product-preview',
+      // null or >0
+      // fixedHeight: 10,
+      // null or > 0 other than 1.0 (default)
+      // scaleFactor: 1.5,
+      // null or >0.0 other than 1.0 (default)
+      // logoSize: 1.16,
+      // null or any CSS key/value combinations (JSON format)
+      // logoStyle: {'marginRight': '10px', 'backgroundColor': 'white'}
       // null, en, fr, or french
       // language: 'fr',
       // null, default, or comma
@@ -72,7 +81,7 @@ renderSezzle2.init();
       // null or >0 other than 4 (default)
       // numberOfPayments: 6,
       // null or >0 (default)
-      minPrice: 3000,
+      // minPrice: 3000,
       // null or >0 other than 250000(default),
       // maxPrice: 10100,
       // null or string with the below templates, or object with 'en' and 'fr' keys
