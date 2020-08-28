@@ -102,7 +102,9 @@ Once the widget is rendering, additional configurations can be added to the Awes
     ```
 
 4. `getElementToRender()` - Returns Element where the widget will be rendered. Create an event listener that invokes this function if the widget should appear when the event occurs.
-
+    ```js
+      document.body.insertBefore(renderSezzle.getElementToRender(), document.getElementById('price').nextElementSibling);
+    ```
 
 ## Implementation General Overview
 
