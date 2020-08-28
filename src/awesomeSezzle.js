@@ -42,7 +42,7 @@ class AwesomeSezzle {
     this.textColor = options.textColor || '#111';
     this.renderElementArray = typeof(this.renderElementInitial) === 'string' ? [this.renderElementInitial] : this.renderElementInitial;
     this.renderElement = this.renderElementInitial;
-    this.apLink = options.apLink || 'https://www.afterpay.com/terms-of-service';
+    this.apLink = options.apLink || 'https://www.afterpay.com/purchase-payment-agreement';
     this.widgetType = options.widgetType || 'product-page';
     this.bannerURL = options.bannerURL ||  '';
     this.bannerClass = options.bannerClass || '';
@@ -120,8 +120,10 @@ class AwesomeSezzle {
         case 'dark':
           this.renderElement.children[0].children[0].className += ' szl-dark'; 
           break;
-        case 'grayscale':
-          this.renderElement.children[0].children[0].className = 'szl-light';
+        case 'white':
+          this.renderElement.children[0].children[0].className += 'szl-dark';
+        case 'white-flat':
+          this.renderElement.children[0].children[0].className += 'szl-dark';
         default:
           this.renderElement.children[0].children[0].className += ' szl-light';
           break;
@@ -135,7 +137,7 @@ class AwesomeSezzle {
         this.imageInnerHTML = HelperClass.svgImages().sezzleDark
         break;
       case 'grayscale':
-        this.imageClassName = 'szl-grayscale-image'
+        this.imageClassName = 'szl-light-image'
         this.imageInnerHTML = HelperClass.svgImages().sezzleGrey
         break;
       case 'black':
@@ -143,8 +145,12 @@ class AwesomeSezzle {
         this.imageInnerHTML = HelperClass.svgImages().sezzleBlack
         break;
       case 'white':
-        this.imageClassName = 'szl-light-image'
+        this.imageClassName = 'szl-dark-image'
         this.imageInnerHTML = HelperClass.svgImages().sezzleWhite
+        break;
+      case 'white-flat':
+        this.imageClassName = 'szl-dark-image'
+        this.imageInnerHTML = HelperClass.svgImages().sezzleWhiteAlt
         break;
       default:
         this.imageClassName = 'szl-light-image'
@@ -196,7 +202,9 @@ class AwesomeSezzle {
 
 
   alterPrice(amt){
-    this.eraseWidget();
+    if(this.renderElement.length){
+      this.eraseWidget();
+    }
     this.assignConfigs(this);
     this.amount = amt;
     this.init()
@@ -333,6 +341,7 @@ class AwesomeSezzle {
             qpNode.setAttribute('height','22');
             qpNode.setAttribute('viewBox','0 0 118 22');
             qpNode.setAttribute('class',`sezzle-quadpay-logo quadpay-modal-info-link no-sezzle-info`);
+            qpNode.setAttribute('style', `height: 18px !important;width: auto !important;margin-bottom: -5px;`)
             qpNode.innerHTML = HelperClass.svgImages().qpNodeColor;
             sezzleButtonText.appendChild(qpNode);
             this.setLogoSize(qpNode);
@@ -343,6 +352,7 @@ class AwesomeSezzle {
               qpNode.setAttribute('height','22');
               qpNode.setAttribute('viewBox','0 0 118 22');
               qpNode.setAttribute('class',`sezzle-quadpay-logo quadpay-modal-info-link no-sezzle-info`);
+              qpNode.setAttribute('style', `height: 18px !important;width: auto !important;margin-bottom: -5px;`)
               qpNode.innerHTML = HelperClass.svgImages().qpNodeGrey;;
               sezzleButtonText.appendChild(qpNode);
               this.setLogoSize(qpNode);
@@ -353,6 +363,7 @@ class AwesomeSezzle {
               qpNode.setAttribute('height','22');
               qpNode.setAttribute('viewBox','0 0 118 22');
               qpNode.setAttribute('class',`sezzle-quadpay-logo quadpay-modal-info-link no-sezzle-info`);
+              qpNode.setAttribute('style', `height: 18px !important;width: auto !important;margin-bottom: -5px;`)
               qpNode.innerHTML = HelperClass.svgImages().qpNodeWhite;;
               sezzleButtonText.appendChild(qpNode);
               this.setLogoSize(qpNode);
