@@ -20,7 +20,8 @@ class AwesomeSezzle {
     if (this.language === 'french') this.language = 'fr';
     var templateString = this.widgetLanguageTranslation(this.language, this.numberOfPayments)
     this.widgetTemplate  = options.widgetTemplate ? options.widgetTemplate.split('%%') : templateString.split('%%');
-    this.renderElement = document.getElementById(options.renderElement) || document.getElementById('sezzle-widget')
+    // this.renderElement = document.getElementById(options.renderElement) || document.getElementById('sezzle-widget')
+    this.renderElementInitial = options.renderElement || 'sezzle-widget';
     this.assignConfigs(options);
   }
 
@@ -39,7 +40,8 @@ class AwesomeSezzle {
     this.fontFamily = options.fontFamily || "inherit";
     this.maxWidth = options.maxWidth || 'none';
     this.textColor = options.textColor || '#111';
-    this.renderElement = this.renderElement;
+    this.renderElementArray = typeof(this.renderElementInitial) === 'string' ? [this.renderElementInitial] : this.renderElementInitial;
+    this.renderElement = this.renderElementInitial;
     this.apLink = options.apLink || 'https://www.afterpay.com/terms-of-service';
     this.widgetType = options.widgetType || 'product-page';
     this.bannerURL = options.bannerURL ||  '';
@@ -194,15 +196,17 @@ class AwesomeSezzle {
 
 
   alterPrice(amt){
-    this.eraseWidget()
+    this.eraseWidget();
     this.assignConfigs(this);
     this.amount = amt;
     this.init()
   }
 
   eraseWidget(){
-    let sezzleElement  = this.renderElement;
-    sezzleElement.removeChild(sezzleElement.childNodes[0])
+    this.renderElementArray.forEach(function(element, index){
+      let sezzleElement = document.getElementById(element);
+      sezzleElement.removeChild(sezzleElement.childNodes[0])
+    })
   }
 
   setLogoSize(element){
@@ -385,7 +389,9 @@ class AwesomeSezzle {
     this.addCSSCustomisation();
   }
  
-  getElementToRender(){ return this.renderElement; }
+  getElementToRender(){     
+    return this.renderElement; 
+  }
 
   isProductEligible(priceText){
     var price = this.parseMode ==='default' ? HelperClass.parsePrice(priceText) : HelperClass.parsePrice(priceText,this.parseMode);
@@ -528,26 +534,27 @@ class AwesomeSezzle {
     function renderModals() {
       this.renderModal();
       if (document.getElementsByClassName('ap-modal-info-link').length > 0) {
-      this.renderAPModal();
+        this.renderAPModal();
       }
       if (document.getElementsByClassName('quadpay-modal-info-link').length > 0) {
-      this.renderQPModal();
+        this.renderQPModal();
       }
     };
     function sezzleWidgetCheckInterval() {
-    if (!this.renderElement.hasAttribute('data-sezzleindex')) {
-      els.push({
-          element: this.renderElement,
-      });
-      }
+        this.renderElementArray.forEach(function(el, index){
+          els.push({
+            element: document.getElementById(el),
+          });
+        })
       els.forEach(function (el, index) {
-      if (!el.element.hasAttribute('data-sezzleindex')) {
+        if (!el.element.hasAttribute('data-sezzleindex')) {
+          this.renderElement = el.element;
           var sz = this.renderAwesomeSezzle();
           this.addClickEventForModal(document) 
-      }
+        }
       }.bind(this));
       els = els.filter(function (e) {
-      return e !== undefined;
+        return e !== undefined;
       })
     };
     sezzleWidgetCheckInterval.call(this);

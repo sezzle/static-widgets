@@ -25,9 +25,9 @@
     <script>
       document.querySelector('#price').innerText
       const renderSezzle = new AwesomeSezzle({ 
-      renderElement: 'sezzle-widget-mobile',
+      renderElement: ['sezzle-widget','sezzle-widget-mobile'],
       amount: document.querySelector('#price').innerText, 
-      // widgetTemplate: `or 4 interest-free payments of %%price%% with %%logo%% %%info%% or %%afterpay-logo%% %%afterpay-info-icon%%`,
+      widgetTemplate: `or 4 interest-free payments of %%price%% with %%logo%% %%info%% or %%afterpay-logo%% %%afterpay-info-icon%%`,
       language: document.querySelector('html').lang
     });
     renderSezzle.init();
