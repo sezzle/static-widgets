@@ -18,6 +18,7 @@ class AwesomeSezzle {
         this.language = "en";
     }
     if (this.language === 'french') this.language = 'fr';
+    if(this.language === 'german' || this.language === 'deutsche') this.language = 'de';
     var templateString = this.widgetLanguageTranslation(this.language, this.numberOfPayments)
     this.widgetTemplate  = options.widgetTemplate ? options.widgetTemplate.split('%%') : templateString.split('%%');
     // this.renderElement = document.getElementById(options.renderElement) || document.getElementById('sezzle-widget')
@@ -32,6 +33,8 @@ class AwesomeSezzle {
     this.altModalHTML = options.altLightboxHTML || '';
     this.apModalHTML = options.apModalHTML || '';
     this.qpModalHTML = options.qpModalHTML || '';
+    this.affirmModalHTML = options.affirmModalHTML || '';
+    this.klarnaModalHTML = options.klarnaModalHTML || '';
     this.alignmentSwitchMinWidth = options.alignmentSwitchMinWidth || 760;
     this.alignmentSwitchType = options.alignmentSwitchType || '';
     this.alignment = options.alignment || 'left';
@@ -63,7 +66,8 @@ class AwesomeSezzle {
   widgetLanguageTranslation(language, numberOfPayments) {
     const translations = {
       'en': 'or ' + numberOfPayments + ' interest-free payments of %%price%% with %%logo%% %%info%%',
-      'fr': 'ou ' + numberOfPayments + ' paiements de %%price%% sans int%%&eacute;%%r%%&ecirc;%%ts avec %%logo%% %%info%%'
+      'fr': 'ou ' + numberOfPayments + ' paiements de %%price%% sans int%%&eacute;%%r%%&ecirc;%%ts avec %%logo%% %%info%%',
+      'de': 'oder ' + numberOfPayments + ' zinslose Zahlungen von je %%price%% mit %%logo%% %%info%%'
     };
     return translations[language] || translations.en;
   };
@@ -265,6 +269,7 @@ class AwesomeSezzle {
             logoNode.setAttribute('height','199.56');
             logoNode.setAttribute('viewBox','0 0 798.16 199.56');
             logoNode.setAttribute('class',`sezzle-logo ${this.imageClassName}`);
+            logoNode.setAttribute('alt', 'Sezzle');
             logoNode.innerHTML = this.imageInnerHTML;
             sezzleButtonText.appendChild(logoNode);
             if(this.logoStyle != {}) this.setLogoStyle(logoNode);
@@ -299,7 +304,8 @@ class AwesomeSezzle {
             apNode.setAttribute('height','29');
             apNode.setAttribute('viewBox','0 0 140 29');
             apNode.setAttribute('class',`sezzle-afterpay-logo ap-modal-info-link no-sezzle-info`);
-            apNode.setAttribute('style', `height: 18px !important;width: auto !important;margin-bottom: -5px;`)
+            apNode.setAttribute('style', `height: 18px !important;width: auto !important;margin-bottom: -5px;`);
+            apNode.setAttribute('alt', 'Afterpay');
             apNode.innerHTML = HelperClass.svgImages().apNodeColor;
             sezzleButtonText.appendChild(apNode);
             this.setLogoSize(apNode);
@@ -310,7 +316,8 @@ class AwesomeSezzle {
             apNode.setAttribute('height','29');
             apNode.setAttribute('viewBox','0 0 140 29');
             apNode.setAttribute('class',`sezzle-afterpay-logo ap-modal-info-link no-sezzle-info`);
-            apNode.setAttribute('style', `height: 18px !important;width: auto !important;margin-bottom: -5px;`)
+            apNode.setAttribute('style', `height: 18px !important;width: auto !important;margin-bottom: -5px;`);
+            apNode.setAttribute('alt', 'Afterpay');
             apNode.innerHTML = HelperClass.svgImages().apNodeGrey;
             sezzleButtonText.appendChild(apNode);
             this.setLogoSize(apNode);
@@ -321,7 +328,8 @@ class AwesomeSezzle {
               apNode.setAttribute('height','29');
               apNode.setAttribute('viewBox','0 0 140 29');
               apNode.setAttribute('class',`sezzle-afterpay-logo ap-modal-info-link no-sezzle-info`);
-              apNode.setAttribute('style', `height: 18px !important;width: auto !important;margin-bottom: -5px;`)
+              apNode.setAttribute('style', `height: 18px !important;width: auto !important;margin-bottom: -5px;`);
+              apNode.setAttribute('alt', 'Afterpay');
               apNode.innerHTML = HelperClass.svgImages().apNodeWhite;
               sezzleButtonText.appendChild(apNode);
               this.setLogoSize(apNode);
@@ -348,7 +356,8 @@ class AwesomeSezzle {
             qpNode.setAttribute('height','22');
             qpNode.setAttribute('viewBox','0 0 118 22');
             qpNode.setAttribute('class',`sezzle-quadpay-logo quadpay-modal-info-link no-sezzle-info`);
-            qpNode.setAttribute('style', `height: 18px !important;width: auto !important;margin-bottom: -5px;`)
+            qpNode.setAttribute('style', `height: 18px !important;width: auto !important;margin-bottom: -5px;`);
+            qpNode.setAttribute('alt', 'Quadpay');
             qpNode.innerHTML = HelperClass.svgImages().qpNodeColor;
             sezzleButtonText.appendChild(qpNode);
             this.setLogoSize(qpNode);
@@ -359,8 +368,9 @@ class AwesomeSezzle {
               qpNode.setAttribute('height','22');
               qpNode.setAttribute('viewBox','0 0 118 22');
               qpNode.setAttribute('class',`sezzle-quadpay-logo quadpay-modal-info-link no-sezzle-info`);
-              qpNode.setAttribute('style', `height: 18px !important;width: auto !important;margin-bottom: -5px;`)
-              qpNode.innerHTML = HelperClass.svgImages().qpNodeGrey;;
+              qpNode.setAttribute('style', `height: 18px !important;width: auto !important;margin-bottom: -5px;`);
+              qpNode.setAttribute('alt', 'Quadpay');
+              qpNode.innerHTML = HelperClass.svgImages().qpNodeGrey;
               sezzleButtonText.appendChild(qpNode);
               this.setLogoSize(qpNode);
               break;
@@ -370,8 +380,9 @@ class AwesomeSezzle {
               qpNode.setAttribute('height','22');
               qpNode.setAttribute('viewBox','0 0 118 22');
               qpNode.setAttribute('class',`sezzle-quadpay-logo quadpay-modal-info-link no-sezzle-info`);
-              qpNode.setAttribute('style', `height: 18px !important;width: auto !important;margin-bottom: -5px;`)
-              qpNode.innerHTML = HelperClass.svgImages().qpNodeWhite;;
+              qpNode.setAttribute('style', `height: 18px !important;width: auto !important;margin-bottom: -5px;`);
+              qpNode.setAttribute('alt', 'Quadpay');
+              qpNode.innerHTML = HelperClass.svgImages().qpNodeWhite;
               sezzleButtonText.appendChild(qpNode);
               this.setLogoSize(qpNode);
               break;
@@ -380,6 +391,90 @@ class AwesomeSezzle {
             quadpayInfoIconNode.className = 'quadpay-modal-info-link no-sezzle-info';
             quadpayInfoIconNode.innerHTML = '&#9432;';
             sezzleButtonText.appendChild(quadpayInfoIconNode);
+            break;
+          case 'affirm-logo':
+            var affirmNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
+            affirmNode.setAttribute('width','450');
+            affirmNode.setAttribute('height','170');
+            affirmNode.setAttribute('viewBox','0 0 450 170');
+            affirmNode.setAttribute('class',`sezzle-affirm-logo affirm-modal-info-link no-sezzle-info`);
+            affirmNode.setAttribute('style', `height: 24px !important;width: auto !important;`);
+            affirmNode.setAttribute('alt', 'Affirm');
+            affirmNode.innerHTML = HelperClass.svgImages().affirmNodeColor;
+            sezzleButtonText.appendChild(affirmNode);
+            this.setLogoSize(affirmNode);
+            break;
+          case 'affirm-logo-grey':
+              var affirmNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
+              affirmNode.setAttribute('width','450');
+              affirmNode.setAttribute('height','170');
+              affirmNode.setAttribute('viewBox','0 0 450 170');
+              affirmNode.setAttribute('class',`sezzle-affirm-logo affirm-modal-info-link no-sezzle-info`);
+              affirmNode.setAttribute('style', `height: 24px !important;width: auto !important;`);
+              affirmNode.setAttribute('alt', 'Affirm');
+              affirmNode.innerHTML = HelperClass.svgImages().affirmNodeGrey;
+              sezzleButtonText.appendChild(affirmNode);
+              this.setLogoSize(affirmNode);
+              break;
+          case 'affirm-logo-white':
+                var affirmNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
+                affirmNode.setAttribute('width','450');
+                affirmNode.setAttribute('height','170');
+                affirmNode.setAttribute('viewBox','0 0 450 170');
+                affirmNode.setAttribute('class',`sezzle-affirm-logo affirm-modal-info-link no-sezzle-info`);
+                affirmNode.setAttribute('style', `height: 24px !important;width: auto !important;`);
+                affirmNode.setAttribute('alt', 'Affirm');
+                affirmNode.innerHTML = HelperClass.svgImages().affirmNodeWhite;
+              sezzleButtonText.appendChild(affirmNode);
+              this.setLogoSize(affirmNode);
+              break;
+          case 'affirm-info-icon':
+            var affirmInfoIconNode = document.createElement('code');
+            affirmInfoIconNode.className = 'affirm-modal-info-link no-sezzle-info';
+            affirmInfoIconNode.innerHTML = '&#9432;';
+            sezzleButtonText.appendChild(affirmInfoIconNode);
+            break;
+          case 'klarna-logo':
+            var klarnaNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
+            klarnaNode.setAttribute('width','45');
+            klarnaNode.setAttribute('height','25');
+            klarnaNode.setAttribute('viewBox','0 0 45 23');
+            klarnaNode.setAttribute('class',`sezzle-klarna-logo klarna-modal-info-link no-sezzle-info`);
+            klarnaNode.setAttribute('style', `height: 25px !important;width: auto !important; margin-bottom: -5px;`);
+            klarnaNode.setAttribute('alt', 'Klarna');
+            klarnaNode.innerHTML = HelperClass.svgImages().klarnaNodeColor;
+            sezzleButtonText.appendChild(klarnaNode);
+            this.setLogoSize(klarnaNode);
+            break;
+          case 'klarna-logo-grey':
+              var klarnaNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
+              klarnaNode.setAttribute('width','45');
+              klarnaNode.setAttribute('height','25');
+              klarnaNode.setAttribute('viewBox','0 0 45 23');
+              klarnaNode.setAttribute('class',`sezzle-klarna-logo klarna-modal-info-link no-sezzle-info`);
+              klarnaNode.setAttribute('style', `height: 25px !important;width: auto !important; margin-bottom: -5px;`);
+              klarnaNode.setAttribute('alt', 'Klarna');
+              klarnaNode.innerHTML = HelperClass.svgImages().klarnaNodeGrey;
+              sezzleButtonText.appendChild(klarnaNode);
+              this.setLogoSize(klarnaNode);
+              break;
+          case 'klarna-logo-white':
+                var klarnaNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
+                klarnaNode.setAttribute('width','45');
+                klarnaNode.setAttribute('height','25');
+                klarnaNode.setAttribute('viewBox','0 0 45 23');
+                klarnaNode.setAttribute('class',`sezzle-klarna-logo klarna-modal-info-link no-sezzle-info`);
+                klarnaNode.setAttribute('style', `height: 25px !important;width: auto !important; margin-bottom: -5px;`);
+                klarnaNode.setAttribute('alt', 'Klarna');
+                klarnaNode.innerHTML = HelperClass.svgImages().klarnaNodeWhite;
+              sezzleButtonText.appendChild(klarnaNode);
+              this.setLogoSize(klarnaNode);
+              break;
+          case 'klarna-info-icon':
+            var klarnaInfoIconNode = document.createElement('code');
+            klarnaInfoIconNode.className = 'klarna-modal-info-link no-sezzle-info';
+            klarnaInfoIconNode.innerHTML = '&#9432;';
+            sezzleButtonText.appendChild(klarnaInfoIconNode);
             break;
           case 'line-break':
             var lineBreakNode = document.createElement('br');
@@ -394,6 +489,16 @@ class AwesomeSezzle {
               var ecirc = document.createElement('span');
               ecirc.innerHTML = '&#234;';
               sezzleButtonText.appendChild(ecirc);
+              break;
+            case '&auml;':
+              var auml = document.createElement('span');
+              auml.innerHTML = '&#228;';
+              sezzleButtonText.appendChild(auml);
+              break;
+            case '&uuml;':
+              var uuml = document.createElement('span');
+              uuml.innerHTML = '&#252;';
+              sezzleButtonText.appendChild(uuml);
               break;
           default:
             var widgetTextNode = document.createTextNode(subtemplate);
@@ -449,10 +554,12 @@ class AwesomeSezzle {
       if (this.altModalHTML) {
         modalNode.innerHTML = this.altModalHTML;
       } else {
-        if (this.language === "en") {
-          modalNode.innerHTML = `<meta name="viewport" content="width=device-width, initial-scale=1.0"><div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal"> <div class="sezzle-modal-content"> <div class="sezzle-logo"></div><div class="close-sezzle-modal"></div><div class="sezzle-header"> Sezzle it now. <span class="header-desktop">Pay us back later.</span> <div class="header-mobile">Pay us back later.</div></div><div class="sezzle-row"> <div class="desktop"> Check out with Sezzle and split your entire order into <div>4 interest-free payments over 6 weeks.</div></div><div class="mobile"> Check out with Sezzle and split your entire order into 4 interest-free payments over 6 weeks. </div></div><div class="sezzle-payment-pie"> </div><div class="sezzle-features"> <div class="single-feature"> <div>No Interest, Ever</div><div class="sub-feature">Plus no fees if you pay on time</div></div><div class="single-feature"> <div style="line-height: 1.2;">No Impact to Your<div>Credit Score</div></div></div><div class="single-feature"> <div>Instant Approval</div><div>Decisions</div></div></div><div class="sezzle-row"> <div class="desktop"> <div class="just-select-sezzle">Just select <span>Sezzle</span> at checkout!</div></div><div class="mobile"> <div class="just-select-sezzle-mobile"> <div>Just select Sezzle</div><div>at checkout!</div></div></div></div><div class="terms">Subject to approval.</div></div></div></div>`;
-        } else {
+        if (this.language === "fr") {
           modalNode.innerHTML = `<meta name="viewport" content="width=device-width, initial-scale=1.0" /><div class="sezzle-checkout-modal-hidden"><div class="sezzle-modal"><div class="sezzle-modal-content"><div class="sezzle-logo"></div><div class="close-sezzle-modal"></div><div class="sezzle-header">Sezzlez maintenant. <span class="header-desktop">Payez-nous plus tard.</span><div class="header-mobile">Payez-nous plus tard.</div></div><div class="sezzle-row"><div class="desktop">Payez avec Sezzle pour r&#233;partir le montant de votre commande en 4 versements sans int&#233;r&#234;ts <div>&#233;tal&#233;s sur 6 semaines.</div></div><div class="mobile">Payez avec Sezzle pour r&#233;partir le montant de votre commande en 4 versements sans int&#233;r&#234;ts &#233;tal&#233;s sur 6 semaines.</div></div><div class="sezzle-payment-pie-fr"></div><div class="sezzle-features"><div class="single-feature"><div>Pas d'int&#233;r&#234;ts jamais.</div><div class="sub-feature">Pas de frais non plus si vous payez aux dates pr&#233;vues </div></div><div class="single-feature"><div style="line-height: 1.2;">Pas d'impact sur<div> votre cote de cr&#233;dit</div></div></div><div class="single-feature"><div>D&#233;cisions d'approbation</div><div>instantan&#233;es</div></div></div><div class="sezzle-row"><div class="desktop"><div class="just-select-sezzle"> Vous n'avez qu'	&#224; choisir <span>Sezzle</span> au moment de r&#233;gler&nbsp;!</div></div><div class="mobile"><div class="just-select-sezzle-mobile"><div>Vous n'avez qu'	&#224; choisir Sezzle</div><div>au moment de r&#233;gler&nbsp;!</div></div></div></div><div class="terms">Sous r&#233;serve d'approbation.</div></div></div></div>`;
+        } else if (this.language === "de"){
+          modalNode.innerHTML = `<meta name="viewport" content="width=device-width, initial-scale=1.0"><div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal"> <div class="sezzle-modal-content"> <div class="sezzle-logo"></div><div class="close-sezzle-modal"></div><div class="sezzle-header"> Jetzt Sezzlen. <span class="header-desktop">Sp&#228;ter zahlen.</span> <div class="header-mobile">Sp&#228;ter zahlen.</div></div><div class="sezzle-row"> <div class="desktop">Checke einfach mit Sezzle aus<br/> und zahle deine gesamte Bestellung in<div>4 zinslosen Raten &#252;ber 4 Monate.</div></div><div class="mobile"> Checke einfach mit Sezzle aus und zahle deine gesamte Bestellung in 4 zinslosen Raten &#252;ber 4 Monate.</div></div><div class="sezzle-payment-pie"> </div><div class="sezzle-features"> <div class="single-feature"> <div>Keine Zinsen. Punkt.</div><div class="sub-feature">Zudem keine Geb&#252;hren, wenn du p&#252;nktlich zahlst</div></div><div class="single-feature"> <div style="line-height: 1.2;">Keine Auswirkungen auf deine<div>Schufa-Score</div></div></div><div class="single-feature"> <div>Sofortige </div><div>Kreditentscheidung</div></div></div><div class="sezzle-row"> <div class="desktop"> <div class="just-select-sezzle">Einfach Sezzle<span>beim Checkout w&#228;hlen</span>!</div></div><div class="mobile"> <div class="just-select-sezzle-mobile"> <div>Einfach Sezzle</div><div>beim Checkout w&#228;hlen!</div></div></div></div><div class="terms">Vorbehaltlich unserer Zustimmung.</div></div></div></div>`;
+        } else {
+          modalNode.innerHTML = `<meta name="viewport" content="width=device-width, initial-scale=1.0"><div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal"> <div class="sezzle-modal-content"> <div class="sezzle-logo"></div><div class="close-sezzle-modal"></div><div class="sezzle-header"> Sezzle it now. <span class="header-desktop">Pay us back later.</span> <div class="header-mobile">Pay us back later.</div></div><div class="sezzle-row"> <div class="desktop"> Check out with Sezzle and split your entire order into <div>4 interest-free payments over 6 weeks.</div></div><div class="mobile"> Check out with Sezzle and split your entire order into 4 interest-free payments over 6 weeks. </div></div><div class="sezzle-payment-pie"> </div><div class="sezzle-features"> <div class="single-feature"> <div>No Interest, Ever</div><div class="sub-feature">Plus no fees if you pay on time</div></div><div class="single-feature"> <div style="line-height: 1.2;">No Impact to Your<div>Credit Score</div></div></div><div class="single-feature"> <div>Instant Approval</div><div>Decisions</div></div></div><div class="sezzle-row"> <div class="desktop"> <div class="just-select-sezzle">Just select <span>Sezzle</span> at checkout!</div></div><div class="mobile"> <div class="just-select-sezzle-mobile"> <div>Just select Sezzle</div><div>at checkout!</div></div></div></div><div class="terms">Subject to approval.</div></div></div></div>`;
         }
        
       }
@@ -511,6 +618,44 @@ class AwesomeSezzle {
     });
   }
 
+  renderAffirmModal(){
+    var modalNode = document.createElement('div');
+    modalNode.className = 'sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-affirm-modal';
+    modalNode.style = 'position: center';
+    modalNode.style.display = 'none';
+    modalNode.innerHTML = this.affirmModalHTML;
+    document.getElementsByTagName('html')[0].appendChild(modalNode);
+    Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
+      el.addEventListener('click', function () {
+        modalNode.style.display = 'none';
+      });
+    });
+    let sezzleModal = document.getElementsByClassName('sezzle-modal')[0]
+    if (!sezzleModal) sezzleModal = document.getElementsByClassName('sezzle-checkout-modal')[0]
+    sezzleModal.addEventListener('click', function (event) {
+      event.stopPropagation();
+    });
+  }
+
+  renderKlarnaModal(){
+    var modalNode = document.createElement('div');
+    modalNode.className = 'sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-klarna-modal';
+    modalNode.style = 'position: center';
+    modalNode.style.display = 'none';
+    modalNode.innerHTML = this.klarnaModalHTML;
+    document.getElementsByTagName('html')[0].appendChild(modalNode);
+    Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
+      el.addEventListener('click', function () {
+        modalNode.style.display = 'none';
+      });
+    });
+    let sezzleModal = document.getElementsByClassName('sezzle-modal')[0]
+    if (!sezzleModal) sezzleModal = document.getElementsByClassName('sezzle-checkout-modal')[0]
+    sezzleModal.addEventListener('click', function (event) {
+      event.stopPropagation();
+    });
+  }
+
   renderModalByfunction(){
     var modalNode = document.getElementsByClassName('sezzle-checkout-modal-lightbox')[0];
     modalNode.style.display = 'block';
@@ -540,6 +685,18 @@ class AwesomeSezzle {
         document.getElementsByClassName('sezzle-qp-modal')[0].style.display = 'block';
       }.bind(this));
     }.bind(this));
+    var affirmModalLinks = sezzleElement.getElementsByClassName('affirm-modal-info-link');
+    Array.prototype.forEach.call(affirmModalLinks, function (modalLink) {
+      modalLink.addEventListener('click', function () {
+        document.getElementsByClassName('sezzle-affirm-modal')[0].style.display = 'block';
+      }.bind(this));
+    }.bind(this));
+    var klarnaModalLinks = sezzleElement.getElementsByClassName('klarna-modal-info-link');
+    Array.prototype.forEach.call(klarnaModalLinks, function (modalLink) {
+      modalLink.addEventListener('click', function () {
+        document.getElementsByClassName('sezzle-klarna-modal')[0].style.display = 'block';
+      }.bind(this));
+    }.bind(this));
   }
 
   isMobileBrowser(){
@@ -556,6 +713,12 @@ class AwesomeSezzle {
       }
       if (document.getElementsByClassName('quadpay-modal-info-link').length > 0) {
         this.renderQPModal();
+      }
+      if (document.getElementsByClassName('affirm-modal-info-link').length > 0) {
+        this.renderAffirmModal();
+      }
+      if (document.getElementsByClassName('klarna-modal-info-link').length > 0) {
+        this.renderKlarnaModal();
       }
     };
     function sezzleWidgetCheckInterval() {
