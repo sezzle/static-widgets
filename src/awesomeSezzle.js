@@ -299,11 +299,11 @@ class AwesomeSezzle {
             break;
           case 'afterpay-logo':
             var apNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
-            apNode.setAttribute('width','140');
-            apNode.setAttribute('height','29');
-            apNode.setAttribute('viewBox','0 0 140 29');
+            apNode.setAttribute('width','115');
+            apNode.setAttribute('height','40');
+            apNode.setAttribute('viewBox','0 0 115 40');
             apNode.setAttribute('class',`sezzle-afterpay-logo ap-modal-info-link no-sezzle-info`);
-            apNode.setAttribute('style', `height: 18px !important;width: auto !important;margin-bottom: -5px;`);
+            apNode.setAttribute('style', `height: 24px !important;width: auto !important;margin-bottom: -8px;`);
             apNode.setAttribute('alt', 'Afterpay');
             apNode.innerHTML = HelperClass.svgImages().apNodeColor;
             sezzleButtonText.appendChild(apNode);
@@ -311,11 +311,11 @@ class AwesomeSezzle {
             break;
           case 'afterpay-logo-grey':
             var apNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
-            apNode.setAttribute('width','140');
-            apNode.setAttribute('height','29');
-            apNode.setAttribute('viewBox','0 0 140 29');
+            apNode.setAttribute('width','115');
+            apNode.setAttribute('height','40');
+            apNode.setAttribute('viewBox','0 0 115 40');
             apNode.setAttribute('class',`sezzle-afterpay-logo ap-modal-info-link no-sezzle-info`);
-            apNode.setAttribute('style', `height: 18px !important;width: auto !important;margin-bottom: -5px;`);
+            apNode.setAttribute('style', `height: 32px !important;width: auto !important;margin: -10px;`);
             apNode.setAttribute('alt', 'Afterpay');
             apNode.innerHTML = HelperClass.svgImages().apNodeGrey;
             sezzleButtonText.appendChild(apNode);
@@ -323,11 +323,11 @@ class AwesomeSezzle {
             break;
             case 'afterpay-logo-white':
               var apNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
-              apNode.setAttribute('width','140');
-              apNode.setAttribute('height','29');
-              apNode.setAttribute('viewBox','0 0 140 29');
+              apNode.setAttribute('width','115');
+              apNode.setAttribute('height','40');
+              apNode.setAttribute('viewBox','0 0 115 40');
               apNode.setAttribute('class',`sezzle-afterpay-logo ap-modal-info-link no-sezzle-info`);
-              apNode.setAttribute('style', `height: 18px !important;width: auto !important;margin-bottom: -5px;`);
+              apNode.setAttribute('style', `height: 32px !important;width: auto !important;margin: -10px;`);
               apNode.setAttribute('alt', 'Afterpay');
               apNode.innerHTML = HelperClass.svgImages().apNodeWhite;
               sezzleButtonText.appendChild(apNode);
