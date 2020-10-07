@@ -422,9 +422,12 @@ height: 100%;
     right: 16px;
     top: 16px;
     width: 24px;
-    height: 24px;
+    // height: 24px;
+    height: 0px;
     opacity: 0.2;
     cursor: pointer;
+    background: none;
+    border: none;
     
     &:hover {
         opacity: 1;
