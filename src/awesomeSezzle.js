@@ -249,6 +249,7 @@ class AwesomeSezzle {
     if (this.scaleFactor || this.fixedHeight) this.setWidgetSize();
     var node = document.createElement('div');
     node.className = 'sezzle-checkout-button-wrapper sezzle-modal-link';
+    node.tabindex = 0;
     node.style.cursor = 'pointer';
     var sezzleButtonText = document.createElement('div');
     sezzleButtonText.className = 'sezzle-button-text';
@@ -276,26 +277,31 @@ class AwesomeSezzle {
 
             break;
           case 'link':
-            var learnMoreNode = document.createElement('span');
+            var learnMoreNode = document.createElement('button');
+            learnMoreNode.role = "button";
             learnMoreNode.className = 'sezzle-learn-more sezzle-modal-open-link';
             var learnMoreText = document.createTextNode('Learn more');
             learnMoreNode.appendChild(learnMoreText);
             sezzleButtonText.appendChild(learnMoreNode);
             break;
           case 'info':
-            var infoIconNode = document.createElement('code');
+            var infoIconNode = document.createElement('button');
+            infoIconNode.role = "button";
             infoIconNode.className = 'sezzle-info-icon sezzle-modal-open-link';
             infoIconNode.innerHTML = '&#9432;';
             sezzleButtonText.appendChild(infoIconNode);
             break;
           case 'question-mark':
+            var questionMarkButton = document.createElement('button');
+            questionMarkButton.role = "button";
             var questionMarkIconNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
-            questionMarkIconNode.setAttribute('width','369');
-            questionMarkIconNode.setAttribute('height','371');
+            questionMarkIconNode.setAttribute('width','14');
+            questionMarkIconNode.setAttribute('height','14');
             questionMarkIconNode.setAttribute('viewBox','0 0 369 371');
-            questionMarkIconNode.setAttribute('class','sezzle-question-mark-icon sezzle-modal-open-link');
-            questionMarkIconNode.innerHTML = HelperClass.svgImages().questionMarkIcon
-            sezzleButtonText.appendChild(questionMarkIconNode);
+            questionMarkButton.setAttribute('class','sezzle-question-mark-icon sezzle-modal-open-link');
+            questionMarkIconNode.innerHTML = HelperClass.svgImages().questionMarkIcon;
+            questionMarkButton.appendChild(questionMarkIconNode);
+            sezzleButtonText.appendChild(questionMarkButton);
             break;
           case 'afterpay-logo':
             var apNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
@@ -334,7 +340,8 @@ class AwesomeSezzle {
               this.setLogoSize(apNode);
               break;
           case 'afterpay-info-icon':
-            var apInfoIconNode = document.createElement('code');
+            var apInfoIconNode = document.createElement('button');
+            apInfoIconNode.role = "button";
             apInfoIconNode.className = 'ap-modal-info-link no-sezzle-info';
             apInfoIconNode.innerHTML = '&#9432;';
             sezzleButtonText.appendChild(apInfoIconNode);
@@ -386,7 +393,8 @@ class AwesomeSezzle {
               this.setLogoSize(qpNode);
               break;
           case 'quadpay-info-icon':
-            var quadpayInfoIconNode = document.createElement('code');
+            var quadpayInfoIconNode = document.createElement('button');
+            quadpayInfoIconNode.role = "button";
             quadpayInfoIconNode.className = 'quadpay-modal-info-link no-sezzle-info';
             quadpayInfoIconNode.innerHTML = '&#9432;';
             sezzleButtonText.appendChild(quadpayInfoIconNode);
@@ -428,7 +436,8 @@ class AwesomeSezzle {
               this.setLogoSize(affirmNode);
               break;
           case 'affirm-info-icon':
-            var affirmInfoIconNode = document.createElement('code');
+            var affirmInfoIconNode = document.createElement('button');
+            affirmInfoIconNode.role = "button";
             affirmInfoIconNode.className = 'affirm-modal-info-link no-sezzle-info';
             affirmInfoIconNode.innerHTML = '&#9432;';
             sezzleButtonText.appendChild(affirmInfoIconNode);
@@ -470,7 +479,8 @@ class AwesomeSezzle {
               this.setLogoSize(klarnaNode);
               break;
           case 'klarna-info-icon':
-            var klarnaInfoIconNode = document.createElement('code');
+            var klarnaInfoIconNode = document.createElement('button');
+            klarnaInfoIconNode.role = "button";
             klarnaInfoIconNode.className = 'klarna-modal-info-link no-sezzle-info';
             klarnaInfoIconNode.innerHTML = '&#9432;';
             sezzleButtonText.appendChild(klarnaInfoIconNode);

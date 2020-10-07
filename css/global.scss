@@ -36,22 +36,51 @@
     text-decoration: underline;
     cursor: pointer;
     font-size: 8.5px;
+    background:none;
+    border: none;
+    padding: 0px;
   }
 
   .sezzle-info-icon {
     color: inherit;
     background-color: inherit;
+    border: none;
+    padding: 0px;
   }
 
   .sezzle-question-mark-icon {
     height: 12px;
     width: auto;
     margin-bottom: -0.5px;
+    background:none;
+    border: none;
+    padding: 0px;
   }
 }
 
 .sezzle-modal-link {
   cursor: pointer;
+}
+
+.affirm-modal-info-link {
+    background:none;
+    border: none;
+    padding: 0px;
+}
+.ap-modal-info-link {
+    background:none;
+    border: none;
+    padding: 0px;
+}
+.quadpay-modal-info-link {
+    background:none;
+    border: none;
+    padding: 0px;
+}
+.klarna-modal-info-link {
+    background:none;
+    border: none;
+    padding: 0px;
 }
 
 .sezzle-inline-text {
