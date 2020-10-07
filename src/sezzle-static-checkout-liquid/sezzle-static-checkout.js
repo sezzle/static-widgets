@@ -83,7 +83,7 @@ function renderSezzleButton() {
   templateArray.forEach((subtemplate) => {
     switch (subtemplate) {
       case '%%logo%%':
-        templateString += `<img class='sezzle-button-logo-img' src=${sezzleLogo} />`;
+        templateString += `<img class='sezzle-button-logo-img' alt="Sezzle" src=${sezzleLogo} />`;
         break;
       default:
         templateString += `${subtemplate} `;

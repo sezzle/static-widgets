@@ -21,7 +21,7 @@ class SezzleCheckoutButton {
      templateArray.forEach((subtemplate)=>{
        switch(subtemplate) {
          case  "%%logo%%":
-           templateString += `<img class='sezzle-button-logo-img' src=${chosenImage} />`;
+           templateString += `<img class='sezzle-button-logo-img' alt="Sezzle" src=${chosenImage} />`;
            break;
          default:
            templateString += `${subtemplate} `;
