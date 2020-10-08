@@ -39,6 +39,10 @@
     background:none;
     border: none;
     padding: 0px;
+    outline: none !important;
+    &:focus {
+        background: lightgrey;
+    }
   }
 
   .sezzle-info-icon {
@@ -46,6 +50,10 @@
     background-color: inherit;
     border: none;
     padding: 0px;
+    outline: none !important;
+    &:focus {
+        background: lightgrey;
+    }
   }
 
   .sezzle-question-mark-icon {
@@ -55,6 +63,10 @@
     background:none;
     border: none;
     padding: 0px;
+    outline: none !important;
+    &:focus {
+        background: lightgrey;
+    }
   }
 }
 
@@ -66,21 +78,43 @@
     background:none;
     border: none;
     padding: 0px;
+    outline: none !important;
+    &:focus {
+        background: lightgrey;
+    }
+}
+.ap-info-link {
+    outline: none !important;
+    &:focus {
+        background: lightgrey;
+    }
 }
 .ap-modal-info-link {
     background:none;
     border: none;
     padding: 0px;
+    outline: none !important;
+    &:focus {
+        background: lightgrey;
+    }
 }
 .quadpay-modal-info-link {
     background:none;
     border: none;
     padding: 0px;
+    outline: none !important;
+    &:focus {
+        background: lightgrey;
+    }
 }
 .klarna-modal-info-link {
     background:none;
     border: none;
     padding: 0px;
+    outline: none !important;
+    &:focus {
+        background: lightgrey;
+    }
 }
 
 .sezzle-inline-text {
@@ -422,20 +456,25 @@ height: 100%;
     right: 16px;
     top: 16px;
     width: 24px;
-    // height: 24px;
-    height: 0px;
+    height: 24px;
     opacity: 0.2;
+    padding: 0px;
     cursor: pointer;
     background: none;
     border: none;
+    outline: none !important;
     
     &:hover {
         opacity: 1;
     }
+    &:focus {
+        opacity: 0.5;
+    }
 
     &:before, &:after {
         position: absolute;
-        left: 12px;
+        top: 0px;
+        left: 10px;
         content: ' ';
         height: 24px;
         width: 3px;
