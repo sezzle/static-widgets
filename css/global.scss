@@ -39,10 +39,6 @@
     background:none;
     border: none;
     padding: 0px;
-    outline: none !important;
-    &:focus {
-        background: lightgrey;
-    }
   }
 
   .sezzle-info-icon {
@@ -50,10 +46,6 @@
     background-color: inherit;
     border: none;
     padding: 0px;
-    outline: none !important;
-    &:focus {
-        background: lightgrey;
-    }
   }
 
   .sezzle-question-mark-icon {
@@ -63,10 +55,6 @@
     background:none;
     border: none;
     padding: 0px;
-    outline: none !important;
-    &:focus {
-        background: lightgrey;
-    }
   }
 }
 
@@ -78,43 +66,23 @@
     background:none;
     border: none;
     padding: 0px;
-    outline: none !important;
-    &:focus {
-        background: lightgrey;
-    }
 }
-.ap-info-link {
-    outline: none !important;
-    &:focus {
-        background: lightgrey;
-    }
-}
+
 .ap-modal-info-link {
     background:none;
     border: none;
     padding: 0px;
-    outline: none !important;
-    &:focus {
-        background: lightgrey;
-    }
+
 }
 .quadpay-modal-info-link {
     background:none;
     border: none;
     padding: 0px;
-    outline: none !important;
-    &:focus {
-        background: lightgrey;
-    }
 }
 .klarna-modal-info-link {
     background:none;
     border: none;
     padding: 0px;
-    outline: none !important;
-    &:focus {
-        background: lightgrey;
-    }
 }
 
 .sezzle-inline-text {
