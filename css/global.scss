@@ -44,6 +44,7 @@
   .sezzle-info-icon {
     color: inherit;
     background-color: inherit;
+    cursor: pointer;
     border: none;
     padding: 0px;
   }
@@ -52,6 +53,7 @@
     height: 12px;
     width: auto;
     margin-bottom: -0.5px;
+    cursor: pointer;
     background:none;
     border: none;
     padding: 0px;
@@ -62,24 +64,36 @@
   cursor: pointer;
 }
 
-.affirm-modal-info-link {
+button.affirm-modal-info-link {
+    cursor: pointer;
+    margin-left: -5px !important;
+    color: inherit;
     background:none;
     border: none;
     padding: 0px;
 }
 
 .ap-modal-info-link {
+    cursor: pointer;
+    margin-left: 3px !important;
+    color: inherit;
     background:none;
     border: none;
     padding: 0px;
 
 }
 .quadpay-modal-info-link {
+    cursor: pointer;
+    margin-left: 3px !important;
+    color: inherit;
     background:none;
     border: none;
     padding: 0px;
 }
 .klarna-modal-info-link {
+    cursor: pointer;
+    margin-left: 3px !important;
+    color: inherit;
     background:none;
     border: none;
     padding: 0px;
@@ -426,8 +440,8 @@ height: 100%;
     width: 24px;
     height: 24px;
     opacity: 0.2;
-    padding: 0px;
     cursor: pointer;
+    padding: 0px;
     background: none;
     border: none;
     outline: none !important;
@@ -441,12 +455,12 @@ height: 100%;
 
     &:before, &:after {
         position: absolute;
-        top: 0px;
         left: 10px;
         content: ' ';
         height: 24px;
         width: 3px;
         background-color: #f08570;
+        top: 0px;
     }
 
     &:before {
