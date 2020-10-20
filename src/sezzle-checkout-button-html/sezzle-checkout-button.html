@@ -18,6 +18,7 @@ Text to display can be updated as desired, but Sezzle logo must remain.
         <script type="text/javascript">document.addEventListener( 'change', function(){if(window.innerWidth < 560){document.querySelector(.sezzle-checkout-button).style.display = 'none !important'} else {document.querySelector('.sezzle-checkout-button').style.display = 'inline-block'} } )</script> -->
 
 <style type="text/css">
+@import url(https://fonts.googleapis.com/css?family=Comfortaa);
     .sezzle-checkout-button {
         width: auto;
         height: 40px;
@@ -71,5 +72,13 @@ Text to display can be updated as desired, but Sezzle logo must remain.
        color: #392558;
     }
     </style>
-    <button class="sezzle-checkout-button sezzle-button-light" style="border-radius: 0px;"><a href="/checkout" class="button-light" style="padding: 13px 13px;">Checkout with <img class="sezzle-button-logo-img" src="https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg" alt="Sezzle"></a></button>
-    
+    <script type="text/javascript">
+        function handleSezzleClick(event){
+            event.preventDefault();
+            event.stopPropagation();
+            location.replace('/checkout');
+        }
+    </script>
+    <button class="sezzle-checkout-button sezzle-button-light" style="border-radius: 0px; padding: 13px 13px;" onclick="handleSezzleClick(event)">
+        Checkout with <img class="sezzle-button-logo-img" src="https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg" alt="Sezzle">
+    </button>
