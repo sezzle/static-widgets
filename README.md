@@ -19,7 +19,7 @@ Once the widget is rendering, additional configurations can be added to the Awes
     theme: 'light',
     maxWidth: 400,
     marginTop: 0,
-    marginBottom, 0,
+    marginBottom: 0,
     marginLeft: 0,
     marginRight: 0,
     alignment: 'left',

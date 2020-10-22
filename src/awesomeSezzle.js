@@ -15,7 +15,7 @@ class AwesomeSezzle {
         this.language = options.language();
         break;
       default:
-        this.language = "en";
+        this.language = 'en';
     }
     if (this.language === 'french') this.language = 'fr';
     if(this.language === 'german' || this.language === 'deutsche') this.language = 'de';
@@ -40,7 +40,7 @@ class AwesomeSezzle {
     this.alignment = options.alignment || 'left';
     this.fontWeight = options.fontWeight || 300;
     this.fontSize = options.fontSize || 12;
-    this.fontFamily = options.fontFamily || "inherit";
+    this.fontFamily = options.fontFamily || 'inherit';
     this.maxWidth = options.maxWidth || 'none';
     this.textColor = options.textColor || '#111';
     this.renderElementArray = typeof(this.renderElementInitial) === 'string' ? [this.renderElementInitial] : this.renderElementInitial;
@@ -280,8 +280,9 @@ class AwesomeSezzle {
             break;
           case 'link':
             var learnMoreNode = document.createElement('button');
-            learnMoreNode.role = "button";
-            learnMoreNode.title = "Learn More about Sezzle";
+            learnMoreNode.role = 'button';
+            learnMoreNode.type = 'button';
+            learnMoreNode.title = 'Learn More about Sezzle';
             learnMoreNode.className = 'sezzle-learn-more sezzle-modal-open-link';
             var learnMoreText = document.createTextNode('Learn more');
             learnMoreNode.appendChild(learnMoreText);
@@ -289,16 +290,18 @@ class AwesomeSezzle {
             break;
           case 'info':
             var infoIconNode = document.createElement('button');
-            infoIconNode.role = "button";
-            infoIconNode.title = "Learn More about Sezzle";
+            infoIconNode.role = 'button';
+            infoIconNode.type = 'button';
+            infoIconNode.title = 'Learn More about Sezzle';
             infoIconNode.className = 'sezzle-info-icon sezzle-modal-open-link';
             infoIconNode.innerHTML = '&#9432;';
             sezzleButtonText.appendChild(infoIconNode);
             break;
           case 'question-mark':
             var questionMarkButton = document.createElement('button');
-            questionMarkButton.role = "button";
-            questionMarkButton.title = "Learn More about Sezzle";
+            questionMarkButton.role = 'button';
+            questionMarkButton.type = 'button';
+            questionMarkButton.title = 'Learn More about Sezzle';
             var questionMarkIconNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
             questionMarkIconNode.setAttribute('width','14');
             questionMarkIconNode.setAttribute('height','14');
@@ -346,8 +349,9 @@ class AwesomeSezzle {
               break;
           case 'afterpay-info-icon':
             var apInfoIconNode = document.createElement('button');
-            apInfoIconNode.role = "button";
-            apInfoIconNode.title = "Learn More about Afterpay";
+            apInfoIconNode.role = 'button';
+            apInfoIconNode.type = 'button';
+            apInfoIconNode.title = 'Learn More about Afterpay';
             apInfoIconNode.className = 'ap-modal-info-link no-sezzle-info';
             apInfoIconNode.innerHTML = '&#9432;';
             sezzleButtonText.appendChild(apInfoIconNode);
@@ -400,8 +404,9 @@ class AwesomeSezzle {
               break;
           case 'quadpay-info-icon':
             var quadpayInfoIconNode = document.createElement('button');
-            quadpayInfoIconNode.role = "button";
-            quadpayInfoIconNode.title = "Learn More about Quadpay";
+            quadpayInfoIconNode.role = 'button';
+            quadpayInfoIconNode.type = 'button';
+            quadpayInfoIconNode.title = 'Learn More about Quadpay';
             quadpayInfoIconNode.className = 'quadpay-modal-info-link no-sezzle-info';
             quadpayInfoIconNode.innerHTML = '&#9432;';
             sezzleButtonText.appendChild(quadpayInfoIconNode);
@@ -444,8 +449,9 @@ class AwesomeSezzle {
               break;
           case 'affirm-info-icon':
             var affirmInfoIconNode = document.createElement('button');
-            affirmInfoIconNode.role = "button";
-            affirmInfoIconNode.title = "Learn More about Affirm";
+            affirmInfoIconNode.role = 'button';
+            affirmInfoIconNode.type = 'button';
+            affirmInfoIconNode.title = 'Learn More about Affirm';
             affirmInfoIconNode.className = 'affirm-modal-info-link no-sezzle-info';
             affirmInfoIconNode.innerHTML = '&#9432;';
             sezzleButtonText.appendChild(affirmInfoIconNode);
@@ -488,8 +494,9 @@ class AwesomeSezzle {
               break;
           case 'klarna-info-icon':
             var klarnaInfoIconNode = document.createElement('button');
-            klarnaInfoIconNode.role = "button";
-            klarnaInfoIconNode.title = "Learn More about Klarna";
+            klarnaInfoIconNode.role = 'button';
+            klarnaInfoIconNode.type = 'button';
+            klarnaInfoIconNode.title = 'Learn More about Klarna';
             klarnaInfoIconNode.className = 'klarna-modal-info-link no-sezzle-info';
             klarnaInfoIconNode.innerHTML = '&#9432;';
             sezzleButtonText.appendChild(klarnaInfoIconNode);
@@ -559,7 +566,7 @@ class AwesomeSezzle {
   formatCommaPrice(price) {
     var alteredPrice,beforeDecimal,afterDecimal;
     beforeDecimal = Math.floor(price);
-    afterDecimal  = (price - beforeDecimal).toFixed(2).split(".")[1];
+    afterDecimal  = (price - beforeDecimal).toFixed(2).split('.')[1];
     alteredPrice = `${beforeDecimal},${afterDecimal}`
     return alteredPrice;
   }
@@ -569,14 +576,14 @@ class AwesomeSezzle {
       var modalNode = document.createElement('div');
       modalNode.className = 'sezzle-checkout-modal-lightbox close-sezzle-modal';
       modalNode.style.display = 'none';
-      modalNode.tabindex="-1";
-      modalNode.role = "dialog";
+      modalNode.tabindex='-1';
+      modalNode.role = 'dialog';
       if (this.altModalHTML) {
         modalNode.innerHTML = this.altModalHTML;
       } else {
-        if (this.language === "fr") {
+        if (this.language === 'fr') {
           modalNode.innerHTML = `<meta name="viewport" content="width=device-width, initial-scale=1.0" /><div class="sezzle-checkout-modal-hidden"><div class="sezzle-modal" title=""><div class="sezzle-modal-content"><div class="sezzle-logo" title="Sezzle logo"></div><button title="Close Sezzle Modal" class="close-sezzle-modal" tabindex="0" role="button"></button><div class="sezzle-header">Sezzlez maintenant. <span class="header-desktop">Payez-nous plus tard.</span><div class="header-mobile">Payez-nous plus tard.</div></div><div class="sezzle-row"><div class="desktop">Payez avec Sezzle pour r&#233;partir le montant de votre commande en 4 versements sans int&#233;r&#234;ts <div>&#233;tal&#233;s sur 6 semaines.</div></div><div class="mobile">Payez avec Sezzle pour r&#233;partir le montant de votre commande en 4 versements sans int&#233;r&#234;ts &#233;tal&#233;s sur 6 semaines.</div></div><div class="sezzle-payment-pie-fr"  title="25% aujourd'hui, 25% semaine 2, 25% semaine 4, 25% semaine 6"></div><div class="sezzle-features"><div class="single-feature"><div>Pas d'int&#233;r&#234;ts jamais.</div><div class="sub-feature">Pas de frais non plus si vous payez aux dates pr&#233;vues </div></div><div class="single-feature"><div style="line-height: 1.2;">Pas d'impact sur<div> votre cote de cr&#233;dit</div></div></div><div class="single-feature"><div>D&#233;cisions d'approbation</div><div>instantan&#233;es</div></div></div><div class="sezzle-row"><div class="desktop"><div class="just-select-sezzle"> Vous n'avez qu'	&#224; choisir <span>Sezzle</span> au moment de r&#233;gler&nbsp;!</div></div><div class="mobile"><div class="just-select-sezzle-mobile"><div>Vous n'avez qu'	&#224; choisir Sezzle</div><div>au moment de r&#233;gler&nbsp;!</div></div></div></div><div class="terms">Sous r&#233;serve d'approbation.</div></div></div></div>`;
-        } else if (this.language === "de"){
+        } else if (this.language === 'de'){
           modalNode.innerHTML = `<meta name="viewport" content="width=device-width, initial-scale=1.0"><div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal" title=""> <div class="sezzle-modal-content"> <div class="sezzle-logo" title="Sezzle logo"></div><button title="Close Sezzle Modal" class="close-sezzle-modal" tabindex="0" role="button"></button><div class="sezzle-header"> Jetzt Sezzlen. <span class="header-desktop">Sp&#228;ter zahlen.</span> <div class="header-mobile">Sp&#228;ter zahlen.</div></div><div class="sezzle-row"> <div class="desktop">Checke einfach mit Sezzle aus<br/> und zahle deine gesamte Bestellung in<div>4 zinslosen Raten &#252;ber 3 Monate.</div></div><div class="mobile"> Checke einfach mit Sezzle aus und zahle deine gesamte Bestellung in 4 zinslosen Raten &#252;ber 3 Monate.</div></div>
           
           <div class="sezzle-hiw-pie-bg">
@@ -628,8 +635,8 @@ class AwesomeSezzle {
     modalNode.className = 'sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-ap-modal';
     modalNode.style = 'position: center';
     modalNode.style.display = 'none';
-    modalNode.tabindex="-1";
-    modalNode.role = "dialog";
+    modalNode.tabindex='-1';
+    modalNode.role = 'dialog';
     modalNode.innerHTML = this.apModalHTML;
     document.getElementsByTagName('html')[0].appendChild(modalNode);
     Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
@@ -651,8 +658,8 @@ class AwesomeSezzle {
     modalNode.className = 'sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-qp-modal';
     modalNode.style = 'position: center';
     modalNode.style.display = 'none';
-    modalNode.tabindex="-1";
-    modalNode.role = "dialog";
+    modalNode.tabindex='-1';
+    modalNode.role = 'dialog';
     modalNode.innerHTML = this.qpModalHTML;
     document.getElementsByTagName('html')[0].appendChild(modalNode);
     Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
@@ -674,8 +681,8 @@ class AwesomeSezzle {
     modalNode.className = 'sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-affirm-modal';
     modalNode.style = 'position: center';
     modalNode.style.display = 'none';
-    modalNode.tabindex="-1";
-    modalNode.role = "dialog";
+    modalNode.tabindex='-1';
+    modalNode.role = 'dialog';
     modalNode.innerHTML = this.affirmModalHTML;
     document.getElementsByTagName('html')[0].appendChild(modalNode);
     Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
@@ -697,8 +704,8 @@ class AwesomeSezzle {
     modalNode.className = 'sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-klarna-modal';
     modalNode.style = 'position: center';
     modalNode.style.display = 'none';
-    modalNode.tabindex="-1";
-    modalNode.role = "dialog";
+    modalNode.tabindex='-1';
+    modalNode.role = 'dialog';
     modalNode.innerHTML = this.klarnaModalHTML;
     document.getElementsByTagName('html')[0].appendChild(modalNode);
     Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
