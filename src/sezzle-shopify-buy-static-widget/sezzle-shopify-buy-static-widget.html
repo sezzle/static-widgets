@@ -7,64 +7,40 @@ Go to All Products
 *Filter by Availability: Available on Buy Button
 Open the product to which you wish to add the widget
 Click the <> (Show HTML) button within the description box
-Paste the static widget at the top or bottom of the code window
-Update `document.querySelector('#ProductPrice')` within var priceElement to point at an #id-name or .class-name of the current price element, OR update var priceElement to equal the product price (ex: var priceElement = `$20.00`;)
+Paste the static widget at the top or bottom of the code window, depending on where you would like the widget to appear
+Replace `document.querySelector('#ProductPrice')` within var priceElement to point at an #id-name or .class-name of the current price element, OR update var priceElement to equal the product price (ex: var priceElement = `$20.00`;)
 Click Save
 
+* If your site needs to support international currency formatting, replace `false` within var includeComma to a function that calculates whether to separate by comma. 
+* If your product page is a dark background, replace the img src URL with "https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg"
 -->
+
 <p class="sezzle-shopify-buy-static-widget">Buy now, pay later with 4 interest-free payments of <span class="sezzle-payment-amount" style="font-weight: bold;"></span> with <img class="sezzle-logo" src="https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg" alt="Sezzle logo" style="display: inline-block; height: 18px!important; margin: 0px 0px -3px 0px;"> <a class="sezzle-info-link" href="https://sezzle.com/how-it-works" target="_blank" style="text-decoration: none; border: none; padding: 0px 5px;" rel="noopener noreferrer">&#9432;</a></p>
 <script type="text/javascript">
 function calculateSezzle(){
 	var priceElement = document.querySelector('#ProductPrice') || document.querySelector('.shopify-buy__product__actual-price');	
-	// detects the language and delimiter for price parsing
-	var language = document.querySelector('html').lang || 'en';
-	function delimiter (){
-		if(language ==='fr-FR' || language ==='de-DE'){
-			return ','
-		} else {
-			return '.'
-		}
-	}
-	// if price cents are in superscript instead of using monetary delimiter, an invisible delimiter is added.
+	var includeComma = true;
 	if(typeof(priceElement) !== 'string'){
 		if(priceElement.getElementsByTagName('sup').length && !priceElement.getElementsByClassName('sezzle-delimiter').length){
 			var delimiterElement = document.createElement('span'); 
 			delimiterElement.className = 'sezzle-delimiter';
 			delimiterElement.style.fontSize = '0px';
-			delimiterElement.innerText = delimiter(); 
+			delimiterElement.innerText = includeComma ? ',' : '.'; 
 			priceElement.insertBefore(delimiterElement, priceElement.querySelector('sup') );
 		}
 	}
-	// NOTE: should we use innerText or textContent when price is in an element?
-	priceElement = typeof(priceElement) === 'string' ? priceElement : priceElement.innerText;
-	var currentPrice = priceElement.split('');
-	//	detects the currency code
-	var currencySymbol = currentPrice.filter(function(character){ return /[$|€|£]/.test(character)})[0] || '$';
-	function currencyCode (){
-		if(currencySymbol === '€'){
-			return 'EUR'
-		} else if (currencySymbol === '£'){
-			return 'GBP'
-		} else if(language === "en-CA" || language === "fr-CA"){
-			return 'CAD'
-		} else {
-			return 'USD'
+	priceElementText = typeof(priceElement) === 'string' ? (includeComma ? priceElement.replace('.','') : priceElement.replace(',','')) : (includeComma ? priceElement.textContent.replace('.','') : priceElement.textContent.replace(',',''));
+	var currencySymbol = priceElementText.split('').filter(function(character){ return /[$|€|£]/.test(character)})[0] || '$';
+	var currentPrice = '';
+	for(var i=0; i < priceElementText.length; i++){
+		if(/[0-9()]/.test(priceElementText[i]) || (!includeComma && priceElementText[i] === '.') || (includeComma && priceElementText[i] === ',')){
+			currentPrice += priceElementText[i];
 		}
 	}
-	// Disregards all characters except numbers and delimiters, converts to cents in case there is no delimiter
-	var currentPriceInCents = '';
-	for(var i=0; i < currentPrice.length; i++){
-		if(/[0-9()]/.test(currentPrice[i]) ){
-			currentPriceInCents += currentPrice[i];
-		} else if (currentPrice[i] === delimiter()){
-			currentPriceInCents += '.';
-		}
-	}
-	currentPriceInCents = currentPriceInCents*100;
-	// calculates and formats final installment price
+	var currentPriceInCents = (currentPrice.replace(',','.'))*100;
 	var installmentPrice = (currentPriceInCents/400).toFixed(2);
-	installmentPrice = new Intl.NumberFormat(language, {style: 'currency', currency: currencyCode()}).format(installmentPrice);
-	return installmentPrice;
+	var formattedInstallmentPrice = priceElementText.indexOf(currencySymbol) > priceElementText.indexOf(currentPrice) ? installmentPrice + currencySymbol : currencySymbol + installmentPrice;
+	return includeComma ? formattedInstallmentPrice.replace('.',',') : formattedInstallmentPrice;
 }
 
 document.onreadystatechange = function(){
