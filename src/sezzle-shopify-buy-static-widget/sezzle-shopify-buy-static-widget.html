@@ -43,6 +43,6 @@ function calculateSezzle(){
 }
 
 document.onreadystatechange = function(){
-	document.querySelector('.sezzle-payment-amount').innerText = calculateSezzle() && 'of '+calculateSezzle();
+	document.querySelector('.sezzle-shopify-buy-static-widget').querySelector('.sezzle-payment-amount').innerText = calculateSezzle() && 'of '+calculateSezzle();
 }
 </script>
