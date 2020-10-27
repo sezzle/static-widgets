@@ -272,6 +272,7 @@ class AwesomeSezzle {
             logoNode.setAttribute('viewBox','0 0 798.16 199.56');
             logoNode.setAttribute('class',`sezzle-logo ${this.imageClassName}`);
             logoNode.setAttribute('alt', 'Sezzle');
+            logoNode.style.height = '18px !important';
             logoNode.innerHTML = this.imageInnerHTML;
             sezzleButtonText.appendChild(logoNode);
             if(this.logoStyle != {}) this.setLogoStyle(logoNode);
@@ -560,7 +561,7 @@ class AwesomeSezzle {
       var sezzleInstallmentFormattedPrice = formatter.replace('{price}', sezzleInstallmentPrice);
     }
     return sezzleInstallmentFormattedPrice;
-    
+
   }
 
   formatCommaPrice(price) {

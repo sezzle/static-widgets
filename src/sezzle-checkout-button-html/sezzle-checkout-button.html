@@ -1,4 +1,8 @@
 <!-- Add the following code wherever the Sezzle checkout button should appear.
+    Note: this is usually directly below the Checkout button in templates/cart.liquid or sections/cart-template.liquid
+-->
+
+<!-- STYLE CUSTOMIZATION
 For dark theme sites:
     Change the <button> class from "sezzle-button-light" to "sezzle-button-dark"
     Change the <a> class from "button-light" to "button-dark"
@@ -8,7 +12,8 @@ Padding left and padding right can be updated as desired.
 Text to display can be updated as desired, but Sezzle logo must remain.
 -->
 
-<!-- To hide the checkout button under certain conditions, either:
+<!-- CONDITIONS 
+    To hide the checkout button under certain conditions, either:
     * wrap the below HTML block in the Liquid conditional 
         {% if cart.total_price > 100  %}<div>Pay with Sezzle</div>{% endif%}
         OR
