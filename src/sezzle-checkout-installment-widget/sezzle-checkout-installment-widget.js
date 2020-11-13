@@ -1,21 +1,33 @@
 // INSTALLATION
-// Create a copy of this entire file within your store
-// Enter the following two lines of code (un-commented) where this widget should appear
+// 1. Create a copy of this entire file within your store
+
+// 2.a Enter the following two lines of code (un-commented) where this widget should appear
 	{/* <script src="sezzle-checkout-installment-widget.js"></script> */}
 	{/* <div id="sezzle-installment-widget-box"></div> */}
-// Update the querySelector target in checkoutTotal below to indicate the cart total element
-	// Note: the current value is based on Shopify
 
-// Note: If you need to add the placeholder element dynamically, also add the following lines of code to run when the page has loaded (un-commented) and update the query to match your page:
-	// Note: the current value is based on Shopify
-// let sezzlePaymentLine = document.querySelector('[alt="Sezzle Staging"]').parentElement.parentElement.parentElement;
-// let sezzleCheckoutWidget = document.createElement('div');
-// sezzleCheckoutWidget.id = 'sezzle-installment-widget-box';
-// sezzlePaymentLine.parentElement.insertBefore(sezzleCheckoutWidget, sezzlePaymentLine.nextElementSibling);
+// 2.b OR if you cannot do the above, use the following to add the placeholder element dynamically
+// add the following lines of code to run when the page has loaded (un-commented) and update the query to match your page:
+	// Note: our top four platforms are given as examples - choose one or create your own
+		// <script type="text/javascript">
+		// 	document.addEventListener('readystatechange', function(){
+				// let sezzlePaymentLine = document.querySelector('[alt="Sezzle Staging"]').parentElement.parentElement.parentElement; //Shopify
+				// let sezzlePaymentLine = document.querySelector('.payment_method_sezzlepay'); // WooCommerce
+				// let sezzlePaymentLine = document.querySelector('.sezzle'); // CommentSold
+				// let sezzlePaymentLine = document.querySelector('.linkGateway'); //3DCart
+			// let sezzleCheckoutWidget = document.createElement('div');
+			// sezzleCheckoutWidget.id = 'sezzle-installment-widget-box';
+			// sezzlePaymentLine.parentElement.insertBefore(sezzleCheckoutWidget, sezzlePaymentLine.nextElementSibling);
+		// 	})
+		// </script>
 
+// 3. Update the querySelector target in checkoutTotal below to indicate the cart total element
+	// Note: our top four platforms are given as examples - choose one or create your own
 
 document.addEventListener('readystatechange', function(){
-	let checkoutTotal = document.querySelector('.payment-due__price');
+	// let checkoutTotal = document.querySelector('.payment-due__price'); // Shopify
+	// let checkoutTotal = document.querySelector('.order-total').querySelector('.woocommerce-Price-amount'); // WooCommerce
+	// let checkoutTotal = document.querySelector('.total').getElementsByTagName('SPAN')[1]; // CommentSold
+	// let checkoutTotal = document.querySelector('.total_total') // 3DCart
 	let language = document.querySelector('html').lang || navigator.language || 'en';
 	let currency = 'USD'; // TODO: need to build in french format handling below
 	let theme = 'color'; // TODO: not supported, retained for future consideration
@@ -30,7 +42,7 @@ document.addEventListener('readystatechange', function(){
 		#sezzle-installment-widget-box {
 			background: #fafafa;
 			width: 100%;
-			height: fit-content;
+			height: 140px;
 			display:flex;
 			justify-content: center;
 			border-top: 1px solid #d9d9d9;
@@ -41,18 +53,19 @@ document.addEventListener('readystatechange', function(){
 			padding: 10px 0px;
 		}
 		.sezzle-installment-widget {
-			color: #392558;
-			font-size: 10px;
+			color: #392558 !important;
+			font-size: 10px !important;
 			text-align: center;
-			font-family: Comfortaa;
+			font-family: Comfortaa !important;
 		}
 		.sezzle-installment-info-icon {
 			display: inline;
 			border: none;
-			background-color: inherit;
+			background: none !important;
+			color: #392558 !important;
 			cursor: pointer;
-			font-size: 10px;
-			font-family: Comfortaa;
+			font-size: 10px !important;
+			font-family: Comfortaa !important;
 			padding-left: 5px;
 		}
 		.sezzle-total {
@@ -73,13 +86,15 @@ document.addEventListener('readystatechange', function(){
 			font-family: Comfortaa;
 		}
 		.sezzle-installment-amount {
-			color: #392558;
-			font-size: 12px;
+			color: #392558 !important;
+			font-size: 12px !important;
+			font-family: Comfortaa !important;
 			padding-top:5px;
 		}
 		.sezzle-payment-date {
-			color: #737373;
-			font-size: 9px;
+			color: #737373 !important;
+			font-size: 9px !important;
+			font-family: Comfortaa !important;
 		}
 		.sezzle-modal-open {
 			position: fixed;
@@ -163,7 +178,6 @@ document.addEventListener('readystatechange', function(){
 			width: 100%;
 			display: flex;
 			justify-content: space-around;
-			font-family: Comfortaa;
 		}
 		.sezzle-modal-payment-schedule {
 			margin-bottom: 20px;
@@ -172,10 +186,12 @@ document.addEventListener('readystatechange', function(){
 			color: #392558;
 			font-size: 12px;
 			padding-top:5px;
+			font-family: Comfortaa !important;
 		}
 		.sezzle-modal-payment-schedule span {
 			color: #737373;
 			font-size: 9px;
+			font-family: Comfortaa !important;
 		}
 		`;
 		installmentBox.appendChild(sezzleStyle);
