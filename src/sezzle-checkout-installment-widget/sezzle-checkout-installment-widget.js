@@ -36,7 +36,6 @@ document.addEventListener('readystatechange', function(){
 	if(!installmentBox.querySelector('.sezzle-payment-schedule-container')){
 		// creates stylesheet for widget and modal
 		// TODO: check all stylesheets and event listeners to ensure they will not conflict with local stylesheet or regular Sezzle widget!
-		// TODO: fix close-sezzle-modal alignment
 		let sezzleStyle = document.createElement('style');
 		sezzleStyle.innerHTML = `@import url("https://fonts.googleapis.com/css?family=Comfortaa");
 		#sezzle-installment-widget-box {
@@ -204,7 +203,6 @@ document.addEventListener('readystatechange', function(){
 		// creates the intro verbiage
 		let installmentWidget = document.createElement('div');
 		installmentWidget.className = 'sezzle-installment-widget';
-		// installmentWidget.innerHTML = language === 'fr' ? '4 paiement sans inte&#769;re&#770;ts sur 6 semaines' : '4 interest-free payments over 6 weeks';
 		installmentContainer.appendChild(installmentWidget);
 
 		// creates the pie graphic
@@ -251,6 +249,7 @@ document.addEventListener('readystatechange', function(){
 		}
 
 		// parses today's date to calculate each installment date
+		// TODO: french date translation
 		let todaysDate = new Date();
 		createPaymentPlan(todaysDate.toDateString());
 		for(let i = 0; i < 3; i++){
@@ -287,7 +286,6 @@ document.addEventListener('readystatechange', function(){
 		// creates the modal title
 		let modalTitle = document.createElement('h4');
 		modalTitle.className = 'sezzle-modal-title';
-		// modalTitle.innerHTML = language === 'fr' ? 'Comment ça fonctionne' : 'How it works';
 		modalContent.appendChild(modalTitle);
 
 		// creates the description container
@@ -297,12 +295,10 @@ document.addEventListener('readystatechange', function(){
 
 		// creates the first overview paragraph
 		let firstParagraph = document.createElement('p');
-		// firstParagraph.innerHTML = language === 'fr' ? 'R&#233;partir le montant de votre commande en 4 versements sans int&#233;r&#234;ts &#233;tal&#233;s sur 6 semaines, Pas de frais non plus si vous payez aux dates pr&#233;vues, et Pas d\'impact sur<div> votre cote de cr&#233;dit.' : 'Split your entire order into 4 interest-free payments over 6 weeks. No fees if you pay on time with zero impact to your credit.';
 		overview.appendChild(firstParagraph);
 
 		// creates the second overview paragraph
 		let secondParagraph = document.createElement('p');
-		// secondParagraph.innerHTML = language === 'fr' ? 'Après avoir cliqué sur «Terminer la commande» sur ce site, vous serez redirigé vers Sezzle pour finaliser votre achat en toute sécurité.' : 'After clicking "Complete Order" on this site, you will be redirected to Sezzle to complete your purchase securely.';
 		overview.appendChild(secondParagraph);
 
 		// creates the modal pie graphic
