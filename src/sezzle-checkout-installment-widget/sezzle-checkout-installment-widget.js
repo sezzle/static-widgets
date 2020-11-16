@@ -216,24 +216,65 @@ document.addEventListener('readystatechange', function(){
 		installmentContainer.appendChild(installmentPriceContainer);
 
 		// creates the installment price elements
-		function createInstallmentPrice (installmentPrice){
+		function createInstallmentPrice (installmentPrice, includeComma){
 			var installmentElement = document.createElement('span');
 			installmentElement.className = 'sezzle-installment-amount';
-			installmentElement.innerText = '$' + installmentPrice;
+			installmentElement.innerText = '$' + (includeComma ? installmentPrice.replace('.',',') : installmentPrice);
 			document.querySelector('.sezzle-payment-schedule-prices').appendChild(installmentElement);
 		}
 
-		// parses the checkout total to calculate the average installment price
-		// TODO: need to build in french format handling below
-		let totalPrice = checkoutTotal.innerText;
-		let totalAmount = totalPrice.split('$')[1].trim();
-		let installmentAmount = (totalAmount/4).toFixed(2);
+		// checks if character is numeric
+		function isNumeric(n){
+			return !isNaN(parseFloat(n)) && isFinite(n);
+		}
+		// checks if price is comma (fr) format or period (en)
+		function commaDelimited (priceText){
+			let priceOnly = '';
+			for (let i = 0; i < priceText.length; i++) {
+				if (isNumeric(priceText[i]) || priceText[i] === '.' || priceText[i] === ',') {
+				priceOnly += priceText[i];
+				}
+			}
+			let isComma = false;
+			if (priceOnly.indexOf(',') > -1 && priceOnly.indexOf('.') > -1) {
+				isComma = priceOnly.indexOf(',') > priceOnly.indexOf('.');
+			} else if (priceOnly.indexOf(',') > -1) {
+				isComma = priceOnly[priceOnly.length - 3] === ',';
+			} else if (priceOnly.indexOf('.') > -1) {
+				isComma = priceOnly[priceOnly.length - 3] !== '.';
+			} else {
+				isComma = false;
+			}
+			return isComma;
+		}
+
+		// parses the checkout total text to numerical digits only
+		function parsePriceString(price, includeComma) {
+			let formattedPrice = '';
+			for (let i = 0; i < price.length; i++) {
+			  if (isNumeric(price[i]) || (!includeComma && price[i] === '.') || (includeComma && price[i] === ',')) {
+				// If current is a . and previous is a character, it can be something like Rs, ignore it
+				if (i > 0 && price[i] === '.' && /^[a-zA-Z()]+$/.test(price[i - 1])) continue;
+				formattedPrice += price[i];
+			  }
+			}
+			if (includeComma) {
+			  formattedPrice.replace(',', '.');
+			}
+			return parseFloat(formattedPrice);
+		}
+
+		// calculates installment price from total price element content
+		let totalPriceText = checkoutTotal.innerText;
+		let includeComma = commaDelimited(totalPriceText);
+		let price = parsePriceString(totalPriceText, includeComma);
+		let installmentAmount = (price/4).toFixed(2);
 		for(let i = 0; i < 3; i++){
-			createInstallmentPrice(installmentAmount);
+			createInstallmentPrice(installmentAmount, includeComma);
 		}
 		// creates final installment as installment price + remainder if not divisible by 4
-		let finalInstallmentAmount = (totalAmount - installmentAmount*3).toFixed(2);
-		createInstallmentPrice(finalInstallmentAmount);
+		let finalInstallmentAmount = (price - installmentAmount*3).toFixed(2);
+		createInstallmentPrice(finalInstallmentAmount, includeComma);
 
 		// creates container to receive the installment dates
 		let installmentPlanContainer = document.createElement('div');
