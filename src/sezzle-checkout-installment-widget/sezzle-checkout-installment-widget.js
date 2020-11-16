@@ -28,9 +28,7 @@ document.addEventListener('readystatechange', function(){
 	// let checkoutTotal = document.querySelector('.order-total').querySelector('.woocommerce-Price-amount'); // WooCommerce
 	// let checkoutTotal = document.querySelector('.total').getElementsByTagName('SPAN')[1]; // CommentSold
 	// let checkoutTotal = document.querySelector('.total_total') // 3DCart
-	let language = document.querySelector('html').lang || navigator.language || 'en';
-	let currency = 'USD'; // TODO: need to build in french format handling below
-	let theme = 'color'; // TODO: not supported, retained for future consideration
+	let language = document.querySelector('html').lang.substring(0,2).toLowerCase() || navigator.language || 'en';
 
 	let installmentBox = document.querySelector('#sezzle-installment-widget-box');
 	if(!installmentBox.querySelector('.sezzle-payment-schedule-container')){
@@ -215,18 +213,11 @@ document.addEventListener('readystatechange', function(){
 		installmentPriceContainer.className = 'sezzle-payment-schedule-prices';
 		installmentContainer.appendChild(installmentPriceContainer);
 
-		// creates the installment price elements
-		function createInstallmentPrice (installmentPrice, includeComma){
-			var installmentElement = document.createElement('span');
-			installmentElement.className = 'sezzle-installment-amount';
-			installmentElement.innerText = '$' + (includeComma ? installmentPrice.replace('.',',') : installmentPrice);
-			document.querySelector('.sezzle-payment-schedule-prices').appendChild(installmentElement);
-		}
-
 		// checks if character is numeric
 		function isNumeric(n){
 			return !isNaN(parseFloat(n)) && isFinite(n);
 		}
+
 		// checks if price is comma (fr) format or period (en)
 		function commaDelimited (priceText){
 			let priceOnly = '';
@@ -264,6 +255,14 @@ document.addEventListener('readystatechange', function(){
 			return parseFloat(formattedPrice);
 		}
 
+		// creates the installment price elements
+		function createInstallmentPrice (installmentPrice, includeComma){
+			var installmentElement = document.createElement('span');
+			installmentElement.className = 'sezzle-installment-amount';
+			installmentElement.innerText = '$' + (includeComma ? installmentPrice.replace('.',',') : installmentPrice);
+			document.querySelector('.sezzle-payment-schedule-prices').appendChild(installmentElement);
+		}
+
 		// calculates installment price from total price element content
 		let totalPriceText = checkoutTotal.innerText;
 		let includeComma = commaDelimited(totalPriceText);
@@ -285,16 +284,16 @@ document.addEventListener('readystatechange', function(){
 		function createPaymentPlan (date){
 			var dateElement = document.createElement('span');
 			dateElement.className ='sezzle-payment-date';
-			dateElement.innerText = `${date.split(' ')[1]} ${date.split(' ')[2]}`;
+			dateElement.innerText = date;
 			document.querySelector('.sezzle-payment-schedule-frequency').appendChild(dateElement);
 		}
 
 		// parses today's date to calculate each installment date
 		// TODO: french date translation
 		let todaysDate = new Date();
-		createPaymentPlan(todaysDate.toDateString());
+		createPaymentPlan(todaysDate.toLocaleDateString(language, {month: 'short', day: 'numeric'}));
 		for(let i = 0; i < 3; i++){
-			let installmentDate = new Date(todaysDate.setDate(todaysDate.getDate() + 14)).toDateString();
+			let installmentDate = new Date(todaysDate.setDate(todaysDate.getDate() + 14)).toLocaleDateString(language, {month: 'short', day: 'numeric'});
 			createPaymentPlan(installmentDate);
 		}
 
