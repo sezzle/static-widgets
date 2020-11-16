@@ -24,7 +24,7 @@
 	// Note: our top four platforms are given as examples - choose one or create your own
 
 document.addEventListener('readystatechange', function(){
-	// let checkoutTotal = document.querySelector('.payment-due__price'); // Shopify
+	let checkoutTotal = document.querySelector('.payment-due__price'); // Shopify
 	// let checkoutTotal = document.querySelector('.order-total').querySelector('.woocommerce-Price-amount'); // WooCommerce
 	// let checkoutTotal = document.querySelector('.total').getElementsByTagName('SPAN')[1]; // CommentSold
 	// let checkoutTotal = document.querySelector('.total_total') // 3DCart
@@ -336,10 +336,10 @@ document.addEventListener('readystatechange', function(){
 
 		// handles translations
 		if(language === 'fr'){
-			installmentWidget.innerHTML = '4 paiement sans inte&#769;re&#770;ts sur 6 semaines';
-			modalTitle.innerHTML = 'Comment &#231;a fonctionne';
-			firstParagraph.innerHTML = 'R&#233;partir le montant de votre commande en 4 versements sans int&#233;r&#234;ts &#233;tal&#233;s sur 6 semaines, pas de frais si vous payez aux dates pr&#233;vues, et pas d\'impact sur votre cote de cr&#233;dit.';
-			secondParagraph.innerHTML = 'Apr&#232;s avoir cliqu&#233; sur &#171;Terminer la commande&#187; sur ce site, vous serez redirig&#233; vers Sezzle pour finaliser votre achat en toute s&#233;curit&#233;.'
+			installmentWidget.innerHTML = '4 paiement sans inte&#769;re&#770;ts r&#233;partis sur 6 semaines';
+			modalTitle.innerHTML = 'Comment &#231;a marche';
+			firstParagraph.innerHTML = 'R&#233;partissez le montant de votre commande en 4 versements sans int&#233;r&#234;ts &#233;tal&#233;s sur 6 semaines. Pas de frais si vous payez &#224; temps, pas d\'impact sur votre cote de cr&#233;dit.';
+			secondParagraph.innerHTML = 'Apr&#232;s avoir cliqu&#233; sur &#171;&nbsp;Terminer la commande&nbsp;&#187; sur ce site, vous serez redirig&#233;(e) vers Sezzle pour finaliser votre achat en toute s&#233;curit&#233;.'
 		} else {
 			installmentWidget.innerHTML = '4 interest-free payments over 6 weeks';
 			modalTitle.innerHTML = 'How it works';
@@ -352,7 +352,7 @@ document.addEventListener('readystatechange', function(){
 		infoIcon.className = 'sezzle-installment-info-icon';
 		infoIcon.role = 'button';
 		infoIcon.type = 'button';
-		infoIcon.title = 'Learn More about Sezzle';
+		infoIcon.title = language === 'fr' ? 'En savoir plus sur Sezzle' :'Learn More about Sezzle';
 		infoIcon.innerHTML = '&#9432;';
 		installmentWidget.appendChild(infoIcon);
 
