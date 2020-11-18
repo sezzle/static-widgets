@@ -129,6 +129,8 @@ document.addEventListener('readystatechange', function(){
 			scrollbar-width: none;
 			padding: 15px;
 			text-align: end;
+			max-width: 90%;
+			max-height: 80%;
 		}
 		.sezzle-checkout-modal::-webkit-scrollbar {
 			display: none;
@@ -196,6 +198,8 @@ document.addEventListener('readystatechange', function(){
 				// top: 55%;
 				// left: 55%;
 				width: 430px;
+				max-width: 80%;
+				max-height: 80%;
 			}
 			.sezzle-checkout-modal .close-sezzle-modal {
 				font-size: 18px;
@@ -212,7 +216,7 @@ document.addEventListener('readystatechange', function(){
 				padding: 0px 50px;
 			}
 			.sezzle-modal-payment-pie {
-				height: 95px;
+				height: 100px;
 				margin: 70px 0px -55px 0px;
 			}
 			.sezzle-modal-payment-percent span {
