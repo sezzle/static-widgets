@@ -28,7 +28,7 @@ document.addEventListener('readystatechange', function(){
 	// let checkoutTotal = document.querySelector('.order-total').querySelector('.woocommerce-Price-amount'); // WooCommerce
 	// let checkoutTotal = document.querySelector('.total').getElementsByTagName('SPAN')[1]; // CommentSold
 	// let checkoutTotal = document.querySelector('.total_total') // 3DCart
-	let language = document.querySelector('html').lang.substring(0,2).toLowerCase() || navigator.language || 'en';
+	let language = document.querySelector('html').lang.substring(0,2).toLowerCase() || navigator.language.substring(0,2) || 'en';
 
 	let installmentBox = document.querySelector('#sezzle-installment-widget-box');
 	if(!installmentBox.querySelector('.sezzle-payment-schedule-container')){
