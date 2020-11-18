@@ -129,6 +129,8 @@ document.addEventListener('readystatechange', function(){
 			scrollbar-width: none;
 			padding: 15px;
 			text-align: end;
+			max-width: 90%;
+			max-height: 80%;
 		}
 		.sezzle-checkout-modal::-webkit-scrollbar {
 			display: none;
@@ -190,11 +192,38 @@ document.addEventListener('readystatechange', function(){
 			font-size: 9px;
 			font-family: Comfortaa !important;
 		}
-		@media only screen and (min-width: 769px){
+		@media only screen and (min-width: 520px){
 			.sezzle-checkout-modal {
-				transform: scale(1.5) translate(-50%, -50%);
-				top: 55%;
-				left: 55%;
+				// transform: scale(1.5) translate(-50%, -50%);
+				// top: 55%;
+				// left: 55%;
+				width: 430px;
+				max-width: 80%;
+				max-height: 80%;
+			}
+			.sezzle-checkout-modal .close-sezzle-modal {
+				font-size: 18px;
+			}
+			.sezzle-modal-logo {
+				height: 30px;
+			}
+			.sezzle-modal-title {
+				font-size: 30px;
+			}
+			.sezzle-modal-overview {
+				font-size: 14px;
+				line-height: 20px;
+				padding: 0px 50px;
+			}
+			.sezzle-modal-payment-pie {
+				height: 100px;
+				margin: 70px 0px -55px 0px;
+			}
+			.sezzle-modal-payment-percent span {
+				font-size: 18px;
+			}
+			.sezzle-modal-payment-schedule span {
+				font-size: 12px;
 			}
 		}
 		`;
