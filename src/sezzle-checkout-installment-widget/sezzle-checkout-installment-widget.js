@@ -1,11 +1,7 @@
 // INSTALLATION
 // 1. Create a copy of this entire file within your store
 
-// 2.a Enter the following two lines of code (un-commented) where this widget should appear
-	{/* <script src="sezzle-checkout-installment-widget.js"></script> */}
-	{/* <div id="sezzle-installment-widget-box"></div> */}
-
-// 2.b OR if you cannot do the above, use the following to add the placeholder element dynamically
+// 2.a (recommended) Add the following script to inject the placeholder element dynamically
 // add the following lines of code to run when the page has loaded (un-commented) and update the query to match your page:
 	// Note: our top four platforms are given as examples - choose one or create your own
 		// <script type="text/javascript">
@@ -19,6 +15,10 @@
 			// sezzlePaymentLine.parentElement.insertBefore(sezzleCheckoutWidget, sezzlePaymentLine.nextElementSibling);
 		// 	})
 		// </script>
+
+// 2.b Enter the following two lines of code (un-commented) where this widget should appear
+	{/* <div id="sezzle-installment-widget-box"></div> */}
+	{/* <script src="sezzle-checkout-installment-widget.js"></script> */}
 
 // 3. Update the querySelector target in checkoutTotal below to indicate the cart total element
 	// Note: our top four platforms are given as examples - choose one or create your own
@@ -189,6 +189,13 @@ document.addEventListener('readystatechange', function(){
 			color: #737373;
 			font-size: 9px;
 			font-family: Comfortaa !important;
+		}
+		@media only screen and (min-width: 769px){
+			.sezzle-checkout-modal {
+				transform: scale(1.5) translate(-50%, -50%);
+				top: 55%;
+				left: 55%;
+			}
 		}
 		`;
 		installmentBox.appendChild(sezzleStyle);
