@@ -220,7 +220,7 @@ class AwesomeSezzle {
     this.renderElementArray.forEach(function(element, index){
       let sezzleElement = document.getElementById(element);
       if(sezzleElement.innerHTML.length){
-        sezzleElement.removeChild(sezzleElement.childNodes[0]);
+        sezzleElement.removeChild(sezzleElement.querySelector('.sezzle-checkout-button-wrapper'));
       }
     })
   }
