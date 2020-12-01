@@ -7,12 +7,12 @@
 		// <script type="text/javascript">
 		// 	document.addEventListener('readystatechange', function(){
 				// let sezzlePaymentLine = document.querySelector('[alt="Sezzle Staging"]').parentElement.parentElement.parentElement; //Shopify
-				// let sezzlePaymentLine = document.querySelector('.payment_method_sezzlepay'); // WooCommerce
+				let sezzlePaymentLine = document.querySelector('.payment_method_sezzlepay'); // WooCommerce
 				// let sezzlePaymentLine = document.querySelector('.sezzle'); // CommentSold
 				// let sezzlePaymentLine = document.querySelector('.linkGateway'); //3DCart
-			// let sezzleCheckoutWidget = document.createElement('div');
-			// sezzleCheckoutWidget.id = 'sezzle-installment-widget-box';
-			// sezzlePaymentLine.parentElement.insertBefore(sezzleCheckoutWidget, sezzlePaymentLine.nextElementSibling);
+			let sezzleCheckoutWidget = document.createElement('div');
+			sezzleCheckoutWidget.id = 'sezzle-installment-widget-box';
+			sezzlePaymentLine.parentElement.insertBefore(sezzleCheckoutWidget, sezzlePaymentLine.nextElementSibling);
 		// 	})
 		// </script>
 
@@ -36,6 +36,56 @@ document.addEventListener('readystatechange', function(){
 		// TODO: check all stylesheets and event listeners to ensure they will not conflict with local stylesheet or regular Sezzle widget!
 		let sezzleStyle = document.createElement('style');
 		sezzleStyle.innerHTML = `@import url("https://fonts.googleapis.com/css?family=Comfortaa");
+		#sezzle-installment-widget-box button {
+			display: inline;
+			border: none;
+			background: none !important;
+			color: #392558 !important;
+			cursor: pointer;
+			font-size: 10px !important;
+			font-family: Comfortaa !important;
+			padding: 0px 0px 0px 5px !important;
+		}
+		#sezzle-installment-widget-box span {
+			text-rendering: optimizeLegibility;
+			font-weight: 400;
+			letter-spacing: 0px;
+			font-style: normal;
+			line-height: 1.25 !important;
+			list-style: none !important;
+			box-sizing: border-box;
+			font-family: Comfortaa !important;
+			width: 25% !important;
+			text-align: center !important;
+		}
+		.sezzle-modal-overlay div {
+			font-family: Comfortaa !important;
+			color: #392558 !important;
+		}
+		.sezzle-modal-overlay button {
+			position: absolute !important;
+			text-align: end !important;
+			border: none !important;
+			background: none !important;
+			font-family: Comfortaa !important;
+			color: #392558 !important;
+		}
+		.sezzle-modal-overlay h4 {
+			font-family: Comfortaa !important;
+			color: #392558 !important;
+			text-align: center !important;
+		}
+		.sezzle-modal-overlay p {
+			font-family: Comfortaa !important;
+			color: #392558 !important;
+			text-align: center !important;
+		}
+		.sezzle-modal-overlay span {
+			font-family: Comfortaa !important;
+			text-align: center !important;
+			width: 25% !important;
+		}
+		
 		#sezzle-installment-widget-box {
 			background: #fafafa;
 			width: 100%;
@@ -56,14 +106,14 @@ document.addEventListener('readystatechange', function(){
 			font-family: Comfortaa !important;
 		}
 		.sezzle-installment-info-icon {
-			display: inline;
-			border: none;
+			display: inline !important;
+			border: none !important;
 			background: none !important;
 			color: #392558 !important;
 			cursor: pointer;
 			font-size: 10px !important;
 			font-family: Comfortaa !important;
-			padding-left: 5px;
+			padding: 0px 0px 0px 5px !important;
 		}
 		.sezzle-total {
 			display: none;
