@@ -585,18 +585,78 @@ class AwesomeSezzle {
         if (this.language === 'fr') {
           modalNode.innerHTML = `<meta name="viewport" content="width=device-width, initial-scale=1.0" /><div class="sezzle-checkout-modal-hidden"><div class="sezzle-modal" title=""><div class="sezzle-modal-content"><div class="sezzle-logo" title="Sezzle logo"></div><button title="Close Sezzle Modal" class="close-sezzle-modal" tabindex="0" role="button"></button><div class="sezzle-header">Sezzlez maintenant. <span class="header-desktop">Payez-nous plus tard.</span><div class="header-mobile">Payez-nous plus tard.</div></div><div class="sezzle-row"><div class="desktop">Payez avec Sezzle pour r&#233;partir le montant de votre commande en 4 versements sans int&#233;r&#234;ts <div>&#233;tal&#233;s sur 6 semaines.</div></div><div class="mobile">Payez avec Sezzle pour r&#233;partir le montant de votre commande en 4 versements sans int&#233;r&#234;ts &#233;tal&#233;s sur 6 semaines.</div></div><div class="sezzle-payment-pie-fr"  title="25% aujourd'hui, 25% semaine 2, 25% semaine 4, 25% semaine 6"></div><div class="sezzle-features"><div class="single-feature"><div>Pas d'int&#233;r&#234;ts jamais.</div><div class="sub-feature">Pas de frais non plus si vous payez aux dates pr&#233;vues </div></div><div class="single-feature"><div style="line-height: 1.2;">Pas d'impact sur<div> votre cote de cr&#233;dit</div></div></div><div class="single-feature"><div>D&#233;cisions d'approbation</div><div>instantan&#233;es</div></div></div><div class="sezzle-row"><div class="desktop"><div class="just-select-sezzle"> Vous n'avez qu'	&#224; choisir <span>Sezzle</span> au moment de r&#233;gler&nbsp;!</div></div><div class="mobile"><div class="just-select-sezzle-mobile"><div>Vous n'avez qu'	&#224; choisir Sezzle</div><div>au moment de r&#233;gler&nbsp;!</div></div></div></div><div class="terms">Sous r&#233;serve d'approbation.</div></div></div></div>`;
         } else if (this.language === 'de'){
-          modalNode.innerHTML = `<meta name="viewport" content="width=device-width, initial-scale=1.0"><div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal" title=""> <div class="sezzle-modal-content"> <div class="sezzle-logo" title="Sezzle logo"></div><button title="Close Sezzle Modal" class="close-sezzle-modal" tabindex="0" role="button"></button><div class="sezzle-header"> Jetzt Sezzlen. <span class="header-desktop">Sp&#228;ter zahlen.</span> <div class="header-mobile">Sp&#228;ter zahlen.</div></div><div class="sezzle-row"> <div class="desktop">Checke einfach mit Sezzle aus<br/> und zahle deine gesamte Bestellung in<div>4 zinslosen Raten &#252;ber 3 Monate.</div></div><div class="mobile"> Checke einfach mit Sezzle aus und zahle deine gesamte Bestellung in 4 zinslosen Raten &#252;ber 3 Monate.</div></div>
+          modalNode.innerHTML = `<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+					<div class="sezzle-checkout-modal-hidden">
+						<div class="sezzle-modal" title="">
+							<div class="sezzle-modal-content">
+								<div class="sezzle-logo" title="Sezzle logo"></div>
 
-          <div class="sezzle-hiw-pie-bg">
-          <div class="sezzle-payment-pie-de"></div>
-            <div class="sezzle-row breakdown-row">
-              <p class="breakdown">25%<br /><span>heute</span></p>
-              <p class="breakdown">25%<br /><span>Monat 1</span></p>
-              <p class="breakdown">25%<br /><span>Monat 2</span></p>
-              <p class="breakdown">25%<br /><span>Monat 3</span></p>
-            </div>
-          </div>
-        <div class="sezzle-features"> <div class="single-feature"> <div>Keine Zinsen. Punkt.</div><div class="sub-feature">Zudem keine Geb&#252;hren, wenn du p&#252;nktlich zahlst</div></div><div class="single-feature"> <div style="line-height: 1.2;">Keine Auswirkungen auf deinen<div>Schufa-Score</div></div></div><div class="single-feature"> <div>Sofortige </div><div>Kreditentscheidung</div></div></div><div class="sezzle-row"> <div class="desktop"> <div class="just-select-sezzle">Einfach Sezzle<span> beim Checkout w&#228;hlen</span>!</div></div><div class="mobile"> <div class="just-select-sezzle-mobile"> <div>Einfach Sezzle</div><div> beim Checkout w&#228;hlen!</div></div></div></div><div class="terms">Vorbehaltlich unserer Zustimmung.</div></div></div></div>`;
+								<button title="Close Sezzle Modal" class="close-sezzle-modal" tabindex="0" role="button"></button>
+
+								<div class="sezzle-header">
+									Jetzt kaufen.
+									<span class="header-desktop">Sp&#228;ter zahlen.</span>
+									<div class="header-mobile">Sp&#228;ter zahlen.</div>
+								</div>
+
+								<div class="sezzle-row">
+									<div class="desktop">
+										W&#228;hle Sezzle beim Checkout <br/>und zahle deine gesamte Bestellung ganz einfach mit
+										<div>4 zinsfreien Raten in 3 Monaten.</div>
+									</div>
+									<div class="mobile">
+										W&#228;hle Sezzle beim Checkout und zahle deine gesamte Bestellung ganz einfach mit 4 zinsfreien Raten in 3 Monaten.
+									</div>
+								</div>
+
+								<div class="sezzle-hiw-pie-bg">
+									<div class="sezzle-payment-pie-de"></div>
+										<div class="sezzle-row breakdown-row">
+											<p class="breakdown">25%<br /><span>heute</span></p>
+											<p class="breakdown">25%<br /><span>30 Tage</span></p>
+											<p class="breakdown">25%<br /><span>60 Tage</span></p>
+											<p class="breakdown">25%<br /><span>90 Tage</span></p>
+										</div>
+								</div>
+
+								<div class="sezzle-features">
+									<div class="single-feature">
+										<div>Schnelles Zahlen.</div>
+										<div class="sub-feature">
+											Einfach und zeitsparend
+										</div>
+									</div>
+									<div class="single-feature">
+										<div style="line-height: 1.2;">
+											Zinsfrei.
+											<div class="sub-feature">Keine versteckten Kosten bei p&#252;nktlicher Zahlung.</div>
+										</div>
+									</div>
+									<div class="single-feature">
+										<div>Kein Einfluss auf deine</div>
+										<div>Kreditw&#252;rdigkeit</div>
+									</div>
+								</div>
+
+								<div class="sezzle-row">
+									<div class="desktop">
+										<div class="just-select-sezzle">
+											Einfach Sezzle<span> beim Checkout w&#228;hlen</span>!
+										</div>
+									</div>
+									<div class="mobile">
+										<div class="just-select-sezzle-mobile">
+											<div>Einfach Sezzle</div>
+											<div> beim Checkout w&#228;hlen!</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="terms">Vorbehaltlich unserer Zustimmung.</div>
+							</div>
+						</div>
+					</div>
+					`;
         } else if (this.language === 'es'){
           modalNode.innerHTML = `<meta name="viewport" content="width=device-width, initial-scale=1.0"><div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal" title=""> <div class="sezzle-modal-content"> <div class="sezzle-logo" title="Sezzle logo"></div><button title="Close Sezzle Modal" class="close-sezzle-modal" tabindex="0" role="button"></button><div class="sezzle-header"> Sezzle ahora. <span class="header-desktop">Pa&#769;ganos ma&#769;s tarde.</span> <div class="header-mobile">Pa&#769;ganos ma&#769;s tarde.</div></div><div class="sezzle-row"> <div class="desktop"> Complete el pedido con Sezzle y divida toda su compra en <div>4 pagos sin intereses durante 6 semanas.</div></div><div class="mobile"> Complete el pedido con Sezzle y divida toda su compra en 4 pagos sin intereses durante 6 semanas.</div></div>          <div class="sezzle-hiw-pie-bg">
           <div class="sezzle-payment-pie-es"></div>
