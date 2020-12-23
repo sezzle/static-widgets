@@ -2,6 +2,7 @@
     Note: this is usually directly below the Checkout button in templates/cart.liquid or sections/cart-template.liquid
 -->
 
+
 <!-- STYLE CUSTOMIZATION
 For dark theme sites:
     Change the <button> class from "sezzle-button-light" to "sezzle-button-dark"
@@ -12,13 +13,13 @@ Padding left and padding right can be updated as desired.
 Text to display can be updated as desired, but Sezzle logo must remain.
 -->
 
-<!-- CONDITIONS 
+<!-- CONDITIONS
     To hide the checkout button under certain conditions, either:
-    * wrap the below HTML block in the Liquid conditional 
+    * wrap the below HTML block in the Liquid conditional
         {% if cart.total_price > 100  %}<div>Pay with Sezzle</div>{% endif%}
         OR
         {% unless cart.total_price < 100 %}<div>Pay with Sezzle</div>{% endunless %}
-    OR 
+    OR
     * create a new <script type="text/javascript"></script> element with an event listener and function that hides or shows the button under certain conditions
         <script type="text/javascript">document.addEventListener( 'change', function(){if(window.innerWidth < 560){document.querySelector(.sezzle-checkout-button).style.display = 'none !important'} else {document.querySelector('.sezzle-checkout-button').style.display = 'inline-block'} } )</script> -->
 
@@ -81,7 +82,7 @@ Text to display can be updated as desired, but Sezzle logo must remain.
         function handleSezzleClick(event){
             event.preventDefault();
             event.stopPropagation();
-            location.replace('/checkout');
+            location.replace('/checkout?skip_shopify_pay=true');
         }
     </script>
     <button class="sezzle-checkout-button sezzle-button-light" style="border-radius: 0px; padding: 13px 13px;" onclick="handleSezzleClick(event)">
