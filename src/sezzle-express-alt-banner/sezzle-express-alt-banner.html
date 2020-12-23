@@ -1,0 +1,159 @@
+<!-- INSTALLATION
+Log into your Shopify Admin
+Go to `Online Store` > `Themes`
+Click `Actions`, then select `Edit Code`
+Open layout/checkout.liquid
+Copy+Paste the below code snippet into the bottom of the file, then click Save
+-->
+<script>
+var expressButtonArea = document.querySelector('[data-alternative-payments]');
+if(Shopify && expressButtonArea && !document.querySelector('.sezzle-express-apm-widget')){
+	var sezzleBannerArea = document.createElement('div');
+	sezzleBannerArea.className = "sezzle-express-apm-widget";
+	expressButtonArea.parentElement.insertBefore(sezzleBannerArea, expressButtonArea.nextElementSibling);
+
+	var sezzleBannerStyle = document.createElement('style');
+	sezzleBannerStyle.innerHTML = `	.sezzle-express-apm-widget {
+	font-size: 14px;
+	line-height: 1.3em;
+	margin-top: 1.5em;
+	}
+	.sezzle-box-title {
+		margin: 0;
+		display: flex;
+		align-items: flex-end;
+		font-size: 14px;
+	}
+	.sezzle-box-title::before {
+		border-right: 0;
+		border-top-left-radius: 5px;
+		margin-right: 1em;
+		content: '';
+		border: 1px #e6e6e6 solid;
+		border-bottom: 0;
+		height: 0.5em;
+		flex: 1 0 2em;
+		border-right:none;
+	}
+	.sezzle-box-title::after {
+		content: '';
+		border: 1px #e6e6e6 solid;
+		border-bottom: 0;
+		height: 0.5em;
+		flex: 1 0 2em;
+		border-top-right-radius: 5px;
+		border-left:none;
+		margin-left: 1em;
+	}
+	.sezzle-box-content {
+		border: 1px #e6e6e6 solid;
+		border-top: 0;
+		border-bottom: 0;
+		text-align: center;
+	}
+	.sezzle-box-logo {
+		text-align: center;
+		display: inline-block;
+		max-width: 140px;
+		margin: 20px 0;
+	}
+	.sezzle-box-footer {
+		margin: 0;
+		display: flex;
+		align-items: flex-start;
+		font-size: 14px;
+	}
+	.sezzle-box-footer::before {
+		border-right: 0;
+		border-bottom-left-radius: 5px;
+		margin-right: 1em;
+		content: '';
+		border: 1px #e6e6e6 solid;
+		border-top: 0;
+		height: 0.5em;
+		flex: 1 0 2em;
+		border-right:none;
+	}
+	.sezzle-box-footer::after {
+		content: '';
+		border: 1px #e6e6e6 solid;
+		border-top: 0;
+		height: 0.5em;
+		flex: 1 0 2em;
+		border-bottom-right-radius: 5px;
+		border-left:none;
+		margin-left: 1em;
+	}
+	.sezzle-or .alternative-payment-separator{
+		word-wrap: break-word;
+		word-break: break-word;
+		font-family: "Avenir Next",sans-serif;
+		font-weight: 500;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		font-size: 0.8571428571em;
+		line-height: 1.4;
+		text-align: center;
+		text-transform: uppercase;
+		color: #737373;
+		margin-top: 2.5em;
+	}
+	.sezzle-or .alternative-payment-separator::before, .sezzle-or .alternative-payment-separator::after{
+		content: '';
+		display: inline-block;
+		height: 1px;
+		background-color: #e6e6e6;
+		flex-grow: 1;
+	}
+	.sezzle-or .alternative-payment-separator__content {
+		word-wrap: break-word;
+		word-break: break-word;
+		font-family: "Avenir Next",sans-serif;
+		font-weight: 500;
+		-webkit-box-direction: normal;
+		line-height: 1.4;
+		text-align: center;
+		text-transform: uppercase;
+		color: #737373;
+		font-size: 14px;
+		display: inline-block;
+		padding: 0 1em;
+	}`;
+	sezzleBannerArea.appendChild(sezzleBannerStyle);
+
+	var sezzleBannerHeader = document.createElement('h2');
+	sezzleBannerHeader.className = "sezzle-box-title";
+	sezzleBannerHeader.innerText = "Pay in 4 interest-free installments with"
+	sezzleBannerArea.appendChild(sezzleBannerHeader);
+
+	var sezzleBannerContent = document.createElement('div');
+	sezzleBannerContent.className = "sezzle-box-content";
+	sezzleBannerArea.appendChild(sezzleBannerContent);
+
+	var sezzleBannerLogo = document.createElement('img');
+	sezzleBannerLogo.className = "sezzle-box-logo";
+	sezzleBannerLogo.src = "https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg";
+	sezzleBannerLogo.alt = "Sezzle";
+	sezzleBannerContent.appendChild(sezzleBannerLogo);
+
+	var sezzleBannerFooter = document.createElement('div');
+	sezzleBannerFooter.className = "sezzle-box-footer";
+	sezzleBannerFooter.innerText = "Just select Sezzle after Shipping";
+	sezzleBannerArea.appendChild(sezzleBannerFooter);
+
+	var sezzleBannerDivider = document.createElement('div');
+	sezzleBannerDivider.className = "sezzle-or";
+	sezzleBannerArea.appendChild(sezzleBannerDivider);
+
+	var sezzleBannerLine = document.createElement('div');
+	sezzleBannerLine.className = "alternative-payment-separator";
+	sezzleBannerLine.setAttribute("data-alternative-payment-separator","");
+	sezzleBannerDivider.appendChild(sezzleBannerLine);
+
+	var sezzleBannerOr = document.createElement('span');
+	sezzleBannerOr.className = "alternative-payment-separator__content"
+	sezzleBannerOr.innerText = "OR";
+	sezzleBannerLine.appendChild(sezzleBannerOr);
+}
+</script>
