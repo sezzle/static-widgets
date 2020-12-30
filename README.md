@@ -1,10 +1,10 @@
-# Sezzle Simple SDK 
+# Sezzle Simple SDK
 
 This SDK is a simple way to include sezzle widget onto a merchant's website.
-Think of it as a light version to our own `Sezzle-js` 
-Everything is packaged within the SDK i.e All the images, css is within the bundle.js file 
+Think of it as a light version to our own `Sezzle-js`
+Everything is packaged within the SDK i.e All the images, css is within the bundle.js file
 
-What makes this SDK interesting is that it has a different approach compared to the standard Sezzle widget script. Instead of reaching out to Sezzle's widget server on page-load, all the widget code and the custom configuration is stored locally within the store theme. 
+What makes this SDK interesting is that it has a different approach compared to the standard Sezzle widget script. Instead of reaching out to Sezzle's widget server on page-load, all the widget code and the custom configuration is stored locally within the store theme.
 
 
 ## Configurations
@@ -12,8 +12,8 @@ What makes this SDK interesting is that it has a different approach compared to 
 Once the widget is rendering, additional configurations can be added to the AwesomeSezzle to change the appearance. Below is an example featuring all the options. However, amount is the only required value.
 
 ```html
- <script>  
-  var renderSezzle = new AwesomeSezzle({ 
+ <script>
+  var renderSezzle = new AwesomeSezzle({
     amount: '{{ product.selected_or_first_available_variant.price | money }}',
     renderElement: 'new-sezzle-widget-container-id',
     theme: 'light',
@@ -52,7 +52,7 @@ Once the widget is rendering, additional configurations can be added to the Awes
 11. **`alignmentSwitchType`** - This config is optional. Alternative values include `left`, `center`, or `right`.
 12. **`textColor`** - This config is optional. It defaults to `#111`. Alternative values include all colors supported by CSS.
 13. **`fontFamily`** - This config is optional. It defaults to `inherit`. Alternative values include all fonts supported by CSS.
-14. **`fontSize`** - This config is optional. It defaults to `12` <small>in pixel</small>. 
+14. **`fontSize`** - This config is optional. It defaults to `12` <small>in pixel</small>.
 15. **`fontWeight`** - This config is optional. It defaults to `300`.
 16. **`widgetType`** - This config is optional. It defaults to `product-page`. Alternative values include `product-preview` or `cart`.
 17. **`fixedHeight`** - This config is optional. It defaults to `0`.
@@ -79,7 +79,7 @@ Once the widget is rendering, additional configurations can be added to the Awes
 1. `alterPrice(newPrice)` - Alters price on widget. Create an event listener after `renderSezzle.init()` that invokes this function where `newPrice` is the new price value of the selected variant. Example:
     ```js
       document.onchange = function(){
-        var newPrice = '${yourPriceVariableHere}'; 
+        var newPrice = '${yourPriceVariableHere}';
         renderSezzle.alterPrice(newPrice);
       }
     ```
@@ -100,7 +100,7 @@ Once the widget is rendering, additional configurations can be added to the Awes
           document.getElementById('sezzle-widget').style.display = "block";
           document.getElementById('sezzle-widget-mobile').style.display = "none";
         }
-      } 
+      }
     ```
 
 4. `getElementToRender()` - Returns Element where the widget will be rendered. Create an event listener that invokes this function if the widget should appear when the event occurs.
@@ -124,8 +124,8 @@ Create a placeholder element where the Sezzle widget should be rendered on the p
   ```
 Add the following script below the placeholder element, updating the amount value to reflect your price variable which renders the current product price or cart total as applicable.<br/>
   ```html
-    <script>  
-    var renderSezzle = new AwesomeSezzle({ 
+    <script>
+    var renderSezzle = new AwesomeSezzle({
         amount: `${yourPriceVariableHere}`
     })
     renderSezzle.init();
@@ -161,13 +161,13 @@ Add the following lines of code wherever the widget should render on the product
 <!-- Sezzle Static Widget -->
 <div id="sezzle-widget"></div>
 {{ 'sezzle-static-widget.js' | asset_url | script_tag }}
-<script>  
-  var renderSezzle = new AwesomeSezzle({ 
+<script>
+  var renderSezzle = new AwesomeSezzle({
       amount: '{{ product.selected_or_first_available_variant.price | money }}'
   })
   renderSezzle.init();
   document.onchange = function(){
-    var newPrice = '{{product.selected_or_first_available_variant.price | money}}'; 
+    var newPrice = '{{product.selected_or_first_available_variant.price | money}}';
     renderSezzle.alterPrice(newPrice);
   }
 </script>
@@ -180,8 +180,8 @@ Add the following lines of code wherever the widget should render on the cart pa
 <!-- Sezzle Static Widget -->
 <div id="sezzle-widget"></div>
 {{ 'sezzle-static-widget.js' | asset_url | script_tag }}
-<script>  
-  var renderSezzle = new AwesomeSezzle({ 
+<script>
+  var renderSezzle = new AwesomeSezzle({
     amount: '{{ cart.total_price | money }}',
     alignment: 'right'
   })
@@ -191,3 +191,27 @@ Add the following lines of code wherever the widget should render on the cart pa
 ```
 
 * If the ID `sezzle-widget` is changed in the div element, the new ID needs to be given in the config as `renderElement`.
+
+## Other Products in this Project
+
+**Sezzle Shopify Buy Static Widget**
+The Sezzle Shopify Buy static widget is a lightweight version of our static widget. Shopify Buy product details are rendered within an iframe on the non-Shopify storefront, which is not compatible with either the standard widget script nor the regular static widget product.<br/>
+
+<img src="./assets/static-widget.png"/>
+
+**Sezzle Shopify Checkout Button**
+The Sezzle Checkout button is installed on the Shopify cart page to bypass third-party checkouts such as Carthook, Zipify, or Bold Commerce by redirecting the customer to the Shopify Native checkout. Further, if a user is logged into Shop Pay but wishes to checkout with Sezzle, this button will not redirect automatically to the Shop Pay experience.<br/>
+
+<img src="./assets/checkout-button.png"/>
+
+**Sezzle Shopify Plus Express Alternative Banner**
+Sezzle does not offer an express checkout option at this time. This banner clarifies to the customer that Sezzle can be selected on the Payments page of the non-express checkout flow.
+ - Only compatible with Shopify Plus.<br/>
+
+<img src="./assets/express-alt-banner.png"/>
+
+**Sezzle Checkout Installment Widget**
+The Sezzle Checkout Installment Widget presents a payment pie and installment schedule at checkout below the Sezzle payment option. This product is compatible with multiple platforms, provided the merchant account has access to edit the checkout page (for example, Shopify merchants must be on Shopify Plus).
+ - This product has a direct integration with the Sezzle WooCommerce extension.<br/>
+
+<img src="./assets/checkout-installment-widget.png"/>
