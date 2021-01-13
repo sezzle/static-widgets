@@ -124,7 +124,7 @@ document.addEventListener('readystatechange', function(){
 			background-position: center;
 			height: 70px;
 			width: 100%;
-			margin: 15px 0px -45px 0px;
+			margin: 15px 0px -45px 0px !important;
 		}
 		.sezzle-payment-schedule-prices, .sezzle-payment-schedule-frequency {
 			width: 100%;
