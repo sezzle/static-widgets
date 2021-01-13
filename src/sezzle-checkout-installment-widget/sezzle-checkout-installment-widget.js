@@ -5,15 +5,15 @@
 // add the following lines of code to run when the page has loaded (un-commented) and update the query to match your page:
 	// Note: our top four platforms are given as examples - choose one or create your own
 		// <script type="text/javascript">
-		// 	document.addEventListener('readystatechange', function(){
-				// let sezzlePaymentLine = document.querySelector('[alt="Sezzle Staging"]').parentElement.parentElement.parentElement; //Shopify
-				let sezzlePaymentLine = document.querySelector('.payment_method_sezzlepay'); // WooCommerce
+			document.addEventListener('readystatechange', function(){
+				let sezzlePaymentLine = document.querySelector('[alt="Sezzle Staging"]').parentElement.parentElement.parentElement; //Shopify
+				// let sezzlePaymentLine = document.querySelector('.payment_method_sezzlepay'); // WooCommerce
 				// let sezzlePaymentLine = document.querySelector('.sezzle'); // CommentSold
 				// let sezzlePaymentLine = document.querySelector('.linkGateway'); //3DCart
 			let sezzleCheckoutWidget = document.createElement('div');
 			sezzleCheckoutWidget.id = 'sezzle-installment-widget-box';
 			sezzlePaymentLine.parentElement.insertBefore(sezzleCheckoutWidget, sezzlePaymentLine.nextElementSibling);
-		// 	})
+			})
 		// </script>
 
 // 2.b Enter the following two lines of code (un-commented) where this widget should appear
@@ -85,7 +85,7 @@ document.addEventListener('readystatechange', function(){
 			text-align: center !important;
 			width: 25% !important;
 		}
-		
+
 		#sezzle-installment-widget-box {
 			background: #fafafa;
 			width: 100%;
@@ -280,7 +280,7 @@ document.addEventListener('readystatechange', function(){
 			}
 			.sezzle-modal-payment-pie {
 				height: 90px;
-				margin: 70px 0px -55px 0px;
+				margin: 30px 0px -55px 0px;
 			}
 			.sezzle-modal-payment-percent span {
 				font-size: 18px;
