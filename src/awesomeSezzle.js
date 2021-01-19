@@ -369,11 +369,11 @@ class AwesomeSezzle {
             break;
           case 'quadpay-logo':
             var qpNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
-            qpNode.setAttribute('width','118');
-            qpNode.setAttribute('height','22');
-            qpNode.setAttribute('viewBox','0 0 118 22');
+            qpNode.setAttribute('width','498');
+            qpNode.setAttribute('height','135');
+            qpNode.setAttribute('viewBox','0 0 498 135');
             qpNode.setAttribute('class',`sezzle-quadpay-logo quadpay-modal-info-link no-sezzle-info`);
-            qpNode.setAttribute('style', `height: 18px !important;width: auto !important;margin-bottom: -5px;`);
+            qpNode.setAttribute('style', `height: 22px !important;width: auto !important;margin-bottom: -5px;`);
             qpNode.setAttribute('alt', 'Quadpay');
             qpNode.innerHTML = HelperClass.svgImages().qpNodeColor;
             sezzleButtonText.appendChild(qpNode);
@@ -381,23 +381,23 @@ class AwesomeSezzle {
             break;
           case 'quadpay-logo-grey':
               var qpNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
-              qpNode.setAttribute('width','118');
-              qpNode.setAttribute('height','22');
-              qpNode.setAttribute('viewBox','0 0 118 22');
+							qpNode.setAttribute('width','498');
+							qpNode.setAttribute('height','135');
+							qpNode.setAttribute('viewBox','0 0 498 135');
               qpNode.setAttribute('class',`sezzle-quadpay-logo quadpay-modal-info-link no-sezzle-info`);
-              qpNode.setAttribute('style', `height: 18px !important;width: auto !important;margin-bottom: -5px;`);
+              qpNode.setAttribute('style', `height: 22px !important;width: auto !important;margin-bottom: -5px;`);
               qpNode.setAttribute('alt', 'Quadpay');
               qpNode.innerHTML = HelperClass.svgImages().qpNodeGrey;
               sezzleButtonText.appendChild(qpNode);
               this.setLogoSize(qpNode);
               break;
           case 'quadpay-logo-white':
-                var qpNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
-              qpNode.setAttribute('width','118');
-              qpNode.setAttribute('height','22');
-              qpNode.setAttribute('viewBox','0 0 118 22');
+							var qpNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
+							qpNode.setAttribute('width','498');
+							qpNode.setAttribute('height','135');
+							qpNode.setAttribute('viewBox','0 0 498 135');
               qpNode.setAttribute('class',`sezzle-quadpay-logo quadpay-modal-info-link no-sezzle-info`);
-              qpNode.setAttribute('style', `height: 18px !important;width: auto !important;margin-bottom: -5px;`);
+              qpNode.setAttribute('style', `height: 22px !important;width: auto !important;margin-bottom: -5px;`);
               qpNode.setAttribute('alt', 'Quadpay');
               qpNode.innerHTML = HelperClass.svgImages().qpNodeWhite;
               sezzleButtonText.appendChild(qpNode);
