@@ -5,15 +5,15 @@
 // add the following lines of code to run when the page has loaded (un-commented) and update the query to match your page:
 	// Note: our top four platforms are given as examples - choose one or create your own
 		// <script type="text/javascript">
-			document.addEventListener('readystatechange', function(){
-				let sezzlePaymentLine = document.querySelector('[alt="Sezzle Staging"]').parentElement.parentElement.parentElement; //Shopify
+			// document.addEventListener('readystatechange', function(){
+				// let sezzlePaymentLine = document.querySelector('[alt="Sezzle Staging"]').parentElement.parentElement.parentElement; //Shopify
 				// let sezzlePaymentLine = document.querySelector('.payment_method_sezzlepay'); // WooCommerce
 				// let sezzlePaymentLine = document.querySelector('.sezzle'); // CommentSold
 				// let sezzlePaymentLine = document.querySelector('.linkGateway'); //3DCart
-			let sezzleCheckoutWidget = document.createElement('div');
-			sezzleCheckoutWidget.id = 'sezzle-installment-widget-box';
-			sezzlePaymentLine.parentElement.insertBefore(sezzleCheckoutWidget, sezzlePaymentLine.nextElementSibling);
-			})
+			// let sezzleCheckoutWidget = document.createElement('div');
+			// sezzleCheckoutWidget.id = 'sezzle-installment-widget-box';
+			// sezzlePaymentLine.parentElement.insertBefore(sezzleCheckoutWidget, sezzlePaymentLine.nextElementSibling);
+			// })
 		// </script>
 
 // 2.b Enter the following two lines of code (un-commented) where this widget should appear
@@ -23,11 +23,28 @@
 // 3. Update the querySelector target in checkoutTotal below to indicate the cart total element
 	// Note: our top four platforms are given as examples - choose one or create your own
 
-document.addEventListener('readystatechange', function(){
+// handles initial render, then watches checkout total for change event, updates installment amounts
+document.addEventListener('readystatechange', function(event){
 	let checkoutTotal = document.querySelector('.payment-due__price'); // Shopify
 	// let checkoutTotal = document.querySelector('.order-total').querySelector('.woocommerce-Price-amount'); // WooCommerce
 	// let checkoutTotal = document.querySelector('.total').getElementsByTagName('SPAN')[1]; // CommentSold
 	// let checkoutTotal = document.querySelector('.total_total') // 3DCart
+	renderInstallmentWidget(checkoutTotal);
+
+		// create an observer instance
+		var observer = new MutationObserver(function(){
+			document.querySelector('#sezzle-installment-widget-box').innerHTML = '';
+			renderInstallmentWidget(checkoutTotal);
+		});
+
+		// configuration of the observer:
+		var config = { attributes: true, childList: true, characterData: true };
+
+		// pass in the target node, as well as the observer options
+		observer.observe(checkoutTotal, config);
+})
+
+function renderInstallmentWidget(checkoutTotal){
 	let language = document.querySelector('html').lang.substring(0,2).toLowerCase() || navigator.language.substring(0,2) || 'en';
 
 	let installmentBox = document.querySelector('#sezzle-installment-widget-box');
@@ -200,11 +217,11 @@ document.addEventListener('readystatechange', function(){
 			margin: 10px 0px -24px 0px;
 		}
 		.sezzle-modal-logo {
-			background-image: url('https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg');
-			background-repeat: no-repeat;
-			background-position: center;
-			height: 20px;
-			margin: 20px 0px 35px;
+			background-image: url('https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg') !important;
+			background-repeat: no-repeat  !important;
+			background-position: center  !important;
+			height: 20px  !important;
+			margin: 20px 0px 35px  !important;
 		}
 		.sezzle-modal-title {
 			text-align: center;
@@ -263,7 +280,7 @@ document.addEventListener('readystatechange', function(){
 				font-size: 18px;
 			}
 			.sezzle-modal-logo {
-				height: 30px;
+				height: 30px  !important;
 			}
 			.sezzle-modal-title {
 				font-size: 30px;
@@ -519,6 +536,4 @@ document.addEventListener('readystatechange', function(){
 			}
 		}
 	}
-})
-
-
+}
