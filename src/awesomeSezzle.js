@@ -127,9 +127,14 @@ class AwesomeSezzle {
           this.renderElement.children[0].children[0].className += ' szl-dark';
           break;
         case 'white':
-          this.renderElement.children[0].children[0].className += 'szl-dark';
+					this.renderElement.children[0].children[0].className += 'szl-dark';
+					break;
         case 'white-flat':
-          this.renderElement.children[0].children[0].className += 'szl-dark';
+					this.renderElement.children[0].children[0].className += 'szl-dark';
+					break;
+				case 'white-pill':
+					this.renderElement.children[0].children[0].className += 'szl-dark';
+					break;
         default:
           this.renderElement.children[0].children[0].className += ' szl-light';
           break;
@@ -157,7 +162,15 @@ class AwesomeSezzle {
       case 'white-flat':
         this.imageClassName = 'szl-dark-image'
         this.imageInnerHTML = HelperClass.svgImages().sezzleWhiteAlt
-        break;
+				break;
+			case 'purple-pill':
+				this.imageClassName = 'szl-light-image'
+				this.imageInnerHTML = HelperClass.svgImages().sezzlePurplePill
+				break;
+			case 'white-pill':
+				this.imageClassName = 'szl-dark-image'
+				this.imageInnerHTML = HelperClass.svgImages().sezzleWhitePill
+				break;
       default:
         this.imageClassName = 'szl-light-image'
         this.imageInnerHTML = HelperClass.svgImages().sezzleLight
@@ -271,13 +284,15 @@ class AwesomeSezzle {
             logoNode.setAttribute('height','199.56');
             logoNode.setAttribute('viewBox','0 0 798.16 199.56');
             logoNode.setAttribute('class',`sezzle-logo ${this.imageClassName}`);
-            logoNode.setAttribute('alt', 'Sezzle');
+						logoNode.setAttribute('alt', 'Sezzle');
             logoNode.style.height = '18px !important';
             logoNode.innerHTML = this.imageInnerHTML;
             sezzleButtonText.appendChild(logoNode);
             if(this.logoStyle != {}) this.setLogoStyle(logoNode);
             this.setLogoSize(logoNode);
-
+						if(this.theme === 'purple-pill' || this.theme == 'white-pill'){
+							logoNode.style.transform = 'scale(12)';
+						}
             break;
           case 'link':
             var learnMoreNode = document.createElement('button');
