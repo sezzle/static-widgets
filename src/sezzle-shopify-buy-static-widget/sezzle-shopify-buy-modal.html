@@ -3,7 +3,8 @@
     <!-- <a class="sezzle-info-link" href="https://sezzle.com/how-it-works" target="_blank" style="text-decoration: none; border: none; padding: 0px 5px;" rel="noopener noreferrer">&#9432;</a> -->
   <!-- with -->
     <!-- <code class="sezzle-info-icon">ⓘ</code> -->
-  <!-- then add the below code below the widget within the product description area -->
+  <!-- then add the below HTML below (excluding the script element) the widget within the product description area -->
+	<!-- Finally, add the script element at the bottom of this file to the non-Shopify store's theme -->
 
 <div class="sezzle-checkout-modal-lightbox close-sezzle-modal" style="display: none; max-height: 100%;">
 <style>
@@ -163,7 +164,7 @@
       width:80%
     }
   }
-  .sezzle-checkout-modal-hidden 
+  .sezzle-checkout-modal-hidden
   .sezzle-payment-pie{
     width:50%;
     margin:30px auto 0;
@@ -341,7 +342,7 @@
         <div class="sezzle-modal-content">
           <div class="sezzle-logo"></div>
           <div class="close-sezzle-modal"></div>
-          <div class="sezzle-header">Sezzle it now. 
+          <div class="sezzle-header">Sezzle it now.
             <span class="header-desktop">Pay us back later.</span>
             <div class="header-mobile">Pay us back later.</div>
           </div>
@@ -378,39 +379,39 @@
         <div class="terms">Subject to approval.</div>
       </div>
     </div>
-  </div> 
-</div> 
+  </div>
+</div>
 
 <script type="text/javascript">
 	function openSezzleModal (){
-    var target = !document.querySelector('.shopify-buy-frame--modal') ? document : document.querySelector('.shopify-buy-frame--modal').firstElementChild.contentWindow.document;
-	  target.querySelector('.sezzle-checkout-modal-lightbox').style.display = "block";
-	  target.querySelector('.sezzle-modal').classList.remove('sezzle-checkout-modal-hidden');
-	  document.body.classList.add('sezzle-modal-open');
+		var target = !document.querySelector('.shopify-buy-frame--product') ? document : document.querySelector('.shopify-buy-frame--product').firstElementChild.contentWindow.document;
+		target.querySelector('.sezzle-checkout-modal-lightbox').style.display = "block";
+		target.querySelector('.sezzle-modal').classList.remove('sezzle-checkout-modal-hidden');
+		document.body.classList.add('sezzle-modal-open');
 	}
 	function addInfoListener(){
-    var target = !document.querySelector('.shopify-buy-frame--modal') ? document : document.querySelector('.shopify-buy-frame--modal').firstElementChild.contentWindow.document;
-	  let sezzleInfoIcons = target.getElementsByClassName('sezzle-info-icon');
-	  for(let i = 0; i < sezzleInfoIcons.length; i++){
+		var target = !document.querySelector('.shopify-buy-frame--product') ? document : document.querySelector('.shopify-buy-frame--product').firstElementChild.contentWindow.document;
+		let sezzleInfoIcons = target.getElementsByClassName('sezzle-info-icon');
+		for(let i = 0; i < sezzleInfoIcons.length; i++){
 		sezzleInfoIcons[i].addEventListener('click', openSezzleModal);
-	  }
+		}
 	}
-	addInfoListener();
-	</script>
-	
-	<script type="text/javascript">
 	function closeSezzleModal (){
-    var target = !document.querySelector('.shopify-buy-frame--modal') ? document : document.querySelector('.shopify-buy-frame--modal').firstElementChild.contentWindow.document;
-	  target.querySelector('.sezzle-checkout-modal-lightbox').style.display = "none";
-	  target.querySelector('.sezzle-modal').classList.add('sezzle-checkout-modal-hidden');
-	  document.body.classList.remove('sezzle-modal-open')
+		var target = !document.querySelector('.shopify-buy-frame--product') ? document : document.querySelector('.shopify-buy-frame--product').firstElementChild.contentWindow.document;
+		target.querySelector('.sezzle-checkout-modal-lightbox').style.display = "none";
+		target.querySelector('.sezzle-modal').classList.add('sezzle-checkout-modal-hidden');
+		document.body.classList.remove('sezzle-modal-open')
 	}
 	function addModalListener(){
-    var target = !document.querySelector('.shopify-buy-frame--modal') ? document : document.querySelector('.shopify-buy-frame--modal').firstElementChild.contentWindow.document;
-    var sezzleModalClose = target.getElementsByClassName('close-sezzle-modal');
-    for(let i = 0; i < sezzleModalClose.length; i++){
-		sezzleModalClose[i].addEventListener('click', closeSezzleModal);
-	  }
+		var target = !document.querySelector('.shopify-buy-frame--product') ? document : document.querySelector('.shopify-buy-frame--product').firstElementChild.contentWindow.document;
+		var sezzleModalClose = target.getElementsByClassName('close-sezzle-modal');
+		for(let i = 0; i < sezzleModalClose.length; i++){
+			sezzleModalClose[i].addEventListener('click', closeSezzleModal);
+		}
 	}
-	addModalListener();
+	document.onreadystatechange = window.setTimeout(function(){
+		console.log('adding Sezzle modal event listeners')
+		addInfoListener();
+		addModalListener();
+	},10000)
 	</script>
