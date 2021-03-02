@@ -18,7 +18,7 @@
     <form onsubmit="testing()">
         <h1>Test Sezzle SDK</h1>
 
-        <p id='price'>4,99 $</p>
+        <p id='price'>500 $</p>
 
         Desktop
         <div id='sezzle-widget-desktop'></div>
@@ -51,7 +51,7 @@ renderSezzle2.init();
       // null, string, or array of strings
       renderElement: ['sezzle-widget-desktop','sezzle-widget-mobile'],
       // null, light, dark, grayscale, white, white-flat, black-flat
-      theme: 'white-pill',
+    //   theme: 'white-pill',
       // null or >0 other than 400 (default)
       // maxWidth: 200,
       // null, >0 or <0
@@ -100,7 +100,7 @@ renderSezzle2.init();
       // maxPrice: 9900,
       // null or string with the below templates, or object with 'en' and 'fr' keys
       // %%price%% %%logo%% %%info%% %%question-mark%% %%link%% %%afterpay-logo%% %%afterpay-logo-grey%% %%afterpay-logo-white%% %%afterpay-info-icon%% %%afterpay-link-icon%% %%quadpay-logo%% %%quadpay-logo-grey%% %%quadpay-logo-white%% %%quadpay-info-icon%%
-      widgetTemplate: 'o 4 pagos de %%price%% sin intereses con %%logo%% %%info%% %%question-mark%% %%link%% or %%afterpay-logo%% %%afterpay-logo-grey%% %%afterpay-logo-white%% %%afterpay-info-icon%% %%afterpay-link-icon%% %%quadpay-logo%% %%quadpay-logo-grey%% %%quadpay-logo-white%% %%quadpay-info-icon%% %%affirm-logo%% %%affirm-logo-grey%% %%affirm-logo-white%% %%affirm-info-icon%% %%klarna-logo%% %%klarna-logo-grey%% %%klarna-logo-white%% %%klarna-info-icon%%',
+    //   widgetTemplate: 'o 4 pagos de %%price%% sin intereses con %%logo%% %%info%% %%question-mark%% %%link%% or %%afterpay-logo%% %%afterpay-logo-grey%% %%afterpay-logo-white%% %%afterpay-info-icon%% %%afterpay-link-icon%% %%quadpay-logo%% %%quadpay-logo-grey%% %%quadpay-logo-white%% %%quadpay-info-icon%% %%affirm-logo%% %%affirm-logo-grey%% %%affirm-logo-white%% %%affirm-info-icon%% %%klarna-logo%% %%klarna-logo-grey%% %%klarna-logo-white%% %%klarna-info-icon%%',
       // null or innerHTML
     //   altLightboxHTML: `<meta name="viewport" content="width=device-width, initial-scale=1.0"><div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal" title=""> <div class="sezzle-modal-content"> <div class="sezzle-logo" title="Sezzle logo"></div><button title="Close Sezzle Modal" class="close-sezzle-modal" tabindex="0" role="button"></button><div class="sezzle-header"> Sezzle ahora. <span class="header-desktop">Páganos más tarde.</span> <div class="header-mobile">Páganos más tarde.</div></div><div class="sezzle-row"> <div class="desktop"> Finalizar pedido con Sezzle y divida todo su pedido en <div>4 pagos sin intereses durante 6 semanas.</div></div><div class="mobile"> Finalizar pedido con Sezzle y divida todo su pedido en 4 pagos sin intereses durante 6 semanas.</div></div>          <div class="sezzle-hiw-pie-bg">
     //       <div class="sezzle-payment-pie-de"></div>
@@ -112,369 +112,369 @@ renderSezzle2.init();
     //         </div>
     //       </div><div class="sezzle-features"> <div class="single-feature"> <div>Sin interés, nunca</div><div class="sub-feature">Además, no hay tarifas si paga a tiempo</div></div><div class="single-feature"> <div style="line-height: 1.2;">Sin impacto en su<div>puntaje crediticio</div></div></div><div class="single-feature"> <div>Decisiones de</div><div>aprobación instantánea</div></div></div><div class="sezzle-row"> <div class="desktop"> <div class="just-select-sezzle">Simplemente seleccione <span>Sezzle</span> al finalizar la compra!</div></div><div class="mobile"> <div class="just-select-sezzle-mobile"> <div>Simplemente seleccione Sezzle</div><div>al finalizar la compra!</div></div></div></div><div class="terms">Sujeta a aprobación.</div></div></div></div>`,
       // null or outerHTML
-      apModalHTML: '<div id="afterpay-popup-wrapper" style="position: fixed; z-index: 2147483647; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: auto;"><div id="afterpay-popup-outer" style="display: flex; place-content: center; align-items: center; width: 100%; min-height: 100%; background-color: rgba(0, 0, 0, 0.8);"><div id="afterpay-popup-inner" style="position: relative; background-color: rgb(255, 255, 255);"><a href="https://www.afterpay.com/purchase-payment-agreement" target="_blank" style="display: block;"><img src="https://static.afterpay.com/us-popup-medium.png" srcset="https://static.afterpay.com/us-popup-medium.png 1x, https://static.afterpay.com/us-popup-medium@2x.png 2x" style="max-width: 597px; display: block; width: 100%;"></a><a href="#" style="position: absolute; right: 8px; top: 8px;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" width="32px" height="32px"><g id="surface1"><path style=" " d="M 16 3 C 8.832031 3 3 8.832031 3 16 C 3 23.167969 8.832031 29 16 29 C 23.167969 29 29 23.167969 29 16 C 29 8.832031 23.167969 3 16 3 Z M 16 5 C 22.085938 5 27 9.914063 27 16 C 27 22.085938 22.085938 27 16 27 C 9.914063 27 5 22.085938 5 16 C 5 9.914063 9.914063 5 16 5 Z M 12.21875 10.78125 L 10.78125 12.21875 L 14.5625 16 L 10.78125 19.78125 L 12.21875 21.21875 L 16 17.4375 L 19.78125 21.21875 L 21.21875 19.78125 L 17.4375 16 L 21.21875 12.21875 L 19.78125 10.78125 L 16 14.5625 Z "></path></g></svg></a></div></div></div>',
+    //   apModalHTML: '<div id="afterpay-popup-wrapper" style="position: fixed; z-index: 2147483647; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: auto;"><div id="afterpay-popup-outer" style="display: flex; place-content: center; align-items: center; width: 100%; min-height: 100%; background-color: rgba(0, 0, 0, 0.8);"><div id="afterpay-popup-inner" style="position: relative; background-color: rgb(255, 255, 255);"><a href="https://www.afterpay.com/purchase-payment-agreement" target="_blank" style="display: block;"><img src="https://static.afterpay.com/us-popup-medium.png" srcset="https://static.afterpay.com/us-popup-medium.png 1x, https://static.afterpay.com/us-popup-medium@2x.png 2x" style="max-width: 597px; display: block; width: 100%;"></a><a href="#" style="position: absolute; right: 8px; top: 8px;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" width="32px" height="32px"><g id="surface1"><path style=" " d="M 16 3 C 8.832031 3 3 8.832031 3 16 C 3 23.167969 8.832031 29 16 29 C 23.167969 29 29 23.167969 29 16 C 29 8.832031 23.167969 3 16 3 Z M 16 5 C 22.085938 5 27 9.914063 27 16 C 27 22.085938 22.085938 27 16 27 C 9.914063 27 5 22.085938 5 16 C 5 9.914063 9.914063 5 16 5 Z M 12.21875 10.78125 L 10.78125 12.21875 L 14.5625 16 L 10.78125 19.78125 L 12.21875 21.21875 L 16 17.4375 L 19.78125 21.21875 L 21.21875 19.78125 L 17.4375 16 L 21.21875 12.21875 L 19.78125 10.78125 L 16 14.5625 Z "></path></g></svg></a></div></div></div>',
       // null or URL
-      apLink: 'https://www.afterpay.com/purchase-payment-agreement',
+    //   apLink: 'https://www.afterpay.com/purchase-payment-agreement',
       // null or outerHTML
-      qpModalHTML: `<div id="qp-modal__overlay" class="qp-modal__overlay" style="display: block;">
-    <style>
-    @font-face {
-        font-family: roc-grotesk;
-        src: url(https://assets.quadpay.com/assets/fonts/rocgrotesk-light-webfont.woff2) format('woff2'),
-        url(https://assets.quadpay.com/assets/fonts/rocgrotesk-light-webfont.woff) format('woff');
-        font-weight: 300;
-    }
-    @font-face {
-        font-family: roc-grotesk;
-        src: url(https://assets.quadpay.com/assets/fonts/rocgrotesk-regular-webfont.woff2) format('woff2'),
-        url(https://assets.quadpay.com/assets/fonts/rocgrotesk-regular-webfont.woff) format('woff');
-    }
-    @font-face {
-        font-family: roc-grotesk;
-        src: url(https://assets.quadpay.com/assets/fonts/rocgrotesk-medium-webfont.woff2) format('woff2'),
-        url(https://assets.quadpay.com/assets/fonts/rocgrotesk-medium-webfont.woff) format('woff');
-        font-weight: 700;
-    }
-    @font-face {
-        font-family: roc-grotesk;
-        src: url(https://assets.quadpay.com/assets/fonts/rocgrotesk-bold-webfont.woff2) format('woff2'),
-        url(https://assets.quadpay.com/assets/fonts/rocgrotesk-bold-webfont.woff) format('woff');
-        font-weight: 800;
-    }
+    //   qpModalHTML: `<div id="qp-modal__overlay" class="qp-modal__overlay" style="display: block;">
+    // <style>
+    // @font-face {
+    //     font-family: roc-grotesk;
+    //     src: url(https://assets.quadpay.com/assets/fonts/rocgrotesk-light-webfont.woff2) format('woff2'),
+    //     url(https://assets.quadpay.com/assets/fonts/rocgrotesk-light-webfont.woff) format('woff');
+    //     font-weight: 300;
+    // }
+    // @font-face {
+    //     font-family: roc-grotesk;
+    //     src: url(https://assets.quadpay.com/assets/fonts/rocgrotesk-regular-webfont.woff2) format('woff2'),
+    //     url(https://assets.quadpay.com/assets/fonts/rocgrotesk-regular-webfont.woff) format('woff');
+    // }
+    // @font-face {
+    //     font-family: roc-grotesk;
+    //     src: url(https://assets.quadpay.com/assets/fonts/rocgrotesk-medium-webfont.woff2) format('woff2'),
+    //     url(https://assets.quadpay.com/assets/fonts/rocgrotesk-medium-webfont.woff) format('woff');
+    //     font-weight: 700;
+    // }
+    // @font-face {
+    //     font-family: roc-grotesk;
+    //     src: url(https://assets.quadpay.com/assets/fonts/rocgrotesk-bold-webfont.woff2) format('woff2'),
+    //     url(https://assets.quadpay.com/assets/fonts/rocgrotesk-bold-webfont.woff) format('woff');
+    //     font-weight: 800;
+    // }
 
-    .qp-modal__overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        overflow-y: auto;
-        width: 100%;
-        height: 100%;
-        display: none;
-        background: rgba(0, 0, 0, .75);
-        z-index: 200000001 !important;
-    }
+    // .qp-modal__overlay {
+    //     position: fixed;
+    //     top: 0;
+    //     left: 0;
+    //     right: 0;
+    //     bottom: 0;
+    //     overflow-y: auto;
+    //     width: 100%;
+    //     height: 100%;
+    //     display: none;
+    //     background: rgba(0, 0, 0, .75);
+    //     z-index: 200000001 !important;
+    // }
 
-    .qp-modal__container {
-        font-family: "roc-grotesk", sans-serif;
-        letter-spacing: normal;
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-            -ms-flex-direction: column;
-                flex-direction: column;
-        -webkit-box-pack: justify;
-            -ms-flex-pack: justify;
-                justify-content: space-between;
-        -webkit-box-align: center;
-            -ms-flex-align: center;
-                align-items: center;
-        width: 90%;
-        max-width: 375px;
-        margin: 1em auto;
-        position: relative;
-        opacity: 1;
-        z-index: 200000002;
-        overflow-x: hidden;
-        overflow-y: auto;
-        -webkit-box-shadow: 0px 6px 20px 2px rgba(100, 100, 100, .5);
-                box-shadow: 0px 6px 20px 2px rgba(100, 100, 100, .5);
-    }
+    // .qp-modal__container {
+    //     font-family: "roc-grotesk", sans-serif;
+    //     letter-spacing: normal;
+    //     display: -webkit-box;
+    //     display: -ms-flexbox;
+    //     display: flex;
+    //     -webkit-box-orient: vertical;
+    //     -webkit-box-direction: normal;
+    //         -ms-flex-direction: column;
+    //             flex-direction: column;
+    //     -webkit-box-pack: justify;
+    //         -ms-flex-pack: justify;
+    //             justify-content: space-between;
+    //     -webkit-box-align: center;
+    //         -ms-flex-align: center;
+    //             align-items: center;
+    //     width: 90%;
+    //     max-width: 375px;
+    //     margin: 1em auto;
+    //     position: relative;
+    //     opacity: 1;
+    //     z-index: 200000002;
+    //     overflow-x: hidden;
+    //     overflow-y: auto;
+    //     -webkit-box-shadow: 0px 6px 20px 2px rgba(100, 100, 100, .5);
+    //             box-shadow: 0px 6px 20px 2px rgba(100, 100, 100, .5);
+    // }
 
-    .qp-container_top-half {
-        background: #140CA3;
-        color: white;
-        height: 100%;
-        padding: 30px 25px 28px;
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-            -ms-flex-direction: column;
-                flex-direction: column;
-        -webkit-box-pack: justify;
-            -ms-flex-pack: justify;
-                justify-content: space-between;
-    }
+    // .qp-container_top-half {
+    //     background: #140CA3;
+    //     color: white;
+    //     height: 100%;
+    //     padding: 30px 25px 28px;
+    //     display: -webkit-box;
+    //     display: -ms-flexbox;
+    //     display: flex;
+    //     -webkit-box-orient: vertical;
+    //     -webkit-box-direction: normal;
+    //         -ms-flex-direction: column;
+    //             flex-direction: column;
+    //     -webkit-box-pack: justify;
+    //         -ms-flex-pack: justify;
+    //             justify-content: space-between;
+    // }
 
-    .qp-container_bottom-half {
-        background: white;
-        color: black;
-        height: 100%;
-        padding: 30px 0 13px;
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-            -ms-flex-direction: column;
-                flex-direction: column;
-        -webkit-box-pack: justify;
-            -ms-flex-pack: justify;
-                justify-content: space-between;
-    }
+    // .qp-container_bottom-half {
+    //     background: white;
+    //     color: black;
+    //     height: 100%;
+    //     padding: 30px 0 13px;
+    //     display: -webkit-box;
+    //     display: -ms-flexbox;
+    //     display: flex;
+    //     -webkit-box-orient: vertical;
+    //     -webkit-box-direction: normal;
+    //         -ms-flex-direction: column;
+    //             flex-direction: column;
+    //     -webkit-box-pack: justify;
+    //         -ms-flex-pack: justify;
+    //             justify-content: space-between;
+    // }
 
-    .qp-modal__close {
-        width: 20px;
-        height: 20px;
-        -ms-flex-item-align: end;
-            align-self: flex-end;
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        opacity: 1;
-        cursor: pointer;
-    }
+    // .qp-modal__close {
+    //     width: 20px;
+    //     height: 20px;
+    //     -ms-flex-item-align: end;
+    //         align-self: flex-end;
+    //     position: absolute;
+    //     top: 20px;
+    //     right: 20px;
+    //     opacity: 1;
+    //     cursor: pointer;
+    // }
 
-    .qp-modal__close:hover {
-        opacity: 0.85;
-        -webkit-box-shadow: 0 1px 1px 1px rgba(100, 100, 100, .1);
-                box-shadow: 0 1px 1px 1px rgba(100, 100, 100, .1);
-    }
+    // .qp-modal__close:hover {
+    //     opacity: 0.85;
+    //     -webkit-box-shadow: 0 1px 1px 1px rgba(100, 100, 100, .1);
+    //             box-shadow: 0 1px 1px 1px rgba(100, 100, 100, .1);
+    // }
 
-    .qp-modal__tag {
-        font-family: "roc-grotesk", sans-serif;
-        font-size: 34px;
-        font-weight: 700;
-        line-height: 38px;
-        margin: 18px 0 10px;
-    }
+    // .qp-modal__tag {
+    //     font-family: "roc-grotesk", sans-serif;
+    //     font-size: 34px;
+    //     font-weight: 700;
+    //     line-height: 38px;
+    //     margin: 18px 0 10px;
+    // }
 
-    .qp-modal__subtitle {
-        font-family: "roc-grotesk", sans-serif;
-        color: white;
-        font-size: 14px;
-        font-weight: 300;
-        line-height: 18.2px;
-    }
+    // .qp-modal__subtitle {
+    //     font-family: "roc-grotesk", sans-serif;
+    //     color: white;
+    //     font-size: 14px;
+    //     font-weight: 300;
+    //     line-height: 18.2px;
+    // }
 
-    .qp-modal_steps-main-container {
-        padding: 0 30px 13px;
-    }
+    // .qp-modal_steps-main-container {
+    //     padding: 0 30px 13px;
+    // }
 
-    .qp-modal__step-container {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: horizontal;
-        -webkit-box-direction: normal;
-            -ms-flex-direction: row;
-                flex-direction: row;
-        -webkit-box-align: center;
-            -ms-flex-align: center;
-                align-items: center;
-        -webkit-box-pack: start;
-            -ms-flex-pack: start;
-                justify-content: flex-start;
-    }
+    // .qp-modal__step-container {
+    //     display: -webkit-box;
+    //     display: -ms-flexbox;
+    //     display: flex;
+    //     -webkit-box-orient: horizontal;
+    //     -webkit-box-direction: normal;
+    //         -ms-flex-direction: row;
+    //             flex-direction: row;
+    //     -webkit-box-align: center;
+    //         -ms-flex-align: center;
+    //             align-items: center;
+    //     -webkit-box-pack: start;
+    //         -ms-flex-pack: start;
+    //             justify-content: flex-start;
+    // }
 
-    .qp-modal__step-container:nth-child(2) {
-        margin: 20px 0;
-    }
+    // .qp-modal__step-container:nth-child(2) {
+    //     margin: 20px 0;
+    // }
 
-    .qp-modal__step-icon {
-        width: 17%;
-    }
+    // .qp-modal__step-icon {
+    //     width: 17%;
+    // }
 
-    .qp-modal__step-text-container {
-        width: 83%;
-        color: black;
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-            -ms-flex-direction: column;
-                flex-direction: column;
-        -webkit-box-align: start;
-            -ms-flex-align: start;
-                align-items: flex-start;
-    }
+    // .qp-modal__step-text-container {
+    //     width: 83%;
+    //     color: black;
+    //     display: -webkit-box;
+    //     display: -ms-flexbox;
+    //     display: flex;
+    //     -webkit-box-orient: vertical;
+    //     -webkit-box-direction: normal;
+    //         -ms-flex-direction: column;
+    //             flex-direction: column;
+    //     -webkit-box-align: start;
+    //         -ms-flex-align: start;
+    //             align-items: flex-start;
+    // }
 
-    .qp-modal__step-header {
-        font-family: "roc-grotesk", sans-serif;
-        font-size: 18px;
-        font-weight: 700;
-        line-height: 23.4px;
-        margin-bottom: 5px;
-    }
+    // .qp-modal__step-header {
+    //     font-family: "roc-grotesk", sans-serif;
+    //     font-size: 18px;
+    //     font-weight: 700;
+    //     line-height: 23.4px;
+    //     margin-bottom: 5px;
+    // }
 
-    .qp-modal__step-subhead {
-        font-family: "roc-grotesk", sans-serif;
-        font-size: 12px;
-        font-weight: 400;
-        line-height: 15.6px;
-    }
+    // .qp-modal__step-subhead {
+    //     font-family: "roc-grotesk", sans-serif;
+    //     font-size: 12px;
+    //     font-weight: 400;
+    //     line-height: 15.6px;
+    // }
 
-    .qp-modal__learn-more {
-        text-align: center;
-    }
+    // .qp-modal__learn-more {
+    //     text-align: center;
+    // }
 
-    #qp-modal__learn-more-link,
-    #qp-modal__learn-more-link:active,
-    #qp-modal__learn-more-link:focus {
-        text-decoration: none;
-        font-family: "roc-grotesk", sans-serif;
-        text-align: center;
-        font-size: 12px;
-        font-weight: 800;
-        line-height: 15.6px;
-        color: #140CA3;
-        outline: none;
-    }
+    // #qp-modal__learn-more-link,
+    // #qp-modal__learn-more-link:active,
+    // #qp-modal__learn-more-link:focus {
+    //     text-decoration: none;
+    //     font-family: "roc-grotesk", sans-serif;
+    //     text-align: center;
+    //     font-size: 12px;
+    //     font-weight: 800;
+    //     line-height: 15.6px;
+    //     color: #140CA3;
+    //     outline: none;
+    // }
 
-    .qp-modal__hr {
-        margin: 15px auto 0;
-        width: 90%;
-        border: 1px solid #E2E4E8;
-        border-width: 1px 0 0;
-    }
+    // .qp-modal__hr {
+    //     margin: 15px auto 0;
+    //     width: 90%;
+    //     border: 1px solid #E2E4E8;
+    //     border-width: 1px 0 0;
+    // }
 
-    .qp-modal__disclaimer {
-        font-family: "roc-grotesk", sans-serif;
-        text-align: center;
-        font-size: 10px;
-        font-weight: 300;
-        line-height: 15px;
-        letter-spacing: 0.1px;
-        margin: 17px 24px 8px;
-    }
+    // .qp-modal__disclaimer {
+    //     font-family: "roc-grotesk", sans-serif;
+    //     text-align: center;
+    //     font-size: 10px;
+    //     font-weight: 300;
+    //     line-height: 15px;
+    //     letter-spacing: 0.1px;
+    //     margin: 17px 24px 8px;
+    // }
 
-    #qp-modal__terms-link,
-    #qp-modal__terms-link:active,
-    #qp-modal__terms-link:focus {
-        font-family: "roc-grotesk", sans-serif;
-        font-weight: 700;
-        outline: none;
-        text-decoration: none;
-        color: #140CA3;
-    }
+    // #qp-modal__terms-link,
+    // #qp-modal__terms-link:active,
+    // #qp-modal__terms-link:focus {
+    //     font-family: "roc-grotesk", sans-serif;
+    //     font-weight: 700;
+    //     outline: none;
+    //     text-decoration: none;
+    //     color: #140CA3;
+    // }
 
-    .qp-modal__copyright {
-        font-family: "roc-grotesk", sans-serif;
-        text-align: center;
-        font-size: 10px;
-        font-weight: 400;
-        line-height: 14.4px;
-    }
+    // .qp-modal__copyright {
+    //     font-family: "roc-grotesk", sans-serif;
+    //     text-align: center;
+    //     font-size: 10px;
+    //     font-weight: 400;
+    //     line-height: 14.4px;
+    // }
 
-    /* To handle when parent site specifies SVG fill and stroke globally */
-    #qp-modal__logo {
-        fill: white;
-    }
+    // /* To handle when parent site specifies SVG fill and stroke globally */
+    // #qp-modal__logo {
+    //     fill: white;
+    // }
 
-    .qp-modal__logo svg * {
-        stroke: none;
-    }
+    // .qp-modal__logo svg * {
+    //     stroke: none;
+    // }
 
-    @media screen and (max-width: 300px) {
-        .qp-modal__step-icon,
-        .qp-modal__step-text-container {
-            width: fit-content;
-        }
+    // @media screen and (max-width: 300px) {
+    //     .qp-modal__step-icon,
+    //     .qp-modal__step-text-container {
+    //         width: fit-content;
+    //     }
 
-        .qp-modal__step-container {
-            -webkit-box-orient: vertical;
-            -webkit-box-direction: normal;
-                -ms-flex-direction: column;
-                    flex-direction: column;
-            -webkit-box-align: center;
-                -ms-flex-align: center;
-                    align-items: center;
-            -webkit-box-pack: center;
-                -ms-flex-pack: center;
-                    justify-content: center;
-        }
+    //     .qp-modal__step-container {
+    //         -webkit-box-orient: vertical;
+    //         -webkit-box-direction: normal;
+    //             -ms-flex-direction: column;
+    //                 flex-direction: column;
+    //         -webkit-box-align: center;
+    //             -ms-flex-align: center;
+    //                 align-items: center;
+    //         -webkit-box-pack: center;
+    //             -ms-flex-pack: center;
+    //                 justify-content: center;
+    //     }
 
-        .qp-modal__step-header,
-        .qp-modal__step-subhead {
-            text-align: center;
-        }
-    }
-    </style>
+    //     .qp-modal__step-header,
+    //     .qp-modal__step-subhead {
+    //         text-align: center;
+    //     }
+    // }
+    // </style>
 
-    <div class="qp-modal__container" id="qp-modal__container">
-        <div class="qp-container_top-half" id="qp-container_top-half">
-            <div class="qp-modal__close" id="qp-modal__close">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M14.0001 1.41012L12.5901 0.00012207L7.00012 5.59012L1.41012 0.00012207L0.00012207 1.41012L5.59012 7.00012L0.00012207 12.5901L1.41012 14.0001L7.00012 8.41012L12.5901 14.0001L14.0001 12.5901L8.41012 7.00012L14.0001 1.41012Z" fill="white"></path>
-                </svg>
-            </div>
+    // <div class="qp-modal__container" id="qp-modal__container">
+    //     <div class="qp-container_top-half" id="qp-container_top-half">
+    //         <div class="qp-modal__close" id="qp-modal__close">
+    //             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+    //                 <path d="M14.0001 1.41012L12.5901 0.00012207L7.00012 5.59012L1.41012 0.00012207L0.00012207 1.41012L5.59012 7.00012L0.00012207 12.5901L1.41012 14.0001L7.00012 8.41012L12.5901 14.0001L14.0001 12.5901L8.41012 7.00012L14.0001 1.41012Z" fill="white"></path>
+    //             </svg>
+    //         </div>
 
-            <div class="qp-modal__logo" id="qp-modal__logo">
-                <a href="https://www.quadpay.com/how-it-works/" target="new">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="108" height="24" viewBox="0 0 108 24" version="1.1">
-                        <title>  Quadpay - Pay in 4 installments, zero interest</title>
-                        <g style="fill-rule:evenodd;fill:none">
-                            <path d="M88.8686 4.99125H92.3616V17.7547H88.8686V16.4503C87.7577 17.5474 86.437 18.0838 84.8818 18.0838C83.0428 18.0838 81.5122 17.4377 80.3027 16.1455C79.1054 14.8412 78.5129 13.232 78.5129 11.3059C78.5129 9.39201 79.1301 7.80725 80.3273 6.55163C81.5246 5.29601 83.0674 4.66211 84.8818 4.66211C86.437 4.66211 87.7577 5.22287 88.8686 6.34439V4.99125ZM83.1415 13.7684C83.7833 14.4145 84.5609 14.7436 85.5237 14.7436C86.4864 14.7436 87.264 14.4145 87.9058 13.744C88.5477 13.0735 88.8686 12.2812 88.8686 11.3425C88.8686 10.416 88.5353 9.62363 87.9058 8.96535C87.264 8.30706 86.4864 7.99011 85.5237 7.99011C84.5609 7.99011 83.7833 8.31925 83.1415 8.96535C82.5244 9.61144 82.2158 10.4038 82.2158 11.3425C82.2158 12.2933 82.5244 13.0857 83.1415 13.7684Z" fill="white"></path>
-                            <path d="M103.989 4.99133H108L102.878 18.0961C101.557 21.4729 99.8167 23.1795 97.052 23.1795C95.9905 23.1795 95.1141 22.9479 94.4353 22.509L95.1141 19.4858C95.6819 19.7906 96.2497 19.9247 96.7927 19.9247C97.8049 19.9247 98.6565 19.2786 99.2983 17.9742L99.4588 17.5963L93.8181 4.99133H98.0887L101.199 12.8908L103.989 4.99133Z" fill="white"></path>
-                            <path d="M75.4396 6.61259C74.2424 5.3082 72.7242 4.66211 70.8851 4.66211C69.3299 4.66211 68.0092 5.24725 66.9477 6.40535V4.97906H63.3683V21.6556L66.9477 22.448V16.4503C68.0092 17.5474 69.3546 18.0838 70.8851 18.0838C72.6995 18.0838 74.2177 17.4377 75.4149 16.1333C76.6122 14.829 77.2293 13.2442 77.2293 11.3547C77.2293 9.47735 76.6369 7.89259 75.4396 6.61259ZM70.1939 14.7193C68.2807 14.7193 66.9354 13.2564 66.9354 11.3669C66.9354 10.4404 67.244 9.64802 67.8611 9.01411C68.4782 8.36802 69.2558 8.03887 70.1939 8.03887C71.1566 8.03887 71.9342 8.36802 72.5514 9.01411C73.1685 9.64802 73.4771 10.4404 73.4771 11.3669C73.4771 13.2564 72.107 14.7193 70.1939 14.7193Z" fill="white"></path>
-                            <path d="M48.3963 16.1212C49.5936 17.4256 51.1118 18.0717 52.9509 18.0717C54.5061 18.0717 55.8268 17.4865 56.8882 16.3284V17.7547H60.4677V1.07815L56.8882 0.285767V6.28348C55.8268 5.18634 54.4814 4.64996 52.9509 4.64996C51.1365 4.64996 49.6183 5.29605 48.421 6.60043C47.2238 7.90481 46.6066 9.48957 46.6066 11.3791C46.5943 13.2564 47.1867 14.8412 48.3963 16.1212ZM53.6297 8.01453C55.5429 8.01453 56.8882 9.47739 56.8882 11.3669C56.8882 12.2934 56.5797 13.0858 55.9625 13.7197C55.3454 14.3658 54.5678 14.6949 53.6297 14.6949C52.667 14.6949 51.8894 14.3658 51.2722 13.7197C50.6551 13.0858 50.3465 12.2934 50.3465 11.3669C50.3465 9.47739 51.7166 8.01453 53.6297 8.01453Z" fill="white"></path>
-                            <path d="M41.1141 4.99125H44.6071V17.7547H41.1141V16.4503C40.0032 17.5474 38.6825 18.0838 37.1273 18.0838C35.2882 18.0838 33.7577 17.4377 32.5481 16.1455C31.3509 14.8412 30.7584 13.232 30.7584 11.3059C30.7584 9.39201 31.3756 7.80725 32.5728 6.55163C33.7701 5.29601 35.3129 4.66211 37.1273 4.66211C38.6825 4.66211 40.0032 5.22287 41.1141 6.34439V4.99125ZM35.3746 13.7684C36.0165 14.4145 36.7941 14.7436 37.7568 14.7436C38.7196 14.7436 39.4972 14.4145 40.139 13.744C40.7808 13.0735 41.1017 12.2812 41.1017 11.3425C41.1017 10.416 40.7685 9.62363 40.139 8.96535C39.4972 8.30706 38.7196 7.99011 37.7568 7.99011C36.7941 7.99011 36.0165 8.31925 35.3746 8.96535C34.7575 9.61144 34.4489 10.4038 34.4489 11.3425C34.4613 12.2933 34.7575 13.0857 35.3746 13.7684Z" fill="white"></path>
-                            <path d="M16.7616 12.2812V4.99133H20.4645V12.3056C20.4645 13.7685 21.3408 14.7315 22.8219 14.7315C24.3031 14.7315 25.1794 13.7807 25.1794 12.3056V4.99133H28.8823V12.2812C28.8823 15.9871 26.5989 18.0839 22.8219 18.0839C19.0821 18.0717 16.7616 15.9384 16.7616 12.2812Z" fill="white"></path>
-                            <path d="M15.7742 17.7669L15.0213 14.4511H6.7392H6.71452C4.85075 14.4389 3.35726 12.9395 3.35726 11.0987C3.35726 9.24578 4.87543 7.74635 6.75154 7.74635C8.62766 7.74635 10.1458 9.24578 10.1458 11.0987V13.2077H13.5031V10.9281C13.4167 7.31969 10.4297 4.43054 6.75154 4.43054C3.024 4.43054 0 7.41721 0 11.0987C0 14.7803 3.01165 17.7547 6.7392 17.7669H10.1211V21.5947L13.5031 22.3384V17.7669H15.7742Z" fill="white"></path>
-                        </g>
-                    </svg>
-                </a>
-            </div>
-            <div class="qp-modal__tag" id="qp-modal__tag">Shop online now, pay over time.</div>
-            <div class="qp-modal__subtitle" id="qp-modal__subtitle">
-                We split the purchase amount into 4
-                <br>
-                interest-free payments, spread over 6 weeks.
-            </div>
-        </div>
-        <div class="qp-container_bottom-half" id="qp-container_bottom-half">
+    //         <div class="qp-modal__logo" id="qp-modal__logo">
+    //             <a href="https://www.quadpay.com/how-it-works/" target="new">
+    //                 <svg xmlns="http://www.w3.org/2000/svg" width="108" height="24" viewBox="0 0 108 24" version="1.1">
+    //                     <title>  Quadpay - Pay in 4 installments, zero interest</title>
+    //                     <g style="fill-rule:evenodd;fill:none">
+    //                         <path d="M88.8686 4.99125H92.3616V17.7547H88.8686V16.4503C87.7577 17.5474 86.437 18.0838 84.8818 18.0838C83.0428 18.0838 81.5122 17.4377 80.3027 16.1455C79.1054 14.8412 78.5129 13.232 78.5129 11.3059C78.5129 9.39201 79.1301 7.80725 80.3273 6.55163C81.5246 5.29601 83.0674 4.66211 84.8818 4.66211C86.437 4.66211 87.7577 5.22287 88.8686 6.34439V4.99125ZM83.1415 13.7684C83.7833 14.4145 84.5609 14.7436 85.5237 14.7436C86.4864 14.7436 87.264 14.4145 87.9058 13.744C88.5477 13.0735 88.8686 12.2812 88.8686 11.3425C88.8686 10.416 88.5353 9.62363 87.9058 8.96535C87.264 8.30706 86.4864 7.99011 85.5237 7.99011C84.5609 7.99011 83.7833 8.31925 83.1415 8.96535C82.5244 9.61144 82.2158 10.4038 82.2158 11.3425C82.2158 12.2933 82.5244 13.0857 83.1415 13.7684Z" fill="white"></path>
+    //                         <path d="M103.989 4.99133H108L102.878 18.0961C101.557 21.4729 99.8167 23.1795 97.052 23.1795C95.9905 23.1795 95.1141 22.9479 94.4353 22.509L95.1141 19.4858C95.6819 19.7906 96.2497 19.9247 96.7927 19.9247C97.8049 19.9247 98.6565 19.2786 99.2983 17.9742L99.4588 17.5963L93.8181 4.99133H98.0887L101.199 12.8908L103.989 4.99133Z" fill="white"></path>
+    //                         <path d="M75.4396 6.61259C74.2424 5.3082 72.7242 4.66211 70.8851 4.66211C69.3299 4.66211 68.0092 5.24725 66.9477 6.40535V4.97906H63.3683V21.6556L66.9477 22.448V16.4503C68.0092 17.5474 69.3546 18.0838 70.8851 18.0838C72.6995 18.0838 74.2177 17.4377 75.4149 16.1333C76.6122 14.829 77.2293 13.2442 77.2293 11.3547C77.2293 9.47735 76.6369 7.89259 75.4396 6.61259ZM70.1939 14.7193C68.2807 14.7193 66.9354 13.2564 66.9354 11.3669C66.9354 10.4404 67.244 9.64802 67.8611 9.01411C68.4782 8.36802 69.2558 8.03887 70.1939 8.03887C71.1566 8.03887 71.9342 8.36802 72.5514 9.01411C73.1685 9.64802 73.4771 10.4404 73.4771 11.3669C73.4771 13.2564 72.107 14.7193 70.1939 14.7193Z" fill="white"></path>
+    //                         <path d="M48.3963 16.1212C49.5936 17.4256 51.1118 18.0717 52.9509 18.0717C54.5061 18.0717 55.8268 17.4865 56.8882 16.3284V17.7547H60.4677V1.07815L56.8882 0.285767V6.28348C55.8268 5.18634 54.4814 4.64996 52.9509 4.64996C51.1365 4.64996 49.6183 5.29605 48.421 6.60043C47.2238 7.90481 46.6066 9.48957 46.6066 11.3791C46.5943 13.2564 47.1867 14.8412 48.3963 16.1212ZM53.6297 8.01453C55.5429 8.01453 56.8882 9.47739 56.8882 11.3669C56.8882 12.2934 56.5797 13.0858 55.9625 13.7197C55.3454 14.3658 54.5678 14.6949 53.6297 14.6949C52.667 14.6949 51.8894 14.3658 51.2722 13.7197C50.6551 13.0858 50.3465 12.2934 50.3465 11.3669C50.3465 9.47739 51.7166 8.01453 53.6297 8.01453Z" fill="white"></path>
+    //                         <path d="M41.1141 4.99125H44.6071V17.7547H41.1141V16.4503C40.0032 17.5474 38.6825 18.0838 37.1273 18.0838C35.2882 18.0838 33.7577 17.4377 32.5481 16.1455C31.3509 14.8412 30.7584 13.232 30.7584 11.3059C30.7584 9.39201 31.3756 7.80725 32.5728 6.55163C33.7701 5.29601 35.3129 4.66211 37.1273 4.66211C38.6825 4.66211 40.0032 5.22287 41.1141 6.34439V4.99125ZM35.3746 13.7684C36.0165 14.4145 36.7941 14.7436 37.7568 14.7436C38.7196 14.7436 39.4972 14.4145 40.139 13.744C40.7808 13.0735 41.1017 12.2812 41.1017 11.3425C41.1017 10.416 40.7685 9.62363 40.139 8.96535C39.4972 8.30706 38.7196 7.99011 37.7568 7.99011C36.7941 7.99011 36.0165 8.31925 35.3746 8.96535C34.7575 9.61144 34.4489 10.4038 34.4489 11.3425C34.4613 12.2933 34.7575 13.0857 35.3746 13.7684Z" fill="white"></path>
+    //                         <path d="M16.7616 12.2812V4.99133H20.4645V12.3056C20.4645 13.7685 21.3408 14.7315 22.8219 14.7315C24.3031 14.7315 25.1794 13.7807 25.1794 12.3056V4.99133H28.8823V12.2812C28.8823 15.9871 26.5989 18.0839 22.8219 18.0839C19.0821 18.0717 16.7616 15.9384 16.7616 12.2812Z" fill="white"></path>
+    //                         <path d="M15.7742 17.7669L15.0213 14.4511H6.7392H6.71452C4.85075 14.4389 3.35726 12.9395 3.35726 11.0987C3.35726 9.24578 4.87543 7.74635 6.75154 7.74635C8.62766 7.74635 10.1458 9.24578 10.1458 11.0987V13.2077H13.5031V10.9281C13.4167 7.31969 10.4297 4.43054 6.75154 4.43054C3.024 4.43054 0 7.41721 0 11.0987C0 14.7803 3.01165 17.7547 6.7392 17.7669H10.1211V21.5947L13.5031 22.3384V17.7669H15.7742Z" fill="white"></path>
+    //                     </g>
+    //                 </svg>
+    //             </a>
+    //         </div>
+    //         <div class="qp-modal__tag" id="qp-modal__tag">Shop online now, pay over time.</div>
+    //         <div class="qp-modal__subtitle" id="qp-modal__subtitle">
+    //             We split the purchase amount into 4
+    //             <br>
+    //             interest-free payments, spread over 6 weeks.
+    //         </div>
+    //     </div>
+    //     <div class="qp-container_bottom-half" id="qp-container_bottom-half">
 
-            <div class="qp-modal_steps-main-container" id="qp-modal_steps-main-container">
-                <div class="qp-modal__step-container">
-                    <div class="qp-modal__step-icon">
-                        <img src="https://assets.quadpay.com/assets/widget/widget_cart_icon.svg">
-                    </div>
-                    <div class="qp-modal__step-text-container">
-                        <div class="qp-modal__step-header">Choose Quadpay at checkout</div>
-                        <div class="qp-modal__step-subhead">Quick and easy. No hidden fees.</div>
-                    </div>
-                </div>
+    //         <div class="qp-modal_steps-main-container" id="qp-modal_steps-main-container">
+    //             <div class="qp-modal__step-container">
+    //                 <div class="qp-modal__step-icon">
+    //                     <img src="https://assets.quadpay.com/assets/widget/widget_cart_icon.svg">
+    //                 </div>
+    //                 <div class="qp-modal__step-text-container">
+    //                     <div class="qp-modal__step-header">Choose Quadpay at checkout</div>
+    //                     <div class="qp-modal__step-subhead">Quick and easy. No hidden fees.</div>
+    //                 </div>
+    //             </div>
 
-                <div class="qp-modal__step-container">
-                    <div class="qp-modal__step-icon" id="qp-modal__step-icon">
-                        <img src="https://assets.quadpay.com/assets/widget/widget_cards_icon.svg">
-                    </div>
-                    <div class="qp-modal__step-text-container">
-                        <div class="qp-modal__step-header">Use your debit or credit card</div>
-                        <div class="qp-modal__step-subhead">No long forms and instant approval.</div>
-                    </div>
-                </div>
+    //             <div class="qp-modal__step-container">
+    //                 <div class="qp-modal__step-icon" id="qp-modal__step-icon">
+    //                     <img src="https://assets.quadpay.com/assets/widget/widget_cards_icon.svg">
+    //                 </div>
+    //                 <div class="qp-modal__step-text-container">
+    //                     <div class="qp-modal__step-header">Use your debit or credit card</div>
+    //                     <div class="qp-modal__step-subhead">No long forms and instant approval.</div>
+    //                 </div>
+    //             </div>
 
-                <div class="qp-modal__step-container">
-                    <div class="qp-modal__step-icon" id="qp-modal__step-icon">
-                        <img src="https://assets.quadpay.com/assets/widget/widget_hand_icon.svg">
-                    </div>
-                    <div class="qp-modal__step-text-container">
-                        <div class="qp-modal__step-header">Pay in 4 installments</div>
-                        <div class="qp-modal__step-subhead">Enjoy your purchase straight away.</div>
-                    </div>
-                </div>
-            </div>
+    //             <div class="qp-modal__step-container">
+    //                 <div class="qp-modal__step-icon" id="qp-modal__step-icon">
+    //                     <img src="https://assets.quadpay.com/assets/widget/widget_hand_icon.svg">
+    //                 </div>
+    //                 <div class="qp-modal__step-text-container">
+    //                     <div class="qp-modal__step-header">Pay in 4 installments</div>
+    //                     <div class="qp-modal__step-subhead">Enjoy your purchase straight away.</div>
+    //                 </div>
+    //             </div>
+    //         </div>
 
 
 
-            <div>
-                <div class="qp-modal__disclaimer">
-                    Eligibility criteria and late fees apply. Estimated payment amounts on product pages exclude taxes, shipping and merchant fees added at checkout. Click <span><a id="qp-modal__terms-link" href=" https://www.quadpay.com/quadpay-terms-of-service" target="_blank">here</a></span> for complete terms and privacy policies. Loans to California residents are pursuant to California Finance Law license #60DBO-110414.
-                </div>
-                <div class="qp-modal__copyright">
-                    © 2020 Quadpay, Inc.
-                </div>
-            </div>
-        </div>
+    //         <div>
+    //             <div class="qp-modal__disclaimer">
+    //                 Eligibility criteria and late fees apply. Estimated payment amounts on product pages exclude taxes, shipping and merchant fees added at checkout. Click <span><a id="qp-modal__terms-link" href=" https://www.quadpay.com/quadpay-terms-of-service" target="_blank">here</a></span> for complete terms and privacy policies. Loans to California residents are pursuant to California Finance Law license #60DBO-110414.
+    //             </div>
+    //             <div class="qp-modal__copyright">
+    //                 © 2020 Quadpay, Inc.
+    //             </div>
+    //         </div>
+    //     </div>
 
-    </div></div>`,
+    // </div></div>`,
 //   affirmModalHTML: `<div class="affirm-sandbox-container" style="-webkit-tap-highlight-color: transparent; overflow: hidden; position: fixed; bottom: 0px; left: 0px; right: 0px; top: 0px; z-index: 2147483647; margin: 0px; border: 0px; padding: 0px; display: block;"><div class="affirm-sandbox-iframe-container" style="height: 100%; width: 100%; margin: 0px 15px 0px 0px; border: 0px; padding: 0px;"><iframe class="affirm-sandbox-iframe" id="prequal-application" width="100%" height="100%" frameborder="0" allowscroll="no" allowtransparency="true" sandbox="allow-forms allow-modals allow-popups allow-same-origin allow-scripts" title="Affirm Prequal" src="https://www.affirm.com/apps/prequal/?public_api_key=5JDAFEXC8LJ91TDB&amp;device_id=d88ff808-97ef-4055-b0e7-d7f5c30f6bb0&amp;referring_url=https%253A%252F%252Fbombayhair.com%252Fcollections%252Fbombay-hair-tools%252Fproducts%252Fdeep-wave-1&amp;unit_price=9900&amp;webhook_session_id=YOUR_VISITOR_SESSION_ID&amp;page_type=product&amp;use_promo=true" style="overflow: hidden; width: 100%; height: 100%; margin: 0px; border: 0px; padding: 0px;"></iframe></div></div>`,
 // affirmModalHTML: `<div class="affirm-sandbox-container" style="-webkit-tap-highlight-color: transparent; overflow: hidden; position: fixed; bottom: 0px; left: 0px; right: 0px; top: 0px; z-index: 2147483647; margin: 0px; border: 0px; padding: 0px; display: block;"><div class="affirm-sandbox-iframe-container" style="height: 100%; width: 100%; margin: 0px 15px 0px 0px; border: 0px; padding: 0px;"><html class="no-js" ng-app="prequal"><head><style>
 // article,
@@ -667,101 +667,11 @@ renderSezzle2.init();
 // 			c-5.3,0-11.3,3-11.3,12.3v2.1H43.5v-2.9c0-3.8,2.2-4.9,4.1-4.9c1.1,0,2.5,0.2,3.7,0.9l2.5-5.8c-1.5-0.9-4-1.7-7.3-1.7
 // 			c-5.3,0-11.3,3-11.3,12.3v2.1h-4.8v6.4h4.8V69h8.2V46.6H56V69h8.2V46.6h7.5V40.2z" style="fill: rgb(6, 8, 9);"></path></g><rect x="76.6" y="40.2" width="8.2" height="28.8" style="fill: rgb(6, 8, 9);"></rect><path d="M124.6,0c-22.2,0-42.1,15.4-47.7,35.3H85c4.7-14.8,20.7-27.8,39.6-27.8c23.1,0,43,17.6,43,44.9
 // 		c0,6.1-0.8,11.7-2.3,16.6h7.8l0.1-0.3c1.3-5,1.9-10.5,1.9-16.3C175.1,22,152.9,0,124.6,0z" style="fill: rgb(15, 160, 234);"></path></g></svg> at checkout.</p></div><div class="pre2VFwFphp pre1Ypcju2e"><p class="pre2I3S5QJo pre1q5pIztt pre3bM5mz-0 pre1h2akpyQ pre1nDqF8Qu" data-testid="prequal-description"></p></div></div></div></div></div><div class="pre2VFwFphp pre2-BMFgxT pre2IFjm4W2"><hr class="preWEMgxkyt pre1Kn7ORoA pre2cCSTT86"></div><div class="pre2VFwFphp pre3b8upT8O"><p class="pre2I3S5QJo pre1q5pIztt pre3Dk9k_Yu pre1h2akpyQ pre1nDqF8Qu" data-testid="prequal-footer" id="prequal-footer">Subject to eligibility check and approval. Estimated payment amount excludes taxes and shipping fees. Payment options through Affirm are provided by these lending partners: affirm.com/lenders.</p></div></div></div></div></div></div><div style="display: none;"><div style="height: 100%;"><div id="shell-loader" style="display: block;"><div class="pre3kLRiAMX pre2d-_4Ywd pre3zQ9WacP pre1wDfIuws" style="min-height: 500px;"><div class="pre3kLRiAMX pre2d-_4Ywd pre173YAVPA preoBnHlaiN"><div aria-label="loading spinner" role="status" aria-live="assertive" class="pre1HtZhf9I pre1Li6A9gp"><svg title="loading spinner" width="56" height="56" viewBox="0 0 56 56"><circle class="preQxR9trrA" stroke-width="2" cx="28" cy="28" r="27"></circle><circle stroke-dashoffset="50.89380098815465" stroke-dasharray="169.64600329384882" stroke-width="2" cx="28" cy="28" r="27"></circle></svg></div></div></div></div><div id="shell-container" style="display: none;"></div><div id="shell-children" style="display: none; height: 100%;"></div></div></div></div></div></div></div></div></div></div></div></div></div></div>   <span class="pre3Y90ZDYD" id="pre3Y90ZDYD-textdummy" style="top: -100%; position: absolute; width: auto; height: 0px; overflow: hidden;">$99</span></body></html></div></div>`,
-klarnaModalHTML: `<style>
-.badge {
-  margin: -5px 5px;
-  height: 30px;
-  vertical-align: middle;
-}
-.bose-logo {
-    position: absolute;
-    top: -60px;
-    background-image: url(//us-assets.klarnaservices.com/templates/images/bosePay_logo.png);
-    width: 240px;
-    height: 100px;
-    background-size: cover;
-}
-.bose-overview {
-    display: flex;
-}
-.bose-overview .image {
-    min-width: 65px;
-    height: 50px;
-    margin-right: 25px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-#bose-dialog__scrollable-area {
-    overflow: hidden !important;
-}
-#bose-dialog__nav-bar {
-    height: 0 !important;
-}
-.timeline ul {
-    position: relative;
-}
-.timeline ul:before {
-    content: '';
-    background: #343434;
-    border: 2px solid #fff;
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    width: 10px;
-    height: 10px;
-    position: absolute;
-    left: 5px;
-    top: 8px;
-    z-index: 2;
-}
-.timeline ul.with-badge:before {
-    top: 0px;
-}
-.timeline ul:not(:last-child):after {
-    content: '';
-    background: #676161;
-    height: 100%;
-    width: 2px;
-    position: absolute;
-    left: 11px;
-    top: 18px;
-    z-index: 1;
-}
-.timeline ul.with-badge:not(:last-child):after {
-    top: 14px;
-}
-.line-with-badge {
-    display: flex;
-    align-items: center;
-}
-.loader {
-    display: flex;
-    justify-content: center;
-}
-.loader {
-  display: flex;
-  justify-content: center;
-}
-.overview {
-  background-color: #f0eeea;
-  padding: 0 15px;
-}
-body {
-    margin: 0;
-}
-#root {
-    height: 100%
-}
-#widget-with-background {
-    background: transparent url(background.4b47f2f68e5b3f22da9c87849563d2f2.jpg) no-repeat center;
-    background-size: cover;
-    height: 100vh;
-}
-</style><div id="root" style=""><div><div tabindex="0" dimensions="[object Object]" style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: absolute; z-index: 2147483647; min-height: 0px; min-width: 0px; background-color: rgba(52, 52, 52, 0.5); width: 100%; height: 100%; top: 0px; left: 0px; overflow: hidden;"><div><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: absolute; z-index: 0; min-height: 0px; min-width: 0px; visibility: visible; top: 0px; bottom: 0px; right: 0px; left: 0px;"><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px; width: 100%; height: 100%; top: 0px; left: 0px;"><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: absolute; z-index: 101; min-height: 0px; min-width: 0px; width: 520px; left: 350.5px; top: 149.062px;"><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: row; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px; justify-content: center; height: 60px; width: 100%;"><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: absolute; z-index: 0; min-height: 0px; min-width: 0px; justify-content: center; height: 60px; left: 0px; padding-left: 20px;"></div><div style="box-sizing: border-box; display: flex; align-items: center; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px; height: 60px; justify-content: center; opacity: 1;"><svg focusable="false" width="81" height="20"><g transform="translate(0, 0) scale(1)"><path d="M78.3352549,14.3292706 C77.0678017,14.3292706 76.0403439,15.3567284 76.0403439,16.6243597 C76.0403439,17.8916348 77.0678017,18.9192707 78.3352549,18.9192707 C79.6027081,18.9192707 80.630344,17.8916348 80.630344,16.6243597 C80.630344,15.3567284 79.6027081,14.3292706 78.3352549,14.3292706" fill="rgba(150, 147, 145, 1)"></path><path d="M70.7958568,7.22817345 L70.7958568,6.4467803 L74.4529833,6.4467803 L74.4529833,18.6618356 L70.7958568,18.6618356 L70.7958568,17.8811547 C69.7626656,18.5857975 68.5156063,19 67.1704277,19 C63.6107082,19 60.7250027,16.1142945 60.7250027,12.554575 C60.7250027,8.99485561 63.6107082,6.10915009 67.1704277,6.10915009 C68.5156063,6.10915009 69.7626656,6.52335256 70.7958568,7.22817345 Z M67.4697718,15.6974209 C69.3000267,15.6974209 70.7835696,14.2902722 70.7835696,12.554575 C70.7835696,10.8188779 69.3000267,9.41208536 67.4697718,9.41208536 C65.6395168,9.41208536 64.1559739,10.8188779 64.1559739,12.554575 C64.1559739,14.2902722 65.6395168,15.6974209 67.4697718,15.6974209 Z" fill="rgba(150, 147, 145, 1)"></path><path d="M54.2263333,6.11823191 C52.765406,6.11823191 51.3828316,6.57178896 50.4584442,7.82312205 L50.4584442,6.4474926 L46.8169884,6.4474926 L46.8169884,18.6618356 L50.503141,18.6618356 L50.503141,12.2427657 C50.503141,10.3852653 51.7487757,9.47565814 53.2485235,9.47565814 C54.8558285,9.47565814 55.7798597,10.4358386 55.7798597,12.2174791 L55.7798597,18.6618356 L59.4327124,18.6618356 L59.4327124,10.8940256 C59.4327124,8.05141421 57.1725844,6.11823191 54.2263333,6.11823191" fill="rgba(150, 147, 145, 1)"></path><path d="M41.5278044,8.03788051 L41.5278044,6.44695838 L37.7834212,6.44695838 L37.7834212,18.6618356 L41.536174,18.6618356 L41.536174,12.9588053 C41.536174,11.0347048 43.6216104,10.0004452 45.0686479,10.0004452 C45.0834281,10.0004452 45.097318,10.0018698 45.1120982,10.0020479 L45.1120982,6.44767068 C43.6269526,6.44767068 42.2609392,7.08357654 41.5278044,8.03788051" fill="rgba(150, 147, 145, 1)"></path><path d="M32.2128788,7.22817345 L32.2128788,6.4467803 L35.8701833,6.4467803 L35.8701833,18.6618356 L32.2128788,18.6618356 L32.2128788,17.8811547 C31.1796876,18.5857975 29.9326283,19 28.5876277,19 C25.0279083,19 22.1422028,16.1142945 22.1422028,12.554575 C22.1422028,8.99485561 25.0279083,6.10915009 28.5876277,6.10915009 C29.9326283,6.10915009 31.1796876,6.52335256 32.2128788,7.22817345 Z M28.8867938,15.6974209 C30.7170487,15.6974209 32.2007697,14.2902722 32.2007697,12.554575 C32.2007697,10.8188779 30.7170487,9.41208536 28.8867938,9.41208536 C27.0567169,9.41208536 25.5729959,10.8188779 25.5729959,12.554575 C25.5729959,14.2902722 27.0567169,15.6974209 28.8867938,15.6974209 Z" fill="rgba(150, 147, 145, 1)"></path><path d="M16.8150889 18.6618356 20.6429893 18.6618356 20.6429893 1.00338343 16.8150889 1.00338343z" fill="rgba(150, 147, 145, 1)"></path><path d="M14.1770857,1 L10.2104649,1 C10.2104649,4.25111544 8.71570325,7.23511837 6.10957549,9.1873547 L4.53806353,10.3642524 L10.6271604,18.6673559 L15.6335612,18.6673559 L10.0307872,11.0272257 C12.6865979,8.38263373 14.1770857,4.82469505 14.1770857,1" fill="rgba(150, 147, 145, 1)"></path><path d="M0 18.6666436 4.05334336 18.6666436 4.05334336 1 0 1z" fill="rgba(150, 147, 145, 1)"></path></g></svg></div><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: absolute; z-index: 0; min-height: 0px; min-width: 0px; justify-content: center; height: 60px; padding-right: 20px; right: 0px;"><button type="button" style="padding: 0px; margin: 0px; background-color: rgba(255, 255, 255, 0); border: none; cursor: pointer; display: block; height: 20px; position: relative; outline: none; overflow: visible; width: 20px;"><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px; background-color: rgba(255, 255, 255, 0); border-radius: 100px; height: 40px; margin: -10px; top: 0px; transition: background-color 0.2s ease 0s; width: 40px;"><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px; height: 20px; left: 0px; margin: 10px; width: 20px;"><svg focusable="false" height="20" width="20"><path d="M10.872,10.004 C11.321,9.864 11.747,9.631 12.102,9.275 L17.704,3.674 L16.29,2.26 L10.688,7.861 C10.298,8.252 9.665,8.252 9.274,7.861 L3.704,2.291 L2.29,3.705 L7.86,9.275 C8.224,9.639 8.66,9.875 9.121,10.013 C8.665,10.148 8.237,10.375 7.892,10.721 L2.29,16.322 L3.704,17.736 L9.307,12.135 C9.684,11.757 10.34,11.757 10.72,12.135 L16.29,17.705 L17.704,16.291 L12.134,10.721 C11.779,10.366 11.34,10.137 10.872,10.004" fill="rgba(23, 23, 23, 1)" style="transition: fill 0.2s ease 0s;"></path></svg></div></div></button></div></div></div><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: absolute; z-index: 0; min-height: 0px; min-width: 0px; width: 100%; height: 100%; top: 0px; left: 0px; overflow: hidden;"><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: absolute; z-index: 0; min-height: 0px; min-width: 0px; top: 0px; left: 0px; right: 0px; bottom: 0px;"></div><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: absolute; z-index: 0; min-height: 0px; min-width: 0px; background-color: rgb(255, 255, 255); width: 520px; overflow: hidden; box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 15px 6px; left: 350.5px; top: 149.062px;"><div dimensions="[object Object]" style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px; background-color: rgb(255, 255, 255); padding: 75px 50px 120px;"><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px;"><span><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px;"><h1 id="learn-more-title" style="max-width: 100%; color: rgb(23, 23, 23); font-family: &quot;Klarna Text&quot;, &quot;Klarna Sans&quot;, Helvetica, Arial, sans-serif; font-weight: 700; font-size: 27px; line-height: 30px; letter-spacing: -0.2px; text-align: left; text-rendering: geometricprecision; -webkit-font-smoothing: antialiased; padding-top: 1px; padding-bottom: 4px; margin-bottom: -10px; margin-top: -5px; text-size-adjust: none;">Pay 4 installments<span class="klarna-payment-amount"> of $NaN</span></h1><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px; background-color: rgba(255, 255, 255, 0); width: 100%; height: 15px;"></div>
-<p style="max-width: 100%; color: rgb(23, 23, 23); font-size: 16px; font-family: &quot;Klarna Text&quot;, &quot;Klarna Sans&quot;, Helvetica, Arial, sans-serif; font-weight: 400; line-height: 25px; -webkit-font-smoothing: antialiased; text-align: left; word-break: break-word; margin-bottom: -10px; margin-top: -10px; padding-bottom: 3px; padding-top: 2px; text-rendering: geometricprecision; text-size-adjust: none;">Pay in 4 interest-free installments so you can spread the cost.</p><div class="timeline"><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px; background-color: rgba(255, 255, 255, 0); width: 100%; height: 15px;"></div><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px;"><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: row; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px;"><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: row; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px;"><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: absolute; z-index: 0; min-height: 0px; min-width: 0px; width: 2px; background-color: rgb(240, 238, 235); height: 100%; top: 15px; left: 4px;"></div><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px; padding-top: 15px; padding-right: 15px;"><svg focusable="false" width="10" height="10"><rect width="10" height="10" fill="#171717"></rect></svg></div></div><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px; flex-grow: 0; width: 100%; padding-top: 15px;"><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px; padding-bottom: 15px;"><h2 style="max-width: 100%; padding-bottom: 4px; padding-top: 1px; font-family: &quot;Klarna Text&quot;, &quot;Klarna Sans&quot;, Helvetica, Arial, sans-serif; font-weight: 500; font-size: 16px; line-height: 20px; color: rgb(23, 23, 23); letter-spacing: -0.2px; text-rendering: geometricprecision; -webkit-font-smoothing: antialiased; white-space: pre-line; margin-bottom: -10px; margin-top: -5px; text-size-adjust: none;">Add item(s) to your cart</h2></div><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px; padding-bottom: 15px;"><p style="max-width: 100%; color: rgb(120, 117, 115); font-size: 14px; font-family: &quot;Klarna Text&quot;, &quot;Klarna Sans&quot;, Helvetica, Arial, sans-serif; font-weight: 400; line-height: 20px; text-rendering: geometricprecision; -webkit-font-smoothing: antialiased; text-align: left; word-break: break-word; margin-bottom: -10px; margin-top: -5px; padding-bottom: 4px; padding-top: 1px; text-size-adjust: none;"></p></div></div></div><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: row; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px;"><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: row; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px;"><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: absolute; z-index: 0; min-height: 0px; min-width: 0px; width: 2px; background-color: rgb(240, 238, 235); height: 100%; top: 0px; left: 4px;"></div><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px; padding-top: 15px; padding-right: 15px;"><svg focusable="false" width="10" height="10"><rect width="10" height="10" fill="#171717"></rect></svg></div></div><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px; flex-grow: 0; width: 100%; padding-top: 15px;"><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px; padding-bottom: 15px;"><h2 style="max-width: 100%; padding-bottom: 4px; padding-top: 1px; font-family: &quot;Klarna Text&quot;, &quot;Klarna Sans&quot;, Helvetica, Arial, sans-serif; font-weight: 500; font-size: 16px; line-height: 20px; color: rgb(23, 23, 23); letter-spacing: -0.2px; text-rendering: geometricprecision; -webkit-font-smoothing: antialiased; white-space: pre-line; margin-bottom: -10px; margin-top: -5px; text-size-adjust: none;">Go to checkout and choose <svg class="badge" focusable="false" viewBox="0 0 38 22"><path d="M34.9997,22.0004 L2.9997,22.0004 C1.3437,22.0004 -0.0003,20.6564 -0.0003,19.0004 L-0.0003,3.0004 C-0.0003,1.3434 1.3437,0.0004 2.9997,0.0004 L34.9997,0.0004 C36.6567,0.0004 37.9997,1.3434 37.9997,3.0004 L37.9997,19.0004 C37.9997,20.6564 36.6567,22.0004 34.9997,22.0004" fill="rgba(255, 179, 199, 1)"></path><path d="M30.5661,13.3275 C29.8181,13.3275 29.2121,12.7535 29.2121,12.0435 C29.2121,11.3345 29.8181,10.7605 30.5661,10.7605 C31.3141,10.7605 31.9201,11.3345 31.9201,12.0435 C31.9201,12.7535 31.3141,13.3275 30.5661,13.3275 L30.5661,13.3275 Z M31.9241,9.5485 L31.9241,9.8675 C31.5031,9.5795 30.9931,9.4105 30.4441,9.4105 C28.9891,9.4105 27.8101,10.5895 27.8101,12.0435 C27.8101,13.4985 28.9891,14.6775 30.4441,14.6775 C30.9931,14.6775 31.5031,14.5085 31.9241,14.2205 L31.9241,14.5395 L33.4201,14.5395 L33.4201,9.5485 L31.9241,9.5485 Z" fill="rgba(23, 23, 23, 1)"></path><path d="M8.7917,7.3226 L7.1707,7.3226 C7.1707,8.6506 6.5607,9.8706 5.4947,10.6686 L4.8537,11.1486 L7.3407,14.5416 L9.3867,14.5416 L7.0977,11.4196 C8.1827,10.3396 8.7917,8.8846 8.7917,7.3226" fill="rgba(23, 23, 23, 1)"></path><path d="M2.995,14.541 L4.655,14.541 L4.655,7.322 L2.995,7.322" fill="rgba(23, 23, 23, 1)"></path><path d="M9.869,14.539 L11.433,14.539 L11.433,7.324 L9.869,7.324" fill="rgba(23, 23, 23, 1)"></path><path d="M25.1549,9.4144 C24.5579,9.4144 23.9929,9.5994 23.6149,10.1104 L23.6149,9.5484 L22.1279,9.5484 L22.1279,14.5394 L23.6339,14.5394 L23.6339,11.9164 C23.6339,11.1574 24.1419,10.7854 24.7559,10.7854 C25.4119,10.7854 25.7899,11.1784 25.7899,11.9054 L25.7899,14.5394 L27.2819,14.5394 L27.2819,11.3654 C27.2819,10.2034 26.3589,9.4144 25.1549,9.4144" fill="rgba(23, 23, 23, 1)"></path><path d="M14.8014,13.3275 C14.0534,13.3275 13.4474,12.7535 13.4474,12.0435 C13.4474,11.3345 14.0534,10.7605 14.8014,10.7605 C15.5494,10.7605 16.1554,11.3345 16.1554,12.0435 C16.1554,12.7535 15.5494,13.3275 14.8014,13.3275 L14.8014,13.3275 Z M16.1604,9.5485 L16.1604,9.8675 C15.7384,9.5795 15.2294,9.4105 14.6794,9.4105 C13.2254,9.4105 12.0454,10.5895 12.0454,12.0435 C12.0454,13.4985 13.2254,14.6775 14.6794,14.6775 C15.2294,14.6775 15.7384,14.5085 16.1604,14.2205 L16.1604,14.5395 L17.6554,14.5395 L17.6554,9.5485 L16.1604,9.5485 Z" fill="rgba(23, 23, 23, 1)"></path><path d="M19.9665,10.1986 L19.9665,9.5486 L18.4365,9.5486 L18.4365,14.5396 L19.9695,14.5396 L19.9695,12.2096 C19.9695,11.4236 20.8215,11.0006 21.4125,11.0006 L21.4315,11.0006 L21.4315,9.5486 C20.8235,9.5486 20.2665,9.8076 19.9665,10.1986" fill="rgba(23, 23, 23, 1)"></path><path d="M35.0055,12.7689 C34.4875,12.7689 34.0685,13.1889 34.0685,13.7059 C34.0685,14.2249 34.4875,14.6449 35.0055,14.6449 C35.5235,14.6449 35.9425,14.2249 35.9425,13.7059 C35.9425,13.1889 35.5235,12.7689 35.0055,12.7689" fill="rgba(23, 23, 23, 1)"></path></svg></h2></div><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px; padding-bottom: 15px;"><p style="max-width: 100%; color: rgb(120, 117, 115); font-size: 14px; font-family: &quot;Klarna Text&quot;, &quot;Klarna Sans&quot;, Helvetica, Arial, sans-serif; font-weight: 400; line-height: 20px; text-rendering: geometricprecision; -webkit-font-smoothing: antialiased; text-align: left; word-break: break-word; margin-bottom: -10px; margin-top: -5px; padding-bottom: 4px; padding-top: 1px; text-size-adjust: none;"></p></div></div></div><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: row; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px;"><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: row; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px;">
-    <div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: absolute; z-index: 0; min-height: 0px; min-width: 0px; width: 2px; background-color: rgb(240, 238, 235); height: 100%; top: 0px; left: 4px;"></div><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px; padding-top: 15px; padding-right: 15px;"><svg focusable="false" width="10" height="10"><rect width="10" height="10" fill="#171717"></rect></svg></div></div><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px; flex-grow: 0; width: 100%; padding-top: 15px;"><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px; padding-bottom: 15px;"><h2 style="max-width: 100%; padding-bottom: 4px; padding-top: 1px; font-family: &quot;Klarna Text&quot;, &quot;Klarna Sans&quot;, Helvetica, Arial, sans-serif; font-weight: 500; font-size: 16px; line-height: 20px; color: rgb(23, 23, 23); letter-spacing: -0.2px; text-rendering: geometricprecision; -webkit-font-smoothing: antialiased; white-space: pre-line; margin-bottom: -10px; margin-top: -5px; text-size-adjust: none;">Enter your debit or credit card information</h2></div><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px; padding-bottom: 15px;"><p style="max-width: 100%; color: rgb(120, 117, 115); font-size: 14px; font-family: &quot;Klarna Text&quot;, &quot;Klarna Sans&quot;, Helvetica, Arial, sans-serif; font-weight: 400; line-height: 20px; text-rendering: geometricprecision; -webkit-font-smoothing: antialiased; text-align: left; word-break: break-word; margin-bottom: -10px; margin-top: -5px; padding-bottom: 4px; padding-top: 1px; text-size-adjust: none;"></p></div></div></div><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: row; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px;"><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: row; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px;"><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: absolute; z-index: 0; min-height: 0px; min-width: 0px; width: 2px; background-color: rgb(240, 238, 235); height: 15px; top: 0px; left: 4px;"></div><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px; padding-top: 15px; padding-right: 15px;"><svg focusable="false" width="10" height="10"><rect width="10" height="10" fill="#171717"></rect></svg></div></div><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px; flex-grow: 0; width: 100%; padding-top: 15px;"><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px; padding-bottom: 15px;"><h2 style="max-width: 100%; padding-bottom: 4px; padding-top: 1px; font-family: &quot;Klarna Text&quot;, &quot;Klarna Sans&quot;, Helvetica, Arial, sans-serif; font-weight: 500; font-size: 16px; line-height: 20px; color: rgb(23, 23, 23); letter-spacing: -0.2px; text-rendering: geometricprecision; -webkit-font-smoothing: antialiased; white-space: pre-line; margin-bottom: -10px; margin-top: -5px; text-size-adjust: none;">Pay later in 4 installments. The first payment is taken when the order is processed and the remaining 3 are automatically taken every two weeks.</h2></div><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px; padding-bottom: 15px;"><p style="max-width: 100%; color: rgb(120, 117, 115); font-size: 14px; font-family: &quot;Klarna Text&quot;, &quot;Klarna Sans&quot;, Helvetica, Arial, sans-serif; font-weight: 400; line-height: 20px; text-rendering: geometricprecision; -webkit-font-smoothing: antialiased; text-align: left; word-break: break-word; margin-bottom: -10px; margin-top: -5px; padding-bottom: 4px; padding-top: 1px; text-size-adjust: none;"></p></div></div></div></div></div><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px; background-color: rgba(255, 255, 255, 0); width: 100%; height: 15px;"></div><p style="max-width: 100%; color: rgb(120, 117, 115); font-family: &quot;Klarna Text&quot;, &quot;Klarna Sans&quot;, Helvetica, Arial, sans-serif; font-weight: 400; font-size: 12px; line-height: 20px; text-rendering: geometricprecision; -webkit-font-smoothing: antialiased; text-align: left; word-break: break-word; margin-bottom: -10px; margin-top: -5px; padding-bottom: 4px; padding-top: 1px; text-size-adjust: none;">Please note that a higher initial payment may be required for some purchases. More information in the Pay later in 4 installments <a tabindex="0" href="https://cdn.klarna.com/1.0/shared/content/legal/terms/0/en_us/sliceitinx" target="_blank" style="border-radius: 2px; color: rgb(120, 117, 115); cursor: pointer; font-family: &quot;Klarna Text&quot;, &quot;Klarna Sans&quot;, Helvetica, Arial, sans-serif; font-weight: 400; outline: 0px; text-decoration: underline rgb(120, 117, 115); text-rendering: geometricprecision; transition: color 0.2s ease 0s; -webkit-font-smoothing: antialiased;">terms</a>. For CA residents loans made or arranged pursuant to a California Finance Lenders Law license.</p></div></span></div></div></div></div><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: absolute; z-index: 101; min-height: 0px; min-width: 0px; width: 520px; padding-right: 20px; padding-left: 20px; padding-top: 20px; left: 350.5px; bottom: 149.062px;"><span></span><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px;"><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 1; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px; margin-right: 0px; margin-bottom: 0px; width: 100%;"><button id="learn-more-close-button" style="padding: 0px 0px 20px; margin: 0px; background-color: rgba(255, 255, 255, 0); border: none; cursor: pointer; outline: none; width: 100%; -webkit-tap-highlight-color: rgba(255, 255, 255, 0);"><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: row; flex-shrink: 0; border-style: solid; border-width: 1px; position: relative; z-index: 0; min-height: 0px; min-width: 0px; background-color: rgb(23, 23, 23); border-color: rgb(23, 23, 23); border-radius: 0px; height: 50px; justify-content: center; padding: 19px 24px; transition: background-color 0.2s ease 0s, border-color 0.2s ease 0s, color 0.2s ease 0s; width: 100%;"><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 2px; position: absolute; z-index: 1; min-height: 0px; min-width: 0px; border-radius: 0px; bottom: -5px; left: -5px; right: -5px; top: -5px; transition: border-color 0.2s ease 0s; border-color: rgba(255, 255, 255, 0);"></div><div style="box-sizing: border-box; display: flex; align-items: stretch; flex-direction: column; flex-shrink: 0; border-style: solid; border-width: 0px; position: relative; z-index: 0; min-height: 0px; min-width: 0px; padding-top: 0px; margin-top: -5px; margin-bottom: -6px;"><span id="learn-more-close-button__text" style="max-width: 100%; color: rgb(255, 255, 255); font-family: &quot;Klarna Text&quot;, &quot;Klarna Sans&quot;, Helvetica, Arial, sans-serif; font-weight: 500; font-size: 16px; opacity: 1; line-height: 20px; transition: color 0.2s ease 0s; visibility: visible; -webkit-font-smoothing: antialiased; text-rendering: geometricprecision; text-size-adjust: none;">Close</span></div></div></button></div></div></div></div></div></div></div></div></div>`
+// ,
+minPriceLT: 50000,
+bestAPR: 4.5,
+aprTerms: 12,
+// widgetTemplateLT: 'or 12 low monthly payments of %%price%% with %%logo%% %%info%%'
 });
     renderSezzle.init();
 

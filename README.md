@@ -30,6 +30,7 @@ Once the widget is rendering, additional configurations can be added to the Awes
     fontSize: 12,
     fontWeight: 400,
     widgetType: 'product-page',
+		fixedHeight: 0,
     logoSize: 1.0,
     logoStyle: {},
     language: 'en',
@@ -58,11 +59,11 @@ Once the widget is rendering, additional configurations can be added to the Awes
 17. **`fixedHeight`** - This config is optional. It defaults to `0`.
 18. **`logoSize`** - This config is optional. It defaults to `1.0`.
 19. **`logoStyle`** - This config is optional. It defaults to `{}`.
-20. **`language`** - This config is optional. It defaults to `en`. Only French translation is currently supported. Language value may be given as a string or function. Supported options available are `en`, `fr`, `french`, `de`, `deutsche`, or `german`.
+20. **`language`** - This config is optional. It defaults to `en`. Language value may be given as a string or function. Supported options available are `en`, `fr`, `de`, or `es`.
 21. **`parseMode`** - This config is optional. It defaults to `default`. Alternative values include `comma`.
 
 ### <b>Please discuss with Sezzle point of contact before using the below config options:</b>
-22. **`widgetTemplate`**  - This config is optional. It defaults to `or 4 interest-free payments of %%price%% with %%logo%% %%info%%`. Available templates include `%%price%%`, `%%logo%%`, `%%link%%`, `%%info%%`, `%%question-mark%%`, `%%line-break%%`, `%%afterpay-logo%%`, `%%afterpay-logo-grey%%`, `%%afterpay-info-icon%%`, `%%afterpay-link-icon%%`, `%%quadpay-logo%%`, `%%quadpay-logo-grey%%`, `%%quadpay-logo-white%%`, `%%quadpay-info-icon%%`, `%%affirm-logo%%`, `%%affirm-logo-grey%%`, `%%affirm-logo-white%%`, `%%affirm-info-icon%%`, `%%klarna-logo%%`, `%%klarna-logo-grey%%`, `%%klarna-logo-white%%`, `%%klarna-info-icon%%`.
+22. **`widgetTemplate`** - This config is optional. It defaults to `or 4 interest-free payments of %%price%% with %%logo%% %%info%%`. Available templates include `%%price%%`, `%%logo%%`, `%%link%%`, `%%info%%`, `%%question-mark%%`, `%%line-break%%`, `%%afterpay-logo%%`, `%%afterpay-logo-grey%%`, `%%afterpay-info-icon%%`, `%%afterpay-link-icon%%`, `%%quadpay-logo%%`, `%%quadpay-logo-grey%%`, `%%quadpay-logo-white%%`, `%%quadpay-info-icon%%`, `%%affirm-logo%%`, `%%affirm-logo-grey%%`, `%%affirm-logo-white%%`, `%%affirm-info-icon%%`, `%%klarna-logo%%`, `%%klarna-logo-grey%%`, `%%klarna-logo-white%%`, `%%klarna-info-icon%%`.
 23. **`numberOfPayments`** - This config is optional. defaults to `4`.
 24. **`minPrice`** - This config is optional. It defaults to `0` - <small>in cents</small>.
 25. **`maxPrice`** - This config is optional. It defaults to `250000` - <small>in cents</small>.
@@ -72,6 +73,10 @@ Once the widget is rendering, additional configurations can be added to the Awes
 29. **`apLink`** - This config is optional. It defaults to `https://www.afterpay.com/purchase-payment-agreement`.
 30. **`affirmModalHTML`** - This config is optional.
 31. **`klarnaModalHTML`** - This config is optional.
+32. **`minPriceLT`** - This config is optional. It defaults to `0` - <small>in cents</small>.
+33. **`bestAPR`** - This config is optional. It defaults to `0` - <small>in percent (ex: `4.5` = 4.5% APR)</small>.
+34. **`aprTerms`** - This config is optional. It defaults to `12` - <small>in months</small>.
+35. **`widgetTemplateLT`** - This config is optional. It defaults to `or monthly payments as low as %%price%% with %%logo%% %%info%%`. Available templates include `%%price%%`, `%%logo%%`, `%%link%%`, `%%info%%`, `%%question-mark%%`, `%%line-break%%`.
 
 
 ## Functions
