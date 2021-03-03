@@ -18,7 +18,7 @@
     <form onsubmit="testing()">
         <h1>Test Sezzle SDK</h1>
 
-        <p id='price'>500 $</p>
+        <p id='price'>$500</p>
 
         Desktop
         <div id='sezzle-widget-desktop'></div>
@@ -675,11 +675,11 @@ aprTerms: 12,
 });
     renderSezzle.init();
 
-    setTimeout(()=>{
-      const  amount  = '$ 100';
-      document.getElementById('price').innerText = amount
-      renderSezzle.alterPrice(amount)
-    },3000);
+    // setTimeout(()=>{
+    //   const  amount  = '$ 100';
+    //   document.getElementById('price').innerText = amount
+    //   renderSezzle.alterPrice(amount)
+    // },3000);
 
       // var clickElement = document.querySelector('#yourClickableElementIdHere')
       // clickElement.addEventListener("click", function() { renderSezzle.renderModalByfunction() });
