@@ -25,16 +25,17 @@
 
 // handles initial render, then watches checkout total for change event, updates installment amounts
 document.addEventListener('readystatechange', function(event){
+	let merchantLocale = "" // "['US', 'CA', 'IN', 'GU', 'PR', 'VI', 'AS', 'MP']" serves bi-weekly product, else serves monthly
 	let checkoutTotal = document.querySelector('.payment-due__price'); // Shopify
 	// let checkoutTotal = document.querySelector('.order-total').querySelector('.woocommerce-Price-amount'); // WooCommerce
 	// let checkoutTotal = document.querySelector('.total').getElementsByTagName('SPAN')[1]; // CommentSold
 	// let checkoutTotal = document.querySelector('.total_total') // 3DCart
-	renderInstallmentWidget(checkoutTotal);
+	renderInstallmentWidget(checkoutTotal, merchantLocale);
 
 		// create an observer instance
 		var observer = new MutationObserver(function(){
 			document.querySelector('#sezzle-installment-widget-box').innerHTML = '';
-			renderInstallmentWidget(checkoutTotal);
+			renderInstallmentWidget(checkoutTotal, merchantLocale);
 		});
 
 		// configuration of the observer:
@@ -44,8 +45,61 @@ document.addEventListener('readystatechange', function(event){
 		observer.observe(checkoutTotal, config);
 })
 
-function renderInstallmentWidget(checkoutTotal){
+function renderInstallmentWidget(checkoutTotal, serviceRegion){
 	let language = document.querySelector('html').lang.substring(0,2).toLowerCase() || navigator.language.substring(0,2) || 'en';
+	let merchantLocale = serviceRegion || document.querySelector('html').lang.split('-')[1] || "US";
+
+	// sets payment plan based on given param
+	let biWeeklyLocales = ['US', 'CA', 'IN', 'GU', 'PR', 'VI', 'AS', 'MP'];
+	let interval = biWeeklyLocales.indexOf(merchantLocale) > -1 ? 14 : 30;
+
+	// handles translations
+	let translation = {
+		'en': {
+			'today': 'today',
+			'days': 'days',
+			'week': 'week',
+			'month': 'month',
+			'installmentWidget': `4 interest-free payments over ${interval === 30 ? '3 months' : '6 weeks'}`,
+			'modalTitle': 'How it works',
+			'firstParagraph': `Split your entire order into 4 interest-free payments over ${interval === 30 ? '3 months' : '6 weeks'}. No fees if you pay on time with zero impact to your credit.`,
+			'secondParagraph': 'After clicking "Complete Order" on this site, you will be redirected to Sezzle to complete your purchase securely.',
+			'infoIcon': 'Learn More about Sezzle'
+		},
+		'fr': {
+			'today': 'aujourd\'hui',
+			'days': 'jours',
+			'week': 'semaine',
+			'month': 'mois',
+			'installmentWidget': `4 paiement sans inte&#769;re&#770;ts r&#233;partis sur ${interval === 30 ? '3 mois' : '6 semaine'}`,
+			'modalTitle': 'Comment &#231;a marche',
+			'firstParagraph': `R&#233;partissez le montant de votre commande en 4 versements sans int&#233;r&#234;ts &#233;tal&#233;s sur  ${interval === 30 ? '3 mois' : '6 semaine'}. Pas de frais si vous payez &#224; temps, pas d\'impact sur votre cote de cr&#233;dit.`,
+			'secondParagraph': 'Apr&#232;s avoir cliqu&#233; sur &#171;&nbsp;Terminer la commande&nbsp;&#187; sur ce site, vous serez redirig&#233;(e) vers Sezzle pour finaliser votre achat en toute s&#233;curit&#233;.',
+			'infoIcon': 'En savoir plus sur Sezzle'
+		},
+		'de': {
+			'today': 'heute',
+			'days': 'Tage',
+			'week': 'Woche',
+			'month': 'Monat',
+			'installmentWidget': `4 Zahlungen über  ${interval === 30 ? '3 Monates' : '6 Wochen'} - Keine Gebühr!`,
+			'modalTitle': 'Wie es funktioniert',
+			'firstParagraph': `Teilen Sie Ihre gesamte Bestellung über ${interval === 30 ? '3 Monates' : '6 Wochen'} in 4 zinslose Zahlungen auf. Keine Gebühren, wenn Sie pünktlich zahlen, ohne dass sich dies auf Ihr Guthaben auswirkt.`,
+			'secondParagraph': 'Nachdem Sie auf dieser Website auf "Bestellung abschließen" geklickt haben, werden Sie zu Sezzle weitergeleitet, um Ihren Kauf sicher abzuschließen.',
+			'infoIcon': 'Erfahren Sie mehr über Sezzle'
+		},
+		'es': {
+			'today': 'hoy',
+			'days': 'dias',
+			'week': 'semana',
+			'month': 'mes',
+			'installmentWidget': `4 pagos sin intereses durante ${interval === 30 ? '3 mes' : '6 semanas'}`,
+			'modalTitle': 'Cómo funciona',
+			'firstParagraph': `Divida su pedido completo en 4 pagos sin intereses durante ${interval === 30 ? '3 mes' : '6 semanas'}. Sin cargos si paga a tiempo sin impacto en su crédito.`,
+			'secondParagraph': 'Después de hacer clic en "Completar pedido" en este sitio, será redirigido a Sezzle para completar su compra de forma segura.',
+			'infoIcon': 'Más información sobre Sezzle'
+		}
+	}
 
 	let installmentBox = document.querySelector('#sezzle-installment-widget-box');
 	if(!installmentBox.querySelector('.sezzle-payment-schedule-container')){
@@ -318,6 +372,7 @@ function renderInstallmentWidget(checkoutTotal){
 		let installmentWidget = document.createElement('div');
 		installmentWidget.className = 'sezzle-installment-widget';
 		installmentContainer.appendChild(installmentWidget);
+		installmentWidget.innerHTML = translation[language].installmentWidget;
 
 		// creates the pie graphic
 		let sezzlePie = document.createElement('div');
@@ -407,9 +462,9 @@ function renderInstallmentWidget(checkoutTotal){
 		// parses today's date to calculate each installment date
 		// TODO: french date translation
 		let todaysDate = new Date();
-		createPaymentPlan(language === 'fr' ? 'aujourd\'hui' : 'today');
+		createPaymentPlan(translation[language].today);
 		for(let i = 0; i < 3; i++){
-			let installmentDate = new Date(todaysDate.setDate(todaysDate.getDate() + 14)).toLocaleDateString(language, {month: 'short', day: 'numeric'});
+			let installmentDate = new Date(todaysDate.setDate(todaysDate.getDate() + interval)).toLocaleDateString(language, {month: 'short', day: 'numeric'});
 			createPaymentPlan(installmentDate);
 		}
 
@@ -443,6 +498,7 @@ function renderInstallmentWidget(checkoutTotal){
 		let modalTitle = document.createElement('h4');
 		modalTitle.className = 'sezzle-modal-title';
 		modalContent.appendChild(modalTitle);
+		modalTitle.innerHTML = translation[language].modalTitle;
 
 		// creates the description container
 		let overview = document.createElement('div');
@@ -452,10 +508,12 @@ function renderInstallmentWidget(checkoutTotal){
 		// creates the first overview paragraph
 		let firstParagraph = document.createElement('p');
 		overview.appendChild(firstParagraph);
+		firstParagraph.innerHTML = translation[language].firstParagraph;
 
 		// creates the second overview paragraph
 		let secondParagraph = document.createElement('p');
 		overview.appendChild(secondParagraph);
+		secondParagraph.innerHTML = translation[language].secondParagraph;
 
 		// creates the modal content wrapper
 		let installmentWrapper = document.createElement('div');
@@ -488,24 +546,13 @@ function renderInstallmentWidget(checkoutTotal){
 		for(let i = 0; i < 4; i++){
 			let payment = document.createElement('span');
 			if (i === 0){
-				payment.innerHTML = language === 'fr' ? 'aujourd\'hui' : 'today';
+				payment.innerHTML = translation[language].today;
+			} else if(interval === 30){
+				payment.innerHTML = `${i*30} ${translation[language].days}`;
 			} else {
-				payment.innerHTML = (language === 'fr' ? 'semaine ' : 'week ' ) + i*2;
+				payment.innerHTML = `${translation[language].week} ${i*2}`;
 			}
 			sampleSchedule.appendChild(payment);
-		}
-
-		// handles translations
-		if(language === 'fr'){
-			installmentWidget.innerHTML = '4 paiement sans inte&#769;re&#770;ts r&#233;partis sur 6 semaines';
-			modalTitle.innerHTML = 'Comment &#231;a marche';
-			firstParagraph.innerHTML = 'R&#233;partissez le montant de votre commande en 4 versements sans int&#233;r&#234;ts &#233;tal&#233;s sur 6 semaines. Pas de frais si vous payez &#224; temps, pas d\'impact sur votre cote de cr&#233;dit.';
-			secondParagraph.innerHTML = 'Apr&#232;s avoir cliqu&#233; sur &#171;&nbsp;Terminer la commande&nbsp;&#187; sur ce site, vous serez redirig&#233;(e) vers Sezzle pour finaliser votre achat en toute s&#233;curit&#233;.'
-		} else {
-			installmentWidget.innerHTML = '4 interest-free payments over 6 weeks';
-			modalTitle.innerHTML = 'How it works';
-			firstParagraph.innerHTML = 'Split your entire order into 4 interest-free payments over 6 weeks. No fees if you pay on time with zero impact to your credit.';
-			secondParagraph.innerHTML = 'After clicking "Complete Order" on this site, you will be redirected to Sezzle to complete your purchase securely.';
 		}
 
 		// creates the info icon to open the modal
@@ -513,7 +560,7 @@ function renderInstallmentWidget(checkoutTotal){
 		infoIcon.className = 'sezzle-installment-info-icon';
 		infoIcon.role = 'button';
 		infoIcon.type = 'button';
-		infoIcon.title = language === 'fr' ? 'En savoir plus sur Sezzle' :'Learn More about Sezzle';
+		infoIcon.title = translation[language].infoIcon;
 		infoIcon.innerHTML = '&#9432;';
 		installmentWidget.appendChild(infoIcon);
 
