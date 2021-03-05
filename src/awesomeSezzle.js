@@ -6,7 +6,6 @@ class AwesomeSezzle {
 
   constructor(options){
     if (!options) { options = {}; console.error('Config for widget is not supplied'); }
-    this.numberOfPayments = options.numberOfPayments || 4;
     switch (typeof (options.language)) {
       case 'string':
         this.language = options.language;
@@ -20,9 +19,13 @@ class AwesomeSezzle {
     if (this.language === 'french') this.language = 'fr';
     if(this.language === 'german' || this.language === 'deutsche') this.language = 'de';
     if(this.language === 'spanish' || this.language === 'espanol' || this.language === 'español') this.language = 'es';
-    var templateString = this.widgetLanguageTranslation(this.language, this.numberOfPayments)
+		this.numberOfPayments = options.numberOfPayments || 4;
+		this.aprTerms = options.aprTerms || 12;
+		var templateString = this.widgetLanguageTranslation(this.language, this.numberOfPayments)
+		var templateStringLT = this.widgetLanguageTranslationLT(this.language);
     this.widgetTemplate  = options.widgetTemplate ? options.widgetTemplate.split('%%') : templateString.split('%%');
-    this.renderElementInitial = options.renderElement || 'sezzle-widget';
+		this.widgetTemplateLT = options.widgetTemplateLT ? options.widgetTemplateLT.split('%%') : templateStringLT.split('%%');
+		this.renderElementInitial = options.renderElement || 'sezzle-widget';
     this.assignConfigs(options);
   }
 
@@ -30,6 +33,8 @@ class AwesomeSezzle {
     this.amount = options.amount || null;
     this.minPrice = options.minPrice || 0;
     this.maxPrice = options.maxPrice || 250000;
+		this.minPriceLT = options.minPriceLT || 0;
+		this.bestAPR = options.bestAPR || 0;
     this.altModalHTML = options.altLightboxHTML || '';
     this.apModalHTML = options.apModalHTML || '';
     this.qpModalHTML = options.qpModalHTML || '';
@@ -61,6 +66,7 @@ class AwesomeSezzle {
     this.theme = options.theme || 'light';
     this.parseMode = options.parseMode || 'default'; // other available option is comma (For french)
     this.widgetTemplate = this.widgetTemplate;
+		this.widgetTemplateLT = this.widgetTemplateLT;
   }
 
   widgetLanguageTranslation(language, numberOfPayments) {
@@ -69,6 +75,16 @@ class AwesomeSezzle {
       'fr': 'ou ' + numberOfPayments + ' paiements de %%price%% sans int%%&eacute;%%r%%&ecirc;%%ts avec %%logo%% %%info%%',
       'de': 'oder ' + numberOfPayments + ' zinslose Zahlungen von je %%price%% mit %%logo%% %%info%%',
       'es': 'o ' + numberOfPayments + ' pagos sin intereses de %%price%% con %%logo%% %%info%%'
+    };
+    return translations[language] || translations.en;
+  };
+
+	widgetLanguageTranslationLT(language) {
+    const translations = {
+      'en': 'or monthly payments as low as %%price%% with %%logo%% %%info%%',
+      'fr': 'ou des paiements mensuels aussi bas que %%price%% avec %%logo%% %%info%%',
+      'de': 'oder monatliche Zahlungen von nur %%price%% mit %%logo%% %%info%%',
+      'es': 'o pagos mensuales tan bajos como %%price%% con %%logo%% %%info%%'
     };
     return translations[language] || translations.en;
   };
@@ -151,7 +167,7 @@ class AwesomeSezzle {
         this.imageClassName = 'szl-light-image'
         this.imageInnerHTML = HelperClass.svgImages().sezzleGrey
         break;
-      case 'black':
+      case 'black-flat':
         this.imageClassName = 'szl-light-image'
         this.imageInnerHTML = HelperClass.svgImages().sezzleBlack
         break;
@@ -191,9 +207,6 @@ class AwesomeSezzle {
       case 'cart':
         this.renderElement.className += ' sezzle-cart-page-widget';
         break;
-      case 'product-page':
-        this.renderElement.className += ' sezzle-product-page-widget';
-        break;
       case 'product-preview':
         this.renderElement.className += ' sezzle-product-preview-widget';
         break;
@@ -223,7 +236,7 @@ class AwesomeSezzle {
 
 
   alterPrice(amt){
-      this.eraseWidget();
+    this.eraseWidget();
     this.assignConfigs(this);
     this.amount = amt;
     this.init()
@@ -269,7 +282,8 @@ class AwesomeSezzle {
     var sezzleButtonText = document.createElement('div');
     sezzleButtonText.className = 'sezzle-button-text';
     this.setImageURL();
-      this.widgetTemplate.forEach(function (subtemplate) {
+		var widgetText = this.isProductEligibleLT(this.amount) ? this.widgetTemplateLT : this.widgetTemplate;
+		widgetText.forEach(function (subtemplate) {
         switch (subtemplate) {
           case 'price':
             var priceSpanNode = document.createElement('span');
@@ -351,18 +365,18 @@ class AwesomeSezzle {
             sezzleButtonText.appendChild(apNode);
             this.setLogoSize(apNode);
             break;
-            case 'afterpay-logo-white':
-              var apNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
-              apNode.setAttribute('width','115');
-              apNode.setAttribute('height','40');
-              apNode.setAttribute('viewBox','0 0 115 40');
-              apNode.setAttribute('class',`sezzle-afterpay-logo ap-modal-info-link no-sezzle-info`);
-              apNode.setAttribute('style', `height: 32px !important;width: auto !important;margin: -10px !important`);
-              apNode.setAttribute('alt', 'Afterpay');
-              apNode.innerHTML = HelperClass.svgImages().apNodeWhite;
-              sezzleButtonText.appendChild(apNode);
-              this.setLogoSize(apNode);
-              break;
+					case 'afterpay-logo-white':
+						var apNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
+						apNode.setAttribute('width','115');
+						apNode.setAttribute('height','40');
+						apNode.setAttribute('viewBox','0 0 115 40');
+						apNode.setAttribute('class',`sezzle-afterpay-logo ap-modal-info-link no-sezzle-info`);
+						apNode.setAttribute('style', `height: 32px !important;width: auto !important;margin: -10px !important`);
+						apNode.setAttribute('alt', 'Afterpay');
+						apNode.innerHTML = HelperClass.svgImages().apNodeWhite;
+						sezzleButtonText.appendChild(apNode);
+						this.setLogoSize(apNode);
+						break;
           case 'afterpay-info-icon':
             var apInfoIconNode = document.createElement('button');
             apInfoIconNode.role = 'button';
@@ -395,29 +409,29 @@ class AwesomeSezzle {
             this.setLogoSize(qpNode);
             break;
           case 'quadpay-logo-grey':
-              var qpNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
-							qpNode.setAttribute('width','498');
-							qpNode.setAttribute('height','135');
-							qpNode.setAttribute('viewBox','0 0 498 135');
-              qpNode.setAttribute('class',`sezzle-quadpay-logo quadpay-modal-info-link no-sezzle-info`);
-              qpNode.setAttribute('style', `height: 22px !important;width: auto !important;margin-bottom: -5px;`);
-              qpNode.setAttribute('alt', 'Quadpay');
-              qpNode.innerHTML = HelperClass.svgImages().qpNodeGrey;
-              sezzleButtonText.appendChild(qpNode);
-              this.setLogoSize(qpNode);
-              break;
+						var qpNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
+						qpNode.setAttribute('width','498');
+						qpNode.setAttribute('height','135');
+						qpNode.setAttribute('viewBox','0 0 498 135');
+						qpNode.setAttribute('class',`sezzle-quadpay-logo quadpay-modal-info-link no-sezzle-info`);
+						qpNode.setAttribute('style', `height: 22px !important;width: auto !important;margin-bottom: -5px;`);
+						qpNode.setAttribute('alt', 'Quadpay');
+						qpNode.innerHTML = HelperClass.svgImages().qpNodeGrey;
+						sezzleButtonText.appendChild(qpNode);
+						this.setLogoSize(qpNode);
+						break;
           case 'quadpay-logo-white':
-							var qpNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
-							qpNode.setAttribute('width','498');
-							qpNode.setAttribute('height','135');
-							qpNode.setAttribute('viewBox','0 0 498 135');
-              qpNode.setAttribute('class',`sezzle-quadpay-logo quadpay-modal-info-link no-sezzle-info`);
-              qpNode.setAttribute('style', `height: 22px !important;width: auto !important;margin-bottom: -5px;`);
-              qpNode.setAttribute('alt', 'Quadpay');
-              qpNode.innerHTML = HelperClass.svgImages().qpNodeWhite;
-              sezzleButtonText.appendChild(qpNode);
-              this.setLogoSize(qpNode);
-              break;
+						var qpNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
+						qpNode.setAttribute('width','498');
+						qpNode.setAttribute('height','135');
+						qpNode.setAttribute('viewBox','0 0 498 135');
+						qpNode.setAttribute('class',`sezzle-quadpay-logo quadpay-modal-info-link no-sezzle-info`);
+						qpNode.setAttribute('style', `height: 22px !important;width: auto !important;margin-bottom: -5px;`);
+						qpNode.setAttribute('alt', 'Quadpay');
+						qpNode.innerHTML = HelperClass.svgImages().qpNodeWhite;
+						sezzleButtonText.appendChild(qpNode);
+						this.setLogoSize(qpNode);
+						break;
           case 'quadpay-info-icon':
             var quadpayInfoIconNode = document.createElement('button');
             quadpayInfoIconNode.role = 'button';
@@ -440,29 +454,29 @@ class AwesomeSezzle {
             this.setLogoSize(affirmNode);
             break;
           case 'affirm-logo-grey':
-              var affirmNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
-              affirmNode.setAttribute('width','450');
-              affirmNode.setAttribute('height','170');
-              affirmNode.setAttribute('viewBox','0 0 450 170');
-              affirmNode.setAttribute('class',`sezzle-affirm-logo affirm-modal-info-link no-sezzle-info`);
-              affirmNode.setAttribute('style', `height: 24px !important;width: auto !important;`);
-              affirmNode.setAttribute('alt', 'Affirm');
-              affirmNode.innerHTML = HelperClass.svgImages().affirmNodeGrey;
-              sezzleButtonText.appendChild(affirmNode);
-              this.setLogoSize(affirmNode);
-              break;
+						var affirmNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
+						affirmNode.setAttribute('width','450');
+						affirmNode.setAttribute('height','170');
+						affirmNode.setAttribute('viewBox','0 0 450 170');
+						affirmNode.setAttribute('class',`sezzle-affirm-logo affirm-modal-info-link no-sezzle-info`);
+						affirmNode.setAttribute('style', `height: 24px !important;width: auto !important;`);
+						affirmNode.setAttribute('alt', 'Affirm');
+						affirmNode.innerHTML = HelperClass.svgImages().affirmNodeGrey;
+						sezzleButtonText.appendChild(affirmNode);
+						this.setLogoSize(affirmNode);
+						break;
           case 'affirm-logo-white':
-                var affirmNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
-                affirmNode.setAttribute('width','450');
-                affirmNode.setAttribute('height','170');
-                affirmNode.setAttribute('viewBox','0 0 450 170');
-                affirmNode.setAttribute('class',`sezzle-affirm-logo affirm-modal-info-link no-sezzle-info`);
-                affirmNode.setAttribute('style', `height: 24px !important;width: auto !important;`);
-                affirmNode.setAttribute('alt', 'Affirm');
-                affirmNode.innerHTML = HelperClass.svgImages().affirmNodeWhite;
-              sezzleButtonText.appendChild(affirmNode);
-              this.setLogoSize(affirmNode);
-              break;
+						var affirmNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
+						affirmNode.setAttribute('width','450');
+						affirmNode.setAttribute('height','170');
+						affirmNode.setAttribute('viewBox','0 0 450 170');
+						affirmNode.setAttribute('class',`sezzle-affirm-logo affirm-modal-info-link no-sezzle-info`);
+						affirmNode.setAttribute('style', `height: 24px !important;width: auto !important;`);
+						affirmNode.setAttribute('alt', 'Affirm');
+						affirmNode.innerHTML = HelperClass.svgImages().affirmNodeWhite;
+						sezzleButtonText.appendChild(affirmNode);
+						this.setLogoSize(affirmNode);
+						break;
           case 'affirm-info-icon':
             var affirmInfoIconNode = document.createElement('button');
             affirmInfoIconNode.role = 'button';
@@ -485,29 +499,29 @@ class AwesomeSezzle {
             this.setLogoSize(klarnaNode);
             break;
           case 'klarna-logo-grey':
-              var klarnaNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
-              klarnaNode.setAttribute('width','45');
-              klarnaNode.setAttribute('height','25');
-              klarnaNode.setAttribute('viewBox','0 0 45 23');
-              klarnaNode.setAttribute('class',`sezzle-klarna-logo klarna-modal-info-link no-sezzle-info`);
-              klarnaNode.setAttribute('style', `height: 25px !important;width: auto !important; margin-bottom: -5px;`);
-              klarnaNode.setAttribute('alt', 'Klarna');
-              klarnaNode.innerHTML = HelperClass.svgImages().klarnaNodeGrey;
-              sezzleButtonText.appendChild(klarnaNode);
-              this.setLogoSize(klarnaNode);
-              break;
+						var klarnaNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
+						klarnaNode.setAttribute('width','45');
+						klarnaNode.setAttribute('height','25');
+						klarnaNode.setAttribute('viewBox','0 0 45 23');
+						klarnaNode.setAttribute('class',`sezzle-klarna-logo klarna-modal-info-link no-sezzle-info`);
+						klarnaNode.setAttribute('style', `height: 25px !important;width: auto !important; margin-bottom: -5px;`);
+						klarnaNode.setAttribute('alt', 'Klarna');
+						klarnaNode.innerHTML = HelperClass.svgImages().klarnaNodeGrey;
+						sezzleButtonText.appendChild(klarnaNode);
+						this.setLogoSize(klarnaNode);
+						break;
           case 'klarna-logo-white':
-                var klarnaNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
-                klarnaNode.setAttribute('width','45');
-                klarnaNode.setAttribute('height','25');
-                klarnaNode.setAttribute('viewBox','0 0 45 23');
-                klarnaNode.setAttribute('class',`sezzle-klarna-logo klarna-modal-info-link no-sezzle-info`);
-                klarnaNode.setAttribute('style', `height: 25px !important;width: auto !important; margin-bottom: -5px;`);
-                klarnaNode.setAttribute('alt', 'Klarna');
-                klarnaNode.innerHTML = HelperClass.svgImages().klarnaNodeWhite;
-              sezzleButtonText.appendChild(klarnaNode);
-              this.setLogoSize(klarnaNode);
-              break;
+						var klarnaNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
+						klarnaNode.setAttribute('width','45');
+						klarnaNode.setAttribute('height','25');
+						klarnaNode.setAttribute('viewBox','0 0 45 23');
+						klarnaNode.setAttribute('class',`sezzle-klarna-logo klarna-modal-info-link no-sezzle-info`);
+						klarnaNode.setAttribute('style', `height: 25px !important;width: auto !important; margin-bottom: -5px;`);
+						klarnaNode.setAttribute('alt', 'Klarna');
+						klarnaNode.innerHTML = HelperClass.svgImages().klarnaNodeWhite;
+						sezzleButtonText.appendChild(klarnaNode);
+						this.setLogoSize(klarnaNode);
+						break;
           case 'klarna-info-icon':
             var klarnaInfoIconNode = document.createElement('button');
             klarnaInfoIconNode.role = 'button';
@@ -526,21 +540,21 @@ class AwesomeSezzle {
             eacute.innerHTML = '&#233;';
             sezzleButtonText.appendChild(eacute);
             break;
-            case '&ecirc;':
-              var ecirc = document.createElement('span');
-              ecirc.innerHTML = '&#234;';
-              sezzleButtonText.appendChild(ecirc);
-              break;
-            case '&auml;':
-              var auml = document.createElement('span');
-              auml.innerHTML = '&#228;';
-              sezzleButtonText.appendChild(auml);
-              break;
-            case '&uuml;':
-              var uuml = document.createElement('span');
-              uuml.innerHTML = '&#252;';
-              sezzleButtonText.appendChild(uuml);
-              break;
+					case '&ecirc;':
+						var ecirc = document.createElement('span');
+						ecirc.innerHTML = '&#234;';
+						sezzleButtonText.appendChild(ecirc);
+						break;
+					case '&auml;':
+						var auml = document.createElement('span');
+						auml.innerHTML = '&#228;';
+						sezzleButtonText.appendChild(auml);
+						break;
+					case '&uuml;':
+						var uuml = document.createElement('span');
+						uuml.innerHTML = '&#252;';
+						sezzleButtonText.appendChild(uuml);
+						break;
           default:
             var widgetTextNode = document.createTextNode(subtemplate);
             sezzleButtonText.appendChild(widgetTextNode);
@@ -564,12 +578,19 @@ class AwesomeSezzle {
     return priceInCents >= this.minPrice && priceInCents <= this.maxPrice;
   }
 
+	isProductEligibleLT(priceText){
+    var price = this.parseMode ==='default' ? HelperClass.parsePrice(priceText) : HelperClass.parsePrice(priceText,this.parseMode);
+    this.productPrice = price;
+    var priceInCents = price * 100;
+    return this.minPriceLT && priceInCents >= this.minPriceLT && priceInCents <= this.maxPrice;
+  }
+
   getFormattedPrice(amount = this.amount){
     var priceText = amount;
     var priceString =  HelperClass.parsePriceString(priceText, true);
     var price = this.parseMode ==='default' ? HelperClass.parsePrice(priceText) : HelperClass.parsePrice(priceText,this.parseMode);
     var formatter =  priceText.replace(priceString, '{price}');
-    var sezzleInstallmentPrice = (price / this.numberOfPayments).toFixed(2);
+    var sezzleInstallmentPrice = this.isProductEligibleLT(amount) ? (price * (1+(this.bestAPR/100)) / this.aprTerms).toFixed(2): (price / this.numberOfPayments).toFixed(2);
     if(this.parseMode  === 'comma') {
       var sezzleInstallmentFormattedPrice = formatter.replace('{price}', this.formatCommaPrice(sezzleInstallmentPrice));
     } else {
@@ -594,7 +615,9 @@ class AwesomeSezzle {
       modalNode.style.display = 'none';
       modalNode.tabindex='-1';
       modalNode.role = 'dialog';
-      if (this.altModalHTML) {
+			if(this.isProductEligibleLT(this.amount)){
+				modalNode.innerHTML = `<meta name="viewport" content="width=device-width, initial-scale=1.0"><div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal" title="" style="background-image: none;"> <div class="sezzle-modal-content"> <div class="sezzle-logo" title="Sezzle logo" style="height: 30px; background-repeat: no-repeat; background-position: center; width: 100%;"></div><button title="Close Sezzle Modal" class="close-sezzle-modal" tabindex="0" role="button"></button><div class="sezzle-header" style="font-size: 20px; margin-bottom: 40px;"> Sezzle it now. <span class="header-desktop"  style="font-size: 20px;">Pay us back later.</span> <div class="header-mobile" style="font-size: 20px;">Pay us back later.</div></div><div class="sezzle-row"> <div class="desktop" style="font-size: 16px; font-weight: bold;">6 monthly payments<div style="font-weight: normal; font-size: 14px;">pay 1/6th each month starting today</div></div><div class="mobile" style="font-size: 16px; font-weight: bold;">6 monthly payments<div style="font-weight: normal; font-size: 14px;">pay 1/6th each month starting today</div></div></div><!--<div class="sezzle-payment-pie" title="25% today, 25% week 2, 25% week 4, 25% week 6"> </div>--><div class="sezzle-features" style="display: flex; flex-direction: column; align-items: center; width: 100%; margin: 40px 0px 0px 0px;"><div style="width: 50%; background: #392558; font-weight: bold; border-radius: 5px 5px 0px 0px; color: white; font-size: 12px; padding: 5px;">Benefits</div> <div style="border: 1px solid lightgray; border-radius: 5px; width: 80%; text-align: left; padding: 20px;"><div class="single-feature" style="font-weight: normal; padding: 5px; font-size: 14px;"> <div>No interest, ever</div><!--<div class="sub-feature">Plus no fees if you pay on time</div>--></div><div class="single-feature" style="font-weight: normal; padding: 5px; font-size: 14px;"> <div>No impact to your <div style="display: inline;">credit score</div></div></div><div class="single-feature"  style="font-weight: normal; padding: 5px; font-size: 14px;"> <div style="display: inline;">Instant approval </div><div style="display: inline;">decisions</div></div></div></div><div class="sezzle-row"> <div class="desktop"> <div class="just-select-sezzle" style="color: #8427d7; font-size: 20px; padding: 20px 0px;">Just select <span>Sezzle</span> at checkout!</div></div><div class="mobile"> <div class="just-select-sezzle-mobile" style="color: #8427d7; font-weight: normal; font-size: 20px; padding: 20px 0px;"> <div>Just select Sezzle</div><div>at checkout!</div></div></div></div><button title="Close Sezzle Modal" tabindex="1" role="button" style=" width: 120px; background: #392558; color: white; padding: 8px; border-radius: 50px; font-size: 16px; font-family: Comfortaa; border: none; font-weight: bold;">close</button><div class="terms" style="font-size: 8px; color: lightslategray; margin: 15px 0px 30px;">Subject to eligibility check and approval.</div></div></div></div>`;
+			} else if (this.altModalHTML) {
         modalNode.innerHTML = this.altModalHTML;
       } else {
         if (this.language === 'fr') {
