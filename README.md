@@ -42,7 +42,7 @@ Once the widget is rendering, additional configurations can be added to the Awes
 
 1. **`amount`** - This config is required. Provide the product price variable as a template-literal,  Shopify.Liquid Example: `'{{ product.selected_or_first_available_variant.price | money }}'`
 2. **`renderElement`** - This config is optional. Provide the ID name or array of ID names that correspond to the widget placeholder elements. It defaults to `sezzle-widget`.
-3. **`theme`** - This config is optional. It defaults to `light`. Alternative values include `dark`, `grayscale`, `black`, `white`, or `white-flat`.
+3. **`theme`** - This config is optional. It defaults to `light`. Alternative values include `dark`, `grayscale`, `black-flat`, `white`, or `white-flat`.
 4. **`maxWidth`** - This config is optional. It defaults to `none`.
 5. **`marginTop`** - This config is optional. It defaults to `0`.
 6. **`marginBottom`** - This config is optional. It defaults to `0`.
