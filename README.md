@@ -30,7 +30,7 @@ Once the widget is rendering, additional configurations can be added to the Awes
     fontSize: 12,
     fontWeight: 400,
     widgetType: 'product-page',
-		fixedHeight: 0,
+    fixedHeight: 0,
     logoSize: 1.0,
     logoStyle: {},
     language: 'en',
