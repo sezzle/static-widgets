@@ -82,11 +82,11 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion){
 			'days': 'Tage',
 			'week': 'Woche',
 			'month': 'Monat',
-			'installmentWidget': `4 Zahlungen über  ` + (interval === 30 ? '3 Monates' : '6 Wochen') + ` - Keine Gebühr!`,
+			'installmentWidget': `4 Raten &#252;ber  ` + (interval === 30 ? '3 Monates' : '6 Wochen') + ` - Kostenlos!`,
 			'modalTitle': 'Wie es funktioniert',
-			'firstParagraph': `Teilen Sie Ihre gesamte Bestellung über ` + (interval === 30 ? '3 Monates' : '6 Wochen') + ` in 4 zinslose Zahlungen auf. Keine Gebühren, wenn Sie pünktlich zahlen, ohne dass sich dies auf Ihr Guthaben auswirkt.`,
-			'secondParagraph': 'Nachdem Sie auf dieser Website auf "Bestellung abschließen" geklickt haben, werden Sie zu Sezzle weitergeleitet, um Ihren Kauf sicher abzuschließen.',
-			'infoIcon': 'Erfahren Sie mehr über Sezzle'
+			'firstParagraph': `Dein Gesamtbestellwert wird auf 4 Raten &#252;ber ` + (interval === 30 ? '3 Monates' : '6 Wochen') + ` verteilt. Diese sind komplett kostenlos.`,
+			'secondParagraph': 'Sobald du auf den Button &#8222;Bestellung abschlie&#252;en&#8220; klickst, wirst du zu Sezzle umgeleitet, um deinen Einkauf sicher abzuschlie&#252;en.',
+			'infoIcon': 'Erfahren Sie mehr &#252;ber Sezzle'
 		},
 		'es': {
 			'today': 'hoy',
