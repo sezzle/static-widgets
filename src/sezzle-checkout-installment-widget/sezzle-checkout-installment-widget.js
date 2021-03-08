@@ -95,15 +95,15 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion){
 			'week': 'Woche',
 			'month': 'Monat',
 			'installmentWidget': {
-				14: `4 zinslose Raten &#252;ber 6 Wochen`,
-				30: `4 Raten &#252;ber 3 Monate - Kostenlos!`,
+				14: `4 zinslose Raten &#252;ber 6 Wochen verteilt`,
+				30: `4 Raten &#252;ber 3 Monate verteilt - Kostenlos!`,
 			},
-			'modalTitle': 'Wie es funktioniert',
+			'modalTitle': 'So funktioniert\'s',
 			'firstParagraph': {
-				14: `Dein Gesamtbestellwert wird auf 4 zinslose Raten &#252;ber 6 Wochen verteilt. Diese sind komplett kostenlos, wenn Sie p&#252;nktlich zahlen, keine Auswirkungen auf Ihre Kreditw&#252;rdigkeit.`,
-				30: `Dein Gesamtbestellwert wird auf 4 Raten &#252;ber 30 Monate verteilt. Diese sind komplett kostenlos.`
+				14: `Dein Gesamtbestellwert wird auf 4 Raten &#252;ber 6 Wochen verteilt. Diese sind komplett zinsfrei, sofern du p&#252;nktlich bezahlst. Kein Einfluss auf deine Kreditw&#252;rdigkeit.`,
+				30: `Dein Gesamtbestellwert wird auf 4 Raten &#252;ber 3 Monate verteilt. Diese sind komplett kostenlos.`
 			},
-			'secondParagraph': 'Sobald du auf den Button &#8222;Bestellung abschlie&#223;en&#8220; klickst, wirst du zu Sezzle umgeleitet, um deinen Einkauf sicher abzuschlie&#223;en.',
+			'secondParagraph':'Sobald du auf den Button &#8222;Bestellung abschlie&#223;en&#8220; klickst, wirst du zu Sezzle umgeleitet ' + (interval === 30 ? 'um' : 'und kannst') + ' deinen Einkauf sicher '+ (interval === 30 ? 'abzuschlie&#223;en.' : 'abschlie&#223;en.'),
 			'infoIcon': 'Erfahren Sie mehr &#252;ber Sezzle'
 		},
 		'es': {
