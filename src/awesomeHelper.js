@@ -6,6 +6,10 @@ class Helper {
 
   svgImages() {
     return{
+			checkMarkIcon: `<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 11 11" fill="none">
+			<circle cx="5.5" cy="5.5" r="5.25" fill="#D0B2EF" stroke="#8333D4" stroke-width="0.5"/>
+			<path d="M3 6L5 8L9 4" stroke="#8333D4" stroke-linecap="round"/>
+			</svg>`,
       questionMarkIcon:`<g transform="translate(0.000000,371.000000) scale(0.100000,-0.100000)"
       fill="#000000" stroke="none">
       <path d="M1579 3595 c-659 -107 -1193 -556 -1399 -1174 -73 -219 -84 -295 -84
