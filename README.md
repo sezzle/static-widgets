@@ -67,7 +67,7 @@ Once the widget is rendering, additional configurations can be added to the Awes
 23. **`numberOfPayments`** - This config is optional. defaults to `4`.
 24. **`minPrice`** - This config is optional. It defaults to `0` - <small>in cents</small>.
 25. **`maxPrice`** - This config is optional. It defaults to `250000` - <small>in cents</small>.
-26. **`altModalHTML`** - This config is optional.
+26. **`altModalHTML`** - This config is optional. It defaults to our classic BNPL modal.
 27. **`qpModalHTML`** -This config is optional.
 28. **`apModalHTML`** - This config is optional.
 29. **`apLink`** - This config is optional. It defaults to `https://www.afterpay.com/purchase-payment-agreement`.
@@ -77,7 +77,7 @@ Once the widget is rendering, additional configurations can be added to the Awes
 33. **`bestAPR`** - This config is optional. It defaults to `0` - <small>in percent (ex: `4.5` = 4.5% APR)</small>.
 34. **`aprTerms`** - This config is optional. It defaults to `12` - <small>in months</small>.
 35. **`widgetTemplateLT`** - This config is optional. It defaults to `or monthly payments as low as %%price%% with %%logo%% %%info%%`. Available templates include `%%price%%`, `%%logo%%`, `%%link%%`, `%%info%%`, `%%question-mark%%`, `%%line-break%%`.
-
+36. **`ltAltModalHTML`** - This config is optional. It defaults to our long-term lending modal.
 
 ## Functions
 
