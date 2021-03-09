@@ -734,27 +734,39 @@ class AwesomeSezzle {
 							</div>
 							<div class="sezzle-lt-payments">
 								<div class="sezzle-lt-payment-header">Sample payments for <span>${this.amount}</span></div>
-								<div class="sezzle-lt-payment-options 12-month" ${(this.amount.split('$')[1] < 750 || this.amount.split('$')[1] >= 2000) && `style="display: none;"`}>
+								<div class="sezzle-lt-payment-options 3-month" ${(this.amount.split('$')[1] < 250 || this.amount.split('$')[1] >= 750) ? `style="display: none;"` : `style="display: none;"`}>
+									<div class="plan"><div class="monthly-amount"><span>${'$' + (this.amount.split('$')[1] / 3).toFixed(2)}</span> /month</div>	<div class="term-length">3 months</div></div>
+									<div class="plan-details"><div class="adjusted-total">Total: <span>${this.amount}</span></div>	<div class="sample-apr">APR: <span>9.99</span>%</div></div>
+								</div>
+								<div class="sezzle-lt-payment-options 6-month" ${(this.amount.split('$')[1] < 250 || this.amount.split('$')[1] >= 1000) ? `style="display: none;"` : `style="display: none;"`}>
+									<div class="plan"><div class="monthly-amount"><span>${'$' + (this.amount.split('$')[1] / 6).toFixed(2)}</span> /month</div>	<div class="term-length">6 months</div></div>
+									<div class="plan-details"><div class="adjusted-total">Total: <span>${this.amount}</span></div>	<div class="sample-apr">APR: <span>9.99</span>%</div></div>
+								</div>
+								<div class="sezzle-lt-payment-options 9-month" ${(this.amount.split('$')[1] < 500 || this.amount.split('$')[1] >= 1500) ? `style="display: none;"` : `style="display: none;"`}>
+									<div class="plan"><div class="monthly-amount"><span>${'$' + (this.amount.split('$')[1] / 9).toFixed(2)}</span> /month</div>	<div class="term-length">9 months</div></div>
+									<div class="plan-details"><div class="adjusted-total">Total: <span>${this.amount}</span></div>	<div class="sample-apr">APR: <span>9.99</span>%</div></div>
+								</div>
+								<div class="sezzle-lt-payment-options 12-month" ${(this.amount.split('$')[1] < 750 || this.amount.split('$')[1] >= 2000) ? `style="display: none;"` : `style="display: block;"`}>
 									<div class="plan"><div class="monthly-amount"><span>${'$' + (this.amount.split('$')[1] / 12).toFixed(2)}</span> /month</div>	<div class="term-length">12 months</div></div>
 									<div class="plan-details"><div class="adjusted-total">Total: <span>${this.amount}</span></div>	<div class="sample-apr">APR: <span>9.99</span>%</div></div>
 								</div>
-								<div class="sezzle-lt-payment-options 18-month" ${(this.amount.split('$')[1] < 1000 || this.amount.split('$')[1] >= 3000) && `style="display: none;"`}>
+								<div class="sezzle-lt-payment-options 18-month" ${(this.amount.split('$')[1] < 1000 || this.amount.split('$')[1] >= 3000) ? `style="display: none;"` : `style="display: block;"`}>
 									<div class="plan"><div class="monthly-amount"><span>${'$' + (this.amount.split('$')[1] / 18).toFixed(2)}</span> /month</div>	<div class="term-length">18 months</div></div>
 									<div class="plan-details"><div class="adjusted-total">Total: <span>${this.amount}</span></div>	<div class="sample-apr">APR: <span>9.99</span>%</div></div>
 								</div>
-								<div class="sezzle-lt-payment-options 24-month" ${(this.amount.split('$')[1] < 1500 || this.amount.split('$')[1] >= 4000) && `style="display: none;"`}>
+								<div class="sezzle-lt-payment-options 24-month" ${(this.amount.split('$')[1] < 1500 || this.amount.split('$')[1] >= 4000) ? `style="display: none;"` : `style="display: block;"`}>
 									<div class="plan"><div class="monthly-amount"><span>${'$' + (this.amount.split('$')[1] / 24).toFixed(2)}</span> /month</div>	<div class="term-length">24 months</div></div>
 									<div class="plan-details"><div class="adjusted-total">Total: <span>${this.amount}</span></div>	<div class="sample-apr">APR: <span>9.99</span>%</div></div>
 								</div>
-								<div class="sezzle-lt-payment-options 36-month" ${(this.amount.split('$')[1] < 2000) && `style="display: none;"`}>
+								<div class="sezzle-lt-payment-options 36-month" ${(this.amount.split('$')[1] < 2000) ? `style="display: none;"` : `style="display: block;"`}>
 									<div class="plan"><div class="monthly-amount"><span>${'$' + (this.amount.split('$')[1] / 36).toFixed(2)}</span> /month</div>	<div class="term-length">36 months</div></div>
 									<div class="plan-details"><div class="adjusted-total">Total: <span>${this.amount}</span></div>	<div class="sample-apr">APR: <span>9.99</span>%</div></div>
 								</div>
-								<div class="sezzle-lt-payment-options 48-month" ${(this.amount.split('$')[1] < 3000) && `style="display: none;"`}>
+								<div class="sezzle-lt-payment-options 48-month" ${(this.amount.split('$')[1] < 3000) ? `style="display: none;"` : `style="display: block;"`}>
 									<div class="plan"><div class="monthly-amount"><span>${'$' + (this.amount.split('$')[1] / 48).toFixed(2)}</span> /month</div>	<div class="term-length">48 months</div></div>
 									<div class="plan-details"><div class="adjusted-total">Total: <span>${this.amount}</span></div>	<div class="sample-apr">APR: <span>9.99</span>%</div></div>
 								</div>
-								<div class="sezzle-lt-payment-options 60-month"  ${(this.amount.split('$')[1] < 4000) && `style="display: none;"`}>
+								<div class="sezzle-lt-payment-options 60-month"  ${(this.amount.split('$')[1] < 4000) ? `style="display: none;"` : `style="display: block;"`}>
 									<div class="plan"><div class="monthly-amount"><span>${'$' + (this.amount.split('$')[1] / 60).toFixed(2)}</span> /month</div>	<div class="term-length">60 months</div></div>
 									<div class="plan-details"><div class="adjusted-total">Total: <span>${this.amount}</span></div>	<div class="sample-apr">APR: <span>9.99</span>%</div></div>
 								</div>
