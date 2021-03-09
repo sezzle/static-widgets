@@ -620,8 +620,156 @@ class AwesomeSezzle {
 				if(this.ltAltModalHTML){
 					modalNode.innerHTML = this.ltAltModalHTML;
 				} else {
-					modalNode.innerHTML = `<style>.sezzle-modal::-webkit-scrollbar {display: none;}</style><meta name="viewport" content="width=device-width, initial-scale=1.0"><div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal" title="" style="background-image: none;"> <div class="sezzle-modal-content"> <div class="sezzle-logo" title="Sezzle logo" style="height: 30px; background-repeat: no-repeat; background-position: center; width: 100%;"></div><button title="Close Sezzle Modal" class="close-sezzle-modal" tabindex="0" role="button"></button><div class="sezzle-header" style="font-size: 20px; margin-bottom: 40px;"> Sezzle it now. <span class="header-desktop"  style="font-size: 20px;">Pay us back later.</span> <div class="header-mobile" style="font-size: 20px;">Pay us back later.</div></div><div class="sezzle-row"> <div class="desktop" style="font-size: 16px; font-weight: bold;">6 monthly payments<div style="font-weight: normal; font-size: 14px;">pay 1/6th each month starting today</div></div><div class="mobile" style="font-size: 16px; font-weight: bold;">6 monthly payments<div style="font-weight: normal; font-size: 14px;">pay 1/6th each month starting today</div></div></div><!--<div class="sezzle-payment-pie" title="25% today, 25% week 2, 25% week 4, 25% week 6"> </div>--><div class="sezzle-features" style="display: flex; flex-direction: column; align-items: center; width: 100%; margin: 40px 0px 0px 0px;"><div style="width: 50%; background: #392558; font-weight: bold; border-radius: 5px 5px 0px 0px; color: white; font-size: 12px; padding: 5px;">Benefits</div> <style>@media only screen and (min-width: 698px){.sezzle-benefit-list {display: flex}}</style><div class="sezzle-benefit-list" style="border: 1px solid lightgray; border-radius: 5px; width: 80%; text-align: left; padding: 20px;"><div class="single-feature" style="font-weight: normal; padding: 5px; font-size: 14px; display: flex;"><div style="padding-right: 5px;">${HelperClass.svgImages().checkMarkIcon}</div><div>No interest, ever</div><!--<div class="sub-feature">Plus no fees if you pay on time</div>--></div><div class="single-feature" style="font-weight: normal; padding: 5px; font-size: 14px; display: flex;"><div style="padding-right: 5px;">${HelperClass.svgImages().checkMarkIcon}</div><div>No impact to your credit score</div></div><div class="single-feature"  style="font-weight: normal; padding: 5px; font-size: 14px; display: flex;"><div style="padding-right: 5px;">${HelperClass.svgImages().checkMarkIcon}</div><div>Instant approval decisions</div></div></div></div><div class="sezzle-row"> <div class="desktop"> <div class="just-select-sezzle" style="color: #8427d7; font-size: 20px; padding: 20px 0px;">Just select <span>Sezzle</span> at checkout!</div></div><div class="mobile"> <div class="just-select-sezzle-mobile" style="color: #8427d7; font-weight: normal; font-size: 20px; padding: 20px 0px;"> <div>Just select Sezzle</div><div>at checkout!</div></div></div></div><button title="Close Sezzle Modal" tabindex="1" role="button" style=" width: 120px; background: #392558; color: white; padding: 8px; border-radius: 50px; font-size: 16px; font-family: Comfortaa; border: none; font-weight: bold;">close</button><div class="terms" style="font-size: 8px; color: lightslategray; margin: 15px 0px 30px;">Subject to eligibility check and approval.</div></div></div></div>`;
-				}
+					modalNode.innerHTML = `<style>
+					.sezzle-checkout-modal .sezzle-modal {
+						background-image: none !important;
+					}
+					.sezzle-checkout-modal-hidden .sezzle-logo {
+						background-repeat: no-repeat;
+						background-position: center;
+						height: 20px;
+					}
+					.sezzle-checkout-modal-hidden .close-sezzle-modal:before, .sezzle-checkout-modal-hidden .close-sezzle-modal:after {
+						width: 2px;
+						height: 15px;
+						background-color: #737373;
+					}
+					.sezzle-checkout-modal .sezzle-header {
+						font-size: 14px !important;
+						line-height: 20px !important;
+					}
+					.sezzle-checkout-modal-hidden .sezzle-row {
+						width: 85%;
+						font-size: 10px;
+					}
+					.sezzle-checkout-modal-hidden .sezzle-lt-payments {
+						border: 1px solid #737373;
+						border-radius: 5px;
+						width: 80%;
+						height: fit-content;
+						margin: 20px auto;
+						padding: 20px 0px 0px;
+					}
+					.sezzle-checkout-modal-hidden .sezzle-lt-payment-header {
+						font-weight: bold;
+						font-size: 10px;
+					}
+					.sezzle-checkout-modal-hidden .sezzle-lt-payment-header span {
+						color: #8333D4;
+						font-size: 14px;
+					}
+					.sezzle-checkout-modal-hidden .sezzle-lt-payment-options {
+						font-size: 10px;
+						margin: 20px 20px 0px;
+						border-bottom: 1px solid #737373;
+						padding-bottom: 20px;
+					}
+					.sezzle-checkout-modal-hidden .sezzle-lt-payment-options:last-child {
+						border: none
+					}
+					.sezzle-checkout-modal-hidden .sezzle-lt-payment-options .plan{
+						display: flex;
+						justify-content: space-between;
+					}
+					.sezzle-checkout-modal-hidden .sezzle-lt-payment-options .monthly-amount span {
+						font-size: 14px;
+					}
+					.sezzle-checkout-modal-hidden .sezzle-lt-payment-options .plan-details {
+						text-align: left;
+						display: flex;
+						justify-content: space-evenly;
+					}
+					.sezzle-checkout-modal-hidden .sezzle-lt-payment-options .plan-details div {
+						color: #737373;
+						display: inline;
+						width: 100%
+					}
+					.sezzle-checkout-modal-hidden .just-select-sezzle-mobile, .sezzle-checkout-modal-hidden .just-select-sezzle {
+						font-size: 9px;
+						color: #382757;
+						font-weight: normal;
+						margin-top: 18px;
+					}
+					.sezzle-checkout-modal-hidden .just-select-sezzle-mobile div, .sezzle-checkout-modal-hidden .just-select-sezzle div {
+						display:inline;
+					}
+					.sezzle-checkout-modal-hidden .just-select-sezzle-mobile .sezzle-logo, .sezzle-checkout-modal-hidden .just-select-sezzle .sezzle-logo {
+						width: 40px;
+						height: 10px;
+						display: inline-block;
+						margin: -2px 2px;
+					}
+					.sezzle-checkout-modal-hidden .details {
+						margin: 0px auto;
+						font-weight: lighter;
+						font-size: 9px;
+						padding: 5px 0px 20px;
+						width: 85%;
+					}
+					.sezzle-checkout-modal-hidden .terms {
+						font-size: 6px;
+						line-height: 8px;
+						color: #737373;
+						width: 80%;
+						margin: 20px auto -1px;
+						padding: 10px 0px 0px;
+						border-top: 1px solid #737373;
+					}
+				</style>
+				<meta name="viewport" content="width=device-width, initial-scale=1.0">
+				<div class="sezzle-checkout-modal-hidden">
+					<div class="sezzle-modal" style="background-image: none;">
+						<div class="sezzle-modal-content">
+							<div class="sezzle-logo" title="Sezzle logo"></div>
+							<button title="Close Sezzle Modal" class="close-sezzle-modal" tabindex="0" role="button"></button>
+							<div class="sezzle-header" style="font-size: 14px; line-height: 20px;">Make easy monthly
+								<span class="header-desktop">payments on your order</span>
+								<div class="header-mobile">payments on your order</div>
+							</div>
+							<div class="sezzle-row">
+								<div class="desktop">Your total purchase will be split into payments,
+									<div>depending on the plan you choose.</div>
+								</div>
+								<div class="mobile">Your total purchase will be split into payments, depending on the plan you choose.</div>
+							</div>
+							<div class="sezzle-lt-payments">
+								<div class="sezzle-lt-payment-header">Sample payments for <span>${this.amount}</span></div>
+								<div class="sezzle-lt-payment-options 12-month" ${(this.amount.split('$')[1] < 750 || this.amount.split('$')[1] >= 2000) && `style="display: none;"`}>
+									<div class="plan"><div class="monthly-amount"><span>${'$' + (this.amount.split('$')[1] / 12).toFixed(2)}</span> /month</div>	<div class="term-length">12 months</div></div>
+									<div class="plan-details"><div class="adjusted-total">Total: <span>${this.amount}</span></div>	<div class="sample-apr">APR: <span>9.99</span>%</div></div>
+								</div>
+								<div class="sezzle-lt-payment-options 18-month" ${(this.amount.split('$')[1] < 1000 || this.amount.split('$')[1] >= 3000) && `style="display: none;"`}>
+									<div class="plan"><div class="monthly-amount"><span>${'$' + (this.amount.split('$')[1] / 18).toFixed(2)}</span> /month</div>	<div class="term-length">18 months</div></div>
+									<div class="plan-details"><div class="adjusted-total">Total: <span>${this.amount}</span></div>	<div class="sample-apr">APR: <span>9.99</span>%</div></div>
+								</div>
+								<div class="sezzle-lt-payment-options 24-month" ${(this.amount.split('$')[1] < 1500 || this.amount.split('$')[1] >= 4000) && `style="display: none;"`}>
+									<div class="plan"><div class="monthly-amount"><span>${'$' + (this.amount.split('$')[1] / 24).toFixed(2)}</span> /month</div>	<div class="term-length">24 months</div></div>
+									<div class="plan-details"><div class="adjusted-total">Total: <span>${this.amount}</span></div>	<div class="sample-apr">APR: <span>9.99</span>%</div></div>
+								</div>
+								<div class="sezzle-lt-payment-options 36-month" ${(this.amount.split('$')[1] < 2000) && `style="display: none;"`}>
+									<div class="plan"><div class="monthly-amount"><span>${'$' + (this.amount.split('$')[1] / 36).toFixed(2)}</span> /month</div>	<div class="term-length">36 months</div></div>
+									<div class="plan-details"><div class="adjusted-total">Total: <span>${this.amount}</span></div>	<div class="sample-apr">APR: <span>9.99</span>%</div></div>
+								</div>
+								<div class="sezzle-lt-payment-options 48-month" ${(this.amount.split('$')[1] < 3000) && `style="display: none;"`}>
+									<div class="plan"><div class="monthly-amount"><span>${'$' + (this.amount.split('$')[1] / 48).toFixed(2)}</span> /month</div>	<div class="term-length">48 months</div></div>
+									<div class="plan-details"><div class="adjusted-total">Total: <span>${this.amount}</span></div>	<div class="sample-apr">APR: <span>9.99</span>%</div></div>
+								</div>
+								<div class="sezzle-lt-payment-options 60-month"  ${(this.amount.split('$')[1] < 4000) && `style="display: none;"`}>
+									<div class="plan"><div class="monthly-amount"><span>${'$' + (this.amount.split('$')[1] / 60).toFixed(2)}</span> /month</div>	<div class="term-length">60 months</div></div>
+									<div class="plan-details"><div class="adjusted-total">Total: <span>${this.amount}</span></div>	<div class="sample-apr">APR: <span>9.99</span>%</div></div>
+								</div>
+							</div>
+							<div class="sezzle-row">
+								<div class="desktop"> <div class="just-select-sezzle">Just choose <div class="sezzle-logo" title="Sezzle logo"></div> at checkout!</div></div>
+								<div class="mobile"> <div class="just-select-sezzle-mobile"> <div>Just choose <div class="sezzle-logo" title="Sezzle logo"></div> </div><div>at checkout!</div></div></div>
+							</div>
+							<div class="details">Provide a few pieces of information and get a real time approval decision. Checking eligibility will not affect your credit.</div>
+							<div class="sezzle-ally-logo">${HelperClass.svgImages().ltAllyLogo}</div>
+							<div class="terms">Rates are at 0% APR. Subject to credit check and approval. Down payment may be required. For purchase under $500, limited payment options are available. Estimated payment amount excludes taxes. Payment options through Sezzle are provided by these lending partners: ally.com/lending. See www.Sezzle.com/faqs for details.</div>
+						</div>
+					</div>
+				</div>`;
+							}
 			} else if (this.minPriceLT){
 				if (this.altModalHTML) {
 					modalNode.innerHTML = this.altModalHTML;
