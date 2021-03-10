@@ -413,6 +413,27 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion){
 			return !isNaN(parseFloat(n)) && isFinite(n);
 		}
 
+		function isAlphabet(n){
+			return /^[a-zA-Z()]+$/.test(price[i - 1])
+		}
+
+		function currencySymbol (priceText){
+			var currency = '';
+			for(let i = 0; i < priceText.length; i++){
+				if(priceText[i] == String.fromCharCode(8364)){ //€
+					currency = String.fromCharCode(8364)
+				} else if (String.fromCharCode(128)){ //
+					currency = String.fromCharCode(128)
+				} else if (priceText[i] == String.fromCharCode(8356)){ //₤
+					currency = String.fromCharCode(8356)
+				} else if (priceText[i] == String.fromCharCode(163)){ //£
+					currency = String.fromCharCode(163)
+				}
+			}
+			return currency || '$';
+		}
+
+
 		// checks if price is comma (fr) format or period (en)
 		function commaDelimited (priceText){
 			var priceOnly = '';
@@ -440,7 +461,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion){
 			for (var i = 0; i < price.length; i++) {
 			  if (isNumeric(price[i]) || (!includeComma && price[i] === '.') || (includeComma && price[i] === ',')) {
 				// If current is a . and previous is a character, it can be something like Rs, ignore it
-				if (i > 0 && price[i] === '.' && /^[a-zA-Z()]+$/.test(price[i - 1])) continue;
+				if (i > 0 && price[i] === '.' && isAlphabet(price[i-1])) continue;
 				formattedPrice += price[i];
 			  }
 			}
@@ -451,10 +472,10 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion){
 		}
 
 		// creates the installment price elements
-		function createInstallmentPrice (installmentPrice, includeComma){
+		function createInstallmentPrice (installmentPrice, includeComma, currency){
 			var installmentElement = document.createElement('span');
 			installmentElement.className = 'sezzle-installment-amount';
-			installmentElement.innerText = '$' + (includeComma ? installmentPrice.replace('.',',') : installmentPrice);
+			installmentElement.innerText = currency + (includeComma ? installmentPrice.replace('.',',') : installmentPrice);
 			document.querySelector('.sezzle-payment-schedule-prices').appendChild(installmentElement);
 		}
 
@@ -462,13 +483,14 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion){
 		var totalPriceText = checkoutTotal.innerText;
 		var includeComma = commaDelimited(totalPriceText);
 		var price = parsePriceString(totalPriceText, includeComma);
+		var currency = currencySymbol(totalPriceText);
 		var installmentAmount = (price/4).toFixed(2);
 		for(var i = 0; i < 3; i++){
-			createInstallmentPrice(installmentAmount, includeComma);
+			createInstallmentPrice(installmentAmount, includeComma, currency);
 		}
 		// creates final installment as installment price + remainder if not divisible by 4
 		var finalInstallmentAmount = (price - installmentAmount*3).toFixed(2);
-		createInstallmentPrice(finalInstallmentAmount, includeComma);
+		createInstallmentPrice(finalInstallmentAmount, includeComma, currency);
 
 		// creates container to receive the installment dates
 		var installmentPlanContainer = document.createElement('div');
