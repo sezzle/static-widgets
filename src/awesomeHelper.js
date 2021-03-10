@@ -10,7 +10,7 @@ class Helper {
 			<circle cx="5.5" cy="5.5" r="5.25" fill="#D0B2EF" stroke="#8333D4" stroke-width="0.5"/>
 			<path d="M3 6L5 8L9 4" stroke="#8333D4" stroke-linecap="round"/>
 			</svg>`,
-			ltPaymentPie: `<svg width="215" height="25" viewBox="0 0 260 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+			ltPaymentPie: `<svg width="265" height="25" viewBox="0 0 265 25" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<line x1="37.773" y1="10.6506" x2="60.3303" y2="10.6506" stroke="#382757" stroke-width="0.69592" stroke-linecap="round"/>
 			<line x1="117.867" y1="10.6506" x2="139.133" y2="10.6506" stroke="#382757" stroke-width="0.69592" stroke-linecap="round"/>
 			<line x1="196.67" y1="10.6506" x2="219.227" y2="10.6506" stroke="#382757" stroke-width="0.69592" stroke-linecap="round"/>

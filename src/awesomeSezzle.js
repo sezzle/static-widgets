@@ -609,6 +609,29 @@ class AwesomeSezzle {
     return alteredPrice;
   }
 
+	termsToShow(price) {
+		switch (true){
+			case (price >= 4000):
+				return [36,48,60];
+			case (price >= 3000 && price < 4000):
+				return [24,36,48];
+			case (price >= 2000 && price < 3000):
+				return [18,24,36];
+			case (price >= 1500 && price < 2000):
+				return [12,18,24];
+			case (price >= 1000 && price < 1500):
+				return [9,12,18];
+			case (price >= 750 && price < 1000):
+				return [6,9,12];
+			case (price >= 500 && price < 750):
+				return [3,6,9];
+			case (price >= 250 && price < 500):
+				return [3,6];
+			default:
+				return [3,6];
+		}
+	}
+
   renderModal(){
     if (!document.getElementsByClassName('sezzle-checkout-modal-lightbox').length) {
       var modalNode = document.createElement('div');
@@ -617,62 +640,68 @@ class AwesomeSezzle {
       modalNode.tabindex='-1';
       modalNode.role = 'dialog';
 			if(this.isProductEligibleLT(this.amount)){
+				var terms = this.termsToShow(this.amount.split('$')[1]);
 				if(this.ltAltModalHTML){
 					modalNode.innerHTML = this.ltAltModalHTML;
 				} else {
 					modalNode.innerHTML = `<style>
-					.sezzle-checkout-modal .sezzle-modal {
+					.sezzle-checkout-modal-hidden .sezzle-modal {
 						background-image: none !important;
 					}
 					.sezzle-checkout-modal-hidden .sezzle-logo {
 						background-repeat: no-repeat;
 						background-position: center;
-						height: 20px;
+						height: 26px;
+						margin: 30px auto;
 					}
 					.sezzle-checkout-modal-hidden .close-sezzle-modal:before, .sezzle-checkout-modal-hidden .close-sezzle-modal:after {
+						background-color: #737373;
 						width: 2px;
 						height: 15px;
-						background-color: #737373;
 					}
-					.sezzle-checkout-modal .sezzle-header {
-						font-size: 14px !important;
-						line-height: 20px !important;
+					.sezzle-checkout-modal-hidden .sezzle-header {
+						font-size: 20px !important;
+						line-height: 25px !important;
+						margin: 20px auto;
 					}
 					.sezzle-checkout-modal-hidden .sezzle-row {
-						width: 85%;
-						font-size: 10px;
+						font-size: 12px;
+						width: 80%;
+						width: 80%;
+						margin: 10px auto;
 					}
 					.sezzle-checkout-modal-hidden .sezzle-lt-payments {
-						border: 1px solid #737373;
-						border-radius: 5px;
 						width: 80%;
 						height: fit-content;
 						margin: 20px auto;
 						padding: 20px 0px 0px;
+						border: 1px solid #E5E5E5;
+						border-radius: 5px;
 					}
 					.sezzle-checkout-modal-hidden .sezzle-lt-payment-header {
+						font-size: 12px;
 						font-weight: bold;
-						font-size: 10px;
 					}
 					.sezzle-checkout-modal-hidden .sezzle-lt-payment-header span {
+						font-size: 18px;
 						color: #8333D4;
-						font-size: 14px;
 					}
 					.sezzle-checkout-modal-hidden .sezzle-lt-payment-options {
-						font-size: 10px;
+						font-size: 12px;
 						margin: 20px 20px 0px;
-						border-bottom: 1px solid #737373;
 						padding-bottom: 20px;
+						border-bottom: 1px solid #E5E5E5;
 					}
 					.sezzle-checkout-modal-hidden .sezzle-lt-payment-options:last-child {
-						border: none
+						border: none;
 					}
-					.sezzle-checkout-modal-hidden .sezzle-lt-payment-options .plan{
+					.sezzle-checkout-modal-hidden .sezzle-lt-payment-options .plan {
 						display: flex;
 						justify-content: space-between;
 					}
 					.sezzle-checkout-modal-hidden .sezzle-lt-payment-options .monthly-amount span {
-						font-size: 14px;
+						font-size: 18px;
+						line-height: 22px;
 					}
 					.sezzle-checkout-modal-hidden .sezzle-lt-payment-options .plan-details {
 						text-align: left;
@@ -681,39 +710,39 @@ class AwesomeSezzle {
 					}
 					.sezzle-checkout-modal-hidden .sezzle-lt-payment-options .plan-details div {
 						color: #737373;
+						width: 100%;
 						display: inline;
-						width: 100%
 					}
 					.sezzle-checkout-modal-hidden .just-select-sezzle-mobile, .sezzle-checkout-modal-hidden .just-select-sezzle {
-						font-size: 9px;
-						color: #382757;
+						font-size: 14px;
+						line-height: 15px;
 						font-weight: normal;
-						margin-top: 18px;
+						color: #382757;
+						margin: 20px auto;
 					}
 					.sezzle-checkout-modal-hidden .just-select-sezzle-mobile div, .sezzle-checkout-modal-hidden .just-select-sezzle div {
 						display:inline;
 					}
 					.sezzle-checkout-modal-hidden .just-select-sezzle-mobile .sezzle-logo, .sezzle-checkout-modal-hidden .just-select-sezzle .sezzle-logo {
-						width: 40px;
-						height: 10px;
-						display: inline-block;
+						width: 56px;
+						height: 14px;
 						margin: -2px 2px;
+						display: inline-block;
 					}
 					.sezzle-checkout-modal-hidden .details {
-						margin: 0px auto;
-						font-weight: lighter;
-						font-size: 9px;
-						padding: 5px 0px 20px;
-						width: 85%;
+						font-size: 12px;
+						line-height: 16px;
+						width: 80%;
+						margin: 20px auto 30px;
 					}
 					.sezzle-checkout-modal-hidden .terms {
-						font-size: 6px;
-						line-height: 8px;
+						font-size: 9px;
+						line-height: 13px;
 						color: #737373;
 						width: 80%;
-						margin: 20px auto -1px;
-						padding: 10px 0px 0px;
-						border-top: 1px solid #737373;
+						margin: 10px auto 0px;
+						padding: 20px 0px 0px;
+						border-top: 1px solid #E5E5E5;
 					}
 				</style>
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -734,50 +763,26 @@ class AwesomeSezzle {
 							</div>
 							<div class="sezzle-lt-payments">
 								<div class="sezzle-lt-payment-header">Sample payments for <span>${this.amount}</span></div>
-								<div class="sezzle-lt-payment-options 3-month" ${(this.amount.split('$')[1] < 250 || this.amount.split('$')[1] >= 750) ? `style="display: none;"` : `style="display: none;"`}>
-									<div class="plan"><div class="monthly-amount"><span>${'$' + (this.amount.split('$')[1] / 3).toFixed(2)}</span> /month</div>	<div class="term-length">3 months</div></div>
+								<div class="sezzle-lt-payment-options ${terms[0]}-month">
+									<div class="plan"><div class="monthly-amount"><span>${'$' + (this.amount.split('$')[1] / terms[0]).toFixed(2)}</span> /month</div>	<div class="term-length">${terms[0]} months</div></div>
 									<div class="plan-details"><div class="adjusted-total">Total: <span>${this.amount}</span></div>	<div class="sample-apr">APR: <span>9.99</span>%</div></div>
 								</div>
-								<div class="sezzle-lt-payment-options 6-month" ${(this.amount.split('$')[1] < 250 || this.amount.split('$')[1] >= 1000) ? `style="display: none;"` : `style="display: none;"`}>
-									<div class="plan"><div class="monthly-amount"><span>${'$' + (this.amount.split('$')[1] / 6).toFixed(2)}</span> /month</div>	<div class="term-length">6 months</div></div>
+								<div class="sezzle-lt-payment-options ${terms[1]}-month" ${terms[2] === undefined ? `style="border: none;"` : `style="display: block;"`}>
+									<div class="plan"><div class="monthly-amount"><span>${'$' + (this.amount.split('$')[1] / terms[1]).toFixed(2)}</span> /month</div>	<div class="term-length">${terms[1]} months</div></div>
 									<div class="plan-details"><div class="adjusted-total">Total: <span>${this.amount}</span></div>	<div class="sample-apr">APR: <span>9.99</span>%</div></div>
 								</div>
-								<div class="sezzle-lt-payment-options 9-month" ${(this.amount.split('$')[1] < 500 || this.amount.split('$')[1] >= 1500) ? `style="display: none;"` : `style="display: none;"`}>
-									<div class="plan"><div class="monthly-amount"><span>${'$' + (this.amount.split('$')[1] / 9).toFixed(2)}</span> /month</div>	<div class="term-length">9 months</div></div>
-									<div class="plan-details"><div class="adjusted-total">Total: <span>${this.amount}</span></div>	<div class="sample-apr">APR: <span>9.99</span>%</div></div>
-								</div>
-								<div class="sezzle-lt-payment-options 12-month" ${(this.amount.split('$')[1] < 750 || this.amount.split('$')[1] >= 2000) ? `style="display: none;"` : `style="display: block;"`}>
-									<div class="plan"><div class="monthly-amount"><span>${'$' + (this.amount.split('$')[1] / 12).toFixed(2)}</span> /month</div>	<div class="term-length">12 months</div></div>
-									<div class="plan-details"><div class="adjusted-total">Total: <span>${this.amount}</span></div>	<div class="sample-apr">APR: <span>9.99</span>%</div></div>
-								</div>
-								<div class="sezzle-lt-payment-options 18-month" ${(this.amount.split('$')[1] < 1000 || this.amount.split('$')[1] >= 3000) ? `style="display: none;"` : `style="display: block;"`}>
-									<div class="plan"><div class="monthly-amount"><span>${'$' + (this.amount.split('$')[1] / 18).toFixed(2)}</span> /month</div>	<div class="term-length">18 months</div></div>
-									<div class="plan-details"><div class="adjusted-total">Total: <span>${this.amount}</span></div>	<div class="sample-apr">APR: <span>9.99</span>%</div></div>
-								</div>
-								<div class="sezzle-lt-payment-options 24-month" ${(this.amount.split('$')[1] < 1500 || this.amount.split('$')[1] >= 4000) ? `style="display: none;"` : `style="display: block;"`}>
-									<div class="plan"><div class="monthly-amount"><span>${'$' + (this.amount.split('$')[1] / 24).toFixed(2)}</span> /month</div>	<div class="term-length">24 months</div></div>
-									<div class="plan-details"><div class="adjusted-total">Total: <span>${this.amount}</span></div>	<div class="sample-apr">APR: <span>9.99</span>%</div></div>
-								</div>
-								<div class="sezzle-lt-payment-options 36-month" ${(this.amount.split('$')[1] < 2000) ? `style="display: none;"` : `style="display: block;"`}>
-									<div class="plan"><div class="monthly-amount"><span>${'$' + (this.amount.split('$')[1] / 36).toFixed(2)}</span> /month</div>	<div class="term-length">36 months</div></div>
-									<div class="plan-details"><div class="adjusted-total">Total: <span>${this.amount}</span></div>	<div class="sample-apr">APR: <span>9.99</span>%</div></div>
-								</div>
-								<div class="sezzle-lt-payment-options 48-month" ${(this.amount.split('$')[1] < 3000) ? `style="display: none;"` : `style="display: block;"`}>
-									<div class="plan"><div class="monthly-amount"><span>${'$' + (this.amount.split('$')[1] / 48).toFixed(2)}</span> /month</div>	<div class="term-length">48 months</div></div>
-									<div class="plan-details"><div class="adjusted-total">Total: <span>${this.amount}</span></div>	<div class="sample-apr">APR: <span>9.99</span>%</div></div>
-								</div>
-								<div class="sezzle-lt-payment-options 60-month"  ${(this.amount.split('$')[1] < 4000) ? `style="display: none;"` : `style="display: block;"`}>
-									<div class="plan"><div class="monthly-amount"><span>${'$' + (this.amount.split('$')[1] / 60).toFixed(2)}</span> /month</div>	<div class="term-length">60 months</div></div>
+								<div class="sezzle-lt-payment-options ${terms[2]}-month" ${terms[2] === undefined ? `style="display: none;"` : `style="display: block;"`}>
+									<div class="plan"><div class="monthly-amount"><span>${'$' + (this.amount.split('$')[1] / terms[2]).toFixed(2)}</span> /month</div>	<div class="term-length">${terms[2]} months</div></div>
 									<div class="plan-details"><div class="adjusted-total">Total: <span>${this.amount}</span></div>	<div class="sample-apr">APR: <span>9.99</span>%</div></div>
 								</div>
 							</div>
 							<div class="sezzle-row">
-								<div class="desktop"> <div class="just-select-sezzle">Just choose <div class="sezzle-logo" title="Sezzle logo"></div> at checkout!</div></div>
-								<div class="mobile"> <div class="just-select-sezzle-mobile"> <div>Just choose <div class="sezzle-logo" title="Sezzle logo"></div> </div><div>at checkout!</div></div></div>
+								<div class="desktop"> <div class="just-select-sezzle">Just choose <div class="sezzle-logo" title="Sezzle logo"></div> at checkout.</div></div>
+								<div class="mobile"> <div class="just-select-sezzle-mobile"> <div>Just choose <div class="sezzle-logo" title="Sezzle logo"></div> </div><div>at checkout.</div></div></div>
 							</div>
 							<div class="details">Provide a few pieces of information and get a real time approval decision. Checking eligibility will not affect your credit.</div>
 							<div class="sezzle-ally-logo">${HelperClass.svgImages().ltAllyLogo}</div>
-							<div class="terms">Rates are at 0% APR. Subject to credit check and approval. Down payment may be required. For purchase under $500, limited payment options are available. Estimated payment amount excludes taxes. Payment options through Sezzle are provided by these lending partners: ally.com/lending. See www.Sezzle.com/faqs for details.</div>
+							<div class="terms">Sample offers are subject to eligibility. Not all applicants will qualify for the sample offer terms. Applicants subject to credit check and approval. See www.Sezzle.com/faqs for details.</div>
 						</div>
 					</div>
 				</div>`;
@@ -787,98 +792,127 @@ class AwesomeSezzle {
 					modalNode.innerHTML = this.altModalHTML;
 				} else {
           modalNode.innerHTML = `<style>
-						.sezzle-checkout-modal .sezzle-modal {
+						.sezzle-checkout-modal-hidden .sezzle-modal {
 							background-image: none !important;
 						}
 						.sezzle-checkout-modal-hidden .sezzle-logo {
 							background-repeat: no-repeat;
 							background-position: center;
-							height: 20px;
+							height: 26px;
+							margin: 30px auto;
 						}
 						.sezzle-checkout-modal-hidden .close-sezzle-modal:before, .sezzle-checkout-modal-hidden .close-sezzle-modal:after {
+							background-color: #737373;
 							width: 2px;
 							height: 15px;
-							background-color: #737373;
 						}
-						.sezzle-checkout-modal .sezzle-header {
-							font-size: 14px !important;
-							line-height: 20px !important;
+						.sezzle-checkout-modal-hidden .sezzle-header {
+							font-size: 20px !important;
+							line-height: 25px !important;
+							margin: 20px auto;
 						}
 						.sezzle-checkout-modal-hidden .sezzle-row {
-							width: 85%;
-							font-size: 10px;
+							font-size: 14px;
+              line-height: 18px;
+              width: 80%;
+							margin: 10px auto;
 						}
 						.sezzle-hiw-pie-bg {
 							width: 80%;
-							margin: 20px auto 10px;
 							height: 60px;
-							padding: 10px 0px;
-							border-top: 1px solid #C4C4C3;
+							margin: 20px auto;
+							padding: 20px 0px;
+							border-top: 1px solid #C4C4C4;
 							border-bottom: 1px solid #C4C4C4;
 						}
 						.sezzle-checkout-modal-hidden .sezzle-payment-pie-lt {
-							margin: -20px auto;
+							margin: 0px auto -50px;
 						}
 						.sezzle-hiw-pie-bg .breakdown-row {
-							min-width: 220px;
-							max-width: 220px;
-							position: static;
+							min-width: 280px;
+							max-width: 280px;
 							margin: 0px auto;
+							position: static;
 						}
 						.sezzle-hiw-pie-bg .breakdown-row .breakdown {
-							font-size: 11px;
+							font-size: 16px;
+              line-height: 14px;
 							font-weight: normal;
-							line-height: 10px
 						}
 						.sezzle-hiw-pie-bg .breakdown-row .breakdown span {
-							font-size: 9px;
+							font-size: 12px;
+              line-height: 14px;
 							color: #737373;
-							line-height: 16px;
+						}
+						.sezzle-checkout-modal-hidden .sezzle-features {
+							width: 80%;
+							margin: -10px auto 20px;
+							border-bottom: 1px solid #C4C4C4;
+							padding: 0px 0px 10px;
 						}
 						.sezzle-checkout-modal-hidden .single-feature {
-							font-size: 10px;
+							font-size: 16px;
+              line-height: 19px;
+							font-weight: normal;
 							color: #8333D4;
-							line-height: 12px;
-							padding: 10px 0px;
+							padding: 12px 0px;
 						}
 						.sezzle-checkout-modal-hidden .single-feature div {
 							display: inline;
 						}
-						.sezzle-checkout-modal-hidden .sezzle-features {
-							border-bottom: 1px solid #C4C4C4;
-							margin: -10px auto 0;
-							width: 80%;
-						}
 						.sezzle-checkout-modal-hidden .just-select-sezzle-mobile, .sezzle-checkout-modal-hidden .just-select-sezzle {
-							font-size: 9px;
-							color: #382757;
+							font-size: 14px;
+              line-height: 15px;
 							font-weight: normal;
-							margin-top: 18px;
+							color: #382757;
+							margin: 20px auto 40px;
 						}
 						.sezzle-checkout-modal-hidden .just-select-sezzle-mobile div, .sezzle-checkout-modal-hidden .just-select-sezzle div {
-							display:inline;
+							display: inline;
 						}
 						.sezzle-checkout-modal-hidden .just-select-sezzle-mobile .sezzle-logo, .sezzle-checkout-modal-hidden .just-select-sezzle .sezzle-logo {
-							width: 40px;
-							height: 10px;
-							display: inline-block;
+							width: 56px;
+							height: 14px;
 							margin: -2px 2px;
+							display: inline-block;
 						}
 						.sezzle-checkout-modal-hidden .terms {
-							font-size: 8px;
-							line-height: 8px;
+							font-size: 9px;
+							line-height: 13px;
 							color: #737373;
-							margin: 25px auto 10px;
+							width: 80%;
+							margin: 40px auto 10px;
 						}
-					</style><meta name="viewport" content="width=device-width, initial-scale=1.0"><div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal" style="background-image: none;"> <div class="sezzle-modal-content"> <div class="sezzle-logo" title="Sezzle logo"></div><button title="Close Sezzle Modal" class="close-sezzle-modal" tabindex="0" role="button"></button><div class="sezzle-header" style="font-size: 14px; line-height: 20px;"> Sezzle it now. <span class="header-desktop">Pay us back later.</span> <div class="header-mobile">Pay us back later.</div></div><div class="sezzle-row"> <div class="desktop"> Check out with Sezzle and split your entire order into <div>4 interest-free payments over 6 weeks. No fees if you pay on time.</div></div><div class="mobile"> Check out with Sezzle and split your entire order into 4 interest-free payments over 6 weeks.  No fees if you pay on time.</div></div>								<div class="sezzle-hiw-pie-bg">
-					<div class="sezzle-payment-pie-lt" title="25% today, 25% biweekly for the next 6 weeks" style="background-image: none; margin: 5px 0px -50px;">${HelperClass.svgImages().ltPaymentPie}</div>
-						<div class="sezzle-row breakdown-row">
-							<p class="breakdown">25%<br /><span>today</span></p>
-							<p class="breakdown">25%<br /><span>2 weeks</span></p>
-							<p class="breakdown">25%<br /><span>4 weeks</span></p>
-							<p class="breakdown">25%<br /><span>6 weeks</span></p>
-						</div>
-				</div><div class="sezzle-features"> <div class="single-feature"> <div>No interest, ever</div></div><div class="single-feature"> <div style="line-height: 1.2;">No impact to your <div>credit score</div></div></div><div class="single-feature"> <div>Instant approval </div><div>decisions</div></div></div><div class="sezzle-row"> <div class="desktop"> <div class="just-select-sezzle">Just choose <div class="sezzle-logo" title="Sezzle logo"></div> at checkout!</div></div><div class="mobile"> <div class="just-select-sezzle-mobile"> <div>Just choose <div class="sezzle-logo" title="Sezzle logo"></div> </div><div>at checkout!</div></div></div></div><div class="terms">Subject to approval.</div></div></div></div>`;
+					</style>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0"><div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal" style="background-image: none;"> <div class="sezzle-modal-content"> <div class="sezzle-logo" title="Sezzle logo"></div><button title="Close Sezzle Modal" class="close-sezzle-modal" tabindex="0" role="button"></button>
+            <div class="sezzle-header" style="font-size: 20px; line-height: 25px;"> Sezzle it now.
+              <span class="header-desktop">Pay us back later.</span>
+              <div class="header-mobile">Pay us back later.</div>
+            </div>
+            <div class="sezzle-row">
+              <div class="desktop"> Check out with Sezzle and split your entire order into <div>4 interest-free payments over 6 weeks. No fees if you pay on time.</div></div>
+              <div class="mobile"> Check out with Sezzle and split your entire order into 4 interest-free payments over 6 weeks.  No fees if you pay on time.</div>
+            </div>
+            <div class="sezzle-hiw-pie-bg">
+              <div class="sezzle-payment-pie-lt" title="25% today, 25% biweekly for the next 6 weeks" style="background-image: none; margin: 5px 0px -50px;">${HelperClass.svgImages().ltPaymentPie}</div>
+              <div class="sezzle-row breakdown-row">
+                <p class="breakdown">25%<br /><span>Today</span></p>
+                <p class="breakdown">25%<br /><span>2 weeks</span></p>
+                <p class="breakdown">25%<br /><span>4 weeks</span></p>
+                <p class="breakdown">25%<br /><span>6 weeks</span></p>
+              </div>
+            </div>
+            <div class="sezzle-features">
+              <div class="single-feature"> <div>No interest, ever</div></div>
+              <div class="single-feature"> <div style="line-height: 1.2;">No impact to your <div>credit score</div></div></div>
+              <div class="single-feature"> <div>Instant approval </div><div>decisions</div></div>
+            </div>
+            <div class="sezzle-row">
+              <div class="desktop"> <div class="just-select-sezzle">Just choose <div class="sezzle-logo" title="Sezzle logo"></div> at checkout!</div></div>
+              <div class="mobile"> <div class="just-select-sezzle-mobile"> <div>Just choose <div class="sezzle-logo" title="Sezzle logo"></div> </div><div>at checkout!</div></div></div>
+            </div>
+            <div class="terms">Subject to approval. Payment start date fluctuates based on time of merchant order completion.</div>
+          </div></div></div>`;
 				}
 			} else if (this.altModalHTML) {
         modalNode.innerHTML = this.altModalHTML;
