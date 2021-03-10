@@ -854,8 +854,8 @@ class AwesomeSezzle {
 							margin: 0px auto -50px;
 						}
 						.sezzle-hiw-pie-bg .breakdown-row {
-							min-width: 260px;
-							max-width: 260px;
+							min-width: 250px;
+							max-width: 250px;
 							position: static;
 							margin: 0px auto;
 						}
