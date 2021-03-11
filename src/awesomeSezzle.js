@@ -930,9 +930,9 @@ class AwesomeSezzle {
 							</div>
             </div>
             <div class="sezzle-features">
-              <div class="single-feature"> <div>No interest, ever</div></div>
-              <div class="single-feature"> <div>No impact to your <div>credit score</div></div></div>
-              <div class="single-feature"> <div>Instant approval </div><div>decisions</div></div>
+							<div class="single-feature"> <div>Instant approval </div><div>decisions</div></div>
+							<div class="single-feature"> <div>No interest, ever</div></div>
+							<div class="single-feature"> <div>No impact to your <div>credit score</div></div></div>
             </div>
             <div class="sezzle-row">
               <div class="desktop"> <div class="just-select-sezzle">Just choose <div class="sezzle-logo" title="Sezzle logo"></div> at checkout!</div></div>
