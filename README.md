@@ -67,7 +67,7 @@ Once the widget is rendering, additional configurations can be added to the Awes
 23. **`numberOfPayments`** - This config is optional. defaults to `4`.
 24. **`minPrice`** - This config is optional. It defaults to `0` - <small>in cents</small>.
 25. **`maxPrice`** - This config is optional. It defaults to `250000` - <small>in cents</small>.
-26. **`altModalHTML`** - This config is optional. It defaults to our classic BNPL modal.
+26. **`altLightboxHTML`** - This config is optional. It defaults to our classic BNPL modal.
 27. **`qpModalHTML`** -This config is optional.
 28. **`apModalHTML`** - This config is optional.
 29. **`apLink`** - This config is optional. It defaults to `https://www.afterpay.com/purchase-payment-agreement`.
