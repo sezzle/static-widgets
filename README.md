@@ -75,9 +75,8 @@ Once the widget is rendering, additional configurations can be added to the Awes
 31. **`klarnaModalHTML`** - This config is optional.
 32. **`minPriceLT`** - This config is optional. It defaults to `0` - <small>in cents</small>.
 33. **`bestAPR`** - This config is optional. It defaults to `0` - <small>in percent (ex: `4.5` = 4.5% APR)</small>.
-34. **`aprTerms`** - This config is optional. It defaults to `12` - <small>in months</small>.
-35. **`widgetTemplateLT`** - This config is optional. It defaults to `or monthly payments as low as %%price%% with %%logo%% %%info%%`. Available templates include `%%price%%`, `%%logo%%`, `%%link%%`, `%%info%%`, `%%question-mark%%`, `%%line-break%%`.
-36. **`ltAltModalHTML`** - This config is optional. It defaults to our long-term lending modal.
+34. **`widgetTemplateLT`** - This config is optional. It defaults to `or monthly payments as low as %%price%% with %%logo%% %%info%%`. Available templates include `%%price%%`, `%%logo%%`, `%%link%%`, `%%info%%`, `%%question-mark%%`, `%%line-break%%`.
+35. **`ltAltModalHTML`** - This config is optional. It defaults to our long-term lending modal.
 
 ## Functions
 

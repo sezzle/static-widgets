@@ -18,7 +18,7 @@
     <form onsubmit="testing()">
         <h1>Test Sezzle SDK</h1>
 
-        <p id='price'>$500</p>
+        <p id='price'>$2000</p>
 
         Desktop
         <div id='sezzle-widget-desktop'></div>
@@ -50,7 +50,6 @@ renderSezzle2.init();
       amount: document.querySelector('#price').innerText,
 			minPriceLT: 50000,
 			bestAPR: 9.99,
-			aprTerms: 12,
 			maxPrice: 500000,
       // null, string, or array of strings
       renderElement: ['sezzle-widget-desktop','sezzle-widget-mobile'],
