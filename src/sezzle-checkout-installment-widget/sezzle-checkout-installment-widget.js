@@ -420,20 +420,14 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion){
 		function currencySymbol (priceText){
 			var currency = '';
 			for(var i = 0; i < priceText.length; i++){
-				// if(/[$|€||£|₤|₹]/.test(priceText[i])){
-				// 	currency = priceText[i];
-				// };
-				if(priceText[i] == String.fromCharCode(8364)){ //€
-					currency = String.fromCharCode(8364)
-				} else if (String.fromCharCode(128)){ //
-					currency = String.fromCharCode(128)
-				} else if (priceText[i] == String.fromCharCode(163)){ //£
-					currency = String.fromCharCode(163)
-				} else if (priceText[i] == String.fromCharCode(8356)){ //₤
-					currency = String.fromCharCode(8356)
-				} else if (priceText[i] == String.fromCharCode(8377)){ //₹
-					currency = String.fromCharCode(8377)
-				}
+				if(/[$|€||£|₤|₹]/.test(priceText[i])){
+					currency = priceText[i];
+				};
+				// use this instead if on ISO-8859-1, expanding to include any applicable currencies
+				// https://html-css-js.com/html/character-codes/currency/
+				// if(priceText[i] == String.fromCharCode(8364)){ //€ = 8364, 128 = , 163 = £, 8377 = ₹
+				// 	currency = String.fromCharCode(8364)
+				// }
 			}
 			return currency || '$';
 		}
