@@ -414,20 +414,25 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion){
 		}
 
 		function isAlphabet(n){
-			return /^[a-zA-Z()]+$/.test(price[i - 1])
+			return /^[a-zA-Z()]+$/.test(n)
 		}
 
 		function currencySymbol (priceText){
 			var currency = '';
-			for(let i = 0; i < priceText.length; i++){
+			for(var i = 0; i < priceText.length; i++){
+				// if(/[$|€||£|₤|₹]/.test(priceText[i])){
+				// 	currency = priceText[i];
+				// };
 				if(priceText[i] == String.fromCharCode(8364)){ //€
 					currency = String.fromCharCode(8364)
 				} else if (String.fromCharCode(128)){ //
 					currency = String.fromCharCode(128)
-				} else if (priceText[i] == String.fromCharCode(8356)){ //₤
-					currency = String.fromCharCode(8356)
 				} else if (priceText[i] == String.fromCharCode(163)){ //£
 					currency = String.fromCharCode(163)
+				} else if (priceText[i] == String.fromCharCode(8356)){ //₤
+					currency = String.fromCharCode(8356)
+				} else if (priceText[i] == String.fromCharCode(8377)){ //₹
+					currency = String.fromCharCode(8377)
 				}
 			}
 			return currency || '$';
