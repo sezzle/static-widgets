@@ -26,16 +26,17 @@
 // handles initial render, then watches checkout total for change event, updates installment amounts
 document.addEventListener('readystatechange', function(event){
 	var merchantLocale = "" // "['US', 'CA', 'IN', 'GU', 'PR', 'VI', 'AS', 'MP']" serves bi-weekly product, else serves monthly
+	var currencySymbol = ; // if not provided, it will attempt to detect the currency symbol from the price text. If site uses charset="ISO-8859-1", use String.fromCharCode() - param is HTML hex char code integer
 	var checkoutTotal = document.querySelector('.payment-due__price'); // Shopify
 	// var checkoutTotal = document.querySelector('.order-total').querySelector('.woocommerce-Price-amount'); // WooCommerce
 	// var checkoutTotal = document.querySelector('.total').getElementsByTagName('SPAN')[1]; // CommentSold
 	// var checkoutTotal = document.querySelector('.total_total') // 3DCart
-	renderInstallmentWidget(checkoutTotal, merchantLocale);
+	renderInstallmentWidget(checkoutTotal, merchantLocale, currencySymbol);
 
 		// create an observer instance
 		var observer = new MutationObserver(function(){
 			document.querySelector('#sezzle-installment-widget-box').innerHTML = '';
-			renderInstallmentWidget(checkoutTotal, merchantLocale);
+			renderInstallmentWidget(checkoutTotal, merchantLocale, currencySymbol);
 		});
 
 		// configuration of the observer:
@@ -45,7 +46,7 @@ document.addEventListener('readystatechange', function(event){
 		observer.observe(checkoutTotal, config);
 })
 
-function renderInstallmentWidget(checkoutTotal, serviceRegion){
+function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 	var language = document.querySelector('html').lang.substring(0,2).toLowerCase() || navigator.language.substring(0,2) || 'en';
 	var merchantLocale = serviceRegion || document.querySelector('html').lang.split('-')[1] || "US";
 
@@ -417,17 +418,21 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion){
 			return /^[a-zA-Z()]+$/.test(n)
 		}
 
-		function currencySymbol (priceText){
+		function currencyType (priceText){
 			var currency = '';
-			for(var i = 0; i < priceText.length; i++){
-				if(/[$|€||£|₤|₹]/.test(priceText[i])){
-					currency = priceText[i];
-				};
-				// use this instead if on ISO-8859-1, expanding to include any applicable currencies
-				// https://html-css-js.com/html/character-codes/currency/
-				// if(priceText[i] == String.fromCharCode(8364)){ //€ = 8364, 128 = , 163 = £, 8377 = ₹
-				// 	currency = String.fromCharCode(8364)
-				// }
+			if(currencySymbol){
+				currency = currencySymbol;
+			} else {
+				for(var i = 0; i < priceText.length; i++){
+					if(/[$|€||£|₤|₹]/.test(priceText[i])){
+						currency = priceText[i];
+					};
+					// use this instead if on ISO-8859-1, expanding to include any applicable currencies
+					// https://html-css-js.com/html/character-codes/currency/
+					// if(priceText[i] == String.fromCharCode(8364)){ //€ = 8364, 128 = , 163 = £, 8377 = ₹
+					// 	currency = String.fromCharCode(8364)
+					// }
+				}
 			}
 			return currency || '$';
 		}
@@ -482,7 +487,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion){
 		var totalPriceText = checkoutTotal.innerText;
 		var includeComma = commaDelimited(totalPriceText);
 		var price = parsePriceString(totalPriceText, includeComma);
-		var currency = currencySymbol(totalPriceText);
+		var currency = currencyType(totalPriceText);
 		var installmentAmount = (price/4).toFixed(2);
 		for(var i = 0; i < 3; i++){
 			createInstallmentPrice(installmentAmount, includeComma, currency);
