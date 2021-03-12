@@ -777,14 +777,14 @@ class AwesomeSezzle {
 							<div class="sezzle-logo" title="Sezzle logo"></div>
 							<button title="Close Sezzle Modal" class="close-sezzle-modal" tabindex="0" role="button"></button>
 							<div class="sezzle-header">Make easy monthly
-								<span class="header-desktop">payments on your order</span>
-								<div class="header-mobile">payments on your order</div>
+								<span class="header-desktop">payments on your&nbsp;order</span>
+								<div class="header-mobile">payments on your&nbsp;order</div>
 							</div>
 							<div class="sezzle-row">
-								<div class="desktop">Your total purchase will be split into payments,
-									<div>depending on the plan you choose.</div>
+								<div class="desktop">Your total purchase will be split into&nbsp;payments,
+									<div>depending on the plan&nbsp;you&nbsp;choose.</div>
 								</div>
-								<div class="mobile">Your total purchase will be split into payments, depending on the plan you choose.</div>
+								<div class="mobile">Your total purchase will be split into&nbsp;payments, depending on the plan&nbsp;you&nbsp;choose.</div>
 							</div>
 							<div class="sezzle-lt-payments">
 								<div class="sezzle-lt-payment-header">Sample payments for <span>${this.amount}</span></div>
@@ -802,12 +802,12 @@ class AwesomeSezzle {
 								</div>
 							</div>
 							<div class="sezzle-row">
-								<div class="desktop"> <div class="just-select-sezzle">Just choose <div class="sezzle-logo" title="Sezzle logo"></div> at checkout.</div></div>
-								<div class="mobile"> <div class="just-select-sezzle-mobile"> <div>Just choose <div class="sezzle-logo" title="Sezzle logo"></div> </div><div>at checkout.</div></div></div>
+								<div class="desktop"> <div class="just-select-sezzle">Just choose <div class="sezzle-logo" title="Sezzle logo"></div> at&nbsp;checkout.</div></div>
+								<div class="mobile"> <div class="just-select-sezzle-mobile"> <div>Just choose <div class="sezzle-logo" title="Sezzle logo"></div> </div><div>at&nbsp;checkout.</div></div></div>
 							</div>
-							<div class="details">Provide a few pieces of information and get a real time approval decision. Checking eligibility will not affect your credit.</div>
+							<div class="details">Provide a few pieces of information and get a real&nbsp;time approval decision. Checking&nbsp;eligibility will&nbsp;not affect your&nbsp;credit.</div>
 							<div class="sezzle-ally-logo">${HelperClass.svgImages().ltAllyLogo}</div>
-							<div class="terms">Sample offers are subject to eligibility. Not all applicants will qualify for the sample offer terms. Applicants subject to credit check and approval. See www.Sezzle.com/faqs for details.</div>
+							<div class="terms">Sample&nbsp;offers are subject&nbsp;to&nbsp;eligibility. Not&nbsp;all&nbsp;applicants will qualify for the sample offer&nbsp;terms. Applicants subject&nbsp;to credit&nbsp;check and approval. See&nbsp;www.Sezzle.com/faqs for&nbsp;details.</div>
 						</div>
 					</div>
 				</div>`;
@@ -914,13 +914,13 @@ class AwesomeSezzle {
 						}
 					</style>
           <meta name="viewport" content="width=device-width, initial-scale=1.0"><div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal"> <div class="sezzle-modal-content"> <div class="sezzle-logo" title="Sezzle logo"></div><button title="Close Sezzle Modal" class="close-sezzle-modal" tabindex="0" role="button"></button>
-            <div class="sezzle-header" > Sezzle it now.
-              <span class="header-desktop">Pay us back later.</span>
-              <div class="header-mobile">Pay us back later.</div>
+            <div class="sezzle-header" > Sezzle&nbsp;it&nbsp;now.
+              <span class="header-desktop">Pay&nbsp;us back later.</span>
+              <div class="header-mobile">Pay&nbsp;us back later.</div>
             </div>
             <div class="sezzle-row">
-              <div class="desktop"> Check out with Sezzle and split your entire order into <div>4 interest-free payments over 6 weeks. No fees if you pay on time.</div></div>
-              <div class="mobile"> Check out with Sezzle and split your entire order into 4 interest-free payments over 6 weeks.  No fees if you pay on time.</div>
+              <div class="desktop"> Check&nbsp;out with&nbsp;Sezzle and split your entire&nbsp;order into <div>4&nbsp;interest-&#65279;free payments over 6&nbsp;weeks. No&nbsp;fees if you pay&nbsp;on&nbsp;time.</div></div>
+              <div class="mobile"> Check&nbsp;out with&nbsp;Sezzle and split your entire&nbsp;order into 4&nbsp;interest-&#65279;free payments over 6&nbsp;weeks.  No&nbsp;fees if you pay&nbsp;on&nbsp;time.</div>
             </div>
             <div class="sezzle-hiw-pie-bg">
 							<div class="sezzle-payment-pie-lt" title="25% today, 25% biweekly for the next 6 weeks" style="background-image: none;">${HelperClass.svgImages().ltPaymentPie}</div>
@@ -934,13 +934,13 @@ class AwesomeSezzle {
             <div class="sezzle-features">
 							<div class="single-feature"> <div>Instant approval </div><div>decisions</div></div>
 							<div class="single-feature"> <div>No interest, ever</div></div>
-							<div class="single-feature"> <div>No impact to your <div>credit score</div></div></div>
+							<div class="single-feature"> <div>No impact to your <div>credit&nbsp;score</div></div></div>
             </div>
             <div class="sezzle-row">
-              <div class="desktop"> <div class="just-select-sezzle">Just choose <div class="sezzle-logo" title="Sezzle logo"></div> at checkout!</div></div>
-              <div class="mobile"> <div class="just-select-sezzle-mobile"> <div>Just choose <div class="sezzle-logo" title="Sezzle logo"></div> </div><div>at checkout!</div></div></div>
+              <div class="desktop"> <div class="just-select-sezzle">Just choose <div class="sezzle-logo" title="Sezzle logo"></div> at&nbsp;checkout!</div></div>
+              <div class="mobile"> <div class="just-select-sezzle-mobile"> <div>Just choose <div class="sezzle-logo" title="Sezzle logo"></div> </div><div>at&nbsp;checkout!</div></div></div>
             </div>
-            <div class="terms">Subject to approval. Payment start date fluctuates based on time of merchant order completion.</div>
+            <div class="terms">Subject&nbsp;to&nbsp;approval. Payment&nbsp;start&nbsp;date fluctuates based&nbsp;on time&nbsp;of merchant&nbsp;order&nbsp;completion.</div>
           </div></div></div>`;
 				}
 			} else if (this.altModalHTML) {
