@@ -481,8 +481,8 @@ class AwesomeSezzle {
         if (!event.target.classList.contains('no-sezzle-info')) {
           var modalNode = document.getElementsByClassName('sezzle-checkout-modal-lightbox')[0];
           modalNode.style.display = 'block';
-          HelperClass.logEvent('onclick-modal');
           modalNode.getElementsByClassName('sezzle-modal')[0].className = 'sezzle-modal'; 
+          HelperClass.logEvent('onclick-modal');
         }
       }.bind(this));
     }.bind(this));
