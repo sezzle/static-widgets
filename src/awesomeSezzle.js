@@ -649,20 +649,20 @@ class AwesomeSezzle {
 		const modalTranslations = {
 			en: {
 				sezzleHeader: 'Sezzle it now.',
-				sezzleHeaderChild: 'Pay us back later.',
+				sezzleHeaderChild: 'Pay&nbsp;us back later.',
 				sezzleHeaderLt: 'Make easy monthly',
-				sezzleHeaderLtChild: 'payments on your order',
-				sezzleRowChild1: 'Check out with Sezzle and split your entire order into',
-				sezzleRowChild2: '4 interest-free payments over 6 weeks.',
-				sezzleRowChild3: 'No fees if you pay on time.',
-				sezzleRowLtChild1: 'Your total purchase will be split into payments,',
-				sezzleRowLtChild2: 'depending on the plan you choose.',
+				sezzleHeaderLtChild: 'payments on your&nbsp;order',
+				sezzleRowChild1: 'Check&nbsp;out with&nbsp;Sezzle and split your entire&nbsp;order into',
+				sezzleRowChild2: '4&nbsp;interest-&#65279free payments over 6 weeks.',
+				sezzleRowChild3: 'No&nbsp;fees if you pay&nbsp;on&nbsp;time.',
+				sezzleRowLtChild1: 'Your total purchase will be split into&nbsp;payments,',
+				sezzleRowLtChild2: 'depending on the plan&nbsp;you&nbsp;choose.',
 				today: 'today',
 				week: 'week',
 				weeks: 'weeks',
 				singleFeatureInterest: 'No Interest, Ever',
 				subFeatureInterest: 'Plus no fees if you pay on time',
-				singleFeatureCredit: 'No Impact to Your Credit Score',
+				singleFeatureCredit: 'No Impact to Your Credit&nbsp;Score',
 				subFeatureCredit: '',
 				singleFeatureApproval: 'Instant Approval Decisions',
 				subFeatureApproval: '',
@@ -673,12 +673,12 @@ class AwesomeSezzle {
 				sampleApr: 'APR:',
 				justSelectSezzle1: 'Just select',
 				justSelectSezzleLt1: 'Just choose',
-				justSelectSezzle2: 'at checkout',
-				details: 'Provide a few pieces of information and get a real time approval decision. Checking eligibility will not affect your credit.',
+				justSelectSezzle2: 'at&nbsp;checkout',
+				details: 'Provide a few pieces of information and get a real&nbsp;time approval decision. Checking&nbsp;eligibility will&nbsp;not affect your&nbsp;credit.',
 				financing: 'FINANCED BY ALLY BANK MEMBER FDIC',
-				terms1: 'Subject to approval.',
-				terms2: 'Payment start date fluctuates based on time of merchant order completion.',
-				termsLt: 'Sample offers are subject to eligibility. Not all applicants will qualify for the sample offer terms. Applicants subject to credit check and approval. See www.Sezzle.com/faqs for details.'
+				terms1: 'Subject&nbsp;to&nbsp;approval.',
+				terms2: 'Payment&nbsp;start&nbsp;date fluctuates based&nbsp;on time of merchant&nbsp;order&nbsp;completion.',
+				termsLt: 'Sample&nbsp;offers are subject&nbsp;to&nbsp;eligibility. Not&nbsp;all&nbsp;applicants will qualify for the sample offer&nbsp;terms. Applicants subject&nbsp;to credit&nbsp;check and approval. See&nbsp;www.Sezzle.com/faqs for&nbsp;details.'
 			},
 			fr: {
 				sezzleHeader: 'Sezzlez maintenant.',
@@ -711,13 +711,13 @@ class AwesomeSezzle {
 				financing: 'FINANCÉ PAR LE MEMBRE DE LA BANQUE ALLY FDIC',
 				terms1: 'Sous r&#233;serve d\'approbation.',
 				terms2: 'La date de d&#233;but du paiement varie en fonction de l\'heure de fin de la commande du marchand.',
-				termsLt: 'Les exemples d\'offres sont sujets à &#233;ligibilit&#233;. Tous les candidats ne pourront pas b&#233;n&#233;ficier des conditions de l\'offre. Les candidats sont soumis &#224; une v&#233;rification de cr&#233;dit et &#224; une approbation. Voir www.Sezzle.com/faqs pour plus de d&#233;tails.'
+				termsLt: 'Les exemples d\'offres sont sujets &#224; &#233;ligibilit&#233;. Tous les candidats ne pourront pas b&#233;n&#233;ficier des conditions de l\'offre. Les candidats sont soumis &#224; une v&#233;rification de cr&#233;dit et &#224; une approbation. Voir www.Sezzle.com/faqs pour plus de d&#233;tails.'
 			},
 			de: {
 				sezzleHeader: 'Jetzt kaufen.',
 				sezzleHeaderChild: 'Sp&#228;ter zahlen.',
 				sezzleHeaderLt: 'Machen Sie einfache monatliche',
-				sezzleHeaderLtChild: 'Zahlungen für Ihre Bestellung',
+				sezzleHeaderLtChild: 'Zahlungen f&#252;r Ihre Bestellung',
 				sezzleRowChild1: 'W&#228;hle Sezzle beim Checkout und zahle deine gesamte Bestellung ganz einfach mit',
 				sezzleRowChild2: '4 zinsfreien Raten in 3 Monaten.',
 				sezzleRowChild3: 'Keine versteckten Kosten bei p&#252;nktlicher Zahlung.',
@@ -740,7 +740,7 @@ class AwesomeSezzle {
 				justSelectSezzle1: 'Einfach',
 				justSelectSezzleLt1: 'Einfach',
 				justSelectSezzle2: 'beim Checkout w&#228;hlen',
-				details: 'Geben Sie einige Informationen an und erhalten Sie eine Genehmigungsentscheidung in Echtzeit. Die Überpr&#252;fung der Berechtigung wirkt sich nicht auf Ihr Guthaben aus.',
+				details: 'Geben Sie einige Informationen an und erhalten Sie eine Genehmigungsentscheidung in Echtzeit. Die &#0220;berpr&#252;fung der Berechtigung wirkt sich nicht auf Ihr Guthaben aus.',
 				financing: 'FINANZIERT VON ALLY BANK MITGLIED FDIC',
 				terms1: 'Vorbehaltlich unserer Zustimmung.',
 				terms2: 'Das Startdatum der Zahlung schwankt je nach Zeitpunkt des Abschlusses der H&#228;ndlerbestellung.',
@@ -776,7 +776,7 @@ class AwesomeSezzle {
 				details: 'Proporcione algunos datos y obtenga una decisio&#769;n de aprobacio&#769;n en tiempo real. Verificar la elegibilidad no afectara&#769; su cre&#769;dito.',
 				financing: 'FINANCIADA POR ALLY BANK MIEMBRO FDIC',
 				terms1: 'Sujeto a aprobacio&#769;n.',
-				terms2: 'La fecha de inicio del pago vari&#769;a según el momento en que se completa la orden comercial.',
+				terms2: 'La fecha de inicio del pago vari&#769;a segu&#769;n el momento en que se completa la orden comercial.',
 				termsLt: 'Las ofertas de muestra esta&#769;n sujetas a elegibilidad. No todos los solicitantes calificara&#769;n para los te&#769;rminos de la oferta de muestra. Solicitantes sujetos a verificacio&#769;n de cre&#769;dito y aprobacio&#769;n. Consulte www.Sezzle.com/faqs para obtener ma&#769;s detalles.'
 			}
 		}
@@ -910,38 +910,38 @@ class AwesomeSezzle {
 						<div class="sezzle-modal-content">
 							<div class="sezzle-logo" title="Sezzle logo"></div>
 							<button title="Close Sezzle Modal" class="close-sezzle-modal" tabindex="0" role="button"></button>
-							<div class="sezzle-header">Make easy monthly
-								<span class="header-desktop">payments on your&nbsp;order</span>
-								<div class="header-mobile">payments on your&nbsp;order</div>
+							<div class="sezzle-header">${modalTranslations[this.language].sezzleHeaderLt}
+								<span class="header-desktop">${modalTranslations[this.language].sezzleHeaderLtChild}</span>
+								<div class="header-mobile">${modalTranslations[this.language].sezzleHeaderLtChild}</div>
 							</div>
 							<div class="sezzle-row">
-								<div class="desktop">Your total purchase will be split into&nbsp;payments,
-									<div>depending on the plan&nbsp;you&nbsp;choose.</div>
+								<div class="desktop">${modalTranslations[this.language].sezzleRowLtChild1}
+									<div>${modalTranslations[this.language].sezzleRowLtChild2}</div>
 								</div>
-								<div class="mobile">Your total purchase will be split into&nbsp;payments, depending on the plan&nbsp;you&nbsp;choose.</div>
+								<div class="mobile">${modalTranslations[this.language].sezzleRowLtChild1} ${modalTranslations[this.language].sezzleRowLtChild2}</div>
 							</div>
 							<div class="sezzle-lt-payments">
-								<div class="sezzle-lt-payment-header">Sample payments for <span>${this.amount}</span></div>
+								<div class="sezzle-lt-payment-header">${modalTranslations[this.language].sezzleLtPaymentHeader} <span>${this.amount}</span></div>
 								<div class="sezzle-lt-payment-options ${terms[0]}-month">
-									<div class="plan"><div class="monthly-amount"><span>${currency + (((priceString * ( 1+(this.bestAPR/100) )) / terms[0]).toFixed(2))}</span> /month</div>	<div class="term-length">${terms[0]} months</div></div>
-									<div class="plan-details"><div class="adjusted-total">Total: <span>${currency + ((priceString * ( 1+(this.bestAPR/100) )).toFixed(2))}</span></div>	<div class="sample-apr">APR: <span>${this.bestAPR}</span>%</div></div>
+									<div class="plan"><div class="monthly-amount"><span>${currency + (((priceString * ( 1+(this.bestAPR/100) )) / terms[0]).toFixed(2))}</span> ${modalTranslations[this.language].monthlyAmount}</div>	<div class="term-length">${terms[0]} ${modalTranslations[this.language].termLength}</div></div>
+									<div class="plan-details"><div class="adjusted-total">${modalTranslations[this.language].adjustedTotal} <span>${currency + ((priceString * ( 1+(this.bestAPR/100) )).toFixed(2))}</span></div>	<div class="sample-apr">${modalTranslations[this.language].sampleApr} <span>${this.bestAPR}</span>%</div></div>
 								</div>
 								<div class="sezzle-lt-payment-options ${terms[1]}-month" ${terms[2] === undefined ? `style="border: none;"` : `style="display: block;"`}>
-									<div class="plan"><div class="monthly-amount"><span>${currency + (((priceString * ( 1+(this.bestAPR/100) )) / terms[1]).toFixed(2))}</span> /month</div>	<div class="term-length">${terms[1]} months</div></div>
-									<div class="plan-details"><div class="adjusted-total">Total: <span>${currency + ((priceString * ( 1+(this.bestAPR/100) )).toFixed(2))}</span></div>	<div class="sample-apr">APR: <span>${this.bestAPR}</span>%</div></div>
+									<div class="plan"><div class="monthly-amount"><span>${currency + (((priceString * ( 1+(this.bestAPR/100) )) / terms[1]).toFixed(2))}</span> ${modalTranslations[this.language].monthlyAmount}</div>	<div class="term-length">${terms[1]} ${modalTranslations[this.language].termLength}</div></div>
+									<div class="plan-details"><div class="adjusted-total">${modalTranslations[this.language].adjustedTotal} <span>${currency + ((priceString * ( 1+(this.bestAPR/100) )).toFixed(2))}</span></div>	<div class="sample-apr">${modalTranslations[this.language].sampleApr} <span>${this.bestAPR}</span>%</div></div>
 								</div>
 								<div class="sezzle-lt-payment-options ${terms[2]}-month" ${terms[2] === undefined ? `style="display: none;"` : `style="display: block;"`}>
-									<div class="plan"><div class="monthly-amount"><span>${currency + (((priceString * ( 1+(this.bestAPR/100) )) / terms[2]).toFixed(2))}</span> /month</div>	<div class="term-length">${terms[2]} months</div></div>
-									<div class="plan-details"><div class="adjusted-total">Total: <span>${currency + ((priceString * ( 1+(this.bestAPR/100) )).toFixed(2))}</span></div>	<div class="sample-apr">APR: <span>${this.bestAPR}</span>%</div></div>
+									<div class="plan"><div class="monthly-amount"><span>${currency + (((priceString * ( 1+(this.bestAPR/100) )) / terms[2]).toFixed(2))}</span> ${modalTranslations[this.language].monthlyAmount}</div>	<div class="term-length">${terms[2]} ${modalTranslations[this.language].termLength}</div></div>
+									<div class="plan-details"><div class="adjusted-total">${modalTranslations[this.language].adjustedTotal} <span>${currency + ((priceString * ( 1+(this.bestAPR/100) )).toFixed(2))}</span></div>	<div class="sample-apr">${modalTranslations[this.language].sampleApr} <span>${this.bestAPR}</span>%</div></div>
 								</div>
 							</div>
 							<div class="sezzle-row">
-								<div class="desktop"> <div class="just-select-sezzle">Just choose <div class="sezzle-logo" title="Sezzle logo"></div> at&nbsp;checkout.</div></div>
-								<div class="mobile"> <div class="just-select-sezzle-mobile"> <div>Just choose <div class="sezzle-logo" title="Sezzle logo"></div> </div><div>at&nbsp;checkout.</div></div></div>
+								<div class="desktop"> <div class="just-select-sezzle">${modalTranslations[this.language].justSelectSezzleLt1} <div class="sezzle-logo" title="Sezzle logo"></div> ${modalTranslations[this.language].justSelectSezzle2}</div></div>
+								<div class="mobile"> <div class="just-select-sezzle-mobile"> <div>${modalTranslations[this.language].justSelectSezzleLt1} <div class="sezzle-logo" title="Sezzle logo"></div> </div><div>${modalTranslations[this.language].justSelectSezzle2}</div></div></div>
 							</div>
-							<div class="details">Provide a few pieces of information and get a real&nbsp;time approval decision. Checking&nbsp;eligibility will&nbsp;not affect your&nbsp;credit.</div>
+							<div class="details">${modalTranslations[this.language].details}</div>
 							<div class="sezzle-ally-logo">${HelperClass.svgImages().ltAllyLogo}</div>
-							<div class="terms">Sample&nbsp;offers are subject&nbsp;to&nbsp;eligibility. Not&nbsp;all&nbsp;applicants will qualify for the sample offer&nbsp;terms. Applicants subject&nbsp;to credit&nbsp;check and approval. See&nbsp;www.Sezzle.com/faqs for&nbsp;details.</div>
+							<div class="terms">${modalTranslations[this.language].termsLt}</div>
 						</div>
 					</div>
 				</div>`;
@@ -1017,6 +1017,10 @@ class AwesomeSezzle {
 							font-weight: normal;
 							color: #8333D4;
 							padding: 12px 0px;
+							text-transform: lowercase;
+						}
+						.sezzle-checkout-modal-hidden .single-feature:first-letter {
+							text-transform: uppercase;
 						}
 						.sezzle-checkout-modal-hidden .single-feature div {
 							display: inline;
@@ -1048,33 +1052,33 @@ class AwesomeSezzle {
 						}
 					</style>
           <meta name="viewport" content="width=device-width, initial-scale=1.0"><div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal"> <div class="sezzle-modal-content"> <div class="sezzle-logo" title="Sezzle logo"></div><button title="Close Sezzle Modal" class="close-sezzle-modal" tabindex="0" role="button"></button>
-            <div class="sezzle-header" > Sezzle&nbsp;it&nbsp;now.
-              <span class="header-desktop">Pay&nbsp;us back later.</span>
-              <div class="header-mobile">Pay&nbsp;us back later.</div>
+            <div class="sezzle-header" >${modalTranslations[this.language].sezzleHeader}
+              <span class="header-desktop">${modalTranslations[this.language].sezzleHeaderChild}</span>
+              <div class="header-mobile">${modalTranslations[this.language].sezzleHeaderChild}</div>
             </div>
             <div class="sezzle-row">
-              <div class="desktop"> Check&nbsp;out with&nbsp;Sezzle and split your entire&nbsp;order into <div>4&nbsp;interest-&#65279;free payments over 6&nbsp;weeks. No&nbsp;fees if you pay&nbsp;on&nbsp;time.</div></div>
-              <div class="mobile"> Check&nbsp;out with&nbsp;Sezzle and split your entire&nbsp;order into 4&nbsp;interest-&#65279;free payments over 6&nbsp;weeks.  No&nbsp;fees if you pay&nbsp;on&nbsp;time.</div>
+              <div class="desktop">${modalTranslations[this.language].sezzleRowChild1}<div>${modalTranslations[this.language].sezzleRowChild2} ${modalTranslations[this.language].sezzleRowChild3}</div></div>
+              <div class="mobile">${modalTranslations[this.language].sezzleRowChild1} ${modalTranslations[this.language].sezzleRowChild2} ${modalTranslations[this.language].sezzleRowChild3}</div>
             </div>
             <div class="sezzle-hiw-pie-bg">
 							<div class="sezzle-payment-pie-lt" title="25% today, 25% biweekly for the next 6 weeks" style="background-image: none;">${HelperClass.svgImages().ltPaymentPie}</div>
 							<div class="sezzle-row breakdown-row">
-								<p class="breakdown">25%<br /><span>Today</span></p>
-								<p class="breakdown">25%<br /><span>2 weeks</span></p>
-								<p class="breakdown">25%<br /><span>4 weeks</span></p>
-								<p class="breakdown">25%<br /><span>6 weeks</span></p>
+								<p class="breakdown" style="text-transform: capitalize;">25%<br /><span>${modalTranslations[this.language].today}</span></p>
+								<p class="breakdown">25%<br /><span>2 ${modalTranslations[this.language].weeks}</span></p>
+								<p class="breakdown">25%<br /><span>4 ${modalTranslations[this.language].weeks}</span></p>
+								<p class="breakdown">25%<br /><span>6 ${modalTranslations[this.language].weeks}</span></p>
 							</div>
             </div>
             <div class="sezzle-features">
-							<div class="single-feature"> <div>Instant approval </div><div>decisions</div></div>
-							<div class="single-feature"> <div>No interest, ever</div></div>
-							<div class="single-feature"> <div>No impact to your <div>credit&nbsp;score</div></div></div>
+							<div class="single-feature"> <div>${modalTranslations[this.language].singleFeatureApproval}</div></div>
+							<div class="single-feature"> <div>${modalTranslations[this.language].singleFeatureInterest}</div></div>
+							<div class="single-feature"> <div>${modalTranslations[this.language].singleFeatureCredit}</div></div>
             </div>
             <div class="sezzle-row">
-              <div class="desktop"> <div class="just-select-sezzle">Just choose <div class="sezzle-logo" title="Sezzle logo"></div> at&nbsp;checkout!</div></div>
-              <div class="mobile"> <div class="just-select-sezzle-mobile"> <div>Just choose <div class="sezzle-logo" title="Sezzle logo"></div> </div><div>at&nbsp;checkout!</div></div></div>
+              <div class="desktop"> <div class="just-select-sezzle">${modalTranslations[this.language].justSelectSezzleLt1} <div class="sezzle-logo" title="Sezzle logo"></div> ${modalTranslations[this.language].justSelectSezzle2}!</div></div>
+              <div class="mobile"> <div class="just-select-sezzle-mobile"> <div>${modalTranslations[this.language].justSelectSezzleLt1} <div class="sezzle-logo" title="Sezzle logo"></div> </div><div>${modalTranslations[this.language].justSelectSezzle2}!</div></div></div>
             </div>
-            <div class="terms">Subject&nbsp;to&nbsp;approval. Payment&nbsp;start&nbsp;date fluctuates based&nbsp;on time&nbsp;of merchant&nbsp;order&nbsp;completion.</div>
+            <div class="terms">${modalTranslations[this.language].terms1} ${modalTranslations[this.language].terms2}</div>
           </div></div></div>`;
 				}
 			} else if (this.altModalHTML) {
