@@ -1,10 +1,6 @@
 import HelperClass from './awesomeHelper'
 import '../css/global.scss';
 
-const trackingURL = "https://widget.sezzle.com/v1/event/log";
-const sezzleWidgetWrapperClass = "sezzle-shopify-info-button";
-
-
 class AwesomeSezzle {
   
   constructor(options){
@@ -60,26 +56,6 @@ class AwesomeSezzle {
 
   }
 
-  httpRequestWrapper(method, url, body = null) {
-    return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.open(method, url, true);
-      if(body !== null){
-        xhr.setRequestHeader("Content-Type", "application/json");
-      }
-      xhr.onload = function () {
-        if (this.status >= 200 && this.status < 300) {
-          resolve(xhr.response);
-        } else {
-          reject(new Error('Something went wrong, contact the Sezzle team!'));
-        }
-      };
-      xhr.onerror = function () {
-        reject(new Error('Something went wrong, contact the Sezzle team!'));
-      };
-      body === null?xhr.send():xhr.send(JSON.stringify(body));
-    });
-  }
 
   widgetLanguageTranslation(language, numberOfPayments) {
     const translations = {
@@ -110,20 +86,6 @@ class AwesomeSezzle {
       default:
         break;
     }
-  }
-
-  checkForWidgetDuplicacy() {
-    return document.getElementsByClassName(sezzleWidgetWrapperClass).length > 1 
-  }
-
-  logEvent(eventName) {
-      const widget_duplicate =  this.checkForWidgetDuplicacy();
-      this.httpRequestWrapper('post',trackingURL,{
-        event_name: eventName,
-        merchant_site: window.location.hostname,
-        page_url: window.location.href,
-        widget_duplicate: widget_duplicate
-      });
   }
 
   addCSSFontStyle(){
@@ -398,7 +360,7 @@ class AwesomeSezzle {
     this.renderElement.appendChild(node);
     this.addCSSAlignment();
     this.addCSSCustomisation();
-    this.logEvent('onload');
+    HelperClass.logEvent('onload');
   }
  
   getElementToRender(){ return this.renderElement; }
@@ -463,7 +425,6 @@ class AwesomeSezzle {
     sezzleModal.addEventListener('click', function (event) {
       event.stopPropagation();
     });
-    this.logEvent(`render-modal`);
     }
 
   renderAPModal(){
@@ -483,7 +444,7 @@ class AwesomeSezzle {
     sezzleModal.addEventListener('click', function (event) {
       event.stopPropagation();
     });
-    this.logEvent(`render-modal-afterpay`);
+    HelperClass.logEvent(`render-modal-afterpay`);
   }
 
   renderQPModal(){
@@ -503,14 +464,14 @@ class AwesomeSezzle {
     sezzleModal.addEventListener('click', function (event) {
       event.stopPropagation();
     });
-    this.logEvent(`render-modal-quadpay`);
+    HelperClass.logEvent(`render-modal-quadpay`);
   }
 
   renderModalByfunction(){
     var modalNode = document.getElementsByClassName('sezzle-checkout-modal-lightbox')[0];
     modalNode.style.display = 'block';
     modalNode.getElementsByClassName('sezzle-modal')[0].className = 'sezzle-modal';
-    this.logEvent(`render-modal-function`);
+    HelperClass.logEvent(`render-modal-function`);
   }
 
   addClickEventForModal(sezzleElement){
@@ -520,6 +481,7 @@ class AwesomeSezzle {
         if (!event.target.classList.contains('no-sezzle-info')) {
           var modalNode = document.getElementsByClassName('sezzle-checkout-modal-lightbox')[0];
           modalNode.style.display = 'block';
+          HelperClass.logEvent('onclick-modal');
           modalNode.getElementsByClassName('sezzle-modal')[0].className = 'sezzle-modal'; 
         }
       }.bind(this));
@@ -536,7 +498,6 @@ class AwesomeSezzle {
         document.getElementsByClassName('sezzle-qp-modal')[0].style.display = 'block';
       }.bind(this));
     }.bind(this));
-    this.logEvent('onclick');
   }
 
   isMobileBrowser(){
