@@ -26,17 +26,14 @@ class AwesomeSezzle {
 			case 'VI':
 			case 'AS':
 			case 'MP':
+			case 'MX':
+			case '':
+			case undefined:
+			case null:
 				this.merchantLocale = 'North America';
-				break;
-			case 'Europe':
-			case 'EU':
-			case 'DE':
-			case 'FR':
-			case 'UK':
-				this.merchantLocale = 'Europe';
 				break;
 			default:
-				this.merchantLocale = 'North America';
+				this.merchantLocale = 'Europe';
 				break;
 		}
     if (this.language === 'french') this.language = 'fr';
@@ -929,7 +926,6 @@ class AwesomeSezzle {
 						max-width: 436px;
 					}
 				</style>
-				<meta name="viewport" content="width=device-width, initial-scale=1.0">
 				<div class="sezzle-checkout-modal-hidden">
 					<div class="sezzle-modal">
 						<div class="sezzle-modal-content">
@@ -1076,7 +1072,7 @@ class AwesomeSezzle {
 							max-width: 264px;
 						}
 					</style>
-          <meta name="viewport" content="width=device-width, initial-scale=1.0"><div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal"> <div class="sezzle-modal-content"> <div class="sezzle-logo" title="Sezzle logo"></div><button title="Close Sezzle Modal" class="close-sezzle-modal" tabindex="0" role="button"></button>
+          <div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal"> <div class="sezzle-modal-content"> <div class="sezzle-logo" title="Sezzle logo"></div><button title="Close Sezzle Modal" class="close-sezzle-modal" tabindex="0" role="button"></button>
             <div class="sezzle-header" >${modalTranslations[this.language].sezzleHeader}
               <span class="header-desktop">${modalTranslations[this.language].sezzleHeaderChild}</span>
               <div class="header-mobile">${modalTranslations[this.language].sezzleHeaderChild}</div>
@@ -1109,7 +1105,7 @@ class AwesomeSezzle {
 			} else if (this.altModalHTML) {
         modalNode.innerHTML = this.altModalHTML;
       } else {
-					modalNode.innerHTML = `<meta name="viewport" content="width=device-width, initial-scale=1.0"><div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal" title=""> <div class="sezzle-modal-content"> <div class="sezzle-logo" title="Sezzle logo"></div><button title="Close Sezzle Modal" class="close-sezzle-modal" tabindex="0" role="button"></button>
+					modalNode.innerHTML = `<div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal" title=""> <div class="sezzle-modal-content"> <div class="sezzle-logo" title="Sezzle logo"></div><button title="Close Sezzle Modal" class="close-sezzle-modal" tabindex="0" role="button"></button>
 					<div class="sezzle-header">${modalTranslations[this.language].sezzleHeader}
 						<span class="header-desktop">${modalTranslations[this.language].sezzleHeaderChild}</span>
 						<div class="header-mobile">${modalTranslations[this.language].sezzleHeaderChild}</div>

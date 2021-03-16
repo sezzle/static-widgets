@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <!-- <meta charset="ISO-8859-1"> -->
+  <!-- <meta charset="UTF-8"> -->
+  <meta charset="ISO-8859-1">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Sezzle SDK Test</title>
 
@@ -18,15 +18,15 @@
     <form onsubmit="testing()">
         <h1>Test Sezzle SDK</h1>
 
-        <p id='price'>$2000</p>
-
-        Desktop
+        <p id='price'>$500</p>
+				<div id='sezzle-widget'></div>
+        <!-- Desktop
         <div id='sezzle-widget-desktop'></div>
 
         Mobile
-        <div id='sezzle-widget-mobile'></div>
+        <div id='sezzle-widget-mobile'></div> -->
 
-    <button id='yourClickableElementIdHere' type="button">Show Me the Modal</button>
+    <!-- <button id='yourClickableElementIdHere' type="button">Show Me the Modal</button> -->
     </form>
 
     <script src='../dist/bundle.js'></script>
@@ -48,11 +48,14 @@ renderSezzle2.init();
       const renderSezzle = new AwesomeSezzle({
         // string, variable or document...innerText
       amount: document.querySelector('#price').innerText,
-			minPriceLT: 50000,
+			// amount in cents
+			// minPriceLT: 50000,
+			// percent amount as number
 			bestAPR: 9.99,
+			// amount in cents
 			maxPrice: 500000,
       // null, string, or array of strings
-      renderElement: ['sezzle-widget-desktop','sezzle-widget-mobile'],
+      // renderElement: ['sezzle-widget-desktop','sezzle-widget-mobile'],
       // null, light, dark, grayscale, white, white-flat, black-flat
     //   theme: 'white-pill',
       // null or >0 other than 400 (default)
@@ -90,11 +93,13 @@ renderSezzle2.init();
       // null or any CSS key/value combinations (JSON format)
       // logoStyle: {'marginRight': '10px', 'backgroundColor': 'white'},
       // null, en, fr, or french
-    //   language: 'fr',
-    //   language: 'de',
-    //   language: 'es',
+      // language: 'fr',
+      // language: 'de',
+      // language: 'es',
       // null, default, or comma
     //   parseMode: 'comma',
+		// country code or "North America" - valid strings not in the North America group will default to Europe
+					// merchantLocale: 'EU',
       // null or >0 other than 4 (default)
       // numberOfPayments: 6,
       // null or >0 (default)
