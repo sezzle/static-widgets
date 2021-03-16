@@ -61,6 +61,7 @@ Once the widget is rendering, additional configurations can be added to the Awes
 19. **`logoStyle`** - This config is optional. It defaults to `{}`.
 20. **`language`** - This config is optional. It defaults to `en`. Language value may be given as a string or function. Supported options available are `en`, `fr`, `de`, or `es`.
 21. **`parseMode`** - This config is optional. It defaults to `default`. Alternative values include `comma`.
+22. **`merchantLocale`** - This config is optional. It defaults to `North America`. Alternative values include `Europe`, `EU`, `DE`, `FR`, `UK`, `US`,`CA`, `IN`.
 
 ### <b>Please discuss with Sezzle point of contact before using the below config options:</b>
 22. **`widgetTemplate`** - This config is optional. It defaults to `or 4 interest-free payments of %%price%% with %%logo%% %%info%%`. Available templates include `%%price%%`, `%%logo%%`, `%%link%%`, `%%info%%`, `%%question-mark%%`, `%%line-break%%`, `%%afterpay-logo%%`, `%%afterpay-logo-grey%%`, `%%afterpay-info-icon%%`, `%%afterpay-link-icon%%`, `%%quadpay-logo%%`, `%%quadpay-logo-grey%%`, `%%quadpay-logo-white%%`, `%%quadpay-info-icon%%`, `%%affirm-logo%%`, `%%affirm-logo-grey%%`, `%%affirm-logo-white%%`, `%%affirm-info-icon%%`, `%%klarna-logo%%`, `%%klarna-logo-grey%%`, `%%klarna-logo-white%%`, `%%klarna-info-icon%%`.

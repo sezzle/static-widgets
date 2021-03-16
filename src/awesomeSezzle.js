@@ -16,12 +16,35 @@ class AwesomeSezzle {
       default:
         this.language = 'en';
     }
+		switch(options.merchantLocale){
+			case 'North America':
+			case 'US':
+			case 'CA':
+			case 'IN':
+			case 'GU':
+			case 'PR':
+			case 'VI':
+			case 'AS':
+			case 'MP':
+				this.merchantLocale = 'North America';
+				break;
+			case 'Europe':
+			case 'EU':
+			case 'DE':
+			case 'FR':
+			case 'UK':
+				this.merchantLocale = 'Europe';
+				break;
+			default:
+				this.merchantLocale = 'North America';
+				break;
+		}
     if (this.language === 'french') this.language = 'fr';
     if(this.language === 'german' || this.language === 'deutsche') this.language = 'de';
     if(this.language === 'spanish' || this.language === 'espanol' || this.language === 'español') this.language = 'es';
 		this.numberOfPayments = options.numberOfPayments || 4;
 		this.aprTerms = options.aprTerms || 0;
-		var templateString = this.widgetLanguageTranslation(this.language, this.numberOfPayments)
+		var templateString = this.widgetLanguageTranslation(this.language, this.numberOfPayments, this.merchantLocale)
 		var templateStringLT = this.widgetLanguageTranslationLT(this.language);
     this.widgetTemplate  = options.widgetTemplate ? options.widgetTemplate.split('%%') : templateString.split('%%');
 		this.widgetTemplateLT = options.widgetTemplateLT ? options.widgetTemplateLT.split('%%') : templateStringLT.split('%%');
@@ -70,12 +93,14 @@ class AwesomeSezzle {
 		this.widgetTemplateLT = this.widgetTemplateLT;
   }
 
-  widgetLanguageTranslation(language, numberOfPayments) {
+
+
+  widgetLanguageTranslation(language, numberOfPayments, merchantLocale) {
     const translations = {
-      'en': 'or ' + numberOfPayments + ' interest-free payments of %%price%% with %%logo%% %%info%%',
-      'fr': 'ou ' + numberOfPayments + ' paiements de %%price%% sans int%%&eacute;%%r%%&ecirc;%%ts avec %%logo%% %%info%%',
-      'de': 'oder ' + numberOfPayments + ' zinslose Zahlungen von je %%price%% mit %%logo%% %%info%%',
-      'es': 'o ' + numberOfPayments + ' pagos sin intereses de %%price%% con %%logo%% %%info%%'
+      'en': 'or ' + numberOfPayments + (merchantLocale === 'North America' ? ' interest-free' : '') + ' payments of %%price%% with %%logo%% %%info%%' + (merchantLocale === 'Europe' ? ' - no fee' : ''),
+      'fr': 'ou ' + numberOfPayments + ' paiements de %%price%%' + (merchantLocale === 'North America' ? ' sans int%%&eacute;%%r%%&ecirc;%%ts' : '') + ' avec %%logo%% %%info%%' + (merchantLocale === 'Europe' ? ' - gratuit' : ''),
+      'de': 'oder ' + numberOfPayments + (merchantLocale === 'North America' ? ' zinslose Zahlungen von je' : ' mal') + ' %%price%% mit %%logo%% %%info%%' + (merchantLocale === 'Europe' ? ' - kostenlos' : ''),
+      'es': 'o ' + numberOfPayments + ' pagos' + (merchantLocale === 'North America' ? ' sin intereses' : '') + ' de %%price%% con %%logo%% %%info%%' + (merchantLocale === 'Europe' ? ' - gratis' : '')
     };
     return translations[language] || translations.en;
   };
