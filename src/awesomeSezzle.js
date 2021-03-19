@@ -301,7 +301,7 @@ class AwesomeSezzle {
     var node = document.createElement('div');
     node.className = 'sezzle-checkout-button-wrapper sezzle-modal-link';
     node.tabindex = 0;
-    node.style.cursor = 'pointer';
+    // node.style.cursor = 'pointer';
     var sezzleButtonText = document.createElement('div');
     sezzleButtonText.className = 'sezzle-button-text';
     this.setImageURL();
