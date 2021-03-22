@@ -272,6 +272,12 @@ class AwesomeSezzle {
         sezzleElement.removeChild(sezzleElement.querySelector('.sezzle-checkout-button-wrapper'));
       }
     })
+		var modals = document.getElementsByClassName('sezzle-checkout-modal-lightbox')
+		if(modals.length){
+			for(let i = 0; i < modals.length; i++){
+				modals[i].parentElement.removeChild(modals[i]);
+			}
+		}
   }
 
   setLogoSize(element){
@@ -811,9 +817,25 @@ class AwesomeSezzle {
 			if(this.isProductEligibleLT(this.amount)){
 				var currency = String.fromCharCode(this.currencySymbol(this.amount));
 				var priceString = this.amount.split(currency)[1];
-				priceString = this.parseMode === "comma" ? priceString.replace('.','') : priceString.replace(',','');
-				console.log(priceString);
-				var terms = this.termsToShow(this.amount.split(currency)[1]);
+				priceString = this.parseMode === "comma" ? priceString.replace('.','').replace(',','.') : priceString.replace(',','');
+				var terms = this.termsToShow(priceString);
+				function addDelimiters(priceString, parseMode){
+					console.log(priceString);
+					if(priceString.length > 6 && parseMode === "comma"){
+						var commaPrice = priceString.replace('.',',');
+						return commaPrice.substring(0, commaPrice.indexOf(',')-3) + '.' + commaPrice.substring(commaPrice.indexOf(',')-3, commaPrice.length);
+					} else if (priceString.length > 6){
+						return priceString.substring(0, priceString.indexOf('.')-3) + ',' + priceString.substring(priceString.indexOf('.')-3, priceString.length);
+					} else {
+						return priceString;
+					}
+				}
+				function calculateMonthly(priceString, parseMode, term, APR){
+					return addDelimiters(((priceString * ( 1+(APR/100) )) / term).toFixed(2), parseMode);
+				}
+				function calculateAdjusted(priceString, parseMode, APR){
+					return addDelimiters((priceString * ( 1+(APR/100) )).toFixed(2), parseMode)
+				}
 				if(this.ltAltModalHTML){
 					modalNode.innerHTML = this.ltAltModalHTML;
 				} else {
@@ -946,16 +968,16 @@ class AwesomeSezzle {
 							<div class="sezzle-lt-payments">
 								<div class="sezzle-lt-payment-header">${modalTranslations[this.language].sezzleLtPaymentHeader} <span>${this.amount}</span></div>
 								<div class="sezzle-lt-payment-options ${terms[0]}-month">
-									<div class="plan"><div class="monthly-amount"><span>${currency + (((priceString * ( 1+(this.bestAPR/100) )) / terms[0]).toFixed(2))}</span> ${modalTranslations[this.language].monthlyAmount}</div>	<div class="term-length">${terms[0]} ${modalTranslations[this.language].termLength}</div></div>
-									<div class="plan-details"><div class="adjusted-total">${modalTranslations[this.language].adjustedTotal} <span>${currency + ((priceString * ( 1+(this.bestAPR/100) )).toFixed(2))}</span></div>	<div class="sample-apr">${modalTranslations[this.language].sampleApr} <span>${this.bestAPR}</span>%</div></div>
+									<div class="plan"><div class="monthly-amount"><span>${currency + calculateMonthly(priceString, this.parseMode, terms[0], this.bestAPR)}</span> ${modalTranslations[this.language].monthlyAmount}</div>	<div class="term-length">${terms[0]} ${modalTranslations[this.language].termLength}</div></div>
+									<div class="plan-details"><div class="adjusted-total">${modalTranslations[this.language].adjustedTotal} <span>${currency + calculateAdjusted(priceString, this.parseMode, this.bestAPR)}</span></div>	<div class="sample-apr">${modalTranslations[this.language].sampleApr} <span>${this.bestAPR}</span>%</div></div>
 								</div>
 								<div class="sezzle-lt-payment-options ${terms[1]}-month" ${terms[2] === undefined ? `style="border: none;"` : `style="display: block;"`}>
-									<div class="plan"><div class="monthly-amount"><span>${currency + (((priceString * ( 1+(this.bestAPR/100) )) / terms[1]).toFixed(2))}</span> ${modalTranslations[this.language].monthlyAmount}</div>	<div class="term-length">${terms[1]} ${modalTranslations[this.language].termLength}</div></div>
-									<div class="plan-details"><div class="adjusted-total">${modalTranslations[this.language].adjustedTotal} <span>${currency + ((priceString * ( 1+(this.bestAPR/100) )).toFixed(2))}</span></div>	<div class="sample-apr">${modalTranslations[this.language].sampleApr} <span>${this.bestAPR}</span>%</div></div>
+									<div class="plan"><div class="monthly-amount"><span>${currency + calculateMonthly(priceString, this.parseMode, terms[1], this.bestAPR)}</span> ${modalTranslations[this.language].monthlyAmount}</div>	<div class="term-length">${terms[1]} ${modalTranslations[this.language].termLength}</div></div>
+									<div class="plan-details"><div class="adjusted-total">${modalTranslations[this.language].adjustedTotal} <span>${currency + calculateAdjusted(priceString, this.parseMode, this.bestAPR)}</span></div>	<div class="sample-apr">${modalTranslations[this.language].sampleApr} <span>${this.bestAPR}</span>%</div></div>
 								</div>
 								<div class="sezzle-lt-payment-options ${terms[2]}-month" ${terms[2] === undefined ? `style="display: none;"` : `style="display: block;"`}>
-									<div class="plan"><div class="monthly-amount"><span>${currency + (((priceString * ( 1+(this.bestAPR/100) )) / terms[2]).toFixed(2))}</span> ${modalTranslations[this.language].monthlyAmount}</div>	<div class="term-length">${terms[2]} ${modalTranslations[this.language].termLength}</div></div>
-									<div class="plan-details"><div class="adjusted-total">${modalTranslations[this.language].adjustedTotal} <span>${currency + ((priceString * ( 1+(this.bestAPR/100) )).toFixed(2))}</span></div>	<div class="sample-apr">${modalTranslations[this.language].sampleApr} <span>${this.bestAPR}</span>%</div></div>
+									<div class="plan"><div class="monthly-amount"><span>${currency + calculateMonthly(priceString, this.parseMode, terms[2], this.bestAPR)}</span> ${modalTranslations[this.language].monthlyAmount}</div>	<div class="term-length">${terms[2]} ${modalTranslations[this.language].termLength}</div></div>
+									<div class="plan-details"><div class="adjusted-total">${modalTranslations[this.language].adjustedTotal} <span>${currency + calculateAdjusted(priceString, this.parseMode, this.bestAPR)}</span></div>	<div class="sample-apr">${modalTranslations[this.language].sampleApr} <span>${this.bestAPR}</span>%</div></div>
 								</div>
 							</div>
 							<div class="sezzle-row">
