@@ -904,6 +904,7 @@ class AwesomeSezzle {
 						color: #737373;
 						width: 100%;
 						display: inline;
+						font-size: 13px;
 					}
 					.sezzle-checkout-modal-hidden .just-select-sezzle-mobile, .sezzle-checkout-modal-hidden .just-select-sezzle {
 						font-size: 14px;
