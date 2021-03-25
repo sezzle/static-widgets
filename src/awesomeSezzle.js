@@ -824,7 +824,7 @@ class AwesomeSezzle {
 				var currency = String.fromCharCode(this.currencySymbol(this.amount));
 				var priceString = this.amount.split(currency)[1];
 				priceString = this.parseMode === "comma" ? priceString.replace('.','').replace(',','.') : priceString.replace(',','');
-				var terms = this.termsToShow(priceString);
+				var terms = this.termsToShow(this.amount);
 				if(this.ltAltModalHTML){
 					modalNode.innerHTML = this.ltAltModalHTML;
 				} else {
