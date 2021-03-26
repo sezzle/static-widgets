@@ -40,7 +40,6 @@ class AwesomeSezzle {
     if(this.language === 'german' || this.language === 'deutsche') this.language = 'de';
     if(this.language === 'spanish' || this.language === 'espanol' || this.language === 'español') this.language = 'es';
 		this.numberOfPayments = options.numberOfPayments || 4;
-		this.aprTerms = options.aprTerms || 0;
 		var templateString = this.widgetLanguageTranslation(this.language, this.numberOfPayments, this.merchantLocale)
 		var templateStringLT = this.widgetLanguageTranslationLT(this.language);
     this.widgetTemplate  = options.widgetTemplate ? options.widgetTemplate.split('%%') : templateString.split('%%');
@@ -618,9 +617,9 @@ class AwesomeSezzle {
     var priceText = amount;
     var priceString =  HelperClass.parsePriceString(priceText, true);
     var price = this.parseMode ==='default' ? HelperClass.parsePrice(priceText) : HelperClass.parsePrice(priceText,this.parseMode);
-    var formatter =  priceText.replace(priceString, '{price}');
-		var terms = this.termsToShow(priceString);
-    var sezzleInstallmentPrice = this.isProductEligibleLT(amount) ? (price * (1+(this.bestAPR/100)) / (this.aprTerms || terms[terms.length - 1])).toFixed(2) : (price / this.numberOfPayments).toFixed(2);
+		var formatter =  priceText.replace(priceString, '{price}');
+		var terms = this.termsToShow(price);
+    var sezzleInstallmentPrice = this.isProductEligibleLT(amount) ? (price * (1+(this.bestAPR/100)) / (terms[terms.length - 1])).toFixed(2) : (price / this.numberOfPayments).toFixed(2);
 		var sezzleInstallmentFormattedPrice = formatter.replace('{price}', this.addDelimiters(sezzleInstallmentPrice, this.parseMode));
     return sezzleInstallmentFormattedPrice;
 
@@ -824,7 +823,7 @@ class AwesomeSezzle {
 				var currency = String.fromCharCode(this.currencySymbol(this.amount));
 				var priceString = this.amount.split(currency)[1];
 				priceString = this.parseMode === "comma" ? priceString.replace('.','').replace(',','.') : priceString.replace(',','');
-				var terms = this.termsToShow(this.amount);
+				var terms = this.termsToShow(priceString);
 				if(this.ltAltModalHTML){
 					modalNode.innerHTML = this.ltAltModalHTML;
 				} else {
