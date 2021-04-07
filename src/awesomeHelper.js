@@ -1,7 +1,45 @@
+const trackingURL = "https://widget.sezzle.com/v1/event/log";
+const sezzleWidgetWrapperClass = "sezzle-shopify-info-button";
+
 class Helper {
 
   isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
+  }
+
+	checkForWidgetDuplicacy() {
+    return document.getElementsByClassName(sezzleWidgetWrapperClass).length > 1
+  }
+
+	logEvent(eventName) {
+    const widget_duplicate =  this.checkForWidgetDuplicacy();
+    this.httpRequestWrapper('post',trackingURL,{
+      event_name: eventName,
+      merchant_site: window.location.hostname,
+      page_url: window.location.href,
+      widget_duplicate: widget_duplicate
+    });
+}
+
+	httpRequestWrapper(method, url, body = null) {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open(method, url, true);
+      if(body !== null){
+        xhr.setRequestHeader("Content-Type", "application/json");
+      }
+      xhr.onload = function () {
+        if (this.status >= 200 && this.status < 300) {
+          resolve(xhr.response);
+        } else {
+          reject(new Error('Something went wrong, contact the Sezzle team!'));
+        }
+      };
+      xhr.onerror = function () {
+        reject(new Error('Something went wrong, contact the Sezzle team!'));
+      };
+      body === null?xhr.send():xhr.send(JSON.stringify(body));
+    });
   }
 
   svgImages() {

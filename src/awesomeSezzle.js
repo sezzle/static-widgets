@@ -593,6 +593,7 @@ class AwesomeSezzle {
     this.renderElement.appendChild(node);
     this.addCSSAlignment();
     this.addCSSCustomisation();
+		HelperClass.logEvent('onload');
   }
 
   getElementToRender(){
@@ -1205,6 +1206,8 @@ class AwesomeSezzle {
     sezzleModal.addEventListener('click', function (event) {
       event.stopPropagation();
     });
+		HelperClass.logEvent(`render-modal-afterpay`);
+
   }
 
   renderQPModal(){
@@ -1228,6 +1231,7 @@ class AwesomeSezzle {
     sezzleModal.addEventListener('click', function (event) {
       event.stopPropagation();
     });
+		HelperClass.logEvent(`render-modal-quadpay`);
   }
 
   renderAffirmModal(){
@@ -1281,7 +1285,8 @@ class AwesomeSezzle {
     modalNode.style.display = 'block';
     document.body.ariaHidden = true;
     modalNode.getElementsByClassName('sezzle-modal')[0].className = 'sezzle-modal';
-  }
+		HelperClass.logEvent(`render-modal-function`);
+	}
 
   addClickEventForModal(sezzleElement){
     var modalLinks = sezzleElement.getElementsByClassName('sezzle-modal-open-link');
@@ -1293,6 +1298,7 @@ class AwesomeSezzle {
           modalNode.getElementsByClassName('close-sezzle-modal')[0].focus();
           document.body.ariaHidden = true;
           modalNode.getElementsByClassName('sezzle-modal')[0].className = 'sezzle-modal';
+					HelperClass.logEvent('onclick-modal');
         }
       }.bind(this));
     }.bind(this));
