@@ -1166,7 +1166,7 @@ class AwesomeSezzle {
 					<div class="terms">${modalTranslations[this.language].terms1}</div>
 				</div></div></div>`;
       }
-      document.getElementsByTagName('html')[0].appendChild(modalNode);
+      document.getElementsByTagName('body')[0].appendChild(modalNode);
     } else {
       modalNode = document.getElementsByClassName('sezzle-checkout-modal-lightbox')[0];
     }
@@ -1193,7 +1193,7 @@ class AwesomeSezzle {
     modalNode.tabindex='-1';
     modalNode.role = 'dialog';
     modalNode.innerHTML = this.apModalHTML;
-    document.getElementsByTagName('html')[0].appendChild(modalNode);
+    document.getElementsByTagName('body')[0].appendChild(modalNode);
     Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
       el.addEventListener('click', function () {
         modalNode.style.display = 'none';
@@ -1216,7 +1216,7 @@ class AwesomeSezzle {
     modalNode.tabindex='-1';
     modalNode.role = 'dialog';
     modalNode.innerHTML = this.qpModalHTML;
-    document.getElementsByTagName('html')[0].appendChild(modalNode);
+    document.getElementsByTagName('body')[0].appendChild(modalNode);
     Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
       el.addEventListener('click', function () {
         modalNode.style.display = 'none';
@@ -1239,7 +1239,7 @@ class AwesomeSezzle {
     modalNode.tabindex='-1';
     modalNode.role = 'dialog';
     modalNode.innerHTML = this.affirmModalHTML;
-    document.getElementsByTagName('html')[0].appendChild(modalNode);
+    document.getElementsByTagName('body')[0].appendChild(modalNode);
     Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
       el.addEventListener('click', function () {
         modalNode.style.display = 'none';
@@ -1262,7 +1262,7 @@ class AwesomeSezzle {
     modalNode.tabindex='-1';
     modalNode.role = 'dialog';
     modalNode.innerHTML = this.klarnaModalHTML;
-    document.getElementsByTagName('html')[0].appendChild(modalNode);
+    document.getElementsByTagName('body')[0].appendChild(modalNode);
     Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
       el.addEventListener('click', function () {
         modalNode.style.display = 'none';
