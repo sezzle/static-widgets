@@ -1179,7 +1179,7 @@ class AwesomeSezzle {
       });
     });
     let sezzleModal = document.getElementsByClassName('sezzle-modal')[0]
-    if (!sezzleModal) sezzleModal = document.getElementsByClassName('sezzle-checkout-modal')[0]
+    if (!sezzleModal) sezzleModal = document.getElementsByClassName('sezzle-checkout-modal-hidden')[0]
     sezzleModal.addEventListener('click', function (event) {
       event.stopPropagation();
     });
