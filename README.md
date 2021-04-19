@@ -225,8 +225,8 @@ The Sezzle Checkout Installment Widget presents a payment pie and installment sc
 
 <img src="./assets/checkout-installment-widget.png"/>
 
-**<a href="https://github.com/sezzle/static-widgets/blob/production/src/abandoned-cart-email-widget/abandoned-cart-email-widget.html" >Sezzle Shopify abandoned cart email widget</a>**
+**<a href="https://github.com/sezzle/static-widgets/blob/production/src/abandoned-cart-email-widget/abandoned-cart-email-widget.html" >Sezzle abandoned cart email widget</a>**
 
-The Sezzle Shopify abandoned cart email widget is a lightweight version of our static widget.It suggests the merchants to use Sezzle widget in their brand’s email footers and abandoned cart emails.It is mainly self-contained widget version for implementation without connection to Sezzle’s server, which can be copied to the merchant theme via Github<br/>
+The Sezzle abandoned cart email widget is a lightweight version of our static widget.It suggests the merchants to use Sezzle widget in their brand’s email footers and abandoned cart emails.It is mainly self-contained widget version for implementation without connection to Sezzle’s server, which can be copied to the merchant theme via Github.<br/>
 
 <img src="./assets/abandoned-cart-email-widget.png"/>
