@@ -40,23 +40,16 @@
       }
 
 		function hideOrShowSezzle(){
-			console.log('hiding')
-			// var oneTimeOption = document.querySelector('.rc_block__type__onetime');
-			// if(oneTimeOption && oneTimeOption.className.indexOf('rc_block__type--active') === -1){
-			// 	document.querySelector('#sezzle-widget').style.display = "none";
-			// } else {
-			// 	document.querySelector('#sezzle-widget').style.display = "block";
-			// }
+			var oneTimeOption = document.querySelector('.rc_block__type__onetime');
+			if(oneTimeOption && oneTimeOption.className.indexOf('rc_block__type--active') === -1){
+				document.querySelector('#sezzle-widget').style.display = "none";
+			} else {
+				document.querySelector('#sezzle-widget').style.display = "block";
+			}
 		}
 
 		document.onload = hideOrShowSezzle();
-		// document.querySelector('.rc_block__container').addEventListener('click', hideOrShowSezzle);
-
-	setTimeout(()=>{
-	  const  amount  = '$ 100';
-	  document.getElementById('price').innerText = amount
-	  renderSezzle.alterPrice(amount)
-	},3000);
+		document.querySelector('.rc_block__container').addEventListener('click', hideOrShowSezzle);
     </script>
 
   </body>
