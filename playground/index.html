@@ -35,21 +35,28 @@
 
 		document.onchange = function(){
         var newPrice = document.querySelector('.product-form__price-price').innerText;
-				hideOrShowSezzle;
         renderSezzle.alterPrice(newPrice);
+				hideOrShowSezzle;
       }
 
 		function hideOrShowSezzle(){
-			var oneTimeOption = document.querySelector('.rc_block__type__onetime');
-			if(oneTimeOption && oneTimeOption.className.indexOf('rc_block__type--active') === -1){
-				document.querySelector('#sezzle-widget').style.display = "none";
-			} else {
-				document.querySelector('#sezzle-widget').style.display = "block";
-			}
+			console.log('hiding')
+			// var oneTimeOption = document.querySelector('.rc_block__type__onetime');
+			// if(oneTimeOption && oneTimeOption.className.indexOf('rc_block__type--active') === -1){
+			// 	document.querySelector('#sezzle-widget').style.display = "none";
+			// } else {
+			// 	document.querySelector('#sezzle-widget').style.display = "block";
+			// }
 		}
 
 		document.onload = hideOrShowSezzle();
-		document.querySelector('.rc_block__container').addEventListener('click', hideOrShowSezzle);
+		// document.querySelector('.rc_block__container').addEventListener('click', hideOrShowSezzle);
+
+	setTimeout(()=>{
+	  const  amount  = '$ 100';
+	  document.getElementById('price').innerText = amount
+	  renderSezzle.alterPrice(amount)
+	},3000);
     </script>
 
   </body>

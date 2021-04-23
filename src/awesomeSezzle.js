@@ -274,7 +274,7 @@ class AwesomeSezzle {
     })
 		var modals = document.getElementsByClassName('sezzle-checkout-modal-lightbox')
 		if(modals.length){
-			for(let i = 0; i < modals.length; i++){
+			for(let i = modals.length-1; modals.length > 0; i--){
 				modals[i].parentElement.removeChild(modals[i]);
 			}
 		}
