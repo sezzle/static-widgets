@@ -66,7 +66,7 @@ class AwesomeSezzle {
     this.fontWeight = options.fontWeight || 300;
     this.fontSize = options.fontSize || 12;
     this.fontFamily = options.fontFamily || 'inherit';
-    this.maxWidth = options.maxWidth || 'none';
+    this.maxWidth = options.maxWidth || 400;
     this.textColor = options.textColor || '#111';
     this.renderElementArray = typeof(this.renderElementInitial) === 'string' ? [this.renderElementInitial] : this.renderElementInitial;
     this.renderElement = this.renderElementInitial;
@@ -1015,7 +1015,7 @@ class AwesomeSezzle {
 						.sezzle-hiw-pie-bg {
 							width: 80%;
 							margin: 20px auto 10px;
-							height: 60px;
+							height: 80px;
 							padding: 10px 0px;
 							border-top: 1px solid #C4C4C4;
 							border-bottom: 1px solid #C4C4C4;

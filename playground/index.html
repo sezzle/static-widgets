@@ -18,7 +18,7 @@
     <form onsubmit="testing()">
         <h1>Test Sezzle SDK</h1>
 
-        <p id='price'>$3,192.50</p>
+        <p id='price'><span class="currency">$</span><span class="amount">8,495</span></p>
 				<div id='sezzle-widget'></div>
         <!-- Desktop
         <div id='sezzle-widget-desktop'></div>
@@ -45,15 +45,19 @@ const renderSezzle2 = new AwesomeSezzle({
 renderSezzle2.init();
     </script> -->
     <script>
-      const renderSezzle = new AwesomeSezzle({
-        // string, variable or document...innerText
-      amount: document.querySelector('#price').innerText,
+    const renderSezzle = new AwesomeSezzle({
+      // string, variable or document...innerText
+      amount: document.querySelector('#price').querySelector('.currency').innerText + document.querySelector('#price').querySelector('.amount').innerText,
+      // null or >0 other than 12 (default)
+      fontSize: 14,
 			// amount in cents
-			minPriceLT: 50000,
-			// percent amount as number
+			// null or >0 (default)
+			minPrice: 50000,
+			// amount in cents
+			maxPrice: 4000000,
+      minPriceLT: 50000,
+      // percent amount as number
 			bestAPR: 9.99,
-			// amount in cents
-			maxPrice: 500000,
       // null, string, or array of strings
       // renderElement: ['sezzle-widget-desktop','sezzle-widget-mobile'],
       // null, light, dark, grayscale, white, white-flat, black-flat
@@ -78,8 +82,6 @@ renderSezzle2.init();
       // textColor: 'purple',
       // name(s), comma-delimited
       // fontFamily: 'Comfortaa, sans-serif',
-      // null or >0 other than 12 (default)
-      // fontSize: 16,
       // null or number 100-900 other than 300 (default)
       // fontWeight: 600,
       // null, cart, product-page, or product-preview
@@ -102,12 +104,11 @@ renderSezzle2.init();
 					// merchantLocale: 'EU',
       // null or >0 other than 4 (default)
       // numberOfPayments: 6,
-      // null or >0 (default)
-      // minPrice: 3000,
       // null or >0 other than 250000(default),
       // maxPrice: 9900,
       // null or string with the below templates, or object with 'en' and 'fr' keys
       // %%price%% %%logo%% %%info%% %%question-mark%% %%link%% %%afterpay-logo%% %%afterpay-logo-grey%% %%afterpay-logo-white%% %%afterpay-info-icon%% %%afterpay-link-icon%% %%quadpay-logo%% %%quadpay-logo-grey%% %%quadpay-logo-white%% %%quadpay-info-icon%%
+          //  widgetTemplate: 'o 4 pagos de %%price%% sin intereses con %%logo%% %%info%% %%question-mark%% %%link%% or %%afterpay-logo%% %%afterpay-logo-grey%% %%afterpay-logo-white%% %%afterpay-info-icon%% %%afterpay-link-icon%% %%quadpay-logo%% %%quadpay-logo-grey%% %%quadpay-logo-white%% %%quadpay-info-icon%% %%affirm-logo%% %%affirm-logo-grey%% %%affirm-logo-white%% %%affirm-info-icon%% %%klarna-logo%% %%klarna-logo-grey%% %%klarna-logo-white%% %%klarna-info-icon%%',
       // widgetTemplate: 'o 4 pagos de %%price%% sin intereses con %%logo%% %%info%% %%question-mark%% %%link%% or %%afterpay-logo%% %%afterpay-logo-grey%% %%afterpay-logo-white%% %%afterpay-info-icon%% %%afterpay-link-icon%% %%quadpay-logo%% %%quadpay-logo-grey%% %%quadpay-logo-white%% %%quadpay-info-icon%% %%affirm-logo%% %%affirm-logo-grey%% %%affirm-logo-white%% %%affirm-info-icon%% %%klarna-logo%% %%klarna-logo-grey%% %%klarna-logo-white%% %%klarna-info-icon%%',
 			// null or innerHTML
   //     altLightboxHTML: `<style>
