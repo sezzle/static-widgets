@@ -78,7 +78,7 @@ Make any desired changes, then click Save
     }
 </script>
 <button class="sezzle-checkout-button sezzle-button-{{section.settings.sezzle-button-theme}}" style="border-radius: {{section.settings.sezzle-button-radius}}px;" onclick="handleSezzleClick(event)">
-    {{section.settings.sezzle-button-text}}<img class="sezzle-button-logo-img" src={% if section.settings.sezzle-button-theme == "dark" %}"https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg" {%else%} "https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg"{% endif%} alt="Sezzle">
+    {{section.settings.sezzle-button-text}}<img class="sezzle-button-logo-img" src={% if section.settings.sezzle-button-theme == "dark" %} "https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg" {% else %} "https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg"{% endif %} alt="Sezzle">
 </button>
 <style>
   {{ section.settings.sezzle-button-style }}
@@ -86,10 +86,6 @@ Make any desired changes, then click Save
 <script>
   {{ section.settings.sezzle-button-script }}
 </script>
-{% endif %}
-
-{% if request.design_mode %}
-<p style="font-size: 16px; font-weight: bold; text-align: center; color: white; background-color: black; border: 5px solid red;">Some changes do not update automatically in preview. Save changes to view.</p>
 {% endif %}
 
 {% schema %}
