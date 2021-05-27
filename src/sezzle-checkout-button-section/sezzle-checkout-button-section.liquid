@@ -24,17 +24,20 @@ Make any desired changes, then click Save
         outline: none;
         border: transparent;
         font-family: "Comfortaa", sans-serif;
+
         margin-bottom: 10px;
-        font-size: 14px;
+        font-size: 0.8125em;
         letter-spacing: normal;
-        background-position: center;
+				background-position: center;
         transition: background 0.8s;
+      	font-weight: bold;
+      	padding: 8px 13px 10px;
+
     }
     .sezzle-button-logo-img {
-        position: relative;
-        width: 60px;
-        top: 2px;
-				margin: 0px 5px;
+      vertical-align: center;
+      width: 72px;
+      margin: 0px 5px;
     }
     .sezzle-button-dark {
         background: #fff;
@@ -149,7 +152,7 @@ Make any desired changes, then click Save
         "id": "sezzle-button-style",
         "type": "text",
         "label": {"en": "Custom Button Style"},
-        "default": ".sezzle-checkout-button {padding: 10px 13px;}"
+        "default": ".sezzle-checkout-button {} .sezzle-button-logo-img {}"
       },
       {
         "id": "sezzle-button-script",
