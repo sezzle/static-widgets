@@ -1,5 +1,7 @@
 import HelperClass from './awesomeHelper'
 import '../css/global.scss';
+import '../css/global1.scss';
+
 
 
 class AwesomeSezzle {
@@ -820,6 +822,55 @@ class AwesomeSezzle {
       modalNode.style.display = 'none';
       modalNode.tabindex='-1';
       modalNode.role = 'dialog';
+      if(this.theme==="grayscale")
+      {
+        modalNode.innerHTML = `<div class="sezzle-checkout-modal-hidden1"> <div class="sezzle-modal1" title=""> <div class="sezzle-modal-content1"> <div class="sezzle-logo1" title="Sezzle logo"></div><button title="Close Sezzle Modal" class="close-sezzle-modal1" tabindex="0" role="button"></button>
+        <div class="sezzle-header1">${modalTranslations[this.language].sezzleHeader}
+          <span class="header-desktop1">${modalTranslations[this.language].sezzleHeaderChild}</span>
+          <div class="header-mobile1">${modalTranslations[this.language].sezzleHeaderChild}</div>
+        </div>
+        <div class="sezzle-row1">
+          <div class="desktop1">${modalTranslations[this.language].sezzleRowChild1}
+            <div>${modalTranslations[this.language].sezzleRowChild2}</div>
+          </div>
+          <div class="mobile1">${modalTranslations[this.language].sezzleRowChild1} ${modalTranslations[this.language].sezzleRowChild2}</div>
+        </div>
+        <div class="sezzle-hiw-pie-bg1">
+          <div class="sezzle-payment-pie-de1"></div>
+          <div class="sezzle-row1 breakdown-row">
+            <p class="breakdown">25%<br /><span>${modalTranslations[this.language].today}</span></p>
+            <p class="breakdown">25%<br /><span>${modalTranslations[this.language].week} 2</span></p>
+            <p class="breakdown">25%<br /><span>${modalTranslations[this.language].week} 4</span></p>
+            <p class="breakdown">25%<br /><span>${modalTranslations[this.language].week} 6</span></p>
+          </div>
+        </div>
+        <div class="sezzle-features1">
+          <div class="single-feature1">
+            <div>${modalTranslations[this.language].singleFeatureInterest}</div>
+            <div class="sub-feature1">${modalTranslations[this.language].subFeatureInterest} </div>
+          </div>
+          <div class="single-feature1">
+            <div style="line-height: 1.2;">${modalTranslations[this.language].singleFeatureCredit} </div>
+            <div class="sub-feature1">${modalTranslations[this.language].subFeatureCredit}</div>
+          </div>
+          <div class="single-feature1">
+            <div>${modalTranslations[this.language].singleFeatureApproval}</div>
+            <div class="sub-feature1">${modalTranslations[this.language].subFeatureApproval}</div>
+          </div>
+        </div>
+        <div class="sezzle-row1">
+          <div class="desktop1">
+            <div class="just-select-sezzle">${modalTranslations[this.language].justSelectSezzle1} <span>Sezzle</span> ${modalTranslations[this.language].justSelectSezzle2}!</div>
+          </div>
+          <div class="mobile1">
+            <div class="just-select-sezzle-mobile1">
+              <div>${modalTranslations[this.language].justSelectSezzle1} Sezzle</div><div> ${modalTranslations[this.language].justSelectSezzle2}</div>
+            </div>
+          </div>
+        </div>
+        <div class="terms1">${modalTranslations[this.language].terms1}</div>
+      </div></div></div>`
+      }
 			if(this.isProductEligibleLT(this.amount)){
 				var currency = String.fromCharCode(this.currencySymbol(this.amount));
 				var priceString = this.amount.split(currency)[1];
