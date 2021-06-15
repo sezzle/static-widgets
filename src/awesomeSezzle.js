@@ -1213,6 +1213,12 @@ class AwesomeSezzle {
     sezzleModal.addEventListener('click', function (event) {
       event.stopPropagation();
     });
+    ////closes modal when escape key is hit
+    window.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+          this.document.querySelector(".close-sezzle-modal").style.display = 'none'
+        }
+      })
   }
 
   renderQPModal(){
@@ -1236,6 +1242,12 @@ class AwesomeSezzle {
     sezzleModal.addEventListener('click', function (event) {
       event.stopPropagation();
     });
+    ////closes modal when escape key is hit
+    window.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+          this.document.querySelector(".close-sezzle-modal").style.display = 'none'
+        }
+      })
   }
 
   renderAffirmModal(){
@@ -1259,6 +1271,12 @@ class AwesomeSezzle {
     sezzleModal.addEventListener('click', function (event) {
       event.stopPropagation();
     });
+    ////closes modal when escape key is hit
+    window.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+          this.document.querySelector(".close-sezzle-modal").style.display = 'none'
+        }
+      })
   }
 
   renderKlarnaModal(){
@@ -1282,6 +1300,12 @@ class AwesomeSezzle {
     sezzleModal.addEventListener('click', function (event) {
       event.stopPropagation();
     });
+    ////closes modal when escape key is hit
+    window.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+          this.document.querySelector(".close-sezzle-modal").style.display = 'none'
+        }
+      })
   }
 
   renderModalByfunction(){
