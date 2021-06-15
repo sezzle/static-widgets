@@ -350,9 +350,10 @@ class AwesomeSezzle {
             var infoIconNode = document.createElement('button');
             infoIconNode.role = 'button';
             infoIconNode.type = 'button';
-            infoIconNode.title = 'Learn More about Sezzle';
+            infoIconNode.ariaLabel = 'Learn More about Sezzle';
             infoIconNode.className = 'sezzle-info-icon sezzle-modal-open-link';
             infoIconNode.innerHTML = '&#9432;';
+            infoIconNode.ariaHasPopup='true';
             sezzleButtonText.appendChild(infoIconNode);
             break;
           case 'question-mark':
