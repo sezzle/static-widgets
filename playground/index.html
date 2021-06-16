@@ -18,7 +18,7 @@
     <form onsubmit="testing()">
         <h1>Test Sezzle SDK</h1>
 
-        <p id='price'><span class="currency">$</span><span class="amount">8,495</span></p>
+        <p id='price'><span class="currency">$</span><span class="amount">495</span></p>
 				<div id='sezzle-widget'></div>
         <!-- Desktop
         <div id='sezzle-widget-desktop'></div>
@@ -50,14 +50,15 @@ renderSezzle2.init();
       amount: document.querySelector('#price').querySelector('.currency').innerText + document.querySelector('#price').querySelector('.amount').innerText,
       // null or >0 other than 12 (default)
       fontSize: 14,
+      modalTheme:'grayscale',
 			// amount in cents
 			// null or >0 (default)
-			minPrice: 50000,
+		//	minPrice: 50000,
 			// amount in cents
-			maxPrice: 4000000,
-      minPriceLT: 50000,
+			//maxPrice: 4000000,
+      //minPriceLT: 50000,
       // percent amount as number
-			bestAPR: 9.99,
+			//bestAPR: 9.99,
       // null, string, or array of strings
       // renderElement: ['sezzle-widget-desktop','sezzle-widget-mobile'],
       // null, light, dark, grayscale, white, white-flat, black-flat
