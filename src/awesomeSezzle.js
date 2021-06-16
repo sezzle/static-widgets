@@ -59,7 +59,7 @@ class AwesomeSezzle {
     this.ltAltModalHTML = options.ltAltModalHTML || '';
     this.apModalHTML = options.apModalHTML || '';
     this.qpModalHTML = options.qpModalHTML || '';
-    this.modalversion = options.modalversion || 'color';
+    this.modalTheme = options.modalTheme || 'color';
     this.affirmModalHTML = options.affirmModalHTML || '';
     this.klarnaModalHTML = options.klarnaModalHTML || '';
     this.alignmentSwitchMinWidth = options.alignmentSwitchMinWidth || 760;
@@ -1121,7 +1121,7 @@ class AwesomeSezzle {
 				}
 			} else if (this.altModalHTML) {
         modalNode.innerHTML = this.altModalHTML;
-      } else if(this.modalversion==="grayscale")
+      } else if(this.modalTheme==="grayscale")
       {
         modalNode.innerHTML = `<div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal-grayscale" title=""> <div class="sezzle-modal-content"> <div class="sezzle-grayscalelogo" title="Sezzle logo"></div><button title="Close Sezzle Modal" class="close-sezzle-modal" tabindex="0" role="button"></button>
         <div class="sezzle-header">${modalTranslations[this.language].sezzleHeader}
