@@ -33,7 +33,7 @@ Once the widget is rendering, additional configurations can be added to the Awes
     fixedHeight: 0,
     logoSize: 1.0,
     logoStyle: {},
-    modalversion:'color',
+    modalTheme:'color',
     language: 'en',
     parseMode: 'default'
   })
