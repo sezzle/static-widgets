@@ -1113,7 +1113,7 @@ class AwesomeSezzle {
 							<div class="single-feature"> <div>${modalTranslations[this.language].singleFeatureCredit}</div></div>
             </div>
             <div class="sezzle-row">
-              <div class="desktop"> <div class="just-select-sezzle">${modalTranslations[this.language].justSelectSezzleLt1} <div class="sezzle-logo" title="Sezzle logo"></div> ${modalTranslations[this.language].justSelectSezzle2}!</div></div>
+              <div class="desktop"> <div class="just-select-sezzle">${modalTranslations[this.language].justSelectSezzleLt1} <div class="sezzle-logo" title="Sezzle logo${this.modalTheme==="grayscale" && "-grayscale"}"></div> ${modalTranslations[this.language].justSelectSezzle2}!</div></div>
               <div class="mobile"> <div class="just-select-sezzle-mobile"> <div>${modalTranslations[this.language].justSelectSezzleLt1} <div class="sezzle-logo" title="Sezzle logo"></div> </div><div>${modalTranslations[this.language].justSelectSezzle2}!</div></div></div>
             </div>
             <div class="terms">${modalTranslations[this.language].terms1} ${modalTranslations[this.language].terms2}</div>
