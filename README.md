@@ -66,20 +66,20 @@ Once the widget is rendering, additional configurations can be added to the Awes
 23. **`merchantLocale`** - This config is optional. It defaults to `North America`. Alternative values include `Europe` or the two-letter country code.
 
 ### <b>Please discuss with Sezzle point of contact before using the below config options:</b>
-22. **`widgetTemplate`** - This config is optional. It defaults to `or 4 interest-free payments of %%price%% with %%logo%% %%info%%`. Available templates include `%%price%%`, `%%logo%%`, `%%link%%`, `%%info%%`, `%%question-mark%%`, `%%line-break%%`, `%%afterpay-logo%%`, `%%afterpay-logo-grey%%`, `%%afterpay-info-icon%%`, `%%afterpay-link-icon%%`, `%%quadpay-logo%%`, `%%quadpay-logo-grey%%`, `%%quadpay-logo-white%%`, `%%quadpay-info-icon%%`, `%%affirm-logo%%`, `%%affirm-logo-grey%%`, `%%affirm-logo-white%%`, `%%affirm-info-icon%%`, `%%klarna-logo%%`, `%%klarna-logo-grey%%`, `%%klarna-logo-white%%`, `%%klarna-info-icon%%`.
-23. **`numberOfPayments`** - This config is optional. defaults to `4`.
-24. **`minPrice`** - This config is optional. It defaults to `0` - <small>in cents</small>.
-25. **`maxPrice`** - This config is optional. It defaults to `250000` - <small>in cents</small>.
-26. **`altLightboxHTML`** - This config is optional. It defaults to our classic BNPL modal.
-27. **`qpModalHTML`** -This config is optional.
-28. **`apModalHTML`** - This config is optional.
-29. **`apLink`** - This config is optional. It defaults to `https://www.afterpay.com/purchase-payment-agreement`.
-30. **`affirmModalHTML`** - This config is optional.
-31. **`klarnaModalHTML`** - This config is optional.
-32. **`minPriceLT`** - This config is optional. It defaults to `0` - <small>in cents</small>.
-33. **`bestAPR`** - This config is optional. It defaults to `0` - <small>in percent (ex: `4.5` = 4.5% APR)</small>.
-34. **`widgetTemplateLT`** - This config is optional. It defaults to `or monthly payments as low as %%price%% with %%logo%% %%info%%`. Available templates include `%%price%%`, `%%logo%%`, `%%link%%`, `%%info%%`, `%%question-mark%%`, `%%line-break%%`.
-35. **`ltAltModalHTML`** - This config is optional. It defaults to our long-term lending modal.
+24. **`widgetTemplate`** - This config is optional. It defaults to `or 4 interest-free payments of %%price%% with %%logo%% %%info%%`. Available templates include `%%price%%`, `%%logo%%`, `%%link%%`, `%%info%%`, `%%question-mark%%`, `%%line-break%%`, `%%afterpay-logo%%`, `%%afterpay-logo-grey%%`, `%%afterpay-info-icon%%`, `%%afterpay-link-icon%%`, `%%quadpay-logo%%`, `%%quadpay-logo-grey%%`, `%%quadpay-logo-white%%`, `%%quadpay-info-icon%%`, `%%affirm-logo%%`, `%%affirm-logo-grey%%`, `%%affirm-logo-white%%`, `%%affirm-info-icon%%`, `%%klarna-logo%%`, `%%klarna-logo-grey%%`, `%%klarna-logo-white%%`, `%%klarna-info-icon%%`.
+25. **`numberOfPayments`** - This config is optional. defaults to `4`.
+26. **`minPrice`** - This config is optional. It defaults to `0` - <small>in cents</small>.
+27. **`maxPrice`** - This config is optional. It defaults to `250000` - <small>in cents</small>.
+28. **`altLightboxHTML`** - This config is optional. It defaults to our classic BNPL modal.
+29. **`qpModalHTML`** -This config is optional.
+30. **`apModalHTML`** - This config is optional.
+31. **`apLink`** - This config is optional. It defaults to `https://www.afterpay.com/purchase-payment-agreement`.
+32. **`affirmModalHTML`** - This config is optional.
+33. **`klarnaModalHTML`** - This config is optional.
+34. **`minPriceLT`** - This config is optional. It defaults to `0` - <small>in cents</small>.
+35. **`bestAPR`** - This config is optional. It defaults to `0` - <small>in percent (ex: `4.5` = 4.5% APR)</small>.
+36. **`widgetTemplateLT`** - This config is optional. It defaults to `or monthly payments as low as %%price%% with %%logo%% %%info%%`. Available templates include `%%price%%`, `%%logo%%`, `%%link%%`, `%%info%%`, `%%question-mark%%`, `%%line-break%%`.
+37. **`ltAltModalHTML`** - This config is optional. It defaults to our long-term lending modal.
 
 ## Functions
 
