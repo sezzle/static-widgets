@@ -44,25 +44,26 @@ Once the widget is rendering, additional configurations can be added to the Awes
 1. **`amount`** - This config is required. Provide the product price variable as a template-literal,  Shopify.Liquid Example: `'{{ product.selected_or_first_available_variant.price | money }}'`
 2. **`renderElement`** - This config is optional. Provide the ID name or array of ID names that correspond to the widget placeholder elements. It defaults to `sezzle-widget`.
 3. **`theme`** - This config is optional. It defaults to `light`. Alternative values include `dark`, `grayscale`, `black-flat`, `white`, or `white-flat`.
-4. **`maxWidth`** - This config is optional. It defaults to `400`.
-5. **`marginTop`** - This config is optional. It defaults to `0`.
-6. **`marginBottom`** - This config is optional. It defaults to `0`.
-7. **`marginLeft`** - This config is optional. It defaults to `0`.
-8. **`marginRight`** - This config is optional. It defaults to `0`.
-9. **`alignment`** - This config is optional. It defaults to `left`. Alternative values include `center`, `right`, or `auto`.
-10. **`alignmentSwitchMinWidth`** - This config is optional. It defaults to `760`.
-11. **`alignmentSwitchType`** - This config is optional. Alternative values include `left`, `center`, or `right`.
-12. **`textColor`** - This config is optional. It defaults to `#111`. Alternative values include all colors supported by CSS.
-13. **`fontFamily`** - This config is optional. It defaults to `inherit`. Alternative values include all fonts supported by CSS.
-14. **`fontSize`** - This config is optional. It defaults to `12` <small>in pixel</small>.
-15. **`fontWeight`** - This config is optional. It defaults to `300`.
-16. **`widgetType`** - This config is optional. It defaults to `product-page`. Alternative values include `product-preview` or `cart`.
-17. **`fixedHeight`** - This config is optional. It defaults to `0`.
-18. **`logoSize`** - This config is optional. It defaults to `1.0`.
-19. **`logoStyle`** - This config is optional. It defaults to `{}`.
-20. **`language`** - This config is optional. It defaults to `en`. Language value may be given as a string or function. Supported options available are `en`, `fr`, `de`, or `es`.
-21. **`parseMode`** - This config is optional. It defaults to `default`. Alternative values include `comma`.
-22. **`merchantLocale`** - This config is optional. It defaults to `North America`. Alternative values include `Europe` or the two-letter country code.
+4. **`modalTheme`** - This config is optional. It defaults to `color`. Alternative values include `grayscale`
+5. **`maxWidth`** - This config is optional. It defaults to `400`.
+6. **`marginTop`** - This config is optional. It defaults to `0`.
+7. **`marginBottom`** - This config is optional. It defaults to `0`.
+8. **`marginLeft`** - This config is optional. It defaults to `0`.
+9. **`marginRight`** - This config is optional. It defaults to `0`.
+10. **`alignment`** - This config is optional. It defaults to `left`. Alternative values include `center`, `right`, or `auto`.
+11. **`alignmentSwitchMinWidth`** - This config is optional. It defaults to `760`.
+12. **`alignmentSwitchType`** - This config is optional. Alternative values include `left`, `center`, or `right`.
+13. **`textColor`** - This config is optional. It defaults to `#111`. Alternative values include all colors supported by CSS.
+14. **`fontFamily`** - This config is optional. It defaults to `inherit`. Alternative values include all fonts supported by CSS.
+15. **`fontSize`** - This config is optional. It defaults to `12` <small>in pixel</small>.
+16. **`fontWeight`** - This config is optional. It defaults to `300`.
+17. **`widgetType`** - This config is optional. It defaults to `product-page`. Alternative values include `product-preview` or `cart`.
+18. **`fixedHeight`** - This config is optional. It defaults to `0`.
+19. **`logoSize`** - This config is optional. It defaults to `1.0`.
+20. **`logoStyle`** - This config is optional. It defaults to `{}`.
+21. **`language`** - This config is optional. It defaults to `en`. Language value may be given as a string or function. Supported options available are `en`, `fr`, `de`, or `es`.
+22. **`parseMode`** - This config is optional. It defaults to `default`. Alternative values include `comma`.
+23. **`merchantLocale`** - This config is optional. It defaults to `North America`. Alternative values include `Europe` or the two-letter country code.
 
 ### <b>Please discuss with Sezzle point of contact before using the below config options:</b>
 22. **`widgetTemplate`** - This config is optional. It defaults to `or 4 interest-free payments of %%price%% with %%logo%% %%info%%`. Available templates include `%%price%%`, `%%logo%%`, `%%link%%`, `%%info%%`, `%%question-mark%%`, `%%line-break%%`, `%%afterpay-logo%%`, `%%afterpay-logo-grey%%`, `%%afterpay-info-icon%%`, `%%afterpay-link-icon%%`, `%%quadpay-logo%%`, `%%quadpay-logo-grey%%`, `%%quadpay-logo-white%%`, `%%quadpay-info-icon%%`, `%%affirm-logo%%`, `%%affirm-logo-grey%%`, `%%affirm-logo-white%%`, `%%affirm-info-icon%%`, `%%klarna-logo%%`, `%%klarna-logo-grey%%`, `%%klarna-logo-white%%`, `%%klarna-info-icon%%`.
@@ -79,7 +80,6 @@ Once the widget is rendering, additional configurations can be added to the Awes
 33. **`bestAPR`** - This config is optional. It defaults to `0` - <small>in percent (ex: `4.5` = 4.5% APR)</small>.
 34. **`widgetTemplateLT`** - This config is optional. It defaults to `or monthly payments as low as %%price%% with %%logo%% %%info%%`. Available templates include `%%price%%`, `%%logo%%`, `%%link%%`, `%%info%%`, `%%question-mark%%`, `%%line-break%%`.
 35. **`ltAltModalHTML`** - This config is optional. It defaults to our long-term lending modal.
-36. **`modalversion`** - This config is optional. It defaults to `color`. Alternative values include `grayscale`
 
 ## Functions
 
