@@ -1137,7 +1137,7 @@ class AwesomeSezzle {
 						<div class="mobile">${modalTranslations[this.language].sezzleRowChild1} ${modalTranslations[this.language].sezzleRowChild2}</div>
 					</div>
 					<div class="sezzle-hiw-pie-bg">
-						<div class="sezzle-payment-pie-de></div>
+						<div class="sezzle-payment-pie-de"></div>
 						<div tabIndex="1" class="sezzle-row breakdown-row">
 							<p tabIndex="1" class="breakdown">25%<br /><span>${modalTranslations[this.language].today}</span></p>
 							<p tabIndex="1" class="breakdown">25%<br /><span>${modalTranslations[this.language].week} 2</span></p>
