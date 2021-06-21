@@ -2,6 +2,7 @@ import HelperClass from './awesomeHelper'
 import '../css/global.scss';
 
 
+
 class AwesomeSezzle {
 
   constructor(options){
@@ -58,6 +59,7 @@ class AwesomeSezzle {
     this.ltAltModalHTML = options.ltAltModalHTML || '';
     this.apModalHTML = options.apModalHTML || '';
     this.qpModalHTML = options.qpModalHTML || '';
+    this.modalTheme = options.modalTheme || 'color';
     this.affirmModalHTML = options.affirmModalHTML || '';
     this.klarnaModalHTML = options.klarnaModalHTML || '';
     this.alignmentSwitchMinWidth = options.alignmentSwitchMinWidth || 760;
@@ -819,7 +821,7 @@ class AwesomeSezzle {
       var modalNode = document.createElement('div');
       modalNode.className = 'sezzle-checkout-modal-lightbox close-sezzle-modal';
       modalNode.style.display = 'none';
-      modalNode.tabindex='0';
+      modalNode.tabindex=0;
       modalNode.role = 'dialog';
       modalNode.ariaModal= 'true';
       modalNode.ariaLabel= 'Sezzle Information';
@@ -943,8 +945,8 @@ class AwesomeSezzle {
 						max-width: 436px;
 					}
 				</style>
-				<div class="sezzle-checkout-modal-hidden">
-					<div class="sezzle-modal">
+				<div tabIndex="0" class="sezzle-checkout-modal-hidden">
+					<div tabIndex="0" class="sezzle-modal"">
 						<div class="sezzle-modal-content">
 							<div class="sezzle-logo" title="Sezzle logo"></div>
 							<button title="Close Sezzle Modal" class="close-sezzle-modal" tabindex="0" role="button"></button>
@@ -973,7 +975,7 @@ class AwesomeSezzle {
 									<div class="plan-details"><div class="adjusted-total">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.calculateAdjusted(priceString, this.parseMode, this.bestAPR)}</span></div>	<div class="sample-apr">${modalTranslations[this.language].sampleApr} <span>${this.bestAPR}</span>%</div></div>
 								</div>
 							</div>
-							<div class="sezzle-row">
+							<div tabIndex="1" class="sezzle-row">
 								<div class="desktop"> <div class="just-select-sezzle">${modalTranslations[this.language].justSelectSezzleLt1} <div class="sezzle-logo" title="Sezzle logo"></div> ${modalTranslations[this.language].justSelectSezzle2}</div></div>
 								<div class="mobile"> <div class="just-select-sezzle-mobile"> <div>${modalTranslations[this.language].justSelectSezzleLt1} <div class="sezzle-logo" title="Sezzle logo"></div> </div><div>${modalTranslations[this.language].justSelectSezzle2}</div></div></div>
 							</div>
@@ -1089,7 +1091,7 @@ class AwesomeSezzle {
 							max-width: 264px;
 						}
 					</style>
-          <div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal"> <div class="sezzle-modal-content"> <div class="sezzle-logo" title="Sezzle logo"></div><button title="Close Sezzle Modal" class="close-sezzle-modal" tabindex="0" role="button"></button>
+          <div tabIndex="0" class="sezzle-checkout-modal-hidden"> <div tabIndex="0" class="sezzle-modal> <div class="sezzle-modal-content"> <div class="sezzle-logo" title="Sezzle logo"></div><button title="Close Sezzle Modal" class="close-sezzle-modal" role="button"></button>
             <div tabIndex="1" class="sezzle-header" >${modalTranslations[this.language].sezzleHeader}
               <span class="header-desktop">${modalTranslations[this.language].sezzleHeaderChild}</span>
               <div class="header-mobile">${modalTranslations[this.language].sezzleHeaderChild}</div>
@@ -1100,17 +1102,17 @@ class AwesomeSezzle {
             </div>
             <div tabIndex="1" class="sezzle-hiw-pie-bg">
 							<div class="sezzle-payment-pie-lt" title="25% today, 25% biweekly for the next 6 weeks" style="background-image: none;">${HelperClass.svgImages().ltPaymentPie}</div>
-							<div class="sezzle-row breakdown-row">
-								<p class="breakdown" style="text-transform: capitalize;">25%<br /><span>${modalTranslations[this.language].today}</span></p>
-								<p class="breakdown">25%<br /><span>2 ${modalTranslations[this.language].weeks}</span></p>
-								<p class="breakdown">25%<br /><span>4 ${modalTranslations[this.language].weeks}</span></p>
-								<p class="breakdown">25%<br /><span>6 ${modalTranslations[this.language].weeks}</span></p>
+							<div tabIndex="1" class="sezzle-row breakdown-row">
+								<p tabIndex="1" class="breakdown" style="text-transform: capitalize;">25%<br /><span>${modalTranslations[this.language].today}</span></p>
+								<p tabIndex="1" class="breakdown">25%<br /><span>2 ${modalTranslations[this.language].weeks}</span></p>
+								<p tabIndex="1" class="breakdown">25%<br /><span>4 ${modalTranslations[this.language].weeks}</span></p>
+								<p tabIndex="1" class="breakdown">25%<br /><span>6 ${modalTranslations[this.language].weeks}</span></p>
 							</div>
             </div>
             <div tabIndex="1" class="sezzle-features">
-							<div class="single-feature"> <div>${modalTranslations[this.language].singleFeatureApproval}</div></div>
-							<div class="single-feature"> <div>${modalTranslations[this.language].singleFeatureInterest}</div></div>
-							<div class="single-feature"> <div>${modalTranslations[this.language].singleFeatureCredit}</div></div>
+							<div tabIndex="1" class="single-feature"> <div>${modalTranslations[this.language].singleFeatureApproval}</div></div>
+							<div tabIndex="1" class="single-feature"> <div>${modalTranslations[this.language].singleFeatureInterest}</div></div>
+							<div tabIndex="1" class="single-feature"> <div>${modalTranslations[this.language].singleFeatureCredit}</div></div>
             </div>
             <div class="sezzle-row">
               <div class="desktop"> <div class="just-select-sezzle">${modalTranslations[this.language].justSelectSezzleLt1} <div class="sezzle-logo" title="Sezzle logo"></div> ${modalTranslations[this.language].justSelectSezzle2}!</div></div>
@@ -1121,47 +1123,48 @@ class AwesomeSezzle {
 				}
 			} else if (this.altModalHTML) {
         modalNode.innerHTML = this.altModalHTML;
-      } else {
-					modalNode.innerHTML = `<div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal" title=""> <div class="sezzle-modal-content"> <div class="sezzle-logo" title="Sezzle logo"></div><button title="Close Sezzle Modal" class="close-sezzle-modal" tabindex="0" role="button"></button>
-					<div class="sezzle-header">${modalTranslations[this.language].sezzleHeader}
+      }  
+      else {
+					modalNode.innerHTML = `<div tabIndex="0" class="sezzle-checkout-modal-hidden"> <div tabIndex="0" class="sezzle-modal title=""> <div class="sezzle-modal-content"> <div class="sezzle-logo title="Sezzle logo"></div><button title="Close Sezzle Modal" class="close-sezzle-modal" role="button"></button>
+					<div tabIndex="1" class="sezzle-header">${modalTranslations[this.language].sezzleHeader}
 						<span class="header-desktop">${modalTranslations[this.language].sezzleHeaderChild}</span>
 						<div class="header-mobile">${modalTranslations[this.language].sezzleHeaderChild}</div>
 					</div>
-					<div class="sezzle-row">
+					<div tabIndex="1" class="sezzle-row">
 						<div class="desktop">${modalTranslations[this.language].sezzleRowChild1}
 							<div>${modalTranslations[this.language].sezzleRowChild2}</div>
 						</div>
 						<div class="mobile">${modalTranslations[this.language].sezzleRowChild1} ${modalTranslations[this.language].sezzleRowChild2}</div>
 					</div>
 					<div class="sezzle-hiw-pie-bg">
-						<div class="sezzle-payment-pie-de"></div>
-						<div class="sezzle-row breakdown-row">
-							<p class="breakdown">25%<br /><span>${modalTranslations[this.language].today}</span></p>
-							<p class="breakdown">25%<br /><span>${modalTranslations[this.language].week} 2</span></p>
-							<p class="breakdown">25%<br /><span>${modalTranslations[this.language].week} 4</span></p>
-							<p class="breakdown">25%<br /><span>${modalTranslations[this.language].week} 6</span></p>
+						<div class="sezzle-payment-pie-de></div>
+						<div tabIndex="1" class="sezzle-row breakdown-row">
+							<p tabIndex="1" class="breakdown">25%<br /><span>${modalTranslations[this.language].today}</span></p>
+							<p tabIndex="1" class="breakdown">25%<br /><span>${modalTranslations[this.language].week} 2</span></p>
+							<p tabIndex="1" class="breakdown">25%<br /><span>${modalTranslations[this.language].week} 4</span></p>
+							<p tabIndex="1" class="breakdown">25%<br /><span>${modalTranslations[this.language].week} 6</span></p>
 						</div>
 					</div>
 					<div class="sezzle-features">
-						<div class="single-feature">
+						<div tabIndex="1" class="single-feature">
 							<div>${modalTranslations[this.language].singleFeatureInterest}</div>
 							<div class="sub-feature">${modalTranslations[this.language].subFeatureInterest} </div>
 						</div>
-						<div class="single-feature">
+						<div tabIndex="1" class="single-feature">
 							<div style="line-height: 1.2;">${modalTranslations[this.language].singleFeatureCredit} </div>
 							<div class="sub-feature">${modalTranslations[this.language].subFeatureCredit}</div>
 						</div>
-						<div class="single-feature">
+						<div tabIndex="1" class="single-feature">
 							<div>${modalTranslations[this.language].singleFeatureApproval}</div>
 							<div class="sub-feature">${modalTranslations[this.language].subFeatureApproval}</div>
 						</div>
 					</div>
-					<div class="sezzle-row">
+					<div tabIndex="1" class="sezzle-row">
 						<div class="desktop">
-							<div class="just-select-sezzle">${modalTranslations[this.language].justSelectSezzle1} <span>Sezzle</span> ${modalTranslations[this.language].justSelectSezzle2}!</div>
+							<div class="just-select-sezzle${modalTranslations[this.language].justSelectSezzle1} <span>Sezzle</span> ${modalTranslations[this.language].justSelectSezzle2}!</div>
 						</div>
 						<div class="mobile">
-							<div class="just-select-sezzle-mobile">
+							<div class="just-select-sezzle-mobile>
 								<div>${modalTranslations[this.language].justSelectSezzle1} Sezzle</div><div> ${modalTranslations[this.language].justSelectSezzle2}</div>
 							</div>
 						</div>
@@ -1199,7 +1202,7 @@ class AwesomeSezzle {
     modalNode.className = 'sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-ap-modal';
     modalNode.style = 'position: center';
     modalNode.style.display = 'none';
-    modalNode.tabindex='0';
+    modalNode.tabindex=0;
     modalNode.role = 'dialog';
     modalNode.innerHTML = this.apModalHTML;
     document.getElementsByTagName('html')[0].appendChild(modalNode);
@@ -1257,7 +1260,7 @@ class AwesomeSezzle {
     modalNode.className = 'sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-affirm-modal';
     modalNode.style = 'position: center';
     modalNode.style.display = 'none';
-    modalNode.tabindex='0';
+    modalNode.tabindex=0;
     modalNode.role = 'dialog';
     modalNode.innerHTML = this.affirmModalHTML;
     document.getElementsByTagName('html')[0].appendChild(modalNode);
@@ -1286,7 +1289,7 @@ class AwesomeSezzle {
     modalNode.className = 'sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-klarna-modal';
     modalNode.style = 'position: center';
     modalNode.style.display = 'none';
-    modalNode.tabindex='0';
+    modalNode.tabindex=0;
     modalNode.role = 'dialog';
     modalNode.innerHTML = this.klarnaModalHTML;
     document.getElementsByTagName('html')[0].appendChild(modalNode);
