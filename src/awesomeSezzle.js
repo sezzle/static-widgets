@@ -682,6 +682,16 @@ class AwesomeSezzle {
 		return this.addDelimiters((priceString * ( 1+(APR/100) )).toFixed(2), parseMode)
 	}
 
+	escapeModal (event) {
+		console.log(event.key);
+		if(event.key === 'Escape') {
+			let modals = document.getElementsByClassName('close-sezzle-modal');
+			for(let i = 0; i < modals.length; i++) {
+				modals[i].style.display = 'none';
+			}
+		}
+	}
+
   renderModal(){
 		const modalTranslations = {
 			en: {
@@ -1123,7 +1133,7 @@ class AwesomeSezzle {
 				}
 			} else if (this.altModalHTML) {
         modalNode.innerHTML = this.altModalHTML;
-      }  
+      }
       else {
 					modalNode.innerHTML = `<div tabIndex="0" class="sezzle-checkout-modal-hidden"> <div tabIndex="0" class="sezzle-modal title=""> <div class="sezzle-modal-content"> <div class="sezzle-logo title="Sezzle logo"></div><button title="Close Sezzle Modal" class="close-sezzle-modal" role="button"></button>
 					<div tabIndex="1" class="sezzle-header">${modalTranslations[this.language].sezzleHeader}
@@ -1190,11 +1200,7 @@ class AwesomeSezzle {
       event.stopPropagation();
     });
     ////closes modal when escape key is hit
-    window.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape') {
-          this.document.querySelector(".close-sezzle-modal").style.display = 'none'
-        }
-      })
+		window.addEventListener('keydown', this.escapeModal);
     }
 
   renderAPModal(){
@@ -1218,12 +1224,6 @@ class AwesomeSezzle {
     sezzleModal.addEventListener('click', function (event) {
       event.stopPropagation();
     });
-    ////closes modal when escape key is hit
-    window.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape') {
-          this.document.querySelector(".close-sezzle-modal").style.display = 'none'
-        }
-      })
   }
 
   renderQPModal(){
@@ -1247,12 +1247,6 @@ class AwesomeSezzle {
     sezzleModal.addEventListener('click', function (event) {
       event.stopPropagation();
     });
-    ////closes modal when escape key is hit
-    window.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape') {
-          this.document.querySelector(".close-sezzle-modal").style.display = 'none'
-        }
-      })
   }
 
   renderAffirmModal(){
@@ -1276,12 +1270,6 @@ class AwesomeSezzle {
     sezzleModal.addEventListener('click', function (event) {
       event.stopPropagation();
     });
-    ////closes modal when escape key is hit
-    window.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape') {
-          this.document.querySelector(".close-sezzle-modal").style.display = 'none'
-        }
-      })
   }
 
   renderKlarnaModal(){
@@ -1305,12 +1293,6 @@ class AwesomeSezzle {
     sezzleModal.addEventListener('click', function (event) {
       event.stopPropagation();
     });
-    ////closes modal when escape key is hit
-    window.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape') {
-          this.document.querySelector(".close-sezzle-modal").style.display = 'none'
-        }
-      })
   }
 
   renderModalByfunction(){
