@@ -525,8 +525,11 @@ height: 100%;
         opacity: 1;
     }
     &:focus {
-        opacity: 0.5;
+        opacity: 0.8;
     }
+	&:focus-visible {
+		outline: -webkit-focus-ring-color auto 1px;
+	}
 
     &:before, &:after {
         position: absolute;
@@ -548,7 +551,10 @@ height: 100%;
 
     // always show x for mobile
     @media screen and (max-width: $breakpoint-small) {
-        opacity: 1;
+        opacity: 0.8;
+		&:focus {
+			opacity: 1;
+		}
     }
 }
 }
