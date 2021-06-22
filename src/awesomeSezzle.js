@@ -1135,7 +1135,7 @@ class AwesomeSezzle {
         modalNode.innerHTML = this.altModalHTML;
       }
       else {
-					modalNode.innerHTML = `<div tabIndex="0" class="sezzle-checkout-modal-hidden"> <div tabIndex="0" class="sezzle-modal title=""> <div class="sezzle-modal-content"> <div class="sezzle-logo title="Sezzle logo"></div><button title="Close Sezzle Modal" class="close-sezzle-modal" role="button"></button>
+					modalNode.innerHTML = `<div tabIndex="0" class="sezzle-checkout-modal-hidden"> <div tabIndex="0" class="sezzle-modal"${this.modalTheme==="grayscale" && "-grayscale"} title=""> <div class="sezzle-modal-content"> <div class="sezzle-logo"${this.modalTheme==="grayscale" && "-grayscale"} title="Sezzle logo"></div><button title="Close Sezzle Modal" class="close-sezzle-modal" role="button"></button>
 					<div tabIndex="1" class="sezzle-header">${modalTranslations[this.language].sezzleHeader}
 						<span class="header-desktop">${modalTranslations[this.language].sezzleHeaderChild}</span>
 						<div class="header-mobile">${modalTranslations[this.language].sezzleHeaderChild}</div>
@@ -1147,7 +1147,7 @@ class AwesomeSezzle {
 						<div class="mobile">${modalTranslations[this.language].sezzleRowChild1} ${modalTranslations[this.language].sezzleRowChild2}</div>
 					</div>
 					<div class="sezzle-hiw-pie-bg">
-						<div class="sezzle-payment-pie-de"></div>
+						<div class="sezzle-payment-pie-de"${this.modalTheme==="grayscale" && "-grayscale"}></div>
 						<div tabIndex="1" class="sezzle-row breakdown-row">
 							<p tabIndex="1" class="breakdown">25%<br /><span>${modalTranslations[this.language].today}</span></p>
 							<p tabIndex="1" class="breakdown">25%<br /><span>${modalTranslations[this.language].week} 2</span></p>
@@ -1171,10 +1171,10 @@ class AwesomeSezzle {
 					</div>
 					<div tabIndex="1" class="sezzle-row">
 						<div class="desktop">
-							<div class="just-select-sezzle${modalTranslations[this.language].justSelectSezzle1} <span>Sezzle</span> ${modalTranslations[this.language].justSelectSezzle2}!</div>
+							<div class="just-select-sezzle"${this.modalTheme==="grayscale" && "-grayscale"}>${modalTranslations[this.language].justSelectSezzle1} <span>Sezzle</span> ${modalTranslations[this.language].justSelectSezzle2}!</div>
 						</div>
 						<div class="mobile">
-							<div class="just-select-sezzle-mobile>
+							<div class="just-select-sezzle-mobile"${this.modalTheme==="grayscale" && "-grayscale"}>
 								<div>${modalTranslations[this.language].justSelectSezzle1} Sezzle</div><div> ${modalTranslations[this.language].justSelectSezzle2}</div>
 							</div>
 						</div>
