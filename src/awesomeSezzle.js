@@ -970,7 +970,7 @@ class AwesomeSezzle {
 				</style>
 				<div class="sezzle-checkout-modal-hidden">
 					<div aria-label="Sezzle Modal" class="sezzle-modal">
-						<div class="sezzle-modal-content">
+						<div class="sezzle-modal-content" tabIndex="0">
 							<div class="sezzle-logo" title="Sezzle logo"></div>
 							<button aria-label="Close Sezzle Modal" class="close-sezzle-modal" role="button"></button>
 							<div tabIndex="0" class="sezzle-header">${modalTranslations[this.language].sezzleHeaderLt}
@@ -1114,7 +1114,7 @@ class AwesomeSezzle {
 							max-width: 264px;
 						}
 					</style>
-          <div class="sezzle-checkout-modal-hidden"> <div aria-label="Sezzle Modal" class="sezzle-modal"> <div class="sezzle-modal-content"> <div class="sezzle-logo" title="Sezzle logo"></div><button aria-label="Close Sezzle Modal" class="close-sezzle-modal" role="button"></button>
+          <div class="sezzle-checkout-modal-hidden"> <div aria-label="Sezzle Modal" class="sezzle-modal"> <div class="sezzle-modal-content" tabIndex="0"> <div class="sezzle-logo" title="Sezzle logo"></div><button aria-label="Close Sezzle Modal" class="close-sezzle-modal" role="button"></button>
             <div tabIndex="0" class="sezzle-header" >${modalTranslations[this.language].sezzleHeader}
               <span class="header-desktop">${modalTranslations[this.language].sezzleHeaderChild}</span>
               <div class="header-mobile">${modalTranslations[this.language].sezzleHeaderChild}</div>
@@ -1148,7 +1148,7 @@ class AwesomeSezzle {
         modalNode.innerHTML = this.altModalHTML;
       }
       else {
-					modalNode.innerHTML = `<div class="sezzle-checkout-modal-hidden"> <div aria-label="Sezzle Modal" class="sezzle-modal sezzle-modal${this.modalTheme==="grayscale" ? "-grayscale" : "-color"}"> <div class="sezzle-modal-content"> <div class="sezzle-logo${this.modalTheme==="grayscale" ? "-grayscale" : ""}" title="Sezzle logo"></div><button tabIndex="0" aria-label="Close Sezzle Modal" class="close-sezzle-modal" role="button"></button>
+					modalNode.innerHTML = `<div class="sezzle-checkout-modal-hidden"> <div aria-label="Sezzle Modal" class="sezzle-modal sezzle-modal${this.modalTheme==="grayscale" ? "-grayscale" : "-color"}"> <div class="sezzle-modal-content" tabIndex="0"> <div class="sezzle-logo${this.modalTheme==="grayscale" ? "-grayscale" : ""}" title="Sezzle logo"></div><button tabIndex="0" aria-label="Close Sezzle Modal" class="close-sezzle-modal" role="button"></button>
 					<div tabIndex="0" class="sezzle-header">${modalTranslations[this.language].sezzleHeader}
 						<span class="header-desktop">${modalTranslations[this.language].sezzleHeaderChild}</span>
 						<div class="header-mobile">${modalTranslations[this.language].sezzleHeaderChild}</div>
