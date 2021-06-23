@@ -1306,7 +1306,7 @@ class AwesomeSezzle {
     var modalNode = document.getElementsByClassName('sezzle-checkout-modal-lightbox')[0];
     modalNode.style.display = 'block';
     document.body.ariaHidden = true;
-    modalNode.getElementsByClassName('sezzle-modal')[0].className = `sezzle-modal sezzle-modal-${this.modalTheme === "grayscale" ? "grayscale" : ""}`;
+    modalNode.getElementsByClassName('sezzle-modal')[0].className = `sezzle-modal sezzle-modal${this.modalTheme === "-grayscale" ? "grayscale" : ""}`;
   }
 
   addClickEventForModal(sezzleElement){
@@ -1318,7 +1318,7 @@ class AwesomeSezzle {
           modalNode.style.display = 'block';
 				modalNode.getElementsByClassName('close-sezzle-modal')[0].focus();
           document.body.ariaHidden = true;
-          modalNode.getElementsByClassName('sezzle-modal')[0].className = `sezzle-modal sezzle-modal-${this.modalTheme === "grayscale" ? "grayscale" : ""}`;
+          modalNode.getElementsByClassName('sezzle-modal')[0].className = `sezzle-modal sezzle-modal${this.modalTheme === "-grayscale" ? "grayscale" : ""}`;
         }
       }.bind(this));
     }.bind(this));
