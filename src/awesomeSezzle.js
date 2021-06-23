@@ -1134,7 +1134,7 @@ class AwesomeSezzle {
         modalNode.innerHTML = this.altModalHTML;
       }
       else {
-					modalNode.innerHTML = `<div class="sezzle-checkout-modal-hidden"> <div tabIndex="0" aria-label="Sezzle Modal" class="sezzle-modal sezzle-modal${this.modalTheme==="grayscale" ? "-grayscale" : "color"}"> <div class="sezzle-modal-content"> <div class="sezzle-logo${this.modalTheme==="grayscale" ? "-grayscale" : ""}" title="Sezzle logo"></div><button tabIndex="0" aria-label="Close Sezzle Modal" class="close-sezzle-modal" role="button"></button>
+					modalNode.innerHTML = `<div class="sezzle-checkout-modal-hidden"> <div tabIndex="0" aria-label="Sezzle Modal" class="sezzle-modal sezzle-modal${this.modalTheme==="grayscale" ? "-grayscale" : "-color"}"> <div class="sezzle-modal-content"> <div class="sezzle-logo${this.modalTheme==="grayscale" ? "-grayscale" : ""}" title="Sezzle logo"></div><button tabIndex="0" aria-label="Close Sezzle Modal" class="close-sezzle-modal" role="button"></button>
 					<div tabIndex="0" class="sezzle-header">${modalTranslations[this.language].sezzleHeader}
 						<span class="header-desktop">${modalTranslations[this.language].sezzleHeaderChild}</span>
 						<div class="header-mobile">${modalTranslations[this.language].sezzleHeaderChild}</div>
@@ -1189,7 +1189,7 @@ class AwesomeSezzle {
       el.addEventListener('click', function () {
         modalNode.style.display = 'none';
         document.body.ariaHidden = false;
-        modalNode.getElementsByClassName('sezzle-modal')[0].className = `sezzle-modal sezzle-modal${this.modalTheme === "grayscale" ? "grayscale" : "color"} sezzle-checkout-modal-hidden`;
+        modalNode.getElementsByClassName('sezzle-modal')[0].className = `sezzle-modal sezzle-modal${this.modalTheme === "grayscale" ? "-grayscale" : "-color"} sezzle-checkout-modal-hidden`;
         document.querySelector('.sezzle-checkout-button-wrapper').getElementsByTagName('button')[0].focus();
       });
     });
@@ -1306,7 +1306,7 @@ class AwesomeSezzle {
     var modalNode = document.getElementsByClassName('sezzle-checkout-modal-lightbox')[0];
     modalNode.style.display = 'block';
     document.body.ariaHidden = true;
-    modalNode.getElementsByClassName('sezzle-modal')[0].className = `sezzle-modal sezzle-modal${this.modalTheme === "-grayscale" ? "grayscale" : ""}`;
+    modalNode.getElementsByClassName('sezzle-modal')[0].className = `sezzle-modal sezzle-modal${this.modalTheme === "grayscale" ? "-grayscale" : "-color"}`;
   }
 
   addClickEventForModal(sezzleElement){
@@ -1318,7 +1318,7 @@ class AwesomeSezzle {
           modalNode.style.display = 'block';
 				modalNode.getElementsByClassName('close-sezzle-modal')[0].focus();
           document.body.ariaHidden = true;
-          modalNode.getElementsByClassName('sezzle-modal')[0].className = `sezzle-modal sezzle-modal${this.modalTheme === "-grayscale" ? "grayscale" : ""}`;
+          modalNode.getElementsByClassName('sezzle-modal')[0].className = `sezzle-modal sezzle-modal${this.modalTheme === "grayscale" ? "-grayscale" : "-color"}`;
         }
       }.bind(this));
     }.bind(this));
