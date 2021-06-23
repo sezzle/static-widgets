@@ -684,7 +684,7 @@ class AwesomeSezzle {
 
 	escapeModal (event) {
 		if(event.key === 'Escape') {
-			let modals = document.getElementsByClassName('close-sezzle-modal');
+			let modals = document.getElementsByClassName('sezzle-checkout-modal-lightbox');
 			for(let i = 0; i < modals.length; i++) {
 				modals[i].style.display = 'none';
 			}
