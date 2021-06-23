@@ -682,13 +682,27 @@ class AwesomeSezzle {
 		return this.addDelimiters((priceString * ( 1+(APR/100) )).toFixed(2), parseMode)
 	}
 
-	escapeModal (event) {
-		if(event.key === 'Escape') {
-			let modals = document.getElementsByClassName('sezzle-checkout-modal-lightbox');
-			for(let i = 0; i < modals.length; i++) {
-				modals[i].style.display = 'none';
+	modalKeyboardNavigation (){
+		let focusableElements = document.querySelector('.sezzle-checkout-modal-lightbox').querySelectorAll('[tabIndex="0"]');
+		let firstFocusableElement = focusableElements[0];
+		let lastFocusableElement = focusableElements[focusableElements.length - 1];
+		document.addEventListener('keydown', function(event){
+			if(event.key === 'Tab'){
+				if(event.shiftKey && document.activeElement === firstFocusableElement){
+					lastFocusableElement.focus();
+					e.preventDefault()
+				} else if(document.activeElement === lastFocusableElement){
+					firstFocusableElement.focus();
+					e.preventDefault();
+				}
+			} else if(event.key === 'Escape') {
+				let modals = document.getElementsByClassName('sezzle-checkout-modal-lightbox');
+				for(let i = 0; i < modals.length; i++) {
+					modals[i].style.display = 'none';
+				}
+				document.querySelector('.sezzle-checkout-button-wrapper').getElementsByTagName('button')[0].focus();
 			}
-		}
+		})
 	}
 
   renderModal(){
@@ -955,10 +969,10 @@ class AwesomeSezzle {
 					}
 				</style>
 				<div class="sezzle-checkout-modal-hidden">
-					<div tabIndex="0" aria-label="Sezzle Modal" class="sezzle-modal">
+					<div aria-label="Sezzle Modal" class="sezzle-modal">
 						<div class="sezzle-modal-content">
 							<div class="sezzle-logo" title="Sezzle logo"></div>
-							<button aria-label="Close Sezzle Modal" class="close-sezzle-modal" tabIndex="0" role="button"></button>
+							<button aria-label="Close Sezzle Modal" class="close-sezzle-modal" role="button"></button>
 							<div tabIndex="0" class="sezzle-header">${modalTranslations[this.language].sezzleHeaderLt}
 								<span class="header-desktop">${modalTranslations[this.language].sezzleHeaderLtChild}</span>
 								<div class="header-mobile">${modalTranslations[this.language].sezzleHeaderLtChild}</div>
@@ -1100,7 +1114,7 @@ class AwesomeSezzle {
 							max-width: 264px;
 						}
 					</style>
-          <div class="sezzle-checkout-modal-hidden"> <div aria-label="Sezzle Modal" class="sezzle-modal"> <div class="sezzle-modal-content"> <div class="sezzle-logo" title="Sezzle logo"></div><button tabIndex="0" aria-label="Close Sezzle Modal" class="close-sezzle-modal" role="button"></button>
+          <div class="sezzle-checkout-modal-hidden"> <div aria-label="Sezzle Modal" class="sezzle-modal"> <div class="sezzle-modal-content"> <div class="sezzle-logo" title="Sezzle logo"></div><button aria-label="Close Sezzle Modal" class="close-sezzle-modal" role="button"></button>
             <div tabIndex="0" class="sezzle-header" >${modalTranslations[this.language].sezzleHeader}
               <span class="header-desktop">${modalTranslations[this.language].sezzleHeaderChild}</span>
               <div class="header-mobile">${modalTranslations[this.language].sezzleHeaderChild}</div>
@@ -1134,7 +1148,7 @@ class AwesomeSezzle {
         modalNode.innerHTML = this.altModalHTML;
       }
       else {
-					modalNode.innerHTML = `<div class="sezzle-checkout-modal-hidden"> <div tabIndex="0" aria-label="Sezzle Modal" class="sezzle-modal sezzle-modal${this.modalTheme==="grayscale" ? "-grayscale" : "-color"}"> <div class="sezzle-modal-content"> <div class="sezzle-logo${this.modalTheme==="grayscale" ? "-grayscale" : ""}" title="Sezzle logo"></div><button tabIndex="0" aria-label="Close Sezzle Modal" class="close-sezzle-modal" role="button"></button>
+					modalNode.innerHTML = `<div class="sezzle-checkout-modal-hidden"> <div aria-label="Sezzle Modal" class="sezzle-modal sezzle-modal${this.modalTheme==="grayscale" ? "-grayscale" : "-color"}"> <div class="sezzle-modal-content"> <div class="sezzle-logo${this.modalTheme==="grayscale" ? "-grayscale" : ""}" title="Sezzle logo"></div><button tabIndex="0" aria-label="Close Sezzle Modal" class="close-sezzle-modal" role="button"></button>
 					<div tabIndex="0" class="sezzle-header">${modalTranslations[this.language].sezzleHeader}
 						<span class="header-desktop">${modalTranslations[this.language].sezzleHeaderChild}</span>
 						<div class="header-mobile">${modalTranslations[this.language].sezzleHeaderChild}</div>
@@ -1199,7 +1213,7 @@ class AwesomeSezzle {
       event.stopPropagation();
     });
 		////closes modal when escape key is hit
-		window.addEventListener('keydown', this.escapeModal);
+		window.addEventListener('keydown', this.modalKeyboardNavigation);
   }
 
   renderAPModal(){
