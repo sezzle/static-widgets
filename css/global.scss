@@ -185,7 +185,6 @@ height: 100%;
     border-radius: 10px;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 844 688' preserveAspectRatio='none slice' %3E%3Cdefs/%3E%3Cdefs%3E%3Crect id='a' width='844' height='688' x='0' y='0' rx='10'/%3E%3C/defs%3E%3Cmask id='b' fill='%23fff'%3E%3Cuse xlink:href='%23a'/%3E%3C/mask%3E%3Cpath fill='%23FCD7B6' d='M0 362L138.527344-45v407z' mask='url(%23b)' transform='rotate(-180 69.263672 158.5)'/%3E%3Ccircle cx='10.5' cy='71.5' r='105.5' fill='%23F08570' mask='url(%23b)'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 844 688' preserveAspectRatio='none slice' %3E%3Cdefs/%3E%3Cdefs%3E%3ClinearGradient id='c' x1='50%25' x2='50%25' y1='0%25' y2='98.5140414%25'%3E%3Cstop offset='0%25' stop-color='%238333D4' stop-opacity='.49953562'/%3E%3Cstop offset='100%25' stop-color='%23CE5DCB' stop-opacity='.11027644'/%3E%3C/linearGradient%3E%3Crect id='a' width='844' height='688' x='0' y='0' rx='10'/%3E%3C/defs%3E%3Cmask id='b' fill='%23fff'%3E%3Cuse xlink:href='%23a'/%3E%3C/mask%3E%3Cpath fill='%23FCD7B6' d='M705.472656 734L844 327v407z' mask='url(%23b)'/%3E%3Ccircle cx='808.5' cy='581.5' r='95.5' fill='url(%23c)' mask='url(%23b)'/%3E%3C/svg%3E");
     background-repeat: no-repeat, no-repeat;
     background-position: top left -15px, bottom right -15px;
 
@@ -207,7 +206,6 @@ height: 100%;
 
     @media screen and (max-width: $breakpoint-mobile){
         width: 86%;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 302 721'%3E%3Cdefs/%3E%3Cdefs%3E%3Crect id='a' width='302' height='721' x='0' y='0' rx='10'/%3E%3C/defs%3E%3Cmask id='b' fill='%23fff'%3E%3Cuse xlink:href='%23a'/%3E%3C/mask%3E%3Cpath fill='%23FCD7B6' d='M0 407L36 0v407z' mask='url(%23b)' transform='rotate(-180 18 203.5)'/%3E%3Ccircle cx='-32' cy='88' r='68' fill='%23F08570' mask='url(%23b)'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 302 721'%3E%3Cdefs/%3E%3Cdefs%3E%3ClinearGradient id='c' x1='50%25' x2='50%25' y1='0%25' y2='98.5140414%25'%3E%3Cstop offset='0%25' stop-color='%238333D4' stop-opacity='.49953562'/%3E%3Cstop offset='100%25' stop-color='%23CE5DCB' stop-opacity='.11027644'/%3E%3C/linearGradient%3E%3Crect id='a' width='302' height='721' x='0' y='0' rx='10'/%3E%3C/defs%3E%3Cmask id='b' fill='%23fff'%3E%3Cuse xlink:href='%23a'/%3E%3C/mask%3E%3Cpath fill='%23FCD7B6' d='M266 916l36-407v407z' mask='url(%23b)'/%3E%3Ccircle cx='334' cy='667' r='68' fill='url(%23c)' mask='url(%23b)'/%3E%3C/svg%3E");
         background-repeat: no-repeat, no-repeat;
         background-position: top left, bottom right;
     }
@@ -215,6 +213,12 @@ height: 100%;
     @media screen and (min-width: $breakpoint-minimum) and (max-width: 330px) {
         width: 95%;
     }
+}
+.sezzle-modal-color {
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 844 688' preserveAspectRatio='none slice' %3E%3Cdefs/%3E%3Cdefs%3E%3Crect id='a' width='844' height='688' x='0' y='0' rx='10'/%3E%3C/defs%3E%3Cmask id='b' fill='%23fff'%3E%3Cuse xlink:href='%23a'/%3E%3C/mask%3E%3Cpath fill='%23FCD7B6' d='M0 362L138.527344-45v407z' mask='url(%23b)' transform='rotate(-180 69.263672 158.5)'/%3E%3Ccircle cx='10.5' cy='71.5' r='105.5' fill='%23F08570' mask='url(%23b)'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 844 688' preserveAspectRatio='none slice' %3E%3Cdefs/%3E%3Cdefs%3E%3ClinearGradient id='c' x1='50%25' x2='50%25' y1='0%25' y2='98.5140414%25'%3E%3Cstop offset='0%25' stop-color='%238333D4' stop-opacity='.49953562'/%3E%3Cstop offset='100%25' stop-color='%23CE5DCB' stop-opacity='.11027644'/%3E%3C/linearGradient%3E%3Crect id='a' width='844' height='688' x='0' y='0' rx='10'/%3E%3C/defs%3E%3Cmask id='b' fill='%23fff'%3E%3Cuse xlink:href='%23a'/%3E%3C/mask%3E%3Cpath fill='%23FCD7B6' d='M705.472656 734L844 327v407z' mask='url(%23b)'/%3E%3Ccircle cx='808.5' cy='581.5' r='95.5' fill='url(%23c)' mask='url(%23b)'/%3E%3C/svg%3E");
+	@media screen and (max-width: $breakpoint-mobile){
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 302 721'%3E%3Cdefs/%3E%3Cdefs%3E%3Crect id='a' width='302' height='721' x='0' y='0' rx='10'/%3E%3C/defs%3E%3Cmask id='b' fill='%23fff'%3E%3Cuse xlink:href='%23a'/%3E%3C/mask%3E%3Cpath fill='%23FCD7B6' d='M0 407L36 0v407z' mask='url(%23b)' transform='rotate(-180 18 203.5)'/%3E%3Ccircle cx='-32' cy='88' r='68' fill='%23F08570' mask='url(%23b)'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 302 721'%3E%3Cdefs/%3E%3Cdefs%3E%3ClinearGradient id='c' x1='50%25' x2='50%25' y1='0%25' y2='98.5140414%25'%3E%3Cstop offset='0%25' stop-color='%238333D4' stop-opacity='.49953562'/%3E%3Cstop offset='100%25' stop-color='%23CE5DCB' stop-opacity='.11027644'/%3E%3C/linearGradient%3E%3Crect id='a' width='302' height='721' x='0' y='0' rx='10'/%3E%3C/defs%3E%3Cmask id='b' fill='%23fff'%3E%3Cuse xlink:href='%23a'/%3E%3C/mask%3E%3Cpath fill='%23FCD7B6' d='M266 916l36-407v407z' mask='url(%23b)'/%3E%3Ccircle cx='334' cy='667' r='68' fill='url(%23c)' mask='url(%23b)'/%3E%3C/svg%3E");
+	}
 }
 .sezzle-modal-grayscale {
     @include absolute-center();
@@ -519,14 +523,17 @@ height: 100%;
     padding: 0px;
     background: none;
     border: none;
-    outline: none !important;
+    outline: none;
 
     &:hover {
         opacity: 1;
     }
     &:focus {
-        opacity: 0.5;
+        opacity: 0.8;
     }
+	&:focus-visible {
+		outline: -webkit-focus-ring-color auto 1px;
+	}
 
     &:before, &:after {
         position: absolute;
@@ -548,7 +555,10 @@ height: 100%;
 
     // always show x for mobile
     @media screen and (max-width: $breakpoint-small) {
-        opacity: 1;
+        opacity: 0.8;
+		&:focus {
+			opacity: 1;
+		}
     }
 }
 }
