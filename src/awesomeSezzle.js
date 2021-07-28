@@ -705,7 +705,7 @@ class AwesomeSezzle {
 					newFocus.focus();
 					newFocus.removeAttribute('id');
 				} else {
-					document.querySelector('.sezzle-checkout-button-wrapper').focus();
+					document.querySelector('.sezzle-checkout-button-wrapper').querySelector('button')[0].focus();
 				}
 			}
 		})
