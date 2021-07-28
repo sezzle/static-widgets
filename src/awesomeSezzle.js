@@ -700,7 +700,13 @@ class AwesomeSezzle {
 				for(let i = 0; i < modals.length; i++) {
 					modals[i].style.display = 'none';
 				}
-				document.querySelector('.sezzle-checkout-button-wrapper').getElementsByTagName('button')[0].focus();
+				var newFocus = document.querySelector('#sezzle-modal-return');
+				if(newFocus){
+					newFocus.focus();
+					newFocus.removeAttribute('id');
+				} else {
+					document.querySelector('.sezzle-checkout-button-wrapper').getElementsByClassName('button')[0].focus();
+				}
 			}
 		})
 	}
@@ -1204,7 +1210,13 @@ class AwesomeSezzle {
         modalNode.style.display = 'none';
         document.body.ariaHidden = false;
         modalNode.getElementsByClassName('sezzle-modal')[0].className = `sezzle-modal sezzle-modal${this.modalTheme === "grayscale" ? "-grayscale" : "-color"} sezzle-checkout-modal-hidden`;
-        document.querySelector('.sezzle-checkout-button-wrapper').getElementsByTagName('button')[0].focus();
+		var newFocus = document.querySelector('#sezzle-modal-return');
+		if(newFocus){
+			newFocus.focus();
+			newFocus.removeAttribute('id');
+		} else {
+			document.querySelector('.sezzle-checkout-button-wrapper').querySelector('.sezzle-info-icon').focus();
+		}
       });
     });
     let sezzleModal = document.getElementsByClassName('sezzle-modal')[0];
@@ -1231,7 +1243,13 @@ class AwesomeSezzle {
       el.addEventListener('click', function () {
         modalNode.style.display = 'none';
         document.body.ariaHidden = false;
-        document.querySelector('.sezzle-checkout-button-wrapper').getElementsByClassName('no-sezzle-info')[0].focus();
+		var newFocus = document.querySelector('#sezzle-modal-return');
+		if(newFocus){
+			newFocus.focus();
+			newFocus.removeAttribute('id');
+		} else {
+			document.querySelector('.sezzle-checkout-button-wrapper').querySelector('.ap-modal-info-link').focus();
+		}
       });
     });
     let sezzleModal = document.getElementsByClassName('sezzle-modal')[0];
@@ -1256,7 +1274,13 @@ class AwesomeSezzle {
       el.addEventListener('click', function () {
         modalNode.style.display = 'none';
         document.body.ariaHidden = false;
-        document.querySelector('.sezzle-checkout-button-wrapper').getElementsByClassName('no-sezzle-info')[0].focus();
+		var newFocus = document.querySelector('#sezzle-modal-return');
+		if(newFocus){
+			newFocus.focus();
+			newFocus.removeAttribute('id');
+		} else {
+			document.querySelector('.sezzle-checkout-button-wrapper').querySelector('.quadpay-modal-info-link').focus();
+		}
       });
     });
     let sezzleModal = document.getElementsByClassName('sezzle-modal')[0];
@@ -1281,7 +1305,13 @@ class AwesomeSezzle {
       el.addEventListener('click', function () {
         modalNode.style.display = 'none';
         document.body.ariaHidden = false;
-        document.querySelector('.sezzle-checkout-button-wrapper').getElementsByClassName('no-sezzle-info')[0].focus();
+		var newFocus = document.querySelector('#sezzle-modal-return');
+		if(newFocus){
+			newFocus.focus();
+			newFocus.removeAttribute('id');
+		} else {
+			document.querySelector('.sezzle-checkout-button-wrapper').querySelector('.affirm-modal-info-link').focus();
+		}
       });
     });
     let sezzleModal = document.getElementsByClassName('sezzle-modal')[0];
@@ -1306,7 +1336,13 @@ class AwesomeSezzle {
       el.addEventListener('click', function () {
         modalNode.style.display = 'none';
         document.body.ariaHidden = false;
-        document.querySelector('.sezzle-checkout-button-wrapper').getElementsByClassName('no-sezzle-info')[0].focus();
+		var newFocus = document.querySelector('#sezzle-modal-return');
+		if(newFocus){
+			newFocus.focus();
+			newFocus.removeAttribute('id');
+		} else {
+			document.querySelector('.sezzle-checkout-button-wrapper').querySelector('.klarna-modal-info-link').focus();
+		}
       });
     });
     let sezzleModal = document.getElementsByClassName('sezzle-modal')[0];
@@ -1333,40 +1369,45 @@ class AwesomeSezzle {
 				modalNode.getElementsByClassName('close-sezzle-modal')[0].focus();
           document.body.ariaHidden = true;
           modalNode.getElementsByClassName('sezzle-modal')[0].className = `sezzle-modal sezzle-modal${this.modalTheme === "grayscale" ? "-grayscale" : "-color"}`;
+		  event.target.id = 'sezzle-modal-return';
         }
       }.bind(this));
     }.bind(this));
     var apModalLinks = sezzleElement.getElementsByClassName('ap-modal-info-link');
     Array.prototype.forEach.call(apModalLinks, function (modalLink) {
-      modalLink.addEventListener('click', function () {
+      modalLink.addEventListener('click', function (event) {
         document.getElementsByClassName('sezzle-ap-modal')[0].style.display = 'block';
-        document.getElementsByClassName('sezzle-ap-modal')[0].getElementsByClassName('close-sezzle-modal')[0].focus();
+        document.getElementsByClassName('sezzle-ap-modal')[0].focus();
         document.body.ariaHidden = true;
-      }.bind(this));
+		event.target.id = 'sezzle-modal-return';
+	}.bind(this));
     }.bind(this));
     var qpModalLinks = sezzleElement.getElementsByClassName('quadpay-modal-info-link');
     Array.prototype.forEach.call(qpModalLinks, function (modalLink) {
-      modalLink.addEventListener('click', function () {
+      modalLink.addEventListener('click', function (event) {
         document.getElementsByClassName('sezzle-qp-modal')[0].style.display = 'block';
-        document.getElementsByClassName('sezzle-qp-modal')[0].getElementsByClassName('close-sezzle-modal')[0].focus();
+        document.getElementsByClassName('sezzle-qp-modal')[0].focus();
         document.body.ariaHidden = true;
-      }.bind(this));
+		event.target.id = 'sezzle-modal-return';
+	}.bind(this));
     }.bind(this));
     var affirmModalLinks = sezzleElement.getElementsByClassName('affirm-modal-info-link');
     Array.prototype.forEach.call(affirmModalLinks, function (modalLink) {
-      modalLink.addEventListener('click', function () {
+      modalLink.addEventListener('click', function (event) {
         document.getElementsByClassName('sezzle-affirm-modal')[0].style.display = 'block';
-        document.getElementsByClassName('sezzle-affirm-modal')[0].getElementsByClassName('close-sezzle-modal')[0].focus();
+        document.getElementsByClassName('sezzle-affirm-modal')[0].focus();
         document.body.ariaHidden = true;
-      }.bind(this));
+		event.target.id = 'sezzle-modal-return';
+	}.bind(this));
     }.bind(this));
     var klarnaModalLinks = sezzleElement.getElementsByClassName('klarna-modal-info-link');
     Array.prototype.forEach.call(klarnaModalLinks, function (modalLink) {
-      modalLink.addEventListener('click', function () {
+      modalLink.addEventListener('click', function (event) {
         document.getElementsByClassName('sezzle-klarna-modal')[0].style.display = 'block';
-        document.getElementsByClassName('sezzle-klarna-modal')[0].getElementsByClassName('close-sezzle-modal')[0].focus();
+        document.getElementsByClassName('sezzle-klarna-modal')[0].focus();
         document.body.ariaHidden = true;
-      }.bind(this));
+		event.target.id = 'sezzle-modal-return';
+	}.bind(this));
     }.bind(this));
   }
 
