@@ -705,7 +705,7 @@ class AwesomeSezzle {
 					newFocus.focus();
 					newFocus.removeAttribute('id');
 				} else {
-					document.querySelector('.sezzle-checkout-button-wrapper').getElementsByTagName('button')[0].focus();
+					document.querySelector('.sezzle-checkout-button-wrapper').focus();
 				}
 			}
 		})
@@ -1215,7 +1215,7 @@ class AwesomeSezzle {
 			newFocus.focus();
 			newFocus.removeAttribute('id');
 		} else {
-			document.querySelector('.sezzle-shopify-info-button').focus();
+			document.querySelector('.sezzle-checkout-button-wrapper').querySelector('.sezzle-info-icon').focus();
 		}
       });
     });
@@ -1248,7 +1248,7 @@ class AwesomeSezzle {
 			newFocus.focus();
 			newFocus.removeAttribute('id');
 		} else {
-			document.querySelector('.sezzle-checkout-button-wrapper').getElementsByTagName('button')[0].focus();
+			document.querySelector('.sezzle-checkout-button-wrapper').querySelector('.ap-modal-info-link').focus();
 		}
       });
     });
@@ -1279,7 +1279,7 @@ class AwesomeSezzle {
 			newFocus.focus();
 			newFocus.removeAttribute('id');
 		} else {
-			document.querySelector('.sezzle-checkout-button-wrapper').getElementsByTagName('button')[0].focus();
+			document.querySelector('.sezzle-checkout-button-wrapper').querySelector('.quadpay-modal-info-link').focus();
 		}
       });
     });
@@ -1310,7 +1310,7 @@ class AwesomeSezzle {
 			newFocus.focus();
 			newFocus.removeAttribute('id');
 		} else {
-			document.querySelector('.sezzle-checkout-button-wrapper').getElementsByTagName('button')[0].focus();
+			document.querySelector('.sezzle-checkout-button-wrapper').querySelector('.affirm-modal-info-link').focus();
 		}
       });
     });
@@ -1336,11 +1336,12 @@ class AwesomeSezzle {
       el.addEventListener('click', function () {
         modalNode.style.display = 'none';
         document.body.ariaHidden = false;
+		var newFocus = document.querySelector('#sezzle-modal-return');
 		if(newFocus){
 			newFocus.focus();
 			newFocus.removeAttribute('id');
 		} else {
-			document.querySelector('.sezzle-checkout-button-wrapper').getElementsByTagName('button')[0].focus();
+			document.querySelector('.sezzle-checkout-button-wrapper').querySelector('.klarna-modal-info-link').focus();
 		}
       });
     });
@@ -1378,8 +1379,8 @@ class AwesomeSezzle {
         document.getElementsByClassName('sezzle-ap-modal')[0].style.display = 'block';
         document.getElementsByClassName('sezzle-ap-modal')[0].focus();
         document.body.ariaHidden = true;
-		event.target.parentElement.id = 'sezzle-modal-return';
-      }.bind(this));
+		event.target.id = 'sezzle-modal-return';
+	}.bind(this));
     }.bind(this));
     var qpModalLinks = sezzleElement.getElementsByClassName('quadpay-modal-info-link');
     Array.prototype.forEach.call(qpModalLinks, function (modalLink) {
@@ -1387,8 +1388,8 @@ class AwesomeSezzle {
         document.getElementsByClassName('sezzle-qp-modal')[0].style.display = 'block';
         document.getElementsByClassName('sezzle-qp-modal')[0].focus();
         document.body.ariaHidden = true;
-		event.target.parentElement.id = 'sezzle-modal-return';
-      }.bind(this));
+		event.target.id = 'sezzle-modal-return';
+	}.bind(this));
     }.bind(this));
     var affirmModalLinks = sezzleElement.getElementsByClassName('affirm-modal-info-link');
     Array.prototype.forEach.call(affirmModalLinks, function (modalLink) {
@@ -1396,8 +1397,8 @@ class AwesomeSezzle {
         document.getElementsByClassName('sezzle-affirm-modal')[0].style.display = 'block';
         document.getElementsByClassName('sezzle-affirm-modal')[0].focus();
         document.body.ariaHidden = true;
-		event.target.parentElement.id = 'sezzle-modal-return';
-      }.bind(this));
+		event.target.id = 'sezzle-modal-return';
+	}.bind(this));
     }.bind(this));
     var klarnaModalLinks = sezzleElement.getElementsByClassName('klarna-modal-info-link');
     Array.prototype.forEach.call(klarnaModalLinks, function (modalLink) {
@@ -1405,8 +1406,8 @@ class AwesomeSezzle {
         document.getElementsByClassName('sezzle-klarna-modal')[0].style.display = 'block';
         document.getElementsByClassName('sezzle-klarna-modal')[0].focus();
         document.body.ariaHidden = true;
-		event.target.parentElement.id = 'sezzle-modal-return';
-      }.bind(this));
+		event.target.id = 'sezzle-modal-return';
+	}.bind(this));
     }.bind(this));
   }
 
