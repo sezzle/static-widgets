@@ -991,16 +991,16 @@ class AwesomeSezzle {
 							</div>
 							<div class="sezzle-lt-payments">
 								<div tabIndex="0" class="sezzle-lt-payment-header">${modalTranslations[this.language].sezzleLtPaymentHeader} <span>${currency + this.addDelimiters(priceString, this.parseMode)}</span></div>
-								<div class="sezzle-lt-payment-options ${terms[0]}-month">
-									<div class="plan" tabIndex="0" ><div class="monthly-amount"><span>${currency + this.calculateMonthly(priceString, this.parseMode, terms[0], this.bestAPR)}</span> ${modalTranslations[this.language].monthlyAmount}</div>	<div class="term-length">${terms[0]} ${modalTranslations[this.language].termLength}</div></div>
+								<div class="sezzle-lt-payment-options ${terms[2]}-month" ${terms[2] === undefined ? `style="display: none;"` : `style="display: block;"`}>
+									<div class="plan" tabIndex="0" ><div class="monthly-amount"><span>${currency + this.calculateMonthly(priceString, this.parseMode, terms[2], this.bestAPR)}</span> ${modalTranslations[this.language].monthlyAmount}</div>	<div class="term-length">${terms[2]} ${modalTranslations[this.language].termLength}</div></div>
 									<div class="plan-details" tabIndex="0"><div class="adjusted-total">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.calculateAdjusted(priceString, this.parseMode, this.bestAPR)}</span></div>	<div class="sample-apr">${modalTranslations[this.language].sampleApr} <span>${this.bestAPR}</span>%</div></div>
 								</div>
-								<div class="sezzle-lt-payment-options ${terms[1]}-month" ${terms[2] === undefined ? `style="border: none;"` : `style="display: block;"`}>
+								<div class="sezzle-lt-payment-options ${terms[1]}-month">
 									<div class="plan" tabIndex="0"><div class="monthly-amount"><span>${currency + this.calculateMonthly(priceString, this.parseMode, terms[1], this.bestAPR)}</span> ${modalTranslations[this.language].monthlyAmount}</div>	<div class="term-length">${terms[1]} ${modalTranslations[this.language].termLength}</div></div>
 									<div class="plan-details" tabIndex="0"><div class="adjusted-total">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.calculateAdjusted(priceString, this.parseMode, this.bestAPR)}</span></div>	<div class="sample-apr">${modalTranslations[this.language].sampleApr} <span>${this.bestAPR}</span>%</div></div>
 								</div>
-								<div class="sezzle-lt-payment-options ${terms[2]}-month" ${terms[2] === undefined ? `style="display: none;"` : `style="display: block;"`}>
-									<div class="plan" tabIndex="0"><div class="monthly-amount"><span>${currency + this.calculateMonthly(priceString, this.parseMode, terms[2], this.bestAPR)}</span> ${modalTranslations[this.language].monthlyAmount}</div>	<div class="term-length">${terms[2]} ${modalTranslations[this.language].termLength}</div></div>
+								<div class="sezzle-lt-payment-options ${terms[0]}-month">
+									<div class="plan" tabIndex="0"><div class="monthly-amount"><span>${currency + this.calculateMonthly(priceString, this.parseMode, terms[0], this.bestAPR)}</span> ${modalTranslations[this.language].monthlyAmount}</div>	<div class="term-length">${terms[0]} ${modalTranslations[this.language].termLength}</div></div>
 									<div class="plan-details" tabIndex="0"><div class="adjusted-total">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.calculateAdjusted(priceString, this.parseMode, this.bestAPR)}</span></div>	<div class="sample-apr">${modalTranslations[this.language].sampleApr} <span>${this.bestAPR}</span>%</div></div>
 								</div>
 							</div>
