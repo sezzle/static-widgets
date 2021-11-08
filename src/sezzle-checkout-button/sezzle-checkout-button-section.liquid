@@ -8,6 +8,7 @@
 	  background-position: center;
 	  transition: background 0.8s;
 		border: none;
+		vertical-align: middle;
 	}
 	.sezzle-button-light {
 	  background-color: #392558;
@@ -47,10 +48,23 @@ event.stopPropagation();
 location.replace("/checkout?skip_shopify_pay=true");
 }
 </script>
-<button class="btn sezzle-checkout-button sezzle-button-{{section.settings.sezzle-button-theme}}" onclick="handleSezzleClick(event)">
+<button class="sezzle-checkout-button sezzle-button-{{section.settings.sezzle-button-theme}}" onclick="handleSezzleClick(event)">
     {{section.settings.sezzle-button-text}} <img class="sezzle-button-logo-img" src={% if section.settings.sezzle-button-theme == "dark" %} "https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg" {% else %} "https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg"{% endif %} alt="Sezzle">
 </button>
-
+<script type="text/javascript">
+	var shopifyButton = document.querySelector('[name="checkout"]');
+	if(shopifyButton){
+		var shopifyButtonStyles = getComputedStyle(shopifyButton);
+		var sezzleButtons = document.getElementsByClassName('sezzle-checkout-button');
+		for (let i = 0; i < sezzleButtons.length; i++) {
+			sezzleButtons[i].style.fontSize = shopifyButtonStyles.fontSize;
+			sezzleButtons[i].style.height = shopifyButtonStyles.height;
+			elemsezzleButtons[i].style.padding = shopifyButtonStyles.padding;
+			sezzleButtons[i].style.margin = shopifyButtonStyles.margin;
+			sezzleButtons[i].style.borderRadius = shopifyButtonStyles.borderRadius;
+		};
+	}
+</script>
 <style>
   {{ section.settings.sezzle-button-style }}
 </style>
