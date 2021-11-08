@@ -1,73 +1,56 @@
 {% if section.settings.show-sezzle-button %}
-<style type="text/css">
-    @import url(https://fonts.googleapis.com/css?family=Comfortaa);
-    .sezzle-checkout-button {
-        width: auto;
-        height: 40px;
-        cursor: pointer;
-        outline: none;
-        border: transparent;
-        font-family: "Comfortaa", sans-serif;
 
-        margin-bottom: 10px;
-        font-size: 0.8125em;
-        letter-spacing: normal;
-				background-position: center;
-        transition: background 0.8s;
-      	font-weight: bold;
-      	padding: 8px 13px 10px;
-
-    }
-    .sezzle-button-logo-img {
-      vertical-align: center;
-      width: 72px;
-      margin: 0px 5px;
-    }
-    .sezzle-button-dark {
-        background: #fff;
-        color: #392558;
-    }
-    .sezzle-button-dark:hover {
-        background: #eee radial-gradient(circle, transparent 70%, #eee 70%) center/15000%;
-        color: #392558;
-    }
-    .sezzle-button-dark:active {
-        background-color: #ccc;
-        background-size: 100%;
-        color: #392558;
-        transition: background 0s;
-    }
-    .sezzle-button-light {
-        background: #392558;
-        color: white;
-    }
-    .sezzle-button-light:hover {
-        background: #d784ff radial-gradient(circle, transparent 1%, #d784ff 1%) center/15000%;
-        color: white;
-    }
-    .sezzle-button-light:active {
-        background-color: purple;
-        background-size: 100%;
-        color: white;
-        transition: background 0s;
-    }
-    .button-light {
-        color: white !important;
-    }
-    .button-dark {
-        color: #392558;
-    }
-</style>
-<script type="text/javascript">
-    function handleSezzleClick(event){
-        event.preventDefault();
-        event.stopPropagation();
-        location.replace('/checkout?skip_shopify_pay=true');
-    }
+<style>
+	@import url(https://fonts.googleapis.com/css?family=Comfortaa);
+	.sezzle-checkout-button {
+	  cursor: pointer;
+	  font-family: "Comfortaa", cursive;
+	  background-position: center;
+	  transition: background 0.8s;
+		border: none;
+	}
+	.sezzle-button-light {
+	  background-color: #392558;
+	  color: white;
+	}
+	.sezzle-button-light:hover, .sezzle-button-light:focus {
+	  background-color: #d784ff;
+	  color: white;
+	}
+	.sezzle-button-light:active {
+	  background-color: purple;
+	  color: white;
+	}
+	.sezzle-button-dark {
+	  background-color: #fff;
+	  color: #392558;
+	}
+	.sezzle-button-dark:hover, .sezzle-button-dark:focus {
+	  background-color: #eee;
+	  color: #392558;
+	}
+	.sezzle-button-dark:active {
+	  background-color: #ccc;
+	  color: #392558;
+	}
+	.sezzle-button-logo-img {
+		width: 70px;
+		position: relative;
+		top: -2px;
+		vertical-align: middle;
+	}
+  </style>
+  <script type="text/javascript">
+function handleSezzleClick(event){
+event.preventDefault();
+event.stopPropagation();
+location.replace("/checkout?skip_shopify_pay=true");
+}
 </script>
-<button class="sezzle-checkout-button sezzle-button-{{section.settings.sezzle-button-theme}}" style="border-radius: {{section.settings.sezzle-button-radius}}px;" onclick="handleSezzleClick(event)">
-    {{section.settings.sezzle-button-text}}<img class="sezzle-button-logo-img" src={% if section.settings.sezzle-button-theme == "dark" %} "https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg" {% else %} "https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg"{% endif %} alt="Sezzle">
+<button class="btn sezzle-checkout-button sezzle-button-{{section.settings.sezzle-button-theme}}" onclick="handleSezzleClick(event)">
+    {{section.settings.sezzle-button-text}} <img class="sezzle-button-logo-img" src={% if section.settings.sezzle-button-theme == "dark" %} "https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg" {% else %} "https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg"{% endif %} alt="Sezzle">
 </button>
+
 <style>
   {{ section.settings.sezzle-button-style }}
 </style>
@@ -121,16 +104,6 @@
 				"label": "Sezzle"
 			}
         ]
-      },
-      {
-        "id": "sezzle-button-radius",
-        "type": "range",
-        "label": {"en": "Button Radius"},
-        "default": 0,
-        "min": 0,
-        "max": 50,
-		"step": 1,
-		"unit": {"en": "px"}
       },
       {
         "id": "sezzle-button-style",

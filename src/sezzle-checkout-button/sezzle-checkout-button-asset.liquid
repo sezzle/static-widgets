@@ -1,0 +1,97 @@
+class SezzleCheckoutButton {
+
+	constructor(options){
+		this.theme =  options.theme  || 'light';
+		this.template = options.template || 'Checkout with %%logo%%';
+	}
+
+	parseButtonTemplate () {
+		const sezzleImage = {
+			light: 'https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg',
+			dark: 'https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg'
+		};
+		const chosenImage = sezzleImage[this.theme];
+		const templateArray = this.template.split(' ');
+		var templateString = '';
+		templateArray.forEach((subtemplate)=>{
+			switch(subtemplate) {
+				case  '%%logo%%':
+					templateString += `<img class='sezzle-button-logo-img' alt='Sezzle' src=${chosenImage} />`;
+					break;
+				default:
+					templateString += `${subtemplate} `;
+			}
+		})
+		return templateString;
+	}
+
+	addButtonStyle() {
+		var sezzleButtonStyle = document.createElement('style');
+		sezzleButtonStyle.innerHTML = `
+			@import url(https://fonts.googleapis.com/css?family=Comfortaa);
+			.sezzle-checkout-button {
+				cursor: pointer;
+				font-family: "Comfortaa", cursive;
+				background-position: center;
+				transition: background 0.8s;
+				border: none;
+			}
+			.sezzle-button-light {
+				background-color: #392558;
+				color: white;
+			}
+			.sezzle-button-light:hover, .sezzle-button-light:focus {
+				background-color: #d784ff;
+				color: white;
+			}
+			.sezzle-button-light:active {
+				background-color: purple;
+				color: white;
+			}
+			.sezzle-button-dark {
+				background-color: #fff;
+				color: #392558;
+			}
+			.sezzle-button-dark:hover, .sezzle-button-dark:focus {
+				background-color: #eee;
+				color: #392558;
+			}
+			.sezzle-button-dark:active {
+				background-color: #ccc;
+				color: #392558;
+			}
+			.sezzle-button-logo-img {
+				width: 70px;
+				position: relative;
+				top: -2px;
+				vertical-align: middle;
+			}
+		`;
+		document.head.appendChild(sezzleButtonStyle);
+	}
+
+	createButton () {
+		var checkoutButtons = document.getElementsByName('checkout');
+		checkoutButtons.forEach(checkoutButton => {
+			var checkoutButtonParent = checkoutButton  ? checkoutButton.parentElement : null;
+			if (checkoutButtonParent) {
+				this.addButtonStyle(sezzleCheckoutButton);
+				var sezzleCheckoutButton = document.createElement('button');
+				sezzleCheckoutButton.className = `btn sezzle-checkout-button sezzle-button-${this.theme}`;
+				sezzleCheckoutButton.innerHTML = this.parseButtonTemplate();
+				sezzleCheckoutButton.addEventListener('click', function (e) {
+					e.stopPropagation();
+					e.preventDefault();
+					location.replace('/checkout?skip_shopify_pay=true');
+				});
+			checkoutButtonParent.append(sezzleCheckoutButton);
+			}
+		})
+	}
+
+	init() {
+		if(window.location.pathname === '/cart'){
+			this.createButton()
+		}
+	}
+}
