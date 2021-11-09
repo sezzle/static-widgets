@@ -22,7 +22,7 @@ The button appearance can now be customized as needed using the below keys. Here
 ```
     <script>
     new SezzleCheckoutButton({
-		theme: "light", <!-- accepts "light" and "dark" -->
+		theme: "light", <!-- accepts "light" and "dark" (based on site background) -->
         template: "Checkout with %%logo%%"  <!-- accepts "Checkout with %%logo%%", "Pay with %%logo%%", or "%%logo%%" -->
     }).init();
     </script>
