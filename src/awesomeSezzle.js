@@ -856,7 +856,7 @@ class AwesomeSezzle {
       modalNode.ariaLabel= 'Sezzle Information';
 			if(this.isProductEligibleLT(this.amount)){
 				var currency = String.fromCharCode(this.currencySymbol(this.amount));
-				var priceString = this.amount.split(currency)[1];
+				var priceString = this.amount.indexOf(currency) > -1 ? this.amount.split(currency)[1] : this.amount;
 				priceString = this.parseMode === "comma" ? priceString.replace('.','').replace(',','.') : priceString.replace(',','');
 				var terms = this.termsToShow(priceString);
 				if(this.ltAltModalHTML){
