@@ -33,27 +33,27 @@
 	  color: #392558;
 	}
 	.sezzle-button-logo-img {
-		width: 70px;
-		position: relative;
-		top: -2px;
-		vertical-align: middle;
+	  width: 70px;
+	  position: relative;
+	  top: -2px;
+	  vertical-align: middle;
 	}
-  </style>
-  <script type="text/javascript">
-function handleSezzleClick(event){
-event.preventDefault();
-event.stopPropagation();
-location.replace("/checkout?skip_shopify_pay=true");
-}
+</style>
+<script type="text/javascript">
+	function handleSezzleClick(event){
+		event.preventDefault();
+		event.stopPropagation();
+		location.replace("/checkout?skip_shopify_pay=true");
+	}
 </script>
 <button class="sezzle-checkout-button sezzle-button-light" onclick="handleSezzleClick(event)">
-Checkout with <img class="sezzle-button-logo-img" src="https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg" alt="Sezzle">
+	Checkout with <img class="sezzle-button-logo-img" src="https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg" alt="Sezzle">
 </button>
 <script type="text/javascript">
-	var shopifyButton = document.querySelector('[name="checkout"]');
+	const shopifyButton = document.querySelector('[name="checkout"]');
 	if(shopifyButton){
-		var shopifyButtonStyles = getComputedStyle(shopifyButton);
-		var sezzleButtons = document.getElementsByClassName('sezzle-checkout-button');
+		const shopifyButtonStyles = getComputedStyle(shopifyButton);
+		const sezzleButtons = document.getElementsByClassName('sezzle-checkout-button');
 		for (let i = 0; i < sezzleButtons.length; i++) {
 			sezzleButtons[i].style.fontSize = shopifyButtonStyles.fontSize;
 			sezzleButtons[i].style.height = shopifyButtonStyles.height;

@@ -12,7 +12,7 @@ class SezzleCheckoutButton {
 		};
 		const chosenImage = sezzleImage[this.theme];
 		const templateArray = this.template.split(' ');
-		var templateString = '';
+		const templateString = '';
 		templateArray.forEach((subtemplate)=>{
 			switch(subtemplate) {
 				case  '%%logo%%':
@@ -26,7 +26,7 @@ class SezzleCheckoutButton {
 	}
 
 	addButtonStyle() {
-		var sezzleButtonStyle = document.createElement('style');
+		const sezzleButtonStyle = document.createElement('style');
 		sezzleButtonStyle.innerHTML = `
 			@import url(https://fonts.googleapis.com/css?family=Comfortaa);
 			.sezzle-checkout-button {
@@ -72,9 +72,9 @@ class SezzleCheckoutButton {
 	}
 
 	inheritButtonStyles (sezzleCheckoutButton) {
-		var shopifyButton = document.querySelector('[name="checkout"]');
+		const shopifyButton = document.querySelector('[name="checkout"]');
 		if(shopifyButton){
-			var shopifyButtonStyles = getComputedStyle(shopifyButton);
+			const shopifyButtonStyles = getComputedStyle(shopifyButton);
 			sezzleCheckoutButton.style.fontSize = shopifyButtonStyles.fontSize;
 			sezzleCheckoutButton.style.height = shopifyButtonStyles.height;
 			sezzleCheckoutButton.style.padding = shopifyButtonStyles.padding;
@@ -84,12 +84,12 @@ class SezzleCheckoutButton {
 	}
 
 	createButton () {
-		var checkoutButtons = document.getElementsByName('checkout');
+		const checkoutButtons = document.getElementsByName('checkout');
 		checkoutButtons.forEach(checkoutButton => {
-			var checkoutButtonParent = checkoutButton  ? checkoutButton.parentElement : null;
+			const checkoutButtonParent = checkoutButton  ? checkoutButton.parentElement : null;
 			if (checkoutButtonParent) {
 				this.addButtonStyle(sezzleCheckoutButton);
-				var sezzleCheckoutButton = document.createElement('button');
+				const sezzleCheckoutButton = document.createElement('button');
 				sezzleCheckoutButton.className = `sezzle-checkout-button sezzle-button-${this.theme}`;
 				sezzleCheckoutButton.innerHTML = this.parseButtonTemplate();
 				sezzleCheckoutButton.addEventListener('click', function (e) {
