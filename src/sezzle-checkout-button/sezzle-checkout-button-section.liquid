@@ -7,7 +7,8 @@
 	  font-family: "Comfortaa", cursive;
 	  background-position: center;
 	  transition: background 0.8s;
-		border: none;
+	  border: none;
+	  vertical-align: middle;
 	}
 	.sezzle-button-light {
 	  background-color: #392558;
@@ -33,24 +34,37 @@
 	  background-color: #ccc;
 	  color: #392558;
 	}
-	.sezzle-button-logo-img {
-		width: 70px;
-		position: relative;
-		top: -2px;
-		vertical-align: middle;
+	.sezzle-checkout-button .sezzle-button-logo-img {
+	  width: 70px;
+	  position: relative;
+	  top: -2px;
+	  vertical-align: middle;
 	}
-  </style>
-  <script type="text/javascript">
-function handleSezzleClick(event){
-event.preventDefault();
-event.stopPropagation();
-location.replace("/checkout?skip_shopify_pay=true");
-}
+</style>
+<script type="text/javascript">
+	function handleSezzleClick(event){
+		event.preventDefault();
+		event.stopPropagation();
+		location.replace("/checkout?skip_shopify_pay=true");
+	}
 </script>
-<button class="btn sezzle-checkout-button sezzle-button-{{section.settings.sezzle-button-theme}}" onclick="handleSezzleClick(event)">
+<button class="sezzle-checkout-button sezzle-button-{{section.settings.sezzle-button-theme}}" onclick="handleSezzleClick(event)">
     {{section.settings.sezzle-button-text}} <img class="sezzle-button-logo-img" src={% if section.settings.sezzle-button-theme == "dark" %} "https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg" {% else %} "https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg"{% endif %} alt="Sezzle">
 </button>
-
+<script type="text/javascript">
+	const shopifyButton = document.querySelector('[name="checkout"]');
+	if(shopifyButton){
+		const shopifyButtonStyles = getComputedStyle(shopifyButton);
+		const sezzleButtons = document.getElementsByClassName('sezzle-checkout-button');
+		for (let i = 0; i < sezzleButtons.length; i++) {
+			sezzleButtons[i].style.fontSize = shopifyButtonStyles.fontSize;
+			sezzleButtons[i].style.height = shopifyButtonStyles.height;
+			sezzleButtons[i].style.padding = shopifyButtonStyles.padding;
+			sezzleButtons[i].style.margin = shopifyButtonStyles.margin;
+			sezzleButtons[i].style.borderRadius = shopifyButtonStyles.borderRadius;
+		};
+	}
+</script>
 <style>
   {{ section.settings.sezzle-button-style }}
 </style>
