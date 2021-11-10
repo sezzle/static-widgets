@@ -11,17 +11,7 @@ class SezzleCheckoutButton {
 			dark: 'https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg'
 		};
 		const chosenImage = sezzleImage[this.theme];
-		const templateArray = this.template.split(' ');
-		const templateString = '';
-		templateArray.forEach((subtemplate)=>{
-			switch(subtemplate) {
-				case  '%%logo%%':
-					templateString += `<img class='sezzle-button-logo-img' alt='Sezzle' src=${chosenImage} />`;
-					break;
-				default:
-					templateString += `${subtemplate} `;
-			}
-		})
+		const templateString = this.template.replace('%%logo%%',`<img class='sezzle-button-logo-img' alt='Sezzle' src=${chosenImage} />`);
 		return templateString;
 	}
 
@@ -61,7 +51,7 @@ class SezzleCheckoutButton {
 				background-color: #ccc;
 				color: #392558;
 			}
-			.sezzle-button-logo-img {
+			.sezzle-checkout-button .sezzle-button-logo-img {
 				width: 70px;
 				position: relative;
 				top: -2px;
@@ -88,7 +78,7 @@ class SezzleCheckoutButton {
 		checkoutButtons.forEach(checkoutButton => {
 			const checkoutButtonParent = checkoutButton  ? checkoutButton.parentElement : null;
 			if (checkoutButtonParent) {
-				this.addButtonStyle(sezzleCheckoutButton);
+				this.addButtonStyle();
 				const sezzleCheckoutButton = document.createElement('button');
 				sezzleCheckoutButton.className = `sezzle-checkout-button sezzle-button-${this.theme}`;
 				sezzleCheckoutButton.innerHTML = this.parseButtonTemplate();
