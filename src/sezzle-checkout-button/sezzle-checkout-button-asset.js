@@ -10,7 +10,7 @@ class SezzleCheckoutButton {
 			light: 'https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg',
 			dark: 'https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg'
 		};
-		const chosenImage = sezzleImage[this.theme];
+      const chosenImage = sezzleImage[this.theme] || sezzleImage.light;
 		const templateString = this.template.replace('%%logo%%',`<img class='sezzle-button-logo-img' alt='Sezzle' src=${chosenImage} />`);
 		return templateString;
 	}
@@ -80,7 +80,7 @@ class SezzleCheckoutButton {
 			if (checkoutButtonParent) {
 				this.addButtonStyle();
 				const sezzleCheckoutButton = document.createElement('button');
-				sezzleCheckoutButton.className = `sezzle-checkout-button sezzle-button-${this.theme}`;
+				sezzleCheckoutButton.className = `sezzle-checkout-button sezzle-button-${this.theme === 'dark' ? 'dark' : 'light'}`;
 				sezzleCheckoutButton.innerHTML = this.parseButtonTemplate();
 				sezzleCheckoutButton.addEventListener('click', function (e) {
 					e.stopPropagation();
