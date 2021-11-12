@@ -1440,7 +1440,7 @@ class AwesomeSezzle {
           });
         })
       els.forEach(function (el, index) {
-        if (!el.element.hasAttribute('data-sezzleindex')) {
+        if (!el.element.childElementCount) {
           this.renderElement = el.element;
           var sz = this.renderAwesomeSezzle();
           this.addClickEventForModal(document)
