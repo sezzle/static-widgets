@@ -623,7 +623,7 @@ class AwesomeSezzle {
 	var formatter =  priceText.replace(priceString, '{price}');
 	var terms = this.termsToShow(price);
 	var interestAmount = this.isProductEligibleLT(amount) ? this.calculateInterest(price,terms[terms.length - 1],this.bestAPR) : 0;
-	var sezzleInstallmentPrice = this.isProductEligibleLT(amount) ? ((price + interestAmount) / terms[terms.length -1]).toFixed(2): ((price + interestAmount) / this.numberOfPayments).toFixed(2);
+	var sezzleInstallmentPrice = this.isProductEligibleLT(amount) ? this.calculateInterest(price,terms[terms.length - 1],this.bestAPR).toFixed(2): (price / this.numberOfPayments).toFixed(2);
 	var sezzleInstallmentFormattedPrice = formatter.replace('{price}', this.addDelimiters(sezzleInstallmentPrice, this.parseMode));
     return sezzleInstallmentFormattedPrice;
 
@@ -677,27 +677,19 @@ class AwesomeSezzle {
 	}
 
 	calculateInterest(price, term, APR) {
-		var interestAmount = (
-			(
-				price *
-				APR/100 *
-				Math.pow(1 + (APR / 100), term)
-			)
-		/
-			(
-				Math.pow(1 + (APR/100), term)
-				- 1
-			)
-		);
-		return interestAmount;
+		var rate = (APR/100)/12;
+		var numerator = price * rate * Math.pow(1+rate, term);
+		var denominator = Math.pow(1+rate, term)-1;
+		var interestPayment = numerator/denominator
+		return interestPayment;
 	}
 	calculateMonthly(priceString, parseMode, term, APR) {
 		var interestAmount = this.calculateInterest(priceString, term, APR);
-		return this.addDelimiters(((parseFloat(priceString) + interestAmount) / term).toFixed(2), parseMode);
+		return this.addDelimiters(interestAmount.toFixed(2), parseMode);
 	}
 	calculateAdjusted(priceString, parseMode, term, APR) {
 		var interestAmount = this.calculateInterest(priceString, term, APR);
-		return this.addDelimiters(((parseFloat(priceString) + interestAmount) ).toFixed(2), parseMode);
+		return this.addDelimiters((interestAmount*term).toFixed(2), parseMode);
 	}
 
 	modalKeyboardNavigation (){
