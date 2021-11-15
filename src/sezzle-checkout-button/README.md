@@ -5,7 +5,7 @@
 3. Click Actions, then select Edit Code
 4. Scroll to the Assets folder, then click Add A New Asset
 5. Click Create a Blank File, name the section `sezzle-checkout-button`, select `.js` as the file type, then click Add Asset
-6. Overwrite the asset template with the code contents here[https://github.com/sezzle/static-widgets/tree/production/src/sezzle-checkout-button/sezzle-checkout-button-asset.liquid].
+6. Overwrite the asset template with the code contents here[https://github.com/sezzle/static-widgets/blob/production/src/sezzle-checkout-button/sezzle-checkout-button-asset.js].
 7. Paste the following snippet in the bottom of the `layout/theme.liquid` file, then click Save:
 ```
 	{{ "sezzle-checkout-button.js" | asset_url | script_tag }}
