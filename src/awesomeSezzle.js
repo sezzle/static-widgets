@@ -683,11 +683,11 @@ class AwesomeSezzle {
 		return interestPayment;
 	}
 	calculateMonthly(priceString, parseMode, term, APR) {
-		var interestAmount = this.calculateInterest(priceString, term, APR);
+		const interestAmount = this.calculateInterest(priceString, term, APR);
 		return this.addDelimiters(interestAmount.toFixed(2), parseMode);
 	}
 	calculateAdjusted(priceString, parseMode, term, APR) {
-		var interestAmount = this.calculateInterest(priceString, term, APR);
+		const interestAmount = this.calculateInterest(priceString, term, APR);
 		return this.addDelimiters((interestAmount*term).toFixed(2), parseMode);
 	}
 
