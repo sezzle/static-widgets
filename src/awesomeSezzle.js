@@ -617,14 +617,13 @@ class AwesomeSezzle {
   }
 
   getFormattedPrice(amount = this.amount){
-    var priceText = amount;
-    var priceString =  HelperClass.parsePriceString(priceText, true);
-    var price = this.parseMode ==='default' ? HelperClass.parsePrice(priceText) : HelperClass.parsePrice(priceText,this.parseMode);
-	var formatter =  priceText.replace(priceString, '{price}');
-	var terms = this.termsToShow(price);
-	var interestAmount = this.isProductEligibleLT(amount) ? this.calculateInterest(price,terms[terms.length - 1],this.bestAPR) : 0;
-	var sezzleInstallmentPrice = this.isProductEligibleLT(amount) ? this.calculateInterest(price,terms[terms.length - 1],this.bestAPR).toFixed(2): (price / this.numberOfPayments).toFixed(2);
-	var sezzleInstallmentFormattedPrice = formatter.replace('{price}', this.addDelimiters(sezzleInstallmentPrice, this.parseMode));
+    const priceText = amount;
+    const priceString =  HelperClass.parsePriceString(priceText, true);
+    const price = this.parseMode ==='default' ? HelperClass.parsePrice(priceText) : HelperClass.parsePrice(priceText,this.parseMode);
+	const formatter =  priceText.replace(priceString, '{price}');
+	const terms = this.termsToShow(price);
+	const sezzleInstallmentPrice = this.isProductEligibleLT(amount) ? this.calculateInterest(price,terms[terms.length - 1],this.bestAPR).toFixed(2): (price / this.numberOfPayments).toFixed(2);
+	const sezzleInstallmentFormattedPrice = formatter.replace('{price}', this.addDelimiters(sezzleInstallmentPrice, this.parseMode));
     return sezzleInstallmentFormattedPrice;
 
   }
@@ -677,10 +676,10 @@ class AwesomeSezzle {
 	}
 
 	calculateInterest(price, term, APR) {
-		var rate = (APR/100)/12;
-		var numerator = price * rate * Math.pow(1+rate, term);
-		var denominator = Math.pow(1+rate, term)-1;
-		var interestPayment = numerator/denominator
+		const rate = (APR/100)/12;
+		const numerator = price * rate * Math.pow(1+rate, term);
+		const denominator = Math.pow(1+rate, term)-1;
+		const interestPayment = numerator/denominator
 		return interestPayment;
 	}
 	calculateMonthly(priceString, parseMode, term, APR) {
