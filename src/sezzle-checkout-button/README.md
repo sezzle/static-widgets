@@ -1,5 +1,5 @@
 
-The following are 4 methods for installing the Sezzle checkout button. The 	Install as Asset` method should work for most installations.
+The following are 4 methods for installing the Sezzle checkout button. The `Install as Asset` method should work for most installations.
 
 ## Install as Asset
 1. Log in to your Shopify Admin
