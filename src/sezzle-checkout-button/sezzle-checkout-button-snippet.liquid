@@ -55,7 +55,7 @@
 		location.replace("/checkout?skip_shopify_pay=true");
 	}
 </script>
-<button class="sezzle-checkout-button sezzle-button-{{theme === 'dark' ? 'dark' : 'light'}}" onclick="handleSezzleClick(event)">
+<button class="sezzle-checkout-button sezzle-button-{{theme}}" onclick="handleSezzleClick(event)">
 	Checkout with <img class="sezzle-button-logo-img" src="{{imageUrl}}" alt="Sezzle">
 </button>
 <script type="text/javascript">
