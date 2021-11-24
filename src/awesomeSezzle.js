@@ -676,11 +676,15 @@ class AwesomeSezzle {
 	}
 
 	calculateInterest(price, term, APR) {
-		const rate = (APR/100)/12;
-		const numerator = price * rate * Math.pow(1+rate, term);
-		const denominator = Math.pow(1+rate, term)-1;
-		const interestPayment = numerator/denominator
-		return interestPayment;
+		if(APR < 0){
+			const rate = (APR/100)/12;
+			const numerator = price * rate * Math.pow(1+rate, term);
+			const denominator = Math.pow(1+rate, term)-1;
+			const interestPayment = numerator/denominator
+			return interestPayment;
+		} else {
+			return price/term;
+		}
 	}
 	calculateMonthly(priceString, parseMode, term, APR) {
 		const interestAmount = this.calculateInterest(priceString, term, APR);
