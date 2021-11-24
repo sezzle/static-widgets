@@ -676,7 +676,7 @@ class AwesomeSezzle {
 	}
 
 	calculateInterest(price, term, APR) {
-		if(APR < 0){
+		if(APR > 0){
 			const rate = (APR/100)/12;
 			const numerator = price * rate * Math.pow(1+rate, term);
 			const denominator = Math.pow(1+rate, term)-1;
