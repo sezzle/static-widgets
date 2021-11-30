@@ -121,8 +121,25 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 				14: `Divida su pedido completo en 4 pagos sin intereses durante 6 semanas. Sin cargos si paga a tiempo sin impacto en su cr&#233;dito.`,
 				30: `Divida su pedido completo en 4 pagos durante 3 meses. &#161;Sin cargo!`
 			},
-			'secondParagraph': 'Despu&#233;s de hacer clic en "Completar pedido" en este sitio, ser&#225; redirigido a Sezzle para completar su compra de forma segura.',
+			'secondParagraph': 'Despu&#233;s de hacer clic en &quot;Completar pedido&quot; en este sitio, ser&#225; redirigido a Sezzle para completar su compra de forma segura.',
 			'infoIcon': 'M&#225;s informaci&#243;n sobre Sezzle'
+		},
+		'it': {
+		    'today': 'oggi',
+		    'days': 'giorni',
+		    'week': 'settimana',
+		    'month': 'mese',
+		    'installmentWidget': {
+			14: `4 rate senza interessi in 6 settimane`,
+			30: `4 rate in 3 mesi. Senza costi!`
+		    },
+		    'modalTitle': 'Come funziona',
+		    'firstParagraph': {
+			14: `Dividi l&lsquo;intero ordine in 4 rate senza interessi in 6 settimane. Nessuna commissione se paghi in tempo e con impatto zero sul tuo credito.`,
+			30: `Dividi l&rsquo;intero ordine in 4 rate in 3 mesi. Senza costi!`
+		    },
+		    'secondParagraph': 'Dopo aver cliccato su &ldquo;Completa l&rsquo;ordine&rdquo; in questa pagina, verrai reindirizzato a Sezzle per completare l&rsquo;acquisto in modo sicuro',
+		    'infoIcon': 'Maggiori informazioni riguardo Sezzle'
 		}
 	}
 
