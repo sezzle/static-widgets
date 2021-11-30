@@ -97,3 +97,41 @@ class SezzleCheckoutButton {
 		this.createButton()
 	}
 }
+
+class EventLogger {
+	constructor(options){
+		this.merchantUUID = options.merchantUUID || '';
+	}
+
+	sendEvent(eventName, description="") {
+		const url = "http://widget.sezzle.com/v1/event/log";
+		const body = [{
+			event_name: eventName,
+			description: description,
+			merchant_uuid: this.merchantUUID,
+			merchant_site: window.location.hostname,
+		}];
+		this.httpRequestWrapper('POST', url, body)
+	};
+
+	httpRequestWrapper(method, url, body = null) {
+		return new Promise((resolve, reject) => {
+		  const xhr = new XMLHttpRequest();
+		  xhr.open(method, url, true);
+		  if (body !== null) {
+			xhr.setRequestHeader('Content-Type', 'application/json');
+		  }
+		  xhr.onload = function () {
+			if (this.status >= 200 && this.status < 300) {
+			  resolve(xhr.response);
+			} else {
+			  reject(new Error('Something went wrong, contact the Sezzle team!'));
+			}
+		  };
+		  xhr.onerror = function () {
+			reject(new Error('Something went wrong, contact the Sezzle team!'));
+		  };
+		  body === null ? xhr.send() : xhr.send(JSON.stringify(body));
+		});
+	}
+}
