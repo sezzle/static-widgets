@@ -5,7 +5,7 @@ class SezzleCheckoutButton {
 		this.template = options.template || 'Checkout with %%logo%%';
 		this.eventLogger = new EventLogger({
 			merchantUUID: options.merchantUUID,
-			widgetServerEventLogEndPoint: options.widgetServerEventLogEndPoint
+			widgetServerBaseUrl: options.widgetServerBaseUrl
 		});
 	}
 
@@ -110,7 +110,7 @@ class SezzleCheckoutButton {
 class EventLogger {
 	constructor(options){
 		this.merchantUUID = options.merchantUUID || '';
-		this.widgetServerEventLogEndPoint = options.widgetServerEventLogEndPoint || 'https://widget.sezzle.com/v1/event/log';
+		this.widgetServerEventLogEndpoint = options.widgetServerBaseUrl ? `${options.widgetServerBaseUrl}/v1/event/log` : 'https://widget.sezzle.com/v1/event/log';
 	}
 
 	sendEvent(eventName, description="") {
@@ -120,7 +120,7 @@ class EventLogger {
 			merchant_uuid: this.merchantUUID,
 			merchant_site: window.location.hostname,
 		}];
-		this.httpRequestWrapper('POST', this.widgetServerEventLogEndPoint, body)
+		this.httpRequestWrapper('POST', this.widgetServerEventLogEndpoint, body)
 	};
 
 	async httpRequestWrapper(method, url, body = null) {
