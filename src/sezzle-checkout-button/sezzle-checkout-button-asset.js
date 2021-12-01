@@ -104,7 +104,7 @@ class EventLogger {
 	}
 
 	sendEvent(eventName, description="") {
-		const url = "http://widget.sezzle.com/v1/event/log";
+		const url = "https://widget.sezzle.com/v1/event/log";
 		const body = [{
 			event_name: eventName,
 			description: description,
