@@ -12,15 +12,10 @@ The following are 4 methods for installing the Sezzle checkout button. The `Inst
 ```
   {{ "sezzle-checkout-button.js" | asset_url | script_tag }}
   <script>
-    const eventLogger = new EventLogger({
-      merchantUUID:"enter ID here" <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) can be found in `business` section(under `settings`) of merchant dashboard -->
-    });
     try{
-      new SezzleCheckoutButton({}).init();
-      eventLogger.sendEvent("checkout-button-onload")
-    }catch(e){
-      eventLogger.sendEvent("checkout-button-error", e.message)
-    }
+      new SezzleCheckoutButton({
+        merchantUUID:"enter ID here" <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) can be found in `business` section(under `settings`) of merchant dashboard -->
+      }).init();
   </script>
 ```
 8. Click Preview, then go to the cart page to confirm button is appearing correctly.
@@ -32,18 +27,11 @@ The button appearance can now be customized as needed using the below keys. Here
 ```
   {{ "sezzle-checkout-button.js" | asset_url | script_tag }}
   <script>
-    const eventLogger = new EventLogger({
-      merchantUUID:"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-    });
-    try{
       new SezzleCheckoutButton({
-      theme: "light", <!-- accepts "light" and "dark" (based on site background) -->
-          template: "Checkout with %%logo%%"  <!-- accepts "Checkout with %%logo%%", "Pay with %%logo%%", or "%%logo%%" -->
+        merchantUUID: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+        theme: "light", <!-- accepts "light" and "dark" (based on site background) -->
+        template: "Checkout with %%logo%%"  <!-- accepts "Checkout with %%logo%%", "Pay with %%logo%%", or "%%logo%%" -->
       }).init();
-      eventLogger.sendEvent("checkout-button-onload")
-    }catch(e){
-      eventLogger.sendEvent("checkout-button-error", e.message)
-    }
   </script>
 ```
 

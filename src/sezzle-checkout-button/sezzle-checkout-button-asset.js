@@ -3,6 +3,10 @@ class SezzleCheckoutButton {
 	constructor(options){
 		this.theme =  options.theme  || 'light';
 		this.template = options.template || 'Checkout with %%logo%%';
+		this.eventLogger = new EventLogger({
+			merchantUUID: options.merchantUUID,
+			widgetServerEventLogEndPoint: options.widgetServerEventLogEndPoint
+		});
 	}
 
 	parseButtonTemplate () {
@@ -94,24 +98,29 @@ class SezzleCheckoutButton {
 	}
 
 	init() {
-		this.createButton()
+		try{
+			this.createButton()
+			this.eventLogger.sendEvent("checkout-button-onload")
+		}catch(e){
+			this.eventLogger.sendEvent("checkout-button-error", e.message)
+		}
 	}
 }
 
 class EventLogger {
 	constructor(options){
 		this.merchantUUID = options.merchantUUID || '';
+		this.widgetServerEventLogEndPoint = options.widgetServerEventLogEndPoint || 'https://widget.sezzle.com/v1/event/log';
 	}
 
 	sendEvent(eventName, description="") {
-		const url = "https://widget.sezzle.com/v1/event/log";
 		const body = [{
 			event_name: eventName,
 			description: description,
 			merchant_uuid: this.merchantUUID,
 			merchant_site: window.location.hostname,
 		}];
-		this.httpRequestWrapper('POST', url, body)
+		this.httpRequestWrapper('POST', this.widgetServerEventLogEndPoint, body)
 	};
 
 	async httpRequestWrapper(method, url, body = null) {
