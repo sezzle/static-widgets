@@ -12,7 +12,6 @@ The following are 4 methods for installing the Sezzle checkout button. The `Inst
 ```
   {{ "sezzle-checkout-button.js" | asset_url | script_tag }}
   <script>
-    try{
       new SezzleCheckoutButton({
         merchantUUID:"enter ID here" <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) can be found in `business` section(under `settings`) of merchant dashboard -->
       }).init();
