@@ -114,7 +114,7 @@ class EventLogger {
 		this.httpRequestWrapper('POST', url, body)
 	};
 
-	httpRequestWrapper(method, url, body = null) {
+	async httpRequestWrapper(method, url, body = null) {
 		return new Promise((resolve, reject) => {
 		  const xhr = new XMLHttpRequest();
 		  xhr.open(method, url, true);
@@ -132,6 +132,8 @@ class EventLogger {
 			reject(new Error('Something went wrong, contact the Sezzle team!'));
 		  };
 		  body === null ? xhr.send() : xhr.send(JSON.stringify(body));
+		}).catch(function(e) {
+			console.log(e.message)
 		});
 	}
 }
