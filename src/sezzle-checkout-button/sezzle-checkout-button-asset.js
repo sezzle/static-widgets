@@ -3,6 +3,10 @@ class SezzleCheckoutButton {
 	constructor(options){
 		this.theme =  options.theme  || 'light';
 		this.template = options.template || 'Checkout with %%logo%%';
+		this.eventLogger = new EventLogger({
+			merchantUUID: options.merchantUUID,
+			widgetServerBaseUrl: options.widgetServerBaseUrl
+		});
 	}
 
 	parseButtonTemplate () {
@@ -94,6 +98,51 @@ class SezzleCheckoutButton {
 	}
 
 	init() {
-		this.createButton()
+		try{
+			this.createButton()
+			this.eventLogger.sendEvent("checkout-button-onload")
+		}catch(e){
+			this.eventLogger.sendEvent("checkout-button-error", e.message)
+		}
+	}
+}
+
+class EventLogger {
+	constructor(options){
+		this.merchantUUID = options.merchantUUID || '';
+		this.widgetServerEventLogEndpoint = options.widgetServerBaseUrl ? `${options.widgetServerBaseUrl}/v1/event/log` : 'https://widget.sezzle.com/v1/event/log';
+	}
+
+	sendEvent(eventName, description="") {
+		const body = [{
+			event_name: eventName,
+			description: description,
+			merchant_uuid: this.merchantUUID,
+			merchant_site: window.location.hostname,
+		}];
+		this.httpRequestWrapper('POST', this.widgetServerEventLogEndpoint, body)
+	};
+
+	async httpRequestWrapper(method, url, body = null) {
+		return new Promise((resolve, reject) => {
+		  const xhr = new XMLHttpRequest();
+		  xhr.open(method, url, true);
+		  if (body !== null) {
+			xhr.setRequestHeader('Content-Type', 'application/json');
+		  }
+		  xhr.onload = function () {
+			if (this.status >= 200 && this.status < 300) {
+			  resolve(xhr.response);
+			} else {
+			  reject(new Error('Something went wrong, contact the Sezzle team!'));
+			}
+		  };
+		  xhr.onerror = function () {
+			reject(new Error('Something went wrong, contact the Sezzle team!'));
+		  };
+		  body === null ? xhr.send() : xhr.send(JSON.stringify(body));
+		}).catch(function(e) {
+			console.log(e.message)
+		});
 	}
 }
