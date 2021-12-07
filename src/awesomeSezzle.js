@@ -622,7 +622,7 @@ class AwesomeSezzle {
     const price = this.parseMode ==='default' ? HelperClass.parsePrice(priceText) : HelperClass.parsePrice(priceText,this.parseMode);
 	const formatter =  priceText.replace(priceString, '{price}');
 	const terms = this.termsToShow(price);
-	const sezzleInstallmentPrice = this.isProductEligibleLT(amount) ? this.calculateInterest(price,terms[terms.length - 1],this.bestAPR).toFixed(2): (price / this.numberOfPayments).toFixed(2);
+	const sezzleInstallmentPrice = this.isProductEligibleLT(amount) ? this.calculateMonthlyWithInterest(price,terms[terms.length - 1],this.bestAPR) : (price / this.numberOfPayments).toFixed(2);
 	const sezzleInstallmentFormattedPrice = formatter.replace('{price}', this.addDelimiters(sezzleInstallmentPrice, this.parseMode));
     return sezzleInstallmentFormattedPrice;
 
@@ -675,7 +675,7 @@ class AwesomeSezzle {
 		return currency || 36;
 	}
 
-	calculateInterest(price, term, APR) {
+	calculateMonthlyWithInterest(price, term, APR) {
 		if(APR > 0){
 			const rate = (APR/100)/12;
 			const numerator = price * rate * Math.pow(1+rate, term);
@@ -683,17 +683,22 @@ class AwesomeSezzle {
 			const interestPayment = numerator/denominator
 			return interestPayment;
 		} else {
-			return price/term;
+			return (price/term).toFixed(2);
 		}
 	}
-	calculateMonthly(priceString, parseMode, term, APR) {
-		const interestAmount = this.calculateInterest(priceString, term, APR);
-		return this.addDelimiters(interestAmount.toFixed(2), parseMode);
+	formatMonthly(priceString, parseMode, term, APR) {
+		const interestAmount = this.calculateMonthlyWithInterest(priceString, term, APR);
+		return this.addDelimiters(interestAmount, parseMode);
 	}
-	calculateAdjusted(priceString, parseMode, term, APR) {
-		const interestAmount = this.calculateInterest(priceString, term, APR);
-		return this.addDelimiters((interestAmount*term).toFixed(2), parseMode);
+	formatTotalInterest(priceString, parseMode, term, APR) {
+		const adjustedTotal = this.calculateMonthlyWithInterest(priceString, term, APR) * term;
+		return this.addDelimiters(adjustedTotal-priceString, parseMode);
 	}
+	formatAdjustedTotal(priceString, parseMode, term, APR) {
+		const interestAmount = this.calculateMonthlyWithInterest(priceString, term, APR);
+		return this.addDelimiters((interestAmount*term), parseMode);
+	}
+
 
 	modalKeyboardNavigation (){
 		let focusableElements = document.querySelector('.sezzle-checkout-modal-lightbox').querySelectorAll('[tabIndex="0"]');
@@ -749,6 +754,7 @@ class AwesomeSezzle {
 				monthlyAmount: '/month',
 				termLength: 'months',
 				adjustedTotal: 'Total:',
+				interest: 'Interest:',
 				sampleApr: 'APR:',
 				justSelectSezzle1: 'Just select',
 				justSelectSezzleLt1: 'Just choose',
@@ -782,6 +788,7 @@ class AwesomeSezzle {
 				monthlyAmount: '/mois',
 				termLength: 'mois',
 				adjustedTotal: 'Totale:',
+				interest: 'L\'int%%&eacute;%%r%%&ecirc;%%ts:',
 				sampleApr: 'APR:',
 				justSelectSezzle1: 'Vous n\'avez qu\' &#224; choisir',
 				justSelectSezzleLt1: 'Vous n\'avez qu\' &#224; choisir',
@@ -815,6 +822,7 @@ class AwesomeSezzle {
 				monthlyAmount: '/Monat',
 				termLength: 'Monate',
 				adjustedTotal: 'Gesamt:',
+				interest: 'Zinsbetrag:',
 				sampleApr: 'APR:',
 				justSelectSezzle1: 'Einfach',
 				justSelectSezzleLt1: 'Einfach',
@@ -848,6 +856,7 @@ class AwesomeSezzle {
 				monthlyAmount: '/mes',
 				termLength: 'meses',
 				adjustedTotal: 'Total:',
+				interest: 'Interesar:',
 				sampleApr: 'APR:',
 				justSelectSezzle1: '&#161;Simplemente seleccione',
 				justSelectSezzleLt1: 'Solo elige',
@@ -945,11 +954,11 @@ class AwesomeSezzle {
 					.sezzle-checkout-modal-hidden .sezzle-lt-payment-options .plan-details {
 						text-align: left;
 						display: flex;
-						justify-content: space-evenly;
+						justify-content: space-between;
 					}
 					.sezzle-checkout-modal-hidden .sezzle-lt-payment-options .plan-details div {
 						color: #737373;
-						width: 100%;
+						width: fit-content;
 						display: inline;
 						font-size: 13px;
 					}
@@ -1005,16 +1014,16 @@ class AwesomeSezzle {
 							<div class="sezzle-lt-payments">
 								<div tabIndex="0" class="sezzle-lt-payment-header">${modalTranslations[this.language].sezzleLtPaymentHeader} <span>${currency + this.addDelimiters(priceString, this.parseMode)}</span></div>
 								<div class="sezzle-lt-payment-options ${terms[2]}-month" ${terms[2] === undefined ? `style="display: none;"` : `style="display: block;"`}>
-									<div class="plan" tabIndex="0" ><div class="monthly-amount"><span>${currency + this.calculateMonthly(priceString, this.parseMode, terms[2], this.bestAPR)}</span> ${modalTranslations[this.language].monthlyAmount}</div>	<div class="term-length">${terms[2]} ${modalTranslations[this.language].termLength}</div></div>
-									<div class="plan-details" tabIndex="0"><div class="adjusted-total">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.calculateAdjusted(priceString, this.parseMode, terms[2], this.bestAPR)}</span></div>	<div class="sample-apr">${modalTranslations[this.language].sampleApr} <span>${this.bestAPR}</span>%</div></div>
+									<div class="plan" tabIndex="0" ><div class="monthly-amount"><span>${currency + this.formatMonthly(priceString, this.parseMode, terms[2], this.bestAPR)}</span> ${modalTranslations[this.language].monthlyAmount}</div>	<div class="term-length">${terms[2]} ${modalTranslations[this.language].termLength}</div></div>
+									<div class="plan-details" tabIndex="0"><div class="adjusted-total">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.formatAdjustedTotal(priceString, this.parseMode, terms[2], this.bestAPR)}</span></div>	<div class="interest-amount">${modalTranslations[this.language].interest} <span>${currency + this.formatTotalInterest(priceString, this.parseMode, terms[2], this.bestAPR)}</span></div> <div class="sample-apr">${modalTranslations[this.language].sampleApr} <span>${this.bestAPR}</span>%</div></div>
 								</div>
 								<div class="sezzle-lt-payment-options ${terms[1]}-month">
-									<div class="plan" tabIndex="0"><div class="monthly-amount"><span>${currency + this.calculateMonthly(priceString, this.parseMode, terms[1], this.bestAPR)}</span> ${modalTranslations[this.language].monthlyAmount}</div>	<div class="term-length">${terms[1]} ${modalTranslations[this.language].termLength}</div></div>
-									<div class="plan-details" tabIndex="0"><div class="adjusted-total">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.calculateAdjusted(priceString, this.parseMode, terms[1], this.bestAPR)}</span></div>	<div class="sample-apr">${modalTranslations[this.language].sampleApr} <span>${this.bestAPR}</span>%</div></div>
+									<div class="plan" tabIndex="0"><div class="monthly-amount"><span>${currency + this.formatMonthly(priceString, this.parseMode, terms[1], this.bestAPR)}</span> ${modalTranslations[this.language].monthlyAmount}</div>	<div class="term-length">${terms[1]} ${modalTranslations[this.language].termLength}</div></div>
+									<div class="plan-details" tabIndex="0"><div class="adjusted-total">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.formatAdjustedTotal(priceString, this.parseMode, terms[1], this.bestAPR)}</span></div>	<div class="interest-amount">${modalTranslations[this.language].interest} <span>${currency + this.formatTotalInterest(priceString, this.parseMode, terms[2], this.bestAPR)}</span></div> <div class="sample-apr">${modalTranslations[this.language].sampleApr} <span>${this.bestAPR}</span>%</div></div>
 								</div>
 								<div class="sezzle-lt-payment-options ${terms[0]}-month">
-									<div class="plan" tabIndex="0"><div class="monthly-amount"><span>${currency + this.calculateMonthly(priceString, this.parseMode, terms[0], this.bestAPR)}</span> ${modalTranslations[this.language].monthlyAmount}</div>	<div class="term-length">${terms[0]} ${modalTranslations[this.language].termLength}</div></div>
-									<div class="plan-details" tabIndex="0"><div class="adjusted-total">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.calculateAdjusted(priceString, this.parseMode, terms[0], this.bestAPR)}</span></div>	<div class="sample-apr">${modalTranslations[this.language].sampleApr} <span>${this.bestAPR}</span>%</div></div>
+									<div class="plan" tabIndex="0"><div class="monthly-amount"><span>${currency + this.formatMonthly(priceString, this.parseMode, terms[0], this.bestAPR)}</span> ${modalTranslations[this.language].monthlyAmount}</div>	<div class="term-length">${terms[0]} ${modalTranslations[this.language].termLength}</div></div>
+									<div class="plan-details" tabIndex="0"><div class="adjusted-total">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.formatAdjustedTotal(priceString, this.parseMode, terms[0], this.bestAPR)}</span></div>	<div class="interest-amount">${modalTranslations[this.language].interest} <span>${currency + this.formatTotalInterest(priceString, this.parseMode, terms[2], this.bestAPR)}</span></div> <div class="sample-apr">${modalTranslations[this.language].sampleApr} <span>${this.bestAPR}</span>%</div></div>
 								</div>
 							</div>
 							<div class="sezzle-row">
@@ -1022,7 +1031,6 @@ class AwesomeSezzle {
 								<div class="mobile" tabIndex="0"> <div class="just-select-sezzle-mobile"> <div>${modalTranslations[this.language].justSelectSezzleLt1} <div class="sezzle-logo" title="Sezzle logo"></div> </div><div>${modalTranslations[this.language].justSelectSezzle2}</div></div></div>
 							</div>
 							<div class="details" tabIndex="0">${modalTranslations[this.language].details}</div>
-							<div class="sezzle-ally-logo" title="Financed by Ally Bank Member FDIC">${HelperClass.svgImages().ltAllyLogo}</div>
 							<div class="terms" tabIndex="0">${modalTranslations[this.language].termsLt}</div>
 						</div>
 					</div>
