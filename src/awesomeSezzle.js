@@ -822,7 +822,7 @@ class AwesomeSezzle {
 				monthlyAmount: '/Monat',
 				termLength: 'Monate',
 				adjustedTotal: 'Gesamt:',
-				interest: 'Zinsbetrag:',
+				interest: 'Zinsen:',
 				sampleApr: 'APR:',
 				justSelectSezzle1: 'Einfach',
 				justSelectSezzleLt1: 'Einfach',
