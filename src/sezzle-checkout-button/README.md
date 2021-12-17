@@ -11,12 +11,14 @@ The following are 4 methods for installing the Sezzle checkout button. The `Inst
 5. Click Create a Blank File, name the section `sezzle-checkout-button`, select `.js` as the file type, then click Add Asset
 6. In the Assets folder, select the asset you just created (you may need to scroll, files are not in alphabetical order).
 7. Overwrite the asset template with the code contents here[https://github.com/sezzle/static-widgets/blob/production/src/sezzle-checkout-button/sezzle-checkout-button-asset.js], then click Save.
-8. Paste the following snippet in the bottom of the `layout/theme.liquid` file, then click Save:
+8. Paste the following snippet in the bottom of the `layout/theme.liquid` file, enter the ID in the space provided, then click Save:
 ```
-	{{ "sezzle-checkout-button.js" | asset_url | script_tag }}
-	<script>
-		new SezzleCheckoutButton({}).init();
-	</script>
+  {{ "sezzle-checkout-button.js" | asset_url | script_tag }}
+  <script>
+      new SezzleCheckoutButton({
+        merchantUUID:"enter ID here" <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) can be found in `business` section(under `settings`) of merchant dashboard -->
+      }).init();
+  </script>
 ```
 8. Click Preview, then go to the cart page to confirm button is appearing correctly.
 
@@ -28,12 +30,14 @@ The button appearance can now be customized as needed using the below keys.
 Here is an example of the default configuration:
 
 ```
-    <script>
-    new SezzleCheckoutButton({
-		theme: "light"
-        template: "Checkout with %%logo%%"
-    }).init();
-    </script>
+  {{ "sezzle-checkout-button.js" | asset_url | script_tag }}
+  <script>
+      new SezzleCheckoutButton({
+        merchantUUID: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+        theme: "light", <!-- accepts "light" and "dark" (based on site background) -->
+        template: "Checkout with %%logo%%"  <!-- accepts "Checkout with %%logo%%", "Pay with %%logo%%", or "%%logo%%" -->
+      }).init();
+  </script>
 ```
 
 
