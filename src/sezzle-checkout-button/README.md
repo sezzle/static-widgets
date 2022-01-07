@@ -20,7 +20,7 @@ The following are 4 methods for installing the Sezzle checkout button. The `Inst
       }).init();
   </script>
 ```
-8. Click Preview, then go to the cart page to confirm button is appearing correctly.
+9. Click Preview, then go to the cart page to confirm button is appearing correctly.
 
 ### STYLE CUSTOMIZATION
 
