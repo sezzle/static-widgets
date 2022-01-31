@@ -87,22 +87,23 @@ class SezzleCheckoutButton {
 				sezzleCheckoutButton.className = `sezzle-checkout-button sezzle-button-${this.theme === 'dark' ? 'dark' : 'light'}`;
 				sezzleCheckoutButton.innerHTML = this.parseButtonTemplate();
 				sezzleCheckoutButton.addEventListener('click', function (e) {
+					this.eventLogger.sendEvent('checkout-button-onclick');
 					e.stopPropagation();
 					e.preventDefault();
 					location.replace('/checkout?skip_shopify_pay=true');
-				});
+				}.bind(this));
 			checkoutButtonParent.append(sezzleCheckoutButton);
 			this.inheritButtonStyles(sezzleCheckoutButton);
 			}
-		})
+		});
 	}
 
 	init() {
 		try{
-			this.createButton()
-			this.eventLogger.sendEvent("checkout-button-onload")
+			this.createButton();
+			this.eventLogger.sendEvent("checkout-button-onload");
 		}catch(e){
-			this.eventLogger.sendEvent("checkout-button-error", e.message)
+			this.eventLogger.sendEvent("checkout-button-error", e.message);
 		}
 	}
 }
@@ -120,7 +121,7 @@ class EventLogger {
 			merchant_uuid: this.merchantUUID,
 			merchant_site: window.location.hostname,
 		}];
-		this.httpRequestWrapper('POST', this.widgetServerEventLogEndpoint, body)
+		this.httpRequestWrapper('POST', this.widgetServerEventLogEndpoint, body);
 	};
 
 	async httpRequestWrapper(method, url, body = null) {
@@ -142,7 +143,7 @@ class EventLogger {
 		  };
 		  body === null ? xhr.send() : xhr.send(JSON.stringify(body));
 		}).catch(function(e) {
-			console.log(e.message)
+			console.log(e.message);
 		});
 	}
 }
