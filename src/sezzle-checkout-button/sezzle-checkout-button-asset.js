@@ -81,7 +81,7 @@ class SezzleCheckoutButton {
 		const checkoutButtons = document.getElementsByName('checkout');
 		checkoutButtons.forEach(checkoutButton => {
 			const checkoutButtonParent = checkoutButton  ? checkoutButton.parentElement : null;
-			if (checkoutButtonParent) {
+			if (checkoutButtonParent && !checkoutButtonParent.querySelector('.sezzle-checkout-button')) {
 				this.addButtonStyle();
 				const sezzleCheckoutButton = document.createElement('button');
 				sezzleCheckoutButton.className = `sezzle-checkout-button sezzle-button-${this.theme === 'dark' ? 'dark' : 'light'}`;
