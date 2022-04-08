@@ -1237,7 +1237,7 @@ class AwesomeSezzle {
     sezzleModal.addEventListener('click', function (event) {
       event.stopPropagation();
     });
-	this.modalKeyboardNavigation;
+	this.modalKeyboardNavigation();
   }
 
   renderAPModal(){
