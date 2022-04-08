@@ -746,6 +746,7 @@ class AwesomeSezzle {
 				singleFeatureApproval: 'Instant Approval Decisions',
 				subFeatureApproval: '',
 				sezzleLtPaymentHeader: 'Sample payments for',
+				perMonth: 'per month',
 				monthlyAmount: '/month',
 				termLength: 'months',
 				adjustedTotal: 'Total:',
@@ -779,6 +780,7 @@ class AwesomeSezzle {
 				singleFeatureApproval: 'D&#233;cisions d\'approbation instantan&#233;es',
 				subFeatureApproval: '',
 				sezzleLtPaymentHeader: 'Exemples de paiements pour',
+				perMonth: 'par mois',
 				monthlyAmount: '/mois',
 				termLength: 'mois',
 				adjustedTotal: 'Totale:',
@@ -812,6 +814,7 @@ class AwesomeSezzle {
 				singleFeatureCredit: 'Kein Einfluss auf deine Kreditw&#252;rdigkeit',
 				subFeatureCredit: '',
 				sezzleLtPaymentHeader: 'Musterzahlungen f&#252;r',
+				perMonth: 'pro Monat',
 				monthlyAmount: '/Monat',
 				termLength: 'Monate',
 				adjustedTotal: 'Gesamt:',
@@ -845,6 +848,7 @@ class AwesomeSezzle {
 				singleFeatureApproval: 'Decisiones de aprobacio&#769;n instanta&#769;neas',
 				subFeatureApproval: '',
 				sezzleLtPaymentHeader: 'Pagos de muestra por',
+				perMonth: 'por mes',
 				monthlyAmount: '/mes',
 				termLength: 'meses',
 				adjustedTotal: 'Total:',
@@ -1004,15 +1008,15 @@ class AwesomeSezzle {
 							<div class="sezzle-lt-payments">
 								<div tabIndex="0" class="sezzle-lt-payment-header">${modalTranslations[this.language].sezzleLtPaymentHeader} <span>${currency + this.addDelimiters(priceString, this.parseMode)}</span></div>
 								<div class="sezzle-lt-payment-options ${terms[2]}-month" ${terms[2] === undefined ? `style="display: none;"` : `style="display: block;"`}>
-									<div class="plan"><div class="monthly-amount" tabIndex="0"><span>${currency + this.calculateMonthly(priceString, this.parseMode, terms[2], this.bestAPR)}</span> ${modalTranslations[this.language].monthlyAmount}</div>	<div class="term-length" tabIndex="0">${terms[2]} ${modalTranslations[this.language].termLength}</div></div>
+									<div class="plan"><div class="monthly-amount" tabIndex="0"><span>${currency + this.calculateMonthly(priceString, this.parseMode, terms[2], this.bestAPR)}</span> <span aria-label="${modalTranslations[this.language].perMonth}">${modalTranslations[this.language].monthlyAmount}</span> </div>	<div class="term-length" tabIndex="0">${terms[2]} ${modalTranslations[this.language].termLength}</div></div>
 									<div class="plan-details"><div class="adjusted-total" tabIndex="0">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.calculateAdjusted(priceString, this.parseMode, terms[2], this.bestAPR)}</span></div>	<div class="sample-apr" tabIndex="0">${modalTranslations[this.language].sampleApr} <span>${this.bestAPR}</span>%</div></div>
 								</div>
 								<div class="sezzle-lt-payment-options ${terms[1]}-month">
-									<div class="plan"><div class="monthly-amount" tabIndex="0"><span>${currency + this.calculateMonthly(priceString, this.parseMode, terms[1], this.bestAPR)}</span> ${modalTranslations[this.language].monthlyAmount}</div>	<div class="term-length" tabIndex="0">${terms[1]} ${modalTranslations[this.language].termLength}</div></div>
+									<div class="plan"><div class="monthly-amount" tabIndex="0"><span>${currency + this.calculateMonthly(priceString, this.parseMode, terms[1], this.bestAPR)}</span> <span aria-label="${modalTranslations[this.language].perMonth}">${modalTranslations[this.language].monthlyAmount}</span> </div>	<div class="term-length" tabIndex="0">${terms[1]} ${modalTranslations[this.language].termLength}</div></div>
 									<div class="plan-details"><div class="adjusted-total" tabIndex="0">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.calculateAdjusted(priceString, this.parseMode, terms[1], this.bestAPR)}</span></div>	<div class="sample-apr" tabIndex="0">${modalTranslations[this.language].sampleApr} <span>${this.bestAPR}</span>%</div></div>
 								</div>
 								<div class="sezzle-lt-payment-options ${terms[0]}-month">
-									<div class="plan"><div class="monthly-amount" tabIndex="0"><span>${currency + this.calculateMonthly(priceString, this.parseMode, terms[0], this.bestAPR)}</span> ${modalTranslations[this.language].monthlyAmount}</div>	<div class="term-length" tabIndex="0">${terms[0]} ${modalTranslations[this.language].termLength}</div></div>
+									<div class="plan"><div class="monthly-amount" tabIndex="0"><span>${currency + this.calculateMonthly(priceString, this.parseMode, terms[0], this.bestAPR)}</span> <span aria-label="${modalTranslations[this.language].perMonth}">${modalTranslations[this.language].monthlyAmount}</span> </div>	<div class="term-length" tabIndex="0">${terms[0]} ${modalTranslations[this.language].termLength}</div></div>
 									<div class="plan-details"><div class="adjusted-total" tabIndex="0">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.calculateAdjusted(priceString, this.parseMode, terms[0], this.bestAPR)}</span></div>	<div class="sample-apr" tabIndex="0">${modalTranslations[this.language].sampleApr} <span>${this.bestAPR}</span>%</div></div>
 								</div>
 							</div>
