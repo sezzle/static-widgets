@@ -328,7 +328,7 @@ class AwesomeSezzle {
             logoNode.setAttribute('height','199.56');
             logoNode.setAttribute('viewBox','0 0 798.16 199.56');
             logoNode.setAttribute('class',`sezzle-logo ${this.imageClassName}`);
-						logoNode.setAttribute('aria-label', 'Sezzle');
+            logoNode.setAttribute('aria-label', 'Sezzle');
             logoNode.style.height = '18px !important';
             logoNode.innerHTML = this.imageInnerHTML;
             sezzleButtonText.appendChild(logoNode);
@@ -873,7 +873,7 @@ class AwesomeSezzle {
       modalNode.style.display = 'none';
       modalNode.tabIndex=0;
       modalNode.role = 'dialog';
-	  modalNode.lang = this.language;
+      modalNode.lang = this.language;
       modalNode.ariaLabel= 'Sezzle Information';
 			if(this.isProductEligibleLT(this.amount)){
 				var currency = String.fromCharCode(this.currencySymbol(this.amount));
@@ -1287,7 +1287,7 @@ class AwesomeSezzle {
     modalNode.style.display = 'none';
     modalNode.tabIndex=0;
     modalNode.role = 'dialog';
-		modalNode.ariaLabel= 'Quadpay Information';
+    modalNode.ariaLabel= 'Quadpay Information';
     modalNode.innerHTML = this.qpModalHTML;
     document.getElementsByTagName('html')[0].appendChild(modalNode);
     Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
@@ -1298,9 +1298,9 @@ class AwesomeSezzle {
 			newFocus.focus();
 			newFocus.removeAttribute('id');
 		} else if (document.querySelector((`.qp-modal-info-link`))){
-		document.querySelector('.sezzle-checkout-button-wrapper').getElementsByClassName(`qp-modal-info-link`)[0].focus();
+			document.querySelector('.sezzle-checkout-button-wrapper').getElementsByClassName(`qp-modal-info-link`)[0].focus();
 		} else {
-		document.querySelector('.sezzle-checkout-button-wrapper').focus();
+			document.querySelector('.sezzle-checkout-button-wrapper').focus();
 		}
       });
     });
@@ -1318,7 +1318,7 @@ class AwesomeSezzle {
     modalNode.style.display = 'none';
     modalNode.tabIndex=0;
     modalNode.role = 'dialog';
-		modalNode.ariaLabel= 'Affirm Information';
+    modalNode.ariaLabel= 'Affirm Information';
     modalNode.innerHTML = this.affirmModalHTML;
     document.getElementsByTagName('html')[0].appendChild(modalNode);
     Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
