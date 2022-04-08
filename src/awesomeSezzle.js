@@ -1220,14 +1220,15 @@ class AwesomeSezzle {
     Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
       el.addEventListener('click', function () {
         modalNode.style.display = 'none';
-        document.body.ariaHidden = false;
         modalNode.getElementsByClassName('sezzle-modal')[0].className = `sezzle-modal sezzle-modal${this.modalTheme === "grayscale" ? "-grayscale" : "-color"} sezzle-checkout-modal-hidden`;
 		var newFocus = document.querySelector('#sezzle-modal-return');
 		if(newFocus){
 			newFocus.focus();
 			newFocus.removeAttribute('id');
-		} else {
+		} else if (document.querySelector('.sezzle-checkout-button-wrapper').querySelector('.sezzle-info-icon')){
 			document.querySelector('.sezzle-checkout-button-wrapper').querySelector('.sezzle-info-icon').focus();
+		} else {
+			document.querySelector('.sezzle-checkout-button-wrapper').focus();
 		}
       });
     });
@@ -1236,32 +1237,31 @@ class AwesomeSezzle {
     sezzleModal.addEventListener('click', function (event) {
       event.stopPropagation();
     });
-		////closes modal when escape key is hit
-		window.addEventListener('keydown', this.modalKeyboardNavigation);
+	this.modalKeyboardNavigation;
   }
 
   renderAPModal(){
-    var modalNode = document.createElement('div');
+    var modalNode = document.createElement('section');
     modalNode.className = 'sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-ap-modal';
     modalNode.style = 'position: center';
     modalNode.style.display = 'none';
     modalNode.tabIndex=0;
     modalNode.role = 'dialog';
-		modalNode.ariaModal= 'true';
 		modalNode.ariaLabel= 'Afterpay Information';
     modalNode.innerHTML = this.apModalHTML;
     document.getElementsByTagName('html')[0].appendChild(modalNode);
     Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
       el.addEventListener('click', function () {
         modalNode.style.display = 'none';
-        document.body.ariaHidden = false;
 		var newFocus = document.querySelector('#sezzle-modal-return');
 		if(newFocus){
 			newFocus.focus();
 			newFocus.removeAttribute('id');
-		} else {
-			document.querySelector('.sezzle-checkout-button-wrapper').querySelector('.ap-modal-info-link').focus();
-		}
+		} else if (document.querySelector((`.ap-modal-info-link`))){
+            document.querySelector('.sezzle-checkout-button-wrapper').getElementsByClassName(`ap-modal-info-link`)[0].focus();
+          } else {
+            document.querySelector('.sezzle-checkout-button-wrapper').focus();
+          }
       });
     });
     let sezzleModal = document.getElementsByClassName('sezzle-modal')[0];
@@ -1272,26 +1272,26 @@ class AwesomeSezzle {
   }
 
   renderQPModal(){
-    var modalNode = document.createElement('div');
+    var modalNode = document.createElement('section');
     modalNode.className = 'sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-qp-modal';
     modalNode.style = 'position: center';
     modalNode.style.display = 'none';
     modalNode.tabIndex=0;
     modalNode.role = 'dialog';
-		modalNode.ariaModal= 'true';
 		modalNode.ariaLabel= 'Quadpay Information';
     modalNode.innerHTML = this.qpModalHTML;
     document.getElementsByTagName('html')[0].appendChild(modalNode);
     Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
       el.addEventListener('click', function () {
         modalNode.style.display = 'none';
-        document.body.ariaHidden = false;
 		var newFocus = document.querySelector('#sezzle-modal-return');
 		if(newFocus){
 			newFocus.focus();
 			newFocus.removeAttribute('id');
+		} else if (document.querySelector((`.qp-modal-info-link`))){
+		document.querySelector('.sezzle-checkout-button-wrapper').getElementsByClassName(`qp-modal-info-link`)[0].focus();
 		} else {
-			document.querySelector('.sezzle-checkout-button-wrapper').querySelector('.quadpay-modal-info-link').focus();
+		document.querySelector('.sezzle-checkout-button-wrapper').focus();
 		}
       });
     });
@@ -1303,26 +1303,26 @@ class AwesomeSezzle {
   }
 
   renderAffirmModal(){
-    var modalNode = document.createElement('div');
+    var modalNode = document.createElement('section');
     modalNode.className = 'sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-affirm-modal';
     modalNode.style = 'position: center';
     modalNode.style.display = 'none';
     modalNode.tabIndex=0;
     modalNode.role = 'dialog';
-		modalNode.ariaModal= 'true';
 		modalNode.ariaLabel= 'Affirm Information';
     modalNode.innerHTML = this.affirmModalHTML;
     document.getElementsByTagName('html')[0].appendChild(modalNode);
     Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
       el.addEventListener('click', function () {
         modalNode.style.display = 'none';
-        document.body.ariaHidden = false;
 		var newFocus = document.querySelector('#sezzle-modal-return');
 		if(newFocus){
 			newFocus.focus();
 			newFocus.removeAttribute('id');
+		} else if (document.querySelector((`.affirm-modal-info-link`))){
+			document.querySelector('.sezzle-checkout-button-wrapper').getElementsByClassName(`affirm-modal-info-link`)[0].focus();
 		} else {
-			document.querySelector('.sezzle-checkout-button-wrapper').querySelector('.affirm-modal-info-link').focus();
+			document.querySelector('.sezzle-checkout-button-wrapper').focus();
 		}
       });
     });
@@ -1334,26 +1334,26 @@ class AwesomeSezzle {
   }
 
   renderKlarnaModal(){
-    var modalNode = document.createElement('div');
+    var modalNode = document.createElement('section');
     modalNode.className = 'sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-klarna-modal';
     modalNode.style = 'position: center';
     modalNode.style.display = 'none';
     modalNode.tabIndex=0;
     modalNode.role = 'dialog';
-		modalNode.ariaModal= 'true';
 		modalNode.ariaLabel= 'Klarna Information';
     modalNode.innerHTML = this.klarnaModalHTML;
     document.getElementsByTagName('html')[0].appendChild(modalNode);
     Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
       el.addEventListener('click', function () {
         modalNode.style.display = 'none';
-        document.body.ariaHidden = false;
 		var newFocus = document.querySelector('#sezzle-modal-return');
 		if(newFocus){
 			newFocus.focus();
 			newFocus.removeAttribute('id');
+		} else if (document.querySelector((`.klarna-modal-info-link`))){
+            document.querySelector('.sezzle-checkout-button-wrapper').getElementsByClassName(`klarna-modal-info-link`)[0].focus();
 		} else {
-			document.querySelector('.sezzle-checkout-button-wrapper').querySelector('.klarna-modal-info-link').focus();
+			document.querySelector('.sezzle-checkout-button-wrapper').focus();
 		}
       });
     });
@@ -1367,7 +1367,6 @@ class AwesomeSezzle {
   renderModalByfunction(){
     var modalNode = document.getElementsByClassName('sezzle-checkout-modal-lightbox')[0];
     modalNode.style.display = 'block';
-    document.body.ariaHidden = true;
     modalNode.getElementsByClassName('sezzle-modal')[0].className = `sezzle-modal sezzle-modal${this.modalTheme === "grayscale" ? "-grayscale" : "-color"}`;
   }
 
@@ -1379,7 +1378,6 @@ class AwesomeSezzle {
           var modalNode = document.getElementsByClassName('sezzle-checkout-modal-lightbox')[0];
           modalNode.style.display = 'block';
 				modalNode.getElementsByClassName('close-sezzle-modal')[0].focus();
-          document.body.ariaHidden = true;
           modalNode.getElementsByClassName('sezzle-modal')[0].className = `sezzle-modal sezzle-modal${this.modalTheme === "grayscale" ? "-grayscale" : "-color"}`;
 		  event.target.id = 'sezzle-modal-return';
         }
@@ -1390,7 +1388,6 @@ class AwesomeSezzle {
       modalLink.addEventListener('click', function (event) {
         document.getElementsByClassName('sezzle-ap-modal')[0].style.display = 'block';
         document.getElementsByClassName('sezzle-ap-modal')[0].focus();
-        document.body.ariaHidden = true;
 		event.target.id = 'sezzle-modal-return';
 	}.bind(this));
     }.bind(this));
@@ -1399,7 +1396,6 @@ class AwesomeSezzle {
       modalLink.addEventListener('click', function (event) {
         document.getElementsByClassName('sezzle-qp-modal')[0].style.display = 'block';
         document.getElementsByClassName('sezzle-qp-modal')[0].focus();
-        document.body.ariaHidden = true;
 		event.target.id = 'sezzle-modal-return';
 	}.bind(this));
     }.bind(this));
@@ -1408,7 +1404,6 @@ class AwesomeSezzle {
       modalLink.addEventListener('click', function (event) {
         document.getElementsByClassName('sezzle-affirm-modal')[0].style.display = 'block';
         document.getElementsByClassName('sezzle-affirm-modal')[0].focus();
-        document.body.ariaHidden = true;
 		event.target.id = 'sezzle-modal-return';
 	}.bind(this));
     }.bind(this));
@@ -1417,7 +1412,6 @@ class AwesomeSezzle {
       modalLink.addEventListener('click', function (event) {
         document.getElementsByClassName('sezzle-klarna-modal')[0].style.display = 'block';
         document.getElementsByClassName('sezzle-klarna-modal')[0].focus();
-        document.body.ariaHidden = true;
 		event.target.id = 'sezzle-modal-return';
 	}.bind(this));
     }.bind(this));
