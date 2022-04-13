@@ -328,7 +328,7 @@ class AwesomeSezzle {
             logoNode.setAttribute('height','199.56');
             logoNode.setAttribute('viewBox','0 0 798.16 199.56');
             logoNode.setAttribute('class',`sezzle-logo ${this.imageClassName}`);
-						logoNode.setAttribute('alt', 'Sezzle');
+            logoNode.setAttribute('aria-label', 'Sezzle');
             logoNode.style.height = '18px !important';
             logoNode.innerHTML = this.imageInnerHTML;
             sezzleButtonText.appendChild(logoNode);
@@ -379,7 +379,7 @@ class AwesomeSezzle {
             apNode.setAttribute('viewBox','0 0 115 40');
             apNode.setAttribute('class',`sezzle-afterpay-logo ap-modal-info-link no-sezzle-info`);
             apNode.setAttribute('style', `height: 24px !important;width: auto !important;margin-bottom: -8px;`);
-            apNode.setAttribute('alt', 'Afterpay');
+            apNode.setAttribute('aria-label', 'Afterpay');
             apNode.innerHTML = HelperClass.svgImages().apNodeColor;
             sezzleButtonText.appendChild(apNode);
             this.setLogoSize(apNode);
@@ -391,7 +391,7 @@ class AwesomeSezzle {
             apNode.setAttribute('viewBox','0 0 115 40');
             apNode.setAttribute('class',`sezzle-afterpay-logo ap-modal-info-link no-sezzle-info`);
             apNode.setAttribute('style', `height: 32px !important;width: auto !important;margin: -10px !important;`);
-            apNode.setAttribute('alt', 'Afterpay');
+            apNode.setAttribute('aria-label', 'Afterpay');
             apNode.innerHTML = HelperClass.svgImages().apNodeGrey;
             sezzleButtonText.appendChild(apNode);
             this.setLogoSize(apNode);
@@ -403,7 +403,7 @@ class AwesomeSezzle {
 						apNode.setAttribute('viewBox','0 0 115 40');
 						apNode.setAttribute('class',`sezzle-afterpay-logo ap-modal-info-link no-sezzle-info`);
 						apNode.setAttribute('style', `height: 32px !important;width: auto !important;margin: -10px !important`);
-						apNode.setAttribute('alt', 'Afterpay');
+						apNode.setAttribute('aria-label', 'Afterpay');
 						apNode.innerHTML = HelperClass.svgImages().apNodeWhite;
 						sezzleButtonText.appendChild(apNode);
 						this.setLogoSize(apNode);
@@ -434,7 +434,7 @@ class AwesomeSezzle {
             qpNode.setAttribute('viewBox','0 0 498 135');
             qpNode.setAttribute('class',`sezzle-quadpay-logo quadpay-modal-info-link no-sezzle-info`);
             qpNode.setAttribute('style', `height: 22px !important;width: auto !important;margin-bottom: -5px;`);
-            qpNode.setAttribute('alt', 'Quadpay');
+            qpNode.setAttribute('aria-label', 'Quadpay');
             qpNode.innerHTML = HelperClass.svgImages().qpNodeColor;
             sezzleButtonText.appendChild(qpNode);
             this.setLogoSize(qpNode);
@@ -446,7 +446,7 @@ class AwesomeSezzle {
 						qpNode.setAttribute('viewBox','0 0 498 135');
 						qpNode.setAttribute('class',`sezzle-quadpay-logo quadpay-modal-info-link no-sezzle-info`);
 						qpNode.setAttribute('style', `height: 22px !important;width: auto !important;margin-bottom: -5px;`);
-						qpNode.setAttribute('alt', 'Quadpay');
+						qpNode.setAttribute('aria-label', 'Quadpay');
 						qpNode.innerHTML = HelperClass.svgImages().qpNodeGrey;
 						sezzleButtonText.appendChild(qpNode);
 						this.setLogoSize(qpNode);
@@ -458,7 +458,7 @@ class AwesomeSezzle {
 						qpNode.setAttribute('viewBox','0 0 498 135');
 						qpNode.setAttribute('class',`sezzle-quadpay-logo quadpay-modal-info-link no-sezzle-info`);
 						qpNode.setAttribute('style', `height: 22px !important;width: auto !important;margin-bottom: -5px;`);
-						qpNode.setAttribute('alt', 'Quadpay');
+						qpNode.setAttribute('aria-label', 'Quadpay');
 						qpNode.innerHTML = HelperClass.svgImages().qpNodeWhite;
 						sezzleButtonText.appendChild(qpNode);
 						this.setLogoSize(qpNode);
@@ -479,7 +479,7 @@ class AwesomeSezzle {
             affirmNode.setAttribute('viewBox','0 0 450 170');
             affirmNode.setAttribute('class',`sezzle-affirm-logo affirm-modal-info-link no-sezzle-info`);
             affirmNode.setAttribute('style', `height: 24px !important;width: auto !important;`);
-            affirmNode.setAttribute('alt', 'Affirm');
+            affirmNode.setAttribute('aria-label', 'Affirm');
             affirmNode.innerHTML = HelperClass.svgImages().affirmNodeColor;
             sezzleButtonText.appendChild(affirmNode);
             this.setLogoSize(affirmNode);
@@ -491,7 +491,7 @@ class AwesomeSezzle {
 						affirmNode.setAttribute('viewBox','0 0 450 170');
 						affirmNode.setAttribute('class',`sezzle-affirm-logo affirm-modal-info-link no-sezzle-info`);
 						affirmNode.setAttribute('style', `height: 24px !important;width: auto !important;`);
-						affirmNode.setAttribute('alt', 'Affirm');
+						affirmNode.setAttribute('aria-label', 'Affirm');
 						affirmNode.innerHTML = HelperClass.svgImages().affirmNodeGrey;
 						sezzleButtonText.appendChild(affirmNode);
 						this.setLogoSize(affirmNode);
@@ -503,7 +503,7 @@ class AwesomeSezzle {
 						affirmNode.setAttribute('viewBox','0 0 450 170');
 						affirmNode.setAttribute('class',`sezzle-affirm-logo affirm-modal-info-link no-sezzle-info`);
 						affirmNode.setAttribute('style', `height: 24px !important;width: auto !important;`);
-						affirmNode.setAttribute('alt', 'Affirm');
+						affirmNode.setAttribute('aria-label', 'Affirm');
 						affirmNode.innerHTML = HelperClass.svgImages().affirmNodeWhite;
 						sezzleButtonText.appendChild(affirmNode);
 						this.setLogoSize(affirmNode);
@@ -524,7 +524,7 @@ class AwesomeSezzle {
             klarnaNode.setAttribute('viewBox','0 0 45 23');
             klarnaNode.setAttribute('class',`sezzle-klarna-logo klarna-modal-info-link no-sezzle-info`);
             klarnaNode.setAttribute('style', `height: 25px !important;width: auto !important; margin-bottom: -5px;`);
-            klarnaNode.setAttribute('alt', 'Klarna');
+            klarnaNode.setAttribute('aria-label', 'Klarna');
             klarnaNode.innerHTML = HelperClass.svgImages().klarnaNodeColor;
             sezzleButtonText.appendChild(klarnaNode);
             this.setLogoSize(klarnaNode);
@@ -536,7 +536,7 @@ class AwesomeSezzle {
 						klarnaNode.setAttribute('viewBox','0 0 45 23');
 						klarnaNode.setAttribute('class',`sezzle-klarna-logo klarna-modal-info-link no-sezzle-info`);
 						klarnaNode.setAttribute('style', `height: 25px !important;width: auto !important; margin-bottom: -5px;`);
-						klarnaNode.setAttribute('alt', 'Klarna');
+						klarnaNode.setAttribute('aria-label', 'Klarna');
 						klarnaNode.innerHTML = HelperClass.svgImages().klarnaNodeGrey;
 						sezzleButtonText.appendChild(klarnaNode);
 						this.setLogoSize(klarnaNode);
@@ -548,7 +548,7 @@ class AwesomeSezzle {
 						klarnaNode.setAttribute('viewBox','0 0 45 23');
 						klarnaNode.setAttribute('class',`sezzle-klarna-logo klarna-modal-info-link no-sezzle-info`);
 						klarnaNode.setAttribute('style', `height: 25px !important;width: auto !important; margin-bottom: -5px;`);
-						klarnaNode.setAttribute('alt', 'Klarna');
+						klarnaNode.setAttribute('aria-label', 'Klarna');
 						klarnaNode.innerHTML = HelperClass.svgImages().klarnaNodeWhite;
 						sezzleButtonText.appendChild(klarnaNode);
 						this.setLogoSize(klarnaNode);
@@ -703,10 +703,8 @@ class AwesomeSezzle {
 			if(event.key === 'Tab'){
 				if(event.shiftKey && document.activeElement === firstFocusableElement){
 					lastFocusableElement.focus();
-					e.preventDefault()
 				} else if(document.activeElement === lastFocusableElement){
 					firstFocusableElement.focus();
-					e.preventDefault();
 				}
 			} else if(event.key === 'Escape') {
 				let modals = document.getElementsByClassName('sezzle-checkout-modal-lightbox');
@@ -717,9 +715,11 @@ class AwesomeSezzle {
 				if(newFocus){
 					newFocus.focus();
 					newFocus.removeAttribute('id');
-				} else {
-					document.querySelector('.sezzle-checkout-button-wrapper').getElementsByClassName('button')[0].focus();
-				}
+				} else if (document.querySelector('.sezzle-checkout-button-wrapper').querySelector('.sezzle-info-icon')){
+					document.querySelector('.sezzle-checkout-button-wrapper').querySelector('.sezzle-info-icon').focus();
+				  } else {
+					document.querySelector('.sezzle-checkout-button-wrapper').focus();
+				  }
 			}
 		})
 	}
@@ -746,10 +746,12 @@ class AwesomeSezzle {
 				singleFeatureApproval: 'Instant Approval Decisions',
 				subFeatureApproval: '',
 				sezzleLtPaymentHeader: 'Sample payments for',
+				perMonth: 'per month',
 				monthlyAmount: '/month',
 				termLength: 'months',
 				adjustedTotal: 'Total:',
 				sampleApr: 'APR:',
+				percent: 'percent',
 				justSelectSezzle1: 'Just select',
 				justSelectSezzleLt1: 'Just choose',
 				justSelectSezzle2: 'at&nbsp;checkout',
@@ -779,10 +781,12 @@ class AwesomeSezzle {
 				singleFeatureApproval: 'D&#233;cisions d\'approbation instantan&#233;es',
 				subFeatureApproval: '',
 				sezzleLtPaymentHeader: 'Exemples de paiements pour',
+				perMonth: 'par mois',
 				monthlyAmount: '/mois',
 				termLength: 'mois',
 				adjustedTotal: 'Totale:',
 				sampleApr: 'APR:',
+				percent: 'pour cent',
 				justSelectSezzle1: 'Vous n\'avez qu\' &#224; choisir',
 				justSelectSezzleLt1: 'Vous n\'avez qu\' &#224; choisir',
 				justSelectSezzle2: 'au moment de r&#233;gler',
@@ -812,10 +816,12 @@ class AwesomeSezzle {
 				singleFeatureCredit: 'Kein Einfluss auf deine Kreditw&#252;rdigkeit',
 				subFeatureCredit: '',
 				sezzleLtPaymentHeader: 'Musterzahlungen f&#252;r',
+				perMonth: 'pro Monat',
 				monthlyAmount: '/Monat',
 				termLength: 'Monate',
 				adjustedTotal: 'Gesamt:',
 				sampleApr: 'APR:',
+				percent: 'Prozent',
 				justSelectSezzle1: 'Einfach',
 				justSelectSezzleLt1: 'Einfach',
 				justSelectSezzle2: 'beim Checkout w&#228;hlen',
@@ -845,10 +851,12 @@ class AwesomeSezzle {
 				singleFeatureApproval: 'Decisiones de aprobacio&#769;n instanta&#769;neas',
 				subFeatureApproval: '',
 				sezzleLtPaymentHeader: 'Pagos de muestra por',
+				perMonth: 'por mes',
 				monthlyAmount: '/mes',
 				termLength: 'meses',
 				adjustedTotal: 'Total:',
 				sampleApr: 'APR:',
+				percent: 'por ciento',
 				justSelectSezzle1: '&#161;Simplemente seleccione',
 				justSelectSezzleLt1: 'Solo elige',
 				justSelectSezzle2: 'al finalizar la compra',
@@ -860,12 +868,12 @@ class AwesomeSezzle {
 			}
 		}
     if (!document.getElementsByClassName('sezzle-checkout-modal-lightbox').length) {
-      var modalNode = document.createElement('div');
+      var modalNode = document.createElement('section');
       modalNode.className = 'sezzle-checkout-modal-lightbox close-sezzle-modal';
       modalNode.style.display = 'none';
       modalNode.tabIndex=0;
       modalNode.role = 'dialog';
-      modalNode.ariaModal= 'true';
+      modalNode.lang = this.language;
       modalNode.ariaLabel= 'Sezzle Information';
 			if(this.isProductEligibleLT(this.amount)){
 				var currency = String.fromCharCode(this.currencySymbol(this.amount));
@@ -988,9 +996,9 @@ class AwesomeSezzle {
 					}
 				</style>
 				<div class="sezzle-checkout-modal-hidden">
-					<div aria-label="Sezzle Modal" class="sezzle-modal">
+					<div class="sezzle-modal">
 						<div class="sezzle-modal-content" tabIndex="0">
-							<div class="sezzle-logo" title="Sezzle logo"></div>
+							<div class="sezzle-logo" title="Sezzle"></div>
 							<button aria-label="Close Sezzle Modal" class="close-sezzle-modal" role="button"></button>
 							<div tabIndex="0" class="sezzle-header">${modalTranslations[this.language].sezzleHeaderLt}
 								<span class="header-desktop">${modalTranslations[this.language].sezzleHeaderLtChild}</span>
@@ -1005,24 +1013,24 @@ class AwesomeSezzle {
 							<div class="sezzle-lt-payments">
 								<div tabIndex="0" class="sezzle-lt-payment-header">${modalTranslations[this.language].sezzleLtPaymentHeader} <span>${currency + this.addDelimiters(priceString, this.parseMode)}</span></div>
 								<div class="sezzle-lt-payment-options ${terms[2]}-month" ${terms[2] === undefined ? `style="display: none;"` : `style="display: block;"`}>
-									<div class="plan" tabIndex="0" ><div class="monthly-amount"><span>${currency + this.calculateMonthly(priceString, this.parseMode, terms[2], this.bestAPR)}</span> ${modalTranslations[this.language].monthlyAmount}</div>	<div class="term-length">${terms[2]} ${modalTranslations[this.language].termLength}</div></div>
-									<div class="plan-details" tabIndex="0"><div class="adjusted-total">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.calculateAdjusted(priceString, this.parseMode, terms[2], this.bestAPR)}</span></div>	<div class="sample-apr">${modalTranslations[this.language].sampleApr} <span>${this.bestAPR}</span>%</div></div>
+									<div class="plan"><div class="monthly-amount" tabIndex="0"><span>${currency + this.calculateMonthly(priceString, this.parseMode, terms[2], this.bestAPR)}</span> <span aria-hidden="true">${modalTranslations[this.language].monthlyAmount}</span> <span style="display: none" aria-hidden="false">${modalTranslations[this.language].perMonth}</span> </div>	<div class="term-length" tabIndex="0">${terms[2]} ${modalTranslations[this.language].termLength}</div></div>
+									<div class="plan-details"><div class="adjusted-total" tabIndex="0">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.calculateAdjusted(priceString, this.parseMode, terms[2], this.bestAPR)}</span></div>	<div class="sample-apr" tabIndex="0"><span aria-hidden="true">${modalTranslations[this.language].sampleApr}</span> <span aria-hidden="true">${this.bestAPR}%</span><span style="display: none" aria-hidden="false">A.P.R.: ${this.bestAPR} ${modalTranslations[this.language].percent}</span></div> </div>
 								</div>
 								<div class="sezzle-lt-payment-options ${terms[1]}-month">
-									<div class="plan" tabIndex="0"><div class="monthly-amount"><span>${currency + this.calculateMonthly(priceString, this.parseMode, terms[1], this.bestAPR)}</span> ${modalTranslations[this.language].monthlyAmount}</div>	<div class="term-length">${terms[1]} ${modalTranslations[this.language].termLength}</div></div>
-									<div class="plan-details" tabIndex="0"><div class="adjusted-total">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.calculateAdjusted(priceString, this.parseMode, terms[1], this.bestAPR)}</span></div>	<div class="sample-apr">${modalTranslations[this.language].sampleApr} <span>${this.bestAPR}</span>%</div></div>
+									<div class="plan"><div class="monthly-amount" tabIndex="0"><span>${currency + this.calculateMonthly(priceString, this.parseMode, terms[1], this.bestAPR)}</span> <span aria-hidden="true">${modalTranslations[this.language].monthlyAmount}</span> <span style="display: none" aria-hidden="false">${modalTranslations[this.language].perMonth}</span> </div>	<div class="term-length" tabIndex="0">${terms[1]} ${modalTranslations[this.language].termLength}</div></div>
+									<div class="plan-details"><div class="adjusted-total" tabIndex="0">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.calculateAdjusted(priceString, this.parseMode, terms[1], this.bestAPR)}</span></div>	<div class="sample-apr" tabIndex="0"><span aria-hidden="true">${modalTranslations[this.language].sampleApr}</span> <span aria-hidden="true">${this.bestAPR}%</span><span style="display: none" aria-hidden="false">A.P.R.: ${this.bestAPR} ${modalTranslations[this.language].percent}</span></div> </div>
 								</div>
 								<div class="sezzle-lt-payment-options ${terms[0]}-month">
-									<div class="plan" tabIndex="0"><div class="monthly-amount"><span>${currency + this.calculateMonthly(priceString, this.parseMode, terms[0], this.bestAPR)}</span> ${modalTranslations[this.language].monthlyAmount}</div>	<div class="term-length">${terms[0]} ${modalTranslations[this.language].termLength}</div></div>
-									<div class="plan-details" tabIndex="0"><div class="adjusted-total">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.calculateAdjusted(priceString, this.parseMode, terms[0], this.bestAPR)}</span></div>	<div class="sample-apr">${modalTranslations[this.language].sampleApr} <span>${this.bestAPR}</span>%</div></div>
+									<div class="plan"><div class="monthly-amount" tabIndex="0"><span>${currency + this.calculateMonthly(priceString, this.parseMode, terms[0], this.bestAPR)}</span> <span aria-hidden="true">${modalTranslations[this.language].monthlyAmount}</span> <span style="display: none" aria-hidden="false">${modalTranslations[this.language].perMonth}</span> </div>	<div class="term-length" tabIndex="0">${terms[0]} ${modalTranslations[this.language].termLength}</div></div>
+									<div class="plan-details"><div class="adjusted-total" tabIndex="0">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.calculateAdjusted(priceString, this.parseMode, terms[0], this.bestAPR)}</span></div>	<div class="sample-apr" tabIndex="0"><span aria-hidden="true">${modalTranslations[this.language].sampleApr}</span> <span aria-hidden="true">${this.bestAPR}%</span><span style="display: none" aria-hidden="false">A.P.R.: ${this.bestAPR} ${modalTranslations[this.language].percent}</span></div> </div>
 								</div>
 							</div>
-							<div class="sezzle-row">
-								<div class="desktop" tabIndex="0"> <div class="just-select-sezzle">${modalTranslations[this.language].justSelectSezzleLt1} <div class="sezzle-logo" title="Sezzle logo"></div> ${modalTranslations[this.language].justSelectSezzle2}</div></div>
-								<div class="mobile" tabIndex="0"> <div class="just-select-sezzle-mobile"> <div>${modalTranslations[this.language].justSelectSezzleLt1} <div class="sezzle-logo" title="Sezzle logo"></div> </div><div>${modalTranslations[this.language].justSelectSezzle2}</div></div></div>
+							<div class="sezzle-row" tabIndex="0">
+								<div class="desktop"> <div class="just-select-sezzle">${modalTranslations[this.language].justSelectSezzleLt1} <div class="sezzle-logo" title="Sezzle"></div> ${modalTranslations[this.language].justSelectSezzle2}</div></div>
+								<div class="mobile"> <div class="just-select-sezzle-mobile"> <div>${modalTranslations[this.language].justSelectSezzleLt1} <div class="sezzle-logo" title="Sezzle"></div> </div><div>${modalTranslations[this.language].justSelectSezzle2}</div></div></div>
 							</div>
 							<div class="details" tabIndex="0">${modalTranslations[this.language].details}</div>
-							<div class="sezzle-ally-logo" title="Financed by Ally Bank Member FDIC">${HelperClass.svgImages().ltAllyLogo}</div>
+							<div class="sezzle-ally-logo" title="Financed by Ally Bank Member FDIC" tabIndex="0">${HelperClass.svgImages().ltAllyLogo}</div>
 							<div class="terms" tabIndex="0">${modalTranslations[this.language].termsLt}</div>
 						</div>
 					</div>
@@ -1133,7 +1141,7 @@ class AwesomeSezzle {
 							max-width: 264px;
 						}
 					</style>
-          <div class="sezzle-checkout-modal-hidden"> <div aria-label="Sezzle Modal" class="sezzle-modal"> <div class="sezzle-modal-content" tabIndex="0"> <div class="sezzle-logo" title="Sezzle logo"></div><button aria-label="Close Sezzle Modal" class="close-sezzle-modal" role="button"></button>
+          <div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal"> <div class="sezzle-modal-content" tabIndex="0"> <div class="sezzle-logo" title="Sezzle"></div><button aria-label="Close Sezzle Modal" class="close-sezzle-modal" role="button"></button>
             <div tabIndex="0" class="sezzle-header" >${modalTranslations[this.language].sezzleHeader}
               <span class="header-desktop">${modalTranslations[this.language].sezzleHeaderChild}</span>
               <div class="header-mobile">${modalTranslations[this.language].sezzleHeaderChild}</div>
@@ -1144,11 +1152,11 @@ class AwesomeSezzle {
             </div>
             <div class="sezzle-hiw-pie-bg">
 							<div class="sezzle-payment-pie-lt" title="25% today, 25% biweekly for the next 6 weeks" style="background-image: none;">${HelperClass.svgImages().ltPaymentPie}</div>
-							<div class="sezzle-row breakdown-row">
-								<p tabIndex="0" class="breakdown" style="text-transform: capitalize;">25%<br /><span>${modalTranslations[this.language].today}</span></p>
-								<p tabIndex="0" class="breakdown">25%<br /><span>2 ${modalTranslations[this.language].weeks}</span></p>
-								<p tabIndex="0" class="breakdown">25%<br /><span>4 ${modalTranslations[this.language].weeks}</span></p>
-								<p tabIndex="0" class="breakdown">25%<br /><span>6 ${modalTranslations[this.language].weeks}</span></p>
+							<div class="sezzle-row breakdown-row"  tabIndex="0">
+								<p class="breakdown" style="text-transform: capitalize;">25%<br /><span>${modalTranslations[this.language].today}</span></p>
+								<p class="breakdown">25%<br /><span>2 ${modalTranslations[this.language].weeks}</span></p>
+								<p class="breakdown">25%<br /><span>4 ${modalTranslations[this.language].weeks}</span></p>
+								<p class="breakdown">25%<br /><span>6 ${modalTranslations[this.language].weeks}</span></p>
 							</div>
             </div>
             <div class="sezzle-features">
@@ -1156,9 +1164,9 @@ class AwesomeSezzle {
 							<div tabIndex="0" class="single-feature"> <div>${modalTranslations[this.language].singleFeatureInterest}</div></div>
 							<div tabIndex="0" class="single-feature"> <div>${modalTranslations[this.language].singleFeatureCredit}</div></div>
             </div>
-            <div class="sezzle-row">
-              <div class="desktop" tabIndex="0"> <div class="just-select-sezzle">${modalTranslations[this.language].justSelectSezzleLt1} <div class="sezzle-logo" title="Sezzle logo"></div> ${modalTranslations[this.language].justSelectSezzle2}!</div></div>
-              <div class="mobile" tabIndex="0"> <div class="just-select-sezzle-mobile"> <div>${modalTranslations[this.language].justSelectSezzleLt1} <div class="sezzle-logo" title="Sezzle logo"></div> </div><div>${modalTranslations[this.language].justSelectSezzle2}!</div></div></div>
+            <div class="sezzle-row"  tabIndex="0">
+              <div class="desktop"> <div class="just-select-sezzle">${modalTranslations[this.language].justSelectSezzleLt1} <div class="sezzle-logo" title="Sezzle"></div> ${modalTranslations[this.language].justSelectSezzle2}!</div></div>
+              <div class="mobile"> <div class="just-select-sezzle-mobile"> <div>${modalTranslations[this.language].justSelectSezzleLt1} <div class="sezzle-logo" title="Sezzle"></div> </div><div>${modalTranslations[this.language].justSelectSezzle2}!</div></div></div>
             </div>
             <div tabIndex="0" class="terms">${modalTranslations[this.language].terms1} ${modalTranslations[this.language].terms2}</div>
           </div></div></div>`;
@@ -1167,7 +1175,7 @@ class AwesomeSezzle {
         modalNode.innerHTML = this.altModalHTML;
       }
       else {
-					modalNode.innerHTML = `<div class="sezzle-checkout-modal-hidden"> <div aria-label="Sezzle Modal" class="sezzle-modal sezzle-modal${this.modalTheme==="grayscale" ? "-grayscale" : "-color"}"> <div class="sezzle-modal-content" tabIndex="0"> <div class="sezzle-logo${this.modalTheme==="grayscale" ? "-grayscale" : ""}" title="Sezzle logo"></div><button tabIndex="0" aria-label="Close Sezzle Modal" class="close-sezzle-modal" role="button"></button>
+					modalNode.innerHTML = `<div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal sezzle-modal${this.modalTheme==="grayscale" ? "-grayscale" : "-color"}"> <div class="sezzle-modal-content" tabIndex="0"> <div class="sezzle-logo${this.modalTheme==="grayscale" ? "-grayscale" : ""}" title="Sezzle"></div><button aria-label="Close Sezzle Modal" class="close-sezzle-modal" role="button"></button>
 					<div tabIndex="0" class="sezzle-header">${modalTranslations[this.language].sezzleHeader}
 						<span class="header-desktop">${modalTranslations[this.language].sezzleHeaderChild}</span>
 						<div class="header-mobile">${modalTranslations[this.language].sezzleHeaderChild}</div>
@@ -1179,17 +1187,17 @@ class AwesomeSezzle {
 						<div class="mobile">${modalTranslations[this.language].sezzleRowChild1} ${modalTranslations[this.language].sezzleRowChild2}</div>
 					</div>
 					<div class="sezzle-hiw-pie-bg">
-						<div class="sezzle-payment-pie-de${this.modalTheme==="grayscale" ? "-grayscale" : ""}"></div>
-						<div class="sezzle-row breakdown-row">
-							<p tabIndex="0" class="breakdown">25%<br /><span>${modalTranslations[this.language].today}</span></p>
-							<p tabIndex="0" class="breakdown">25%<br /><span>${modalTranslations[this.language].week} 2</span></p>
-							<p tabIndex="0" class="breakdown">25%<br /><span>${modalTranslations[this.language].week} 4</span></p>
-							<p tabIndex="0" class="breakdown">25%<br /><span>${modalTranslations[this.language].week} 6</span></p>
+						<div class="sezzle-payment-pie-de${this.modalTheme==="grayscale" ? "-grayscale" : ""}" title="25% today, 25% biweekly for the next 6 weeks"></div>
+						<div class="sezzle-row breakdown-row" tabIndex="0">
+							<p class="breakdown">25%<br /><span>${modalTranslations[this.language].today}</span></p>
+							<p class="breakdown">25%<br /><span>${modalTranslations[this.language].week} 2</span></p>
+							<p class="breakdown">25%<br /><span>${modalTranslations[this.language].week} 4</span></p>
+							<p class="breakdown">25%<br /><span>${modalTranslations[this.language].week} 6</span></p>
 						</div>
 					</div>
 					<div class="sezzle-features">
 						<div tabIndex="0" class="single-feature">
-							<div>${modalTranslations[this.language].singleFeatureInterest}</div>
+							<div>${modalTranslations[this.language].singleFeatureInterest}<span style="display:none" aria-hidden="false">.</span></div>
 							<div class="sub-feature">${modalTranslations[this.language].subFeatureInterest} </div>
 						</div>
 						<div tabIndex="0" class="single-feature">
@@ -1221,14 +1229,15 @@ class AwesomeSezzle {
     Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
       el.addEventListener('click', function () {
         modalNode.style.display = 'none';
-        document.body.ariaHidden = false;
         modalNode.getElementsByClassName('sezzle-modal')[0].className = `sezzle-modal sezzle-modal${this.modalTheme === "grayscale" ? "-grayscale" : "-color"} sezzle-checkout-modal-hidden`;
 		var newFocus = document.querySelector('#sezzle-modal-return');
 		if(newFocus){
 			newFocus.focus();
 			newFocus.removeAttribute('id');
-		} else {
+		} else if (document.querySelector('.sezzle-checkout-button-wrapper').querySelector('.sezzle-info-icon')){
 			document.querySelector('.sezzle-checkout-button-wrapper').querySelector('.sezzle-info-icon').focus();
+		} else {
+			document.querySelector('.sezzle-checkout-button-wrapper').focus();
 		}
       });
     });
@@ -1237,32 +1246,31 @@ class AwesomeSezzle {
     sezzleModal.addEventListener('click', function (event) {
       event.stopPropagation();
     });
-		////closes modal when escape key is hit
-		window.addEventListener('keydown', this.modalKeyboardNavigation);
+	this.modalKeyboardNavigation();
   }
 
   renderAPModal(){
-    var modalNode = document.createElement('div');
+    var modalNode = document.createElement('section');
     modalNode.className = 'sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-ap-modal';
     modalNode.style = 'position: center';
     modalNode.style.display = 'none';
     modalNode.tabIndex=0;
     modalNode.role = 'dialog';
-		modalNode.ariaModal= 'true';
 		modalNode.ariaLabel= 'Afterpay Information';
     modalNode.innerHTML = this.apModalHTML;
     document.getElementsByTagName('html')[0].appendChild(modalNode);
     Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
       el.addEventListener('click', function () {
         modalNode.style.display = 'none';
-        document.body.ariaHidden = false;
 		var newFocus = document.querySelector('#sezzle-modal-return');
 		if(newFocus){
 			newFocus.focus();
 			newFocus.removeAttribute('id');
-		} else {
-			document.querySelector('.sezzle-checkout-button-wrapper').querySelector('.ap-modal-info-link').focus();
-		}
+		} else if (document.querySelector((`.ap-modal-info-link`))){
+            document.querySelector('.sezzle-checkout-button-wrapper').getElementsByClassName(`ap-modal-info-link`)[0].focus();
+          } else {
+            document.querySelector('.sezzle-checkout-button-wrapper').focus();
+          }
       });
     });
     let sezzleModal = document.getElementsByClassName('sezzle-modal')[0];
@@ -1273,26 +1281,26 @@ class AwesomeSezzle {
   }
 
   renderQPModal(){
-    var modalNode = document.createElement('div');
+    var modalNode = document.createElement('section');
     modalNode.className = 'sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-qp-modal';
     modalNode.style = 'position: center';
     modalNode.style.display = 'none';
     modalNode.tabIndex=0;
     modalNode.role = 'dialog';
-		modalNode.ariaModal= 'true';
-		modalNode.ariaLabel= 'Quadpay Information';
+    modalNode.ariaLabel= 'Quadpay Information';
     modalNode.innerHTML = this.qpModalHTML;
     document.getElementsByTagName('html')[0].appendChild(modalNode);
     Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
       el.addEventListener('click', function () {
         modalNode.style.display = 'none';
-        document.body.ariaHidden = false;
 		var newFocus = document.querySelector('#sezzle-modal-return');
 		if(newFocus){
 			newFocus.focus();
 			newFocus.removeAttribute('id');
+		} else if (document.querySelector((`.qp-modal-info-link`))){
+			document.querySelector('.sezzle-checkout-button-wrapper').getElementsByClassName(`qp-modal-info-link`)[0].focus();
 		} else {
-			document.querySelector('.sezzle-checkout-button-wrapper').querySelector('.quadpay-modal-info-link').focus();
+			document.querySelector('.sezzle-checkout-button-wrapper').focus();
 		}
       });
     });
@@ -1304,26 +1312,26 @@ class AwesomeSezzle {
   }
 
   renderAffirmModal(){
-    var modalNode = document.createElement('div');
+    var modalNode = document.createElement('section');
     modalNode.className = 'sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-affirm-modal';
     modalNode.style = 'position: center';
     modalNode.style.display = 'none';
     modalNode.tabIndex=0;
     modalNode.role = 'dialog';
-		modalNode.ariaModal= 'true';
-		modalNode.ariaLabel= 'Affirm Information';
+    modalNode.ariaLabel= 'Affirm Information';
     modalNode.innerHTML = this.affirmModalHTML;
     document.getElementsByTagName('html')[0].appendChild(modalNode);
     Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
       el.addEventListener('click', function () {
         modalNode.style.display = 'none';
-        document.body.ariaHidden = false;
 		var newFocus = document.querySelector('#sezzle-modal-return');
 		if(newFocus){
 			newFocus.focus();
 			newFocus.removeAttribute('id');
+		} else if (document.querySelector((`.affirm-modal-info-link`))){
+			document.querySelector('.sezzle-checkout-button-wrapper').getElementsByClassName(`affirm-modal-info-link`)[0].focus();
 		} else {
-			document.querySelector('.sezzle-checkout-button-wrapper').querySelector('.affirm-modal-info-link').focus();
+			document.querySelector('.sezzle-checkout-button-wrapper').focus();
 		}
       });
     });
@@ -1335,26 +1343,26 @@ class AwesomeSezzle {
   }
 
   renderKlarnaModal(){
-    var modalNode = document.createElement('div');
+    var modalNode = document.createElement('section');
     modalNode.className = 'sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-klarna-modal';
     modalNode.style = 'position: center';
     modalNode.style.display = 'none';
     modalNode.tabIndex=0;
     modalNode.role = 'dialog';
-		modalNode.ariaModal= 'true';
 		modalNode.ariaLabel= 'Klarna Information';
     modalNode.innerHTML = this.klarnaModalHTML;
     document.getElementsByTagName('html')[0].appendChild(modalNode);
     Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
       el.addEventListener('click', function () {
         modalNode.style.display = 'none';
-        document.body.ariaHidden = false;
 		var newFocus = document.querySelector('#sezzle-modal-return');
 		if(newFocus){
 			newFocus.focus();
 			newFocus.removeAttribute('id');
+		} else if (document.querySelector((`.klarna-modal-info-link`))){
+            document.querySelector('.sezzle-checkout-button-wrapper').getElementsByClassName(`klarna-modal-info-link`)[0].focus();
 		} else {
-			document.querySelector('.sezzle-checkout-button-wrapper').querySelector('.klarna-modal-info-link').focus();
+			document.querySelector('.sezzle-checkout-button-wrapper').focus();
 		}
       });
     });
@@ -1368,7 +1376,6 @@ class AwesomeSezzle {
   renderModalByfunction(){
     var modalNode = document.getElementsByClassName('sezzle-checkout-modal-lightbox')[0];
     modalNode.style.display = 'block';
-    document.body.ariaHidden = true;
     modalNode.getElementsByClassName('sezzle-modal')[0].className = `sezzle-modal sezzle-modal${this.modalTheme === "grayscale" ? "-grayscale" : "-color"}`;
   }
 
@@ -1380,7 +1387,6 @@ class AwesomeSezzle {
           var modalNode = document.getElementsByClassName('sezzle-checkout-modal-lightbox')[0];
           modalNode.style.display = 'block';
 				modalNode.getElementsByClassName('close-sezzle-modal')[0].focus();
-          document.body.ariaHidden = true;
           modalNode.getElementsByClassName('sezzle-modal')[0].className = `sezzle-modal sezzle-modal${this.modalTheme === "grayscale" ? "-grayscale" : "-color"}`;
 		  event.target.id = 'sezzle-modal-return';
         }
@@ -1391,7 +1397,6 @@ class AwesomeSezzle {
       modalLink.addEventListener('click', function (event) {
         document.getElementsByClassName('sezzle-ap-modal')[0].style.display = 'block';
         document.getElementsByClassName('sezzle-ap-modal')[0].focus();
-        document.body.ariaHidden = true;
 		event.target.id = 'sezzle-modal-return';
 	}.bind(this));
     }.bind(this));
@@ -1400,7 +1405,6 @@ class AwesomeSezzle {
       modalLink.addEventListener('click', function (event) {
         document.getElementsByClassName('sezzle-qp-modal')[0].style.display = 'block';
         document.getElementsByClassName('sezzle-qp-modal')[0].focus();
-        document.body.ariaHidden = true;
 		event.target.id = 'sezzle-modal-return';
 	}.bind(this));
     }.bind(this));
@@ -1409,7 +1413,6 @@ class AwesomeSezzle {
       modalLink.addEventListener('click', function (event) {
         document.getElementsByClassName('sezzle-affirm-modal')[0].style.display = 'block';
         document.getElementsByClassName('sezzle-affirm-modal')[0].focus();
-        document.body.ariaHidden = true;
 		event.target.id = 'sezzle-modal-return';
 	}.bind(this));
     }.bind(this));
@@ -1418,7 +1421,6 @@ class AwesomeSezzle {
       modalLink.addEventListener('click', function (event) {
         document.getElementsByClassName('sezzle-klarna-modal')[0].style.display = 'block';
         document.getElementsByClassName('sezzle-klarna-modal')[0].focus();
-        document.body.ariaHidden = true;
 		event.target.id = 'sezzle-modal-return';
 	}.bind(this));
     }.bind(this));
