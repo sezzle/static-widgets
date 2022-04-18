@@ -622,7 +622,7 @@ class AwesomeSezzle {
     const price = this.parseMode ==='default' ? HelperClass.parsePrice(priceText) : HelperClass.parsePrice(priceText,this.parseMode);
 	const formatter =  priceText.replace(priceString, '{price}');
 	const terms = this.termsToShow(price);
-	const sezzleInstallmentPrice = this.isProductEligibleLT(amount) ? this.calculateMonthlyWithInterest(price,terms[terms.length - 1],this.bestAPR) : (price / this.numberOfPayments);
+	const sezzleInstallmentPrice = this.isProductEligibleLT(amount) ? this.calculateMonthlyWithInterest(price.toString(),terms[terms.length - 1],this.bestAPR) : (price / this.numberOfPayments);
 	const sezzleInstallmentFormattedPrice = formatter.replace('{price}', this.addDelimiters(sezzleInstallmentPrice, this.parseMode));
     return sezzleInstallmentFormattedPrice;
 
@@ -665,7 +665,8 @@ class AwesomeSezzle {
 		return currency || 36;
 	}
 
-	calculateMonthlyWithInterest(price, term, APR) {
+	calculateMonthlyWithInterest(priceText, term, APR) {
+		const price = Number(priceText);
 		if(APR > 0){
 			const rate = (APR/100)/12;
 			const numerator = price * rate * Math.pow(1+rate, term);
@@ -685,8 +686,8 @@ class AwesomeSezzle {
 		return this.addDelimiters(adjustedTotal-priceString, parseMode);
 	}
 	formatAdjustedTotal(priceString, parseMode, term, APR) {
-		const interestAmount = this.calculateMonthlyWithInterest(priceString, term, APR);
-		return this.addDelimiters((interestAmount*term), parseMode);
+		const amountPlusInterest = this.calculateMonthlyWithInterest(priceString, term, APR);
+		return this.addDelimiters((amountPlusInterest*term), parseMode);
 	}
 
 	modalKeyboardNavigation (){
