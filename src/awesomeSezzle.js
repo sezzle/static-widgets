@@ -747,6 +747,7 @@ class AwesomeSezzle {
 				adjustedTotal: 'Total:',
 				interest: 'Interest:',
 				sampleApr: 'APR',
+				readApr: 'A.P.R.',
 				percent: 'percent',
 				justSelectSezzle1: 'Just select',
 				justSelectSezzleLt1: 'Just choose',
@@ -784,6 +785,7 @@ class AwesomeSezzle {
 				adjustedTotal: 'Totale:',
 				interest: 'Int&#233;r&#234ts:',
 				sampleApr: 'APR',
+				readApr: 'A.P.R.',
 				percent: 'pour cent',
 				justSelectSezzle1: 'Vous n\'avez qu\' &#224; choisir',
 				justSelectSezzleLt1: 'Vous n\'avez qu\' &#224; choisir',
@@ -792,8 +794,8 @@ class AwesomeSezzle {
 				financing: 'Bread Pay',
 				terms1: 'Sous r&#233;serve d\'approbation.',
 				terms2: 'La date de d&#233;but du paiement varie en fonction de l\'heure de fin de la commande du marchand.',
-				termsLt: '* Les candidats sont soumis à une vérification de crédit et à une approbation. Taux de 5,99 % à 29,99 % APR ; termes de 3 mois - 48 mois. 0% APR est disponible jusqu\'à 3 mois. Achat minimum requis. Les APR varient en fonction des qualifications de crédit, du montant du prêt et de la durée.',
-				termsBread: 'es plans Bread Pay™ sont des prêts consentis par Comenity Bank.'
+				termsLt: '* Les candidats sont soumis &#224; une v&#233;rification du cr&#233;dit et &#224; une approbation. Taux de 5,99% - 29,99% APR ; termes de 3 mois - 48 mois et peuvent varier selon le pr&#234;teur. Un taux d\'int&#233;r&#234;t annuel de 0 % est disponible jusqu\'&#224; 3 mois. Un achat minimum est requis. Les taux annuels varient en fonction des conditions de cr&#233;dit, du montant du pr&#234;t, de la dur&#233;e et du pr&#234;teur.',
+				termsBread: 'Les plans Bread Pay&#8482; sont des pr&#234;ts consentis par Comenity Bank.'
 			},
 			de: {
 				sezzleHeader: 'Jetzt kaufen.',
@@ -821,6 +823,7 @@ class AwesomeSezzle {
 				adjustedTotal: 'Gesamt:',
 				interest: 'Zinsen:',
 				sampleApr: 'APR',
+				readApr: 'A.P.R.',
 				percent: 'Prozent',
 				justSelectSezzle1: 'Einfach',
 				justSelectSezzleLt1: 'Einfach',
@@ -829,8 +832,8 @@ class AwesomeSezzle {
 				financing: 'Bread Pay',
 				terms1: 'Vorbehaltlich unserer Zustimmung.',
 				terms2: 'Das Startdatum der Zahlung schwankt je nach Zeitpunkt des Abschlusses der H&#228;ndlerbestellung.',
-				termsLt: '* Bewerber unterliegen einer Bonitätsprüfung und Genehmigung. Preise von 5,99 % bis 29,99 % effektivem Jahreszins; Laufzeiten von 3 Monaten - 48 Monaten. 0 % effektiver Jahreszins ist für bis zu 3 Monate verfügbar. Mindestabnahme erforderlich. Der effektive Jahreszins variiert je nach Kreditwürdigkeit, Kreditbetrag und Laufzeit.',
-				termsBread: 'Bread Pay™-Pläne sind Darlehen der Comenity Bank.'
+				termsLt: '* Bewerber unterliegen einer Bonit&#228;tspr&#252;fung und Genehmigung. Preise von 5,99 % bis 29,99 % effektivem Jahreszins; Laufzeiten von 3 Monaten - 48 Monaten. 0 % effektiver Jahreszins ist f&#252;r bis zu 3 Monate verf&#252;gbar. Mindestabnahme erforderlich. Der effektive Jahreszins variiert je nach Kreditw&#252;rdigkeit, Kreditbetrag und Laufzeit.',
+				termsBread: 'Bread Pay&#8482;-Pl&#228;ne sind Darlehen der Comenity Bank.'
 			},
 			es: {
 				sezzleHeader: 'Sezzle ahora.',
@@ -857,7 +860,8 @@ class AwesomeSezzle {
 				termLength: 'meses',
 				adjustedTotal: 'Total:',
 				interest: 'Intere&#769;s:',
-				sampleApr: 'APR',
+				sampleApr: 'TAE',
+				readApr: 'T.A.E.',
 				percent: 'por ciento',
 				justSelectSezzle1: '&#161;Simplemente seleccione',
 				justSelectSezzleLt1: 'Solo elige',
@@ -866,8 +870,8 @@ class AwesomeSezzle {
 				financing: 'Bread Pay',
 				terms1: 'Sujeto a aprobacio&#769;n.',
 				terms2: 'La fecha de inicio del pago vari&#769;a segu&#769;n el momento en que se completa la orden comercial.',
-				termsLt: '* Los solicitantes están sujetos a verificación y aprobación de crédito. Tasas desde 5.99%-29.99% TAE; Plazos desde 3 meses - 48 meses. 0% APR está disponible por hasta 3 meses. Compra mínima requerida. Las APR variarán según las calificaciones crediticias, el monto del préstamo y el plazo.',
-				termsBread: 'Los planes Bread Pay™ son préstamos realizados por Comenity Bank.'
+				termsLt: '* Los candidatos esta&#769;n sujetos a la comprobacio&#769;n y aprobacio&#769;n del cre&#769;dito. Tipos del 5,99% al 29,99% TAE; plazos de 3 a 48 meses y pueden variar segu&#769;n el prestamista. El 0% de TAE esta&#769; disponible durante un ma&#769;ximo de 3 meses. Se requiere una compra mi&#769;nima. Las TAE vari&#769;an en funcio&#769;n de las calificaciones crediticias, el importe del pre&#769;stamo, el plazo y el prestamista.',
+				termsBread: 'Los planes Bread Pay&#8482; son pre&#769;stamos realizados por Comenity Bank.'
 			}
 		}
     if (!document.getElementsByClassName('sezzle-checkout-modal-lightbox').length) {
@@ -1034,15 +1038,15 @@ class AwesomeSezzle {
 								<div tabIndex="0" class="sezzle-lt-payment-header">${modalTranslations[this.language].sezzleLtPaymentHeader} <span>${currency + this.addDelimiters(priceString, this.parseMode)}</span></div>
 								<div class="sezzle-lt-payment-options ${terms[2]}-month" ${terms[2] === undefined ? `style="display: none;"` : `style="display: block;"`}>
 									<div class="plan"><div class="monthly-amount" tabIndex="0"><span>${currency + this.formatMonthly(priceString, this.parseMode, terms[2], this.bestAPR)}</span> <span aria-hidden="true">${modalTranslations[this.language].monthlyAmount}<sup>*</sup></span> <span style="display: none" aria-hidden="false">${modalTranslations[this.language].perMonth}</span> </div>	<div class="term-length" tabIndex="0">${terms[2]} ${modalTranslations[this.language].termLength}</div></div>
-									<div class="plan-details"><div class="adjusted-total" tabIndex="0">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.formatAdjustedTotal(priceString, this.parseMode, terms[2], this.bestAPR)}</span></div>	<div class="interest-amount" tabIndex="0">${modalTranslations[this.language].interest} <span>${currency + this.formatTotalInterest(priceString, this.parseMode, terms[2], this.bestAPR)}</span></div><div class="sample-apr" tabIndex="0"><span aria-hidden="true">${modalTranslations[this.language].sampleApr}:</span> <span aria-hidden="true">${this.bestAPR}%</span><span style="display: none" aria-hidden="false">A.P.R.: ${this.bestAPR} ${modalTranslations[this.language].percent}</span></div> </div>
+									<div class="plan-details"><div class="adjusted-total" tabIndex="0">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.formatAdjustedTotal(priceString, this.parseMode, terms[2], this.bestAPR)}</span></div>	<div class="interest-amount" tabIndex="0">${modalTranslations[this.language].interest} <span>${currency + this.formatTotalInterest(priceString, this.parseMode, terms[2], this.bestAPR)}</span></div><div class="sample-apr" tabIndex="0"><span aria-hidden="true">${modalTranslations[this.language].sampleApr}:</span> <span aria-hidden="true">${this.bestAPR}%</span><span style="display: none" aria-hidden="false">${modalTranslations[this.language].readApr}: ${this.bestAPR} ${modalTranslations[this.language].percent}</span></div> </div>
 								</div>
 								<div class="sezzle-lt-payment-options ${terms[1]}-month">
 									<div class="plan"><div class="monthly-amount" tabIndex="0"><span>${currency + this.formatMonthly(priceString, this.parseMode, terms[1], this.bestAPR)}</span> <span aria-hidden="true">${modalTranslations[this.language].monthlyAmount}<sup>*</sup></span> <span style="display: none" aria-hidden="false">${modalTranslations[this.language].perMonth}</span> </div>	<div class="term-length" tabIndex="0">${terms[1]} ${modalTranslations[this.language].termLength}</div></div>
-									<div class="plan-details"><div class="adjusted-total" tabIndex="0">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.formatAdjustedTotal(priceString, this.parseMode, terms[1], this.bestAPR)}</span></div>	<div class="interest-amount" tabIndex="0">${modalTranslations[this.language].interest} <span>${currency + this.formatTotalInterest(priceString, this.parseMode, terms[1], this.bestAPR)}</span></div><div class="sample-apr" tabIndex="0"><span aria-hidden="true">${modalTranslations[this.language].sampleApr}:</span> <span aria-hidden="true">${this.bestAPR}%</span><span style="display: none" aria-hidden="false">A.P.R.: ${this.bestAPR} ${modalTranslations[this.language].percent}</span></div> </div>
+									<div class="plan-details"><div class="adjusted-total" tabIndex="0">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.formatAdjustedTotal(priceString, this.parseMode, terms[1], this.bestAPR)}</span></div>	<div class="interest-amount" tabIndex="0">${modalTranslations[this.language].interest} <span>${currency + this.formatTotalInterest(priceString, this.parseMode, terms[1], this.bestAPR)}</span></div><div class="sample-apr" tabIndex="0"><span aria-hidden="true">${modalTranslations[this.language].sampleApr}:</span> <span aria-hidden="true">${this.bestAPR}%</span><span style="display: none" aria-hidden="false">${modalTranslations[this.language].readApr}: ${this.bestAPR} ${modalTranslations[this.language].percent}</span></div> </div>
 								</div>
 								<div class="sezzle-lt-payment-options ${terms[0]}-month">
 									<div class="plan"><div class="monthly-amount" tabIndex="0"><span>${currency + this.formatMonthly(priceString, this.parseMode, terms[0], this.bestAPR)}</span> <span aria-hidden="true">${modalTranslations[this.language].monthlyAmount}<sup>*</sup></span> <span style="display: none" aria-hidden="false">${modalTranslations[this.language].perMonth}</span> </div>	<div class="term-length" tabIndex="0">${terms[0]} ${modalTranslations[this.language].termLength}</div></div>
-									<div class="plan-details"><div class="adjusted-total" tabIndex="0">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.formatAdjustedTotal(priceString, this.parseMode, terms[0], this.bestAPR)}</span></div>	<div class="interest-amount" tabIndex="0">${modalTranslations[this.language].interest} <span>${currency + this.formatTotalInterest(priceString, this.parseMode, terms[0], this.bestAPR)}</span></div><div class="sample-apr" tabIndex="0"><span aria-hidden="true">${modalTranslations[this.language].sampleApr}:</span> <span aria-hidden="true">${this.bestAPR}%</span><span style="display: none" aria-hidden="false">A.P.R.: ${this.bestAPR} ${modalTranslations[this.language].percent}</span></div> </div>
+									<div class="plan-details"><div class="adjusted-total" tabIndex="0">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.formatAdjustedTotal(priceString, this.parseMode, terms[0], this.bestAPR)}</span></div>	<div class="interest-amount" tabIndex="0">${modalTranslations[this.language].interest} <span>${currency + this.formatTotalInterest(priceString, this.parseMode, terms[0], this.bestAPR)}</span></div><div class="sample-apr" tabIndex="0"><span aria-hidden="true">${modalTranslations[this.language].sampleApr}:</span> <span aria-hidden="true">${this.bestAPR}%</span><span style="display: none" aria-hidden="false">${modalTranslations[this.language].readApr}: ${this.bestAPR} ${modalTranslations[this.language].percent}</span></div> </div>
 								</div>
 							</div>
 							<div class="sezzle-row" tabIndex="0">
