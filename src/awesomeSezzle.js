@@ -722,6 +722,7 @@ class AwesomeSezzle {
   renderModal(){
 		const modalTranslations = {
 			en: {
+				closeSezzleModal: 'Close Sezzle modal.',
 				sezzleHeader: 'Sezzle it now.',
 				sezzleHeaderChild: 'Pay&nbsp;us back later.',
 				sezzleHeaderLt: 'Make easy monthly',
@@ -760,6 +761,7 @@ class AwesomeSezzle {
 				termsBread: 'Bread Pay&#8482; plans are loans made by Comenity Bank.'
 			},
 			fr: {
+				closeSezzleModal: 'Fermer Sezzle modal.',
 				sezzleHeader: 'Sezzlez maintenant.',
 				sezzleHeaderChild: 'Payez-nous plus tard.',
 				sezzleHeaderLt: 'Effectuez facilement des paiements',
@@ -798,6 +800,7 @@ class AwesomeSezzle {
 				termsBread: 'Les plans Bread Pay&#8482; sont des pr&#234;ts consentis par Comenity Bank.'
 			},
 			de: {
+				closeSezzleModal: 'Schlie&szlig;en Sie das Sezzle-Modal.',
 				sezzleHeader: 'Jetzt kaufen.',
 				sezzleHeaderChild: 'Sp&#228;ter zahlen.',
 				sezzleHeaderLt: 'Machen Sie einfache monatliche',
@@ -836,6 +839,7 @@ class AwesomeSezzle {
 				termsBread: 'Bread Pay&#8482;-Pl&#228;ne sind Darlehen der Comenity Bank.'
 			},
 			es: {
+				closeSezzleModal: 'Cerrar Sezzle modal.',
 				sezzleHeader: 'Sezzle ahora.',
 				sezzleHeaderChild: 'Pa&#769;ganos ma&#769;s tarde.',
 				sezzleHeaderLt: 'Realice pagos mensuales',
@@ -1023,7 +1027,7 @@ class AwesomeSezzle {
 					<div class="sezzle-modal">
 						<div class="sezzle-modal-content" tabIndex="0">
 							<div class="sezzle-logo" title="Sezzle"></div>
-							<button aria-label="Close Sezzle Modal" class="close-sezzle-modal" role="button"></button>
+							<button aria-label="${modalTranslations[this.language].closeSezzleModal}" class="close-sezzle-modal" role="button"></button>
 							<div tabIndex="0" class="sezzle-header">${modalTranslations[this.language].sezzleHeaderLt}
 								<span class="header-desktop">${modalTranslations[this.language].sezzleHeaderLtChild}</span>
 								<div class="header-mobile">${modalTranslations[this.language].sezzleHeaderLtChild}</div>
@@ -1168,7 +1172,7 @@ class AwesomeSezzle {
 							max-width: 264px;
 						}
 					</style>
-          <div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal"> <div class="sezzle-modal-content" tabIndex="0"> <div class="sezzle-logo" title="Sezzle"></div><button aria-label="Close Sezzle Modal" class="close-sezzle-modal" role="button"></button>
+          <div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal"> <div class="sezzle-modal-content" tabIndex="0"> <div class="sezzle-logo" title="Sezzle"></div><button aria-label="${modalTranslations[this.language].closeSezzleModal}" class="close-sezzle-modal" role="button"></button>
             <div tabIndex="0" class="sezzle-header" >${modalTranslations[this.language].sezzleHeader}
               <span class="header-desktop">${modalTranslations[this.language].sezzleHeaderChild}</span>
               <div class="header-mobile">${modalTranslations[this.language].sezzleHeaderChild}</div>
@@ -1202,7 +1206,7 @@ class AwesomeSezzle {
         modalNode.innerHTML = this.altModalHTML;
       }
       else {
-					modalNode.innerHTML = `<div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal sezzle-modal${this.modalTheme==="grayscale" ? "-grayscale" : "-color"}"> <div class="sezzle-modal-content" tabIndex="0"> <div class="sezzle-logo${this.modalTheme==="grayscale" ? "-grayscale" : ""}" title="Sezzle"></div><button aria-label="Close Sezzle Modal" class="close-sezzle-modal" role="button"></button>
+					modalNode.innerHTML = `<div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal sezzle-modal${this.modalTheme==="grayscale" ? "-grayscale" : "-color"}"> <div class="sezzle-modal-content" tabIndex="0"> <div class="sezzle-logo${this.modalTheme==="grayscale" ? "-grayscale" : ""}" title="Sezzle"></div><button aria-label="${modalTranslations[this.language].closeSezzleModal}" class="close-sezzle-modal" role="button"></button>
 					<div tabIndex="0" class="sezzle-header">${modalTranslations[this.language].sezzleHeader}
 						<span class="header-desktop">${modalTranslations[this.language].sezzleHeaderChild}</span>
 						<div class="header-mobile">${modalTranslations[this.language].sezzleHeaderChild}</div>
