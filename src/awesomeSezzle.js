@@ -653,11 +653,11 @@ class AwesomeSezzle {
 
 	termsToShow(price) {
 		switch (true){
-			case (price > 500 && price <= 1000):
+			case (price > 1000):
 				return [24,36,48];
-			case (price > 250 && price <= 500):
+			case (price > 500):
 				return [6,12,24];
-			case (price > 100 && price <= 250):
+			case (price > 250):
 				return [3,6,12];
 			default:
 				return [3,6];
