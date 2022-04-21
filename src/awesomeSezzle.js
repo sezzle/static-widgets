@@ -313,6 +313,17 @@ class AwesomeSezzle {
     sezzleButtonText.className = 'sezzle-button-text';
     this.setImageURL();
 		var widgetText = this.isProductEligibleLT(this.amount) ? this.widgetTemplateLT : this.widgetTemplate;
+		var learnMoreTranslations = {
+			en: 'Learn more about',
+			fr: 'En savoir plus sur',
+			de: 'Erfahren Sie mehr über',
+			es: 'Más información sobre',
+			'en-GB': 'Learn more about',
+			'fr-FR': 'En savoir plus sur',
+			'de-DE': 'Erfahren Sie mehr über',
+			'es-ES': 'Más información sobre',
+			'it-IT': 'Ulteriori informazioni su'
+		}
 		widgetText.forEach(function (subtemplate) {
         switch (subtemplate) {
           case 'price':
@@ -342,7 +353,7 @@ class AwesomeSezzle {
             var learnMoreNode = document.createElement('button');
             learnMoreNode.role = 'button';
             learnMoreNode.type = 'button';
-            learnMoreNode.ariaLabel = 'Learn More about Sezzle';
+            learnMoreNode.ariaLabel = `${learnMoreTranslations[this.language]} Sezzle`;
             learnMoreNode.className = 'sezzle-learn-more sezzle-modal-open-link';
             var learnMoreText = document.createTextNode('Learn more');
             learnMoreNode.appendChild(learnMoreText);
@@ -352,7 +363,7 @@ class AwesomeSezzle {
             var infoIconNode = document.createElement('button');
             infoIconNode.role = 'button';
             infoIconNode.type = 'button';
-            infoIconNode.ariaLabel = 'Learn More about Sezzle';
+            infoIconNode.ariaLabel = `${learnMoreTranslations[this.language]} Sezzle`;
             infoIconNode.className = 'sezzle-info-icon sezzle-modal-open-link';
             infoIconNode.innerHTML = '&#9432;';
             infoIconNode.ariaHasPopup='true';
@@ -362,7 +373,7 @@ class AwesomeSezzle {
             var questionMarkButton = document.createElement('button');
             questionMarkButton.role = 'button';
             questionMarkButton.type = 'button';
-            questionMarkButton.ariaLabel = 'Learn More about Sezzle';
+            questionMarkButton.ariaLabel = `${learnMoreTranslations[this.language]} Sezzle`;
             var questionMarkIconNode = document.createElementNS('http://www.w3.org/2000/svg','svg')
             questionMarkIconNode.setAttribute('width','14');
             questionMarkIconNode.setAttribute('height','14');
@@ -412,7 +423,7 @@ class AwesomeSezzle {
             var apInfoIconNode = document.createElement('button');
             apInfoIconNode.role = 'button';
             apInfoIconNode.type = 'button';
-            apInfoIconNode.ariaLabel = 'Learn More about Afterpay';
+            apInfoIconNode.ariaLabel = `${learnMoreTranslations[this.language]} Afterpay`;
             apInfoIconNode.className = 'ap-modal-info-link no-sezzle-info';
             apInfoIconNode.innerHTML = '&#9432;';
             sezzleButtonText.appendChild(apInfoIconNode);
@@ -467,7 +478,7 @@ class AwesomeSezzle {
             var quadpayInfoIconNode = document.createElement('button');
             quadpayInfoIconNode.role = 'button';
             quadpayInfoIconNode.type = 'button';
-            quadpayInfoIconNode.ariaLabel = 'Learn More about Quadpay';
+            quadpayInfoIconNode.ariaLabel = `${learnMoreTranslations[this.language]} Quadpay`;
             quadpayInfoIconNode.className = 'quadpay-modal-info-link no-sezzle-info';
             quadpayInfoIconNode.innerHTML = '&#9432;';
             sezzleButtonText.appendChild(quadpayInfoIconNode);
@@ -512,7 +523,7 @@ class AwesomeSezzle {
             var affirmInfoIconNode = document.createElement('button');
             affirmInfoIconNode.role = 'button';
             affirmInfoIconNode.type = 'button';
-            affirmInfoIconNode.ariaLabel = 'Learn More about Affirm';
+            affirmInfoIconNode.ariaLabel = `${learnMoreTranslations[this.language]} Affirm`;
             affirmInfoIconNode.className = 'affirm-modal-info-link no-sezzle-info';
             affirmInfoIconNode.innerHTML = '&#9432;';
             sezzleButtonText.appendChild(affirmInfoIconNode);
@@ -557,7 +568,7 @@ class AwesomeSezzle {
             var klarnaInfoIconNode = document.createElement('button');
             klarnaInfoIconNode.role = 'button';
             klarnaInfoIconNode.type = 'button';
-            klarnaInfoIconNode.ariaLabel = 'Learn More about Klarna';
+            klarnaInfoIconNode.ariaLabel = `${learnMoreTranslations[this.language]} Klarna`;
             klarnaInfoIconNode.className = 'klarna-modal-info-link no-sezzle-info';
             klarnaInfoIconNode.innerHTML = '&#9432;';
             sezzleButtonText.appendChild(klarnaInfoIconNode);
@@ -722,6 +733,7 @@ class AwesomeSezzle {
   renderModal(){
 		const modalTranslations = {
 			en: {
+				closeSezzleModal: 'Close Sezzle modal.',
 				sezzleHeader: 'Sezzle it now.',
 				sezzleHeaderChild: 'Pay&nbsp;us back later.',
 				sezzleHeaderLt: 'Make easy monthly',
@@ -756,10 +768,11 @@ class AwesomeSezzle {
 				financing: 'Bread Pay',
 				terms1: 'Subject&nbsp;to&nbsp;approval.',
 				terms2: 'Payment&nbsp;start&nbsp;date fluctuates based&nbsp;on time of merchant&nbsp;order&nbsp;completion.',
-				termsLt: '* Applicants are subject to credit check and approval. Rates from 5.99%-29.99% APR; terms from 3 months - 48 months. 0% APR is available for up to 3 months. Minimum purchase required. APRs will vary depending on credit qualifications, loan amount, and term.',
-				termsBread: 'Bread Pay™ plans are loans made by Comenity Bank.'
+				termsLt: 'Applicants are subject to credit check and approval. Rates from 5.99%-29.99% APR; terms from 3 months - 48 months. 0% APR is available for up to 3 months. Minimum purchase required. APRs will vary depending on credit qualifications, loan amount, and term.',
+				termsBread: 'Bread Pay&#8482; plans are loans made by Comenity Bank.'
 			},
 			fr: {
+				closeSezzleModal: 'Fermer Sezzle modal.',
 				sezzleHeader: 'Sezzlez maintenant.',
 				sezzleHeaderChild: 'Payez-nous plus tard.',
 				sezzleHeaderLt: 'Effectuez facilement des paiements',
@@ -794,10 +807,11 @@ class AwesomeSezzle {
 				financing: 'Bread Pay',
 				terms1: 'Sous r&#233;serve d\'approbation.',
 				terms2: 'La date de d&#233;but du paiement varie en fonction de l\'heure de fin de la commande du marchand.',
-				termsLt: '* Les candidats sont soumis &#224; une v&#233;rification du cr&#233;dit et &#224; une approbation. Taux de 5,99% - 29,99% APR ; termes de 3 mois - 48 mois et peuvent varier selon le pr&#234;teur. Un taux d\'int&#233;r&#234;t annuel de 0 % est disponible jusqu\'&#224; 3 mois. Un achat minimum est requis. Les taux annuels varient en fonction des conditions de cr&#233;dit, du montant du pr&#234;t, de la dur&#233;e et du pr&#234;teur.',
+				termsLt: 'Les candidats sont soumis &#224; une v&#233;rification du cr&#233;dit et &#224; une approbation. Taux de 5,99% - 29,99% APR ; termes de 3 mois - 48 mois et peuvent varier selon le pr&#234;teur. Un taux d\'int&#233;r&#234;t annuel de 0 % est disponible jusqu\'&#224; 3 mois. Un achat minimum est requis. Les taux annuels varient en fonction des conditions de cr&#233;dit, du montant du pr&#234;t, de la dur&#233;e et du pr&#234;teur.',
 				termsBread: 'Les plans Bread Pay&#8482; sont des pr&#234;ts consentis par Comenity Bank.'
 			},
 			de: {
+				closeSezzleModal: 'Schlie&szlig;en Sie das Sezzle-Modal.',
 				sezzleHeader: 'Jetzt kaufen.',
 				sezzleHeaderChild: 'Sp&#228;ter zahlen.',
 				sezzleHeaderLt: 'Machen Sie einfache monatliche',
@@ -832,10 +846,11 @@ class AwesomeSezzle {
 				financing: 'Bread Pay',
 				terms1: 'Vorbehaltlich unserer Zustimmung.',
 				terms2: 'Das Startdatum der Zahlung schwankt je nach Zeitpunkt des Abschlusses der H&#228;ndlerbestellung.',
-				termsLt: '* Bewerber unterliegen einer Bonit&#228;tspr&#252;fung und Genehmigung. Preise von 5,99 % bis 29,99 % effektivem Jahreszins; Laufzeiten von 3 Monaten - 48 Monaten. 0 % effektiver Jahreszins ist f&#252;r bis zu 3 Monate verf&#252;gbar. Mindestabnahme erforderlich. Der effektive Jahreszins variiert je nach Kreditw&#252;rdigkeit, Kreditbetrag und Laufzeit.',
+				termsLt: 'Bewerber unterliegen einer Bonit&#228;tspr&#252;fung und Genehmigung. Preise von 5,99 % bis 29,99 % effektivem Jahreszins; Laufzeiten von 3 Monaten - 48 Monaten. 0 % effektiver Jahreszins ist f&#252;r bis zu 3 Monate verf&#252;gbar. Mindestabnahme erforderlich. Der effektive Jahreszins variiert je nach Kreditw&#252;rdigkeit, Kreditbetrag und Laufzeit.',
 				termsBread: 'Bread Pay&#8482;-Pl&#228;ne sind Darlehen der Comenity Bank.'
 			},
 			es: {
+				closeSezzleModal: 'Cerrar Sezzle modal.',
 				sezzleHeader: 'Sezzle ahora.',
 				sezzleHeaderChild: 'Pa&#769;ganos ma&#769;s tarde.',
 				sezzleHeaderLt: 'Realice pagos mensuales',
@@ -870,7 +885,7 @@ class AwesomeSezzle {
 				financing: 'Bread Pay',
 				terms1: 'Sujeto a aprobacio&#769;n.',
 				terms2: 'La fecha de inicio del pago vari&#769;a segu&#769;n el momento en que se completa la orden comercial.',
-				termsLt: '* Los candidatos esta&#769;n sujetos a la comprobacio&#769;n y aprobacio&#769;n del cre&#769;dito. Tipos del 5,99% al 29,99% TAE; plazos de 3 a 48 meses y pueden variar segu&#769;n el prestamista. El 0% de TAE esta&#769; disponible durante un ma&#769;ximo de 3 meses. Se requiere una compra mi&#769;nima. Las TAE vari&#769;an en funcio&#769;n de las calificaciones crediticias, el importe del pre&#769;stamo, el plazo y el prestamista.',
+				termsLt: 'Los candidatos esta&#769;n sujetos a la comprobacio&#769;n y aprobacio&#769;n del cre&#769;dito. Tipos del 5,99% al 29,99% TAE; plazos de 3 a 48 meses y pueden variar segu&#769;n el prestamista. El 0% de TAE esta&#769; disponible durante un ma&#769;ximo de 3 meses. Se requiere una compra mi&#769;nima. Las TAE vari&#769;an en funcio&#769;n de las calificaciones crediticias, el importe del pre&#769;stamo, el plazo y el prestamista.',
 				termsBread: 'Los planes Bread Pay&#8482; son pre&#769;stamos realizados por Comenity Bank.'
 			}
 		}
@@ -1023,7 +1038,7 @@ class AwesomeSezzle {
 					<div class="sezzle-modal">
 						<div class="sezzle-modal-content" tabIndex="0">
 							<div class="sezzle-logo" title="Sezzle"></div>
-							<button aria-label="Close Sezzle Modal" class="close-sezzle-modal" role="button"></button>
+							<button aria-label="${modalTranslations[this.language].closeSezzleModal}" class="close-sezzle-modal" role="button"></button>
 							<div tabIndex="0" class="sezzle-header">${modalTranslations[this.language].sezzleHeaderLt}
 								<span class="header-desktop">${modalTranslations[this.language].sezzleHeaderLtChild}</span>
 								<div class="header-mobile">${modalTranslations[this.language].sezzleHeaderLtChild}</div>
@@ -1038,15 +1053,15 @@ class AwesomeSezzle {
 								<div tabIndex="0" class="sezzle-lt-payment-header">${modalTranslations[this.language].sezzleLtPaymentHeader} <span>${currency + this.addDelimiters(priceString, this.parseMode)}</span></div>
 								<div class="sezzle-lt-payment-options ${terms[2]}-month" ${terms[2] === undefined ? `style="display: none;"` : `style="display: block;"`}>
 									<div class="plan"><div class="monthly-amount" tabIndex="0"><span>${currency + this.formatMonthly(priceString, this.parseMode, terms[2], this.bestAPR)}</span> <span aria-hidden="true">${modalTranslations[this.language].monthlyAmount}<sup>*</sup></span> <span style="display: none" aria-hidden="false">${modalTranslations[this.language].perMonth}</span> </div>	<div class="term-length" tabIndex="0">${terms[2]} ${modalTranslations[this.language].termLength}</div></div>
-									<div class="plan-details"><div class="adjusted-total" tabIndex="0">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.formatAdjustedTotal(priceString, this.parseMode, terms[2], this.bestAPR)}</span></div>	<div class="interest-amount" tabIndex="0">${modalTranslations[this.language].interest} <span>${currency + this.formatTotalInterest(priceString, this.parseMode, terms[2], this.bestAPR)}</span></div><div class="sample-apr" tabIndex="0"><span aria-hidden="true">${modalTranslations[this.language].sampleApr}:</span> <span aria-hidden="true">${this.bestAPR}%</span><span style="display: none" aria-hidden="false">${modalTranslations[this.language].readApr}: ${this.bestAPR} ${modalTranslations[this.language].percent}</span></div> </div>
+									<div class="plan-details"><div class="adjusted-total" tabIndex="0">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.formatAdjustedTotal(priceString, this.parseMode, terms[2], this.bestAPR)}</span></div><div class="interest-amount" tabIndex="0">${modalTranslations[this.language].interest} <span>${currency + this.formatTotalInterest(priceString, this.parseMode, terms[2], this.bestAPR)}</span></div><div class="sample-apr" tabIndex="0"><span aria-hidden="true">${modalTranslations[this.language].sampleApr}:</span> <span aria-hidden="true">${this.bestAPR}%</span><span style="display: none" aria-hidden="false">${modalTranslations[this.language].readApr}: ${this.bestAPR} ${modalTranslations[this.language].percent}</span></div> </div>
 								</div>
 								<div class="sezzle-lt-payment-options ${terms[1]}-month">
 									<div class="plan"><div class="monthly-amount" tabIndex="0"><span>${currency + this.formatMonthly(priceString, this.parseMode, terms[1], this.bestAPR)}</span> <span aria-hidden="true">${modalTranslations[this.language].monthlyAmount}<sup>*</sup></span> <span style="display: none" aria-hidden="false">${modalTranslations[this.language].perMonth}</span> </div>	<div class="term-length" tabIndex="0">${terms[1]} ${modalTranslations[this.language].termLength}</div></div>
-									<div class="plan-details"><div class="adjusted-total" tabIndex="0">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.formatAdjustedTotal(priceString, this.parseMode, terms[1], this.bestAPR)}</span></div>	<div class="interest-amount" tabIndex="0">${modalTranslations[this.language].interest} <span>${currency + this.formatTotalInterest(priceString, this.parseMode, terms[1], this.bestAPR)}</span></div><div class="sample-apr" tabIndex="0"><span aria-hidden="true">${modalTranslations[this.language].sampleApr}:</span> <span aria-hidden="true">${this.bestAPR}%</span><span style="display: none" aria-hidden="false">${modalTranslations[this.language].readApr}: ${this.bestAPR} ${modalTranslations[this.language].percent}</span></div> </div>
+									<div class="plan-details"><div class="adjusted-total" tabIndex="0">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.formatAdjustedTotal(priceString, this.parseMode, terms[1], this.bestAPR)}</span></div><div class="interest-amount" tabIndex="0">${modalTranslations[this.language].interest} <span>${currency + this.formatTotalInterest(priceString, this.parseMode, terms[1], this.bestAPR)}</span></div><div class="sample-apr" tabIndex="0"><span aria-hidden="true">${modalTranslations[this.language].sampleApr}:</span> <span aria-hidden="true">${this.bestAPR}%</span><span style="display: none" aria-hidden="false">${modalTranslations[this.language].readApr}: ${this.bestAPR} ${modalTranslations[this.language].percent}</span></div> </div>
 								</div>
 								<div class="sezzle-lt-payment-options ${terms[0]}-month">
 									<div class="plan"><div class="monthly-amount" tabIndex="0"><span>${currency + this.formatMonthly(priceString, this.parseMode, terms[0], this.bestAPR)}</span> <span aria-hidden="true">${modalTranslations[this.language].monthlyAmount}<sup>*</sup></span> <span style="display: none" aria-hidden="false">${modalTranslations[this.language].perMonth}</span> </div>	<div class="term-length" tabIndex="0">${terms[0]} ${modalTranslations[this.language].termLength}</div></div>
-									<div class="plan-details"><div class="adjusted-total" tabIndex="0">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.formatAdjustedTotal(priceString, this.parseMode, terms[0], this.bestAPR)}</span></div>	<div class="interest-amount" tabIndex="0">${modalTranslations[this.language].interest} <span>${currency + this.formatTotalInterest(priceString, this.parseMode, terms[0], this.bestAPR)}</span></div><div class="sample-apr" tabIndex="0"><span aria-hidden="true">${modalTranslations[this.language].sampleApr}:</span> <span aria-hidden="true">${this.bestAPR}%</span><span style="display: none" aria-hidden="false">${modalTranslations[this.language].readApr}: ${this.bestAPR} ${modalTranslations[this.language].percent}</span></div> </div>
+									<div class="plan-details"><div class="adjusted-total" tabIndex="0">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.formatAdjustedTotal(priceString, this.parseMode, terms[0], this.bestAPR)}</span></div><div class="interest-amount" tabIndex="0">${modalTranslations[this.language].interest} <span>${currency + this.formatTotalInterest(priceString, this.parseMode, terms[0], this.bestAPR)}</span></div><div class="sample-apr" tabIndex="0"><span aria-hidden="true">${modalTranslations[this.language].sampleApr}:</span> <span aria-hidden="true">${this.bestAPR}%</span><span style="display: none" aria-hidden="false">${modalTranslations[this.language].readApr}: ${this.bestAPR} ${modalTranslations[this.language].percent}</span></div> </div>
 								</div>
 							</div>
 							<div class="sezzle-row" tabIndex="0">
@@ -1056,7 +1071,7 @@ class AwesomeSezzle {
 							<div class="details" tabIndex="0">${modalTranslations[this.language].details}</div>
 							<div class="sezzle-bread-logo" title="${modalTranslations[this.language].financing}" tabIndex="0">${HelperClass.svgImages().ltBreadLogo}</div>
 							<div class="terms">
-								<div class="terms-lt" tabIndex="0">${modalTranslations[this.language].termsLt}</div>
+								<div class="terms-lt" tabIndex="0"><span aria-hidden="true">*</span>${modalTranslations[this.language].termsLt}</div>
 								<div class="terms-bread" tabIndex="0">${modalTranslations[this.language].termsBread}</div>
 							</div>
 						</div>
@@ -1168,7 +1183,7 @@ class AwesomeSezzle {
 							max-width: 264px;
 						}
 					</style>
-          <div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal"> <div class="sezzle-modal-content" tabIndex="0"> <div class="sezzle-logo" title="Sezzle"></div><button aria-label="Close Sezzle Modal" class="close-sezzle-modal" role="button"></button>
+          <div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal"> <div class="sezzle-modal-content" tabIndex="0"> <div class="sezzle-logo" title="Sezzle"></div><button aria-label="${modalTranslations[this.language].closeSezzleModal}" class="close-sezzle-modal" role="button"></button>
             <div tabIndex="0" class="sezzle-header" >${modalTranslations[this.language].sezzleHeader}
               <span class="header-desktop">${modalTranslations[this.language].sezzleHeaderChild}</span>
               <div class="header-mobile">${modalTranslations[this.language].sezzleHeaderChild}</div>
@@ -1202,7 +1217,7 @@ class AwesomeSezzle {
         modalNode.innerHTML = this.altModalHTML;
       }
       else {
-					modalNode.innerHTML = `<div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal sezzle-modal${this.modalTheme==="grayscale" ? "-grayscale" : "-color"}"> <div class="sezzle-modal-content" tabIndex="0"> <div class="sezzle-logo${this.modalTheme==="grayscale" ? "-grayscale" : ""}" title="Sezzle"></div><button aria-label="Close Sezzle Modal" class="close-sezzle-modal" role="button"></button>
+					modalNode.innerHTML = `<div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal sezzle-modal${this.modalTheme==="grayscale" ? "-grayscale" : "-color"}"> <div class="sezzle-modal-content" tabIndex="0"> <div class="sezzle-logo${this.modalTheme==="grayscale" ? "-grayscale" : ""}" title="Sezzle"></div><button aria-label="${modalTranslations[this.language].closeSezzleModal}" class="close-sezzle-modal" role="button"></button>
 					<div tabIndex="0" class="sezzle-header">${modalTranslations[this.language].sezzleHeader}
 						<span class="header-desktop">${modalTranslations[this.language].sezzleHeaderChild}</span>
 						<div class="header-mobile">${modalTranslations[this.language].sezzleHeaderChild}</div>
