@@ -514,7 +514,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 			var installmentElement = document.createElement('span');
 			installmentElement.className = 'sezzle-installment-amount';
             installmentElement.tabIndex = 0;
-			installmentElement.innerText = currency + (includeComma ? installmentPrice.replace('.',',') : installmentPrice);
+			installmentElement.innerText = currency + (includeComma ? installmentPrice.replace('.',',') : installmentPrice)
 			document.querySelector('.sezzle-payment-schedule-prices').appendChild(installmentElement);
 		}
 
@@ -584,14 +584,14 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		var modalTitle = document.createElement('h1');
 		modalTitle.className = 'sezzle-modal-title';
 		modalContent.appendChild(modalTitle);
-        modalContent.tabIndex = 0;
+        modalTitle.tabIndex = 0;
 		modalTitle.innerHTML = translation[language].modalTitle;
 
 		// creates the description container
 		var overview = document.createElement('div');
 		overview.className = 'sezzle-modal-overview';
 		modalContent.appendChild(overview);
-        modalContent.tabIndex = 0;
+        overview.tabIndex = 0;
 
 		// creates the first overview paragraph
 		var firstParagraph = document.createElement('p');
@@ -659,8 +659,13 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		function openSezzleModal (){
 			document.querySelector('.sezzle-modal-overlay').style.display = "block";
 			document.body.classList.add('sezzle-modal-open');
+            modalKeyboardNavigation()
 		}
 		infoIcon.addEventListener('click', openSezzleModal);
+        infoIcon.addEventListener('click', () => {
+            document.querySelector(".sezzle-checkout-modal").getElementsByClassName("close-sezzle-modal")[0].focus();
+            console.log("OPEN MODAL")
+        });
 
 		// watches overlay and modal X for click event, closes modal
 		function closeSezzleModal (){
@@ -671,7 +676,42 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		if(sezzleModalClose.length){
 			for(var i = 0; i < sezzleModalClose.length; i++){
 				sezzleModalClose[i].addEventListener('click', closeSezzleModal);
+                sezzleModalClose[i].addEventListener('click', () => {
+                    document.querySelector(".sezzle-installment-info-icon").focus();
+                    console.log("CLOSE MODAL")
+                });
 			}
 		}
 	}
+
+    function modalKeyboardNavigation (){
+		let focusableElements = document.querySelector('.sezzle-checkout-modal').querySelectorAll('[tabIndex="0"]');
+		let firstFocusableElement = focusableElements[0];
+		let lastFocusableElement = focusableElements[focusableElements.length - 1];
+		document.addEventListener('keydown', function(event){
+			if(event.key === 'Tab'){
+				if(event.shiftKey && document.activeElement === firstFocusableElement){
+					lastFocusableElement.focus();
+				} else if(document.activeElement === lastFocusableElement){
+					firstFocusableElement.focus();
+				}
+			} else if(event.key === 'Escape') {
+				let modals = document.getElementsByClassName('sezzle-modal-overlay');
+				for(let i = 0; i < modals.length; i++) {
+					modals[i].style.display = 'none';
+				}
+				var newFocus = document.querySelector('#sezzle-modal-return');
+				if(newFocus){
+					newFocus.focus();
+					newFocus.removeAttribute('id');
+				} else if (document.querySelector('.sezzle-payment-schedule-container').querySelector('.sezzle-installment-info-icon')){
+					document.querySelector('.sezzle-payment-schedule-container').querySelector('.sezzle-installment-info-icon').focus();
+				  } else {
+					document.querySelector('.sezzle-payment-schedule-container').focus();
+				  }
+			}
+		})
+	}
 }
+
+
