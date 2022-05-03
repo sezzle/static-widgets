@@ -537,21 +537,32 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		installmentContainer.appendChild(installmentPlanContainer);
 
 		// creates the installment date elements
-		function createPaymentPlan (date){
-			var dateElement = document.createElement('span');
-			dateElement.className ='sezzle-payment-date';
-			dateElement.innerText = date;
-            dateElement.tabIndex = 0;
-			document.querySelector('.sezzle-payment-schedule-frequency').appendChild(dateElement);
+		//function createPaymentPlan (date){
+		//	var dateElement = document.createElement('span');
+		//	dateElement.className ='sezzle-payment-date';
+		//	dateElement.innerText = date;
+        //    dateElement.tabIndex = 0;
+		//	document.querySelector('.sezzle-payment-schedule-frequency').appendChild(dateElement);
+		//}
+
+
+        function createPaymentPlan (date, i){
+            var installmentElement = document.querySelectorAll(".sezzle-installment-amount")
+			installmentElement[i].innerText = installmentElement[i].innerText + "\n" + date;
+
+			//document.querySelector('.sezzle-payment-schedule-frequency').appendChild(dateElement);
 		}
 
 		// parses today's date to calculate each installment date
 		// TODO: french date translation
 		var todaysDate = new Date();
-		createPaymentPlan(translation[language].today);
-		for(var i = 0; i < 3; i++){
-			var installmentDate = new Date(todaysDate.setDate(todaysDate.getDate() + interval)).toLocaleDateString(language, {month: 'short', day: 'numeric'});
-			createPaymentPlan(installmentDate);
+		for(var i = 0; i < 4; i++){
+            if (i === 0) {
+                createPaymentPlan(translation[language].today, i);
+            } else if (i > 0) {
+                var installmentDate = new Date(todaysDate.setDate(todaysDate.getDate() + interval)).toLocaleDateString(language, {month: 'short', day: 'numeric'});
+                createPaymentPlan(installmentDate, i);
+            }
 		}
 
 		// create the modal container
@@ -572,6 +583,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		closeModal.type = 'button';
 		closeModal.title = translation[language].modalTitle;
 		closeModal.innerText = 'X';
+        closeModal.tabIndex = 0;
 		modalContent.appendChild(closeModal);
 
 		// creates the Sezzle logo
