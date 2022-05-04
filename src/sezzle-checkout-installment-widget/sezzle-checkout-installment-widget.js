@@ -545,7 +545,6 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		// parses today's date to calculate each installment date
 		// TODO: french date translation
 		var todaysDate = new Date();
-		createPaymentPlan(translation[language].today);
 		for(var i = 0; i < 4; i++){
 			if (i === 0) {
                 createPaymentPlan(translation[language].today, i);
