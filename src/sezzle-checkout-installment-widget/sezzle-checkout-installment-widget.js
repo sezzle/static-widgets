@@ -143,7 +143,8 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 			30: `Dividi l&rsquo;intero ordine in 4 rate in 3 mesi. Senza costi!`
 			},
 			'secondParagraph': 'Dopo aver cliccato su &ldquo;Completa l&rsquo;ordine&rdquo; in questa pagina, verrai reindirizzato a Sezzle per completare l&rsquo;acquisto in modo sicuro',
-			'infoIcon': 'Maggiori informazioni riguardo Sezzle'
+			'infoIcon': 'Maggiori informazioni riguardo Sezzle',
+			'paymentPieTitle': 'Grafico a torta di pagamento Sezzle'
 		}
 	}
 
@@ -258,7 +259,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 			text-align: center;
 		}
 		.sezzle-payment-date {
-			color: #737373 !important;
+			color: #565656 !important;
 			font-size: 9px !important;
 			font-family: Comfortaa !important;
 			width: 25%;
@@ -361,7 +362,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 
 		}
 		.sezzle-modal-payment-schedule span {
-			color: #737373;
+			color: #595959;
 			font-size: 9px;
 			font-family: Comfortaa !important;
 			text-align: center;
@@ -419,11 +420,13 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		installmentWidget.className = 'sezzle-installment-widget';
 		installmentContainer.appendChild(installmentWidget);
 		installmentWidget.innerHTML = translation[language].installmentWidget[interval];
+		installmentWidget.tabIndex = 0;
 
 		// creates the pie graphic
 		var sezzlePie = document.createElement('div');
 		sezzlePie.className = 'sezzle-payment-pie';
 		installmentContainer.appendChild(sezzlePie);
+		sezzlePie.title = 
 
 		// creates container to receive the installment prices
 		var installmentPriceContainer = document.createElement('div');
@@ -500,6 +503,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		function createInstallmentPrice (installmentPrice, includeComma, currency){
 			var installmentElement = document.createElement('span');
 			installmentElement.className = 'sezzle-installment-amount';
+			installmentElement.tabIndex = 0;
 			installmentElement.innerText = currency + (includeComma ? installmentPrice.replace('.',',') : installmentPrice);
 			document.querySelector('.sezzle-payment-schedule-prices').appendChild(installmentElement);
 		}
@@ -527,6 +531,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 			var dateElement = document.createElement('span');
 			dateElement.className ='sezzle-payment-date';
 			dateElement.innerText = date;
+			dateElement.tabIndex = 0;
 			document.querySelector('.sezzle-payment-schedule-frequency').appendChild(dateElement);
 		}
 
@@ -540,7 +545,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		}
 
 		// create the modal container
-		var modalOverlay = document.createElement('div');
+		var modalOverlay = document.createElement('section');
 		modalOverlay.className = 'sezzle-modal-overlay close-sezzle-modal';
 		modalOverlay.style.display = 'none';
 		document.body.appendChild(modalOverlay);
@@ -562,19 +567,21 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		// creates the Sezzle logo
 		var sezzleLogo = document.createElement('div');
 		sezzleLogo.className = 'sezzle-modal-logo';
-		sezzleLogo.title = 'Sezzle Logo';
+		sezzleLogo.title = 'Sezzle';
 		modalContent.appendChild(sezzleLogo);
 
 		// creates the modal title
 		var modalTitle = document.createElement('h4');
 		modalTitle.className = 'sezzle-modal-title';
 		modalContent.appendChild(modalTitle);
+		modalContent.tabIndex = 0;
 		modalTitle.innerHTML = translation[language].modalTitle;
 
 		// creates the description container
 		var overview = document.createElement('div');
 		overview.className = 'sezzle-modal-overview';
 		modalContent.appendChild(overview);
+		modalContent.tabIndex = 0;
 
 		// creates the first overview paragraph
 		var firstParagraph = document.createElement('p');
@@ -599,6 +606,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		// creates the installment schedule container
 		var percentages = document.createElement('div');
 		percentages.className = 'sezzle-modal-payment-percent';
+		percentages.tabIndex = 0;
 		installmentWrapper.appendChild(percentages);
 
 		// creates each percentage
@@ -611,6 +619,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		// creates the installment schedule container
 		var sampleSchedule = document.createElement('div');
 		sampleSchedule.className = 'sezzle-modal-payment-schedule';
+		sampleSchedule.tabIndex = 0;
 		installmentWrapper.appendChild(sampleSchedule);
 
 		// creates each installment
