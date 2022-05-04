@@ -637,15 +637,16 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 
 		// creates each installment
 		for(var i = 0; i < 4; i++){
-			var payment = document.createElement('span');
-			if (i === 0){
-				payment.innerHTML = translation[language].today;
-			} else if(interval === 30){
-				payment.innerHTML = (i*30) + " " + translation[language].days;
+			var payment = document.querySelector(".sezzle-modal-payment-percent").getElementsByTagName("span")
+			if (i === 0) {
+				payment[i].innerText = payment[i].innerText + "\n" + translation[language].today;
+			} else if (i > 0 && interval === 30) {
+				payment[i].innerText = payment[i].innerText + (i*30) + " " + translation[language].days;
+			} else if (i >0) {
+				payment[i].innerText = payment[i].innerText + "\n" + translation[language].week + " " + (i*2); 
 			} else {
-				payment.innerHTML = translation[language].week + " " + (i*2);
+				payment.innerTextinnerText = translation[language].week + "\n" + " " + (i*2);
 			}
-			sampleSchedule.appendChild(payment);
 		}
 
 		// creates the info icon to open the modal
