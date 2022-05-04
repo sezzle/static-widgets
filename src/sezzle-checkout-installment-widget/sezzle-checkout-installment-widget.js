@@ -89,7 +89,8 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 				30:	`R&#233;partissez le montant de votre commande en 4 versements sur 3 mois. Pas de frais!`
 			},
 			'secondParagraph': 'Apr&#232;s avoir cliqu&#233; sur &#171;&nbsp;Terminer la commande&nbsp;&#187; sur ce site, vous serez redirig&#233;(e) vers Sezzle pour finaliser votre achat en toute s&#233;curit&#233;.',
-			'infoIcon': 'En savoir plus sur Sezzle'
+			'infoIcon': 'En savoir plus sur Sezzle',
+			'paymentPieTitle': 'Graphique circulaire de paiement Sezzle'
 		},
 		'de': {
 			'today': 'heute',
