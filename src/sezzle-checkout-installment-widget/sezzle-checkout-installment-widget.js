@@ -547,11 +547,11 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		var todaysDate = new Date();
 		for(var i = 0; i < 4; i++){
 			if (i === 0) {
-                createPaymentPlan(translation[language].today, i);
-            } else if (i > 0) {
-                var installmentDate = new Date(todaysDate.setDate(todaysDate.getDate() + interval)).toLocaleDateString(language, {month: 'short', day: 'numeric'});
-                createPaymentPlan(installmentDate, i);
-            }
+				createPaymentPlan(translation[language].today, i);
+			} else if (i > 0) {
+				var installmentDate = new Date(todaysDate.setDate(todaysDate.getDate() + interval)).toLocaleDateString(language, {month: 'short', day: 'numeric'});
+				createPaymentPlan(installmentDate, i);
+			}
 		}
 
 		// create the modal container
