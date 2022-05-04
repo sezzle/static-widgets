@@ -72,7 +72,9 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 			},
 			'secondParagraph': 'After clicking "Complete Order" on this site, you will be redirected to Sezzle to complete your purchase securely.',
 			'infoIcon': 'Learn More about Sezzle',
-			'paymentPieTitle': 'Sezzle payment pie chart'
+			'paymentPieTitle': 'Sezzle payment pie chart',
+			'closeModalTitle': 'Close Modal',
+			'modalPie': 'Sezzle modal payment pie chart'
 		},
 		'fr': {
 			'today': 'aujourd\'hui',
@@ -90,7 +92,9 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 			},
 			'secondParagraph': 'Apr&#232;s avoir cliqu&#233; sur &#171;&nbsp;Terminer la commande&nbsp;&#187; sur ce site, vous serez redirig&#233;(e) vers Sezzle pour finaliser votre achat en toute s&#233;curit&#233;.',
 			'infoIcon': 'En savoir plus sur Sezzle',
-			'paymentPieTitle': 'Graphique circulaire de paiement Sezzle'
+			'paymentPieTitle': 'Graphique circulaire de paiement Sezzle',
+			'closeModalTitle': 'Fermer modal',
+			'modalPie': 'Graphique circulaire de paiement modal Sezzle'
 		},
 		'de': {
 			'today': 'heute',
@@ -108,7 +112,9 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 			},
 			'secondParagraph':'Sobald du auf den Button &#8222;Bestellung abschlie&#223;en&#8220; klickst, wirst du zu Sezzle umgeleitet ' + (interval === 30 ? 'um' : 'und kannst') + ' deinen Einkauf sicher '+ (interval === 30 ? 'abzuschlie&#223;en.' : 'abschlie&#223;en.'),
 			'infoIcon': 'Erfahren Sie mehr &#252;ber Sezzle',
-			'paymentPieTitle': 'Sezzle-Zahlungskreisdiagramm'
+			'paymentPieTitle': 'Sezzle-Zahlungskreisdiagramm',
+			'closeModalTitle': 'Modal schließen',
+			'modalPie': 'Sezzle Kreisdiagramm für modale Zahlungen'
 		},
 		'es': {
 			'today': 'hoy',
@@ -126,7 +132,9 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 			},
 			'secondParagraph': 'Despu&#233;s de hacer clic en &quot;Completar pedido&quot; en este sitio, ser&#225; redirigido a Sezzle para completar su compra de forma segura.',
 			'infoIcon': 'M&#225;s informaci&#243;n sobre Sezzle',
-			'paymentPieTitle': 'Gráfico circular de pagos de Sezzle'
+			'paymentPieTitle': 'Gráfico circular de pagos de Sezzle',
+			'closeModalTitle': 'Cerrar modal',
+			'modalPie': 'Gráfico circular de pago modal de Sezzle'
 		},
 		'it': {
 			'today': 'oggi',
@@ -144,7 +152,9 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 			},
 			'secondParagraph': 'Dopo aver cliccato su &ldquo;Completa l&rsquo;ordine&rdquo; in questa pagina, verrai reindirizzato a Sezzle per completare l&rsquo;acquisto in modo sicuro',
 			'infoIcon': 'Maggiori informazioni riguardo Sezzle',
-			'paymentPieTitle': 'Grafico a torta di pagamento Sezzle'
+			'paymentPieTitle': 'Grafico a torta di pagamento Sezzle',
+			'closeModalTitle': 'Chiudere modale',
+			'modalPie': 'Grafico a torta di pagamento modale Sezzle'
 		}
 	}
 
@@ -426,7 +436,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		var sezzlePie = document.createElement('div');
 		sezzlePie.className = 'sezzle-payment-pie';
 		installmentContainer.appendChild(sezzlePie);
-		sezzlePie.title = 
+		sezzlePie.title = translation[language].paymentPieTitle 
 
 		// creates container to receive the installment prices
 		var installmentPriceContainer = document.createElement('div');
@@ -560,7 +570,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		closeModal.className = 'close-sezzle-modal';
 		closeModal.role = 'button';
 		closeModal.type = 'button';
-		closeModal.title = 'Close Modal';
+		closeModal.title = translation[language].modalTitle;
 		closeModal.innerText = 'X';
 		modalContent.appendChild(closeModal);
 
@@ -571,7 +581,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		modalContent.appendChild(sezzleLogo);
 
 		// creates the modal title
-		var modalTitle = document.createElement('h4');
+		var modalTitle = document.createElement('h1');
 		modalTitle.className = 'sezzle-modal-title';
 		modalContent.appendChild(modalTitle);
 		modalContent.tabIndex = 0;
@@ -602,6 +612,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		var modalPie = document.createElement('div');
 		modalPie.className = 'sezzle-modal-payment-pie';
 		installmentWrapper.appendChild(modalPie);
+		modalPie.title = translation[language].modalPie;
 
 		// creates the installment schedule container
 		var percentages = document.createElement('div');
