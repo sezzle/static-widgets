@@ -643,7 +643,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 				payment[i].innerText = payment[i].innerText + (i*30) + " " + translation[language].days;
 			} else if (i > 0){
                 payment[i].innerText = payment[i].innerText + "\n" + translation[language].week + " " + (i*2); 
-            }else {
+            } else {
 				payment.innerTextinnerText = translation[language].week + "\n" + " " + (i*2);
 			}
 		}
@@ -686,6 +686,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		}
 	}
 
+    // allows for proper screen reader navigation through modal
     function modalKeyboardNavigation (){
 		let focusableElements = document.querySelector('.sezzle-checkout-modal').querySelectorAll('[tabIndex="0"]');
 		let firstFocusableElement = focusableElements[0];
