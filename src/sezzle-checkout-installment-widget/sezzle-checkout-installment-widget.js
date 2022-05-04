@@ -107,7 +107,8 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 				30: `Dein Gesamtbestellwert wird auf 4 Raten &#252;ber 3 Monate verteilt. Diese sind komplett kostenlos.`
 			},
 			'secondParagraph':'Sobald du auf den Button &#8222;Bestellung abschlie&#223;en&#8220; klickst, wirst du zu Sezzle umgeleitet ' + (interval === 30 ? 'um' : 'und kannst') + ' deinen Einkauf sicher '+ (interval === 30 ? 'abzuschlie&#223;en.' : 'abschlie&#223;en.'),
-			'infoIcon': 'Erfahren Sie mehr &#252;ber Sezzle'
+			'infoIcon': 'Erfahren Sie mehr &#252;ber Sezzle',
+			'paymentPieTitle': 'Sezzle-Zahlungskreisdiagramm'
 		},
 		'es': {
 			'today': 'hoy',
@@ -124,7 +125,8 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 				30: `Divida su pedido completo en 4 pagos durante 3 meses. &#161;Sin cargo!`
 			},
 			'secondParagraph': 'Despu&#233;s de hacer clic en &quot;Completar pedido&quot; en este sitio, ser&#225; redirigido a Sezzle para completar su compra de forma segura.',
-			'infoIcon': 'M&#225;s informaci&#243;n sobre Sezzle'
+			'infoIcon': 'M&#225;s informaci&#243;n sobre Sezzle',
+			'paymentPieTitle': 'Gráfico circular de pagos de Sezzle'
 		},
 		'it': {
 			'today': 'oggi',
