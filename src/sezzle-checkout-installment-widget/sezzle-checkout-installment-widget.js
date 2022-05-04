@@ -682,4 +682,32 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 			}
 		}
 	}
+		function modalKeyboardNavigation (){
+			let focusableElements = document.querySelector('.sezzle-checkout-modal').querySelectorAll('[tabIndex="0"]');
+			let firstFocusableElement = focusableElements[0];
+			let lastFocusableElement = focusableElements[focusableElements.length - 1];
+			document.addEventListener('keydown', function(event){
+				if(event.key === 'Tab'){
+					if(event.shiftKey && document.activeElement === firstFocusableElement){
+						lastFocusableElement.focus();
+					} else if(document.activeElement === lastFocusableElement){
+						firstFocusableElement.focus();
+					}
+				} else if(event.key === 'Escape') {
+					let modals = document.getElementsByClassName('sezzle-modal-overlay');
+					for(let i = 0; i < modals.length; i++) {
+						modals[i].style.display = 'none';
+					}
+					var newFocus = document.querySelector('#sezzle-modal-return');
+					if(newFocus){
+						newFocus.focus();
+						newFocus.removeAttribute('id');
+					} else if (document.querySelector('.sezzle-payment-schedule-container').querySelector('.sezzle-installment-info-icon')){
+						document.querySelector('.sezzle-payment-schedule-container').querySelector('.sezzle-installment-info-icon').focus();
+						} else {
+						document.querySelector('.sezzle-payment-schedule-container').focus();
+						}
+				}
+			})
+		}
 }
