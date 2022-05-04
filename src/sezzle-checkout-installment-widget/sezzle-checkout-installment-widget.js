@@ -663,8 +663,8 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		}
 		infoIcon.addEventListener('click', openSezzleModal);
 		infoIcon.addEventListener('click', () => {
-            document.querySelector(".sezzle-checkout-modal").getElementsByClassName("close-sezzle-modal")[0].focus();
-        });
+			document.querySelector(".sezzle-checkout-modal").getElementsByClassName("close-sezzle-modal")[0].focus();
+		});
 
 		// watches overlay and modal X for click event, closes modal
 		function closeSezzleModal (){
@@ -676,9 +676,9 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 			for(var i = 0; i < sezzleModalClose.length; i++){
 				sezzleModalClose[i].addEventListener('click', closeSezzleModal);
 				sezzleModalClose[i].addEventListener('click', () => {
-                    document.querySelector(".sezzle-installment-info-icon").focus();
-                    console.log("CLOSE MODAL")
-                });
+					document.querySelector(".sezzle-installment-info-icon").focus();
+					console.log("CLOSE MODAL")
+				});
 			}
 		}
 	}
