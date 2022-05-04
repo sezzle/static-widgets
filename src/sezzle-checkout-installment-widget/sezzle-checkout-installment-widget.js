@@ -645,7 +645,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 			} else if (i >0) {
 				payment[i].innerText = payment[i].innerText + "\n" + translation[language].week + " " + (i*2); 
 			} else {
-				payment.innerTextinnerText = translation[language].week + "\n" + " " + (i*2);
+				payment.innerText = translation[language].week + "\n" + " " + (i*2);
 			}
 		}
 
