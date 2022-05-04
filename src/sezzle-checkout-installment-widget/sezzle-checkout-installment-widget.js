@@ -584,14 +584,14 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		var modalTitle = document.createElement('h1');
 		modalTitle.className = 'sezzle-modal-title';
 		modalContent.appendChild(modalTitle);
-		modalContent.tabIndex = 0;
+		modalTitle.tabIndex = 0;
 		modalTitle.innerHTML = translation[language].modalTitle;
 
 		// creates the description container
 		var overview = document.createElement('div');
 		overview.className = 'sezzle-modal-overview';
 		modalContent.appendChild(overview);
-		modalContent.tabIndex = 0;
+		overview.tabIndex = 0;
 
 		// creates the first overview paragraph
 		var firstParagraph = document.createElement('p');
@@ -659,8 +659,12 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		function openSezzleModal (){
 			document.querySelector('.sezzle-modal-overlay').style.display = "block";
 			document.body.classList.add('sezzle-modal-open');
+			modalKeyboardNavigation()
 		}
 		infoIcon.addEventListener('click', openSezzleModal);
+		infoIcon.addEventListener('click', () => {
+            document.querySelector(".sezzle-checkout-modal").getElementsByClassName("close-sezzle-modal")[0].focus();
+        });
 
 		// watches overlay and modal X for click event, closes modal
 		function closeSezzleModal (){
@@ -671,6 +675,10 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		if(sezzleModalClose.length){
 			for(var i = 0; i < sezzleModalClose.length; i++){
 				sezzleModalClose[i].addEventListener('click', closeSezzleModal);
+				sezzleModalClose[i].addEventListener('click', () => {
+                    document.querySelector(".sezzle-installment-info-icon").focus();
+                    console.log("CLOSE MODAL")
+                });
 			}
 		}
 	}
