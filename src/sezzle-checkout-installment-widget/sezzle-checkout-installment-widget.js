@@ -538,7 +538,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 
 		// creates the installment date elements
 		function createPaymentPlan (date, i){
-			var installmentElement = document.querySelectorAll(".sezzle-installment-amount");
+			var installmentElement = document.querySelectorAll(".sezzle-installment-amount")
 			installmentElement[i].innerText = installmentElement[i].innerText + "\n" + date;
 		}
 
@@ -546,7 +546,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		// TODO: french date translation
 		var todaysDate = new Date();
 		createPaymentPlan(translation[language].today);
-		for(var i = 0; i < 3; i++){
+		for(var i = 0; i < 4; i++){
 			if (i === 0) {
                 createPaymentPlan(translation[language].today, i);
             } else if (i > 0) {
