@@ -558,6 +558,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		var modalOverlay = document.createElement('section');
 		modalOverlay.className = 'sezzle-modal-overlay close-sezzle-modal';
 		modalOverlay.style.display = 'none';
+		modalOverlay.tabIndex =-1;
 		modalOverlay.ariaRoleDescription = "Sezzle modal"
 		document.body.appendChild(modalOverlay);
 
@@ -565,8 +566,9 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		var modalContent = document.createElement('div');
 		modalContent.className = 'sezzle-checkout-modal';
 		modalOverlay.appendChild(modalContent);
-		modalOverlay.tabIndex = 0;
-		modalContent.ariaRoleDescription = "Sezzle modal"
+		modalContent.tabIndex = 0;
+		modalContent.ariaRoleDescription = "dialog"
+		modalContent.ariaLabel = "Sezzle modal"
 
 		// creates the close modal button
 		var closeModal = document.createElement('button');
@@ -670,7 +672,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		}
 		infoIcon.addEventListener('click', openSezzleModal);
 		infoIcon.addEventListener('click', () => {
-			document.querySelector(".sezzle-checkout-modal").getElementsByClassName("close-sezzle-modal")[0].focus();
+			document.querySelector(".sezzle-modal-overlay").getElementsByClassName("sezzle-checkout-modal")[0].focus();
 		});
 
 		// watches overlay and modal X for click event, closes modal
@@ -690,7 +692,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		}
 	}
 		function modalKeyboardNavigation (){
-			let focusableElements = document.querySelector('.sezzle-checkout-modal').querySelectorAll('[tabIndex="0"]');
+			let focusableElements = document.querySelector('.sezzle-modal-overlay').querySelectorAll('[tabIndex="0"]');
 			let firstFocusableElement = focusableElements[0];
 			let lastFocusableElement = focusableElements[focusableElements.length - 1];
 			document.addEventListener('keydown', function(event){
