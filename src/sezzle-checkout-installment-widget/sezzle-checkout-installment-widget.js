@@ -558,19 +558,23 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		var modalOverlay = document.createElement('section');
 		modalOverlay.className = 'sezzle-modal-overlay close-sezzle-modal';
 		modalOverlay.style.display = 'none';
+		modalOverlay.ariaRoleDescription = "Sezzle modal"
 		document.body.appendChild(modalOverlay);
 
 		// creates the modal content wrapper
 		var modalContent = document.createElement('div');
 		modalContent.className = 'sezzle-checkout-modal';
 		modalOverlay.appendChild(modalContent);
+		modalOverlay.tabIndex = 0;
+		modalContent.ariaRoleDescription = "Sezzle modal"
 
 		// creates the close modal button
 		var closeModal = document.createElement('button');
 		closeModal.className = 'close-sezzle-modal';
 		closeModal.role = 'button';
 		closeModal.type = 'button';
-		closeModal.title = translation[language].modalTitle;
+		closeModal.title = translation[language].closeModalTitle;
+		closeModal.ariaLabel = translation[language].closeModalTitle;
 		closeModal.innerText = 'X';
 		closeModal.tabIndex = 0;
 		modalContent.appendChild(closeModal);
@@ -631,7 +635,6 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		// creates the installment schedule container
 		var sampleSchedule = document.createElement('div');
 		sampleSchedule.className = 'sezzle-modal-payment-schedule';
-		sampleSchedule.tabIndex = 0;
 		installmentWrapper.appendChild(sampleSchedule);
 
 		// creates each installment
@@ -654,7 +657,9 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		infoIcon.role = 'button';
 		infoIcon.type = 'button';
 		infoIcon.title = translation[language].infoIcon;
+		infoIcon.ariaLabel = translation[language].infoIcon;
 		infoIcon.innerHTML = '&#9432;';
+		infoIcon.tabIndex = 0
 		installmentWidget.appendChild(infoIcon);
 
 		// watches info icon for click event, opens modal
@@ -693,7 +698,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 					if(event.shiftKey && document.activeElement === firstFocusableElement){
 						lastFocusableElement.focus();
 					} else if(document.activeElement === lastFocusableElement){
-						firstFocusableElement.focus();
+						document.querySelector(".close-sezzle-modal").focus();
 					}
 				} else if(event.key === 'Escape') {
 					let modals = document.getElementsByClassName('sezzle-modal-overlay');
