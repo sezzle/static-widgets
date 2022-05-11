@@ -588,7 +588,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		modalContent.appendChild(sezzleLogo);
 
 		// creates the modal title
-		var modalTitle = document.createElement('h1');
+		var modalTitle = document.createElement('header');
 		modalTitle.className = 'sezzle-modal-title';
 		modalContent.appendChild(modalTitle);
 		modalTitle.tabIndex = 0;
