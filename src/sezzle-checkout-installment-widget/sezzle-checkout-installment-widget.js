@@ -354,12 +354,10 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 			width: 100%;
 			margin: 40px 0px -35px 0px;
 		}
-		.sezzle-modal-payment-percent, .sezzle-modal-payment-schedule {
+		.sezzle-modal-payment-percent{
 			display: flex;
 			justify-content: space-around;
 			width: 100%;
-		}
-		.sezzle-modal-payment-schedule {
 			margin-bottom: 20px;
 		}
 		.sezzle-modal-payment-percent span {
@@ -370,13 +368,6 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 			width: 25%;
 			margin-top:5px;
 
-		}
-		.sezzle-modal-payment-schedule span {
-			color: #595959;
-			font-size: 9px;
-			font-family: Comfortaa !important;
-			text-align: center;
-			width: 25%;
 		}
 		@media only screen and (min-width: 520px){
 			.sezzle-checkout-modal {
@@ -412,9 +403,6 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 			}
 			.sezzle-modal-payment-percent span {
 				font-size: 18px;
-			}
-			.sezzle-modal-payment-schedule span {
-				font-size: 12px;
 			}
 		}
 		`;
@@ -559,7 +547,6 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		modalOverlay.className = 'sezzle-modal-overlay close-sezzle-modal';
 		modalOverlay.style.display = 'none';
 		modalOverlay.tabIndex =-1;
-		modalOverlay.ariaRoleDescription = "Sezzle modal"
 		document.body.appendChild(modalOverlay);
 
 		// creates the modal content wrapper
@@ -634,10 +621,6 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 			percentages.appendChild(percent);
 		}
 
-		// creates the installment schedule container
-		var sampleSchedule = document.createElement('div');
-		sampleSchedule.className = 'sezzle-modal-payment-schedule';
-		installmentWrapper.appendChild(sampleSchedule);
 
 		// creates each installment
 		for(var i = 0; i < 4; i++){
