@@ -5,15 +5,15 @@
 // add the following lines of code to run when the page has loaded (un-commented) and update the query to match your page:
 	// Note: our top four platforms are given as examples - choose one or create your own
 		// <script type="text/javascript">
-			// document.addEventListener('readystatechange', function(){
-				// var sezzlePaymentLine = document.querySelector('[alt="Sezzle"]').parentElement.parentElement.parentElement; //Shopify
-				// var sezzlePaymentLine = document.querySelector('.payment_method_sezzlepay'); // WooCommerce
-				// var sezzlePaymentLine = document.querySelector('.sezzle'); // CommentSold
-				// var sezzlePaymentLine = document.querySelector('.linkGateway'); //3DCart
-			// var sezzleCheckoutWidget = document.createElement('div');
-			// sezzleCheckoutWidget.id = 'sezzle-installment-widget-box';
-			// sezzlePaymentLine.parentElement.insertBefore(sezzleCheckoutWidget, sezzlePaymentLine.nextElementSibling);
-			// })
+		//	 document.addEventListener('readystatechange', function(){
+		//		 var sezzlePaymentLine = document.querySelector('[alt="Sezzle"]').parentElement.parentElement.parentElement; //Shopify
+		//		 var sezzlePaymentLine = document.querySelector('.payment_method_sezzlepay'); // WooCommerce
+		//		 var sezzlePaymentLine = document.querySelector('.sezzle'); // CommentSold
+		//		 var sezzlePaymentLine = document.querySelector('.linkGateway'); //3DCart
+		//	 var sezzleCheckoutWidget = document.createElement('div');
+		//	 sezzleCheckoutWidget.id = 'sezzle-installment-widget-box';
+		//	 sezzlePaymentLine.parentElement.insertBefore(sezzleCheckoutWidget, sezzlePaymentLine.nextElementSibling);
+		//	 })
 		// </script>
 
 // 2.b Enter the following two lines of code (un-commented) where this widget should appear
@@ -554,16 +554,15 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		modalContent.className = 'sezzle-checkout-modal';
 		modalOverlay.appendChild(modalContent);
 		modalContent.tabIndex = 0;
-		modalContent.ariaRoleDescription = "dialog"
+		modalContent.setAttribute("role", "dialog");
 		modalContent.ariaLabel = "Sezzle modal"
 
 		// creates the close modal button
 		var closeModal = document.createElement('button');
 		closeModal.className = 'close-sezzle-modal';
-		closeModal.role = 'button';
+		closeModal.setAttribute("role", "button");
 		closeModal.type = 'button';
 		closeModal.title = translation[language].closeModalTitle;
-		closeModal.ariaLabel = translation[language].closeModalTitle;
 		closeModal.innerText = 'X';
 		closeModal.tabIndex = 0;
 		modalContent.appendChild(closeModal);
@@ -639,10 +638,9 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		// creates the info icon to open the modal
 		var infoIcon = document.createElement('button');
 		infoIcon.className = 'sezzle-installment-info-icon';
-		infoIcon.role = 'button';
+		infoIcon.setAttribute("role", "button");
 		infoIcon.type = 'button';
 		infoIcon.title = translation[language].infoIcon;
-		infoIcon.ariaLabel = translation[language].infoIcon;
 		infoIcon.innerHTML = '&#9432;';
 		infoIcon.tabIndex = 0
 		installmentWidget.appendChild(infoIcon);
@@ -683,7 +681,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 					if(event.shiftKey && document.activeElement === firstFocusableElement){
 						lastFocusableElement.focus();
 					} else if(document.activeElement === lastFocusableElement){
-						document.querySelector(".close-sezzle-modal").focus();
+						firstFocusableElement.focus();
 					}
 				} else if(event.key === 'Escape') {
 					let modals = document.getElementsByClassName('sezzle-modal-overlay');
