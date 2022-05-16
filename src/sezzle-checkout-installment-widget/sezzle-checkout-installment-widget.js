@@ -680,8 +680,10 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 				if(event.key === 'Tab'){
 					if(event.shiftKey && document.activeElement === firstFocusableElement){
 						lastFocusableElement.focus();
+                        //event.preventDefault()
 					} else if(document.activeElement === lastFocusableElement){
 						firstFocusableElement.focus();
+                        event.preventDefault()
 					}
 				} else if(event.key === 'Escape') {
 					let modals = document.getElementsByClassName('sezzle-modal-overlay');
