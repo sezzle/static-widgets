@@ -917,7 +917,7 @@ class AwesomeSezzle {
 						margin: 30px auto;
 					}
 					.sezzle-checkout-modal-hidden .close-sezzle-modal:before, .sezzle-checkout-modal-hidden .close-sezzle-modal:after {
-						background-color: #737373;
+						background-color: #595959;
 						width: 2px;
 						height: 15px;
 					}
@@ -1094,7 +1094,7 @@ class AwesomeSezzle {
 							margin: 30px auto;
 						}
 						.sezzle-checkout-modal-hidden .close-sezzle-modal:before, .sezzle-checkout-modal-hidden .close-sezzle-modal:after {
-							background-color: #737373;
+							background-color: #595959;
 							width: 2px;
 							height: 15px;
 						}
