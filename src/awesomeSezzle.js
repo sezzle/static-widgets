@@ -275,7 +275,7 @@ class AwesomeSezzle {
     })
 		var modals = document.getElementsByClassName('sezzle-checkout-modal-lightbox')
 		if(modals.length){
-			for(let i = modals.length-1; modals.length> 0; i--){
+			for(let i = modals.length-1; modals.length > 0; i--){
 				modals[i].parentElement.removeChild(modals[i]);
 			}
 		}
@@ -614,14 +614,14 @@ class AwesomeSezzle {
     var price = this.parseMode ==='default' ? HelperClass.parsePrice(priceText) : HelperClass.parsePrice(priceText,this.parseMode);
     this.productPrice = price;
     var priceInCents = price * 100;
-    return priceInCents>= this.minPrice && priceInCents <= this.maxPrice;
+    return priceInCents >= this.minPrice && priceInCents <= this.maxPrice;
   }
 
 	isProductEligibleLT(priceText){
     var price = this.parseMode ==='default' ? HelperClass.parsePrice(priceText) : HelperClass.parsePrice(priceText,this.parseMode);
     this.productPrice = price;
     var priceInCents = price * 100;
-    return this.minPriceLT && priceInCents>= this.minPriceLT && priceInCents <= this.maxPrice;
+    return this.minPriceLT && priceInCents >= this.minPriceLT && priceInCents <= this.maxPrice;
   }
 
   getFormattedPrice(amount = this.amount){
@@ -638,10 +638,10 @@ class AwesomeSezzle {
 
 	addDelimiters(priceString, parseMode){
 		var parsedPrice = Number(priceString).toFixed(2);
-		if(parsedPrice.length> 6 && parseMode === "comma"){
+		if(parsedPrice.length > 6 && parseMode === "comma"){
 			var commaPrice = parsedPrice.replace('.',',');
 			return commaPrice.substring(0, commaPrice.indexOf(',')-3) + '.' + commaPrice.substring(commaPrice.indexOf(',')-3, commaPrice.length);
-		} else if (parsedPrice.length> 6){
+		} else if (parsedPrice.length > 6){
 			return parsedPrice.substring(0, parsedPrice.indexOf('.')-3) + ',' + parsedPrice.substring(parsedPrice.indexOf('.')-3, parsedPrice.length);
 		} else {
 			return parsedPrice;
@@ -650,11 +650,11 @@ class AwesomeSezzle {
 
 	termsToShow(price) {
 		switch (true){
-			case (price> 1000):
+			case (price > 1000):
 				return [24,36,48];
-			case (price> 500):
+			case (price > 500):
 				return [6,12,24];
-			case (price> 250):
+			case (price > 250):
 				return [3,6,12];
 			default:
 				return [3,6];
@@ -675,7 +675,7 @@ class AwesomeSezzle {
 
 	calculateMonthlyWithInterest(priceText, term, APR) {
 		const price = Number(priceText);
-		if(APR> 0){
+		if(APR > 0){
 			const rate = (APR/100)/12;
 			const numerator = price * rate * Math.pow(1+rate, term);
 			const denominator = Math.pow(1+rate, term)-1;
@@ -896,7 +896,7 @@ class AwesomeSezzle {
 	  modalNode.ariaDescription = 'Learn more about Sezzle';
 			if(this.isProductEligibleLT(this.amount)){
 				var currency = String.fromCharCode(this.currencySymbol(this.amount));
-				var priceString = this.amount.indexOf(currency)> -1 ? this.amount.split(currency)[1] : this.amount;
+				var priceString = this.amount.indexOf(currency) > -1 ? this.amount.split(currency)[1] : this.amount;
 				priceString = this.parseMode === "comma" ? priceString.replace('.','').replace(',','.') : priceString.replace(',','');
 				var terms = this.termsToShow(priceString);
 				if(this.ltAltModalHTML){
