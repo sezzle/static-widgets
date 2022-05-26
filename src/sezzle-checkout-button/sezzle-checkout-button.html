@@ -40,15 +40,13 @@
 	}
 </style>
 <script type="text/javascript">
-	function handleSezzleClick(event){
-		event.preventDefault();
-		event.stopPropagation();
+	function handleSezzleClick(){
 		location.replace("/checkout?skip_shopify_pay=true");
 	}
 </script>
-<button class="sezzle-checkout-button sezzle-button-light" onclick="handleSezzleClick(event)">
+<a class="sezzle-checkout-button sezzle-button-light" href="javascript:handleSezzleClick()">
 	Checkout with <img class="sezzle-button-logo-img" src="https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg" alt="Sezzle">
-</button>
+</a>
 <script type="text/javascript">
 	const shopifyButton = document.querySelector('[name="checkout"]');
 	if(shopifyButton){

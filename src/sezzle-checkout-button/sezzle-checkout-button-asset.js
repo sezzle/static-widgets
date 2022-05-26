@@ -83,7 +83,7 @@ class SezzleCheckoutButton {
 			const checkoutButtonParent = checkoutButton  ? checkoutButton.parentElement : null;
 			if (checkoutButtonParent && !checkoutButtonParent.querySelector('.sezzle-checkout-button')) {
 				this.addButtonStyle();
-				const sezzleCheckoutButton = document.createElement('button');
+				const sezzleCheckoutButton = document.createElement('a');
 				sezzleCheckoutButton.className = `sezzle-checkout-button sezzle-button-${this.theme === 'dark' ? 'dark' : 'light'}`;
 				sezzleCheckoutButton.innerHTML = this.parseButtonTemplate();
 				sezzleCheckoutButton.addEventListener('click', function (e) {
