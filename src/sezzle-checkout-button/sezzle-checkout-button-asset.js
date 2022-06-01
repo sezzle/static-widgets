@@ -77,6 +77,9 @@ class SezzleCheckoutButton {
 		}
 	}
 
+    handleSezzleClick(){
+		location.replace("/checkout?skip_shopify_pay=true");
+	}
 	createButton () {
 		const checkoutButtons = document.getElementsByName('checkout');
 		checkoutButtons.forEach(checkoutButton => {
@@ -86,6 +89,7 @@ class SezzleCheckoutButton {
 				const sezzleCheckoutButton = document.createElement('a');
 				sezzleCheckoutButton.className = `sezzle-checkout-button sezzle-button-${this.theme === 'dark' ? 'dark' : 'light'}`;
 				sezzleCheckoutButton.innerHTML = this.parseButtonTemplate();
+                sezzleCheckoutButton.href = "javascript:handleSezzleClick()"
 				sezzleCheckoutButton.addEventListener('click', function (e) {
 					this.eventLogger.sendEvent('checkout-button-onclick');
 					e.stopPropagation();
