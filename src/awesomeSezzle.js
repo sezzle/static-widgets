@@ -700,11 +700,8 @@ class AwesomeSezzle {
 
 	modalKeyboardNavigation (){
 		let focusableElements = document.querySelector('.sezzle-modal-content').childNodes;
-		console.log(focusableElements);
 		let firstFocusableElement = focusableElements[0];
-		console.log(firstFocusableElement);
 		let lastFocusableElement = focusableElements[focusableElements.length - 1];
-		console.log(lastFocusableElement);
 		document.addEventListener('keydown', function(event){
 			if(event.key === 'ArrowDown' && document.activeElement === lastFocusableElement){
 				firstFocusableElement.focus();
