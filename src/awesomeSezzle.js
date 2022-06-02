@@ -699,7 +699,7 @@ class AwesomeSezzle {
 	}
 
 	modalKeyboardNavigation (){
-		let focusableElements = document.querySelector('.sezzle-checkout-modal-lightbox').childNodes;
+		let focusableElements = document.querySelector('.sezzle-modal-content').childNodes;
 		console.log(focusableElements);
 		let firstFocusableElement = focusableElements[0];
 		console.log(firstFocusableElement);
@@ -1493,7 +1493,7 @@ class AwesomeSezzle {
   }
 
   addClickEventForModal(sezzleElement){
-    var modalLinks = sezzleElement.getElementsByClassName('sezzle-modal-open-link');
+    var modalLinks = document.getElementsByClassName('sezzle-modal-link');
     Array.prototype.forEach.call(modalLinks, function (modalLink) {
       modalLink.addEventListener('click', function (event) {
         event.preventDefault();
