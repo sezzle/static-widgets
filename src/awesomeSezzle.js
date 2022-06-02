@@ -306,7 +306,7 @@ class AwesomeSezzle {
     this.setElementMargins();
     if (this.scaleFactor || this.fixedHeight) this.setWidgetSize();
     var node = document.createElement('button');
-	node.ariaHasPopup = "dialog";
+    node.ariaHasPopup = "dialog";
     node.className = 'sezzle-checkout-button-wrapper sezzle-modal-link';
     // node.style.cursor = 'pointer';
     var sezzleButtonText = document.createElement('div');
