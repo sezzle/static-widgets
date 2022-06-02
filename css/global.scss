@@ -1,7 +1,20 @@
-// CSS Reset on the modal-lightbox
+// Total CSS reset
 #sezzle-widget, .sezzle-shopify-info-button, .sezzle-checkout-button-wrapper, .sezzle-button-text, .sezzle-payment-amount, .sezzle-logo, .sezzle-info-icon {
 	all: unset;
+}
 
+.szl-grayscale-image {
+	display: inline-block;
+	height: 18px !important;
+	width: auto !important;
+	box-sizing: border-box;
+	padding-right: 2.5px;
+	margin-left: 1px;
+	margin-bottom: -4px;
+}
+
+// CSS Reset on the modal-lightbox
+.sezzle-checkout-button-wrapper {
 .sezzle-button-text {
   text-align: center;
   line-height: 23px;
@@ -34,7 +47,6 @@
   }
 
   .sezzle-info-icon {
-	display: inline;
     color: inherit;
     background-color: inherit;
     cursor: pointer;
@@ -123,18 +135,6 @@ display: none !important; // needs to be important in case there are styles adde
 }
 }
 }
-
-.szl-grayscale-image {
-    display: inline-block;
-    height: 18px !important;
-    width: auto !important;
-    box-sizing: border-box;
-    padding-right: 2.5px;
-    margin-left: 1px;
-    margin-bottom: -4px;
-}
-
-
 @import url("https://fonts.googleapis.com/css?family=Comfortaa");
 
 $breakpoint-large: 1150px;

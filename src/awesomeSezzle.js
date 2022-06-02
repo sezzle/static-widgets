@@ -700,15 +700,16 @@ class AwesomeSezzle {
 
 	modalKeyboardNavigation (){
 		let focusableElements = document.querySelector('.sezzle-checkout-modal-lightbox').childNodes;
+		console.log(focusableElements);
 		let firstFocusableElement = focusableElements[0];
+		console.log(firstFocusableElement);
 		let lastFocusableElement = focusableElements[focusableElements.length - 1];
+		console.log(lastFocusableElement);
 		document.addEventListener('keydown', function(event){
-			if(event.key === 'Tab'){
-				if(event.shiftKey && document.activeElement === firstFocusableElement){
-					lastFocusableElement.focus();
-				} else if(document.activeElement === lastFocusableElement){
-					firstFocusableElement.focus();
-				}
+			if(event.key === 'ArrowDown' && document.activeElement === lastFocusableElement){
+				firstFocusableElement.focus();
+			} else if(event.key === 'ArrowUp' && document.activeElement === firstFocusableElement){
+				lastFocusableElement.focus();
 			} else if(event.key === 'Escape') {
 				let modals = document.getElementsByClassName('sezzle-checkout-modal-lightbox');
 				for(let i = 0; i < modals.length; i++) {
@@ -893,7 +894,7 @@ class AwesomeSezzle {
       modalNode.role = 'dialog';
       modalNode.lang = this.language;
       modalNode.ariaLabel = 'Sezzle Information';
-	  modalNode.ariaDescription = 'Learn more about Sezzle';
+      modalNode.ariaDescription = 'Learn more about Sezzle';
 			if(this.isProductEligibleLT(this.amount)){
 				var currency = String.fromCharCode(this.currencySymbol(this.amount));
 				var priceString = this.amount.indexOf(currency) > -1 ? this.amount.split(currency)[1] : this.amount;
@@ -1367,8 +1368,8 @@ class AwesomeSezzle {
     modalNode.style = 'position: center';
     modalNode.style.display = 'none';
     modalNode.role = 'dialog';
-	modalNode.ariaLabel = 'Afterpay Information';
-	modalNode.ariaDescription = 'Click to learn more about Afterpay';
+    modalNode.ariaLabel = 'Afterpay Information';
+    modalNode.ariaDescription = 'Click to learn more about Afterpay';
     modalNode.innerHTML = this.apModalHTML;
     document.getElementsByTagName('html')[0].appendChild(modalNode);
     Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
@@ -1399,7 +1400,7 @@ class AwesomeSezzle {
     modalNode.style.display = 'none';
     modalNode.role = 'dialog';
     modalNode.ariaLabel = 'Quadpay Information';
-	modalNode.ariaDescription = 'Click to learn more about Quadpay';
+    modalNode.ariaDescription = 'Click to learn more about Quadpay';
     modalNode.innerHTML = this.qpModalHTML;
     document.getElementsByTagName('html')[0].appendChild(modalNode);
     Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
@@ -1430,7 +1431,7 @@ class AwesomeSezzle {
     modalNode.style.display = 'none';
     modalNode.role = 'dialog';
     modalNode.ariaLabel = 'Affirm Information';
-	modalNode.ariaDescription = 'Click to learn more about Affirm';
+    modalNode.ariaDescription = 'Click to learn more about Affirm';
     modalNode.innerHTML = this.affirmModalHTML;
     document.getElementsByTagName('html')[0].appendChild(modalNode);
     Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
@@ -1460,8 +1461,8 @@ class AwesomeSezzle {
     modalNode.style = 'position: center';
     modalNode.style.display = 'none';
     modalNode.role = 'dialog';
-	modalNode.ariaLabel = 'Klarna Information';
-	modalNode.ariaDescription = 'Click to learn more about Klarna';
+    modalNode.ariaLabel = 'Klarna Information';
+    modalNode.ariaDescription = 'Click to learn more about Klarna';
     modalNode.innerHTML = this.klarnaModalHTML;
     document.getElementsByTagName('html')[0].appendChild(modalNode);
     Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
@@ -1495,7 +1496,7 @@ class AwesomeSezzle {
     var modalLinks = sezzleElement.getElementsByClassName('sezzle-modal-open-link');
     Array.prototype.forEach.call(modalLinks, function (modalLink) {
       modalLink.addEventListener('click', function (event) {
-		  event.preventDefault();
+        event.preventDefault();
         if (!event.target.classList.contains('no-sezzle-info')) {
           var modalNode = document.getElementsByClassName('sezzle-checkout-modal-lightbox')[0];
           modalNode.style.display = 'block';
@@ -1548,16 +1549,16 @@ class AwesomeSezzle {
     var els = [];
     function renderModals() {
       this.renderModal();
-      if (document.getElementsByClassName('ap-modal-info-link').length> 0) {
+      if (document.getElementsByClassName('ap-modal-info-link').length > 0) {
         this.renderAPModal();
       }
-      if (document.getElementsByClassName('quadpay-modal-info-link').length> 0) {
+      if (document.getElementsByClassName('quadpay-modal-info-link').length > 0) {
         this.renderQPModal();
       }
-      if (document.getElementsByClassName('affirm-modal-info-link').length> 0) {
+      if (document.getElementsByClassName('affirm-modal-info-link').length > 0) {
         this.renderAffirmModal();
       }
-      if (document.getElementsByClassName('klarna-modal-info-link').length> 0) {
+      if (document.getElementsByClassName('klarna-modal-info-link').length > 0) {
         this.renderKlarnaModal();
       }
     };
