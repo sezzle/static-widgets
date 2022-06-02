@@ -1290,18 +1290,18 @@ class AwesomeSezzle {
 							<div class="header-mobile">${modalTranslations[this.language].sezzleHeaderChild}</div>
 						</header>
 						<div class="sezzle-row">
-							<div class="desktop">${modalTranslations[this.language].sezzleRowChild1}
-								<div>${modalTranslations[this.language].sezzleRowChild2}</div>
+							<div class="desktop">
+								${modalTranslations[this.language].sezzleRowChild1} ${modalTranslations[this.language].sezzleRowChild2}
 							</div>
 							<div class="mobile">${modalTranslations[this.language].sezzleRowChild1} ${modalTranslations[this.language].sezzleRowChild2}</div>
 						</div>
 						<div class="sezzle-hiw-pie-bg">
 							<div class="sezzle-payment-pie-de${this.modalTheme==="grayscale" ? "-grayscale" : ""}" title="25% today, 25% biweekly for the next 6 weeks" aria-hidden="true"></div>
 							<div class="sezzle-row breakdown-row">
-								<p class="breakdown">25%<br aria-hidden="true"/>${modalTranslations[this.language].today}</p>
-								<p class="breakdown">25%<br aria-hidden="true"/>${modalTranslations[this.language].week} 2</p>
-								<p class="breakdown">25%<br aria-hidden="true"/>${modalTranslations[this.language].week} 4</p>
-								<p class="breakdown">25%<br aria-hidden="true"/>${modalTranslations[this.language].week} 6</p>
+								<p class="breakdown"><span class="percentage">25%</span><br aria-hidden="true"/><span class="due">${modalTranslations[this.language].today}</span></p>
+								<p class="breakdown"><span class="percentage">25%</span><br aria-hidden="true"/><span class="due">${modalTranslations[this.language].week} 2</span></p>
+								<p class="breakdown"><span class="percentage">25%</span><br aria-hidden="true"/><span class="due">${modalTranslations[this.language].week} 4</span></p>
+								<p class="breakdown"><span class="percentage">25%</span><br aria-hidden="true"/><span class="due">${modalTranslations[this.language].week} 6</span></p>
 							</div>
 						</div>
 						<div class="sezzle-features">
