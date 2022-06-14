@@ -1,3 +1,8 @@
+// Total CSS reset
+#sezzle-widget, .sezzle-shopify-info-button, .sezzle-checkout-button-wrapper, .sezzle-button-text, .sezzle-payment-amount, .sezzle-logo, .sezzle-info-icon {
+	all: unset;
+}
+
 .szl-grayscale-image {
     display: inline-block;
     height: 18px !important;
@@ -541,7 +546,7 @@ height: 100%;
         content: ' ';
         height: 24px;
         width: 3px;
-        background-color: #f08570;
+        background-color: #A72A12;
         top: 0px;
     }
 
@@ -734,7 +739,7 @@ text-align: center !important
     margin: 0px;
 }
 
-.sezzle-hiw-pie-bg .breakdown-row span {
+.sezzle-hiw-pie-bg .breakdown-row .due {
     color: #382757;
     font-size: 16px;
     line-height: 35px;
@@ -755,7 +760,7 @@ text-align: center !important
         max-width: 340px;
     }
 
-    .sezzle-hiw-pie-bg .breakdown-row span {
+    .sezzle-hiw-pie-bg .breakdown-row .due {
         font-size: 16px;
         line-height: 16px;
     }
@@ -778,7 +783,7 @@ text-align: center !important
         max-width: 300px;
     }
 
-    .sezzle-hiw-pie-bg .breakdown-row span {
+    .sezzle-hiw-pie-bg .breakdown-row .due {
         font-size: 12px;
         line-height: 16px;
     }
@@ -800,7 +805,7 @@ text-align: center !important
         min-width: 250px;
         max-width: 250px;
     }
-    .sezzle-hiw-pie-bg .breakdown-row span {
+    .sezzle-hiw-pie-bg .breakdown-row .due {
         font-size: 12px;
         line-height: 16px;
     }

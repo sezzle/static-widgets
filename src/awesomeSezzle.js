@@ -305,24 +305,24 @@ class AwesomeSezzle {
     this.insertWidgetTypeCSSClassInElement();
     this.setElementMargins();
     if (this.scaleFactor || this.fixedHeight) this.setWidgetSize();
-    var node = document.createElement('div');
+    var node = document.createElement('button');
+    node.ariaHasPopup = "dialog";
     node.className = 'sezzle-checkout-button-wrapper sezzle-modal-link';
-    node.tabIndex = 0;
     // node.style.cursor = 'pointer';
     var sezzleButtonText = document.createElement('div');
     sezzleButtonText.className = 'sezzle-button-text';
     this.setImageURL();
 		var widgetText = this.isProductEligibleLT(this.amount) ? this.widgetTemplateLT : this.widgetTemplate;
 		var learnMoreTranslations = {
-			en: 'Learn more about',
-			fr: 'En savoir plus sur',
-			de: 'Erfahren Sie mehr über',
-			es: 'Más información sobre',
-			'en-GB': 'Learn more about',
-			'fr-FR': 'En savoir plus sur',
-			'de-DE': 'Erfahren Sie mehr über',
-			'es-ES': 'Más información sobre',
-			'it-IT': 'Ulteriori informazioni su'
+			en: 'Click here to learn more about',
+			fr: 'Cliquez ici pour en savoir plus sur',
+			de: 'Klicken Sie hier, um erfahren Sie mehr über',
+			es: 'Clic aquí para aprender más sobre',
+			'en-GB': 'Click to learn more about',
+			'fr-FR': 'Cliquez ici pour en savoir plus sur',
+			'de-DE': 'Klicken Sie hier, um erfahren Sie mehr über',
+			'es-ES': 'Clic aquí para aprender más sobre',
+			'it-IT': 'Clicca qui per ulteriori informazioni su'
 		}
 		widgetText.forEach(function (subtemplate) {
         switch (subtemplate) {
@@ -360,13 +360,10 @@ class AwesomeSezzle {
             sezzleButtonText.appendChild(learnMoreNode);
             break;
           case 'info':
-            var infoIconNode = document.createElement('button');
-            infoIconNode.role = 'button';
-            infoIconNode.type = 'button';
+            var infoIconNode = document.createElement('div');
             infoIconNode.ariaLabel = `${learnMoreTranslations[this.language]} Sezzle`;
             infoIconNode.className = 'sezzle-info-icon sezzle-modal-open-link';
             infoIconNode.innerHTML = '&#9432;';
-            infoIconNode.ariaHasPopup='true';
             sezzleButtonText.appendChild(infoIconNode);
             break;
           case 'question-mark':
@@ -702,16 +699,14 @@ class AwesomeSezzle {
 	}
 
 	modalKeyboardNavigation (){
-		let focusableElements = document.querySelector('.sezzle-checkout-modal-lightbox').querySelectorAll('[tabIndex="0"]');
+		let focusableElements = document.querySelector('.sezzle-modal-content').childNodes;
 		let firstFocusableElement = focusableElements[0];
 		let lastFocusableElement = focusableElements[focusableElements.length - 1];
 		document.addEventListener('keydown', function(event){
-			if(event.key === 'Tab'){
-				if(event.shiftKey && document.activeElement === firstFocusableElement){
-					lastFocusableElement.focus();
-				} else if(document.activeElement === lastFocusableElement){
-					firstFocusableElement.focus();
-				}
+			if(event.key === 'ArrowDown' && document.activeElement === lastFocusableElement){
+				firstFocusableElement.focus();
+			} else if(event.key === 'ArrowUp' && document.activeElement === firstFocusableElement){
+				lastFocusableElement.focus();
 			} else if(event.key === 'Escape') {
 				let modals = document.getElementsByClassName('sezzle-checkout-modal-lightbox');
 				for(let i = 0; i < modals.length; i++) {
@@ -893,10 +888,10 @@ class AwesomeSezzle {
       var modalNode = document.createElement('section');
       modalNode.className = 'sezzle-checkout-modal-lightbox close-sezzle-modal';
       modalNode.style.display = 'none';
-      modalNode.tabIndex=0;
       modalNode.role = 'dialog';
       modalNode.lang = this.language;
-      modalNode.ariaLabel= 'Sezzle Information';
+      modalNode.ariaLabel = 'Sezzle Information';
+      modalNode.ariaDescription = 'Learn more about Sezzle';
 			if(this.isProductEligibleLT(this.amount)){
 				var currency = String.fromCharCode(this.currencySymbol(this.amount));
 				var priceString = this.amount.indexOf(currency) > -1 ? this.amount.split(currency)[1] : this.amount;
@@ -917,7 +912,7 @@ class AwesomeSezzle {
 						margin: 30px auto;
 					}
 					.sezzle-checkout-modal-hidden .close-sezzle-modal:before, .sezzle-checkout-modal-hidden .close-sezzle-modal:after {
-						background-color: #737373;
+						background-color: #595959;
 						width: 2px;
 						height: 15px;
 					}
@@ -1036,43 +1031,89 @@ class AwesomeSezzle {
 				</style>
 				<div class="sezzle-checkout-modal-hidden">
 					<div class="sezzle-modal">
-						<div class="sezzle-modal-content" tabIndex="0">
+						<div class="sezzle-modal-content">
 							<div class="sezzle-logo" title="Sezzle"></div>
 							<button aria-label="${modalTranslations[this.language].closeSezzleModal}" class="close-sezzle-modal" role="button"></button>
-							<div tabIndex="0" class="sezzle-header">${modalTranslations[this.language].sezzleHeaderLt}
+							<header class="sezzle-header">${modalTranslations[this.language].sezzleHeaderLt}
 								<span class="header-desktop">${modalTranslations[this.language].sezzleHeaderLtChild}</span>
 								<div class="header-mobile">${modalTranslations[this.language].sezzleHeaderLtChild}</div>
-							</div>
-							<div tabIndex="0" class="sezzle-row">
+							</header>
+							<div class="sezzle-row">
 								<div class="desktop">${modalTranslations[this.language].sezzleRowLtChild1}
 									<div>${modalTranslations[this.language].sezzleRowLtChild2}</div>
 								</div>
 								<div class="mobile">${modalTranslations[this.language].sezzleRowLtChild1} ${modalTranslations[this.language].sezzleRowLtChild2}</div>
 							</div>
 							<div class="sezzle-lt-payments">
-								<div tabIndex="0" class="sezzle-lt-payment-header">${modalTranslations[this.language].sezzleLtPaymentHeader} <span>${currency + this.addDelimiters(priceString, this.parseMode)}</span></div>
+								<div class="sezzle-lt-payment-header">${modalTranslations[this.language].sezzleLtPaymentHeader} <span>${currency + this.addDelimiters(priceString, this.parseMode)}</span></div>
 								<div class="sezzle-lt-payment-options ${terms[2]}-month" ${terms[2] === undefined ? `style="display: none;"` : `style="display: block;"`}>
-									<div class="plan"><div class="monthly-amount" tabIndex="0"><span>${currency + this.formatMonthly(priceString, this.parseMode, terms[2], this.bestAPR)}</span> <span aria-hidden="true">${modalTranslations[this.language].monthlyAmount}<sup>*</sup></span> <span style="display: none" aria-hidden="false">${modalTranslations[this.language].perMonth}</span> </div>	<div class="term-length" tabIndex="0">${terms[2]} ${modalTranslations[this.language].termLength}</div></div>
-									<div class="plan-details"><div class="adjusted-total" tabIndex="0">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.formatAdjustedTotal(priceString, this.parseMode, terms[2], this.bestAPR)}</span></div><div class="interest-amount" tabIndex="0">${modalTranslations[this.language].interest} <span>${currency + this.formatTotalInterest(priceString, this.parseMode, terms[2], this.bestAPR)}</span></div><div class="sample-apr" tabIndex="0"><span aria-hidden="true">${modalTranslations[this.language].sampleApr}:</span> <span aria-hidden="true">${this.bestAPR}%</span><span style="display: none" aria-hidden="false">${modalTranslations[this.language].readApr}: ${this.bestAPR} ${modalTranslations[this.language].percent}</span></div> </div>
+									<div class="plan">
+									<div class="monthly-amount">
+										<span>${currency + this.formatMonthly(priceString, this.parseMode, terms[2], this.bestAPR)}</span>
+										<span aria-label="${modalTranslations[this.language].perMonth}"><span aria-hidden="true">${modalTranslations[this.language].monthlyAmount}<sup>*</sup></span></span>
+									</div>
+									<div class="term-length">${terms[2]} ${modalTranslations[this.language].termLength}</div>
+								</div>
+									<div class="plan-details">
+										<div class="adjusted-total">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.formatAdjustedTotal(priceString, this.parseMode, terms[2], this.bestAPR)}</span></div>
+										<div class="interest-amount">${modalTranslations[this.language].interest} <span>${currency + this.formatTotalInterest(priceString, this.parseMode, terms[2], this.bestAPR)}</span></div>
+										<div class="sample-apr">
+											<span aria-label="${modalTranslations[this.language].readApr}"><span aria-hidden="true">${modalTranslations[this.language].sampleApr}:</span></span>
+											<span aria-label="${this.bestAPR} ${modalTranslations[this.language].percent}"><span aria-hidden="true">${this.bestAPR}%</span></span>
+										</div>
+									</div>
 								</div>
 								<div class="sezzle-lt-payment-options ${terms[1]}-month">
-									<div class="plan"><div class="monthly-amount" tabIndex="0"><span>${currency + this.formatMonthly(priceString, this.parseMode, terms[1], this.bestAPR)}</span> <span aria-hidden="true">${modalTranslations[this.language].monthlyAmount}<sup>*</sup></span> <span style="display: none" aria-hidden="false">${modalTranslations[this.language].perMonth}</span> </div>	<div class="term-length" tabIndex="0">${terms[1]} ${modalTranslations[this.language].termLength}</div></div>
-									<div class="plan-details"><div class="adjusted-total" tabIndex="0">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.formatAdjustedTotal(priceString, this.parseMode, terms[1], this.bestAPR)}</span></div><div class="interest-amount" tabIndex="0">${modalTranslations[this.language].interest} <span>${currency + this.formatTotalInterest(priceString, this.parseMode, terms[1], this.bestAPR)}</span></div><div class="sample-apr" tabIndex="0"><span aria-hidden="true">${modalTranslations[this.language].sampleApr}:</span> <span aria-hidden="true">${this.bestAPR}%</span><span style="display: none" aria-hidden="false">${modalTranslations[this.language].readApr}: ${this.bestAPR} ${modalTranslations[this.language].percent}</span></div> </div>
+									<div class="plan">
+										<div class="monthly-amount">
+											<span>${currency + this.formatMonthly(priceString, this.parseMode, terms[1], this.bestAPR)}</span>
+											<span aria-label="${modalTranslations[this.language].perMonth}"><span aria-hidden="true">${modalTranslations[this.language].monthlyAmount}<sup>*</sup></span></span>
+										</div>
+										<div class="term-length">${terms[1]} ${modalTranslations[this.language].termLength}</div>
+									</div>
+									<div class="plan-details">
+										<div class="adjusted-total">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.formatAdjustedTotal(priceString, this.parseMode, terms[1], this.bestAPR)}</span></div>
+										<div class="interest-amount">${modalTranslations[this.language].interest} <span>${currency + this.formatTotalInterest(priceString, this.parseMode, terms[1], this.bestAPR)}</span></div>
+										<div class="sample-apr">
+											<span aria-label="${modalTranslations[this.language].readApr}"><span aria-hidden="true">${modalTranslations[this.language].sampleApr}:</span></span>
+											<span aria-label="${this.bestAPR} ${modalTranslations[this.language].percent}"><span aria-hidden="true">${this.bestAPR}%</span></span>
+										</div>
+									</div>
 								</div>
 								<div class="sezzle-lt-payment-options ${terms[0]}-month">
-									<div class="plan"><div class="monthly-amount" tabIndex="0"><span>${currency + this.formatMonthly(priceString, this.parseMode, terms[0], this.bestAPR)}</span> <span aria-hidden="true">${modalTranslations[this.language].monthlyAmount}<sup>*</sup></span> <span style="display: none" aria-hidden="false">${modalTranslations[this.language].perMonth}</span> </div>	<div class="term-length" tabIndex="0">${terms[0]} ${modalTranslations[this.language].termLength}</div></div>
-									<div class="plan-details"><div class="adjusted-total" tabIndex="0">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.formatAdjustedTotal(priceString, this.parseMode, terms[0], this.bestAPR)}</span></div><div class="interest-amount" tabIndex="0">${modalTranslations[this.language].interest} <span>${currency + this.formatTotalInterest(priceString, this.parseMode, terms[0], this.bestAPR)}</span></div><div class="sample-apr" tabIndex="0"><span aria-hidden="true">${modalTranslations[this.language].sampleApr}:</span> <span aria-hidden="true">${this.bestAPR}%</span><span style="display: none" aria-hidden="false">${modalTranslations[this.language].readApr}: ${this.bestAPR} ${modalTranslations[this.language].percent}</span></div> </div>
+									<div class="plan">
+										<div class="monthly-amount">
+											<span>${currency + this.formatMonthly(priceString, this.parseMode, terms[0], this.bestAPR)}</span>
+											<span aria-label="${modalTranslations[this.language].perMonth}"><span aria-hidden="true">${modalTranslations[this.language].monthlyAmount}<sup>*</sup></span></span>
+										</div>
+										<div class="term-length">${terms[0]} ${modalTranslations[this.language].termLength}</div>
+									</div>
+									<div class="plan-details">
+										<div class="adjusted-total">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.formatAdjustedTotal(priceString, this.parseMode, terms[0], this.bestAPR)}</span></div>
+										<div class="interest-amount">${modalTranslations[this.language].interest} <span>${currency + this.formatTotalInterest(priceString, this.parseMode, terms[0], this.bestAPR)}</span></div>
+										<div class="sample-apr">
+											<span aria-label="${modalTranslations[this.language].readApr}"><span aria-hidden="true">${modalTranslations[this.language].sampleApr}:</span></span>
+											<span aria-label="${this.bestAPR} ${modalTranslations[this.language].percent}"><span aria-hidden="true">${this.bestAPR}%</span></span>
+										</div>
+									</div>
 								</div>
 							</div>
-							<div class="sezzle-row" tabIndex="0">
-								<div class="desktop"> <div class="just-select-sezzle">${modalTranslations[this.language].justSelectSezzleLt1} <div class="sezzle-logo" title="Sezzle"></div> ${modalTranslations[this.language].justSelectSezzle2}</div></div>
-								<div class="mobile"> <div class="just-select-sezzle-mobile"> <div>${modalTranslations[this.language].justSelectSezzleLt1} <div class="sezzle-logo" title="Sezzle"></div> </div><div>${modalTranslations[this.language].justSelectSezzle2}</div></div></div>
+							<div class="sezzle-row">
+								<div class="desktop">
+									<div class="just-select-sezzle">${modalTranslations[this.language].justSelectSezzleLt1} <div class="sezzle-logo" title="Sezzle"></div> ${modalTranslations[this.language].justSelectSezzle2}</div>
+								</div>
+								<div class="mobile">
+									<div class="just-select-sezzle-mobile">
+										<div>${modalTranslations[this.language].justSelectSezzleLt1} <div class="sezzle-logo" title="Sezzle"></div> </div>
+										<div>${modalTranslations[this.language].justSelectSezzle2}</div>
+									</div>
+								</div>
 							</div>
-							<div class="details" tabIndex="0">${modalTranslations[this.language].details}</div>
-							<div class="sezzle-bread-logo" title="${modalTranslations[this.language].financing}" tabIndex="0">${HelperClass.svgImages().ltBreadLogo}</div>
+							<div class="details">${modalTranslations[this.language].details}</div>
+							<div class="sezzle-bread-logo" title="${modalTranslations[this.language].financing}">${HelperClass.svgImages().ltBreadLogo}</div>
 							<div class="terms">
-								<div class="terms-lt" tabIndex="0"><span aria-hidden="true">*</span>${modalTranslations[this.language].termsLt}</div>
-								<div class="terms-bread" tabIndex="0">${modalTranslations[this.language].termsBread}</div>
+								<div class="terms-lt"><span aria-hidden="true">*</span>${modalTranslations[this.language].termsLt}</div>
+								<div class="terms-bread">${modalTranslations[this.language].termsBread}</div>
 							</div>
 						</div>
 					</div>
@@ -1082,187 +1123,214 @@ class AwesomeSezzle {
 				if (this.altModalHTML) {
 					modalNode.innerHTML = this.altModalHTML;
 				} else {
-          modalNode.innerHTML = `<style>
-						.sezzle-checkout-modal-hidden .sezzle-modal {
-							background-image: none !important;
-							max-width: 712px;
-						}
-						.sezzle-checkout-modal-hidden .sezzle-logo {
-							background-repeat: no-repeat;
-							background-position: center;
-							height: 26px;
-							margin: 30px auto;
-						}
-						.sezzle-checkout-modal-hidden .close-sezzle-modal:before, .sezzle-checkout-modal-hidden .close-sezzle-modal:after {
-							background-color: #737373;
-							width: 2px;
-							height: 15px;
-						}
-						.sezzle-checkout-modal-hidden .sezzle-header {
-							font-size: 20px !important;
-							line-height: 25px !important;
-							margin: 20px auto;
-						}
-						.sezzle-checkout-modal-hidden .sezzle-row {
-							font-size: 14px;
-              line-height: 18px;
-							text-align: center;
-              width: 80%;
-							margin: 10px auto;
-						}
-						.sezzle-hiw-pie-bg {
-							width: 80%;
-							margin: 20px auto 10px;
-							height: 80px;
-							padding: 10px 0px;
-							border-top: 1px solid #C4C4C4;
-							border-bottom: 1px solid #C4C4C4;
-						}
-						.sezzle-checkout-modal-hidden .sezzle-payment-pie-lt {
-							margin: 0px auto -50px;
-						}
-						.sezzle-hiw-pie-bg .breakdown-row {
-							min-width: 250px;
-							max-width: 250px;
-							position: static;
-							margin: 0px auto;
-						}
-						.sezzle-hiw-pie-bg .breakdown-row .breakdown {
-							font-size: 16px;
-							font-weight: normal;
-							line-height: 14px
-						}
-						.sezzle-hiw-pie-bg .breakdown-row .breakdown span {
-							font-size: 12px;
-							color: #737373;
-							line-height: 14px;
-						}
-						.sezzle-checkout-modal-hidden .sezzle-features {
-							width: 80%;
-							margin: -10px auto 20px;
-							border-bottom: 1px solid #C4C4C4;
-							padding: 0px 0px 10px;
-						}
-						.sezzle-checkout-modal-hidden .single-feature {
-							font-size: 16px;
-              line-height: 19px;
-							font-weight: normal;
-							color: #8333D4;
-							padding: 12px 0px;
-							text-transform: lowercase;
-						}
-						.sezzle-checkout-modal-hidden .single-feature:first-letter {
-							text-transform: uppercase;
-						}
-						.sezzle-checkout-modal-hidden .single-feature div {
-							display: inline;
-						}
-						.sezzle-checkout-modal-hidden .just-select-sezzle-mobile, .sezzle-checkout-modal-hidden .just-select-sezzle {
-							font-size: 14px;
-              line-height: 15px;
-							font-weight: normal;
-							color: #382757;
-							margin: 20px auto 40px;
-						}
-						.sezzle-checkout-modal-hidden .just-select-sezzle-mobile div, .sezzle-checkout-modal-hidden .just-select-sezzle div {
-							display: inline;
-						}
-						.sezzle-checkout-modal-hidden .just-select-sezzle-mobile .sezzle-logo, .sezzle-checkout-modal-hidden .just-select-sezzle .sezzle-logo {
-							width: 56px;
-							height: 14px;
-							margin: -2px 2px;
-							display: inline-block;
-						}
-						.sezzle-checkout-modal-hidden .terms {
-							font-size: 9px;
-							line-height: 13px;
-							color: #737373;
-							text-align: center;
-							width: 80%;
-							margin: 40px auto 10px;
-							max-width: 264px;
-						}
-					</style>
-          <div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal"> <div class="sezzle-modal-content" tabIndex="0"> <div class="sezzle-logo" title="Sezzle"></div><button aria-label="${modalTranslations[this.language].closeSezzleModal}" class="close-sezzle-modal" role="button"></button>
-            <div tabIndex="0" class="sezzle-header" >${modalTranslations[this.language].sezzleHeader}
-              <span class="header-desktop">${modalTranslations[this.language].sezzleHeaderChild}</span>
-              <div class="header-mobile">${modalTranslations[this.language].sezzleHeaderChild}</div>
-            </div>
-            <div tabIndex="0" class="sezzle-row">
-              <div class="desktop">${modalTranslations[this.language].sezzleRowChild1}<div>${modalTranslations[this.language].sezzleRowChild2} ${modalTranslations[this.language].sezzleRowChild3}</div></div>
-              <div class="mobile">${modalTranslations[this.language].sezzleRowChild1} ${modalTranslations[this.language].sezzleRowChild2} ${modalTranslations[this.language].sezzleRowChild3}</div>
-            </div>
-            <div class="sezzle-hiw-pie-bg">
-							<div class="sezzle-payment-pie-lt" title="25% today, 25% biweekly for the next 6 weeks" style="background-image: none;">${HelperClass.svgImages().ltPaymentPie}</div>
-							<div class="sezzle-row breakdown-row"  tabIndex="0">
-								<p class="breakdown" style="text-transform: capitalize;">25%<br /><span>${modalTranslations[this.language].today}</span></p>
-								<p class="breakdown">25%<br /><span>2 ${modalTranslations[this.language].weeks}</span></p>
-								<p class="breakdown">25%<br /><span>4 ${modalTranslations[this.language].weeks}</span></p>
-								<p class="breakdown">25%<br /><span>6 ${modalTranslations[this.language].weeks}</span></p>
+          modalNode.innerHTML = `
+		<style>
+			.sezzle-checkout-modal-hidden .sezzle-modal {
+				background-image: none !important;
+				max-width: 712px;
+			}
+			.sezzle-checkout-modal-hidden .sezzle-logo {
+				background-repeat: no-repeat;
+				background-position: center;
+				height: 26px;
+				margin: 30px auto;
+			}
+			.sezzle-checkout-modal-hidden .close-sezzle-modal:before, .sezzle-checkout-modal-hidden .close-sezzle-modal:after {
+				background-color: #595959;
+				width: 2px;
+				height: 15px;
+			}
+			.sezzle-checkout-modal-hidden .sezzle-header {
+				font-size: 20px !important;
+				line-height: 25px !important;
+				margin: 20px auto;
+			}
+			.sezzle-checkout-modal-hidden .sezzle-row {
+				font-size: 14px;
+				line-height: 18px;
+				text-align: center;
+				width: 80%;
+				margin: 10px auto;
+			}
+			.sezzle-hiw-pie-bg {
+				width: 80%;
+				margin: 20px auto 10px;
+				height: 80px;
+				padding: 10px 0px;
+				border-top: 1px solid #C4C4C4;
+				border-bottom: 1px solid #C4C4C4;
+			}
+			.sezzle-checkout-modal-hidden .sezzle-payment-pie-lt {
+				margin: 0px auto -50px;
+			}
+			.sezzle-hiw-pie-bg .breakdown-row {
+				min-width: 250px;
+				max-width: 250px;
+				position: static;
+				margin: 0px auto;
+			}
+			.sezzle-hiw-pie-bg .breakdown-row .breakdown {
+				font-size: 16px;
+				font-weight: normal;
+				line-height: 14px
+			}
+			.sezzle-hiw-pie-bg .breakdown-row .breakdown span {
+				font-size: 12px;
+				color: #737373;
+				line-height: 14px;
+			}
+			.sezzle-checkout-modal-hidden .sezzle-features {
+				width: 80%;
+				margin: -10px auto 20px;
+				border-bottom: 1px solid #C4C4C4;
+				padding: 0px 0px 10px;
+			}
+			.sezzle-checkout-modal-hidden .single-feature {
+				font-size: 16px;
+				line-height: 19px;
+				font-weight: normal;
+				color: #8333D4;
+				padding: 12px 0px;
+				text-transform: lowercase;
+			}
+			.sezzle-checkout-modal-hidden .single-feature:first-letter {
+				text-transform: uppercase;
+			}
+			.sezzle-checkout-modal-hidden .single-feature div {
+				display: inline;
+			}
+			.sezzle-checkout-modal-hidden .just-select-sezzle-mobile, .sezzle-checkout-modal-hidden .just-select-sezzle {
+				font-size: 14px;
+				line-height: 15px;
+				font-weight: normal;
+				color: #382757;
+				margin: 20px auto 40px;
+			}
+			.sezzle-checkout-modal-hidden .just-select-sezzle-mobile div, .sezzle-checkout-modal-hidden .just-select-sezzle div {
+				display: inline;
+			}
+			.sezzle-checkout-modal-hidden .just-select-sezzle-mobile .sezzle-logo, .sezzle-checkout-modal-hidden .just-select-sezzle .sezzle-logo {
+				width: 56px;
+				height: 14px;
+				margin: -2px 2px;
+				display: inline-block;
+			}
+			.sezzle-checkout-modal-hidden .terms {
+				font-size: 9px;
+				line-height: 13px;
+				color: #737373;
+				text-align: center;
+				width: 80%;
+				margin: 40px auto 10px;
+				max-width: 264px;
+			}
+		</style>
+        <div class="sezzle-checkout-modal-hidden">
+		  	<div class="sezzle-modal">
+				<div class="sezzle-modal-content">
+					<div class="sezzle-logo" title="Sezzle"></div>
+					<button aria-label="${modalTranslations[this.language].closeSezzleModal}" class="close-sezzle-modal" role="button"></button>
+					<header class="sezzle-header">${modalTranslations[this.language].sezzleHeader}
+						<span class="header-desktop">${modalTranslations[this.language].sezzleHeaderChild}</span>
+						<div class="header-mobile">${modalTranslations[this.language].sezzleHeaderChild}</div>
+					</header>
+					<div class="sezzle-row">
+						<div class="desktop">${modalTranslations[this.language].sezzleRowChild1}<div>${modalTranslations[this.language].sezzleRowChild2} ${modalTranslations[this.language].sezzleRowChild3}</div></div>
+						<div class="mobile">${modalTranslations[this.language].sezzleRowChild1} ${modalTranslations[this.language].sezzleRowChild2} ${modalTranslations[this.language].sezzleRowChild3}</div>
+					</div>
+            		<div class="sezzle-hiw-pie-bg">
+						<div class="sezzle-payment-pie-lt" title="25% today, 25% biweekly for the next 6 weeks" style="background-image: none;" aria-hidden="true">${HelperClass.svgImages().ltPaymentPie}</div>
+						<div class="sezzle-row breakdown-row">
+							<p class="breakdown" style="text-transform: capitalize;">25%<br aria-hidden="true"/>${modalTranslations[this.language].today}</p>
+							<p class="breakdown">25%<br aria-hidden="true"/>2 ${modalTranslations[this.language].weeks}</p>
+							<p class="breakdown">25%<br aria-hidden="true"/>4 ${modalTranslations[this.language].weeks}</p>
+							<p class="breakdown">25%<br aria-hidden="true"/>6 ${modalTranslations[this.language].weeks}</p>
+						</div>
+           			</div>
+            		<div class="sezzle-features">
+						<div class="single-feature">
+							<div>${modalTranslations[this.language].singleFeatureApproval}</div>
+						</div>
+						<div class="single-feature">
+							<div>${modalTranslations[this.language].singleFeatureInterest}</div>
+						</div>
+						<div class="single-feature">
+							<div>${modalTranslations[this.language].singleFeatureCredit}</div>
+						</div>
+            		</div>
+					<div class="sezzle-row">
+						<div class="desktop">
+							<div class="just-select-sezzle">${modalTranslations[this.language].justSelectSezzleLt1} <div class="sezzle-logo" title="Sezzle"></div> ${modalTranslations[this.language].justSelectSezzle2}!</div>
+						</div>
+						<div class="mobile">
+							<div class="just-select-sezzle-mobile">
+								<div>${modalTranslations[this.language].justSelectSezzleLt1} <div class="sezzle-logo" title="Sezzle"></div> </div><div>${modalTranslations[this.language].justSelectSezzle2}!</div>
 							</div>
-            </div>
-            <div class="sezzle-features">
-							<div tabIndex="0" class="single-feature"> <div>${modalTranslations[this.language].singleFeatureApproval}</div></div>
-							<div tabIndex="0" class="single-feature"> <div>${modalTranslations[this.language].singleFeatureInterest}</div></div>
-							<div tabIndex="0" class="single-feature"> <div>${modalTranslations[this.language].singleFeatureCredit}</div></div>
-            </div>
-            <div class="sezzle-row"  tabIndex="0">
-              <div class="desktop"> <div class="just-select-sezzle">${modalTranslations[this.language].justSelectSezzleLt1} <div class="sezzle-logo" title="Sezzle"></div> ${modalTranslations[this.language].justSelectSezzle2}!</div></div>
-              <div class="mobile"> <div class="just-select-sezzle-mobile"> <div>${modalTranslations[this.language].justSelectSezzleLt1} <div class="sezzle-logo" title="Sezzle"></div> </div><div>${modalTranslations[this.language].justSelectSezzle2}!</div></div></div>
-            </div>
-            <div tabIndex="0" class="terms">${modalTranslations[this.language].terms1} ${modalTranslations[this.language].terms2}</div>
-          </div></div></div>`;
+						</div>
+					</div>
+					<div class="terms">${modalTranslations[this.language].terms1} ${modalTranslations[this.language].terms2}</div>
+				</div>
+			</div>
+		</div>`;
 				}
 			} else if (this.altModalHTML) {
         modalNode.innerHTML = this.altModalHTML;
       }
       else {
-					modalNode.innerHTML = `<div class="sezzle-checkout-modal-hidden"> <div class="sezzle-modal sezzle-modal${this.modalTheme==="grayscale" ? "-grayscale" : "-color"}"> <div class="sezzle-modal-content" tabIndex="0"> <div class="sezzle-logo${this.modalTheme==="grayscale" ? "-grayscale" : ""}" title="Sezzle"></div><button aria-label="${modalTranslations[this.language].closeSezzleModal}" class="close-sezzle-modal" role="button"></button>
-					<div tabIndex="0" class="sezzle-header">${modalTranslations[this.language].sezzleHeader}
-						<span class="header-desktop">${modalTranslations[this.language].sezzleHeaderChild}</span>
-						<div class="header-mobile">${modalTranslations[this.language].sezzleHeaderChild}</div>
-					</div>
-					<div tabIndex="0" class="sezzle-row">
-						<div class="desktop">${modalTranslations[this.language].sezzleRowChild1}
-							<div>${modalTranslations[this.language].sezzleRowChild2}</div>
+		modalNode.innerHTML = `
+			<div class="sezzle-checkout-modal-hidden">
+				<div class="sezzle-modal sezzle-modal${this.modalTheme==="grayscale" ? "-grayscale" : "-color"}">
+					<div class="sezzle-modal-content">
+						<div class="sezzle-logo${this.modalTheme==="grayscale" ? "-grayscale" : ""}" title="Sezzle"></div>
+						<button aria-label="${modalTranslations[this.language].closeSezzleModal}" class="close-sezzle-modal" role="button"></button>
+						<header class="sezzle-header">${modalTranslations[this.language].sezzleHeader}
+							<span class="header-desktop">${modalTranslations[this.language].sezzleHeaderChild}</span>
+							<div class="header-mobile">${modalTranslations[this.language].sezzleHeaderChild}</div>
+						</header>
+						<div class="sezzle-row">
+							<div class="desktop">
+								${modalTranslations[this.language].sezzleRowChild1} ${modalTranslations[this.language].sezzleRowChild2}
+							</div>
+							<div class="mobile">${modalTranslations[this.language].sezzleRowChild1} ${modalTranslations[this.language].sezzleRowChild2}</div>
 						</div>
-						<div class="mobile">${modalTranslations[this.language].sezzleRowChild1} ${modalTranslations[this.language].sezzleRowChild2}</div>
-					</div>
-					<div class="sezzle-hiw-pie-bg">
-						<div class="sezzle-payment-pie-de${this.modalTheme==="grayscale" ? "-grayscale" : ""}" title="25% today, 25% biweekly for the next 6 weeks"></div>
-						<div class="sezzle-row breakdown-row" tabIndex="0">
-							<p class="breakdown">25%<br /><span>${modalTranslations[this.language].today}</span></p>
-							<p class="breakdown">25%<br /><span>${modalTranslations[this.language].week} 2</span></p>
-							<p class="breakdown">25%<br /><span>${modalTranslations[this.language].week} 4</span></p>
-							<p class="breakdown">25%<br /><span>${modalTranslations[this.language].week} 6</span></p>
+						<div class="sezzle-hiw-pie-bg">
+							<div class="sezzle-payment-pie-de${this.modalTheme==="grayscale" ? "-grayscale" : ""}" title="25% today, 25% biweekly for the next 6 weeks" aria-hidden="true"></div>
+							<div class="sezzle-row breakdown-row">
+								<p class="breakdown"><span class="percentage">25%</span><br aria-hidden="true"/><span class="due">${modalTranslations[this.language].today}</span></p>
+								<p class="breakdown"><span class="percentage">25%</span><br aria-hidden="true"/><span class="due">${modalTranslations[this.language].week} 2</span></p>
+								<p class="breakdown"><span class="percentage">25%</span><br aria-hidden="true"/><span class="due">${modalTranslations[this.language].week} 4</span></p>
+								<p class="breakdown"><span class="percentage">25%</span><br aria-hidden="true"/><span class="due">${modalTranslations[this.language].week} 6</span></p>
+							</div>
 						</div>
-					</div>
-					<div class="sezzle-features">
-						<div tabIndex="0" class="single-feature">
-							<div>${modalTranslations[this.language].singleFeatureInterest}<span style="display:none" aria-hidden="false">.</span></div>
-							<div class="sub-feature">${modalTranslations[this.language].subFeatureInterest} </div>
+						<div class="sezzle-features">
+							<div class="single-feature">
+								<div>${modalTranslations[this.language].singleFeatureInterest}<span style="display:none" aria-hidden="false">.</span></div>
+								<div class="sub-feature">${modalTranslations[this.language].subFeatureInterest} </div>
+							</div>
+							<div class="single-feature">
+								<div style="line-height: 1.2;">${modalTranslations[this.language].singleFeatureCredit} </div>
+								<div class="sub-feature">${modalTranslations[this.language].subFeatureCredit}</div>
+							</div>
+							<div class="single-feature">
+								<div>${modalTranslations[this.language].singleFeatureApproval}</div>
+								<div class="sub-feature">${modalTranslations[this.language].subFeatureApproval}</div>
+							</div>
 						</div>
-						<div tabIndex="0" class="single-feature">
-							<div style="line-height: 1.2;">${modalTranslations[this.language].singleFeatureCredit} </div>
-							<div class="sub-feature">${modalTranslations[this.language].subFeatureCredit}</div>
-						</div>
-						<div tabIndex="0" class="single-feature">
-							<div>${modalTranslations[this.language].singleFeatureApproval}</div>
-							<div class="sub-feature">${modalTranslations[this.language].subFeatureApproval}</div>
-						</div>
-					</div>
-					<div tabIndex="0" class="sezzle-row">
+					<div class="sezzle-row">
 						<div class="desktop">
 							<div class="just-select-sezzle${this.modalTheme==="grayscale" ? "-grayscale" : ""}">${modalTranslations[this.language].justSelectSezzle1} <span>Sezzle</span> ${modalTranslations[this.language].justSelectSezzle2}!</div>
 						</div>
 						<div class="mobile">
 							<div class="just-select-sezzle-mobile${this.modalTheme==="grayscale" ? "-grayscale" : ""}">
-								<div>${modalTranslations[this.language].justSelectSezzle1} Sezzle</div><div> ${modalTranslations[this.language].justSelectSezzle2}</div>
+								<div>${modalTranslations[this.language].justSelectSezzle1} Sezzle</div>
+								<div> ${modalTranslations[this.language].justSelectSezzle2}</div>
 							</div>
 						</div>
 					</div>
-					<div tabIndex="0" class="terms">${modalTranslations[this.language].terms1}</div>
-				</div></div></div>`;
+					<div class="terms">${modalTranslations[this.language].terms1}</div>
+				</div>
+			</div>
+		</div>`;
       }
       document.getElementsByTagName('html')[0].appendChild(modalNode);
     } else {
@@ -1296,9 +1364,9 @@ class AwesomeSezzle {
     modalNode.className = 'sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-ap-modal';
     modalNode.style = 'position: center';
     modalNode.style.display = 'none';
-    modalNode.tabIndex=0;
     modalNode.role = 'dialog';
-		modalNode.ariaLabel= 'Afterpay Information';
+    modalNode.ariaLabel = 'Afterpay Information';
+    modalNode.ariaDescription = 'Click to learn more about Afterpay';
     modalNode.innerHTML = this.apModalHTML;
     document.getElementsByTagName('html')[0].appendChild(modalNode);
     Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
@@ -1327,9 +1395,9 @@ class AwesomeSezzle {
     modalNode.className = 'sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-qp-modal';
     modalNode.style = 'position: center';
     modalNode.style.display = 'none';
-    modalNode.tabIndex=0;
     modalNode.role = 'dialog';
-    modalNode.ariaLabel= 'Quadpay Information';
+    modalNode.ariaLabel = 'Quadpay Information';
+    modalNode.ariaDescription = 'Click to learn more about Quadpay';
     modalNode.innerHTML = this.qpModalHTML;
     document.getElementsByTagName('html')[0].appendChild(modalNode);
     Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
@@ -1358,9 +1426,9 @@ class AwesomeSezzle {
     modalNode.className = 'sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-affirm-modal';
     modalNode.style = 'position: center';
     modalNode.style.display = 'none';
-    modalNode.tabIndex=0;
     modalNode.role = 'dialog';
-    modalNode.ariaLabel= 'Affirm Information';
+    modalNode.ariaLabel = 'Affirm Information';
+    modalNode.ariaDescription = 'Click to learn more about Affirm';
     modalNode.innerHTML = this.affirmModalHTML;
     document.getElementsByTagName('html')[0].appendChild(modalNode);
     Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
@@ -1389,9 +1457,9 @@ class AwesomeSezzle {
     modalNode.className = 'sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-klarna-modal';
     modalNode.style = 'position: center';
     modalNode.style.display = 'none';
-    modalNode.tabIndex=0;
     modalNode.role = 'dialog';
-		modalNode.ariaLabel= 'Klarna Information';
+    modalNode.ariaLabel = 'Klarna Information';
+    modalNode.ariaDescription = 'Click to learn more about Klarna';
     modalNode.innerHTML = this.klarnaModalHTML;
     document.getElementsByTagName('html')[0].appendChild(modalNode);
     Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
@@ -1422,9 +1490,10 @@ class AwesomeSezzle {
   }
 
   addClickEventForModal(sezzleElement){
-    var modalLinks = sezzleElement.getElementsByClassName('sezzle-modal-open-link');
+    var modalLinks = document.getElementsByClassName('sezzle-modal-link');
     Array.prototype.forEach.call(modalLinks, function (modalLink) {
       modalLink.addEventListener('click', function (event) {
+        event.preventDefault();
         if (!event.target.classList.contains('no-sezzle-info')) {
           var modalNode = document.getElementsByClassName('sezzle-checkout-modal-lightbox')[0];
           modalNode.style.display = 'block';
