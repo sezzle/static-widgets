@@ -30,6 +30,8 @@ class SezzleCheckoutButton {
 				transition: background 0.8s;
 				border: none;
 				vertical-align: middle;
+				display: block;
+				width: fit-content;
 			}
 			.sezzle-button-light {
 				background-color: #392558;
@@ -74,6 +76,7 @@ class SezzleCheckoutButton {
 			sezzleCheckoutButton.style.padding = shopifyButtonStyles.padding;
 			sezzleCheckoutButton.style.margin = shopifyButtonStyles.margin;
 			sezzleCheckoutButton.style.borderRadius = shopifyButtonStyles.borderRadius;
+			sezzleCheckoutButton.style.float = getComputedStyle(shopifyButton.parentElement).textAlign;
 		}
 	}
 
