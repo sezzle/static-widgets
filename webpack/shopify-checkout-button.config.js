@@ -7,7 +7,7 @@ const dotEnv = require('dotenv').config({
 
 module.exports = {
     entry: {
-        "sezzle-checkout-button-asset": ['@babel/polyfill', './src/sezzle-checkout-button/sezzle-checkout-button-asset.js'],
+        sezzle-checkout-button-asset: ['@babel/polyfill', './src/sezzle-checkout-button/sezzle-checkout-button-asset.js'],
         "sezzle-checkout-button-asset-min": ['@babel/polyfill', './src/sezzle-checkout-button/sezzle-checkout-button-asset.js'],
     },
     output: {
