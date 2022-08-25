@@ -15,7 +15,6 @@ image: 'node:12'
 
 variables:
   JIRA_PROJECT_NAME: "MINT"
-  PRODUCTION_INCLUDES_SANDBOX: "true"
 
 #############
 #   DEPLOY  #
@@ -26,9 +25,3 @@ deploy_production:
   variables:
     S3_BUCKET: "checkout-sdk.sezzle.com"
     CF_DIST: "EQ8554SMUE81E"
-
-deploy_sandbox:
-  stage: deploy
-  variables:
-    S3_BUCKET: "sandbox.checkout-sdk.sezzle.com"
-    CF_DIST: "E14UFWT5883J1I"

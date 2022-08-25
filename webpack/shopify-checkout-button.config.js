@@ -1,14 +1,10 @@
-const webpack = require('webpack');
-const path = require('path');
+
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const dotEnv = require('dotenv').config({
-    path: path.join(__dirname, '.env'),
-});
 
 module.exports = {
     entry: {
         "sezzle-checkout-button-asset": ['./src/sezzle-checkout-button/sezzle-checkout-button-asset.js'],
-        "sezzle-checkout-button-asset-min": ['./src/sezzle-checkout-button/sezzle-checkout-button-asset.js'],
+        "sezzle-checkout-button-asset.min": ['./src/sezzle-checkout-button/sezzle-checkout-button-asset.js'],
     },
     output: {
         path: path.resolve(__dirname, 'build'),
@@ -45,9 +41,6 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(),
-        new webpack.DefinePlugin({
-            'process.env': JSON.stringify(dotEnv.parsed),
-        }),
     ],
     optimization: {
         minimize: true,

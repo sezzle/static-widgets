@@ -11,7 +11,7 @@
     "type": "git",
     "url": "https://gitlab.sezzle.com/sezzle/static-widgets.git"
   },
-  "author": "dhruvinity",
+  "author": "Sezzle",
   "license": "ISC",
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.11.0",
