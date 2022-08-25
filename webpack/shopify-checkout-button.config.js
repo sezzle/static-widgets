@@ -3,8 +3,8 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
     entry: {
-        "sezzle-checkout-button-asset": ['./src/sezzle-checkout-button/sezzle-checkout-button-asset.js'],
-        "sezzle-checkout-button-asset.min": ['./src/sezzle-checkout-button/sezzle-checkout-button-asset.js'],
+        "sezzle-checkout-button": ['./src/sezzle-checkout-button/sezzle-checkout-button-asset.js'],
+        "sezzle-checkout-button.min": ['./src/sezzle-checkout-button/sezzle-checkout-button-asset.js'],
     },
     output: {
         path: path.resolve(__dirname, 'build'),
