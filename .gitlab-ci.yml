@@ -24,4 +24,4 @@ deploy_production:
   stage: deploy
   variables:
     S3_BUCKET: "checkout-sdk.sezzle.com"
-    CF_DIST: "EQ8554SMUE81E"
+    CF_DIST: $CF_DIST

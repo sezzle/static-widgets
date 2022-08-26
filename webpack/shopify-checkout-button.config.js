@@ -7,7 +7,7 @@ module.exports = {
         "sezzle-checkout-button.min": ['./src/sezzle-checkout-button/sezzle-checkout-button-asset.js'],
     },
     output: {
-        path: path.resolve(__dirname, 'build'),
+        path: path.resolve(path.join(__dirname, '..'), 'build'),
         filename: '[name].js',
         libraryTarget: 'var',
         library: 'SezzleCheckoutButton',
