@@ -1,0 +1,27 @@
+################
+#   GLOBALS    #
+################
+include:
+  - project: 'DevOps/templates'
+    file: '/js/defaults.yml'
+  - project: 'DevOps/templates'
+    file: '/js/jest_tests.yml'
+  - project: 'DevOps/templates'
+    file: '/js/build.yml'
+  - project: 'DevOps/templates'
+    file: '/cloudfront/deploy.yml'
+
+image: 'node:12'
+
+variables:
+  JIRA_PROJECT_NAME: "MINT"
+
+#############
+#   DEPLOY  #
+#############
+
+deploy_production:
+  stage: deploy
+  variables:
+    S3_BUCKET: "checkout-sdk.sezzle.com"
+    CF_DIST: $CF_DIST
