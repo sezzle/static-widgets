@@ -5,7 +5,7 @@
   "main": "src/awesomeSezzle.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
-    "build": "webpack --config webpack/shopify-checkout-button.config.js"
+    "build": "webpack --mode production --config webpack/shopify-checkout-button.config.js"
   },
   "repository": {
     "type": "git",
