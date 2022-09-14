@@ -1,5 +1,5 @@
 #!/bin/bash
-# ./deploy-to-cloudfront.sh <--dryrun> bucket/path E3MCDWO76SJMEA
+# ./deploy-to-cloudfront.sh <--dryrun> bucket/path
 # deploy the site to s3, and invalidate it in cloudfront.
 # if --dryrun is passed as the first argument, do a dry run instead
 
