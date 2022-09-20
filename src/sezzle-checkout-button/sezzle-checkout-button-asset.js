@@ -103,6 +103,9 @@ class SezzleCheckoutButton {
 
 	createButton() {
 		const sezzleCheckoutButton = this.getButton();
+		// Shopify app blocks allows merchants to place widgets as per their wish.
+		// If merchant doesn't want default placement, container is created in theme
+		// app extension and the checkout button is rendered inside that container.
 		if(!this.defaultPlacement) {
 			const customPlaceholder = document.querySelector('#sezzle-checkout-button-container');
 			customPlaceholder.append(sezzleCheckoutButton);
