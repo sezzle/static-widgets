@@ -7,6 +7,7 @@ class SezzleCheckoutButton {
 			merchantUUID: options.merchantUUID,
 			widgetServerBaseUrl: options.widgetServerBaseUrl
 		});
+		this.defaultPlacement = (typeof options.defaultPlacement === 'undefined') ? true : (options.defaultPlacement === 'true');
 	}
 
 	parseButtonTemplate () {
@@ -83,24 +84,38 @@ class SezzleCheckoutButton {
     handleSezzleClick(){
 		location.replace("/checkout?skip_shopify_pay=true");
 	}
-	createButton () {
+	
+	getButton() {
+		const sezzleCheckoutButton = document.createElement('a');
+		sezzleCheckoutButton.className = `sezzle-checkout-button sezzle-button-${this.theme === 'dark' ? 'dark' : 'light'}`;
+		sezzleCheckoutButton.innerHTML = this.parseButtonTemplate();
+		sezzleCheckoutButton.href = "javascript:handleSezzleClick()"
+		sezzleCheckoutButton.addEventListener('click', function (e) {
+			this.eventLogger.sendEvent('checkout-button-onclick');
+			e.stopPropagation();
+			e.preventDefault();
+			location.replace('/checkout?skip_shopify_pay=true');
+		}.bind(this));
+		this.addButtonStyle();
+		this.inheritButtonStyles(sezzleCheckoutButton);
+		return sezzleCheckoutButton;
+	}
+
+	createButton() {
+		const sezzleCheckoutButton = this.getButton();
+		// Shopify app blocks allows merchants to place widgets as per their wish.
+		// If merchant doesn't want default placement, container is created in theme
+		// app extension and the checkout button is rendered inside that container.
+		if(!this.defaultPlacement) {
+			const customPlaceholder = document.querySelector('#sezzle-checkout-button-container');
+			customPlaceholder.append(sezzleCheckoutButton);
+			return;
+		}
 		const checkoutButtons = document.getElementsByName('checkout');
 		checkoutButtons.forEach(checkoutButton => {
 			const checkoutButtonParent = checkoutButton  ? checkoutButton.parentElement : null;
 			if (checkoutButtonParent && !checkoutButtonParent.querySelector('.sezzle-checkout-button')) {
-				this.addButtonStyle();
-				const sezzleCheckoutButton = document.createElement('a');
-				sezzleCheckoutButton.className = `sezzle-checkout-button sezzle-button-${this.theme === 'dark' ? 'dark' : 'light'}`;
-				sezzleCheckoutButton.innerHTML = this.parseButtonTemplate();
-                sezzleCheckoutButton.href = "javascript:handleSezzleClick()"
-				sezzleCheckoutButton.addEventListener('click', function (e) {
-					this.eventLogger.sendEvent('checkout-button-onclick');
-					e.stopPropagation();
-					e.preventDefault();
-					location.replace('/checkout?skip_shopify_pay=true');
-				}.bind(this));
-			checkoutButtonParent.append(sezzleCheckoutButton);
-			this.inheritButtonStyles(sezzleCheckoutButton);
+				checkoutButtonParent.append(sezzleCheckoutButton);
 			}
 		});
 	}
