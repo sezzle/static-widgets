@@ -38,7 +38,6 @@ class AwesomeSezzle {
 				break;
 		}
     if (this.language === 'french') this.language = 'fr';
-    if(this.language === 'german' || this.language === 'deutsche') this.language = 'de';
     if(this.language === 'spanish' || this.language === 'espanol' || this.language === 'español') this.language = 'es';
 		this.numberOfPayments = options.numberOfPayments || 4;
 		var templateString = this.widgetLanguageTranslation(this.language, this.numberOfPayments, this.merchantLocale)
@@ -97,7 +96,6 @@ class AwesomeSezzle {
     const translations = {
       'en': 'or ' + numberOfPayments + (merchantLocale === 'North America' ? ' interest-free' : '') + ' payments of %%price%% with %%logo%% %%info%%' + (merchantLocale === 'Europe' ? ' - no fee' : ''),
       'fr': 'ou ' + numberOfPayments + ' paiements de %%price%%' + (merchantLocale === 'North America' ? ' sans int%%&eacute;%%r%%&ecirc;%%ts' : '') + ' avec %%logo%% %%info%%' + (merchantLocale === 'Europe' ? ' - gratuit' : ''),
-      'de': 'oder ' + numberOfPayments + (merchantLocale === 'North America' ? ' zinslose Zahlungen von je' : ' mal') + ' %%price%% mit %%logo%% %%info%%' + (merchantLocale === 'Europe' ? ' - kostenlos' : ''),
       'es': 'o ' + numberOfPayments + ' pagos' + (merchantLocale === 'North America' ? ' sin intereses' : '') + ' de %%price%% con %%logo%% %%info%%' + (merchantLocale === 'Europe' ? ' - gratis' : '')
     };
     return translations[language] || translations.en;
@@ -107,7 +105,6 @@ class AwesomeSezzle {
     const translations = {
       'en': 'or monthly payments as low as %%price%% with %%logo%% %%info%%',
       'fr': 'ou des paiements mensuels aussi bas que %%price%% avec %%logo%% %%info%%',
-      'de': 'oder monatliche Zahlungen von nur %%price%% mit %%logo%% %%info%%',
       'es': 'o pagos mensuales tan bajos como %%price%% con %%logo%% %%info%%'
     };
     return translations[language] || translations.en;
@@ -806,46 +803,6 @@ class AwesomeSezzle {
 				termsLt: 'Les candidats sont soumis &#224; une v&#233;rification du cr&#233;dit et &#224; une approbation. Taux de 5,99% - 29,99% APR ; termes de 3 mois - 48 mois et peuvent varier selon le pr&#234;teur. Un taux d\'int&#233;r&#234;t annuel de 0 % est disponible jusqu\'&#224; 3 mois. Un achat minimum est requis. Les taux annuels varient en fonction des conditions de cr&#233;dit, du montant du pr&#234;t, de la dur&#233;e et du pr&#234;teur.',
 				termsBread: 'Les plans Bread Pay&#8482; sont des pr&#234;ts consentis par Comenity Bank.',
 				trustedBy: 'Avec la confiance de <b>5 millions</b> d\'acheteurs'
-			},
-			de: {
-				closeSezzleModal: 'Schlie&szlig;en Sie das Sezzle-Modal.',
-				sezzleHeader: 'Jetzt kaufen.',
-				sezzleHeaderChild: 'Sp&#228;ter zahlen.',
-				sezzleHeaderLt: 'Machen Sie einfache monatliche',
-				sezzleHeaderLtChild: 'Zahlungen f&#252;r Ihre Bestellung',
-				sezzleRowChild1: 'W&#228;hle Sezzle beim Checkout und zahle deine gesamte Bestellung ganz einfach mit',
-				sezzleRowChild2: '4 zinsfreien Raten in 3 Monaten.',
-				sezzleRowChild3: 'Keine versteckten Kosten bei p&#252;nktlicher Zahlung.',
-				sezzleRowLtChild1: 'Ihr Gesamtkauf wird je nach gew&#228;hltem',
-				sezzleRowLtChild2: 'Plan in Zahlungen aufgeteilt.',
-				today: 'heute',
-				week: 'Woche',
-				weeks: 'Wochen',
-				singleFeatureApproval: 'Schnelles Zahlen.',
-				subFeatureApproval: 'Einfach und zeitsparend',
-				singleFeatureInterest: 'Zinsfrei.',
-				subFeatureInterest: 'Keine versteckten Kosten bei p&#252;nktlicher Zahlung.',
-				singleFeatureCredit: 'Kein Einfluss auf deine Kreditw&#252;rdigkeit',
-				subFeatureCredit: '',
-				sezzleLtPaymentHeader: 'Musterzahlungen f&#252;r',
-				perMonth: 'pro Monat',
-				monthlyAmount: '/Monat',
-				termLength: 'Monate',
-				adjustedTotal: 'Gesamt:',
-				interest: 'Zinsen:',
-				sampleApr: 'APR',
-				readApr: 'A.P.R.',
-				percent: 'Prozent',
-				justSelectSezzle1: 'Einfach',
-				justSelectSezzleLt1: 'Einfach',
-				justSelectSezzle2: 'beim Checkout w&#228;hlen',
-				details: 'Geben Sie einige Informationen an und erhalten Sie eine Genehmigungsentscheidung in Echtzeit. Die &#0220;berpr&#252;fung der Berechtigung wirkt sich nicht auf Ihr Guthaben aus.',
-				financing: 'Bread Pay',
-				terms1: 'Vorbehaltlich unserer Zustimmung.',
-				terms2: 'Das Startdatum der Zahlung schwankt je nach Zeitpunkt des Abschlusses der H&#228;ndlerbestellung.',
-				termsLt: 'Bewerber unterliegen einer Bonit&#228;tspr&#252;fung und Genehmigung. Preise von 5,99 % bis 29,99 % effektivem Jahreszins; Laufzeiten von 3 Monaten - 48 Monaten. 0 % effektiver Jahreszins ist f&#252;r bis zu 3 Monate verf&#252;gbar. Mindestabnahme erforderlich. Der effektive Jahreszins variiert je nach Kreditw&#252;rdigkeit, Kreditbetrag und Laufzeit.',
-				termsBread: 'Bread Pay&#8482;-Pl&#228;ne sind Darlehen der Comenity Bank.',
-				trustedBy: ''
 			},
 			es: {
 				closeSezzleModal: 'Cerrar Sezzle modal.',
