@@ -3,7 +3,7 @@ var path = require('path')
 module.exports = {
     entry: './src/awesomeSezzle.js',
     output: {
-      path: path.resolve(__dirname, 'dist'),
+      path: path.resolve(__dirname, '../dist'),
       filename: 'bundle.js',
       libraryTarget: 'var',
       library: 'AwesomeSezzle',
