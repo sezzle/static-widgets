@@ -1062,7 +1062,7 @@ class AwesomeSezzle {
 									</div>
 								</div>
 							</div>
-							<div class="sezzle-row">${translation.trustedBy}</div>
+							<div class="sezzle-row">${modalTranslations[this.language].trustedBy}</div>
 							<div class="sezzle-row">
 								<div class="desktop">
 									<div class="just-select-sezzle">${modalTranslations[this.language].justSelectSezzleLt1} <div class="sezzle-logo" title="Sezzle"></div> ${modalTranslations[this.language].justSelectSezzle2}</div>
@@ -1212,7 +1212,7 @@ class AwesomeSezzle {
 							<p class="breakdown">25%<br aria-hidden="true"/>6 ${modalTranslations[this.language].weeks}</p>
 						</div>
            			</div>
-					   <div class="sezzle-row">${translation.trustedBy}</div>
+					<div class="sezzle-row">${modalTranslations[this.language].trustedBy}</div>
             		<div class="sezzle-features">
 						<div class="single-feature">
 							<div>${modalTranslations[this.language].singleFeatureApproval}</div>
@@ -1267,6 +1267,7 @@ class AwesomeSezzle {
 								<p class="breakdown"><span class="percentage">25%</span><br aria-hidden="true"/><span class="due">${modalTranslations[this.language].week} 6</span></p>
 							</div>
 						</div>
+						<div class="sezzle-row">${modalTranslations[this.language].trustedBy}</div>
 						<div class="sezzle-features">
 							<div class="single-feature">
 								<div>${modalTranslations[this.language].singleFeatureInterest}<span style="display:none" aria-hidden="false">.</span></div>
