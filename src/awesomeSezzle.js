@@ -741,8 +741,8 @@ class AwesomeSezzle {
 				today: 'today',
 				week: 'week',
 				weeks: 'weeks',
-				singleFeatureInterest: 'No Interest, Ever',
-				subFeatureInterest: 'Plus no fees if you pay on time',
+				singleFeatureInterest: '0% Interest Plans Available',
+				subFeatureInterest: '',
 				singleFeatureCredit: 'No Impact to Your Credit&nbsp;Score',
 				subFeatureCredit: '',
 				singleFeatureApproval: 'Instant Approval Decisions',
@@ -764,7 +764,8 @@ class AwesomeSezzle {
 				terms1: 'Subject&nbsp;to&nbsp;approval.',
 				terms2: 'Payment&nbsp;start&nbsp;date fluctuates based&nbsp;on time of merchant&nbsp;order&nbsp;completion.',
 				termsLt: 'Applicants are subject to credit check and approval. Rates from 5.99%-29.99% APR; terms from 3 months - 48 months. 0% APR is available for up to 3 months. Minimum purchase required. APRs will vary depending on credit qualifications, loan amount, and term.',
-				termsBread: 'Bread Pay&#8482; plans are loans made by Comenity Bank.'
+				termsBread: 'Bread Pay&#8482; plans are loans made by Comenity Bank.',
+				trustedBy: 'Trusted by over <b>5 million</b> shoppers'
 			},
 			fr: {
 				closeSezzleModal: 'Fermer Sezzle modal.',
@@ -780,8 +781,8 @@ class AwesomeSezzle {
 				today: 'aujourd\'hui',
 				week: 'semaine',
 				weeks: 'semaines',
-				singleFeatureInterest: 'Pas d\'int&#233;r&#234ts jamais.',
-				subFeatureInterest: 'Pas de frais non plus si vous payez aux dates pr&#233;vues',
+				singleFeatureInterest: 'Plans d\'intérêt à 0 % disponibles',
+				subFeatureInterest: '',
 				singleFeatureCredit: 'Pas d\'impact sur votre cote de cr&#233;dit',
 				subFeatureCredit: '',
 				singleFeatureApproval: 'D&#233;cisions d\'approbation instantan&#233;es',
@@ -803,7 +804,8 @@ class AwesomeSezzle {
 				terms1: 'Sous r&#233;serve d\'approbation.',
 				terms2: 'La date de d&#233;but du paiement varie en fonction de l\'heure de fin de la commande du marchand.',
 				termsLt: 'Les candidats sont soumis &#224; une v&#233;rification du cr&#233;dit et &#224; une approbation. Taux de 5,99% - 29,99% APR ; termes de 3 mois - 48 mois et peuvent varier selon le pr&#234;teur. Un taux d\'int&#233;r&#234;t annuel de 0 % est disponible jusqu\'&#224; 3 mois. Un achat minimum est requis. Les taux annuels varient en fonction des conditions de cr&#233;dit, du montant du pr&#234;t, de la dur&#233;e et du pr&#234;teur.',
-				termsBread: 'Les plans Bread Pay&#8482; sont des pr&#234;ts consentis par Comenity Bank.'
+				termsBread: 'Les plans Bread Pay&#8482; sont des pr&#234;ts consentis par Comenity Bank.',
+				trustedBy: 'Avec la confiance de <b>5 millions</b> d\'acheteurs'
 			},
 			de: {
 				closeSezzleModal: 'Schlie&szlig;en Sie das Sezzle-Modal.',
@@ -842,7 +844,8 @@ class AwesomeSezzle {
 				terms1: 'Vorbehaltlich unserer Zustimmung.',
 				terms2: 'Das Startdatum der Zahlung schwankt je nach Zeitpunkt des Abschlusses der H&#228;ndlerbestellung.',
 				termsLt: 'Bewerber unterliegen einer Bonit&#228;tspr&#252;fung und Genehmigung. Preise von 5,99 % bis 29,99 % effektivem Jahreszins; Laufzeiten von 3 Monaten - 48 Monaten. 0 % effektiver Jahreszins ist f&#252;r bis zu 3 Monate verf&#252;gbar. Mindestabnahme erforderlich. Der effektive Jahreszins variiert je nach Kreditw&#252;rdigkeit, Kreditbetrag und Laufzeit.',
-				termsBread: 'Bread Pay&#8482;-Pl&#228;ne sind Darlehen der Comenity Bank.'
+				termsBread: 'Bread Pay&#8482;-Pl&#228;ne sind Darlehen der Comenity Bank.',
+				trustedBy: ''
 			},
 			es: {
 				closeSezzleModal: 'Cerrar Sezzle modal.',
@@ -858,8 +861,8 @@ class AwesomeSezzle {
 				today: 'hoy',
 				week: 'semana',
 				weeks: 'semanas',
-				singleFeatureInterest: 'Sin intere&#769;s, nunca',
-				subFeatureInterest: 'Adema&#769;s, no hay tarifas si paga a tiempo',
+				singleFeatureInterest: 'Planes de 0% de interés disponibles',
+				subFeatureInterest: '',
 				singleFeatureCredit: 'Sin impacto en su puntaje crediticio',
 				subFeatureCredit: '',
 				singleFeatureApproval: 'Decisiones de aprobacio&#769;n instanta&#769;neas',
@@ -881,7 +884,8 @@ class AwesomeSezzle {
 				terms1: 'Sujeto a aprobacio&#769;n.',
 				terms2: 'La fecha de inicio del pago vari&#769;a segu&#769;n el momento en que se completa la orden comercial.',
 				termsLt: 'Los candidatos esta&#769;n sujetos a la comprobacio&#769;n y aprobacio&#769;n del cre&#769;dito. Tipos del 5,99% al 29,99% TAE; plazos de 3 a 48 meses y pueden variar segu&#769;n el prestamista. El 0% de TAE esta&#769; disponible durante un ma&#769;ximo de 3 meses. Se requiere una compra mi&#769;nima. Las TAE vari&#769;an en funcio&#769;n de las calificaciones crediticias, el importe del pre&#769;stamo, el plazo y el prestamista.',
-				termsBread: 'Los planes Bread Pay&#8482; son pre&#769;stamos realizados por Comenity Bank.'
+				termsBread: 'Los planes Bread Pay&#8482; son pre&#769;stamos realizados por Comenity Bank.',
+				trustedBy: 'Con la confianza de ma&#769;s de <b>5 millones</b> de compradores'
 			}
 		}
     if (!document.getElementsByClassName('sezzle-checkout-modal-lightbox').length) {
@@ -1098,6 +1102,7 @@ class AwesomeSezzle {
 									</div>
 								</div>
 							</div>
+							<div class="sezzle-row">${translation.trustedBy}</div>
 							<div class="sezzle-row">
 								<div class="desktop">
 									<div class="just-select-sezzle">${modalTranslations[this.language].justSelectSezzleLt1} <div class="sezzle-logo" title="Sezzle"></div> ${modalTranslations[this.language].justSelectSezzle2}</div>
@@ -1247,6 +1252,7 @@ class AwesomeSezzle {
 							<p class="breakdown">25%<br aria-hidden="true"/>6 ${modalTranslations[this.language].weeks}</p>
 						</div>
            			</div>
+					   <div class="sezzle-row">${translation.trustedBy}</div>
             		<div class="sezzle-features">
 						<div class="single-feature">
 							<div>${modalTranslations[this.language].singleFeatureApproval}</div>
