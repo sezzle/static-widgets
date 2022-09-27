@@ -19,7 +19,7 @@ class SezzleCheckoutButton {
 		return templateString;
 	}
 
-	addButtonStyle() {
+	addButtonStyle () {
 		const sezzleButtonStyle = document.createElement('style');
 		sezzleButtonStyle.innerHTML = `
 			@import url(https://fonts.googleapis.com/css?family=Comfortaa);
@@ -32,6 +32,9 @@ class SezzleCheckoutButton {
 				vertical-align: middle;
 				display: block;
 				width: fit-content;
+				text-decoration: none;
+				padding: 9px;
+				line-height: 18px;
 			}
 			.sezzle-button-light {
 				background-color: #392558;
@@ -67,24 +70,37 @@ class SezzleCheckoutButton {
 		document.head.appendChild(sezzleButtonStyle);
 	}
 
+	matchStyle (pageStyle, sezzleButton) {
+		sezzleButton.style.fontSize = pageStyle.fontSize;
+		sezzleButton.style.width = pageStyle.width;
+		sezzleButton.style.margin = pageStyle.margin;
+		sezzleButton.style.borderRadius = pageStyle.borderRadius;
+	}
+
 	inheritButtonStyles (sezzleCheckoutButton) {
 		const shopifyButton = document.querySelector('[name="checkout"]');
-		if(shopifyButton){
-			const shopifyButtonStyles = getComputedStyle(shopifyButton);
-			sezzleCheckoutButton.style.fontSize = shopifyButtonStyles.fontSize;
-			sezzleCheckoutButton.style.height = shopifyButtonStyles.height;
-			sezzleCheckoutButton.style.padding = shopifyButtonStyles.padding;
-			sezzleCheckoutButton.style.margin = shopifyButtonStyles.margin;
-			sezzleCheckoutButton.style.borderRadius = shopifyButtonStyles.borderRadius;
-			sezzleCheckoutButton.style.float = getComputedStyle(shopifyButton.parentElement).textAlign;
+		const apmContainer = document.querySelector('.additional-checkout-buttons');
+		const apmButtonStyle = apmContainer && apmContainer.querySelector('[role="button"]') ? getComputedStyle(apmContainer.querySelector('[role="button"]')) : null;
+		if(apmButtonStyle){
+			this.matchStyle(apmButtonStyle, sezzleCheckoutButton);
+		} else if(shopifyButton){
+			this.matchStyle(getComputedStyle(shopifyButton), sezzleCheckoutButton);
+		} else {
+			const defaultStyle = {
+				fontSize: "15px",
+				margin: "0px",
+				borderRadius: "0px",
+				width: "857px"
+			}
+			this.matchStyle(defaultStyle, sezzleCheckoutButton);
 		}
 	}
 
-    handleSezzleClick(){
+    handleSezzleClick () {
 		location.replace("/checkout?skip_shopify_pay=true");
 	}
 	createButton () {
-		const checkoutButtons = document.getElementsByName('checkout');
+		const checkoutButtons = document.getElementsByClassName('additional-checkout-buttons').length ? document.getElementsByClassName('additional-checkout-buttons') : document.getElementsByName('checkout');
 		checkoutButtons.forEach(checkoutButton => {
 			const checkoutButtonParent = checkoutButton  ? checkoutButton.parentElement : null;
 			if (checkoutButtonParent && !checkoutButtonParent.querySelector('.sezzle-checkout-button')) {
