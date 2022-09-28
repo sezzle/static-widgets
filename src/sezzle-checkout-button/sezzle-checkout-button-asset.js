@@ -31,6 +31,7 @@ class SezzleCheckoutButton {
 				transition: background 0.8s;
 				border: none;
 				vertical-align: middle;
+				text-align: center;
 				display: block;
 				width: fit-content;
 				text-decoration: none;
@@ -89,9 +90,9 @@ class SezzleCheckoutButton {
 		} else {
 			const defaultStyle = {
 				fontSize: "15px",
+				width: "857px",
 				margin: "0px",
 				borderRadius: "0px",
-				width: "857px"
 			}
 			this.matchStyle(defaultStyle, sezzleCheckoutButton);
 		}
@@ -128,12 +129,12 @@ class SezzleCheckoutButton {
 			return;
 		}
 		const checkoutButtons = document.getElementsByClassName('additional-checkout-buttons').length ? document.getElementsByClassName('additional-checkout-buttons') : document.getElementsByName('checkout');
-		checkoutButtons.forEach(checkoutButton => {
-			const checkoutButtonParent = checkoutButton ? checkoutButton.parentElement : null;
+		for (let i = 0; i < checkoutButtons.length; i++) {
+			const checkoutButtonParent = checkoutButtons[i].parentElement ? checkoutButtons[i].parentElement : checkoutButtons[i];
 			if (checkoutButtonParent && !checkoutButtonParent.querySelector('.sezzle-checkout-button')) {
 				checkoutButtonParent.append(sezzleCheckoutButton);
 			}
-		});
+		}
 	}
 
 	init() {
