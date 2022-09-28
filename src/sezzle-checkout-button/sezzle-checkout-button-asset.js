@@ -33,10 +33,9 @@ class SezzleCheckoutButton {
 				vertical-align: middle;
 				text-align: center;
 				display: block;
-				width: fit-content;
+				min-width: fit-content;
 				text-decoration: none;
 				padding: 9px;
-				line-height: 18px;
 			}
 			.sezzle-button-light {
 				background-color: #392558;
@@ -90,7 +89,7 @@ class SezzleCheckoutButton {
 		} else {
 			const defaultStyle = {
 				fontSize: "15px",
-				width: "857px",
+				width: "auto",
 				margin: "0px",
 				borderRadius: "0px",
 			}
