@@ -1,7 +1,7 @@
 class SezzleCheckoutButton {
 
-	constructor(options){
-		this.theme =  options.theme  || 'light';
+	constructor(options) {
+		this.theme = options.theme || 'light';
 		this.template = options.template || 'Checkout with %%logo%%';
 		this.eventLogger = new EventLogger({
 			merchantUUID: options.merchantUUID,
@@ -10,13 +10,13 @@ class SezzleCheckoutButton {
 		this.defaultPlacement = (typeof options.defaultPlacement === 'undefined') ? true : (options.defaultPlacement === 'true');
 	}
 
-	parseButtonTemplate () {
+	parseButtonTemplate() {
 		const sezzleImage = {
 			light: 'https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg',
 			dark: 'https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg'
 		};
-      const chosenImage = sezzleImage[this.theme] || sezzleImage.light;
-		const templateString = this.template.replace('%%logo%%',`<img class='sezzle-button-logo-img' alt='Sezzle' src=${chosenImage} />`);
+		const chosenImage = sezzleImage[this.theme] || sezzleImage.light;
+		const templateString = this.template.replace('%%logo%%', `<img class='sezzle-button-logo-img' alt='Sezzle' src=${chosenImage} />`);
 		return templateString;
 	}
 
@@ -31,8 +31,11 @@ class SezzleCheckoutButton {
 				transition: background 0.8s;
 				border: none;
 				vertical-align: middle;
+				text-align: center;
 				display: block;
-				width: fit-content;
+				min-width: fit-content;
+				text-decoration: none;
+				padding: 9px;
 			}
 			.sezzle-button-light {
 				background-color: #392558;
@@ -68,23 +71,36 @@ class SezzleCheckoutButton {
 		document.head.appendChild(sezzleButtonStyle);
 	}
 
-	inheritButtonStyles (sezzleCheckoutButton) {
+	matchStyle(pageStyle, sezzleButton) {
+		sezzleButton.style.fontSize = pageStyle.fontSize;
+		sezzleButton.style.width = pageStyle.width;
+		sezzleButton.style.margin = pageStyle.margin;
+		sezzleButton.style.borderRadius = pageStyle.borderRadius;
+	}
+
+	inheritButtonStyles(sezzleCheckoutButton) {
 		const shopifyButton = document.querySelector('[name="checkout"]');
-		if(shopifyButton){
-			const shopifyButtonStyles = getComputedStyle(shopifyButton);
-			sezzleCheckoutButton.style.fontSize = shopifyButtonStyles.fontSize;
-			sezzleCheckoutButton.style.height = shopifyButtonStyles.height;
-			sezzleCheckoutButton.style.padding = shopifyButtonStyles.padding;
-			sezzleCheckoutButton.style.margin = shopifyButtonStyles.margin;
-			sezzleCheckoutButton.style.borderRadius = shopifyButtonStyles.borderRadius;
-			sezzleCheckoutButton.style.float = getComputedStyle(shopifyButton.parentElement).textAlign;
+		const apmContainer = document.querySelector('.additional-checkout-buttons');
+		const apmButtonStyle = apmContainer && apmContainer.querySelector('[role="button"]') ? getComputedStyle(apmContainer.querySelector('[role="button"]')) : null;
+		if (apmButtonStyle) {
+			this.matchStyle(apmButtonStyle, sezzleCheckoutButton);
+		} else if (shopifyButton) {
+			this.matchStyle(getComputedStyle(shopifyButton), sezzleCheckoutButton);
+		} else {
+			const defaultStyle = {
+				fontSize: "15px",
+				width: "auto",
+				margin: "0px",
+				borderRadius: "0px",
+			}
+			this.matchStyle(defaultStyle, sezzleCheckoutButton);
 		}
 	}
 
-    handleSezzleClick(){
+	handleSezzleClick() {
 		location.replace("/checkout?skip_shopify_pay=true");
 	}
-	
+
 	getButton() {
 		const sezzleCheckoutButton = document.createElement('a');
 		sezzleCheckoutButton.className = `sezzle-checkout-button sezzle-button-${this.theme === 'dark' ? 'dark' : 'light'}`;
@@ -106,37 +122,37 @@ class SezzleCheckoutButton {
 		// Shopify app blocks allows merchants to place widgets as per their wish.
 		// If merchant doesn't want default placement, container is created in theme
 		// app extension and the checkout button is rendered inside that container.
-		if(!this.defaultPlacement) {
+		if (!this.defaultPlacement) {
 			const customPlaceholder = document.querySelector('#sezzle-checkout-button-container');
 			customPlaceholder.append(sezzleCheckoutButton);
 			return;
 		}
-		const checkoutButtons = document.getElementsByName('checkout');
-		checkoutButtons.forEach(checkoutButton => {
-			const checkoutButtonParent = checkoutButton  ? checkoutButton.parentElement : null;
+		const checkoutButtons = document.getElementsByClassName('additional-checkout-buttons').length ? document.getElementsByClassName('additional-checkout-buttons') : document.getElementsByName('checkout');
+		for (let i = 0; i < checkoutButtons.length; i++) {
+			const checkoutButtonParent = checkoutButtons[i].parentElement ? checkoutButtons[i].parentElement : checkoutButtons[i];
 			if (checkoutButtonParent && !checkoutButtonParent.querySelector('.sezzle-checkout-button')) {
 				checkoutButtonParent.append(sezzleCheckoutButton);
 			}
-		});
+		}
 	}
 
 	init() {
-		try{
+		try {
 			this.createButton();
 			this.eventLogger.sendEvent("checkout-button-onload");
-		}catch(e){
+		} catch (e) {
 			this.eventLogger.sendEvent("checkout-button-error", e.message);
 		}
 	}
 }
 
 class EventLogger {
-	constructor(options){
+	constructor(options) {
 		this.merchantUUID = options.merchantUUID || '';
 		this.widgetServerEventLogEndpoint = options.widgetServerBaseUrl ? `${options.widgetServerBaseUrl}/v1/event/log` : 'https://widget.sezzle.com/v1/event/log';
 	}
 
-	sendEvent(eventName, description="") {
+	sendEvent(eventName, description = "") {
 		const body = [{
 			event_name: eventName,
 			description: description,
@@ -148,23 +164,23 @@ class EventLogger {
 
 	async httpRequestWrapper(method, url, body = null) {
 		return new Promise((resolve, reject) => {
-		  const xhr = new XMLHttpRequest();
-		  xhr.open(method, url, true);
-		  if (body !== null) {
-			xhr.setRequestHeader('Content-Type', 'application/json');
-		  }
-		  xhr.onload = function () {
-			if (this.status >= 200 && this.status < 300) {
-			  resolve(xhr.response);
-			} else {
-			  reject(new Error('Something went wrong, contact the Sezzle team!'));
+			const xhr = new XMLHttpRequest();
+			xhr.open(method, url, true);
+			if (body !== null) {
+				xhr.setRequestHeader('Content-Type', 'application/json');
 			}
-		  };
-		  xhr.onerror = function () {
-			reject(new Error('Something went wrong, contact the Sezzle team!'));
-		  };
-		  body === null ? xhr.send() : xhr.send(JSON.stringify(body));
-		}).catch(function(e) {
+			xhr.onload = function () {
+				if (this.status >= 200 && this.status < 300) {
+					resolve(xhr.response);
+				} else {
+					reject(new Error('Something went wrong, contact the Sezzle team!'));
+				}
+			};
+			xhr.onerror = function () {
+				reject(new Error('Something went wrong, contact the Sezzle team!'));
+			};
+			body === null ? xhr.send() : xhr.send(JSON.stringify(body));
+		}).catch(function (e) {
 			console.log(e.message);
 		});
 	}
