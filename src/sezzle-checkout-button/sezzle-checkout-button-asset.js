@@ -2,7 +2,13 @@ class SezzleCheckoutButton {
 
 	constructor(options) {
 		this.theme = options.theme || 'light';
-		this.template = options.template || 'Checkout with %%logo%%';
+		if (document.querySelector('html').lang === "fr" ) {
+			this.template = options.template || 'Payez avec %%logo%%';
+		}
+		else{
+			this.template = options.template || 'Checkout with %%logo%%';
+
+		}
 		this.eventLogger = new EventLogger({
 			merchantUUID: options.merchantUUID,
 			widgetServerBaseUrl: options.widgetServerBaseUrl

@@ -53,9 +53,16 @@
 		location.replace("/checkout?skip_shopify_pay=true");
 	}
 </script>
-<a class="sezzle-checkout-button sezzle-button-{{theme}}" href="javascript:handleSezzleClick()">
-	Checkout with <img class="sezzle-button-logo-img" src="{{imageUrl}}" alt="Sezzle">
+ {% if document.querySelector('html').lang === "fr" %}
+ <a class="sezzle-checkout-button sezzle-button-{{theme}}" href="javascript:handleSezzleClick()">
+	Payez avec <img class="sezzle-button-logo-img" src="{{imageUrl}}" alt="Sezzle">
 </a>
+ {% else %}
+ <a class="sezzle-checkout-button sezzle-button-{{theme}}" href="javascript:handleSezzleClick()">
+	 Checkout with <img class="sezzle-button-logo-img" src="{{imageUrl}}" alt="Sezzle">
+ </a>
+ {% endif %}
+
 <script type="text/javascript">
 	const shopifyButton = document.querySelector('[name="checkout"]');
 	if(shopifyButton){
