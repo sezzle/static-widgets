@@ -4,23 +4,47 @@ The following are 4 methods for installing the Sezzle checkout button. The `Inst
 ## Install as Asset
 *The Asset method is a one-size-fits-most - compatible with Shopify 2.0 onward, intuitively placing the Sezzle button after the Shopify checkout button, and inheriting select page styles.*
 
+### From CDN
+
 1. Log in to your Shopify Admin
 2. Go to Online Store > Themes
 3. Next to the applicable theme, click `Actions` then `Edit Code`
-4. Scroll to the Assets folder, then click Add A New Asset
-5. Click Create a Blank File, name the section `sezzle-checkout-button`, select `.js` as the file type, then click Add Asset
-6. In the Assets folder, select the asset you just created (you may need to scroll, files are not in alphabetical order).
-7. Overwrite the asset template with the code contents here[https://github.com/sezzle/static-widgets/blob/production/src/sezzle-checkout-button/sezzle-checkout-button-asset.js], then click Save.
-8. Paste the following snippet in the bottom of the `layout/theme.liquid` file, enter the ID in the space provided, then click Save:
+4. Paste the following snippet in the bottom of the `layout/theme.liquid` file, enter the ID in the space provided, then click Save:
+
+```html
+{{ "//checkout-sdk.sezzle.com/sezzle-checkout-button.min.js" | script_tag }}
+	<script>
+		new SezzleCheckoutButton({
+			merchantUUID : "enter ID here" <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx),
+			widgetServerBaseUrl : "https://widget.sezzle.com",
+		}).init();
+	</script>
 ```
-  {{ "sezzle-checkout-button.js" | asset_url | script_tag }}
-  <script>
-      new SezzleCheckoutButton({
-        merchantUUID:"enter ID here" <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) can be found in `business` section(under `settings`) of merchant dashboard -->
-      }).init();
-  </script>
+5. Click Preview, then go to the cart page to confirm button is appearing correctly.
+
+### Local File
+> Use this method for testing
+
+1. Clone/pull down the Static-Widgets[https://github.com/sezzle/static-widgets/] project, then run `npm run build`
+2. Log in to your Shopify Admin
+3. Go to Online Store > Themes
+4. Next to the applicable theme, click `Actions` then `Edit Code`
+5. Scroll to the Assets folder, then click Add A New Asset
+6. Click Create a Blank File, name the section `sezzle-checkout-button.min`, select `.js` as the file type, then click Add Asset
+7. In the Assets folder, select the asset you just created (you may need to scroll, files are not in alphabetical order).
+8. Overwrite the asset template with the code contents here[../../../build/sezzle-checkout-button-asset.min.js], then click Save.
+9.  Paste the following snippet in the bottom of the `layout/theme.liquid` file, enter the ID in the space provided, then click Save:
+```html
+{{ "sezzle-checkout-button.min.js" | asset_url | script_tag }}
+	<script>
+		new SezzleCheckoutButton({
+			merchantUUID : "enter ID here" <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx),
+			widgetServerBaseUrl : "https://widget.sezzle.com",
+		}).init();
+	</script>
 ```
 9. Click Preview, then go to the cart page to confirm button is appearing correctly.
+> For testing an unminified file, the process is the same, except name the section `sezzle-checkout button`, copy+paste file contents from here[https://github.com/sezzle/static-widgets/blob/production/src/sezzle-checkout-button/sezzle-checkout-button-asset.js] but remove the `export default` line, and update the snippet file path accordingly.
 
 ### STYLE CUSTOMIZATION
 
