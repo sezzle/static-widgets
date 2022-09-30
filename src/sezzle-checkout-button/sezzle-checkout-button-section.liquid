@@ -52,7 +52,7 @@
 	}
 </script>
 <a class="sezzle-checkout-button sezzle-button-{{section.settings.sezzle-button-theme}}" href="javascript:handleSezzleClick()">
-    {% if (document.querySelector('html').lang === "fr") && (section.settings.sezzle-button-text=="Pay with ") %}Payez avec {% elsif (document.querySelector('html').lang === "fr") && (section.settings.sezzle-button-text=="Checkout with ") %}Achetez avec {% else %}{{section.settings.sezzle-button-text}}{% endif %}<img class="sezzle-button-logo-img" src={% if section.settings.sezzle-button-theme == "dark" %} "https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg" {% else %} "https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg"{% endif %} alt="Sezzle">
+    {% if (document.querySelector('html').lang === "fr") && (section.settings.sezzle-button-text === "Pay with ") %}Payez avec {% elsif (document.querySelector('html').lang === "fr") && (section.settings.sezzle-button-text === "Checkout with ") %}Achetez avec {% else %}{{section.settings.sezzle-button-text}}{% endif %}<img class="sezzle-button-logo-img" src={% if section.settings.sezzle-button-theme == "dark" %} "https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg" {% else %} "https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg"{% endif %} alt="Sezzle">
 </a>
 <script type="text/javascript">
 	const shopifyButton = document.querySelector('[name="checkout"]');
