@@ -15,7 +15,12 @@
 	background-position: center;
 	transition: background 0.8s;
 	border: none;
-	vertical-align: middle;
+	text-align: center;
+	display: block;
+	width: fit-content;
+	min-width: fit-content;
+	text-decoration: none;
+	padding: 9px;
 }
 .sezzle-button-light {
 	background-color: #392558;
@@ -63,8 +68,7 @@
 		const sezzleButtons = document.getElementsByClassName('sezzle-checkout-button');
 		for (let i = 0; i < sezzleButtons.length; i++) {
 			sezzleButtons[i].style.fontSize = shopifyButtonStyles.fontSize;
-			sezzleButtons[i].style.height = shopifyButtonStyles.height;
-			sezzleButtons[i].style.padding = shopifyButtonStyles.padding;
+			sezzleButtons[i].style.width = shopifyButtonStyles.width;
 			sezzleButtons[i].style.margin = shopifyButtonStyles.margin;
 			sezzleButtons[i].style.borderRadius = shopifyButtonStyles.borderRadius;
 		};
