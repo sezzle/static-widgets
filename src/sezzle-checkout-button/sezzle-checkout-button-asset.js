@@ -129,9 +129,13 @@ class SezzleCheckoutButton {
 		}
 		const checkoutButtons = document.getElementsByClassName('additional-checkout-buttons').length ? document.getElementsByClassName('additional-checkout-buttons') : document.getElementsByName('checkout');
 		for (let i = 0; i < checkoutButtons.length; i++) {
-			const checkoutButtonParent = checkoutButtons[i].parentElement ? checkoutButtons[i].parentElement : checkoutButtons[i];
-			if (checkoutButtonParent && !checkoutButtonParent.querySelector('.sezzle-checkout-button')) {
+            if (checkoutButtons[i].querySelector('[role="button"]')) {
+              checkoutButtons[i].appendChild(sezzleCheckoutButton)
+            } else {
+              const checkoutButtonParent = checkoutButtons[i].parentElement ? checkoutButtons[i].parentElement : checkoutButtons[i];
+              if (checkoutButtonParent && !checkoutButtonParent.querySelector('.sezzle-checkout-button')) {
 				checkoutButtonParent.append(sezzleCheckoutButton);
+            }	
 			}
 		}
 	}
@@ -186,4 +190,4 @@ class EventLogger {
 	}
 }
 
-export default SezzleCheckoutButton;
+export default sezzleCheckoutButton;
