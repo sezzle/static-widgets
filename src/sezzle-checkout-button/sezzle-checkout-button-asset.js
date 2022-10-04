@@ -26,56 +26,52 @@ class SezzleCheckoutButton {
 			@import url(https://fonts.googleapis.com/css?family=Comfortaa);
 			.sezzle-checkout-button {
 				cursor: pointer;
-				font-family: "Comfortaa", cursive;
+				font-family: "Comfortaa", cursive !important;
 				background-position: center;
 				transition: background 0.8s;
 				border: none;
-				vertical-align: middle;
 				text-align: center;
 				display: block;
 				min-width: fit-content;
+				width: auto;
 				text-decoration: none;
 				padding: 9px;
 			}
 			.sezzle-button-light {
-				background-color: #392558;
-				color: white;
+				background-color: #392558 !important;
+				color: white !important;
 			}
 			.sezzle-button-light:hover, .sezzle-button-light:focus {
-				background-color: #d784ff;
-				color: white;
+				background-color: #d784ff !important;
 			}
 			.sezzle-button-light:active {
-				background-color: purple;
-				color: white;
+				background-color: purple !important;
 			}
 			.sezzle-button-dark {
-				background-color: #fff;
-				color: #392558;
+				background-color: #fff !important;
+				color: #392558 !important;
 			}
 			.sezzle-button-dark:hover, .sezzle-button-dark:focus {
-				background-color: #eee;
-				color: #392558;
+				background-color: #eee !important;
 			}
 			.sezzle-button-dark:active {
-				background-color: #ccc;
-				color: #392558;
+				background-color: #ccc !important;
 			}
 			.sezzle-checkout-button .sezzle-button-logo-img {
 				width: 70px;
 				position: relative;
 				top: -2px;
 				vertical-align: middle;
+				display: inline;
 			}
 		`;
 		document.head.appendChild(sezzleButtonStyle);
 	}
 
 	matchStyle(pageStyle, sezzleButton) {
-		sezzleButton.style.fontSize = pageStyle.fontSize;
-		sezzleButton.style.width = pageStyle.width;
 		sezzleButton.style.margin = pageStyle.margin;
 		sezzleButton.style.borderRadius = pageStyle.borderRadius;
+		sezzleButton.style.fontSize = pageStyle.fontSize;
 	}
 
 	inheritButtonStyles(sezzleCheckoutButton) {
@@ -89,7 +85,6 @@ class SezzleCheckoutButton {
 		} else {
 			const defaultStyle = {
 				fontSize: "15px",
-				width: "auto",
 				margin: "0px",
 				borderRadius: "0px",
 			}
