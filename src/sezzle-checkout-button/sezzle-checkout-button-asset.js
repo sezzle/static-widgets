@@ -31,11 +31,13 @@ class SezzleCheckoutButton {
 				transition: background 0.8s;
 				border: none;
 				text-align: center;
-				display: block;
+				display: inline-block;
 				min-width: fit-content;
 				width: auto;
 				text-decoration: none;
+				text-transform: none;
 				padding: 9px;
+				font-size: 15px;
 			}
 			.sezzle-button-light {
 				background-color: #392558 !important;
@@ -69,24 +71,36 @@ class SezzleCheckoutButton {
 	}
 
 	matchStyle(pageStyle, sezzleButton) {
+		sezzleButton.style.display = pageStyle.display;
 		sezzleButton.style.margin = pageStyle.margin;
 		sezzleButton.style.borderRadius = pageStyle.borderRadius;
-		sezzleButton.style.fontSize = pageStyle.fontSize;
 	}
 
 	inheritButtonStyles(sezzleCheckoutButton) {
 		const shopifyButton = document.querySelector('[name="checkout"]');
 		const apmContainer = document.querySelector('.additional-checkout-buttons');
-		const apmButtonStyle = apmContainer && apmContainer.querySelector('[role="button"]') ? getComputedStyle(apmContainer.querySelector('[role="button"]')) : null;
-		if (apmButtonStyle) {
-			this.matchStyle(apmButtonStyle, sezzleCheckoutButton);
+		const apmButton = apmContainer && apmContainer.querySelector('[role="button"]');
+		if (apmButton) {
+			const apmButtonStyle = getComputedStyle(apmButton);
+			const apmStyle = {
+				display: "block",
+				margin: "10px auto",
+				borderRadius: "4px"
+			}
+			this.matchStyle(apmStyle, sezzleCheckoutButton);
 		} else if (shopifyButton) {
-			this.matchStyle(getComputedStyle(shopifyButton), sezzleCheckoutButton);
+			const shopifyButtonStyle = getComputedStyle(shopifyButton);
+			const shopifyStyle = {
+				display: "inline-block",
+				margin: shopifyButtonStyle.margin,
+				borderRadius: shopifyButtonStyle.borderRadius
+			}
+			this.matchStyle(shopifyStyle, sezzleCheckoutButton);
 		} else {
 			const defaultStyle = {
-				fontSize: "15px",
-				margin: "0px",
-				borderRadius: "0px",
+				display: "inline-block",
+				margin: "0px auto",
+				borderRadius: "0px"
 			}
 			this.matchStyle(defaultStyle, sezzleCheckoutButton);
 		}
