@@ -127,7 +127,6 @@ class SezzleCheckoutButton {
 	}
 
 	createButton() {
-		// console.log('hello world')
 		const sezzleCheckoutButton = this.getButton();
 		// Shopify app blocks allows merchants to place widgets as per their wish.
 		// If merchant doesn't want default placement, container is created in theme
@@ -139,22 +138,20 @@ class SezzleCheckoutButton {
 		}
 		const checkoutButtons = document.getElementsByClassName('additional-checkout-buttons').length ? document.getElementsByClassName('additional-checkout-buttons') : document.getElementsByName('checkout');
 		for (let i = 0; i < checkoutButtons.length; i++) {
-			// if (checkoutButtons[i].querySelector('[role="button"]')) {
-			// 	checkoutButtons[i].appendChild(sezzleCheckoutButton)
-			// } else {
-			const checkoutButtonParent = checkoutButtons[i].parentElement ? checkoutButtons[i].parentElement : checkoutButtons[i];
-			if (checkoutButtonParent && !checkoutButtonParent.querySelector('.sezzle-checkout-button')) {
-				checkoutButtonParent.append(sezzleCheckoutButton);
+			if (checkoutButtons[i].querySelector('[role="button"]')) {
+				checkoutButtons[i].appendChild(sezzleCheckoutButton)
+			} else {
+				const checkoutButtonParent = checkoutButtons[i].parentElement ? checkoutButtons[i].parentElement : checkoutButtons[i];
+				if (checkoutButtonParent && !checkoutButtonParent.querySelector('.sezzle-checkout-button')) {
+					checkoutButtonParent.append(sezzleCheckoutButton);
+				}
 			}
-			// }
 		}
 	}
 
 	init() {
 		try {
-			// document.addEventListener('load', 
 			this.createButton()
-			// );
 			this.eventLogger.sendEvent("checkout-button-onload");
 		} catch (e) {
 			this.eventLogger.sendEvent("checkout-button-error", e.message);
