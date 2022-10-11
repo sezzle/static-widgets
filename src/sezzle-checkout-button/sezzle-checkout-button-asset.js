@@ -138,7 +138,7 @@ class SezzleCheckoutButton {
 		}
 		const checkoutButtons = document.getElementsByClassName('additional-checkout-buttons') ? document.getElementsByClassName('additional-checkout-buttons') : document.getElementsByName('checkout');
 		for (let i = 0; i < checkoutButtons.length; i++) {
-			if (checkoutButtons[i] && getComputedStyle(document.querySelector(".additional-checkout-buttons")).display === 'block') {
+			if (checkoutButtons[i].className === "additional-checkout-buttons" && getComputedStyle(checkoutButtons[i]).display === 'block') {
 				checkoutButtons[i].appendChild(sezzleCheckoutButton)
 			} else {
 				const checkoutButtonParent = checkoutButtons[i].parentElement ? checkoutButtons[i].parentElement : checkoutButtons[i];
