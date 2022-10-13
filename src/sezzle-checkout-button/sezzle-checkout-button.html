@@ -54,7 +54,7 @@
 </a>
 <script type="text/javascript">
 	document.addEventListener( "readystatechange", function(){
-		if(document.querySelector('html').lang === "fr") {
+		if(document.documentElement.lang === "fr") {
 			document.getElementById("sezzle-checkout-button").innerHTML = `Achetez avec
 				<img class="sezzle-button-logo-img" src="https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg" alt="Sezzle">`;
 		}
