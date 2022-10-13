@@ -10,7 +10,7 @@ class SezzleCheckoutButton {
 
 	constructor(options) {
 		this.theme = options.theme || 'light';
-		this.template = this.getTranslatedTemplate(options.template);
+		this.template = this.getTranslatedTemplate();
 		this.eventLogger = new EventLogger({
 			merchantUUID: options.merchantUUID,
 			widgetServerBaseUrl: options.widgetServerBaseUrl
@@ -19,8 +19,8 @@ class SezzleCheckoutButton {
 	}
 
 	getTranslatedTemplate(template) {
-		if (template === 'undefined') template = 'Checkout with %%logo%%';
-		if (document.documentElement.lang != 'en') {
+		if (typeof template === 'undefined') template = 'Checkout with %%logo%%';
+		if (document.documentElement.lang == 'fr') {
 			return Translations[document.documentElement.lang][template.split(' ')[0]] || template;
 		}
 		return template
