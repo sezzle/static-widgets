@@ -48,12 +48,12 @@
 		location.replace("/checkout?skip_shopify_pay=true");
 	}
 </script>
-<a class="sezzle-checkout-button sezzle-button-light" href="javascript:handleSezzleClick()" id="destination">
+<a class="sezzle-checkout-button sezzle-button-light" href="javascript:handleSezzleClick()" id="szl">
 	Checkout with <img class="sezzle-button-logo-img"
 		src="https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg" alt="Sezzle">
 </a>
 <script type="text/javascript">document.addEventListener( "readystatechange", function(){
-	if(document.querySelector('html').lang === "fr"){document.getElementById("destination").innerHTML = `Achetez avec
+	if(document.querySelector('html').lang === "fr"){document.getElementById("szl").innerHTML = `Achetez avec
     <img class="sezzle-button-logo-img" src="https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg" alt="Sezzle">`;}
 } )</script>
 
