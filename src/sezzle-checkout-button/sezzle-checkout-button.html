@@ -55,8 +55,7 @@
 <script type="text/javascript">
 	document.addEventListener( "readystatechange", function(){
 		if(document.documentElement.lang === "fr") {
-			document.getElementById("sezzle-checkout-button").innerHTML = `Achetez avec
-				<img class="sezzle-button-logo-img" src="https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg" alt="Sezzle">`;
+			document.getElementById("sezzle-checkout-button").innerHTML = `Achetez avec	<img class="sezzle-button-logo-img" src="https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg" alt="Sezzle">`;
 		}
 	});
 	const shopifyButton = document.querySelector('[name="checkout"]');
@@ -67,6 +66,6 @@
 			sezzleButtons[i].style.display = shopifyButtonStyles.display;
 			sezzleButtons[i].style.margin = shopifyButtonStyles.margin;
 			sezzleButtons[i].style.borderRadius = shopifyButtonStyles.borderRadius;
-		}
+		};
 	}
 </script>

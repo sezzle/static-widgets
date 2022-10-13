@@ -216,3 +216,4 @@ class EventLogger {
 	}
 }
 
+export default SezzleCheckoutButton;
