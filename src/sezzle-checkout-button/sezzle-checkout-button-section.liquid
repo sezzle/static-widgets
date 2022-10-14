@@ -52,8 +52,8 @@
 </script>
 <a class="sezzle-checkout-button sezzle-button-{{section.settings.sezzle-button-theme}}" href="javascript:handleSezzleClick()">
 	{% if request.locale.iso_code == "fr" %}
-		{% if  section.settings.sezzle-button-text == "Pay with " %}Payez avec {% endif %}
-		{% if section.settings.sezzle-button-text == "Checkout with "%}Achetez avec {% endif %}
+		{% if  section.settings.sezzle-button-text == "Pay with" %}Payez avec {% endif %}
+		{% if section.settings.sezzle-button-text == "Checkout with"%}Achetez avec {% endif %}
 	{% else %}
 	  {{section.settings.sezzle-button-text}}
 	{% endif %}
@@ -112,11 +112,11 @@
         "default": "Checkout with ",
         "options": [
 			{
-				"value": "Checkout with ",
+				"value": "Checkout with",
 				"label": "Checkout with Sezzle"
 			},
 			{
-				"value": "Pay with ",
+				"value": "Pay with",
 				"label": "Pay with Sezzle"
 			},
 			{
