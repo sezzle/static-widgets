@@ -51,7 +51,13 @@
 	}
 </script>
 <a class="sezzle-checkout-button sezzle-button-{{section.settings.sezzle-button-theme}}" href="javascript:handleSezzleClick()">
-    {{section.settings.sezzle-button-text}} <img class="sezzle-button-logo-img" src={% if section.settings.sezzle-button-theme == "dark" %} "https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg" {% else %} "https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg"{% endif %} alt="Sezzle">
+	{% if request.locale.iso_code == "fr" %}
+		{% if  section.settings.sezzle-button-text == "Pay with" %}Payez avec {% endif %}
+		{% if section.settings.sezzle-button-text == "Checkout with"%}Achetez avec {% endif %}
+	{% else %}
+	  {{section.settings.sezzle-button-text}}
+	{% endif %}
+	&nbsp;<img class="sezzle-button-logo-img" src={% if section.settings.sezzle-button-theme == "dark" %} "https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg" {% else %} "https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg"{% endif %} alt="Sezzle">
 </a>
 <script type="text/javascript">
 	const shopifyButton = document.querySelector('[name="checkout"]');
@@ -103,14 +109,14 @@
         "id": "sezzle-button-text",
         "type": "select",
         "label": {"en": "Button Text"},
-        "default": "Checkout with ",
+        "default": "Checkout with",
         "options": [
 			{
-				"value": "Checkout with ",
+				"value": "Checkout with",
 				"label": "Checkout with Sezzle"
 			},
 			{
-				"value": "Pay with ",
+				"value": "Pay with",
 				"label": "Pay with Sezzle"
 			},
 			{
