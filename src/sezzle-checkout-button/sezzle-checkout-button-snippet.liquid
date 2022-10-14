@@ -58,7 +58,7 @@
 	}
 </script>
 <a class="sezzle-checkout-button sezzle-button-{{theme}}" href="javascript:handleSezzleClick()">
-  {% if request.locale.iso_code == 'fr' %}Achetez avec {% else %}Checkout with {% endif %} <img class="sezzle-button-logo-img" src="{{imageUrl}}" alt="Sezzle">
+  {% if request.locale.iso_code == 'fr' %}Achetez avec {% else %}Checkout with {% endif %}&nbsp; <img class="sezzle-button-logo-img" src="{{imageUrl}}" alt="Sezzle">
 </a>
 <script type="text/javascript">
 	const shopifyButton = document.querySelector('[name="checkout"]');
