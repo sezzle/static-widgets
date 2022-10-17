@@ -1,13 +1,33 @@
 class SezzleCheckoutButton {
 
 	constructor(options) {
+		this.defaultTemplate = {
+			Checkout: {
+				en: 'Checkout with %%logo%%',
+				fr: 'Achetez avec %%logo%%'
+			},
+			Pay: {
+				en: 'Pay with %%logo%%',
+				fr: 'Payez avec %%logo%%'
+			},
+			'%%logo%%': {
+				en: '%%logo%%',
+				fr: '%%logo%%'
+			}
+		}
 		this.theme = options.theme || 'light';
-		this.template = options.template || 'Checkout with %%logo%%';
+		this.template = this.getTranslation(options.template);
 		this.eventLogger = new EventLogger({
 			merchantUUID: options.merchantUUID,
 			widgetServerBaseUrl: options.widgetServerBaseUrl
 		});
 		this.defaultPlacement = (typeof options.defaultPlacement === 'undefined') ? true : (options.defaultPlacement === 'true');
+	}
+
+	getTranslation(template) {
+      let templateToGet = this.defaultTemplate[template.split(" ")[0]] ? template.split(" ")[0] : "Checkout";
+      let languageToGet = this.defaultTemplate[templateToGet][document.documentElement.lang] ? document.documentElement.lang : "en";
+		return this.defaultTemplate[templateToGet][languageToGet];
 	}
 
 	parseButtonTemplate() {
