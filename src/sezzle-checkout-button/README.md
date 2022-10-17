@@ -30,7 +30,7 @@ The following are 4 methods for installing the Sezzle checkout button. The `Inst
 3. Go to Online Store > Themes
 4. Next to the applicable theme, click `Actions` then `Edit Code`
 5. Scroll to the Assets folder, then click Add A New Asset
-6. Click Create a Blank File, name the section `sezzle-checkout-button.min`, select `.js` as the file type, then click Add Asset
+6. Click Create a Blank File, name the section `sezzle-checkout-button`, select `.js` as the file type, then click Add Asset
 7. In the Assets folder, select the asset you just created (you may need to scroll, files are not in alphabetical order).
 8. Overwrite the asset template with the code contents here[../../../build/sezzle-checkout-button-asset.js], then click Save.
 9.  Paste the following snippet in the bottom of the `layout/theme.liquid` file, enter the ID in the space provided, then click Save:
