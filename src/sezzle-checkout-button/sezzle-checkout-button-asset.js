@@ -1,29 +1,13 @@
-const Translations = {
-	"fr" : {
-		"Checkout" : "Achetez avec %%logo%%",
-		"Pay" : "Payez avec %%logo%%"
-	}
-}
-
 class SezzleCheckoutButton {
-
 
 	constructor(options) {
 		this.theme = options.theme || 'light';
-		this.template = this.getTranslatedTemplate(options.template);
+		this.template = options.template || 'Checkout with %%logo%%';
 		this.eventLogger = new EventLogger({
 			merchantUUID: options.merchantUUID,
 			widgetServerBaseUrl: options.widgetServerBaseUrl
 		});
 		this.defaultPlacement = (typeof options.defaultPlacement === 'undefined') ? true : (options.defaultPlacement === 'true');
-	}
-
-	getTranslatedTemplate(template) {
-		template = (typeof template === 'undefined') ? 'Checkout with %%logo%%' : template
-		if (document.documentElement.lang == 'fr') {
-			return Translations[document.documentElement.lang][template.split(' ')[0]] || template;
-		}
-		return template
 	}
 
 	parseButtonTemplate() {
