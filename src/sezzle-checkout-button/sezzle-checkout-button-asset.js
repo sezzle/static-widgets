@@ -25,7 +25,7 @@ class SezzleCheckoutButton {
 	}
 
 	getTranslation(template) {
-      let templateToGet = this.defaultTemplate[template.split(" ")[0]] ? template.split(" ")[0] : "Checkout";
+      let templateToGet = typeof template === "string" && this.defaultTemplate[template.split(" ")[0]] ? template.split(" ")[0] : "Checkout";
       let languageToGet = this.defaultTemplate[templateToGet][document.documentElement.lang] ? document.documentElement.lang : "en";
 		return this.defaultTemplate[templateToGet][languageToGet];
 	}
