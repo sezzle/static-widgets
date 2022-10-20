@@ -14,7 +14,7 @@
   "author": "Sezzle",
   "license": "ISC",
   "devDependencies": {
-    "@babel/plugin-transform-runtime": "7.19.1",
+    "@babel/plugin-transform-runtime": "7.19.6",
     "@babel/polyfill": "^7.10.4",
     "@babel/preset-env": "7.19.4",
     "babel-core": "^6.26.3",
