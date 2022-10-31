@@ -4,15 +4,18 @@ class SezzleCheckoutButton {
 		this.defaultTemplate = {
 			Checkout: {
 				en: 'Checkout with %%logo%%',
-				fr: 'Achetez avec %%logo%%'
+				fr: 'Achetez avec %%logo%%',
+				es: 'Compra con %%logo%%'
 			},
 			Pay: {
 				en: 'Pay with %%logo%%',
-				fr: 'Payez avec %%logo%%'
+				fr: 'Payez avec %%logo%%',
+				es: 'Paga con %%logo%%'
 			},
 			'%%logo%%': {
 				en: '%%logo%%',
-				fr: '%%logo%%'
+				fr: '%%logo%%',
+				es: '%%logo%%'
 			}
 		}
 		this.theme = options.theme || 'light';
