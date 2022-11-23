@@ -142,3 +142,28 @@ OR
 ```html
 	<script type="text/javascript">document.addEventListener( "change", function(){if(window.innerWidth < 560){document.querySelector(.sezzle-checkout-button).style.display = "none !important"} else {document.querySelector(".sezzle-checkout-button").style.display = "inline-block"} } )</script>
 ```
+
+```html
+
+To hide the checkout button above maxprice, either:
+
+<script type="text/javascript"> 
+  cartTotal: '{{ cart.total_price | money }}';
+  if (! document.longTermPaymentConfig == ""){
+if (! document.longTermPaymentConfig.maxPrice == ""){
+  maxPrice=document.longTermPaymentConfig.maxPrice;
+} else {
+        maxPrice=2500000;
+    }
+  } else if (! document.sezzleConfig == ""){
+    if (! document.sezzleConfig.maxPrice == ""){
+        maxPrice=document.sezzleConfig.maxPrice;
+    } else {
+        maxPrice=250000
+    }
+} else {
+    maxPrice=15000;//custom maxPrice as per user input
+}
+document.addEventListener( "change", function(){  
+if(cartTotal > maxPrice){document.querySelector(.sezzle-checkout-button).style.display = "none !important"}} )</script>
+```
