@@ -53,10 +53,12 @@
 		src="https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg" alt="Sezzle">
 </a>
 <script type="text/javascript">
-	document.onreadystatechange = function(){
+	document.addEventListener( "readystatechange", function(){
 		if(document.documentElement.lang === "fr") {
 			document.getElementById("sezzle-checkout-button").innerHTML = `Achetez avec &nbsp;<img class="sezzle-button-logo-img" src="https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg" alt="Sezzle">`;
 		}
+	});
+	document.onreadystatechange = function(){
 		const cartTotal = '{{ cart.total_price }}';
 		const maxPrice = document.longTermPaymentConfig && document.longTermPaymentConfig.maxPrice || document.sezzleConfig && document.sezzleConfig.maxPrice || 250000;
 		if(cartTotal > maxPrice){
