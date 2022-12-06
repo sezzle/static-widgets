@@ -61,14 +61,25 @@
   {% if request.locale.iso_code == 'fr' %}Achetez avec {% else %}Checkout with {% endif %}&nbsp; <img class="sezzle-button-logo-img" src="{{imageUrl}}" alt="Sezzle">
 </a>
 <script type="text/javascript">
-	const shopifyButton = document.querySelector('[name="checkout"]');
-	if(shopifyButton){
-		const shopifyButtonStyles = getComputedStyle(shopifyButton);
-		const sezzleButtons = document.getElementsByClassName('sezzle-checkout-button');
-		for (let i = 0; i < sezzleButtons.length; i++) {
-			sezzleButtons[i].style.display = shopifyButtonStyles.display;
-			sezzleButtons[i].style.margin = shopifyButtonStyles.margin;
-			sezzleButtons[i].style.borderRadius = shopifyButtonStyles.borderRadius;
-		};
-	}
+  document.onreadystatechange = function(){
+    const cartTotal = '{{ cart.total_price }}';
+    const maxPrice = document.longTermPaymentConfig && document.longTermPaymentConfig.maxPrice || document.sezzleConfig && document.sezzleConfig.maxPrice || 250000;
+    if(cartTotal > maxPrice){
+    		const sezzleButtons = document.getElementsByClassName('sezzle-checkout-button');
+    		for (let i = 0; i < sezzleButtons.length; i++) {
+              sezzleButtons[i].style.display = "none"
+            }
+    } else{
+      const shopifyButton = document.querySelector('[name="checkout"]');
+    	if(shopifyButton){
+    		const shopifyButtonStyles = getComputedStyle(shopifyButton);
+    		const sezzleButtons = document.getElementsByClassName('sezzle-checkout-button');
+    		for (let i = 0; i < sezzleButtons.length; i++) {
+    			sezzleButtons[i].style.display = shopifyButtonStyles.display;
+    			sezzleButtons[i].style.margin = shopifyButtonStyles.margin;
+    			sezzleButtons[i].style.borderRadius = shopifyButtonStyles.borderRadius;
+    		};
+    	}
+    }
+  }
 </script>
