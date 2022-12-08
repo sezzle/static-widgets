@@ -24,6 +24,7 @@ class SezzleCheckoutButton {
 			merchantUUID: options.merchantUUID,
 			widgetServerBaseUrl: options.widgetServerBaseUrl
 		});
+		this.cartTotal = options.cartTotal;
 		this.defaultPlacement = (typeof options.defaultPlacement === 'undefined') ? true : (options.defaultPlacement === 'true');
 	}
 
@@ -134,7 +135,7 @@ class SezzleCheckoutButton {
 	}
 
 	getButton() {
-		const cartTotal = '{{ cart.total_price }}';
+		const cartPrice = this.cartTotal;
 		const maxPrice = document.longTermPaymentConfig && document.longTermPaymentConfig.maxPrice || document.sezzleConfig && document.sezzleConfig.maxPrice || 250000;
 		const sezzleCheckoutButton = document.createElement('a');
 		sezzleCheckoutButton.className = `sezzle-checkout-button sezzle-button-${this.theme === 'dark' ? 'dark' : 'light'}`;
@@ -147,7 +148,7 @@ class SezzleCheckoutButton {
 			location.replace('/checkout?skip_shopify_pay=true');
 		}.bind(this));
 		this.addButtonStyle();
-		if(cartTotal > maxPrice){
+		if(cartPrice > maxPrice){
 			const sezzleButtons = document.getElementsByClassName('sezzle-checkout-button');
 			for (let i = 0; i < sezzleButtons.length; i++) {
 				sezzleButtons[i].style.display = "none"
