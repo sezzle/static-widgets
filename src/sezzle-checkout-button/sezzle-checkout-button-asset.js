@@ -135,28 +135,27 @@ class SezzleCheckoutButton {
 	}
 
 	getButton() {
-		const cartPrice = this.cartTotal;
 		const maxPrice = document.longTermPaymentConfig && document.longTermPaymentConfig.maxPrice || document.sezzleConfig && document.sezzleConfig.maxPrice || 250000;
-		const sezzleCheckoutButton = document.createElement('a');
-		sezzleCheckoutButton.className = `sezzle-checkout-button sezzle-button-${this.theme === 'dark' ? 'dark' : 'light'}`;
-		sezzleCheckoutButton.innerHTML = this.parseButtonTemplate();
-		sezzleCheckoutButton.href = "javascript:handleSezzleClick()"
-		sezzleCheckoutButton.addEventListener('click', function (e) {
-			this.eventLogger.sendEvent('checkout-button-onclick');
-			e.stopPropagation();
-			e.preventDefault();
-			location.replace('/checkout?skip_shopify_pay=true');
-		}.bind(this));
-		this.addButtonStyle();
-		if(cartPrice > maxPrice){
+        if(this.cartTotal && this.cartTotal > maxPrice){
 			const sezzleButtons = document.getElementsByClassName('sezzle-checkout-button');
-			for (let i = 0; i < sezzleButtons.length; i++) {
-				sezzleButtons[i].style.display = "none"
-			}
-			return sezzleCheckoutButton;
-		} else{
-		this.inheritButtonStyles(sezzleCheckoutButton);
-		return sezzleCheckoutButton;
+		    for (let i = 0; i < sezzleButtons.length; i++) {
+			  sezzleButtons[i].style.display = "none"
+		    }
+		    return sezzleCheckoutButton;
+		} else {
+			const sezzleCheckoutButton = document.createElement('a');
+		    sezzleCheckoutButton.className = `sezzle-checkout-button sezzle-button-${this.theme === 'dark' ? 'dark' : 'light'}`;
+		    sezzleCheckoutButton.innerHTML = this.parseButtonTemplate();
+		    sezzleCheckoutButton.href = "javascript:handleSezzleClick()"
+		    sezzleCheckoutButton.addEventListener('click', function (e) {
+			    this.eventLogger.sendEvent('checkout-button-onclick');
+			    e.stopPropagation();
+			    e.preventDefault();
+			    location.replace('/checkout?skip_shopify_pay=true');
+		    }.bind(this));
+		    this.addButtonStyle();
+		    this.inheritButtonStyles(sezzleCheckoutButton);
+		    return sezzleCheckoutButton;
 		}
 	}
 
