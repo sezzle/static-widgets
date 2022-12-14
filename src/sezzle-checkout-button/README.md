@@ -17,6 +17,7 @@ The following are 4 methods for installing the Sezzle checkout button. The `Inst
 		new SezzleCheckoutButton({
 			merchantUUID : "enter ID here" <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx),
 			widgetServerBaseUrl : "https://widget.sezzle.com",
+			cartTotal : "{{ cart.total_price }}",
 		}).init();
 	</script>
 ```

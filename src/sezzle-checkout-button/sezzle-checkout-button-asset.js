@@ -135,14 +135,6 @@ class SezzleCheckoutButton {
 	}
 
 	getButton() {
-		const maxPrice = document.longTermPaymentConfig && document.longTermPaymentConfig.maxPrice || document.sezzleConfig && document.sezzleConfig.maxPrice || 250000;
-        if(this.cartTotal && this.cartTotal > maxPrice){
-			const sezzleButtons = document.getElementsByClassName('sezzle-checkout-button');
-		    for (let i = 0; i < sezzleButtons.length; i++) {
-			  sezzleButtons[i].style.display = "none"
-		    }
-		    return sezzleCheckoutButton;
-		} else {
 			const sezzleCheckoutButton = document.createElement('a');
 		    sezzleCheckoutButton.className = `sezzle-checkout-button sezzle-button-${this.theme === 'dark' ? 'dark' : 'light'}`;
 		    sezzleCheckoutButton.innerHTML = this.parseButtonTemplate();
@@ -156,10 +148,13 @@ class SezzleCheckoutButton {
 		    this.addButtonStyle();
 		    this.inheritButtonStyles(sezzleCheckoutButton);
 		    return sezzleCheckoutButton;
-		}
 	}
 
 	createButton() {
+		const maxPrice = document.longTermPaymentConfig && document.longTermPaymentConfig.maxPrice || document.sezzleConfig && document.sezzleConfig.maxPrice || 250000;
+		if(this.cartTotal && this.cartTotal > maxPrice){
+			return;
+		}
 		const sezzleCheckoutButton = this.getButton();
 		// Shopify app blocks allows merchants to place widgets as per their wish.
 		// If merchant doesn't want default placement, container is created in theme
