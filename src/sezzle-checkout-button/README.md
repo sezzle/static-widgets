@@ -66,7 +66,7 @@ The button appearance can now be customized as needed using the below keys.
         merchantUUID: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
         theme: "light", <!-- accepts "light" and "dark" (based on site background) -->
         template: "Checkout with %%logo%%", <!-- accepts "Checkout with %%logo%%", "Pay with %%logo%%", or "%%logo%%" -->
-		cartTotal : {{ cart.total_price }}
+        cartTotal : {{ cart.total_price }}
       }).init();
   </script>
 ```
