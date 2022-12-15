@@ -135,19 +135,19 @@ class SezzleCheckoutButton {
 	}
 
 	getButton() {
-			const sezzleCheckoutButton = document.createElement('a');
-		    sezzleCheckoutButton.className = `sezzle-checkout-button sezzle-button-${this.theme === 'dark' ? 'dark' : 'light'}`;
-		    sezzleCheckoutButton.innerHTML = this.parseButtonTemplate();
-		    sezzleCheckoutButton.href = "javascript:handleSezzleClick()"
-		    sezzleCheckoutButton.addEventListener('click', function (e) {
-			    this.eventLogger.sendEvent('checkout-button-onclick');
-			    e.stopPropagation();
-			    e.preventDefault();
-			    location.replace('/checkout?skip_shopify_pay=true');
-		    }.bind(this));
-		    this.addButtonStyle();
-		    this.inheritButtonStyles(sezzleCheckoutButton);
-		    return sezzleCheckoutButton;
+		const sezzleCheckoutButton = document.createElement('a');
+		sezzleCheckoutButton.className = `sezzle-checkout-button sezzle-button-${this.theme === 'dark' ? 'dark' : 'light'}`;
+		sezzleCheckoutButton.innerHTML = this.parseButtonTemplate();
+		sezzleCheckoutButton.href = "javascript:handleSezzleClick()"
+		sezzleCheckoutButton.addEventListener('click', function (e) {
+			this.eventLogger.sendEvent('checkout-button-onclick');
+			e.stopPropagation();
+			e.preventDefault();
+			location.replace('/checkout?skip_shopify_pay=true');
+		}.bind(this));
+		this.addButtonStyle();
+		this.inheritButtonStyles(sezzleCheckoutButton);
+		return sezzleCheckoutButton;
 	}
 
 	createButton() {
@@ -166,7 +166,7 @@ class SezzleCheckoutButton {
 		}
 		const checkoutButtons = document.getElementsByClassName('additional-checkout-buttons').length ? document.getElementsByClassName('additional-checkout-buttons') : document.getElementsByName('checkout');
 		for (let i = 0; i < checkoutButtons.length; i++) {
-            var buttonStyle = getComputedStyle(checkoutButtons[i]);
+			var buttonStyle = getComputedStyle(checkoutButtons[i]);
 			if (checkoutButtons[i].className === 'additional-checkout-buttons' && buttonStyle.display != 'none' && buttonStyle.visibility === 'visible') {
 				checkoutButtons[i].appendChild(sezzleCheckoutButton)
 			} else {
