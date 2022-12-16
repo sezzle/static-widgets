@@ -417,7 +417,7 @@ The Sezzle Shopify Buy static widget is a lightweight version of our static widg
 
 <img src="./assets/static-widget.png"/>
 
-**<a href="https://github.com/sezzle/static-widgets/blob/production/src/sezzle-checkout-button-html/sezzle-checkout-button.html" >Sezzle Shopify Checkout Button</a>**
+**<a href="https://github.com/sezzle/static-widgets/tree/production/src/sezzle-checkout-button" >Sezzle Shopify Checkout Button</a>**
 
 The Sezzle Checkout button is installed on the Shopify cart page to bypass third-party checkouts such as Carthook, Zipify, or Bold Commerce by redirecting the customer to the Shopify Native checkout. Further, if a user is logged into Shop Pay but wishes to checkout with Sezzle, this button will not redirect automatically to the Shop Pay experience.<br/>
 

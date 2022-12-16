@@ -48,24 +48,29 @@
 		location.replace("/checkout?skip_shopify_pay=true");
 	}
 </script>
-<a class="sezzle-checkout-button sezzle-button-light" href="javascript:handleSezzleClick()" id="sezzle-checkout-button">
+<a class="sezzle-checkout-button sezzle-button-light" href="javascript:handleSezzleClick()" id="sezzle-checkout-button" style="display: none;">
 	Checkout with &nbsp;<img class="sezzle-button-logo-img"
 		src="https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg" alt="Sezzle">
 </a>
 <script type="text/javascript">
-	document.addEventListener( "readystatechange", function(){
+	document.onreadystatechange = function(){
+		const cartTotal = {{ cart.total_price }};
+		const maxPrice = document.longTermPaymentConfig && document.longTermPaymentConfig.maxPrice || document.sezzleConfig && document.sezzleConfig.maxPrice || 250000;
+		if(cartTotal > maxPrice){
+			return;
+		}
 		if(document.documentElement.lang === "fr") {
 			document.getElementById("sezzle-checkout-button").innerHTML = `Achetez avec &nbsp;<img class="sezzle-button-logo-img" src="https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg" alt="Sezzle">`;
 		}
-	});
-	const shopifyButton = document.querySelector('[name="checkout"]');
-	if (shopifyButton) {
-		const shopifyButtonStyles = getComputedStyle(shopifyButton);
-		const sezzleButtons = document.getElementsByClassName('sezzle-checkout-button');
-		for (let i = 0; i < sezzleButtons.length; i++) {
-			sezzleButtons[i].style.display = shopifyButtonStyles.display;
-			sezzleButtons[i].style.margin = shopifyButtonStyles.margin;
-			sezzleButtons[i].style.borderRadius = shopifyButtonStyles.borderRadius;
-		};
+		const shopifyButton = document.querySelector('[name="checkout"]');
+		if(shopifyButton){
+			const shopifyButtonStyles = getComputedStyle(shopifyButton);
+			const sezzleButtons = document.getElementsByClassName('sezzle-checkout-button');
+			for (let i = 0; i < sezzleButtons.length; i++) {
+				sezzleButtons[i].style.display = shopifyButtonStyles.display;
+				sezzleButtons[i].style.margin = shopifyButtonStyles.margin;
+				sezzleButtons[i].style.borderRadius = shopifyButtonStyles.borderRadius;
+			}
+		}
 	}
 </script>

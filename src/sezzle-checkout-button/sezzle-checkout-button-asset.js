@@ -24,6 +24,7 @@ class SezzleCheckoutButton {
 			merchantUUID: options.merchantUUID,
 			widgetServerBaseUrl: options.widgetServerBaseUrl
 		});
+		this.cartTotal = options.cartTotal;
 		this.defaultPlacement = (typeof options.defaultPlacement === 'undefined') ? true : (options.defaultPlacement === 'true');
 	}
 
@@ -150,6 +151,10 @@ class SezzleCheckoutButton {
 	}
 
 	createButton() {
+		const maxPrice = document.longTermPaymentConfig && document.longTermPaymentConfig.maxPrice || document.sezzleConfig && document.sezzleConfig.maxPrice || 250000;
+		if(this.cartTotal && this.cartTotal > maxPrice){
+			return;
+		}
 		const sezzleCheckoutButton = this.getButton();
 		// Shopify app blocks allows merchants to place widgets as per their wish.
 		// If merchant doesn't want default placement, container is created in theme
@@ -161,7 +166,7 @@ class SezzleCheckoutButton {
 		}
 		const checkoutButtons = document.getElementsByClassName('additional-checkout-buttons').length ? document.getElementsByClassName('additional-checkout-buttons') : document.getElementsByName('checkout');
 		for (let i = 0; i < checkoutButtons.length; i++) {
-            var buttonStyle = getComputedStyle(checkoutButtons[i]);
+			var buttonStyle = getComputedStyle(checkoutButtons[i]);
 			if (checkoutButtons[i].className === 'additional-checkout-buttons' && buttonStyle.display != 'none' && buttonStyle.visibility === 'visible') {
 				checkoutButtons[i].appendChild(sezzleCheckoutButton)
 			} else {
