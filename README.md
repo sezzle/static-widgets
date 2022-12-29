@@ -2,6 +2,9 @@
 
 This SDK is a way to install the Sezzle widget onto a merchant's website that does not communicate with Sezzle's server. All the widget code, custom configuration, images, and stylesheets are stored locally within the store theme. This approach means slightly faster load speed, and greater merchant control over the widget - the Sezzle team cannot make changes to the widget, for better or for worse.
 
+To build the widget after modification: `npx webpack --mode production --config webpack/webpack.config.js`
+To build the checkout button after modification: `npm run build`
+
 ## Implementation General Overview
 
 * Note: Implementation varies greatly by platform, theme, etc. Below is a general overview of the process. The code snippets below are <i>samples</i> and may need to be modified to fit your site. For Shopify merchants, please proceed to the next section.
