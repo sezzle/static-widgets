@@ -29,8 +29,8 @@ class SezzleCheckoutButton {
 	}
 
 	getTranslation(template) {
-      let templateToGet = typeof template === "string" && this.defaultTemplate[template.split(" ")[0]] ? template.split(" ")[0] : "Checkout";
-      let languageToGet = this.defaultTemplate[templateToGet][document.documentElement.lang] ? document.documentElement.lang : "en";
+		let templateToGet = typeof template === "string" && this.defaultTemplate[template.split(" ")[0]] ? template.split(" ")[0] : "Checkout";
+		let languageToGet = this.defaultTemplate[templateToGet][document.documentElement.lang] ? document.documentElement.lang : "en";
 		return this.defaultTemplate[templateToGet][languageToGet];
 	}
 
@@ -90,6 +90,9 @@ class SezzleCheckoutButton {
 				vertical-align: middle;
 				display: inline;
 			}
+			#minPriceDiv {
+             font-size: 12px;
+            }
 		`;
 		document.head.appendChild(sezzleButtonStyle);
 	}
@@ -150,12 +153,36 @@ class SezzleCheckoutButton {
 		return sezzleCheckoutButton;
 	}
 
+	getMinPriceText(minPrice) {
+		const minPriceText = document.createElement('div');
+		minPriceText.id = `minPriceDiv`;
+		if (document.documentElement.lang === "fr") {
+			minPriceText.innerHTML = "pour les achats de plus de $" + minPrice / 100;
+		} else if (document.documentElement.lang === "es") {
+			minPriceText.innerHTML = "para compras de más de $" + minPrice / 100;
+		} else {
+			minPriceText.innerHTML = "on orders above $" + minPrice / 100;
+		}
+		minPriceText.style.display = "block";
+		return minPriceText;
+	}
+
 	createButton() {
+		const minPrice = document.sezzleConfig && document.sezzleConfig.minPrice || 0;
 		const maxPrice = document.longTermPaymentConfig && document.longTermPaymentConfig.maxPrice || document.sezzleConfig && document.sezzleConfig.maxPrice || 250000;
 		if(this.cartTotal && this.cartTotal > maxPrice){
 			return;
 		}
 		const sezzleCheckoutButton = this.getButton();
+	    if(this.cartTotal && this.cartTotal < minPrice) {
+			const minPriceText = this.getMinPriceText(minPrice);
+			sezzleCheckoutButton.append(minPriceText);
+		}
+		if (!this.defaultPlacement) {
+			const customPlaceholder = document.querySelector('#sezzle-checkout-button-container');
+			customPlaceholder.append(sezzleCheckoutButton);
+			return
+		}
 		// Shopify app blocks allows merchants to place widgets as per their wish.
 		// If merchant doesn't want default placement, container is created in theme
 		// app extension and the checkout button is rendered inside that container.
