@@ -134,7 +134,7 @@ class SezzleCheckoutButton {
 	}
 
 	handleSezzleClick() {
-		location.replace("/checkout?skip_shopify_pay=true");
+		location.replace("/checkout?skip_shopify_pay=true&shop_pay_checkout_as_guest=true");
 	}
 
 	getButton() {
@@ -146,7 +146,7 @@ class SezzleCheckoutButton {
 			this.eventLogger.sendEvent('checkout-button-onclick');
 			e.stopPropagation();
 			e.preventDefault();
-			location.replace('/checkout?skip_shopify_pay=true');
+			location.replace('/checkout?skip_shopify_pay=true&shop_pay_checkout_as_guest=true');
 		}.bind(this));
 		this.addButtonStyle();
 		this.inheritButtonStyles(sezzleCheckoutButton);
