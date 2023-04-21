@@ -11,7 +11,7 @@ include:
   - project: 'DevOps/templates'
     file: '/cloudfront/deploy.yml'
 
-image: 'node:18'
+image: 'node:20'
 
 variables:
   JIRA_PROJECT_NAME: "MINT"
