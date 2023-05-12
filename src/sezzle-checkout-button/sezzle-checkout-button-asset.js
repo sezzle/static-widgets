@@ -137,22 +137,6 @@ class SezzleCheckoutButton {
 		location.replace("/checkout?shop_pay_checkout_as_guest=true");
 	}
 
-	getButton() {
-		const sezzleCheckoutButton = document.createElement('a');
-		sezzleCheckoutButton.className = `sezzle-checkout-button sezzle-button-${this.theme === 'dark' ? 'dark' : 'light'}`;
-		sezzleCheckoutButton.innerHTML = this.parseButtonTemplate();
-		sezzleCheckoutButton.href = "javascript:handleSezzleClick()"
-		sezzleCheckoutButton.addEventListener('click', function (e) {
-			this.eventLogger.sendEvent('checkout-button-onclick');
-			e.stopPropagation();
-			e.preventDefault();
-			location.replace('/checkout?shop_pay_checkout_as_guest=true');
-		}.bind(this));
-		this.addButtonStyle();
-		this.inheritButtonStyles(sezzleCheckoutButton);
-		return sezzleCheckoutButton;
-	}
-
 	getMinPriceText(minPrice) {
 		const minPriceText = document.createElement('div');
 		minPriceText.id = `minPriceDiv`;
@@ -167,41 +151,74 @@ class SezzleCheckoutButton {
 		return minPriceText;
 	}
 
-	createButton() {
+	checkMinPrice(sezzleCheckoutButton) {
 		const minPrice = document.sezzleConfig && document.sezzleConfig.minPrice || 0;
-		const maxPrice = document.longTermPaymentConfig && document.longTermPaymentConfig.maxPrice || document.sezzleConfig && document.sezzleConfig.maxPrice || 250000;
-		if(this.cartTotal && this.cartTotal > maxPrice){
-			return;
-		}
-		const sezzleCheckoutButton = this.getButton();
-	    if(this.cartTotal && this.cartTotal < minPrice) {
+		if (this.cartTotal && this.cartTotal < minPrice) {
 			const minPriceText = this.getMinPriceText(minPrice);
 			sezzleCheckoutButton.append(minPriceText);
 		}
-		if (!this.defaultPlacement) {
-			const customPlaceholder = document.querySelector('#sezzle-checkout-button-container');
-			customPlaceholder.append(sezzleCheckoutButton);
-			return
+	}
+	getButton() {
+		const sezzleCheckoutButton = document.createElement('a');
+		sezzleCheckoutButton.className = `sezzle-checkout-button sezzle-button-${this.theme === 'dark' ? 'dark' : 'light'}`;
+		sezzleCheckoutButton.innerHTML = this.parseButtonTemplate();
+		sezzleCheckoutButton.href = "javascript:handleSezzleClick()"
+		sezzleCheckoutButton.addEventListener('click', function (e) {
+			this.eventLogger.sendEvent('checkout-button-onclick');
+			e.stopPropagation();
+			e.preventDefault();
+			location.replace('/checkout?shop_pay_checkout_as_guest=true');
+		}.bind(this));
+		this.addButtonStyle();
+		this.inheritButtonStyles(sezzleCheckoutButton);
+		this.checkMinPrice(sezzleCheckoutButton);
+		return sezzleCheckoutButton;
+	}
+
+	renderUnderAPM(apmContainer) {
+		let apmStyles = getComputedStyle(apmContainer);
+		if (apmContainer && apmStyles.display !== 'none' && apmStyles.visibility === 'visible' && !apmContainer.querySelector('.sezzle-checkout-button')) {
+			let sezzleCheckoutButton = this.getButton();
+			apmContainer.appendChild(sezzleCheckoutButton);
+		}
+	}
+
+	renderUnderButton(checkoutButton) {
+		let sezzleCheckoutButton = this.getButton();
+		let checkoutButtonParent = checkoutButton.parentElement ? checkoutButton.parentElement : checkoutButton;
+		if (!checkoutButtonParent.querySelector('.sezzle-checkout-button')) {
+			checkoutButton.nextElementSibling ? checkoutButtonParent.insertBefore(sezzleCheckoutButton, checkoutButton.nextElementSibling) : checkoutButtonParent.append(sezzleCheckoutButton);
+          console.log('Sezzle button rendered')
+		}
+	}
+
+	createButton() {
+		const maxPrice = document.longTermPaymentConfig && document.longTermPaymentConfig.maxPrice || document.sezzleConfig && document.sezzleConfig.maxPrice || 250000;
+		if(this.cartTotal && this.cartTotal > maxPrice){
+			return;
 		}
 		// Shopify app blocks allows merchants to place widgets as per their wish.
 		// If merchant doesn't want default placement, container is created in theme
 		// app extension and the checkout button is rendered inside that container.
 		if (!this.defaultPlacement) {
+			let sezzleCheckoutButton = this.getButton();
 			const customPlaceholder = document.querySelector('#sezzle-checkout-button-container');
 			customPlaceholder.append(sezzleCheckoutButton);
 			return;
 		}
-		const checkoutButtons = document.getElementsByClassName('additional-checkout-buttons').length ? document.getElementsByClassName('additional-checkout-buttons') : document.getElementsByName('checkout');
+		const apmContainers = document.getElementsByClassName('additional-checkout-buttons');
+		for (let i = 0; i < apmContainers.length; i++) {
+			this.renderUnderAPM(apmContainers[i]);
+		}
+		if(document.querySelector('.sezzle-checkout-button')){
+			return;
+		}
+		const checkoutButtons = document.getElementsByName('checkout');
 		for (let i = 0; i < checkoutButtons.length; i++) {
-			var buttonStyle = getComputedStyle(checkoutButtons[i]);
-			if (checkoutButtons[i].className === 'additional-checkout-buttons' && buttonStyle.display != 'none' && buttonStyle.visibility === 'visible') {
-				checkoutButtons[i].appendChild(sezzleCheckoutButton)
-			} else {
-				const checkoutButtonParent = checkoutButtons[i].parentElement ? checkoutButtons[i].parentElement : checkoutButtons[i];
-				if (checkoutButtonParent && !checkoutButtonParent.querySelector('.sezzle-checkout-button')) {
-					checkoutButtonParent.append(sezzleCheckoutButton);
-				}
-			}
+			this.renderUnderButton(checkoutButtons[i]);
+		}
+		if(!document.querySelector('.sezzle-checkout-button')){
+			console.log('Sezzle checkout button could not be rendered: Shopify checkout button not found.')
 		}
 	}
 
