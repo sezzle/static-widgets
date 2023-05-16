@@ -188,7 +188,7 @@ class SezzleCheckoutButton {
 		let checkoutButtonParent = checkoutButton.parentElement ? checkoutButton.parentElement : checkoutButton;
 		if (!checkoutButtonParent.querySelector('.sezzle-checkout-button')) {
 			checkoutButton.nextElementSibling ? checkoutButtonParent.insertBefore(sezzleCheckoutButton, checkoutButton.nextElementSibling) : checkoutButtonParent.append(sezzleCheckoutButton);
-          console.log('Sezzle button rendered')
+			console.log('Sezzle button rendered')
 		}
 	}
 
