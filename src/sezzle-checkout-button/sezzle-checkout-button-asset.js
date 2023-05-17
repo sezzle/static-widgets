@@ -18,11 +18,11 @@ class SezzleCheckoutButton {
 				es: '%%logo%%'
 			}
 		}
-		this.theme = options.theme || 'light';
+		this.theme = options.theme === 'dark' ? 'dark' : 'light';
 		this.template = this.getTranslation(options.template);
 		this.eventLogger = new EventLogger({
 			merchantUUID: options.merchantUUID,
-			widgetServerBaseUrl: options.widgetServerBaseUrl
+			widgetServerBaseUrl: options.widgetServerBaseUrl || "https://widget.sezzle.com"
 		});
 		this.cartTotal = options.cartTotal;
 		this.defaultPlacement = (typeof options.defaultPlacement === 'undefined') ? true : (options.defaultPlacement === 'true');

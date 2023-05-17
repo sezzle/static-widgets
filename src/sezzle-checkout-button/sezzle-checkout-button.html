@@ -42,15 +42,18 @@
 	vertical-align: middle;
 	display: inline;
 }
+#minPriceDiv {
+	font-size: 12px;
+}
 </style>
 <script type="text/javascript">
 	function handleSezzleClick() {
 		location.replace("/checkout?shop_pay_checkout_as_guest=true");
 	}
 </script>
-<a class="sezzle-checkout-button sezzle-button-light" href="javascript:handleSezzleClick()" id="sezzle-checkout-button" style="display: none;">
+<a class="sezzle-checkout-button sezzle-button-light" href="javascript:handleSezzleClick()" id="sezzle-checkout-button">
 	Checkout with &nbsp;<img class="sezzle-button-logo-img"
-		src="https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg" alt="Sezzle"><div id="minPriceDiv" style="display:none;font-size:12px;"></div>
+		src="https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg" alt="Sezzle"><div id="minPriceDiv" style="display:none;"></div>
 </a>
 <script type="text/javascript">
 	function copyStyles() {
@@ -72,7 +75,7 @@
 	}
 	function handleMinPrice(cartTotal) {
 		const minPrice = document.sezzleConfig && document.sezzleConfig.minPrice || 0;
-		if (cartTotal < minPrice) {
+		if (cartTotal && cartTotal < minPrice) {
 			if (document.documentElement.lang === "fr") {
 				minPriceDiv.innerHTML = "pour les achats de plus de $" + minPrice / 100;
 			}
@@ -85,8 +88,8 @@
 	document.onreadystatechange = function () {
 		const cartTotal = {{ cart.total_price }};
 		const maxPrice = document.longTermPaymentConfig && document.longTermPaymentConfig.maxPrice || document.sezzleConfig && document.sezzleConfig.maxPrice || 250000;
-		if (cartTotal > maxPrice){
-			return;
+		if (cartTotal && cartTotal > maxPrice){
+			document.getElementById('sezzle-checkout-button').style.display = "none";
 		}
 		copyStyles();
 		handleTranslation()
