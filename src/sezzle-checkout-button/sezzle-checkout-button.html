@@ -3,8 +3,7 @@
 .sezzle-checkout-button {
 	cursor: pointer;
 	font-family: "Comfortaa", cursive !important;
-	background-position: center;
-	transition: background 0.8s;
+	display: inline-block;
 	border: none;
 	text-align: center;
 	display: inline-block;
@@ -14,6 +13,8 @@
 	text-transform: none;
 	padding: 9px;
 	font-size: 15px;
+	line-height: 29px;
+	justify-content: center;
 }
 .sezzle-button-light {
 	background-color: #392558 !important;
@@ -36,11 +37,13 @@
 	background-color: #ccc !important;
 }
 .sezzle-checkout-button .sezzle-button-logo-img {
-	width: 70px;
+	width: 72px;
+	height: 18px;
 	position: relative;
 	top: -2px;
 	vertical-align: middle;
 	display: inline;
+	margin: 0px 2px;
 }
 #minPriceDiv {
 	font-size: 12px;
@@ -63,6 +66,7 @@
 			const sezzleButtons = document.getElementsByClassName('sezzle-checkout-button');
 			for (let i = 0; i < sezzleButtons.length; i++) {
 				sezzleButtons[i].style.display = shopifyButtonStyles.display;
+				sezzleButtons[i].style.width = shopifyButtonStyles.width;
 				sezzleButtons[i].style.margin = shopifyButtonStyles.margin;
 				sezzleButtons[i].style.borderRadius = shopifyButtonStyles.borderRadius;
 			}
