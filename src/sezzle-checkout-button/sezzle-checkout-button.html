@@ -6,7 +6,6 @@
 	display: inline-block;
 	border: none;
 	text-align: center;
-	display: inline-block;
 	min-width: fit-content;
 	width: auto;
 	text-decoration: none;
@@ -65,7 +64,7 @@
 			const shopifyButtonStyles = getComputedStyle(shopifyButton);
 			const sezzleButtons = document.getElementsByClassName('sezzle-checkout-button');
 			for (let i = 0; i < sezzleButtons.length; i++) {
-				sezzleButtons[i].style.display = shopifyButtonStyles.display;
+				sezzleButtons[i].style.display = shopifyButtonStyles.display === "block" ? "block" : "inline-block";
 				sezzleButtons[i].style.width = shopifyButtonStyles.width;
 				sezzleButtons[i].style.margin = shopifyButtonStyles.margin;
 				sezzleButtons[i].style.borderRadius = shopifyButtonStyles.borderRadius;

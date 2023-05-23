@@ -51,7 +51,6 @@ class SezzleCheckoutButton {
 			.sezzle-checkout-button {
 				cursor: pointer;
 				font-family: "Comfortaa", cursive !important;
-				display: inline-block;
 				border: none;
 				text-align: center;
 				display: inline-block;
@@ -101,7 +100,7 @@ class SezzleCheckoutButton {
 	}
 
 	matchStyle(pageStyle, sezzleButton) {
-		sezzleButton.style.display = pageStyle.display;
+		sezzleButton.style.display = pageStyle.display === "block" ? "block" : "inline-block";
 		sezzleButton.style.width = pageStyle.width;
 		sezzleButton.style.margin = pageStyle.margin;
 		sezzleButton.style.borderRadius = pageStyle.borderRadius;
