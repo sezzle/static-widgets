@@ -153,7 +153,7 @@ class SezzleCheckoutButton {
 		if (apmContainer && apmStyles.display !== 'none' && apmStyles.visibility === 'visible' && !apmContainer.querySelector('.sezzle-checkout-button')) {
 			let sezzleCheckoutButton = this.getButton();
 			apmContainer.appendChild(sezzleCheckoutButton);
-			this.matchStyle(getComputedStyle(apmContainer.querySelector('[role="button"]') || document.getElementsByName('checkout')[0]), sezzleCheckoutButton)
+			this.matchStyle((apmContainer.querySelector('[role="button"]') ? getComputedStyle(apmContainer.querySelector('[role="button"]')) : { display: "inline-block", width: "100%", margin: "10px auto", borderRadius: "4px" }), sezzleCheckoutButton)
 		}
 	}
 
