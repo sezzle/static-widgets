@@ -101,9 +101,9 @@ class SezzleCheckoutButton {
 
 	matchStyle(pageStyle, sezzleButton) {
 		sezzleButton.style.display = pageStyle.display === "block" ? "block" : "inline-block";
-		sezzleButton.style.width = pageStyle.width;
-		sezzleButton.style.margin = pageStyle.margin;
-		sezzleButton.style.borderRadius = pageStyle.borderRadius;
+		sezzleButton.style.width = pageStyle.width || "fit-content";
+		sezzleButton.style.margin = pageStyle.margin || "0px auto";
+		sezzleButton.style.borderRadius = pageStyle.borderRadius || "0px";
 	}
 
 	handleSezzleClick() {
@@ -153,7 +153,7 @@ class SezzleCheckoutButton {
 		if (apmContainer && apmStyles.display !== 'none' && apmStyles.visibility === 'visible' && !apmContainer.querySelector('.sezzle-checkout-button')) {
 			let sezzleCheckoutButton = this.getButton();
 			apmContainer.appendChild(sezzleCheckoutButton);
-			this.matchStyle(getComputedStyle(apmContainer.querySelector('[role="button"]')), sezzleCheckoutButton)
+			this.matchStyle((apmContainer.querySelector('[role="button"]') ? getComputedStyle(apmContainer.querySelector('[role="button"]')) : { display: "inline-block", width: "100%", margin: "10px auto", borderRadius: "4px" }), sezzleCheckoutButton)
 		}
 	}
 
