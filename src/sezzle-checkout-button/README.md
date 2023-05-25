@@ -14,18 +14,10 @@ _The Asset method is a one-size-fits-most - compatible with Shopify 2.0 onward, 
 ```html
 {{ "//checkout-sdk.sezzle.com/sezzle-checkout-button.min.js" | script_tag }}
 <script>
-   var sezzleObserver = new MutationObserver(function(){
-      if(!document.querySelector('.sezzle-checkout-button')){
-         new SezzleCheckoutButton({
-            merchantUUID : "enter ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
-            cartTotal : {{ cart.total_price }},
-         }).init();
-      }
-   });
-   sezzleObserver.observe(document, {
-      childList: true,
-      subtree: true
-   });
+   new SezzleCheckoutButton({
+      merchantUUID : "enter ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
+      cartTotal: {{ cart.total_price }},
+   }).init();
 </script>
 ```
 
@@ -48,18 +40,10 @@ _The Asset method is a one-size-fits-most - compatible with Shopify 2.0 onward, 
 ```html
 {{ "sezzle-checkout-button.js" | asset_url | script_tag }}
 <script>
-   var sezzleObserver = new MutationObserver(function(){
-      if(!document.querySelector('.sezzle-checkout-button')){
-         new SezzleCheckoutButton({
-            merchantUUID : "enter ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
-            cartTotal : {{ cart.total_price }},
-         }).init();
-      }
-   });
-   sezzleObserver.observe(document, {
-      childList: true,
-      subtree: true
-   });
+   new SezzleCheckoutButton({
+      merchantUUID : "enter ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
+      cartTotal: {{ cart.total_price }},
+   }).init();
 </script>
 ```
 

@@ -34,12 +34,17 @@ class SezzleCheckoutButton {
 		return this.defaultTemplate[templateToGet][languageToGet];
 	}
 
+	exceedsMaxPrice() {
+		const maxPrice = document.longTermPaymentConfig && document.longTermPaymentConfig.maxPrice || document.sezzleConfig && document.sezzleConfig.maxPrice || 250000;
+		return this.cartTotal && this.cartTotal > maxPrice;
+	}
+
 	parseButtonTemplate() {
 		const sezzleImage = {
 			light: 'https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg',
 			dark: 'https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg'
 		};
-		const chosenImage = sezzleImage[this.theme] || sezzleImage.light;
+		const chosenImage = sezzleImage[this.theme];
 		const templateString = this.template.replace('%%logo%%', `<img class='sezzle-button-logo-img' alt='Sezzle' src=${chosenImage} />`);
 		return templateString;
 	}
@@ -100,7 +105,7 @@ class SezzleCheckoutButton {
 	}
 
 	matchStyle(pageStyle, sezzleButton) {
-		sezzleButton.style.display = pageStyle.display === "block" ? "block" : "inline-block";
+		sezzleButton.style.display = pageStyle && pageStyle.display === "block" ? "block" : "inline-block";
 		sezzleButton.style.width = pageStyle.width || "fit-content";
 		sezzleButton.style.margin = pageStyle.margin || "0px auto";
 		sezzleButton.style.borderRadius = pageStyle.borderRadius || "0px";
@@ -134,7 +139,7 @@ class SezzleCheckoutButton {
 
 	getButton() {
 		const sezzleCheckoutButton = document.createElement('a');
-		sezzleCheckoutButton.className = `sezzle-checkout-button sezzle-button-${this.theme === 'dark' ? 'dark' : 'light'}`;
+		sezzleCheckoutButton.className = `sezzle-checkout-button sezzle-button-${this.theme}`;
 		sezzleCheckoutButton.innerHTML = this.parseButtonTemplate();
 		sezzleCheckoutButton.href = "javascript:handleSezzleClick()"
 		sezzleCheckoutButton.addEventListener('click', function (e) {
@@ -143,7 +148,6 @@ class SezzleCheckoutButton {
 			e.preventDefault();
 			location.replace('/checkout?shop_pay_checkout_as_guest=true');
 		}.bind(this));
-		this.addButtonStyle();
 		this.checkMinPrice(sezzleCheckoutButton);
 		return sezzleCheckoutButton;
 	}
@@ -152,49 +156,48 @@ class SezzleCheckoutButton {
 		let apmStyles = getComputedStyle(apmContainer);
 		if (apmContainer && apmStyles.display !== 'none' && apmStyles.visibility === 'visible' && !apmContainer.querySelector('.sezzle-checkout-button')) {
 			let sezzleCheckoutButton = this.getButton();
-			apmContainer.appendChild(sezzleCheckoutButton);
 			this.matchStyle((apmContainer.querySelector('[role="button"]') ? getComputedStyle(apmContainer.querySelector('[role="button"]')) : { display: "inline-block", width: "100%", margin: "10px auto", borderRadius: "4px" }), sezzleCheckoutButton)
+			apmContainer.appendChild(sezzleCheckoutButton);
 		}
 	}
 
 	renderUnderButton(checkoutButton) {
-		let sezzleCheckoutButton = this.getButton();
 		let checkoutButtonParent = checkoutButton.parentElement ? checkoutButton.parentElement : checkoutButton;
 		if (!checkoutButtonParent.querySelector('.sezzle-checkout-button')) {
-			checkoutButton.nextElementSibling ? checkoutButtonParent.insertBefore(sezzleCheckoutButton, checkoutButton.nextElementSibling) : checkoutButtonParent.append(sezzleCheckoutButton);
-			console.log('Sezzle button rendered')
+			let sezzleCheckoutButton = this.getButton();
 			this.matchStyle(getComputedStyle(checkoutButton), sezzleCheckoutButton)
+			checkoutButton.nextElementSibling ? checkoutButtonParent.insertBefore(sezzleCheckoutButton, checkoutButton.nextElementSibling) : checkoutButtonParent.append(sezzleCheckoutButton);
 		}
 	}
 
 	createButton() {
-		const maxPrice = document.longTermPaymentConfig && document.longTermPaymentConfig.maxPrice || document.sezzleConfig && document.sezzleConfig.maxPrice || 250000;
-		if (this.cartTotal && this.cartTotal > maxPrice) {
+		if (this.exceedsMaxPrice()) {
 			return;
 		}
-		// Shopify app blocks allows merchants to place widgets as per their wish.
-		// If merchant doesn't want default placement, container is created in theme
-		// app extension and the checkout button is rendered inside that container.
-		if (!this.defaultPlacement) {
+		this.addButtonStyle();
+		var containers = {
+			customPlaceholder: document.querySelector('#sezzle-checkout-button-container'),
+			apmContainers: document.getElementsByClassName('additional-checkout-buttons'),
+			checkoutButtons: document.getElementsByName('checkout'),
+		}
+		if (containers.customPlaceholder && !this.defaultPlacement) {
 			let sezzleCheckoutButton = this.getButton();
-			const customPlaceholder = document.querySelector('#sezzle-checkout-button-container');
-			customPlaceholder.append(sezzleCheckoutButton);
-			this.matchStyle({ display: "inline-block", width: "fit-content", margin: "0px auto", borderRadius: "0px" }, sezzleCheckoutButton)
+			this.matchStyle({});
+			containers.customPlaceholder.append(sezzleCheckoutButton);
 			return;
-		}
-		const apmContainers = document.getElementsByClassName('additional-checkout-buttons');
-		for (let i = 0; i < apmContainers.length; i++) {
-			this.renderUnderAPM(apmContainers[i]);
-		}
-		if (document.querySelector('.sezzle-checkout-button')) {
+		} else if (containers.apmContainers.length) {
+			for (let i = 0; i < apmContainers.length; i++) {
+				this.renderUnderAPM(apmContainers[i]);
+			}
 			return;
-		}
-		const checkoutButtons = document.getElementsByName('checkout');
-		for (let i = 0; i < checkoutButtons.length; i++) {
-			this.renderUnderButton(checkoutButtons[i]);
-		}
-		if (!document.querySelector('.sezzle-checkout-button')) {
+		} else if (containers.checkoutButtons.length) {
+			for (let i = 0; i < checkoutButtons.length; i++) {
+				this.renderUnderButton(checkoutButtons[i]);
+			}
+			return;
+		} else {
 			console.log('Sezzle checkout button could not be rendered: Shopify checkout button not found.')
+			return;
 		}
 	}
 
@@ -202,6 +205,11 @@ class SezzleCheckoutButton {
 		try {
 			this.createButton()
 			this.eventLogger.sendEvent("checkout-button-onload");
+			var sezzleObserver = new MutationObserver(this.createButton());
+			 sezzleObserver.observe(document, {
+				childList: true,
+				subtree: true
+			 });
 		} catch (e) {
 			this.eventLogger.sendEvent("checkout-button-error", e.message);
 		}
