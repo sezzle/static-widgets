@@ -16,6 +16,8 @@ include:
 image: 'node:20'
 
 variables:
+  s3_bucket_production: "checkout-sdk.sezzle.com"
+  cf_dist_production: "$CF_DIST"
   JIRA_PROJECT_NAME: "MINT"
 
 #############
