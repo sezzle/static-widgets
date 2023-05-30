@@ -1,31 +1,15 @@
-# UPDATE INCLUDES #
-# UPDATE INCLUDES #
-################
-#   GLOBALS    #
-################
 include:
   - project: 'DevOps/templates'
-    file: '/js/defaults.yml'
-  - project: 'DevOps/templates'
-    file: '/js/jest_tests.yml'
-  - project: 'DevOps/templates'
-    file: '/js/build.yml'
-  - project: 'DevOps/templates'
-    file: '/cloudfront/deploy.yml'
+    ref: 'v2.0.3'
+    file:
+      - '.compile/js.yml'
+      - '.build/npm.yml'
+      - '.build/docker.yml'
+      - '.deploy/cloudfront.yml'
 
 image: 'node:20'
 
 variables:
   s3_bucket_production: "checkout-sdk.sezzle.com"
-  cf_dist_production: "$CF_DIST"
+  cf_dist_production: "EQ8554SMUE81E"
   JIRA_PROJECT_NAME: "MINT"
-
-#############
-#   DEPLOY  #
-#############
-
-deploy_production:
-  stage: deploy
-  variables:
-    S3_BUCKET: "checkout-sdk.sezzle.com"
-    CF_DIST: $CF_DIST
