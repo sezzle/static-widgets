@@ -185,14 +185,14 @@ class SezzleCheckoutButton {
 			this.matchStyle({});
 			containers.customPlaceholder.append(sezzleCheckoutButton);
 			return;
-		} else if (containers.apmContainers.length) {
-			for (let i = 0; i < apmContainers.length; i++) {
-				this.renderUnderAPM(apmContainers[i]);
+		} else if (containers.apmContainers && containers.apmContainers.length) {
+			for (let i = 0; i < containers.apmContainers.length; i++) {
+				this.renderUnderAPM(containers.apmContainers[i]);
 			}
 			return;
-		} else if (containers.checkoutButtons.length) {
-			for (let i = 0; i < checkoutButtons.length; i++) {
-				this.renderUnderButton(checkoutButtons[i]);
+		} else if (containers.checkoutButtons && containers.checkoutButtons.length) {
+			for (let i = 0; i < containers.checkoutButtons.length; i++) {
+				this.renderUnderButton(containers.checkoutButtons[i]);
 			}
 			return;
 		} else {
@@ -205,11 +205,6 @@ class SezzleCheckoutButton {
 		try {
 			this.createButton()
 			this.eventLogger.sendEvent("checkout-button-onload");
-			var sezzleObserver = new MutationObserver(this.createButton());
-			 sezzleObserver.observe(document, {
-				childList: true,
-				subtree: true
-			 });
 		} catch (e) {
 			this.eventLogger.sendEvent("checkout-button-error", e.message);
 		}
