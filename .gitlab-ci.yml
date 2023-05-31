@@ -4,7 +4,6 @@ include:
     file:
       - '.compile/js.yml'
       - '.build/npm.yml'
-      - '.build/docker.yml'
       - '.deploy/cloudfront.yml'
 
 image: 'node:20'
