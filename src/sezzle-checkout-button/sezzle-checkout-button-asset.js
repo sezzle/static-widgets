@@ -63,7 +63,7 @@ class SezzleCheckoutButton {
 				width: auto;
 				text-decoration: none;
 				text-transform: none;
-				padding: 9px;
+				padding: 9px !important;
 				font-size: 15px;
 				line-height: 29px;
 				justify-content: center;
