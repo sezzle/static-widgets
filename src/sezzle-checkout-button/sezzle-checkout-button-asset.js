@@ -49,7 +49,7 @@ class SezzleCheckoutButton {
 		return templateString;
 	}
 
-	addButtonStyle() {
+	matchStyle(pageStyle) {
 		const sezzleButtonStyle = document.createElement('style');
 		sezzleButtonStyle.innerHTML = `
 			@import url(https://fonts.googleapis.com/css?family=Comfortaa);
@@ -58,9 +58,7 @@ class SezzleCheckoutButton {
 				font-family: "Comfortaa", cursive !important;
 				border: none;
 				text-align: center;
-				display: inline-block;
 				min-width: fit-content;
-				width: auto;
 				height: fit-content;
 				text-decoration: none;
 				text-transform: none;
@@ -68,6 +66,10 @@ class SezzleCheckoutButton {
 				font-size: 15px;
 				line-height: 29px;
 				justify-content: center;
+				display: ${pageStyle && pageStyle.display === "block" ? "block" : "inline-block"};
+				width: ${pageStyle.width || "fit-content"};
+				margin: ${pageStyle.margin || "0px auto"};
+				border-radius: ${pageStyle.borderRadius || "0px"};
 			}
 			.sezzle-button-light {
 				background-color: #392558 !important;
@@ -103,13 +105,6 @@ class SezzleCheckoutButton {
             }
 		`;
 		document.head.appendChild(sezzleButtonStyle);
-	}
-
-	matchStyle(pageStyle, sezzleButton) {
-		sezzleButton.style.display = pageStyle && pageStyle.display === "block" ? "block" : "inline-block";
-		sezzleButton.style.width = pageStyle.width || "fit-content";
-		sezzleButton.style.margin = pageStyle.margin || "0px auto";
-		sezzleButton.style.borderRadius = pageStyle.borderRadius || "0px";
 	}
 
 	handleSezzleClick() {
@@ -157,7 +152,7 @@ class SezzleCheckoutButton {
 		let apmStyles = getComputedStyle(apmContainer);
 		if (apmContainer && apmStyles.display !== 'none' && apmStyles.visibility === 'visible' && !apmContainer.querySelector('.sezzle-checkout-button')) {
 			let sezzleCheckoutButton = this.getButton();
-			this.matchStyle((apmContainer.querySelector('[role="button"]') ? getComputedStyle(apmContainer.querySelector('[role="button"]')) : { display: "inline-block", width: "100%", margin: "10px auto", borderRadius: "4px" }), sezzleCheckoutButton)
+			this.matchStyle((apmContainer.querySelector('[role="button"]') ? getComputedStyle(apmContainer.querySelector('[role="button"]')) : { display: "inline-block", width: "100%", margin: "10px auto", borderRadius: "4px" }))
 			apmContainer.appendChild(sezzleCheckoutButton);
 		}
 	}
@@ -166,7 +161,7 @@ class SezzleCheckoutButton {
 		let checkoutButtonParent = checkoutButton.parentElement ? checkoutButton.parentElement : checkoutButton;
 		if (!checkoutButtonParent.querySelector('.sezzle-checkout-button')) {
 			let sezzleCheckoutButton = this.getButton();
-			this.matchStyle(getComputedStyle(checkoutButton), sezzleCheckoutButton)
+			this.matchStyle(getComputedStyle(checkoutButton))
 			checkoutButton.nextElementSibling ? checkoutButtonParent.insertBefore(sezzleCheckoutButton, checkoutButton.nextElementSibling) : checkoutButtonParent.append(sezzleCheckoutButton);
 		}
 	}
@@ -175,7 +170,6 @@ class SezzleCheckoutButton {
 		if (this.exceedsMaxPrice()) {
 			return;
 		}
-		this.addButtonStyle();
 		var containers = {
 			customPlaceholder: document.querySelector('#sezzle-checkout-button-container'),
 			apmContainers: document.getElementsByClassName('additional-checkout-buttons'),
