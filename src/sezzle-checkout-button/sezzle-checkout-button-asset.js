@@ -35,7 +35,7 @@ class SezzleCheckoutButton {
 	}
 
 	exceedsMaxPrice() {
-		const maxPrice = document.longTermPaymentConfig && document.longTermPaymentConfig.maxPrice || document.sezzleConfig && document.sezzleConfig.maxPrice || 250000;
+		const maxPrice = document.longTermPaymentConfig?.maxPrice || document.sezzleConfig?.maxPrice || 250000;
 		return this.cartTotal && this.cartTotal > maxPrice;
 	}
 
@@ -66,7 +66,7 @@ class SezzleCheckoutButton {
 				font-size: 15px;
 				line-height: 29px;
 				justify-content: center;
-				display: ${pageStyle && pageStyle.display === "block" ? "block" : "inline-block"};
+				display: ${pageStyle?.display === "block" ? "block" : "inline-block"};
 				width: ${pageStyle.width || "fit-content"};
 				margin: ${pageStyle.margin || "0px auto"};
 				border-radius: ${pageStyle.borderRadius || "0px"};
@@ -126,7 +126,7 @@ class SezzleCheckoutButton {
 	}
 
 	checkMinPrice(sezzleCheckoutButton) {
-		const minPrice = document.sezzleConfig && document.sezzleConfig.minPrice || 0;
+		const minPrice = document.sezzleConfig?.minPrice || 0;
 		if (this.cartTotal && this.cartTotal < minPrice) {
 			const minPriceText = this.getMinPriceText(minPrice);
 			sezzleCheckoutButton.append(minPriceText);
@@ -150,7 +150,7 @@ class SezzleCheckoutButton {
 
 	renderUnderAPM(apmContainer) {
 		const apmStyles = getComputedStyle(apmContainer);
-		if (apmContainer && apmStyles.display !== 'none' && apmStyles.visibility === 'visible' && !apmContainer.querySelector('.sezzle-checkout-button')) {
+		if (apmStyles.display !== 'none' && apmStyles.visibility === 'visible' && !apmContainer?.querySelector('.sezzle-checkout-button')) {
 			const sezzleCheckoutButton = this.getButton();
 			const apmFirstChild = apmContainer.querySelector('[role="button"]');
 			this.matchStyle((apmFirstChild ? getComputedStyle(apmFirstChild) : { display: "inline-block", width: "100%", margin: "10px auto", borderRadius: "4px" }))
