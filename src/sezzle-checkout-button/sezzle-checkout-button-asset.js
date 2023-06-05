@@ -100,7 +100,7 @@ class SezzleCheckoutButton {
 				display: inline;
 				margin: 0px 2px;
 			}
-			.minPriceDiv {
+			.sezzle-checkout-button .min-price {
              font-size: 12px;
             }
 		`;
@@ -113,7 +113,7 @@ class SezzleCheckoutButton {
 
 	getMinPriceText(minPrice) {
 		const minPriceText = document.createElement('div');
-		minPriceText.className = `minPriceDiv`;
+		minPriceText.className = `min-price`;
 		if (document.documentElement.lang === "fr") {
 			minPriceText.innerHTML = "pour les achats de plus de $" + minPrice / 100;
 		} else if (document.documentElement.lang === "es") {
