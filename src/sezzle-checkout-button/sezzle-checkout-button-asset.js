@@ -185,20 +185,16 @@ class SezzleCheckoutButton {
 			let sezzleCheckoutButton = this.getButton();
 			this.matchStyle({});
 			containers.customPlaceholder.append(sezzleCheckoutButton);
-			return;
 		} else if (containers.apmContainers && containers.apmContainers.length) {
 			for (let i = 0; i < containers.apmContainers.length; i++) {
 				this.renderUnderAPM(containers.apmContainers[i]);
 			}
-			return;
 		} else if (containers.checkoutButtons && containers.checkoutButtons.length) {
 			for (let i = 0; i < containers.checkoutButtons.length; i++) {
 				this.renderUnderButton(containers.checkoutButtons[i]);
 			}
-			return;
 		} else {
 			console.log('Sezzle checkout button could not be rendered: Shopify checkout button not found.')
-			return;
 		}
 	}
 
