@@ -29,8 +29,8 @@ class SezzleCheckoutButton {
 	}
 
 	getTranslation(template) {
-		let templateToGet = typeof template === "string" && this.defaultTemplate[template.split(" ")[0]] ? template.split(" ")[0] : "Checkout";
-		let languageToGet = this.defaultTemplate[templateToGet][document.documentElement.lang] ? document.documentElement.lang : "en";
+		const templateToGet = typeof template === "string" && this.defaultTemplate[template.split(" ")[0]] ? template.split(" ")[0] : "Checkout";
+		const languageToGet = this.defaultTemplate[templateToGet][document.documentElement.lang] ? document.documentElement.lang : "en";
 		return this.defaultTemplate[templateToGet][languageToGet];
 	}
 
@@ -149,10 +149,11 @@ class SezzleCheckoutButton {
 	}
 
 	renderUnderAPM(apmContainer) {
-		let apmStyles = getComputedStyle(apmContainer);
+		const apmStyles = getComputedStyle(apmContainer);
 		if (apmContainer && apmStyles.display !== 'none' && apmStyles.visibility === 'visible' && !apmContainer.querySelector('.sezzle-checkout-button')) {
-			let sezzleCheckoutButton = this.getButton();
-			this.matchStyle((apmContainer.querySelector('[role="button"]') ? getComputedStyle(apmContainer.querySelector('[role="button"]')) : { display: "inline-block", width: "100%", margin: "10px auto", borderRadius: "4px" }))
+			const sezzleCheckoutButton = this.getButton();
+			const apmFirstChild = apmContainer.querySelector('[role="button"]');
+			this.matchStyle((apmFirstChild ? getComputedStyle(apmFirstChild) : { display: "inline-block", width: "100%", margin: "10px auto", borderRadius: "4px" }))
 			apmContainer.appendChild(sezzleCheckoutButton);
 		}
 	}
@@ -160,7 +161,7 @@ class SezzleCheckoutButton {
 	renderUnderButton(checkoutButton) {
 		let checkoutButtonParent = checkoutButton.parentElement ? checkoutButton.parentElement : checkoutButton;
 		if (!checkoutButtonParent.querySelector('.sezzle-checkout-button')) {
-			let sezzleCheckoutButton = this.getButton();
+			const sezzleCheckoutButton = this.getButton();
 			this.matchStyle(getComputedStyle(checkoutButton))
 			checkoutButton.nextElementSibling ? checkoutButtonParent.insertBefore(sezzleCheckoutButton, checkoutButton.nextElementSibling) : checkoutButtonParent.append(sezzleCheckoutButton);
 		}
@@ -170,13 +171,13 @@ class SezzleCheckoutButton {
 		if (this.exceedsMaxPrice()) {
 			return;
 		}
-		var containers = {
+		const containers = {
 			customPlaceholder: document.querySelector('#sezzle-checkout-button-container'),
 			apmContainers: document.getElementsByClassName('additional-checkout-buttons'),
 			checkoutButtons: document.getElementsByName('checkout'),
 		}
 		if (containers.customPlaceholder && !this.defaultPlacement) {
-			let sezzleCheckoutButton = this.getButton();
+			const sezzleCheckoutButton = this.getButton();
 			this.matchStyle({});
 			containers.customPlaceholder.append(sezzleCheckoutButton);
 		} else if (containers.apmContainers.length) {
