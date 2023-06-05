@@ -185,11 +185,11 @@ class SezzleCheckoutButton {
 			let sezzleCheckoutButton = this.getButton();
 			this.matchStyle({});
 			containers.customPlaceholder.append(sezzleCheckoutButton);
-		} else if (containers.apmContainers && containers.apmContainers.length) {
+		} else if (containers.apmContainers.length) {
 			for (let i = 0; i < containers.apmContainers.length; i++) {
 				this.renderUnderAPM(containers.apmContainers[i]);
 			}
-		} else if (containers.checkoutButtons && containers.checkoutButtons.length) {
+		} else if (containers.checkoutButtons.length) {
 			for (let i = 0; i < containers.checkoutButtons.length; i++) {
 				this.renderUnderButton(containers.checkoutButtons[i]);
 			}
