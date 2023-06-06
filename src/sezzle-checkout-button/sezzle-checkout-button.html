@@ -8,9 +8,10 @@
 	text-align: center;
 	min-width: fit-content;
 	width: auto;
+	height: fit-content;
 	text-decoration: none;
 	text-transform: none;
-	padding: 9px;
+	padding: 9px !important;
 	font-size: 15px;
 	line-height: 29px;
 	justify-content: center;
@@ -44,7 +45,7 @@
 	display: inline;
 	margin: 0px 2px;
 }
-#minPriceDiv {
+.sezzle-checkout-button .min-price {
 	font-size: 12px;
 }
 </style>
@@ -55,7 +56,7 @@
 </script>
 <a class="sezzle-checkout-button sezzle-button-light" href="javascript:handleSezzleClick()" id="sezzle-checkout-button">
 	Checkout with &nbsp;<img class="sezzle-button-logo-img"
-		src="https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg" alt="Sezzle"><div id="minPriceDiv" style="display:none;"></div>
+		src="https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg" alt="Sezzle"><div class="min-price" style="display:none;"></div>
 </a>
 <script type="text/javascript">
 	function copyStyles() {
@@ -73,7 +74,7 @@
 	}
 	function handleTranslation() {
 		if (document.documentElement.lang === "fr") {
-			document.getElementById("sezzle-checkout-button").innerHTML = `Achetez avec &nbsp;<img class="sezzle-button-logo-img" src="https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg" alt="Sezzle"><div id="minPriceDiv" style="display:none;font-size:12px;"></div>`;
+			document.getElementById("sezzle-checkout-button").innerHTML = `Achetez avec &nbsp;<img class="sezzle-button-logo-img" src="https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg" alt="Sezzle"><div class="min-price" style="display:none;font-size:12px;"></div>`;
 		}
 	}
 	function handleMinPrice(cartTotal) {
@@ -85,7 +86,7 @@
 			else {
 				minPriceDiv.innerHTML = "on orders above $" + minPrice / 100;
 			}
-			document.getElementById("minPriceDiv").style.display = "block";
+			document.getElementsByClassName("min-price").style.display = "block";
 		}
 	}
 	document.onreadystatechange = function () {
