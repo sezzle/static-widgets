@@ -733,7 +733,7 @@ class AwesomeSezzle {
 				sezzleHeaderChild: 'Pay in 4 by selecting Sezzle at checkout.',
 				sezzleHeaderLt: 'Make easy monthly payments on your order',
 				sezzleRowChild: 'Flexible payment plans for your budget',
-				sezzleRowLtChild1: 'Checking eligibility won\'t affect your credit.',
+				sezzleRowLtChild: 'Checking eligibility won\'t affect your credit.',
 				pieAlt: 'pie at',
 				today: 'Today',
 				week: 'Week',
@@ -765,7 +765,7 @@ class AwesomeSezzle {
 				sezzleHeaderChild: 'Payez en 4 en sélectionnant Sezzle à la caisse.',
 				sezzleHeaderLt: 'Effectuez des paiements mensuels faciles sur votre&nbsp;achat',
 				sezzleRowChild: 'Plans de paiement flexibles pour votre&nbsp;budget',
-				sezzleRowLtChild1: 'Vérifier l\'éligibilité n\'affectera pas votre crédit.',
+				sezzleRowLtChild: 'Vérifier l\'éligibilité n\'affectera pas votre crédit.',
 				pieAlt: 'graphique circulaire à',
 				today: 'Aujourd\'hui',
 				week: 'Semaine',
@@ -796,7 +796,7 @@ class AwesomeSezzle {
 				sezzleHeaderChild: 'Paga en 4 seleccionando Sezzle al finalizar la&nbsp;compra.',
 				sezzleHeaderLt: 'Realiza pagos mensuales fáciles en tu compra',
 				sezzleRowChild: 'Planes de pago flexibles para su&nbsp;presupuesto',
-				sezzleRowLtChild1: 'Verificar la elegibilidad no afectará su crédito.',
+				sezzleRowLtChild: 'Verificar la elegibilidad no afectará su crédito.',
 				pieAlt: 'gráfico circular en',
 				today: 'Hoy',
 				week: 'Semana',
@@ -848,7 +848,7 @@ class AwesomeSezzle {
 						<div id="sezzle-modal-core-content" class="sezzle-modal-content">
 
 							<header class="sezzle-header">${modalTranslations[this.language].sezzleHeaderLt}</header>
-							<div class="sezzle-row">${modalTranslations[this.language].sezzleRowLtChild1}</div>
+							<div class="sezzle-row">${modalTranslations[this.language].sezzleRowLtChild}</div>
 							<div class="sezzle-lt-payments">
 								<div class="sezzle-lt-payment-header">${modalTranslations[this.language].sezzleLtPaymentHeader} <span>${currency + this.addDelimiters(priceString, this.parseMode)}</span></div>
 								<div class="sezzle-lt-payment-options ${terms[2]}-month" ${terms[2] === undefined ? `style="display: none;"` : `style="display: block;"`}>
