@@ -864,7 +864,7 @@ class AwesomeSezzle {
 										<div class="interest-amount">${modalTranslations[this.language].interest} <span>${currency + this.formatTotalInterest(priceString, this.parseMode, terms[2], this.bestAPR)}</span></div>
 										<div class="sample-apr">
 											<span aria-label="${modalTranslations[this.language].readApr} ${this.bestAPR} ${modalTranslations[this.language].percent}">
-											<span class="apr-label" aria-hidden="true">${modalTranslations[this.language].sampleApr}</span><span aria-hidden="true">${this.bestAPR}%</span></span>
+											<span aria-hidden="true">${modalTranslations[this.language].sampleApr}</span><span aria-hidden="true">${this.bestAPR}%</span></span>
 										</div>
 									</div>
 								</div>
@@ -881,7 +881,7 @@ class AwesomeSezzle {
 										<div class="interest-amount">${modalTranslations[this.language].interest} <span>${currency + this.formatTotalInterest(priceString, this.parseMode, terms[1], this.bestAPR)}</span></div>
 										<div class="sample-apr">
 											<span aria-label="${modalTranslations[this.language].readApr} ${this.bestAPR} ${modalTranslations[this.language].percent}">
-											<span class="apr-label" aria-hidden="true">${modalTranslations[this.language].sampleApr}</span><span aria-hidden="true">${this.bestAPR}%</span></span>
+											<span aria-hidden="true">${modalTranslations[this.language].sampleApr}</span><span aria-hidden="true">${this.bestAPR}%</span></span>
 										</div>
 									</div>
 								</div>
@@ -898,7 +898,7 @@ class AwesomeSezzle {
 										<div class="interest-amount">${modalTranslations[this.language].interest} <span>${currency + this.formatTotalInterest(priceString, this.parseMode, terms[0], this.bestAPR)}</span></div>
 										<div class="sample-apr">
 											<span aria-label="${modalTranslations[this.language].readApr} ${this.bestAPR} ${modalTranslations[this.language].percent}">
-											<span class="apr-label" aria-hidden="true">${modalTranslations[this.language].sampleApr}</span><span aria-hidden="true">${this.bestAPR}%</span></span>
+											<span aria-hidden="true">${modalTranslations[this.language].sampleApr}</span><span aria-hidden="true">${this.bestAPR}%</span></span>
 										</div>
 									</div>
 								</div>
