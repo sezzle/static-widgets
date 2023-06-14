@@ -146,8 +146,7 @@
     }
 }
 
-@import url("https://fonts.googleapis.com/css?family=Comfortaa");
-
+@import url('https://fonts.cdnfonts.com/css/satoshi');
 $breakpoint-large: 1150px;
 $breakpoint-medium: 965px;
 $breakpoint-small: 600px;
@@ -155,8 +154,8 @@ $breakpoint-mobile: 450px;
 
 $breakpoint-minimum: 280px;
 
-$font-color: #382757;
-$font-family: Comfortaa, "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-color: #000000;
+$font-family: Satoshi, "Open Sans", sans-serif;
 
 // To make the body fixed when modal is open
 .sezzle-modal-open {
@@ -186,8 +185,7 @@ $font-family: Comfortaa, "Helvetica Neue", Helvetica, Arial, sans-serif;
         box-shadow: 0 10px 20px rgba(5, 31, 52, 0.19), 0 6px 6px rgba(5, 31, 52, 0.2);
         height: auto;
         max-height: 90%;
-        width: 304px;
-        max-width: 95%;
+        width: 343px;
         color: $font-color;
         font-family: $font-family;
         background-color: #fff;
@@ -195,6 +193,10 @@ $font-family: Comfortaa, "Helvetica Neue", Helvetica, Arial, sans-serif;
         padding: 20px 0;
         border-radius: 10px;
         box-sizing: border-box;
+
+        @media screen and (max-width: 374px) {
+            transform: scale(0.9) translate(-55%, -55%);
+        }
 
         div {
             button.close-sezzle-modal {
@@ -255,9 +257,10 @@ $font-family: Comfortaa, "Helvetica Neue", Helvetica, Arial, sans-serif;
         .sezzle-logo {
             display: block;
             height: 24px;
-            width: 97px;
+            width: 98px;
             margin: 10px auto 0;
             background-image: url(https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg);
+            background-repeat: no-repeat;
         }
 
         .sezzle-modal-content {
@@ -267,28 +270,26 @@ $font-family: Comfortaa, "Helvetica Neue", Helvetica, Arial, sans-serif;
 
             .sezzle-header {
                 display: block;
-                box-shadow: none;
-                height: auto;
                 text-align: center;
                 font-style: normal;
-                font-size: 20px;
-                font-weight: 700;
-                line-height: 24px;
+                font-size: 24px;
+                font-weight: 600;
+                line-height: 28px;
                 font-family: $font-family;
                 color: $font-color;
                 margin-top: 24px;
             }
 
             .sezzle-row {
-                width: 95%;
                 text-align: center;
                 font-style: normal;
-                font-size: 16px;
+                font-size: 15px;
                 font-weight: 400;
-                line-height: 21px;
+                line-height: 20px;
                 color: $font-color;
                 letter-spacing: -0.3px;
-                margin: 16px auto;
+                margin: 8px auto 24px;
+                font-family: $font-family;
             }
 
             .sezzle-four-pay {
@@ -297,23 +298,23 @@ $font-family: Comfortaa, "Helvetica Neue", Helvetica, Arial, sans-serif;
                 align-items: center;
                 background: rgba(131, 51, 212, 0.05);
                 border-radius: 16px;
+                padding: 16px;
 
                 .sezzle-row {
                     text-align: center;
                     font-style: normal;
                     font-size: 15px;
-                    font-weight: 700;
-                    line-height: 16px;
+                    font-weight: 500;
+                    line-height: 20px;
                     font-family: $font-family;
                     color: $font-color;
-                    margin: 16px 0px 0px;
+                    margin: 0px 0px 12px;
                 }
 
                 .sezzle-pie-area {
                     display: flex;
                     flex-direction: row;
                     align-items: flex-start;
-                    padding: 16px 8px;
 
                     .due-today {
                         display: flex;
@@ -323,7 +324,11 @@ $font-family: Comfortaa, "Helvetica Neue", Helvetica, Arial, sans-serif;
                         border: 1px solid #8333D4;
                         border-radius: 8px;
                         margin: 0px 4px;
-                        padding: 12px;
+                        padding: 16px 0px;
+
+                        :first-child {
+                            padding: 0px 6px;
+                        }
                     }
 
                     .future-payments {
@@ -334,13 +339,15 @@ $font-family: Comfortaa, "Helvetica Neue", Helvetica, Arial, sans-serif;
                         border: 1px solid #8333D4;
                         border-radius: 8px;
                         margin: 0px 4px;
-                        padding: 12px;
+                        padding: 0px 4px;
+
+                        :first-child {
+                            padding: 0px 4px;
+                        }
                     }
 
                     .payment-item {
-                        :first-child {
-                            padding: 0px 0px 0px 2px;
-                        }
+                        padding: 16px 2px;
 
                         .breakdown-row {
                             display: flex;
@@ -352,21 +359,23 @@ $font-family: Comfortaa, "Helvetica Neue", Helvetica, Arial, sans-serif;
                             .percentage {
                                 text-align: center;
                                 font-style: normal;
-                                font-size: 16px;
-                                font-weight: 600;
+                                font-size: 15px;
+                                font-weight: 500;
                                 line-height: 20px;
                                 color: #8333D4;
-                                padding: 8px;
+                                font-family: $font-family;
+                                align-items: center;
+                                letter-spacing: -0.3px;
                             }
 
                             .due {
-                                width: 100%;
                                 text-align: center;
                                 font-style: normal;
-                                font-size: 9px;
+                                font-size: 12px;
                                 font-weight: 400;
                                 line-height: 16px;
                                 color: #5E5E5E;
+                                font-family: $font-family;
                             }
                         }
                     }
@@ -377,7 +386,7 @@ $font-family: Comfortaa, "Helvetica Neue", Helvetica, Arial, sans-serif;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                margin: 8px;
+                margin: 16px;
 
                 .single-feature {
                     text-align: center;
@@ -387,7 +396,8 @@ $font-family: Comfortaa, "Helvetica Neue", Helvetica, Arial, sans-serif;
                     line-height: 22px;
                     color: $font-color;
                     letter-spacing: -0.3px;
-                    margin: 8px;
+                    margin: 8px auto;
+                    font-family: $font-family;
                 }
             }
 
@@ -424,7 +434,7 @@ $font-family: Comfortaa, "Helvetica Neue", Helvetica, Arial, sans-serif;
                 font-weight: 400;
                 line-height: 13px;
                 color: #5E5E5E;
-                margin: 8px 0px 0px;
+                font-family: $font-family;
             }
         }
     }
@@ -434,96 +444,106 @@ $font-family: Comfortaa, "Helvetica Neue", Helvetica, Arial, sans-serif;
             background-image: none;
 
             .sezzle-logo {
-                width: 200px;
+                width: 98px;
                 background-image: url(https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg);
                 background-repeat: no-repeat;
                 background-position: 50%;
-                height: 26px;
-                margin: 30px auto;
+                height: 24px;
+                margin: 10px auto 20px auto;
             }
 
             .sezzle-modal-content {
                 height: auto;
                 width: auto;
                 text-align: center;
+                padding: 0px 16px;
 
                 .sezzle-header {
-                    font-size: 20px;
-                    line-height: 25px;
-                    margin: 20px auto;
+                    font-size: 24px;
+                    line-height: 30px;
+                    margin: 10px auto;
                 }
 
                 .sezzle-row {
-                    font-size: 12px;
-                    line-height: 16px;
-                    width: 80%;
-                    margin: 10px auto;
-
-                    .mobile {
-                        display: block;
-
-                        .just-select-sezzle-mobile {
-                            font-size: 14px;
-                            line-height: 15px;
-                            font-weight: 400;
-                            color: $font-color;
-                            margin: 20px auto;
-
-                            div {
-                                display: inline;
-
-                                .sezzle-logo {
-                                    background-repeat: no-repeat;
-                                    background-position: 50%;
-                                    width: 56px;
-                                    height: 14px;
-                                    margin: -2px 2px;
-                                    display: inline-block;
-                                }
-                            }
-                        }
-                    }
+                    font-size: 15px;
+                    line-height: 20px;
+                    margin: 8px auto;
                 }
 
                 .sezzle-lt-payments {
-                    width: 90%;
                     height: fit-content;
                     margin: 20px auto;
                     padding: 20px 0 0;
                     border: 1px solid #e5e5e5;
                     border-radius: 5px;
                     max-width: 502px;
+                    display: block;
+                    flex-direction: column;
+                    align-items: center;
+                    padding: 0px;
+                    gap: 24px;
+                    font-family: $font-family;
+
 
                     .sezzle-lt-payment-header {
-                        font-size: 12px;
-                        line-height: 5px;
-                        font-weight: 700;
-                        white-space: nowrap;
+                        font-family: $font-family;
+                        font-style: normal;
+                        font-weight: 600;
+                        font-size: 15px;
+                        line-height: 20px;
+                        display: block;
+                        align-items: center;
+                        text-align: center;
+                        padding: 15px;
+                        letter-spacing: -0.3px;
+                        border-bottom: 1px solid #e5e5e5;
+                        color: $font-color;
 
                         span {
-                            font-size: 18px;
-                            line-height: 5px;
-                            color: #8333d4;
+                            font-size: 17px;
+                            line-height: 22px;
+                            font-weight: 700;
                         }
                     }
 
                     .sezzle-lt-payment-options {
                         font-size: 12px;
                         line-height: 14px;
-                        margin: 20px 20px 0;
-                        padding-bottom: 20px;
+                        margin: 0px 20px 0;
+                        padding: 20px 0px;
                         border-bottom: 1px solid #e5e5e5;
 
                         .plan {
                             display: flex;
                             justify-content: space-between;
+                            padding-bottom: 10px;
+                            font-size: 12px;
 
                             .monthly-amount {
                                 span {
-                                    font-size: 18px;
+                                    font-size: 17px;
                                     line-height: 22px;
+                                    color: #8333D4;
+                                    font-weight: 600;
+                                    letter-spacing: -0.3px;
                                 }
 
+                                .per-month {
+                                    font-size: 13px;
+                                }
+
+
+                            }
+
+                            .term-length {
+                                border-radius: 100px;
+                                background: rgba(41, 211, 162, 0.1);
+                                color: #00804A;
+                                padding: 2px 8px;
+                                font-size: 12px;
+                                font-weight: 600;
+                                display: flex;
+                                align-items: center;
                             }
                         }
 
@@ -532,27 +552,42 @@ $font-family: Comfortaa, "Helvetica Neue", Helvetica, Arial, sans-serif;
                             justify-content: space-between;
 
                             .adjusted-total {
-                                color: #737373;
-                                display: inline;
-                                font-size: 13px;
-                                width: 30%;
+                                color: #5E5E5E;
+                                font-size: 12px;
+                                width: fit-content;
                                 text-align: left;
+                                font-weight: 400;
+                                line-height: 16px;
+
+                                span {
+                                    display: block;
+                                }
                             }
 
                             .interest-amount {
-                                color: #737373;
-                                display: inline;
-                                font-size: 13px;
-                                width: 30%;
-                                text-align: center;
+                                color: #5E5E5E;
+                                font-size: 12px;
+                                width: fit-content;
+                                text-align: left;
+                                font-weight: 400;
+                                line-height: 16px;
+
+                                span {
+                                    display: block;
+                                }
                             }
 
                             .sample-apr {
-                                color: #737373;
-                                display: inline;
-                                font-size: 13px;
-                                width: 30%;
-                                text-align: right;
+                                color: #5E5E5E;
+                                font-size: 12px;
+                                width: fit-content;
+                                text-align: left;
+                                font-weight: 400;
+                                line-height: 16px;
+
+                                span {
+                                    display: block;
+                                }
                             }
                         }
                     }
@@ -563,23 +598,23 @@ $font-family: Comfortaa, "Helvetica Neue", Helvetica, Arial, sans-serif;
                 }
 
                 .details {
-                    font-size: 12px;
-                    line-height: 16px;
-                    width: 80%;
-                    margin: 20px auto 30px;
-                    max-width: 436px;
+                    font-size: 17px;
+                    line-height: 22px;
+                    margin: 16px auto;
+                    font-weight: 600;
+                    font-family: $font-family;
+                    letter-spacing: -0.3px;
                 }
 
                 .terms {
-                    font-size: 9px;
+                    font-size: 11px;
                     line-height: 13px;
-                    color: #737373;
-                    width: 80%;
+                    color: #5E5E5E;
                     margin: 10px auto 0;
-                    padding: 20px 0 0;
+                    padding: 12px 0 0;
                     border-top: 1px solid #e5e5e5;
-                    max-width: 436px;
-                    text-align: left;
+                    text-align: center;
+                    font-family: $font-family;
                 }
             }
         }

@@ -730,98 +730,96 @@ class AwesomeSezzle {
 			en: {
 				closeSezzleModal: 'Close Sezzle modal.',
 				sezzleHeader: 'Buy Now. Pay Later.',
-				sezzleHeaderChild: 'Select Sezzle as your payment method at checkout.',
-				sezzleHeaderLt: 'Make easy monthly',
-				sezzleHeaderLtChild: 'payments on your order',
-				sezzleRowChild: 'Split your order into 4 or more!',
-				sezzleRowLtChild1: 'Your total purchase will be split into payments,',
-				sezzleRowLtChild2: 'depending on the plan you choose.',
+				sezzleHeaderChild: 'Pay in 4 by selecting Sezzle at checkout.',
+				sezzleHeaderLt: 'Make easy monthly payments on your order',
+				sezzleRowChild: 'Flexible payment plans for your budget',
+				sezzleRowLtChild: 'Checking eligibility won\'t affect your credit.',
 				pieAlt: 'pie at',
 				today: 'Today',
 				week: 'Week',
-				singleFeatureOptions: 'Flexible payment options',
-				singleFeatureCredit: 'Build your credit with Sezzle*',
+				singleFeatureOptions: 'Instant approval decision',
+				singleFeatureCredit: 'No credit check required',
+				singleFeatureAffordable: 'Affordable monthly plans',
+				singleFeaturePrequalify: 'Simple, quick pre-qualification',
 				singleFeatureTrusted: 'Trusted by over 10 million consumers',
+				singleFeatureCreditBuilding: 'Opt in to free credit building',
+
 				sezzleLtPaymentHeader: 'Sample payments for',
 				perMonth: 'per month',
-				monthlyAmount: '/month',
+				monthlyAmount: '/ month',
 				termLength: 'months',
-				adjustedTotal: 'Total:',
-				interest: 'Interest:',
+				adjustedTotal: 'Total Payment:',
+				interest: 'Total Interest:',
 				sampleApr: 'APR:',
 				readApr: 'A.P.R.',
 				percent: 'percent',
-				justSelectSezzleLt1: 'Just choose',
-				justSelectSezzleLt2: 'at checkout',
-				details: 'Provide a few pieces of information and get a real time approval decision. Checking eligibility will not affect your credit.',
-				terms1: '* Sezzle Up is a free credit reporting program shoppers can opt into to have payments reported to credit bureaus.',
-				terms2: 'Subject to approval. First payment date and amount may fluctuate based on eligibility and time of merchant order completion.',
-				termsLt: 'Subject to credit approval. Rates from 5.99% - 29.99% APR; terms from 3 months – 48 months, which may vary by lender. 0% APR options may be available. APRs will vary depending on credit qualifications, loan amount, term, and lender. Minimum purchase is required.',
-				trustedByLt: 'Trusted by over <b>5 million</b> shoppers'
+				terms1: 'Signing up for Sezzle will not impact your credit score. You may opt-in to our free credit reporting program, Sezzle Up, to have your payments reported to credit bureaus. Learn more about spending power <a href="https://sezzle.com/how-it-works" target="_blank">here</a>.',
+				terms2: 'Subject to approval. <a href="https://www.sezzle.com/legal" target="_blank">Click here for complete terms.</a> First payment date and amount may fluctuate based on eligibility and time of merchant order completion.',
+				termsLt1: 'Signing up for Sezzle will not impact your credit score. <a href="https://sezzle.com/how-it-works" target="_blank">Learn&nbsp;more&nbsp;here.</a>',
+				termsLt2: 'Subject to approval. <a href="https://www.sezzle.com/legal" target="_blank">Click here for complete terms.</a> First payment date and amount may fluctuate based on eligibility and time of merchant order completion.',
+				termsLt3: 'Subject to credit approval by a third party lender. Rates from 5.99% - 34.99% APR; terms from 3 months – 48 months, which may vary by lender. 0% APR options may be available. APRs will vary depending on credit qualifications, loan amount, term, and lender. Minimum purchase is required.',
 			},
 			fr: {
 				closeSezzleModal: 'Fermer Sezzle modal.',
-				sezzleHeader: 'Acheter maintenant. Payer plus tard.',
-				sezzleHeaderChild: 'S&#233;lectionnez Sezzle comme mode de paiement lors du paiement.',
-				sezzleHeaderLt: 'Effectuez facilement des paiements',
-				sezzleHeaderLtChild: 'mensuels sur votre commande',
-				sezzleRowChild: 'Divisez votre paiement en 4 ou plus !',
-				sezzleRowLtChild1: 'Votre achat total sera divis&#233; en paiements,',
-				sezzleRowLtChild2: 'selon le plan que vous choisissez.',
-				pieAlt: 'graphique &#224; secteurs &#224;',
+				sezzleHeader: 'Acheter maintenant. Payer&nbsp;plus&nbsp;tard.',
+				sezzleHeaderChild: 'Payez en 4 en sélectionnant Sezzle à la caisse.',
+				sezzleHeaderLt: 'Effectuez des paiements mensuels faciles sur votre&nbsp;achat',
+				sezzleRowChild: 'Plans de paiement flexibles pour votre&nbsp;budget',
+				sezzleRowLtChild: 'Vérifier l\'éligibilité n\'affectera pas votre crédit.',
+				pieAlt: 'graphique circulaire à',
 				today: 'Aujourd\'hui',
 				week: 'Semaine',
-				singleFeatureOptions: 'Options de paiement flexibles',
-				singleFeatureCredit: 'Construisez votre cr&#233;dit avec Sezzle',
-				singleFeatureTrusted: 'Reconnu par plus de 10 millions de consommateurs',
+				singleFeatureOptions: 'Décision d\'approbation instantanée',
+				singleFeatureCredit: 'Aucune vérification de crédit requise',
+				singleFeatureAffordable: 'Forfaits mensuels abordables',
+				singleFeaturePrequalify: 'Pré-qualification simple et rapide',
+				singleFeatureTrusted: 'Reconnu par plus de 10 millions de&nbsp;consommateurs',
+				singleFeatureCreditBuilding: 'Optez pour la construction de crédit&nbsp;gratuite',
 				sezzleLtPaymentHeader: 'Exemples de paiements pour',
-				perMonth: 'por mois',
-				monthlyAmount: '/mois',
+				perMonth: 'par mois',
+				monthlyAmount: '/ mois',
 				termLength: 'mois',
-				adjustedTotal: 'Totale:',
-				interest: 'Int&#233;r&#234ts:',
+				adjustedTotal: 'Paiement Total:',
+				interest: 'Intérêt Total:',
 				sampleApr: 'APR:',
 				readApr: 'A.P.R.',
 				percent: 'pour cent',
-				justSelectSezzleLt1: 'Vous n\'avez qu\' &#224; choisir',
-				justSelectSezzleLt2: 'au moment de r&#233;gler',
-				details: 'Fournissez quelques informations et obtenez une d&#233;cision d\'approbation en temps r&#233;el. La v&#233;rification de l\'&#233;ligibilit&#233; n\'affectera pas votre cr&#233;dit.',
-				terms1: '* Sezzle Up est un programme gratuit d\'&#233;valuation du cr&#233;dit auquel les acheteurs peuvent opter pour que les paiements soient signal&#233;s aux bureaux de cr&#233;dit.',
-				terms2: 'Soumis &#224; l\'approbation. La date et le montant du premier paiement peuvent varier en fonction de l\'&#233;ligibilit&#233; et de l\'heure à laquelle la commande du marchand est termin&#233;e.',
-				termsLt: 'Sous re&#769;serve de l\'approbation du cre&#769;dit. Taux de 5,99% - 29,99% APR ; termes de 3 mois - 48 mois qui peuvent varier selon le pre&#770;teur. Un taux d\'inte&#769;re&#770;t annuel de 0 % peuvent e&#770;tre disponibles. Les taux annuels varient en fonction des conditions de cre&#769dit, du montant du pre&#770;t, de la dure&#769;e et du pre&#770;teur. Un achat minimum est requis.',
-				trustedByLt: 'Avec la confiance de <b>5 millions</b> d\'acheteurs'
+				terms1: 'L\'inscription à Sezzle n\'aura aucune incidence sur votre pointage de crédit. Vous pouvez accepter de participer à notre programme gratuit d\'évaluation du crédit, Sezzle Up, afin que vos paiements soient signalés aux bureaux de crédit. Pour en savoir plus sur le pouvoir d\'achat, <a href="https://sezzle.com/how-it-works" target="_blank">cliquez ici.</a>',
+				terms2: 'Sous réserve d\'approbation. <a href="https://www.sezzle.com/legal" target="_blank">Cliquez ici pour l\'intégralité des conditions.</a> La date et le montant du premier paiement peuvent varier en fonction de l\'éligibilité et de la date de finalisation de la commande auprès du vendeu.',
+				termsLt1: 'L\'inscription à Sezzle n\'aura aucune incidence sur votre pointage de crédit. <a href="https://sezzle.com/how-it-works" target="_blank">Pour en savoir plus, cliquez ici.</a>',
+				termsLt2: 'Sous réserve d\'approbation. <a href="https://www.sezzle.com/legal" target="_blank">Cliquez ici pour l\'intégralité des conditions.</a> La date et le montant du premier paiement peuvent varier en fonction de l\'éligibilité et de la date de finalisation de la commande auprès du vendeu.',
+				termsLt3: 'Sous réserve de l\'approbation du crédit par un prêteur tiers. Taux de 5,99 % à 34,99 % APR ; durées de 3 mois à 48 mois, qui peuvent varier selon le prêteur. Des options à 0 % APR peuvent être disponibles. Les APR varient en fonction des qualifications de crédit, du montant du prêt, de la durée et du prêteur. Un achat minimum est requis.',
 			},
 			es: {
 				closeSezzleModal: 'Cerrar Sezzle modal.',
-				sezzleHeader: 'Comprar ahora. Paga despu&#233;s.',
-				sezzleHeaderChild: 'Seleccione Sezzle como su m&#233;todo de pago al finalizar la compra.',
-				sezzleHeaderLt: 'Realice pagos mensuales',
-				sezzleHeaderLtChild: 'sencillos en su pedido',
-				sezzleRowChild: '&#161;Divida su pedido en 4 o ma&#769;s!',
-				sezzleRowLtChild1: 'Su compra total se dividira&#769; en pagos,',
-				sezzleRowLtChild2: 'segu&#769;n el plan que elija.',
-				pieAlt: 'gra&#769;fico circular en',
+				sezzleHeader: 'Comprar ahora. Paga&nbsp;después.',
+				sezzleHeaderChild: 'Paga en 4 seleccionando Sezzle al finalizar la&nbsp;compra.',
+				sezzleHeaderLt: 'Realiza pagos mensuales fáciles en tu compra',
+				sezzleRowChild: 'Planes de pago flexibles para su&nbsp;presupuesto',
+				sezzleRowLtChild: 'Verificar la elegibilidad no afectará su crédito.',
+				pieAlt: 'gráfico circular en',
 				today: 'Hoy',
 				week: 'Semana',
-				singleFeatureOptions: 'Opciones de pago flexibles',
-				singleFeatureCredit: 'Construya su cr&#233;dito con Sezzle*',
-				singleFeatureTrusted: 'Con la confianza de ma&#769;s de 10 millones de consumidores',
-				sezzleLtPaymentHeader: 'Pagos de muestra por',
+				singleFeatureOptions: 'Decisión de aprobación instantánea',
+				singleFeatureCredit: 'No se requiere verificación de&nbsp;crédito',
+				singleFeatureAffordable: 'Planes mensuales asequibles',
+				singleFeaturePrequalify: 'Precalificación simple y rápida',
+				singleFeatureTrusted: 'Con la confianza de más de 10 millones de consumidores',
+				singleFeatureCreditBuilding: 'Optar por la construcción de crédito&nbsp;gratis',
+				sezzleLtPaymentHeader: 'Ejemplos de pagos por',
 				perMonth: 'por mes',
-				monthlyAmount: '/mes',
+				monthlyAmount: '/ mes',
 				termLength: 'meses',
-				adjustedTotal: 'Total:',
-				interest: 'Intere&#769;s:',
+				adjustedTotal: 'Pago Total:',
+				interest: 'Interés Total:',
 				sampleApr: 'TAE:',
 				readApr: 'T.A.E.',
 				percent: 'por ciento',
-				justSelectSezzleLt1: 'Solo elige',
-				justSelectSezzleLt2: 'al finalizar la compra',
-				details: 'Proporcione algunos datos y obtenga una decisio&#769;n de aprobacio&#769;n en tiempo real. Verificar la elegibilidad no afectara&#769; su cre&#769;dito.',
-				terms1: '* Sezzle Up es un programa gratuito de informes de cr&#233;dito que los compradores pueden optar por informar sobre los pagos a las agencias de cr&#233;dito.',
-				terms2: 'Sujeto a aprobacio&#769;n. La fecha y el monto del primer pago pueden variar segu&#769;n la elegibilidad y el momento en que se completo&#769; el pedido del comerciante.',
-				termsLt: 'Sujeto a aprobacio&#769;n de cre&#769;dito. Tipos del 5,99% al 29,99% TAE; plazos de 3 a 48 meses y pueden variar segu&#769;n el prestamista. Las opciones de 0% TAE pueden esta&#769; disponibles. Las TAE vari&#769;an en funcio&#769;n de las calificaciones crediticias, el importe del pre&#769;stamo, el plazo y el prestamista. Se requiere una compra mi&#769;nima.',
-				trustedByLt: 'Con la confianza de ma&#769;s de <b>5 millones</b> de compradores'
+				terms1: 'Registrarse en Sezzle no afectará su puntaje de crédito. Puede aceptar participar en nuestro programa gratuito de informes crediticios, Sezzle Up, para que sus pagos sean informados a las agencias de crédito. Para obtener más información sobre el poder adquisitivo, <a href="https://sezzle.com/how-it-works" target="_blank">haga clic aquí.</a>',
+				terms2: 'Sujeto a aprobación. <a href="https://www.sezzle.com/legal" target="_blank">Haga clic aquí para ver los términos completos.</a> La fecha y el monto del primer pago pueden variar según la elegibilidad y la fecha de finalización del pedido con el&nbsp;vendedor.',
+				termsLt1: 'Registrarse en Sezzle no afectará su puntaje de crédito. <a href="https://sezzle.com/how-it-works" target="_blank">Para obtener más información, haga clic aquí.</a>',
+				termsLt2: 'Sujeto a aprobación. <a href="https://www.sezzle.com/legal" target="_blank">Haga clic aquí para ver los términos completos.</a> La fecha y el monto del primer pago pueden variar según la elegibilidad y la fecha de finalización del pedido con el&nbsp;vendedor.',
+				termsLt3: 'Sujeto a la aprobación de crédito por parte de un tercero prestamista. Tasas desde 5,99% - 34,99% TAE; plazos de 3 meses a 48 meses, que pueden variar según el prestamista. Las opciones de 0% APR pueden estar disponibles. Las APR variarán según las calificaciones crediticias, el monto del préstamo, el plazo y el prestamista. Se requiere compra mínima.',
 			}
 		}
 		if (!document.getElementsByClassName('sezzle-checkout-modal-lightbox').length) {
@@ -849,27 +847,21 @@ class AwesomeSezzle {
 						<div class="sezzle-logo" title="Sezzle"> </div>
 						<div id="sezzle-modal-core-content" class="sezzle-modal-content">
 
-							<header class="sezzle-header">${modalTranslations[this.language].sezzleHeaderLt}
-								<div class="header-mobile">${modalTranslations[this.language].sezzleHeaderLtChild}</div>
-							</header>
-							<div class="sezzle-row">
-								<div class="mobile">${modalTranslations[this.language].sezzleRowLtChild1}
-									${modalTranslations[this.language].sezzleRowLtChild2}
-								</div>
-							</div>
+							<header class="sezzle-header">${modalTranslations[this.language].sezzleHeaderLt}</header>
+							<div class="sezzle-row">${modalTranslations[this.language].sezzleRowLtChild}</div>
 							<div class="sezzle-lt-payments">
 								<div class="sezzle-lt-payment-header">${modalTranslations[this.language].sezzleLtPaymentHeader} <span>${currency + this.addDelimiters(priceString, this.parseMode)}</span></div>
 								<div class="sezzle-lt-payment-options ${terms[2]}-month" ${terms[2] === undefined ? `style="display: none;"` : `style="display: block;"`}>
 									<div class="plan">
 									<div class="monthly-amount">
 										<span>${currency + this.formatMonthly(priceString, this.parseMode, terms[2], this.bestAPR)}</span>
-										<span aria-label="${modalTranslations[this.language].perMonth}"><span aria-hidden="true">${modalTranslations[this.language].monthlyAmount}<sup>*</sup></span></span>
+										<span aria-label="${modalTranslations[this.language].perMonth}"><span class="per-month" aria-hidden="true">${modalTranslations[this.language].monthlyAmount}<sup>*</sup></span></span>
 									</div>
 									<div class="term-length">${terms[2]} ${modalTranslations[this.language].termLength}</div>
 								</div>
 									<div class="plan-details">
 										<div class="adjusted-total">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.formatAdjustedTotal(priceString, this.parseMode, terms[2], this.bestAPR)}</span></div>
-										<div class="interest-amount">${modalTranslations[this.language].interest} ${currency + this.formatTotalInterest(priceString, this.parseMode, terms[2], this.bestAPR)}</div>
+										<div class="interest-amount">${modalTranslations[this.language].interest} <span>${currency + this.formatTotalInterest(priceString, this.parseMode, terms[2], this.bestAPR)}</span></div>
 										<div class="sample-apr">
 											<span aria-label="${modalTranslations[this.language].readApr} ${this.bestAPR} ${modalTranslations[this.language].percent}">
 											<span aria-hidden="true">${modalTranslations[this.language].sampleApr}</span><span aria-hidden="true">${this.bestAPR}%</span></span>
@@ -880,13 +872,13 @@ class AwesomeSezzle {
 									<div class="plan">
 										<div class="monthly-amount">
 											<span>${currency + this.formatMonthly(priceString, this.parseMode, terms[1], this.bestAPR)}</span>
-											<span aria-label="${modalTranslations[this.language].perMonth}"><span aria-hidden="true">${modalTranslations[this.language].monthlyAmount}<sup>*</sup></span></span>
+											<span aria-label="${modalTranslations[this.language].perMonth}"><span class="per-month" aria-hidden="true">${modalTranslations[this.language].monthlyAmount}<sup>*</sup></span></span>
 										</div>
 										<div class="term-length">${terms[1]} ${modalTranslations[this.language].termLength}</div>
 									</div>
 									<div class="plan-details">
 										<div class="adjusted-total">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.formatAdjustedTotal(priceString, this.parseMode, terms[1], this.bestAPR)}</span></div>
-										<div class="interest-amount">${modalTranslations[this.language].interest} ${currency + this.formatTotalInterest(priceString, this.parseMode, terms[1], this.bestAPR)}</div>
+										<div class="interest-amount">${modalTranslations[this.language].interest} <span>${currency + this.formatTotalInterest(priceString, this.parseMode, terms[1], this.bestAPR)}</span></div>
 										<div class="sample-apr">
 											<span aria-label="${modalTranslations[this.language].readApr} ${this.bestAPR} ${modalTranslations[this.language].percent}">
 											<span aria-hidden="true">${modalTranslations[this.language].sampleApr}</span><span aria-hidden="true">${this.bestAPR}%</span></span>
@@ -897,13 +889,13 @@ class AwesomeSezzle {
 									<div class="plan">
 										<div class="monthly-amount">
 											<span>${currency + this.formatMonthly(priceString, this.parseMode, terms[0], this.bestAPR)}</span>
-											<span aria-label="${modalTranslations[this.language].perMonth}"><span aria-hidden="true">${modalTranslations[this.language].monthlyAmount}<sup>*</sup></span></span>
+											<span aria-label="${modalTranslations[this.language].perMonth}"><span class="per-month" aria-hidden="true">${modalTranslations[this.language].monthlyAmount}<sup>*</sup></span></span>
 										</div>
 										<div class="term-length">${terms[0]} ${modalTranslations[this.language].termLength}</div>
 									</div>
 									<div class="plan-details">
 										<div class="adjusted-total">${modalTranslations[this.language].adjustedTotal} <span>${currency + this.formatAdjustedTotal(priceString, this.parseMode, terms[0], this.bestAPR)}</span></div>
-										<div class="interest-amount">${modalTranslations[this.language].interest} ${currency + this.formatTotalInterest(priceString, this.parseMode, terms[0], this.bestAPR)}</div>
+										<div class="interest-amount">${modalTranslations[this.language].interest} <span>${currency + this.formatTotalInterest(priceString, this.parseMode, terms[0], this.bestAPR)}</span></div>
 										<div class="sample-apr">
 											<span aria-label="${modalTranslations[this.language].readApr} ${this.bestAPR} ${modalTranslations[this.language].percent}">
 											<span aria-hidden="true">${modalTranslations[this.language].sampleApr}</span><span aria-hidden="true">${this.bestAPR}%</span></span>
@@ -911,18 +903,13 @@ class AwesomeSezzle {
 									</div>
 								</div>
 							</div>
-							<div class="sezzle-row">${modalTranslations[this.language].trustedByLt}</div>
-							<div class="sezzle-row">
-								<div class="mobile">
-									<div class="just-select-sezzle-mobile">
-										<div>${modalTranslations[this.language].justSelectSezzleLt1} <div class="sezzle-logo" title="Sezzle"></div> </div>
-										<div>${modalTranslations[this.language].justSelectSezzleLt2}</div>
-									</div>
-								</div>
-							</div>
-							<div class="details">${modalTranslations[this.language].details}</div>
+							<div class="details">${modalTranslations[this.language].singleFeatureAffordable}</div>
+							<div class="details">${modalTranslations[this.language].singleFeaturePrequalify}</div>
+							<div class="details">${modalTranslations[this.language].singleFeatureTrusted}</div>
 							<div class="terms">
-								<sup>*</sup>${modalTranslations[this.language].termsLt}
+								<p>${modalTranslations[this.language].termsLt1}</p>
+								<p>${modalTranslations[this.language].termsLt2}</p>
+								<p>${modalTranslations[this.language].termsLt3}</p>
 							</div>
 						</div>
 					</div>
@@ -963,13 +950,13 @@ class AwesomeSezzle {
 								</p>
 							</div>
 						</div>
-						<div class="future-payments">            
+						<div class="future-payments">
 							<div class="payment-item">
 								<div title="${modalTranslations[this.language].pieAlt} 50%">
 									<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path d="M40 20C40 31.0457 31.0457 40 20 40C8.9543 40 0 31.0457 0 20C0 8.9543 8.9543 0 20 0C31.0457 0 40 8.9543 40 20ZM10 20C10 25.5228 14.4772 30 20 30C25.5228 30 30 25.5228 30 20C30 14.4772 25.5228 10 20 10C14.4772 10 10 14.4772 10 20Z" fill="#8333D4" fill-opacity="0.05"/>
 										<path fill-rule="evenodd" clip-rule="evenodd" d="M40 20C40 31.0457 31.0457 40 20 40C17.2386 40 15 37.7614 15 35C15 32.2386 17.2386 30 20 30C25.5228 30 30 25.5228 30 20C30 14.4772 25.5228 10 20 10V0C31.0457 0 40 8.9543 40 20Z" fill="#8333D4"/>
-									</svg>                        
+									</svg>
 								</div>
 								<p class="breakdown-row">
 									<span class="percentage">25%</span>
@@ -1012,7 +999,7 @@ class AwesomeSezzle {
 								${modalTranslations[this.language].singleFeatureOptions}
 							</p>
 							<p class="single-feature">
-								${modalTranslations[this.language].singleFeatureTrusted}
+								${modalTranslations[this.language].singleFeatureCreditBuilding}
 							</p>
         				</div>
         			<p class="terms">${modalTranslations[this.language].terms1}</p>
