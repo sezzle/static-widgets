@@ -108,7 +108,7 @@ class SezzleCheckoutButton {
 	}
 
 	handleSezzleClick() {
-		location.replace("/checkout?shop_pay_checkout_as_guest=true");
+		location.assign("/checkout?shop_pay_logout=true&skip_shop_pay=true&shop_pay_checkout_as_guest=true");
 	}
 
 	getMinPriceText(minPrice) {
