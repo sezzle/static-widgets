@@ -46,7 +46,7 @@ class AwesomeSezzle {
 		var templateString = this.widgetLanguageTranslation(this.language, this.numberOfPayments, this.merchantLocale)
 		var templateStringLT = this.widgetLanguageTranslationLT(this.language);
 		this.widgetTemplate = this.getWidgetTemplateOverride(options.widgetTemplate) || templateString;
-		this.widgetTemplateLT = this.getWidgetTemplateOverride(options.widgetTemplateLT) ||  templateStringLT;
+		this.widgetTemplateLT = this.getWidgetTemplateOverride(options.widgetTemplateLT) || templateStringLT;
 		this.renderElementInitial = options.renderElement || 'sezzle-widget';
 		this.assignConfigs(options);
 	}
@@ -93,13 +93,12 @@ class AwesomeSezzle {
 		this.widgetTemplateLT = this.widgetTemplateLT;
 	}
 
-	getWidgetTemplateOverride(widgetTemplate){
-		switch (typeof widgetTemplate){
-			case 'object':
-				return widgetTemplate[this.language] || widgetTemplate.en
-			default:
-				return widgetTemplate
+	getWidgetTemplateOverride(widgetTemplate) {
+		if (typeof widgetTemplate == 'object') {
+			return widgetTemplate[this.language] || widgetTemplate.en;
+
 		}
+		return widgetTemplate;
 	}
 
 	widgetLanguageTranslation(language, numberOfPayments, merchantLocale) {
