@@ -45,8 +45,8 @@ class AwesomeSezzle {
 		this.numberOfPayments = options.numberOfPayments || 4;
 		var templateString = this.widgetLanguageTranslation(this.language, this.numberOfPayments, this.merchantLocale)
 		var templateStringLT = this.widgetLanguageTranslationLT(this.language);
-		this.widgetTemplate = options.widgetTemplate ? options.widgetTemplate.split('%%') : templateString.split('%%');
-		this.widgetTemplateLT = options.widgetTemplateLT ? options.widgetTemplateLT.split('%%') : templateStringLT.split('%%');
+		this.widgetTemplate = options.widgetTemplate ? (typeof options.widgetTemplate == 'object' ? (options.widgetTemplate[this.language] || options.widgetTemplate['en']) : options.widgetTemplate) : templateString;
+		this.widgetTemplateLT = options.widgetTemplateLT ? (typeof options.widgetTemplateLT == 'object' ? (options.widgetTemplateLT[this.language] || options.widgetTemplateLT['en']) : options.widgetTemplateLT) : templateStringLT;
 		this.renderElementInitial = options.renderElement || 'sezzle-widget';
 		this.assignConfigs(options);
 	}
@@ -313,6 +313,7 @@ class AwesomeSezzle {
 		sezzleButtonText.className = 'sezzle-button-text';
 		this.setImageURL();
 		var widgetText = this.isProductEligibleLT(this.amount) ? this.widgetTemplateLT : this.widgetTemplate;
+		var widgetTextArray = widgetText.split('%%');
 		var learnMoreTranslations = {
 			en: 'Click here to learn more about',
 			fr: 'Cliquez ici pour en savoir plus sur',
@@ -324,7 +325,7 @@ class AwesomeSezzle {
 			'es-ES': 'Clic aquí para aprender más sobre',
 			'it-IT': 'Clicca qui per ulteriori informazioni su'
 		}
-		widgetText.forEach(function (subtemplate) {
+		widgetTextArray.forEach(function (subtemplate) {
 			switch (subtemplate) {
 				case 'price':
 					var priceSpanNode = document.createElement('span');
