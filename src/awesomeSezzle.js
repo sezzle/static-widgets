@@ -94,7 +94,7 @@ class AwesomeSezzle {
 	}
 
 	getWidgetTemplateOverride(widgetTemplate) {
-		if (typeof widgetTemplate == 'object') {
+		if (widgetTemplate !== null && typeof widgetTemplate == 'object') {
 			return widgetTemplate[this.language] || widgetTemplate.en;
 
 		}
