@@ -107,10 +107,6 @@ class SezzleCheckoutButton {
 		document.head.appendChild(sezzleButtonStyle);
 	}
 
-	handleSezzleClick() {
-		location.replace("/checkout?shop_pay_checkout_as_guest=true");
-	}
-
 	getMinPriceText(minPrice) {
 		const minPriceText = document.createElement('div');
 		minPriceText.className = `min-price`;
@@ -137,12 +133,12 @@ class SezzleCheckoutButton {
 		const sezzleCheckoutButton = document.createElement('a');
 		sezzleCheckoutButton.className = `sezzle-checkout-button sezzle-button-${this.theme}`;
 		sezzleCheckoutButton.innerHTML = this.parseButtonTemplate();
-		sezzleCheckoutButton.href = "javascript:handleSezzleClick()"
+		sezzleCheckoutButton.href = ""
 		sezzleCheckoutButton.addEventListener('click', function (e) {
 			this.eventLogger.sendEvent('checkout-button-onclick');
 			e.stopPropagation();
 			e.preventDefault();
-			location.replace('/checkout?shop_pay_checkout_as_guest=true');
+			location.assign("/checkout?shop_pay_logout=true&skip_shop_pay=true&shop_pay_checkout_as_guest=true");
 		}.bind(this));
 		this.checkMinPrice(sezzleCheckoutButton);
 		return sezzleCheckoutButton;
