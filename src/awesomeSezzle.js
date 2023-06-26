@@ -728,6 +728,7 @@ class AwesomeSezzle {
 				} else {
 					document.querySelector('.sezzle-checkout-button-wrapper').focus();
 				}
+				document.dispatchEvent(new CustomEvent('sezzle:modal-close'));
 			}
 		})
 	}
@@ -1032,6 +1033,7 @@ class AwesomeSezzle {
 				} else {
 					document.querySelector('.sezzle-checkout-button-wrapper').focus();
 				}
+				document.dispatchEvent(new CustomEvent('sezzle:modal-close'));
 			});
 		});
 		let sezzleModal = document.getElementsByClassName('sezzle-modal')[0];
@@ -1064,6 +1066,7 @@ class AwesomeSezzle {
 				} else {
 					document.querySelector('.sezzle-checkout-button-wrapper').focus();
 				}
+				document.dispatchEvent(new CustomEvent('sezzle:modal-close'));
 			});
 		});
 		let sezzleModal = document.getElementsByClassName('sezzle-modal')[0];
@@ -1095,6 +1098,7 @@ class AwesomeSezzle {
 				} else {
 					document.querySelector('.sezzle-checkout-button-wrapper').focus();
 				}
+				document.dispatchEvent(new CustomEvent('sezzle:modal-close'));
 			});
 		});
 		let sezzleModal = document.getElementsByClassName('sezzle-modal')[0];
@@ -1126,6 +1130,7 @@ class AwesomeSezzle {
 				} else {
 					document.querySelector('.sezzle-checkout-button-wrapper').focus();
 				}
+				document.dispatchEvent(new CustomEvent('sezzle:modal-close'));
 			});
 		});
 		let sezzleModal = document.getElementsByClassName('sezzle-modal')[0];
@@ -1170,6 +1175,7 @@ class AwesomeSezzle {
 		var modalNode = document.getElementsByClassName('sezzle-checkout-modal-lightbox')[0];
 		modalNode.style.display = 'block';
 		modalNode.getElementsByClassName('sezzle-modal')[0].className = `sezzle-modal sezzle-modal${this.modalTheme === "grayscale" ? "-grayscale" : "-color"}`;
+		document.dispatchEvent(new CustomEvent('sezzle:modal-open'));
 	}
 
 	addClickEventForModal(sezzleElement) {
@@ -1183,6 +1189,7 @@ class AwesomeSezzle {
 					modalNode.getElementsByClassName('close-sezzle-modal')[0].focus();
 					modalNode.getElementsByClassName('sezzle-modal')[0].className = `sezzle-modal sezzle-modal${this.modalTheme === "grayscale" ? "-grayscale" : "-color"}`;
 					event.target.id = 'sezzle-modal-return';
+					document.dispatchEvent(new CustomEvent('sezzle:modal-open'));
 				}
 			}.bind(this));
 		}.bind(this));
