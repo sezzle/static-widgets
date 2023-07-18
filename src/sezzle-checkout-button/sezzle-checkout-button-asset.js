@@ -159,7 +159,7 @@ class SezzleCheckoutButton {
 		if (!checkoutButtonParent.querySelector('.sezzle-checkout-button')) {
 			const sezzleCheckoutButton = this.getButton();
 			this.matchStyle(getComputedStyle(checkoutButton))
-			checkoutButton.nextElementSibling ? checkoutButtonParent.insertBefore(sezzleCheckoutButton, checkoutButton.nextElementSibling) : checkoutButtonParent.append(sezzleCheckoutButton);
+			checkoutButton.nextElementSibling ? checkoutButtonParent.insertBefore(sezzleCheckoutButton, checkoutButton.nextElementSibling) : checkoutButtonParent.appendChild(sezzleCheckoutButton);
 		}
 	}
 
@@ -181,9 +181,9 @@ class SezzleCheckoutButton {
 				this.renderUnderAPM(containers.apmContainers[i]);
 			}
 		} else if (containers.checkoutButtons.length) {
-			for (let i = 0; i < containers.checkoutButtons.length; i++) {
-				this.renderUnderButton(containers.checkoutButtons[i]);
-			}
+			Array.prototype.slice.call(containers.checkoutButtons).forEach((checkoutButton) => {
+				this.renderUnderButton(checkoutButton);
+			})
 		} else {
 			console.log('Sezzle checkout button could not be rendered: Shopify checkout button not found.')
 		}
