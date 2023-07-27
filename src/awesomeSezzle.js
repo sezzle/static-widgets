@@ -358,6 +358,7 @@ class AwesomeSezzle {
 					break;
 				case 'link':
 					var learnMoreNode = document.createElement('button');
+					learnMoreNode.style.color = this.textColor;
 					learnMoreNode.role = 'button';
 					learnMoreNode.type = 'button';
 					learnMoreNode.ariaLabel = `${learnMoreTranslations[this.language]} Sezzle`;

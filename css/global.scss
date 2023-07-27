@@ -157,6 +157,20 @@ $breakpoint-minimum: 280px;
 $font-color: #000000;
 $font-family: Satoshi, "Open Sans", sans-serif;
 
+.sezzle-checkout-modal-lightbox {
+    background-color: rgba(5,31,52,.57);
+    color: unset;
+    display: none;
+    height: 100vh;
+    left: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    z-index: 99999998;
+}
+
 // To make the body fixed when modal is open
 .sezzle-modal-open {
     position: fixed;
