@@ -812,7 +812,7 @@ class AwesomeSezzle {
 				singleFeatureAffordable: 'Planes mensuales asequibles',
 				singleFeaturePrequalify: 'Precalificación simple y rápida',
 				singleFeatureTrusted: 'Con la confianza de más de 10 millones de consumidores',
-				singleFeatureCreditBuilding: 'Optar por informes de crédito&nbsp;gratuitos',
+				singleFeatureCreditBuilding: 'Optar por informes de crédito&nbsp;gratis',
 				sezzleLtPaymentHeader: 'Ejemplos de pagos por',
 				perMonth: 'por mes',
 				monthlyAmount: '/ mes',
