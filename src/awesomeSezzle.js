@@ -321,6 +321,12 @@ class AwesomeSezzle {
 		var widgetText = this.isProductEligibleLT(this.amount) ? this.widgetTemplateLT : this.widgetTemplate;
 		var widgetTextArray = widgetText.split('%%');
 		var learnMoreTranslations = {
+			en: 'Learn more',
+			fr: 'Apprendre encore plus',
+			de: 'Erfahren Sie mehr',
+			es: 'Aprende más'
+		};
+		var learnMoreAltTranslations = {
 			en: 'Click here to learn more about',
 			fr: 'Cliquez ici pour en savoir plus sur',
 			de: 'Klicken Sie hier, um erfahren Sie mehr über',
@@ -361,15 +367,15 @@ class AwesomeSezzle {
 					learnMoreNode.style.color = this.textColor;
 					learnMoreNode.role = 'button';
 					learnMoreNode.type = 'button';
-					learnMoreNode.ariaLabel = `${learnMoreTranslations[this.language]} Sezzle`;
+					learnMoreNode.ariaLabel = `${learnMoreAltTranslations[this.language]} Sezzle`;
 					learnMoreNode.className = 'sezzle-learn-more sezzle-modal-open-link';
-					var learnMoreText = document.createTextNode('Learn more');
+					var learnMoreText = document.createTextNode(learnMoreTranslations[this.language]);
 					learnMoreNode.appendChild(learnMoreText);
 					sezzleButtonText.appendChild(learnMoreNode);
 					break;
 				case 'info':
 					var infoIconNode = document.createElement('div');
-					infoIconNode.ariaLabel = `${learnMoreTranslations[this.language]} Sezzle`;
+					infoIconNode.ariaLabel = `${learnMoreAltTranslations[this.language]} Sezzle`;
 					infoIconNode.className = 'sezzle-info-icon sezzle-modal-open-link';
 					infoIconNode.innerHTML = '&#9432;';
 					sezzleButtonText.appendChild(infoIconNode);
@@ -378,7 +384,7 @@ class AwesomeSezzle {
 					var questionMarkButton = document.createElement('button');
 					questionMarkButton.role = 'button';
 					questionMarkButton.type = 'button';
-					questionMarkButton.ariaLabel = `${learnMoreTranslations[this.language]} Sezzle`;
+					questionMarkButton.ariaLabel = `${learnMoreAltTranslations[this.language]} Sezzle`;
 					var questionMarkIconNode = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
 					questionMarkIconNode.setAttribute('width', '14');
 					questionMarkIconNode.setAttribute('height', '14');
@@ -428,7 +434,7 @@ class AwesomeSezzle {
 					var apInfoIconNode = document.createElement('button');
 					apInfoIconNode.role = 'button';
 					apInfoIconNode.type = 'button';
-					apInfoIconNode.ariaLabel = `${learnMoreTranslations[this.language]} Afterpay`;
+					apInfoIconNode.ariaLabel = `${learnMoreAltTranslations[this.language]} Afterpay`;
 					apInfoIconNode.className = 'ap-modal-info-link no-sezzle-info';
 					apInfoIconNode.innerHTML = '&#9432;';
 					sezzleButtonText.appendChild(apInfoIconNode);
@@ -483,7 +489,7 @@ class AwesomeSezzle {
 					var quadpayInfoIconNode = document.createElement('button');
 					quadpayInfoIconNode.role = 'button';
 					quadpayInfoIconNode.type = 'button';
-					quadpayInfoIconNode.ariaLabel = `${learnMoreTranslations[this.language]} Quadpay`;
+					quadpayInfoIconNode.ariaLabel = `${learnMoreAltTranslations[this.language]} Quadpay`;
 					quadpayInfoIconNode.className = 'quadpay-modal-info-link no-sezzle-info';
 					quadpayInfoIconNode.innerHTML = '&#9432;';
 					sezzleButtonText.appendChild(quadpayInfoIconNode);
@@ -528,7 +534,7 @@ class AwesomeSezzle {
 					var affirmInfoIconNode = document.createElement('button');
 					affirmInfoIconNode.role = 'button';
 					affirmInfoIconNode.type = 'button';
-					affirmInfoIconNode.ariaLabel = `${learnMoreTranslations[this.language]} Affirm`;
+					affirmInfoIconNode.ariaLabel = `${learnMoreAltTranslations[this.language]} Affirm`;
 					affirmInfoIconNode.className = 'affirm-modal-info-link no-sezzle-info';
 					affirmInfoIconNode.innerHTML = '&#9432;';
 					sezzleButtonText.appendChild(affirmInfoIconNode);
@@ -573,7 +579,7 @@ class AwesomeSezzle {
 					var klarnaInfoIconNode = document.createElement('button');
 					klarnaInfoIconNode.role = 'button';
 					klarnaInfoIconNode.type = 'button';
-					klarnaInfoIconNode.ariaLabel = `${learnMoreTranslations[this.language]} Klarna`;
+					klarnaInfoIconNode.ariaLabel = `${learnMoreAltTranslations[this.language]} Klarna`;
 					klarnaInfoIconNode.className = 'klarna-modal-info-link no-sezzle-info';
 					klarnaInfoIconNode.innerHTML = '&#9432;';
 					sezzleButtonText.appendChild(klarnaInfoIconNode);
