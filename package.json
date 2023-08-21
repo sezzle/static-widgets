@@ -1,5 +1,5 @@
 {
-  "name": "sezzle-simple-sdk",
+  "name": "@sezzle/sezzle-simple-sdk",
   "version": "2.1.0",
   "description": "Simple SDK is a stand-alone widget script which helps merchants integrate widget onto their website.",
   "main": "src/awesomeSezzle.js",
@@ -34,5 +34,9 @@
     "babel-loader": "^9.0.0",
     "dotenv": "^16.0.1",
     "json5": "^2.2.3"
-  }
+  },
+  "keywords": [
+    "price",
+    "widget"
+  ]
 }
