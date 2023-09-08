@@ -442,6 +442,7 @@ class AwesomeSezzle {
 					apAnchor.href = this.apLink;
 					apAnchor.target = '_blank';
 					var apLinkIconNode = document.createElement('code');
+					apLinkIconNode.ariaLabel = `${learnMoreAltTranslations[this.language]} Afterpay`;
 					apLinkIconNode.className = 'ap-info-link';
 					apLinkIconNode.innerHTML = '&#9432;';
 					apAnchor.appendChild(apLinkIconNode)
