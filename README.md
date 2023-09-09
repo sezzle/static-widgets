@@ -414,7 +414,7 @@ The following functions are built into the static widget and are ready for use f
 
 ```js
 document.onchange = function(){
-   renderSezzle.updateWidgetTemplate('%%logo%%% Pay in 4 interest-free payments on purchases greater than $50. %%info%%');
+   renderSezzle.updateWidgetTemplate('%%logo%% Pay in 4 interest-free payments on purchases greater than $50. %%info%%');
 }
 ```
 
