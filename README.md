@@ -410,6 +410,14 @@ The following functions are built into the static widget and are ready for use f
       document.body.insertBefore(renderSezzle.getElementToRender(), document.getElementById('price').nextElementSibling);
     ```
 
+5. `updateWidgetTemplate(newTemplate)` - Allows caller to update the widget template when specific scenarios might occur. Examples could include when custom text needs to render per customized pricing rules or when Sezzle is unavailable due to other restrictions.
+
+```js
+document.onchange = function(){
+   renderSezzle.updateWidgetTemplate('%%logo%%% Pay in 4 interest-free payments on purchases greater than $50. %%info%%');
+}
+```
+
 ## Other Products in this Project
 
 The following products are included in the static-widgets project because, like the core product, these are installed so all code is housed within your store's theme. However, each is a distinct product with its own purpose and installation instructions.
