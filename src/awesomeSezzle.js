@@ -748,6 +748,8 @@ class AwesomeSezzle {
 	renderModal() {
 		const modalTranslations = {
 			en: {
+				sezzleInfo: 'Sezzle Information.',
+				aboutSezzle: 'Learn more about Sezzle.',
 				closeSezzleModal: 'Close Sezzle modal.',
 				sezzleHeader: 'Buy Now. Pay Later.',
 				sezzleHeaderChild: 'Pay in 4 by selecting Sezzle at checkout.',
@@ -779,6 +781,8 @@ class AwesomeSezzle {
 				termsLt3: 'Subject to credit approval by a third party lender. Rates from 5.99% - 34.99% APR; terms from 3 months – 48 months, which may vary by lender. 0% APR options may be available. APRs will vary depending on credit qualifications, loan amount, term, and lender. Minimum purchase is required.',
 			},
 			fr: {
+				sezzleInfo: 'Informations Sezzle.',
+				aboutSezzle: 'En savoir plus sur Sezzle.',
 				closeSezzleModal: 'Fermer Sezzle modal.',
 				sezzleHeader: 'Acheter maintenant. Payer&nbsp;plus&nbsp;tard.',
 				sezzleHeaderChild: 'Payez en 4 en sélectionnant Sezzle à la caisse.',
@@ -858,7 +862,7 @@ class AwesomeSezzle {
 					modalNode.innerHTML = this.ltAltModalHTML;
 				} else {
 					modalNode.innerHTML = `
-				<div id="sezzle-modal-container" role="dialog" aria-label="Sezzle Modal" aria-description="Learn more about Sezzle" class="sezzle-checkout-modal-hidden long-term">
+				<div id="sezzle-modal-container" role="dialog" aria-label="${modalTranslations[this.language].sezzleInfo}" aria-description="${modalTranslations[this.language].aboutSezzle}" class="sezzle-checkout-modal-hidden long-term">
 					<div class="sezzle-modal">
 						<div>
 							<button role="button" aria-label="${modalTranslations[this.language].closeSezzleModal}" class="close-sezzle-modal"></button>
