@@ -272,6 +272,13 @@ class AwesomeSezzle {
 		this.init()
 	}
 
+	updateWidgetTemplate(template) {
+		this.eraseWidget();
+		this.assignConfigs(this);
+		this.widgetTemplate = template;
+		this.init()
+	}
+
 	eraseWidget() {
 		this.renderElementArray.forEach(function (element, index) {
 			let sezzleElement = document.getElementById(element);
