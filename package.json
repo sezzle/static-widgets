@@ -35,7 +35,8 @@
     "babel-loader": "^9.0.0",
     "change-package-name": "^1.0.5",
     "dotenv": "^16.0.1",
-    "json5": "^2.2.3"
+    "json5": "^2.2.3",
+    "node": "^16.16.0"
   },
   "keywords": [
     "price",

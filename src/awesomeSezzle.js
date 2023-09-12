@@ -449,6 +449,7 @@ class AwesomeSezzle {
 					apAnchor.href = this.apLink;
 					apAnchor.target = '_blank';
 					var apLinkIconNode = document.createElement('code');
+					apLinkIconNode.ariaLabel = `${learnMoreAltTranslations[this.language]} Afterpay`;
 					apLinkIconNode.className = 'ap-info-link';
 					apLinkIconNode.innerHTML = '&#9432;';
 					apAnchor.appendChild(apLinkIconNode)
@@ -747,6 +748,8 @@ class AwesomeSezzle {
 	renderModal() {
 		const modalTranslations = {
 			en: {
+				sezzleInfo: 'Sezzle Information.',
+				aboutSezzle: 'Learn more about Sezzle.',
 				closeSezzleModal: 'Close Sezzle modal.',
 				sezzleHeader: 'Buy Now. Pay Later.',
 				sezzleHeaderChild: 'Pay in 4 by selecting Sezzle at checkout.',
@@ -778,6 +781,8 @@ class AwesomeSezzle {
 				termsLt3: 'Subject to credit approval by a third party lender. Rates from 5.99% - 34.99% APR; terms from 3 months – 48 months, which may vary by lender. 0% APR options may be available. APRs will vary depending on credit qualifications, loan amount, term, and lender. Minimum purchase is required.',
 			},
 			fr: {
+				sezzleInfo: 'Informations Sezzle.',
+				aboutSezzle: 'En savoir plus sur Sezzle.',
 				closeSezzleModal: 'Fermer Sezzle modal.',
 				sezzleHeader: 'Acheter maintenant. Payer&nbsp;plus&nbsp;tard.',
 				sezzleHeaderChild: 'Payez en 4 en sélectionnant Sezzle à la caisse.',
@@ -809,6 +814,8 @@ class AwesomeSezzle {
 				termsLt3: 'Sous réserve de l\'approbation du crédit par un prêteur tiers. Taux de 5,99 % à 34,99 % APR ; durées de 3 mois à 48 mois, qui peuvent varier selon le prêteur. Des options à 0 % APR peuvent être disponibles. Les APR varient en fonction des qualifications de crédit, du montant du prêt, de la durée et du prêteur. Un achat minimum est requis.',
 			},
 			es: {
+				sezzleInfo: 'Información de Sezzle',
+				aboutSezzle: 'Obtenga más información sobre Sezzle',
 				closeSezzleModal: 'Cerrar Sezzle modal.',
 				sezzleHeader: 'Comprar ahora. Paga&nbsp;después.',
 				sezzleHeaderChild: 'Paga en 4 seleccionando Sezzle al finalizar la&nbsp;compra.',
@@ -846,8 +853,8 @@ class AwesomeSezzle {
 			modalNode.style.display = 'none';
 			modalNode.role = 'dialog';
 			modalNode.lang = this.language;
-			modalNode.ariaLabel = 'Sezzle Information';
-			modalNode.ariaDescription = 'Learn more about Sezzle';
+			modalNode.ariaLabel = modalTranslations[this.language].sezzleInfo;
+			modalNode.ariaDescription = modalTranslations[this.language].aboutSezzle;
 			if (this.isProductEligibleLT(this.amount)) {
 				var currency = String.fromCharCode(this.currencySymbol(this.amount));
 				var priceString = this.amount.indexOf(currency) > -1 ? this.amount.split(currency)[1] : this.amount;
@@ -857,7 +864,7 @@ class AwesomeSezzle {
 					modalNode.innerHTML = this.ltAltModalHTML;
 				} else {
 					modalNode.innerHTML = `
-				<div id="sezzle-modal-container" role="dialog" aria-label="Sezzle Modal" aria-description="Learn more about Sezzle" class="sezzle-checkout-modal-hidden long-term">
+				<div id="sezzle-modal-container" role="dialog" aria-label="Sezzle Modal" aria-description="${modalTranslations[this.language].aboutSezzle}" class="sezzle-checkout-modal-hidden long-term">
 					<div class="sezzle-modal">
 						<div>
 							<button role="button" aria-label="${modalTranslations[this.language].closeSezzleModal}" class="close-sezzle-modal"></button>
@@ -937,7 +944,7 @@ class AwesomeSezzle {
 				modalNode.innerHTML = this.altModalHTML;
 			} else {
 				modalNode.innerHTML = `
-        <div id="sezzle-modal-container" role="dialog" aria-label="Sezzle Modal" aria-description="Learn more about Sezzle" class="sezzle-checkout-modal-hidden">
+        <div id="sezzle-modal-container" role="dialog" aria-label="Sezzle Modal" aria-description="${modalTranslations[this.language].aboutSezzle}" class="sezzle-checkout-modal-hidden">
 		<div class="sezzle-modal">
 				<div><button role="button" aria-label="${modalTranslations[this.language].closeSezzleModal}" class="close-sezzle-modal"></button></div>
 				<div class="sezzle-logo" title="Sezzle"></div>
