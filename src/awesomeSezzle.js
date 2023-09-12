@@ -47,6 +47,7 @@ class AwesomeSezzle {
 		var templateStringLT = this.widgetLanguageTranslationLT(this.language);
 		this.widgetTemplate = this.getWidgetTemplateOverride(options.widgetTemplate) || templateString;
 		this.widgetTemplateLT = this.getWidgetTemplateOverride(options.widgetTemplateLT) || templateStringLT;
+		this.ineligibleWidgetTemplate = this.getWidgetTemplateOverride(options.ineligibleWidgetTemplate) || '';
 		this.renderElementInitial = options.renderElement || 'sezzle-widget';
 		this.assignConfigs(options);
 	}
@@ -91,6 +92,7 @@ class AwesomeSezzle {
 		this.parseMode = options.parseMode || 'default'; // other available option is comma (For french)
 		this.widgetTemplate = this.widgetTemplate;
 		this.widgetTemplateLT = this.widgetTemplateLT;
+		this.ineligibleWidgetTemplate = this.ineligibleWidgetTemplate || '';
 	}
 
 	getWidgetTemplateOverride(widgetTemplate) {
@@ -314,7 +316,13 @@ class AwesomeSezzle {
 	}
 
 	renderAwesomeSezzle() {
-		if (!this.isProductEligible(this.amount)) return false;
+		var widgetText = this.isProductEligibleLT(this.amount) ? this.widgetTemplateLT : this.widgetTemplate;
+		if (!this.isProductEligible(this.amount)) {
+			if (this.ineligibleWidgetTemplate.length === 0) {
+				return false
+			}
+			widgetText = this.ineligibleWidgetTemplate
+		}
 		this.insertWidgetTypeCSSClassInElement();
 		this.setElementMargins();
 		if (this.scaleFactor || this.fixedHeight) this.setWidgetSize();
@@ -325,7 +333,6 @@ class AwesomeSezzle {
 		var sezzleButtonText = document.createElement('div');
 		sezzleButtonText.className = 'sezzle-button-text';
 		this.setImageURL();
-		var widgetText = this.isProductEligibleLT(this.amount) ? this.widgetTemplateLT : this.widgetTemplate;
 		var widgetTextArray = widgetText.split('%%');
 		var learnMoreTranslations = {
 			en: 'Learn more',
