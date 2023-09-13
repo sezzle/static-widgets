@@ -251,7 +251,6 @@ Once the widget is rendering, additional configurations can be added to the Awes
 **Type**: string
 **Options**: product-page, product-preview, cart
 **Default**: 'product-page'
-**Additional Details**: Accepts all kinds of values (hexadecimal, rgb(), hsl(), etc...)
 
 `fixedHeight` (optional)
 
@@ -271,7 +270,7 @@ Once the widget is rendering, additional configurations can be added to the Awes
 **Purpose**: Custom styling to apply to the Sezzle logo within the widget.
 **Type**: object
 **Default**: {}
-**Additional Details**: The object will accept any CSS styling in JSON format. Keys must be surrounded by '', given in camelCase instead of kebob-case, and separated from the following key by a comma instead of a semi-colon.
+**Additional Details**: The object will accept any CSS styling in JSON format. Keys must be surrounded by '', given in camelCase instead of kebab-case, and separated from the following key by a comma instead of a semi-colon.
 
 `language` (optional)
 
