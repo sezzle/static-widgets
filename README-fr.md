@@ -303,6 +303,12 @@ Une fois le rendu du widget, des configurations supplémentaires peuvent être a
 **Défaut**: {en: 'or 4 interest-free payments of %%price%% with %%logo%% %%info%%', fr: 'ou 4 paiements de %%price%% sans intérêts avec %%logo%% %%info%%'}
 **Détails supplémentaires**: Les modèles disponibles incluent `%%price%%` (prix), `%%logo%%`, `%%link%%` (lien), `%%info%%`, `%%question-mark%%` (point d'interrogation), `%%line-break%%` (saut de ligne), `%%afterpay-logo%%`, `%%afterpay-logo-grey%%` (logo afterpay-gris), `%%afterpay-info-icon%%` (icône info afterpay), `%%afterpay-link-icon%%` (icône de lien afterpay), `%%quadpay-logo%%`, `%%quadpay-logo-grey%%` (logo quadpay-gris), `%%quadpay-logo-white%%` (logo quadpay-blanc), `%%quadpay-info-icon%%` (icône info quadpay), `%%affirm-logo%%`, `%%affirm-logo-grey%%` (affirm logo gris), `%%affirm-logo-white%%` (affirm logo blanc), `%%affirm-info-icon%%` (info icône affirm), `%%klarna-logo%%`, `%%klarna-logo-grey%%` (klarna logo gris), `%%klarna-logo-white%%` (klarna logo blanc), `%%klarna-info-icon%%` (icône info klarna).
 
+`ineligibleWidgetTemplate` (optional)
+
+**objetif**: Contenu textuel du widget lorsque le montant est inférieur au minimum ou supérieur au prix maximum. Des variables de remplacement sont disponibles, à l'exception de `%%price%%`, car elles indiquent lorsque le montant est en dehors de ces limites.
+**Type**: chaîne
+**Défaut**: ''
+**Détails supplémentaires**: Les modèles disponibles incluent `%%logo%%`, `%%link%%` (lien), `%%info%%`, `%%question-mark%%` (point d'interrogation), `%%line-break%%` (saut de ligne), `%%afterpay-logo%%`, `%%afterpay-logo-grey%%` (logo afterpay-gris), `%%afterpay-info-icon%%` (icône info afterpay), `%%afterpay-link-icon%%` (icône de lien afterpay), `%%quadpay-logo%%`, `%%quadpay-logo-grey%%` (logo quadpay-gris), `%%quadpay-logo-white%%` (logo quadpay-blanc), `%%quadpay-info-icon%%` (icône info quadpay), `%%affirm-logo%%`, `%%affirm-logo-grey%%` (affirm logo gris), `%%affirm-logo-white%%` (affirm logo blanc), `%%affirm-info-icon%%` (info icône affirm), `%%klarna-logo%%`, `%%klarna-logo-grey%%` (klarna logo gris), `%%klarna-logo-white%%` (klarna logo blanc), `%%klarna-info-icon%%` (icône info klarna).
 
 `numberOfPayments` (nombre de paiements, facultatif)
 
