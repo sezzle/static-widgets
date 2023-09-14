@@ -18,6 +18,9 @@ deploy_cloudfront:checkout_button:
   variables:
     s3_bucket_production: "checkout-sdk.sezzle.com"
     cf_dist_production: "EQ8554SMUE81E"
+  rules:
+  - !reference [.deploy_default_rules]
+  - !reference [.deploy_production_rules]
 
 .before_script: |
   mkdir -p ./build
