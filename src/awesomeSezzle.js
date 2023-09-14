@@ -308,21 +308,20 @@ class AwesomeSezzle {
 		}
 	}
 
-	n(newVal) {
-		var priceNode = document.getElementsByClassName('sezzle-payment-amount')[0];
-		var priceValueText = document.createTextNode(this.getFormattedPrice(newVal));
-		priceNode.innerHTML = '';
-		priceNode.appendChild(priceValueText)
-	}
-
 	renderAwesomeSezzle() {
-		var widgetText = this.isProductEligibleLT(this.amount) ? this.widgetTemplateLT : this.widgetTemplate;
-		if (!this.isProductEligible(this.amount)) {
-			if (this.ineligibleWidgetTemplate.length === 0) {
-				return false
-			}
-			widgetText = this.ineligibleWidgetTemplate
+		if (!this.isProductEligible(this.amount) && (this.ineligibleWidgetTemplate.length === 0)) {
+			return false;
 		}
+
+		var widgetText = ''
+		if (!this.isProductEligible(this.amount)) {
+			widgetText = this.ineligibleWidgetTemplate
+		} else if (this.isProductEligibleLT(this.amount)) {
+			widgetText = this.widgetTemplateLT
+		} else {
+			widgetText = this.widgetTemplate
+		}
+
 		this.insertWidgetTypeCSSClassInElement();
 		this.setElementMargins();
 		if (this.scaleFactor || this.fixedHeight) this.setWidgetSize();
