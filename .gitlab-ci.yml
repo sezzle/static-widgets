@@ -35,13 +35,13 @@ deploy_cloudfront:checkout_button:
 deploy_cloudfront:afterpay_modals:
   extends:
     - .deploy_cloudfront
+    - .build_afterpay_modals
   environment: "afterpay_modals/${env_production}"
   tags:
     - ${tag_deploy_us}
   variables:
     S3_BUCKET: "sezzlemedia/afterpay"
     CF_DIST: "EFV0KW59BE883"
-  extends: .build_afterpay_modals
   rules:
     - !reference [.deploy_default_rules]
     - !reference [.deploy_production_rules]
