@@ -25,11 +25,12 @@ deploy_cloudfront:checkout_button:
   - !reference [.deploy_default_rules]
   - !reference [.deploy_production_rules]
 
-.before_script: |
-  mkdir -p ./build
-  cp -v ./src/afterpay/modal-en.html ./build/
-  cp -v ./src/afterpay/modal-fr.html ./build/
-  cp -v ./src/afterpay/modal-es.html ./build/
+.build_afterpay_modals:
+  before_script: |
+    mkdir -p ./build
+    cp -v ./src/afterpay/modal-en.html ./build/
+    cp -v ./src/afterpay/modal-fr.html ./build/
+    cp -v ./src/afterpay/modal-es.html ./build/
 
 deploy_cloudfront:afterpay_modals:
   extends:
@@ -40,6 +41,7 @@ deploy_cloudfront:afterpay_modals:
   variables:
     S3_BUCKET: "sezzlemedia/afterpay"
     CF_DIST: "EFV0KW59BE883"
+  extends: .build_afterpay_modals
   rules:
     - !reference [.deploy_default_rules]
     - !reference [.deploy_production_rules]
