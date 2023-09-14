@@ -1,6 +1,6 @@
 {
   "name": "@sezzle/sezzle-static-widget",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Simple SDK is a stand-alone widget script which helps merchants integrate widget onto their website.",
   "main": "src/awesomeSezzle.js",
   "scripts": {
