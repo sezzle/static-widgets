@@ -47,7 +47,7 @@ class AwesomeSezzle {
 		var templateStringLT = this.widgetLanguageTranslationLT(this.language);
 		this.widgetTemplate = this.getWidgetTemplateOverride(options.widgetTemplate) || templateString;
 		this.widgetTemplateLT = this.getWidgetTemplateOverride(options.widgetTemplateLT) || templateStringLT;
-		this.ineligibleWidgetTemplate = this.getWidgetTemplateOverride(options.ineligibleWidgetTemplate) || '';
+		this.ineligibleWidgetTemplate = this.getWidgetTemplateOverride(options.ineligibleWidgetTemplate.replace('%%price%%', '')) || '';
 		this.renderElementInitial = options.renderElement || 'sezzle-widget';
 		this.assignConfigs(options);
 	}
@@ -92,7 +92,7 @@ class AwesomeSezzle {
 		this.parseMode = options.parseMode || 'default'; // other available option is comma (For french)
 		this.widgetTemplate = this.widgetTemplate;
 		this.widgetTemplateLT = this.widgetTemplateLT;
-		this.ineligibleWidgetTemplate = this.ineligibleWidgetTemplate || '';
+		this.ineligibleWidgetTemplate = this.ineligibleWidgetTemplate.replace('%%price%%', '') || '';
 	}
 
 	getWidgetTemplateOverride(widgetTemplate) {

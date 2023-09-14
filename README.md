@@ -89,33 +89,37 @@ Add the following lines of code wherever the widget should render on the cart pa
 Once the widget is rendering, additional configurations can be added to the AwesomeSezzle to change the appearance. Below is an example featuring all the options. However, amount is the only required value.
 
 ```html
- <script>
-  var renderSezzle = new AwesomeSezzle({
-    amount: '{{ product.selected_or_first_available_variant.price | money }}',
-    renderElement: 'new-sezzle-widget-container-id',
-    theme: 'light',
-    modalTheme:'color',
-    maxWidth: 400,
-    marginTop: 0,
-    marginBottom: 0,
-    marginLeft: 0,
-    marginRight: 0,
-    alignment: 'left',
-    alignmentSwitchMinWidth: 576,
-    alignmentSwitchType: 'center',
-    textColor: '#111',
-    fontFamily: 'Comfortaa, sans-serif',
-    fontSize: 12,
-    fontWeight: 400,
-    widgetType: 'product-page',
-    fixedHeight: 0,
-    logoSize: 1.0,
-    logoStyle: {},
-    language: 'en',
-    parseMode: 'default',
-    merchantLocale: 'North America'
-  })
-  renderSezzle.init();
+
+<script>
+   var renderSezzle = new AwesomeSezzle({
+      amount: '{{ product.selected_or_first_available_variant.price | money }}',
+      renderElement: 'new-sezzle-widget-container-id',
+      theme: 'light',
+      modalTheme: 'color',
+      maxWidth: 400,
+      marginTop: 0,
+      marginBottom: 0,
+      marginLeft: 0,
+      marginRight: 0,
+      alignment: 'left',
+      alignmentSwitchMinWidth: 576,
+      alignmentSwitchType: 'center',
+      textColor: '#111',
+      fontFamily: 'Comfortaa, sans-serif',
+      fontSize: 12,
+      fontWeight: 400,
+      widgetType: 'product-page',
+      fixedHeight: 0,
+      logoSize: 1.0,
+      logoStyle: {},
+      language: 'en',
+      parseMode: 'default',
+      merchantLocale: 'North America',
+      ineligibleWidgetTemplate: '%%logo%% Pay in 4 interest-free payments on purchases $35-$2,500. %%info%%',
+      minPrice: 3500, // Amount in cents
+      maxPrice: 250000 // Amount in cents
+   })
+   renderSezzle.init();
 </script>
 ```
 
@@ -288,6 +292,13 @@ Once the widget is rendering, additional configurations can be added to the Awes
 **Type**: string, or object
 **Default**: {en: 'or 4 interest-free payments of %%price%% with %%logo%% %%info%%', fr: 'ou 4 paiements de %%price%% sans intérêts avec %%logo%% %%info%%'}
 **Additional Details**: Available templates include `%%price%%`, `%%logo%%`, `%%link%%`, `%%info%%`, `%%question-mark%%`, `%%line-break%%`, `%%afterpay-logo%%`, `%%afterpay-logo-grey%%`, `%%afterpay-info-icon%%`, `%%afterpay-link-icon%%`, `%%quadpay-logo%%`, `%%quadpay-logo-grey%%`, `%%quadpay-logo-white%%`, `%%quadpay-info-icon%%`, `%%affirm-logo%%`, `%%affirm-logo-grey%%`, `%%affirm-logo-white%%`, `%%affirm-info-icon%%`, `%%klarna-logo%%`, `%%klarna-logo-grey%%`, `%%klarna-logo-white%%`, `%%klarna-info-icon%%`.
+
+`ineligibleWidgetTemplate` (optional)
+
+**Purpose**: Text content of the widget when the amount is below the minimum or above the maximum price. Replacement variables are available except for `%%price%%` given this shows when the amount is outside those bounds.
+**Type**: string
+**Default**: ''
+**Additional Details**: Available templates include `%%logo%%`, `%%link%%`, `%%info%%`, `%%question-mark%%`, `%%line-break%%`, `%%afterpay-logo%%`, `%%afterpay-logo-grey%%`, `%%afterpay-info-icon%%`, `%%afterpay-link-icon%%`, `%%quadpay-logo%%`, `%%quadpay-logo-grey%%`, `%%quadpay-logo-white%%`, `%%quadpay-info-icon%%`, `%%affirm-logo%%`, `%%affirm-logo-grey%%`, `%%affirm-logo-white%%`, `%%affirm-info-icon%%`, `%%klarna-logo%%`, `%%klarna-logo-grey%%`, `%%klarna-logo-white%%`, `%%klarna-info-icon%%`.
 
 
 `numberOfPayments` (optional)
