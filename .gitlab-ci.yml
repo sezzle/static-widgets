@@ -13,6 +13,9 @@ variables:
   JIRA_PROJECT_NAME: "MINT"
 
 deploy_cloudfront:checkout_button:
+  environment: "checkout_button/${env_production}"
+  extends:
+    - ".deploy_cloudfront"
   tags:
     - ${tag_deploy_us}
   variables:
@@ -29,9 +32,9 @@ deploy_cloudfront:checkout_button:
   cp -v ./src/afterpay/modal-es.html ./build/
 
 deploy_cloudfront:afterpay_modals:
-  environment: "${env_production}"
   extends:
     - .deploy_cloudfront
+  environment: "afterpay_modals/${env_production}"
   tags:
     - ${tag_deploy_us}
   variables:
