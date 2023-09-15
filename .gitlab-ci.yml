@@ -25,10 +25,8 @@ deploy_cloudfront:afterpay_modals:
   script:
     - |
       log section "Copy static files to ./build"
-      mkdir -p ./build
-      cp -v ./src/afterpay/modal-en.html ./build/
-      cp -v ./src/afterpay/modal-fr.html ./build/
-      cp -v ./src/afterpay/modal-es.html ./build/
+      mkdir -p ./build/modal
+      cp -v ./src/afterpay/modal/*.html ./build/modal
       log section-end
     - |  
       aws_cloudfront_deploy --dryrun
