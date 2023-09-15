@@ -1,0 +1,628 @@
+<div id="afterpay-modal-component">
+    <style>
+        .afterpay-modal-overlay {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(1.1);
+            transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+            z-index: 999999999;
+        }
+
+        #afterpay-modal-component .visible {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+            transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+        }
+
+        #afterpay-modal-component #afterpay-modal {
+            background-color: #fff;
+            color: #000;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 2px;
+            width: 774px;
+            max-width: 100vw;
+            max-height: 100%;
+            line-height: 1.1;
+            display: block;
+            overflow: auto;
+        }
+
+        #afterpay-modal-component #afterpay-modal.afterpay-modal-is-apr {
+            border-radius: 0px;
+            max-width: 100%;
+            width: 476px;
+        }
+
+        @media (min-width:473px) and (min-height:686px) {
+            #afterpay-modal-component #afterpay-modal.afterpay-modal-is-apr {
+                border-radius: 12px;
+            }
+        }
+
+        #afterpay-modal-component #afterpay-modal .afterpay-close-button {
+            position: absolute;
+            z-index: 3;
+            background-color: transparent;
+            min-width: 0;
+            top: 18px;
+            right: 18px;
+            border: 0;
+            cursor: pointer;
+        }
+
+        #afterpay-modal-component button {
+            min-width: 80px;
+            background-color: #848e97;
+            border-color: #848e97;
+            border-style: solid;
+            border-radius: 2px;
+            padding: 3px;
+            color: white;
+            cursor: pointer;
+            display: none;
+        }
+
+        #afterpay-modal-component button:hover {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+
+        .afterpay-loading-indicator {
+            display: block;
+            background-color: transparent;
+            width: 80px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+        }
+
+        .afterpay-loading-indicator::after {
+            content: " ";
+            display: block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 5px solid #b2fce4;
+            border-color: #b2fce4 transparent #b2fce4 transparent;
+            animation: afterpay-loading-indicator 1.2s linear infinite;
+        }
+
+        @keyframes afterpay-loading-indicator {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .modal-content .error-container {
+            padding: 25px;
+            text-align: center;
+            background-color: #b2fce4;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .modal-content.error .error-container {
+            opacity: 1;
+            visibility: visible;
+            font-family: 'Italian Plate No2 Expanded', sans-serif;
+        }
+
+        @media (-ms-high-contrast:none),
+        (-ms-high-contrast:active) {
+            #afterpay-modal-component #afterpay-modal {
+                bottom: auto;
+            }
+        }
+    </style>
+    <div class="afterpay-modal-overlay visible">
+        <div class="afterpay-loading-indicator" style="display: none;"></div>
+        <div id="afterpay-modal" role="dialog" tabindex="-1" aria-modal="true"
+            aria-describedby="afterpay-modal-container" aria-label="Afterpay">
+            <button class="afterpay-close-button" id="afterpay-modal-close-button" tabindex="1" autofocus="false"
+                aria-label="Afterpay modal close button" style="display: block;">
+                <svg xmlns="http://www.w3.org/2000/svg" focusable="false" width="20" height="20" viewBox="0 0 30 30"
+                    aria-hidden="true">
+                    <defs>
+                        <style>
+                            .a {
+                                fill: none;
+                                stroke: #808284;
+                                stroke-linecap: round;
+                                stroke-linejoin: round;
+                                stroke-width: 2px;
+                            }
+                        </style>
+                    </defs>
+                    <title>Afterpay modal close button</title>
+                    <line class="a" x1="1" y1="1" x2="29" y2="29"></line>
+                    <line class="a" x1="1" y1="29" x2="29" y2="1"></line>
+                </svg>
+            </button>
+            <div class="modal-content">
+                <div id="afterpay-modal-container" class="afterpay-modal-wrapper">
+                    <div class="grid-container">
+                        <div class="row-0">
+                            <div class="afterpay-modal-logo">
+                                <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 1150 222"
+                                    class="afterpay-logo-black" aria-label="Afterpay logo">
+                                    <path
+                                        d="M1132 45.3l-34.6-19.8-35.1-20.1a34.9 34.9 0 00-52.2 30.2V40c0 2.5 1.3 4.8 3.5 6l16.3 9.3a6.8 6.8 0 0010.1-6V38.9c0-5.3 5.7-8.6 10.3-6l32 18.4 31.9 18.3a6.9 6.9 0 010 11.9l-31.9 18.3-32 18.4a6.9 6.9 0 01-10.3-6v-5.3c0-26.8-29-43.6-52.2-30.2l-35.1 20-34.6 19.9a35 35 0 000 60.5l34.6 19.8 35.1 20a34.9 34.9 0 0052.2-30.1v-4.5c0-2.5-1.3-4.8-3.5-6l-16.3-9.3a6.8 6.8 0 00-10.1 5.9v10.7c0 5.3-5.7 8.6-10.3 6l-32-18.4-31.9-18.3a6.9 6.9 0 010-12l31.9-18.2 32-18.4a6.9 6.9 0 0110.3 6v5.3c0 26.8 29 43.6 52.2 30.2l35.1-20.1 34.6-19.8a35 35 0 000-60.5zm-227 6.6l-81 167.3h-33.6l30.3-62.5L773 51.9h34.5l30.6 70.2 33.4-70.2H905zM95.1 111.3c0-20-14.5-34-32.3-34s-32.3 14.3-32.3 34c0 19.5 14.5 34 32.3 34s32.3-14 32.3-34m.3 59.4v-15.4a47.6 47.6 0 01-37.5 17.3C25.3 172.6.6 146.5.6 111.3c0-35 25.7-61.5 58-61.5 15.2 0 28 6.7 36.8 17v-15h29.2v118.9H95.4zm171.2-26.4c-10.2 0-13.1-3.8-13.1-13.8V77.8h18.8v-26h-18.8v-29h-29.9v29H185V40.2c0-10 3.8-13.8 14.3-13.8h6.6v-23h-14.4c-24.7 0-36.4 8-36.4 32.8V52h-16.6v25.8h16.6v92.9H185v-93h38.6V136c0 24.2 9.3 34.7 33.5 34.7h15.4v-26.4h-5.9zM374 100.6c-2.1-15.4-14.7-24.7-29.5-24.7-14.7 0-26.9 9-29.9 24.7H374zM314.3 119a29.6 29.6 0 0030.7 27.6c12.6 0 22.3-6 28-15.4h30.7c-7.1 25.2-29.7 41.3-59.4 41.3a58.5 58.5 0 01-61.1-61.1A60 60 0 01345 49.7a59.5 59.5 0 0160.4 69.4h-91.1zm282.2-7.8a33 33 0 00-32.3-34c-17.8 0-32.3 14.3-32.3 34 0 19.5 14.5 34 32.3 34a32.9 32.9 0 0032.3-34m-94.1 107.9V51.9h29.2v15.4a47.2 47.2 0 0137.5-17.6c32.1 0 57.3 26.4 57.3 61.3s-25.7 61.5-58 61.5a46 46 0 01-35.9-16v62.6h-30.1zm229.3-108c0-20-14.5-34-32.3-34-17.8 0-32.3 14.4-32.3 34s14.5 34 32.3 34c17.8 0 32.3-14 32.3-34m.3 59.5v-15.4a47.6 47.6 0 01-37.5 17.3c-32.6 0-57.3-26.1-57.3-61.3 0-35 25.7-61.5 58-61.5 15.2 0 28 6.7 36.8 17v-15h29.2v118.9H732zM449.7 63.5s7.4-13.8 25.7-13.8c7.8 0 12.8 2.7 12.8 2.7v30.3s-11-6.8-21.1-5.4c-10.1 1.4-16.5 10.6-16.5 23v70.3h-30.2V51.9h29.2v11.6h.1z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="row-1">
+                            <h3 class="afterpay-modal-headline">Shop now. <span>Pay later.</span>
+                                <div>Always interest-free.</div>
+                            </h3>
+                        </div>
+                        <div class="process-step-1 process-icon-container">
+                            <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 52 72"
+                                class="process-icon shopping-cart" aria-label="Step 1">
+                                <path class="c1"
+                                    d="M26 55.47a27.28 27.28 0 01-4-3c-2.13-1.87-4.52-4.49-4.44-7.36a5 5 0 01.37-1.75 4.27 4.27 0 018.13.25 4.27 4.27 0 018.13-.25 5 5 0 01.37 1.75c.08 2.87-2.31 5.49-4.44 7.36a27.28 27.28 0 01-4 3">
+                                </path>
+                                <path class="c1" fill="#000" d="M10.5 35V17a15.5 15.5 0 0131 0v18"></path>
+                                <path class="c1" transform="rotate(90 85.5 -4.5)"
+                                    d="M110.5 30.5h45.79a4.21 4.21 0 014.21 4.21v40.58a4.21 4.21 0 01-4.21 4.21H110.5v-49z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="process-step-1 process-subheading">Add your favourites to cart</div>
+                        <div class="process-step-2 process-icon-container">
+                            <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 82 56"
+                                class="process-icon afterpay-desktop" aria-label="Step 2">
+                                <path class="c1" d="M36.5 52.49h9"></path>
+                                <path class="c1"
+                                    d="M10.43 1.5h61.14a3.93 3.93 0 013.93 3.93V50.5h-69V5.43a3.93 3.93 0 013.93-3.93z">
+                                </path>
+                                <path
+                                    d="M54.75 17.52L50.3 15l-4.51-2.59a4.48 4.48 0 00-6.71 3.89v.58a.89.89 0 00.44.77l2.1 1.2a.86.86 0 001.3-.75v-1.41a.89.89 0 011.33-.77l4.12 2.37 4.11 2.36a.88.88 0 010 1.53l-4.11 2.36-4.12 2.36a.88.88 0 01-1.33-.76v-.69a4.48 4.48 0 00-6.71-3.89l-4.51 2.59-4.45 2.55a4.49 4.49 0 000 7.78L31.7 37l4.51 2.59a4.48 4.48 0 006.71-3.89v-.58a.88.88 0 00-.44-.77l-2.1-1.2a.86.86 0 00-1.3.75v1.38a.89.89 0 01-1.33.77l-4.12-2.37-4.11-2.36a.88.88 0 010-1.53l4.11-2.36 4.12-2.36a.88.88 0 011.33.76v.69a4.48 4.48 0 006.71 3.89l4.51-2.59 4.45-2.55a4.49 4.49 0 000-7.75z">
+                                </path>
+                                <rect class="c1" width="79" height="4" x="1.5" y="50.49" rx="2"></rect>
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 52 82"
+                                class="process-icon afterpay-mobile" aria-label="Step 2">
+                                <rect class="c1" width="79" height="49" x="86.5" y="16.5" rx="4.21"
+                                    transform="rotate(90 76 -9)"></rect>
+                                <path class="c1" d="M1.49 10.5h49"></path>
+                                <path class="c1" d="M1.49 75.5h49"></path>
+                                <path class="c1" d="M21.49 6.5h9"></path>
+                                <path
+                                    d="M39.75 32.52L35.3 30l-4.51-2.59a4.48 4.48 0 00-6.71 3.89v.58a.89.89 0 00.44.77l2.1 1.2a.86.86 0 001.3-.75v-1.41a.89.89 0 011.33-.77l4.12 2.37 4.11 2.36a.88.88 0 010 1.53l-4.11 2.36-4.12 2.36a.88.88 0 01-1.33-.76v-.69a4.48 4.48 0 00-6.71-3.89l-4.51 2.59-4.45 2.55a4.49 4.49 0 000 7.78L16.7 52l4.51 2.59a4.48 4.48 0 006.71-3.89v-.58a.88.88 0 00-.44-.77l-2.1-1.2a.86.86 0 00-1.3.75v1.38a.89.89 0 01-1.33.77l-4.12-2.37-4.11-2.36a.88.88 0 010-1.53l4.11-2.36 4.12-2.36a.88.88 0 011.33.76v.69a4.48 4.48 0 006.71 3.89l4.51-2.59 4.45-2.55a4.49 4.49 0 000-7.75z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="process-step-2 process-subheading">Select Afterpay at checkout</div>
+                        <div class="process-step-3 process-icon-container">
+                            <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 82 56"
+                                class="process-icon sign-up-desktop" aria-label="Step 3">
+                                <path class="c1" d="M52.51 28.12l4.43 4.45L65.5 24"></path>
+                                <circle class="c1" cx="31" cy="26" r="14.5"></circle>
+                                <circle class="c1" cx="31" cy="21.8" r="6.09"></circle>
+                                <path class="c1"
+                                    d="M20.92 36.42a8.43 8.43 0 018-5.8h4.2a8.45 8.45 0 018 5.8M36.5 52.49h9"></path>
+                                <path class="c1"
+                                    d="M10.43 1.5h61.14a3.93 3.93 0 013.93 3.94V50.5h-69V5.45a3.93 3.93 0 013.93-3.93z">
+                                </path>
+                                <rect class="c1" width="79" height="4" x="1.5" y="50.49" rx="2"></rect>
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 52 82"
+                                class="process-icon sign-up-mobile" aria-label="Step 3">
+                                <rect class="c1" width="79" height="49" x="86.5" y="16.5" rx="4.21"
+                                    transform="rotate(90 76 -9)"></rect>
+                                <path class="c1"
+                                    d="M21.46 58.06l4.43 4.45 8.55-8.58M1.5 10.5h48.99M1.5 75.5h48.99M21.5 6.5h9">
+                                </path>
+                                <circle class="c1" cx="26" cy="34" r="14.5"></circle>
+                                <circle class="c1" cx="26" cy="29.8" r="6.09"></circle>
+                                <path class="c1" d="M15.93 44.42a8.43 8.43 0 018-5.8h4.2a8.45 8.45 0 018 5.79"></path>
+                            </svg>
+                        </div>
+                        <div class="process-step-3 process-subheading">Log into or create your Afterpay account, instant
+                            approval decision</div>
+                        <div class="process-step-4 process-icon-container">
+                            <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="14 7 79 79"
+                                class="process-icon four-payments" aria-label="Step 4">
+                                <path class="c1" d="M50,15.5A34.5,34.5,0,0,0,15.5,50H50Z"></path>
+                                <path class="c1" d="M15.5,50A34.5,34.5,0,0,0,50,84.5V50Z"></path>
+                                <path class="c1" d="M50,84.5h0A34.5,34.5,0,0,0,84.5,50H50Z"></path>
+                                <path class="c1" d="M57,8.5h0V43h34.5A34.5,34.5,0,0,0,57,8.5Z"></path>
+                            </svg>
+                        </div>
+                        <div class="process-step-4 process-subheading">Your purchase will be split into 4 payments,
+                            payable every 2 weeks</div>
+                        <div class="row-3">
+                            <div class="disclaimer">You must be of the age of majority in your province or territory, a
+                                resident of Canada, and meet additional eligibility criteria to qualify. Estimated
+                                payment amounts shown on product pages exclude taxes and shipping charges, which are
+                                added at checkout. Click <a href="https://www.afterpay.com/en-CA/instalment-agreement"
+                                    aria-label="Afterpay Terms (New Window)" target="_blank" rel="noopener"
+                                    class="disclaimer-link" tabindex="1">here</a> for complete terms. <br>
+                                <br>
+                                <span>© 2020 Afterpay Canada</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <style type="text/css">
+                    body.afterpay-modal-body,
+                    html.afterpay-modal-html {
+                        height: 100%
+                    }
+
+                    body.afterpay-modal-body {
+                        margin: 0;
+                        background-color: #b2fce4
+                    }
+
+                    body.afterpay-modal-body.theme-white {
+                        background: #fff
+                    }
+
+                    :-moz-ui-invalid:not(output) {
+                        box-shadow: none
+                    }
+
+                    .afterpay-modal-wrapper {
+                        min-height: 100%;
+                        padding: 0 24px;
+                        background: #b2fce4
+                    }
+
+                    .afterpay-modal-wrapper.theme-white {
+                        background: #fff
+                    }
+
+                    .afterpay-modal-wrapper * {
+                        box-sizing: border-box;
+                        text-decoration: none;
+                        font-family: 'Italian Plate No2 Expanded', sans-serif;
+                        color: #000
+                    }
+
+                    .grid-container {
+                        display: grid;
+                        margin: 0 auto;
+                        max-width: 800px;
+                        text-align: center;
+                        font-size: 16px;
+                        grid-template-rows: auto;
+                        grid-template-columns: repeat(4, 25%);
+                        grid-template-areas: "logo logo logo logo" "headline headline headline headline" "body-a body-b body-c body-d" "body-e body-f body-g body-h" "cbt-block cbt-block cbt-block cbt-block" "footer footer footer footer"
+                    }
+
+                    .row-0 {
+                        grid-area: logo;
+                        padding-top: 45px
+                    }
+
+                    .row-1 {
+                        grid-area: headline;
+                        padding: 3% 0 8% 0
+                    }
+
+                    .process-step-1.process-icon-container {
+                        grid-area: body-a
+                    }
+
+                    .process-step-2.process-icon-container {
+                        grid-area: body-b
+                    }
+
+                    .process-step-3.process-icon-container {
+                        grid-area: body-c
+                    }
+
+                    .process-step-4.process-icon-container {
+                        grid-area: body-d
+                    }
+
+                    .process-step-1.process-subheading {
+                        grid-area: body-e
+                    }
+
+                    .process-step-2.process-subheading {
+                        grid-area: body-f
+                    }
+
+                    .process-step-3.process-subheading {
+                        grid-area: body-g
+                    }
+
+                    .process-step-4.process-subheading {
+                        grid-area: body-h
+                    }
+
+                    .row-3 {
+                        grid-area: footer
+                    }
+
+                    .grid-container>div {
+                        align-content: stretch
+                    }
+
+                    .afterpay-modal-logo svg {
+                        width: 100%;
+                        max-width: 275px;
+                        height: auto
+                    }
+
+                    h3.afterpay-modal-headline {
+                        margin: 0;
+                        font-size: 44px;
+                        font-weight: 600;
+                        line-height: 1.1
+                    }
+
+                    .process-icon-container {
+                        align-self: end
+                    }
+
+                    .process-icon-container svg {
+                        width: auto;
+                        height: auto;
+                        max-width: 110px;
+                        max-height: 95px
+                    }
+
+                    .process-icon-container svg .c1 {
+                        fill: none;
+                        stroke: #000;
+                        stroke-linecap: round;
+                        stroke-linejoin: round;
+                        stroke-width: 2px
+                    }
+
+                    .process-subheading {
+                        padding: 10% 3% 0 3%;
+                        font-weight: 600;
+                        line-height: 1.25
+                    }
+
+                    svg.afterpay-mobile,
+                    svg.sign-up-mobile {
+                        display: none
+                    }
+
+                    .row-3 {
+                        padding: 8% 0 40px 0
+                    }
+
+                    .disclaimer {
+                        font-size: 12px
+                    }
+
+                    .disclaimer-link {
+                        color: #000;
+                        text-decoration: underline
+                    }
+
+                    .disclaimer-link:active {
+                        color: #000
+                    }
+
+                    .afterpay-footer-example {
+                        margin-top: 1.875em;
+                        font-size: x-small;
+                        font-weight: 600
+                    }
+
+                    .afterpay-underline {
+                        text-decoration: underline
+                    }
+
+                    .afterpay-bold {
+                        font-weight: 700
+                    }
+
+                    .afterpay-reference-symbol {
+                        font-weight: 400;
+                        font-size: .5em;
+                        vertical-align: text-top
+                    }
+
+                    @media (max-width:768px) {
+                        .grid-container {
+                            max-width: 500px;
+                            grid-template-columns: auto;
+                            grid-template-areas: "logo logo" "headline headline" "body-a body-b" "body-e body-f" "body-c body-d" "body-g body-h" "cbt-block cbt-block" "footer footer"
+                        }
+
+                        .row-1 {
+                            padding: 3% 0 20px 0
+                        }
+
+                        .process-icon-container {
+                            padding: 24px 0 0 0
+                        }
+                    }
+
+                    @media (max-width:600px) {
+                        .afterpay-modal-wrapper {
+                            padding: 0
+                        }
+
+                        .grid-container {
+                            padding: 30px;
+                            text-align: left;
+                            grid-template-columns: auto;
+                            grid-template-areas: "logo logo" "headline headline" "body-a body-e" "body-b body-f" "body-c body-g" "body-d body-h" "cbt-block cbt-block" "footer footer"
+                        }
+
+                        .row-0 {
+                            padding-top: 0
+                        }
+
+                        .row-1 {
+                            padding: 20px 0 8% 0
+                        }
+
+                        h3.afterpay-modal-headline {
+                            font-size: 40px
+                        }
+
+                        svg.afterpay-desktop,
+                        svg.sign-up-desktop {
+                            display: none
+                        }
+
+                        svg.afterpay-mobile,
+                        svg.sign-up-mobile {
+                            display: block
+                        }
+
+                        .process-icon-container {
+                            align-self: start;
+                            padding: 12px 0
+                        }
+
+                        .process-icon-container svg {
+                            min-width: 30px;
+                            max-height: 65px
+                        }
+
+                        .process-subheading {
+                            padding: 6px 0 6px 12px;
+                            align-self: center
+                        }
+
+                        .row-3 {
+                            padding: 8% 0 20px 0
+                        }
+                    }
+
+                    @media (max-width:420px) {
+                        .afterpay-modal-logo svg {
+                            max-width: 200px
+                        }
+
+                        h3.afterpay-modal-headline {
+                            font-size: 36px
+                        }
+                    }
+
+                    @media (max-width:335px) {
+                        h3.afterpay-modal-headline {
+                            font-size: 32px
+                        }
+                    }
+
+                    @media (max-width:260px) {
+                        .grid-container {
+                            font-size: 14px
+                        }
+
+                        h3.afterpay-modal-headline {
+                            font-size: 28px
+                        }
+                    }
+                </style>
+                <style type="text/css">
+                    @media (-ms-high-contrast:none),
+                    (-ms-high-contrast:active) {
+                        .afterpay-modal-wrapper .grid-container {
+                            display: -ms-grid;
+                            -ms-grid-rows: auto;
+                            -ms-grid-columns: (25%)[4];
+                            font-size: 14px
+                        }
+
+                        .afterpay-modal-wrapper .grid-container .row-0 {
+                            -ms-grid-row: 1;
+                            -ms-grid-column: 1;
+                            -ms-grid-column-span: 4;
+                            padding-top: 0
+                        }
+
+                        .afterpay-modal-wrapper .grid-container .row-0 .afterpay-modal-logo svg {
+                            height: 15vh
+                        }
+
+                        .afterpay-modal-wrapper .grid-container .row-1 {
+                            -ms-grid-row: 2;
+                            -ms-grid-column: 1;
+                            -ms-grid-column-span: 4;
+                            padding: 20px 0 45px 0
+                        }
+
+                        .afterpay-modal-wrapper .grid-container .process-step-1.process-icon-container {
+                            -ms-grid-row: 3;
+                            -ms-grid-column: 1
+                        }
+
+                        .afterpay-modal-wrapper .grid-container .process-step-2.process-icon-container {
+                            -ms-grid-row: 3;
+                            -ms-grid-column: 2
+                        }
+
+                        .afterpay-modal-wrapper .grid-container .process-step-3.process-icon-container {
+                            -ms-grid-row: 3;
+                            -ms-grid-column: 3
+                        }
+
+                        .afterpay-modal-wrapper .grid-container .process-step-4.process-icon-container {
+                            -ms-grid-row: 3;
+                            -ms-grid-column: 4;
+                            grid-area: body-d
+                        }
+
+                        .afterpay-modal-wrapper .grid-container .process-step-1.process-subheading {
+                            -ms-grid-row: 4;
+                            -ms-grid-column: 1;
+                            grid-area: body-e
+                        }
+
+                        .afterpay-modal-wrapper .grid-container .process-step-2.process-subheading {
+                            -ms-grid-row: 4;
+                            -ms-grid-column: 2;
+                            grid-area: body-f
+                        }
+
+                        .afterpay-modal-wrapper .grid-container .process-step-3.process-subheading {
+                            -ms-grid-row: 4;
+                            -ms-grid-column: 3
+                        }
+
+                        .afterpay-modal-wrapper .grid-container .process-step-4.process-subheading {
+                            -ms-grid-row: 4;
+                            -ms-grid-column: 4
+                        }
+
+                        .afterpay-modal-wrapper .grid-container .row-3 {
+                            -ms-grid-row: 5;
+                            -ms-grid-column: 1;
+                            -ms-grid-column-span: 4;
+                            padding: 80px 0 40px 0
+                        }
+                    }
+                </style>
+                <script id="post-events-to-parent">
+                    ! function () {
+                        try {
+                            var t = window && window.parent;
+                            t && t !== window.self && "function" == typeof t.postMessage && (t.postMessage("Afterpay.ready", "*"), document.addEventListener("keyup", function (e) {
+                                e = e.key || e.keyCode;
+                                "Escape" !== e && "Esc" !== e && 27 !== e || t.postMessage("Afterpay.keyup.esc", "*")
+                            }))
+                        } catch (e) { }
+                    }()
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
