@@ -1,4 +1,5 @@
 import HelperClass from './awesomeHelper'
+//import './afterpay/modal'
 import '../css/global.scss';
 
 
@@ -47,7 +48,7 @@ class AwesomeSezzle {
 		var templateStringLT = this.widgetLanguageTranslationLT(this.language);
 		this.widgetTemplate = this.getWidgetTemplateOverride(options.widgetTemplate) || templateString;
 		this.widgetTemplateLT = this.getWidgetTemplateOverride(options.widgetTemplateLT) || templateStringLT;
-		this.ineligibleWidgetTemplate = this.getWidgetTemplateOverride(options.ineligibleWidgetTemplate.replace('%%price%%', '')) || '';
+		this.ineligibleWidgetTemplate = this.getWidgetTemplateOverride(options.ineligibleWidgetTemplate) || '';
 		this.renderElementInitial = options.renderElement || 'sezzle-widget';
 		this.assignConfigs(options);
 	}
@@ -1066,7 +1067,13 @@ class AwesomeSezzle {
 		this.modalKeyboardNavigation();
 	}
 
-	renderAPModal() {
+	async getAPModal(modalNode){
+		const url = `https://media.sezzle.com/afterpay/modal/${this.language}.html`;
+	    const response = await fetch(url);
+		modalNode.innerHTML = await response.text();
+	}
+
+    renderAPModal() {
 		var modalNode = document.createElement('section');
 		modalNode.className = 'sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-ap-modal';
 		modalNode.style = 'position: center';
@@ -1074,7 +1081,13 @@ class AwesomeSezzle {
 		modalNode.role = 'dialog';
 		modalNode.ariaLabel = 'Afterpay Information';
 		modalNode.ariaDescription = 'Click to learn more about Afterpay';
-		modalNode.innerHTML = this.apModalHTML;
+		//defaultAPModal = this.getAPModal();
+		//console.log(defaultAPModal)
+	    if(this.apModalHTML){
+			modalNode.innerHTML = this.apModalHTML
+		} else {
+			this.getAPModal(modalNode);
+		}
 		document.getElementsByTagName('html')[0].appendChild(modalNode);
 		Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
 			el.addEventListener('click', function () {
