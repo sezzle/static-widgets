@@ -1071,11 +1071,11 @@ class AwesomeSezzle {
 		const url = `https://media.sezzle.com/afterpay/modal/${this.language}.html`;
 		try{
 	    const response = await fetch(url);
+		modalNode.innerHTML = await response.text();
 		} catch(error) {
 		//Type error failed to fetch
 		console.log('There was an error', error);
 		}
-		modalNode.innerHTML = await response.text();
 		
 	}
 
