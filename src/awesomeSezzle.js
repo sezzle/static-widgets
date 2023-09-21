@@ -1081,8 +1081,7 @@ class AwesomeSezzle {
 		modalNode.role = 'dialog';
 		modalNode.ariaLabel = 'Afterpay Information';
 		modalNode.ariaDescription = 'Click to learn more about Afterpay';
-		//defaultAPModal = this.getAPModal();
-		//console.log(defaultAPModal)
+		
 	    if(this.apModalHTML){
 			modalNode.innerHTML = this.apModalHTML
 		} else {
