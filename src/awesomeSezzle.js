@@ -1,5 +1,4 @@
 import HelperClass from './awesomeHelper'
-//import './afterpay/modal'
 import '../css/global.scss';
 
 
@@ -1074,12 +1073,11 @@ class AwesomeSezzle {
 		modalNode.innerHTML = await response.text();
 		} catch(error) {
 		//Type error failed to fetch
-		console.log('There was an error', error);
+		console.log('Url is not correct', error);
 		}
 	}
 
-
-	renderAPModal() {
+    renderAPModal() {
 		var modalNode = document.createElement('section');
 		modalNode.className = 'sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-ap-modal';
 		modalNode.style = 'position: center';
