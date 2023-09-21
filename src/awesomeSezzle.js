@@ -1,8 +1,6 @@
 import HelperClass from './awesomeHelper'
 import '../css/global.scss';
 
-
-
 class AwesomeSezzle {
 
 	constructor(options) {
@@ -1072,8 +1070,7 @@ class AwesomeSezzle {
 	    const response = await fetch(url);
 		modalNode.innerHTML = await response.text();
 		} catch(error) {
-		//Type error failed to fetch
-		console.log('Url is not correct', error);
+		console.log('Failed to fetch', error);
 		}
 	}
 
