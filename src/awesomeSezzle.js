@@ -1069,8 +1069,14 @@ class AwesomeSezzle {
 
 	async getAPModal(modalNode){
 		const url = `https://media.sezzle.com/afterpay/modal/${this.language}.html`;
+		try{
 	    const response = await fetch(url);
+		} catch(error) {
+		//Type error failed to fetch
+		console.log('There was an error', error);
+		}
 		modalNode.innerHTML = await response.text();
+		
 	}
 
     renderAPModal() {
