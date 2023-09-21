@@ -1076,10 +1076,10 @@ class AwesomeSezzle {
 		//Type error failed to fetch
 		console.log('There was an error', error);
 		}
-		
 	}
 
-    renderAPModal() {
+
+	renderAPModal() {
 		var modalNode = document.createElement('section');
 		modalNode.className = 'sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-ap-modal';
 		modalNode.style = 'position: center';
