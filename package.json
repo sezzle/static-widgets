@@ -32,7 +32,6 @@
   },
   "dependencies": {
     "@babel/core": "^7.18.10",
-    "@sezzle/sezzle-static-widget": "^2.1.1",
     "babel-loader": "^9.0.0",
     "change-package-name": "^1.0.5",
     "dotenv": "^16.0.1",
