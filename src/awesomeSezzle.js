@@ -1071,7 +1071,7 @@ class AwesomeSezzle {
 		    if (!response.ok) {
 		        throw new error(`Failed to fetch aftetpay modal, status: ${response.status}`);
 				}
-		    	modalNode.innerHTML = await response.text();
+		    modalNode.innerHTML = await response.text();
 			}	catch(error) {
 		       	console.error(error);
 			}
