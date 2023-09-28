@@ -19,7 +19,7 @@
   <form onsubmit="testing()">
     <h1>Test Sezzle SDK</h1>
 
-    <p id='price'><span class="currency">$</span><span class="amount">99.99</span></p>
+    <p id='price'><span class="currency">$</span><span class="amount">35.99</span></p>
     <div id='sezzle-widget'></div>
 
     <!-- To test renderElement array, disable L21, enable L24-28 -->
@@ -36,8 +36,7 @@
   <script src='../dist/bundle.js'></script>
   <script>
     const renderSezzle = new AwesomeSezzle({
-      amount: document.querySelector('#price').querySelector('.currency').innerText + document.querySelector('#price').querySelector('.amount').innerText,
-      minPrice: 3500
+      amount: document.querySelector('#price').querySelector('.currency').innerText + document.querySelector('#price').querySelector('.amount').innerText
     });
     renderSezzle.init();
 
