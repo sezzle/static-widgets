@@ -1066,15 +1066,15 @@ class AwesomeSezzle {
 
 	async getAPModal(modalNode) {
 		const url = `https://media.sezzle.com/afterpay/modal/${this.language}.html`;
-		try{
-	         const response = await fetch(url);
-		     if(!response.ok) {
-		     throw new error(`Failed to fetch aftetpay modal, status: ${response.status}`);
-		     }
-		modalNode.innerHTML = await response.text();
-		} catch(error) {
-		console.error(error);
-		}
+	    try	{
+	    const response = await fetch(url);
+		    if (!response.ok) {
+		        throw new error(`Failed to fetch aftetpay modal, status: ${response.status}`);
+				}
+		    	modalNode.innerHTML = await response.text();
+			}	catch(error) {
+		       	console.error(error);
+			}
 	}
 
     renderAPModal() {
