@@ -3,28 +3,28 @@
 
 // 2.a (recommended) Add the following script to inject the placeholder element dynamically
 // add the following lines of code to run when the page has loaded (un-commented) and update the query to match your page:
-	// Note: our top four platforms are given as examples - choose one or create your own
-		// <script type="text/javascript">
-		//	 document.addEventListener('readystatechange', function(){
-		//		 var sezzlePaymentLine = document.querySelector('[alt="Sezzle"]').parentElement.parentElement.parentElement; //Shopify
-		//		 var sezzlePaymentLine = document.querySelector('.payment_method_sezzlepay'); // WooCommerce
-		//		 var sezzlePaymentLine = document.querySelector('.sezzle'); // CommentSold
-		//		 var sezzlePaymentLine = document.querySelector('.linkGateway'); //3DCart
-		//	 var sezzleCheckoutWidget = document.createElement('div');
-		//	 sezzleCheckoutWidget.id = 'sezzle-installment-widget-box';
-		//	 sezzlePaymentLine.parentElement.insertBefore(sezzleCheckoutWidget, sezzlePaymentLine.nextElementSibling);
-		//	 })
-		// </script>
+// Note: our top four platforms are given as examples - choose one or create your own
+// <script type="text/javascript">
+//	 document.addEventListener('readystatechange', function(){
+//		 var sezzlePaymentLine = document.querySelector('[alt="Sezzle"]').parentElement.parentElement.parentElement; //Shopify
+//		 var sezzlePaymentLine = document.querySelector('.payment_method_sezzlepay'); // WooCommerce
+//		 var sezzlePaymentLine = document.querySelector('.sezzle'); // CommentSold
+//		 var sezzlePaymentLine = document.querySelector('.linkGateway'); //3DCart
+//	 var sezzleCheckoutWidget = document.createElement('div');
+//	 sezzleCheckoutWidget.id = 'sezzle-installment-widget-box';
+//	 sezzlePaymentLine.parentElement.insertBefore(sezzleCheckoutWidget, sezzlePaymentLine.nextElementSibling);
+//	 })
+// </script>
 
 // 2.b Enter the following two lines of code (un-commented) where this widget should appear
-	{/* <div id="sezzle-installment-widget-box"></div> */}
-	{/* <script src="sezzle-checkout-installment-widget.js"></script> */}
+{/* <div id="sezzle-installment-widget-box"></div> */ }
+{/* <script src="sezzle-checkout-installment-widget.js"></script> */ }
 
 // 3. Update the querySelector target in checkoutTotal below to indicate the cart total element
-	// Note: our top four platforms are given as examples - choose one or create your own
+// Note: our top four platforms are given as examples - choose one or create your own
 
 // handles initial render, then watches checkout total for change event, updates installment amounts
-document.addEventListener('readystatechange', function(event){
+document.addEventListener('readystatechange', function (event) {
 	var merchantLocale = "" // "['US', 'CA', 'IN', 'GU', 'PR', 'VI', 'AS', 'MP']" serves bi-weekly product, else serves monthly
 	var currencySymbol = ""; // if not provided, it will attempt to detect the currency symbol from the price text. If site uses charset="ISO-8859-1", use String.fromCharCode() - param is HTML hex char code integer
 	var checkoutTotal = document.querySelector('.payment-due__price'); // Shopify
@@ -33,21 +33,21 @@ document.addEventListener('readystatechange', function(event){
 	// var checkoutTotal = document.querySelector('.total_total') // 3DCart
 	renderInstallmentWidget(checkoutTotal, merchantLocale, currencySymbol);
 
-		// create an observer instance
-		var observer = new MutationObserver(function(){
-			document.querySelector('#sezzle-installment-widget-box').innerHTML = '';
-			renderInstallmentWidget(checkoutTotal, merchantLocale, currencySymbol);
-		});
+	// create an observer instance
+	var observer = new MutationObserver(function () {
+		document.querySelector('#sezzle-installment-widget-box').innerHTML = '';
+		renderInstallmentWidget(checkoutTotal, merchantLocale, currencySymbol);
+	});
 
-		// configuration of the observer:
-		var config = { attributes: true, childList: true, characterData: true };
+	// configuration of the observer:
+	var config = { attributes: true, childList: true, characterData: true };
 
-		// pass in the target node, as well as the observer options
-		observer.observe(checkoutTotal, config);
+	// pass in the target node, as well as the observer options
+	observer.observe(checkoutTotal, config);
 })
 
-function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
-	var language = document.querySelector('html').lang.substring(0,2).toLowerCase() || navigator.language.substring(0,2) || 'en';
+function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
+	var language = document.querySelector('html').lang.substring(0, 2).toLowerCase() || navigator.language.substring(0, 2) || 'en';
 	var merchantLocale = serviceRegion || document.querySelector('html').lang.split('-')[1] || "US";
 
 	// sets payment plan based on given param
@@ -88,7 +88,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 			'modalTitle': 'Comment &#231;a marche',
 			'firstParagraph': {
 				14: `R&#233;partissez le montant de votre commande en 4 versements sans int&#233;r&#234;ts &#233;tal&#233;s sur 6 semaines. Pas de frais si vous payez &#224; temps, pas d\'impact sur votre cote de cr&#233;dit.`,
-				30:	`R&#233;partissez le montant de votre commande en 4 versements sur 3 mois. Pas de frais!`
+				30: `R&#233;partissez le montant de votre commande en 4 versements sur 3 mois. Pas de frais!`
 			},
 			'secondParagraph': 'Apr&#232;s avoir cliqu&#233; sur &#171;&nbsp;Terminer la commande&nbsp;&#187; sur ce site, vous serez redirig&#233;(e) vers Sezzle pour finaliser votre achat en toute s&#233;curit&#233;.',
 			'infoIcon': 'En savoir plus sur Sezzle',
@@ -110,7 +110,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 				14: `Dein Gesamtbestellwert wird auf 4 Raten &#252;ber 6 Wochen verteilt. Diese sind komplett zinsfrei, sofern du p&#252;nktlich bezahlst. Kein Einfluss auf deine Kreditw&#252;rdigkeit.`,
 				30: `Dein Gesamtbestellwert wird auf 4 Raten &#252;ber 3 Monate verteilt. Diese sind komplett kostenlos.`
 			},
-			'secondParagraph':'Sobald du auf den Button &#8222;Bestellung abschlie&#223;en&#8220; klickst, wirst du zu Sezzle umgeleitet ' + (interval === 30 ? 'um' : 'und kannst') + ' deinen Einkauf sicher '+ (interval === 30 ? 'abzuschlie&#223;en.' : 'abschlie&#223;en.'),
+			'secondParagraph': 'Sobald du auf den Button &#8222;Bestellung abschlie&#223;en&#8220; klickst, wirst du zu Sezzle umgeleitet ' + (interval === 30 ? 'um' : 'und kannst') + ' deinen Einkauf sicher ' + (interval === 30 ? 'abzuschlie&#223;en.' : 'abschlie&#223;en.'),
 			'infoIcon': 'Erfahren Sie mehr &#252;ber Sezzle',
 			'paymentPieTitle': 'Sezzle-Zahlungskreisdiagramm',
 			'closeModalTitle': 'Modal schließen',
@@ -142,13 +142,13 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 			'week': 'settimana',
 			'month': 'mese',
 			'installmentWidget': {
-			14: `4 rate senza interessi in 6 settimane`,
-			30: `4 rate in 3 mesi. Senza costi!`
+				14: `4 rate senza interessi in 6 settimane`,
+				30: `4 rate in 3 mesi. Senza costi!`
 			},
 			'modalTitle': 'Come funziona',
 			'firstParagraph': {
-			14: `Dividi l&lsquo;intero ordine in 4 rate senza interessi in 6 settimane. Nessuna commissione se paghi in tempo e con impatto zero sul tuo credito.`,
-			30: `Dividi l&rsquo;intero ordine in 4 rate in 3 mesi. Senza costi!`
+				14: `Dividi l&lsquo;intero ordine in 4 rate senza interessi in 6 settimane. Nessuna commissione se paghi in tempo e con impatto zero sul tuo credito.`,
+				30: `Dividi l&rsquo;intero ordine in 4 rate in 3 mesi. Senza costi!`
 			},
 			'secondParagraph': 'Dopo aver cliccato su &ldquo;Completa l&rsquo;ordine&rdquo; in questa pagina, verrai reindirizzato a Sezzle per completare l&rsquo;acquisto in modo sicuro',
 			'infoIcon': 'Maggiori informazioni riguardo Sezzle',
@@ -159,7 +159,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 	}
 
 	var installmentBox = document.querySelector('#sezzle-installment-widget-box');
-	if(!installmentBox.querySelector('.sezzle-payment-schedule-container')){
+	if (!installmentBox.querySelector('.sezzle-payment-schedule-container')) {
 		// creates stylesheet for widget and modal
 		// TODO: check all stylesheets and event listeners to ensure they will not conflict with local stylesheet or regular Sezzle widget!
 		var sezzleStyle = document.createElement('style');
@@ -424,7 +424,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		var sezzlePie = document.createElement('div');
 		sezzlePie.className = 'sezzle-payment-pie';
 		installmentContainer.appendChild(sezzlePie);
-		sezzlePie.title = translation[language].paymentPieTitle 
+		sezzlePie.title = translation[language].paymentPieTitle
 
 		// creates container to receive the installment prices
 		var installmentPriceContainer = document.createElement('div');
@@ -432,21 +432,21 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		installmentContainer.appendChild(installmentPriceContainer);
 
 		// checks if character is numeric
-		function isNumeric(n){
+		function isNumeric(n) {
 			return !isNaN(parseFloat(n)) && isFinite(n);
 		}
 
-		function isAlphabet(n){
+		function isAlphabet(n) {
 			return /^[a-zA-Z()]+$/.test(n)
 		}
 
-		function currencyType (priceText){
+		function currencyType(priceText) {
 			var currency = '';
-			if(currencySymbol){
+			if (currencySymbol) {
 				currency = currencySymbol;
 			} else {
-				for(var i = 0; i < priceText.length; i++){
-					if(/[$|€||£|₤|₹]/.test(priceText[i])){
+				for (var i = 0; i < priceText.length; i++) {
+					if (/[$|€||£|₤|₹]/.test(priceText[i])) {
 						currency = priceText[i];
 					};
 					// use this instead if on ISO-8859-1, expanding to include any applicable currencies
@@ -461,11 +461,11 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 
 
 		// checks if price is comma (fr) format or period (en)
-		function commaDelimited (priceText){
+		function commaDelimited(priceText) {
 			var priceOnly = '';
 			for (var i = 0; i < priceText.length; i++) {
 				if (isNumeric(priceText[i]) || priceText[i] === '.' || priceText[i] === ',') {
-				priceOnly += priceText[i];
+					priceOnly += priceText[i];
 				}
 			}
 			var isComma = false;
@@ -485,11 +485,11 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		function parsePriceString(price, includeComma) {
 			var formattedPrice = '';
 			for (var i = 0; i < price.length; i++) {
-			  if (isNumeric(price[i]) || (!includeComma && price[i] === '.') || (includeComma && price[i] === ',')) {
-				// If current is a . and previous is a character, it can be something like Rs, ignore it
-				if (i > 0 && price[i] === '.' && isAlphabet(price[i-1])) continue;
-				formattedPrice += price[i];
-			  }
+				if (isNumeric(price[i]) || (!includeComma && price[i] === '.') || (includeComma && price[i] === ',')) {
+					// If current is a . and previous is a character, it can be something like Rs, ignore it
+					if (i > 0 && price[i] === '.' && isAlphabet(price[i - 1])) continue;
+					formattedPrice += price[i];
+				}
 			}
 			if (includeComma) {
 				formattedPrice = formattedPrice.replace(',', '.');
@@ -498,11 +498,11 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		}
 
 		// creates the installment price elements
-		function createInstallmentPrice (installmentPrice, includeComma, currency){
+		function createInstallmentPrice(installmentPrice, includeComma, currency) {
 			var installmentElement = document.createElement('span');
 			installmentElement.className = 'sezzle-installment-amount';
 			installmentElement.tabIndex = 0;
-			installmentElement.innerText = currency + (includeComma ? installmentPrice.replace('.',',') : installmentPrice);
+			installmentElement.innerText = currency + (includeComma ? installmentPrice.replace('.', ',') : installmentPrice);
 			document.querySelector('.sezzle-payment-schedule-prices').appendChild(installmentElement);
 		}
 
@@ -511,12 +511,12 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		var includeComma = commaDelimited(totalPriceText);
 		var price = parsePriceString(totalPriceText, includeComma);
 		var currency = currencyType(totalPriceText);
-		var installmentAmount = (price/4).toFixed(2);
-		for(var i = 0; i < 3; i++){
+		var installmentAmount = (price / 4).toFixed(2);
+		for (var i = 0; i < 3; i++) {
 			createInstallmentPrice(installmentAmount, includeComma, currency);
 		}
 		// creates final installment as installment price + remainder if not divisible by 4
-		var finalInstallmentAmount = (price - installmentAmount*3).toFixed(2);
+		var finalInstallmentAmount = (price - installmentAmount * 3).toFixed(2);
 		createInstallmentPrice(finalInstallmentAmount, includeComma, currency);
 
 		// creates container to receive the installment dates
@@ -525,7 +525,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		installmentContainer.appendChild(installmentPlanContainer);
 
 		// creates the installment date elements
-		function createPaymentPlan (date, i){
+		function createPaymentPlan(date, i) {
 			var installmentElement = document.querySelectorAll(".sezzle-installment-amount")
 			installmentElement[i].innerText = installmentElement[i].innerText + "\n" + date;
 		}
@@ -533,11 +533,11 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		// parses today's date to calculate each installment date
 		// TODO: french date translation
 		var todaysDate = new Date();
-		for(var i = 0; i < 4; i++){
+		for (var i = 0; i < 4; i++) {
 			if (i === 0) {
 				createPaymentPlan(translation[language].today, i);
 			} else if (i > 0) {
-				var installmentDate = new Date(todaysDate.setDate(todaysDate.getDate() + interval)).toLocaleDateString(language, {month: 'short', day: 'numeric'});
+				var installmentDate = new Date(todaysDate.setDate(todaysDate.getDate() + interval)).toLocaleDateString(language, { month: 'short', day: 'numeric' });
 				createPaymentPlan(installmentDate, i);
 			}
 		}
@@ -546,7 +546,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		var modalOverlay = document.createElement('section');
 		modalOverlay.className = 'sezzle-modal-overlay close-sezzle-modal';
 		modalOverlay.style.display = 'none';
-		modalOverlay.tabIndex =-1;
+		modalOverlay.tabIndex = -1;
 		document.body.appendChild(modalOverlay);
 
 		// creates the modal content wrapper
@@ -613,7 +613,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		installmentWrapper.appendChild(percentages);
 
 		// creates each percentage
-		for(var i = 0; i < 4; i++){
+		for (var i = 0; i < 4; i++) {
 			var percent = document.createElement('span');
 			percent.innerText = '25%';
 			percentages.appendChild(percent);
@@ -621,16 +621,16 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 
 
 		// creates each installment
-		for(var i = 0; i < 4; i++){
+		for (var i = 0; i < 4; i++) {
 			var payment = document.querySelector(".sezzle-modal-payment-percent").getElementsByTagName("span")
 			if (i === 0) {
 				payment[i].innerText = payment[i].innerText + "\n" + translation[language].today;
 			} else if (i > 0 && interval === 30) {
-				payment[i].innerText = payment[i].innerText + (i*30) + " " + translation[language].days;
-			} else if (i >0) {
-				payment[i].innerText = payment[i].innerText + "\n" + translation[language].week + " " + (i*2); 
+				payment[i].innerText = payment[i].innerText + (i * 30) + " " + translation[language].days;
+			} else if (i > 0) {
+				payment[i].innerText = payment[i].innerText + "\n" + translation[language].week + " " + (i * 2);
 			} else {
-				payment.innerText = translation[language].week + "\n" + " " + (i*2);
+				payment.innerText = translation[language].week + "\n" + " " + (i * 2);
 			}
 		}
 
@@ -644,59 +644,59 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol){
 		installmentWidget.appendChild(infoIcon);
 
 		// watches info icon for click event, opens modal
-		function openSezzleModal (){
+		function openSezzleModal() {
 			document.querySelector('.sezzle-modal-overlay').style.display = "block";
 			document.body.classList.add('sezzle-modal-open');
 			modalKeyboardNavigation()
 		}
 		infoIcon.addEventListener('click', openSezzleModal);
-		infoIcon.addEventListener('click', function() {
+		infoIcon.addEventListener('click', function () {
 			document.querySelector(".sezzle-modal-overlay").getElementsByClassName("sezzle-checkout-modal")[0].focus();
 		});
 
 		// watches overlay and modal X for click event, closes modal
-		function closeSezzleModal (){
+		function closeSezzleModal() {
 			document.querySelector('.sezzle-modal-overlay').style.display = "none";
 			document.body.classList.remove('sezzle-modal-open')
 		}
 		var sezzleModalClose = document.getElementsByClassName('close-sezzle-modal');
-		if(sezzleModalClose.length){
-			for(var i = 0; i < sezzleModalClose.length; i++){
+		if (sezzleModalClose.length) {
+			for (var i = 0; i < sezzleModalClose.length; i++) {
 				sezzleModalClose[i].addEventListener('click', closeSezzleModal);
-				sezzleModalClose[i].addEventListener('click', function() {
+				sezzleModalClose[i].addEventListener('click', function () {
 					document.querySelector(".sezzle-installment-info-icon").focus();
 				});
 			}
 		}
 	}
-		function modalKeyboardNavigation (){
-			let focusableElements = document.querySelector('.sezzle-modal-overlay').querySelectorAll('[tabIndex="0"]');
-			let firstFocusableElement = focusableElements[0];
-			let lastFocusableElement = focusableElements[focusableElements.length - 1];
-			document.addEventListener('keydown', function(event){
-				if(event.key === 'Tab'){
-					if(event.shiftKey && document.activeElement === firstFocusableElement){
-						lastFocusableElement.focus();
-                        //event.preventDefault()
-					} else if(document.activeElement === lastFocusableElement){
-						firstFocusableElement.focus();
-                        event.preventDefault()
-					}
-				} else if(event.key === 'Escape') {
-					let modals = document.getElementsByClassName('sezzle-modal-overlay');
-					for(let i = 0; i < modals.length; i++) {
-						modals[i].style.display = 'none';
-					}
-					var newFocus = document.querySelector('#sezzle-modal-return');
-					if(newFocus){
-						newFocus.focus();
-						newFocus.removeAttribute('id');
-					} else if (document.querySelector('.sezzle-payment-schedule-container').querySelector('.sezzle-installment-info-icon')){
-						document.querySelector('.sezzle-payment-schedule-container').querySelector('.sezzle-installment-info-icon').focus();
-						} else {
-						document.querySelector('.sezzle-payment-schedule-container').focus();
-						}
+	function modalKeyboardNavigation() {
+		let focusableElements = document.querySelector('.sezzle-modal-overlay').querySelectorAll('[tabIndex="0"]');
+		let firstFocusableElement = focusableElements[0];
+		let lastFocusableElement = focusableElements[focusableElements.length - 1];
+		document.addEventListener('keydown', function (event) {
+			if (event.key === 'Tab') {
+				if (event.shiftKey && document.activeElement === firstFocusableElement) {
+					lastFocusableElement.focus();
+					//event.preventDefault()
+				} else if (document.activeElement === lastFocusableElement) {
+					firstFocusableElement.focus();
+					event.preventDefault()
 				}
-			})
-		}
+			} else if (event.key === 'Escape') {
+				let modals = document.getElementsByClassName('sezzle-modal-overlay');
+				for (let i = 0; i < modals.length; i++) {
+					modals[i].style.display = 'none';
+				}
+				var newFocus = document.querySelector('#sezzle-modal-return');
+				if (newFocus) {
+					newFocus.focus();
+					newFocus.removeAttribute('id');
+				} else if (document.querySelector('.sezzle-payment-schedule-container').querySelector('.sezzle-installment-info-icon')) {
+					document.querySelector('.sezzle-payment-schedule-container').querySelector('.sezzle-installment-info-icon').focus();
+				} else {
+					document.querySelector('.sezzle-payment-schedule-container').focus();
+				}
+			}
+		})
+	}
 }

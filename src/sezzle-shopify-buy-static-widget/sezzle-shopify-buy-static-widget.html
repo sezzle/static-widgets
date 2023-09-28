@@ -1,4 +1,3 @@
-
 <!-- 
 This product is designed for merchants using the Shopify Buy button on a non-Shopify storefront. The Shopify product details are inserted into the non-Shopify storefront as an iframe, which Sezzle's standard widget script cannot read.
 
@@ -14,35 +13,40 @@ Click Save
 * If your site needs to support international currency formatting, replace `false` within var includeComma to a function that calculates whether to separate by comma. 
 * If your product page is a dark background, replace the img src URL with "https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg"
 -->
-<p class="sezzle-shopify-buy-static-widget">Buy now, pay later in 4 interest-free payments <span class="sezzle-payment-amount"></span> with <img class="sezzle-logo" src="https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg" alt="Sezzle logo" style="display: inline-block; height: 18px!important; margin: 0px 0px -3px 0px;"> <a class="sezzle-info-link" href="https://sezzle.com/how-it-works" target="_blank" style="text-decoration: none; border: none; padding: 0px 5px;" rel="noopener noreferrer">&#9432;</a></p>
+<p class="sezzle-shopify-buy-static-widget">Buy now, pay later in 4 interest-free payments <span
+		class="sezzle-payment-amount"></span> with <img class="sezzle-logo"
+		src="https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg" alt="Sezzle logo"
+		style="display: inline-block; height: 18px!important; margin: 0px 0px -3px 0px;"> <a class="sezzle-info-link"
+		href="https://sezzle.com/how-it-works" target="_blank"
+		style="text-decoration: none; border: none; padding: 0px 5px;" rel="noopener noreferrer">&#9432;</a></p>
 <script type="text/javascript">
-function calculateSezzle(){
-	var priceElement = document.querySelector('#ProductPrice') || document.querySelector('.shopify-buy__product__actual-price');	
-	var includeComma = false;
-	if(typeof(priceElement) !== 'string'){
-		if(priceElement.getElementsByTagName('sup').length && !priceElement.getElementsByClassName('sezzle-delimiter').length){
-			var delimiterElement = document.createElement('span'); 
-			delimiterElement.className = 'sezzle-delimiter';
-			delimiterElement.style.fontSize = '0px';
-			delimiterElement.innerText = includeComma ? ',' : '.'; 
-			priceElement.insertBefore(delimiterElement, priceElement.querySelector('sup') );
+	function calculateSezzle() {
+		var priceElement = document.querySelector('#ProductPrice') || document.querySelector('.shopify-buy__product__actual-price');
+		var includeComma = false;
+		if (typeof (priceElement) !== 'string') {
+			if (priceElement.getElementsByTagName('sup').length && !priceElement.getElementsByClassName('sezzle-delimiter').length) {
+				var delimiterElement = document.createElement('span');
+				delimiterElement.className = 'sezzle-delimiter';
+				delimiterElement.style.fontSize = '0px';
+				delimiterElement.innerText = includeComma ? ',' : '.';
+				priceElement.insertBefore(delimiterElement, priceElement.querySelector('sup'));
+			}
 		}
-	}
-	priceElementText = typeof(priceElement) === 'string' ? (includeComma ? priceElement.replace('.','') : priceElement.replace(',','')) : (includeComma ? priceElement.textContent.replace('.','') : priceElement.textContent.replace(',',''));
-	var currencySymbol = priceElementText.split('').filter(function(character){ return /[$|€|£]/.test(character)})[0] || '$';
-	var currentPrice = '';
-	for(var i=0; i < priceElementText.length; i++){
-		if(/[0-9()]/.test(priceElementText[i]) || (!includeComma && priceElementText[i] === '.') || (includeComma && priceElementText[i] === ',')){
-			currentPrice += priceElementText[i];
+		priceElementText = typeof (priceElement) === 'string' ? (includeComma ? priceElement.replace('.', '') : priceElement.replace(',', '')) : (includeComma ? priceElement.textContent.replace('.', '') : priceElement.textContent.replace(',', ''));
+		var currencySymbol = priceElementText.split('').filter(function (character) { return /[$|€|£]/.test(character) })[0] || '$';
+		var currentPrice = '';
+		for (var i = 0; i < priceElementText.length; i++) {
+			if (/[0-9()]/.test(priceElementText[i]) || (!includeComma && priceElementText[i] === '.') || (includeComma && priceElementText[i] === ',')) {
+				currentPrice += priceElementText[i];
+			}
 		}
+		var currentPriceInCents = (currentPrice.replace(',', '.')) * 100;
+		var installmentPrice = (currentPriceInCents / 400).toFixed(2);
+		var formattedInstallmentPrice = priceElementText.indexOf(currencySymbol) > priceElementText.indexOf(currentPrice) ? installmentPrice + currencySymbol : currencySymbol + installmentPrice;
+		return includeComma ? formattedInstallmentPrice.replace('.', ',') : formattedInstallmentPrice;
 	}
-	var currentPriceInCents = (currentPrice.replace(',','.'))*100;
-	var installmentPrice = (currentPriceInCents/400).toFixed(2);
-	var formattedInstallmentPrice = priceElementText.indexOf(currencySymbol) > priceElementText.indexOf(currentPrice) ? installmentPrice + currencySymbol : currencySymbol + installmentPrice;
-	return includeComma ? formattedInstallmentPrice.replace('.',',') : formattedInstallmentPrice;
-}
 
-document.onreadystatechange = function(){
-	document.querySelector('.sezzle-shopify-buy-static-widget').querySelector('.sezzle-payment-amount').innerText = calculateSezzle() && 'of '+calculateSezzle();
-}
+	document.onreadystatechange = function () {
+		document.querySelector('.sezzle-shopify-buy-static-widget').querySelector('.sezzle-payment-amount').innerText = calculateSezzle() && 'of ' + calculateSezzle();
+	}
 </script>

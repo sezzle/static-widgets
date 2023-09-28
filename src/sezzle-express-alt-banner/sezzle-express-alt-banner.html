@@ -6,14 +6,14 @@ Open layout/checkout.liquid
 Copy+Paste the below code snippet into the bottom of the file, then click Save
 -->
 <script>
-var expressButtonArea = document.querySelector('[data-alternative-payments]');
-if(Shopify && expressButtonArea && !document.querySelector('.sezzle-express-apm-widget')){
-	var sezzleBannerArea = document.createElement('div');
-	sezzleBannerArea.className = "sezzle-express-apm-widget";
-	expressButtonArea.parentElement.insertBefore(sezzleBannerArea, expressButtonArea.nextElementSibling);
+	var expressButtonArea = document.querySelector('[data-alternative-payments]');
+	if (Shopify && expressButtonArea && !document.querySelector('.sezzle-express-apm-widget')) {
+		var sezzleBannerArea = document.createElement('div');
+		sezzleBannerArea.className = "sezzle-express-apm-widget";
+		expressButtonArea.parentElement.insertBefore(sezzleBannerArea, expressButtonArea.nextElementSibling);
 
-	var sezzleBannerStyle = document.createElement('style');
-	sezzleBannerStyle.innerHTML = `	.sezzle-express-apm-widget {
+		var sezzleBannerStyle = document.createElement('style');
+		sezzleBannerStyle.innerHTML = `	.sezzle-express-apm-widget {
 	font-size: 14px;
 	line-height: 1.3em;
 	margin-top: 1.5em;
@@ -120,40 +120,40 @@ if(Shopify && expressButtonArea && !document.querySelector('.sezzle-express-apm-
 		display: inline-block;
 		padding: 0 1em;
 	}`;
-	sezzleBannerArea.appendChild(sezzleBannerStyle);
+		sezzleBannerArea.appendChild(sezzleBannerStyle);
 
-	var sezzleBannerHeader = document.createElement('h2');
-	sezzleBannerHeader.className = "sezzle-box-title";
-	sezzleBannerHeader.innerText = "Pay in 4 interest-free installments with"
-	sezzleBannerArea.appendChild(sezzleBannerHeader);
+		var sezzleBannerHeader = document.createElement('h2');
+		sezzleBannerHeader.className = "sezzle-box-title";
+		sezzleBannerHeader.innerText = "Pay in 4 interest-free installments with"
+		sezzleBannerArea.appendChild(sezzleBannerHeader);
 
-	var sezzleBannerContent = document.createElement('div');
-	sezzleBannerContent.className = "sezzle-box-content";
-	sezzleBannerArea.appendChild(sezzleBannerContent);
+		var sezzleBannerContent = document.createElement('div');
+		sezzleBannerContent.className = "sezzle-box-content";
+		sezzleBannerArea.appendChild(sezzleBannerContent);
 
-	var sezzleBannerLogo = document.createElement('img');
-	sezzleBannerLogo.className = "sezzle-box-logo";
-	sezzleBannerLogo.src = "https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg";
-	sezzleBannerLogo.alt = "Sezzle";
-	sezzleBannerContent.appendChild(sezzleBannerLogo);
+		var sezzleBannerLogo = document.createElement('img');
+		sezzleBannerLogo.className = "sezzle-box-logo";
+		sezzleBannerLogo.src = "https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg";
+		sezzleBannerLogo.alt = "Sezzle";
+		sezzleBannerContent.appendChild(sezzleBannerLogo);
 
-	var sezzleBannerFooter = document.createElement('div');
-	sezzleBannerFooter.className = "sezzle-box-footer";
-	sezzleBannerFooter.innerText = "Just select Sezzle after Shipping";
-	sezzleBannerArea.appendChild(sezzleBannerFooter);
+		var sezzleBannerFooter = document.createElement('div');
+		sezzleBannerFooter.className = "sezzle-box-footer";
+		sezzleBannerFooter.innerText = "Just select Sezzle after Shipping";
+		sezzleBannerArea.appendChild(sezzleBannerFooter);
 
-	var sezzleBannerDivider = document.createElement('div');
-	sezzleBannerDivider.className = "sezzle-or";
-	sezzleBannerArea.appendChild(sezzleBannerDivider);
+		var sezzleBannerDivider = document.createElement('div');
+		sezzleBannerDivider.className = "sezzle-or";
+		sezzleBannerArea.appendChild(sezzleBannerDivider);
 
-	var sezzleBannerLine = document.createElement('div');
-	sezzleBannerLine.className = "alternative-payment-separator";
-	sezzleBannerLine.setAttribute("data-alternative-payment-separator","");
-	sezzleBannerDivider.appendChild(sezzleBannerLine);
+		var sezzleBannerLine = document.createElement('div');
+		sezzleBannerLine.className = "alternative-payment-separator";
+		sezzleBannerLine.setAttribute("data-alternative-payment-separator", "");
+		sezzleBannerDivider.appendChild(sezzleBannerLine);
 
-	var sezzleBannerOr = document.createElement('span');
-	sezzleBannerOr.className = "alternative-payment-separator__content"
-	sezzleBannerOr.innerText = "OR";
-	sezzleBannerLine.appendChild(sezzleBannerOr);
-}
+		var sezzleBannerOr = document.createElement('span');
+		sezzleBannerOr.className = "alternative-payment-separator__content"
+		sezzleBannerOr.innerText = "OR";
+		sezzleBannerLine.appendChild(sezzleBannerOr);
+	}
 </script>
