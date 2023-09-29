@@ -1066,18 +1066,18 @@ class AwesomeSezzle {
 
 	async getAPModal(modalNode) {
 		const url = `https://media.sezzle.com/afterpay/modal/${this.language}.html`;
-	    try	{
-	    const response = await fetch(url);
-		    if (!response.ok) {
-		        throw new error(`Failed to fetch aftetpay modal, status: ${response.status}`);
-				}
-		    modalNode.innerHTML = await response.text();
-			}	catch(error) {
-		       	console.error(error);
+		try {
+			const response = await fetch(url);
+			if (!response.ok) {
+				throw new error(`Failed to fetch aftetpay modal, status: ${response.status}`);
 			}
+			modalNode.innerHTML = await response.text();
+		} catch (error) {
+			console.error(error);
+		}
 	}
 
-    renderAPModal() {
+	renderAPModal() {
 		var modalNode = document.createElement('section');
 		modalNode.className = 'sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-ap-modal';
 		modalNode.style = 'position: center';
@@ -1085,8 +1085,8 @@ class AwesomeSezzle {
 		modalNode.role = 'dialog';
 		modalNode.ariaLabel = 'Afterpay Information';
 		modalNode.ariaDescription = 'Click to learn more about Afterpay';
-		
-	    if(this.apModalHTML){
+
+		if (this.apModalHTML) {
 			modalNode.innerHTML = this.apModalHTML
 		} else {
 			this.getAPModal(modalNode);

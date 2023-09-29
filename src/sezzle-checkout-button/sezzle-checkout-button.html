@@ -1,53 +1,64 @@
 <style>
-@import url(https://fonts.googleapis.com/css?family=Comfortaa);
-.sezzle-checkout-button {
-	cursor: pointer;
-	font-family: "Comfortaa", cursive !important;
-	display: inline-block;
-	border: none;
-	text-align: center;
-	min-width: fit-content;
-	width: auto;
-	height: fit-content;
-	text-decoration: none;
-	text-transform: none;
-	padding: 9px !important;
-	font-size: 15px;
-	line-height: 29px;
-	justify-content: center;
-}
-.sezzle-button-light {
-	background-color: #392558 !important;
-	color: white !important;
-}
-.sezzle-button-light:hover, .sezzle-button-light:focus {
-	background-color: #d784ff !important;
-}
-.sezzle-button-light:active {
-	background-color: purple !important;
-}
-.sezzle-button-dark {
-	background-color: #fff !important;
-	color: #392558 !important;
-}
-.sezzle-button-dark:hover, .sezzle-button-dark:focus {
-	background-color: #eee !important;
-}
-.sezzle-button-dark:active {
-	background-color: #ccc !important;
-}
-.sezzle-checkout-button .sezzle-button-logo-img {
-	width: 72px;
-	height: 18px;
-	position: relative;
-	top: -2px;
-	vertical-align: middle;
-	display: inline;
-	margin: 0px 2px;
-}
-.sezzle-checkout-button .min-price {
-	font-size: 12px;
-}
+	@import url(https://fonts.googleapis.com/css?family=Comfortaa);
+
+	.sezzle-checkout-button {
+		cursor: pointer;
+		font-family: "Comfortaa", cursive !important;
+		display: inline-block;
+		border: none;
+		text-align: center;
+		min-width: fit-content;
+		width: auto;
+		height: fit-content;
+		text-decoration: none;
+		text-transform: none;
+		padding: 9px !important;
+		font-size: 15px;
+		line-height: 29px;
+		justify-content: center;
+	}
+
+	.sezzle-button-light {
+		background-color: #392558 !important;
+		color: white !important;
+	}
+
+	.sezzle-button-light:hover,
+	.sezzle-button-light:focus {
+		background-color: #d784ff !important;
+	}
+
+	.sezzle-button-light:active {
+		background-color: purple !important;
+	}
+
+	.sezzle-button-dark {
+		background-color: #fff !important;
+		color: #392558 !important;
+	}
+
+	.sezzle-button-dark:hover,
+	.sezzle-button-dark:focus {
+		background-color: #eee !important;
+	}
+
+	.sezzle-button-dark:active {
+		background-color: #ccc !important;
+	}
+
+	.sezzle-checkout-button .sezzle-button-logo-img {
+		width: 72px;
+		height: 18px;
+		position: relative;
+		top: -2px;
+		vertical-align: middle;
+		display: inline;
+		margin: 0px 2px;
+	}
+
+	.sezzle-checkout-button .min-price {
+		font-size: 12px;
+	}
 </style>
 <script type="text/javascript">
 	function handleSezzleClick() {
@@ -56,7 +67,8 @@
 </script>
 <a class="sezzle-checkout-button sezzle-button-light" href="javascript:handleSezzleClick()" id="sezzle-checkout-button">
 	Checkout with &nbsp;<img class="sezzle-button-logo-img"
-		src="https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg" alt="Sezzle"><div class="min-price" style="display:none;"></div>
+		src="https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg" alt="Sezzle">
+	<div class="min-price" style="display:none;"></div>
 </a>
 <script type="text/javascript">
 	function copyStyles() {
@@ -90,13 +102,14 @@
 		}
 	}
 	document.onreadystatechange = function () {
-		const cartTotal = {{ cart.total_price }};
-		const maxPrice = document.longTermPaymentConfig && document.longTermPaymentConfig.maxPrice || document.sezzleConfig && document.sezzleConfig.maxPrice || 250000;
-		if (cartTotal && cartTotal > maxPrice){
-			document.getElementById('sezzle-checkout-button').style.display = "none";
-		}
-		copyStyles();
-		handleTranslation()
-		handleMinPrice(cartTotal);
+		const cartTotal = {{ cart.total_price }
+	};
+	const maxPrice = document.longTermPaymentConfig && document.longTermPaymentConfig.maxPrice || document.sezzleConfig && document.sezzleConfig.maxPrice || 250000;
+	if (cartTotal && cartTotal > maxPrice) {
+		document.getElementById('sezzle-checkout-button').style.display = "none";
+	}
+	copyStyles();
+	handleTranslation()
+	handleMinPrice(cartTotal);
 	}
 </script>
