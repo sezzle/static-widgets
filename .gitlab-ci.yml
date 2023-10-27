@@ -6,7 +6,7 @@ include:
       - '.build/npm.yml'
       - '.deploy/cloudfront.yml'
 
-image: 'node:21@sha256:8b1dbad3ea6de712f8d05efda4f97d1404bb5ba88cf1a71f16d9b2b3cc185e3f'
+image: 'node:21@sha256:1f937398bb207138bd26777f76d8b31b44f22d8baf6058705ad7433225c6f1aa'
 
 variables:
   JIRA_PROJECT_NAME: "MINT"
