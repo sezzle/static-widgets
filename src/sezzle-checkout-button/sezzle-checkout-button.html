@@ -102,7 +102,7 @@
 		}
 	}
 	document.onreadystatechange = function () {
-		const cartTotal = {{ cart.total_price }
+		const cartTotal = {{ cart.total_price }}
 	};
 	const maxPrice = document.longTermPaymentConfig && document.longTermPaymentConfig.maxPrice || document.sezzleConfig && document.sezzleConfig.maxPrice || 250000;
 	if (cartTotal && cartTotal > maxPrice) {

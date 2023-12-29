@@ -103,6 +103,12 @@ class SezzleCheckoutButton {
 			.sezzle-checkout-button .min-price {
              font-size: 12px;
             }
+			.sezzle-checkout-button[data-route-ref] {
+				display: block;
+			}
+			.sezzle-checkout-button[data-route-copy] {
+				display: none;
+			}
 		`;
 		document.head.appendChild(sezzleButtonStyle);
 	}
@@ -155,8 +161,9 @@ class SezzleCheckoutButton {
 	}
 
 	renderUnderButton(checkoutButton) {
+		const checkoutButtonStyles = getComputedStyle(checkoutButton);
 		let checkoutButtonParent = checkoutButton.parentElement ? checkoutButton.parentElement : checkoutButton;
-		if (!checkoutButtonParent.querySelector('.sezzle-checkout-button')) {
+		if (checkoutButtonStyles.display !== 'none' && !checkoutButtonParent.querySelector('.sezzle-checkout-button')) {
 			const sezzleCheckoutButton = this.getButton();
 			this.matchStyle(getComputedStyle(checkoutButton))
 			checkoutButton.nextElementSibling ? checkoutButtonParent.insertBefore(sezzleCheckoutButton, checkoutButton.nextElementSibling) : checkoutButtonParent.appendChild(sezzleCheckoutButton);
