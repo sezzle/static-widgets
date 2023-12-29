@@ -1,7 +1,5 @@
 class SezzleCheckoutButton {
 
-	isEventSent = false;
-
 	constructor(options) {
 		this.defaultTemplate = {
 			Checkout: {
@@ -29,7 +27,6 @@ class SezzleCheckoutButton {
 		this.cartTotal = options.cartTotal;
 		this.defaultPlacement = (typeof options.defaultPlacement === 'undefined') ? true : (options.defaultPlacement === 'true');
 	}
-
 
 	getTranslation(template) {
 		const templateToGet = typeof template === "string" && this.defaultTemplate[template.split(" ")[0]] ? template.split(" ")[0] : "Checkout";
@@ -216,7 +213,6 @@ class EventLogger {
 	}
 
 	sendEvent(eventName, description = "") {
-		if(!isEventSent && document.querySelector('.sezzle-checkout-button')){
 			const body = [{
 				event_name: eventName,
 				description: description,
@@ -224,8 +220,6 @@ class EventLogger {
 				merchant_site: window.location.hostname,
 			}];
 			this.httpRequestWrapper('POST', this.widgetServerEventLogEndpoint, body);
-			isEventSent = true;
-		}
 	};
 
 	async httpRequestWrapper(method, url, body = null) {
