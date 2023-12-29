@@ -105,6 +105,9 @@ class SezzleCheckoutButton {
 			.sezzle-checkout-button .min-price {
              font-size: 12px;
             }
+			.sezzle-checkout-button[data-route-ref] {
+				display: block;
+			}
 			.sezzle-checkout-button[data-route-copy] {
 				display: none;
 			}
