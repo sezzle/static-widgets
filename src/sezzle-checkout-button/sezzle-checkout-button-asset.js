@@ -213,13 +213,15 @@ class EventLogger {
 	}
 
 	sendEvent(eventName, description = "") {
-		const body = [{
-			event_name: eventName,
-			description: description,
-			merchant_uuid: this.merchantUUID,
-			merchant_site: window.location.hostname,
-		}];
-		this.httpRequestWrapper('POST', this.widgetServerEventLogEndpoint, body);
+		if (document.querySelector('.sezzle-checkout-button')) {
+			const body = [{
+				event_name: eventName,
+				description: description,
+				merchant_uuid: this.merchantUUID,
+				merchant_site: window.location.hostname,
+			}];
+			this.httpRequestWrapper('POST', this.widgetServerEventLogEndpoint, body);
+		}
 	};
 
 	async httpRequestWrapper(method, url, body = null) {
