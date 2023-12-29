@@ -1,5 +1,7 @@
 class SezzleCheckoutButton {
 
+	isEventSent = false;
+
 	constructor(options) {
 		this.defaultTemplate = {
 			Checkout: {
@@ -103,6 +105,9 @@ class SezzleCheckoutButton {
 			.sezzle-checkout-button .min-price {
              font-size: 12px;
             }
+			.sezzle-checkout-button[data-route-copy] {
+				display: none;
+			}
 		`;
 		document.head.appendChild(sezzleButtonStyle);
 	}
@@ -155,8 +160,9 @@ class SezzleCheckoutButton {
 	}
 
 	renderUnderButton(checkoutButton) {
+		const checkoutButtonStyles = getComputedStyle(checkoutButton);
 		let checkoutButtonParent = checkoutButton.parentElement ? checkoutButton.parentElement : checkoutButton;
-		if (!checkoutButtonParent.querySelector('.sezzle-checkout-button')) {
+		if (checkoutButtonStyles.display !== 'none' && !checkoutButtonParent.querySelector('.sezzle-checkout-button')) {
 			const sezzleCheckoutButton = this.getButton();
 			this.matchStyle(getComputedStyle(checkoutButton))
 			checkoutButton.nextElementSibling ? checkoutButtonParent.insertBefore(sezzleCheckoutButton, checkoutButton.nextElementSibling) : checkoutButtonParent.appendChild(sezzleCheckoutButton);
@@ -206,13 +212,16 @@ class EventLogger {
 	}
 
 	sendEvent(eventName, description = "") {
-		const body = [{
-			event_name: eventName,
-			description: description,
-			merchant_uuid: this.merchantUUID,
-			merchant_site: window.location.hostname,
-		}];
-		this.httpRequestWrapper('POST', this.widgetServerEventLogEndpoint, body);
+		if(!isEventSent){
+			const body = [{
+				event_name: eventName,
+				description: description,
+				merchant_uuid: this.merchantUUID,
+				merchant_site: window.location.hostname,
+			}];
+			this.httpRequestWrapper('POST', this.widgetServerEventLogEndpoint, body);
+			isEventSent = true;
+		}
 	};
 
 	async httpRequestWrapper(method, url, body = null) {
