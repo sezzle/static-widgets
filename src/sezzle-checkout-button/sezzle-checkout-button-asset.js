@@ -30,6 +30,7 @@ class SezzleCheckoutButton {
 		this.defaultPlacement = (typeof options.defaultPlacement === 'undefined') ? true : (options.defaultPlacement === 'true');
 	}
 
+
 	getTranslation(template) {
 		const templateToGet = typeof template === "string" && this.defaultTemplate[template.split(" ")[0]] ? template.split(" ")[0] : "Checkout";
 		const languageToGet = this.defaultTemplate[templateToGet][document.documentElement.lang] ? document.documentElement.lang : "en";
@@ -215,7 +216,7 @@ class EventLogger {
 	}
 
 	sendEvent(eventName, description = "") {
-		if(!isEventSent){
+		if(!isEventSent && document.querySelector('.sezzle-checkout-button')){
 			const body = [{
 				event_name: eventName,
 				description: description,
