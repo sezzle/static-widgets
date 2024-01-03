@@ -1,17 +1,17 @@
 include:
-  - project: 'DevOps/templates'
-    ref: 'v2.0.3'
+  - project: "DevOps/templates"
+    ref: "v2.0.3"
     file:
-      - '.compile/js.yml'
-      - '.build/npm.yml'
-      - '.deploy/cloudfront.yml'
+      - ".compile/js.yml"
+      - ".build/npm.yml"
+      - ".deploy/cloudfront.yml"
 
-image: 'node:21@sha256:814a6dc5bfd4ecc5ef24652f6b4f2790e9f3552b52ee38a7b51fc4d4c0d6d7fd'
+image: "node:21@sha256:814a6dc5bfd4ecc5ef24652f6b4f2790e9f3552b52ee38a7b51fc4d4c0d6d7fd"
 
 variables:
   JIRA_PROJECT_NAME: "MINT"
   s3_bucket_production: "checkout-sdk.sezzle.com"
-  cf_dist_production: "EQ8554SMUE81E"
+  cf_dist_production: "E2HSGLI0811JNF"
 
 deploy_cloudfront:afterpay_modals:
   extends:
@@ -28,7 +28,7 @@ deploy_cloudfront:afterpay_modals:
       mkdir -p ./build/modal
       cp -v ./src/afterpay/modal/*.html ./build/modal
       log section-end
-    - |  
+    - |
       aws_cloudfront_deploy --dryrun
       aws_cloudfront_deploy
   rules:
