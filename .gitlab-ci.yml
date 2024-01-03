@@ -11,7 +11,9 @@ image: "node:21@sha256:814a6dc5bfd4ecc5ef24652f6b4f2790e9f3552b52ee38a7b51fc4d4c
 variables:
   JIRA_PROJECT_NAME: "MINT"
   s3_bucket_production: "checkout-sdk.sezzle.com"
+  s3_bucket_staging: "staging.checkout-sdk.sezzle.com"
   cf_dist_production: "E2HSGLI0811JNF"
+  cf_dist_staging: "E2VP0QA9ZBJOEA"
 
 deploy_cloudfront:afterpay_modals:
   extends:
