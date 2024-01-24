@@ -55,7 +55,7 @@ class SezzleCheckoutButton {
 			@import url(https://fonts.googleapis.com/css?family=Comfortaa);
 			.sezzle-checkout-button {
 				cursor: pointer;
-				font-family: "Comfortaa", cursive !important;
+				font-family: "'Satoshi', sans-serif" !important;
 				border: none;
 				text-align: center;
 				min-width: fit-content;
