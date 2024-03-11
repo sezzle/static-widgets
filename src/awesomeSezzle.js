@@ -35,8 +35,8 @@ class AwesomeSezzle {
             ? this.language
             : "en";
         this.numberOfPayments = 4;
-        var templateString = this.translationsMap[this.language].widget;
-        var templateStringLT = this.translationsMap[this.language].widgetLT;
+        const templateString = this.translationsMap[this.language].widget;
+        const templateStringLT = this.translationsMap[this.language].widgetLT;
         this.widgetTemplate =
             this.getWidgetTemplateOverride(options.widgetTemplate) ||
             templateString;
@@ -107,14 +107,14 @@ class AwesomeSezzle {
     }
 
     addCSSAlignment() {
-        var newAlignment = "";
+        let newAlignment = "";
         if (
             matchMedia &&
             this.alignmentSwitchMinWidth &&
             this.alignmentSwitchType
         ) {
-            var queryString = `(min-width: ${this.alignmentSwitchMinWidth}px)`;
-            var mq = window.matchMedia(queryString);
+            const queryString = `(min-width: ${this.alignmentSwitchMinWidth}px)`;
+            const mq = window.matchMedia(queryString);
             if (!mq.matches) {
                 newAlignment = this.alignmentSwitchType;
             }
@@ -291,7 +291,7 @@ class AwesomeSezzle {
                 );
             }
         });
-        var modals = document.getElementsByClassName(
+        let modals = document.getElementsByClassName(
             "sezzle-checkout-modal-lightbox"
         );
         if (modals.length) {
@@ -307,7 +307,7 @@ class AwesomeSezzle {
     }
 
     setLogoStyle(element) {
-        var newStyles = Object.keys(this.logoStyle);
+        const newStyles = Object.keys(this.logoStyle);
         for (let i = 0; i < newStyles.length; i++) {
             element.style[newStyles[i]] = this.logoStyle[newStyles[i]];
         }
@@ -321,7 +321,7 @@ class AwesomeSezzle {
             return false;
         }
 
-        var widgetText = "";
+        let widgetText = "";
         if (!this.isProductEligible(this.amount)) {
             widgetText = this.ineligibleWidgetTemplate;
         } else if (this.isProductEligibleLT(this.amount)) {
@@ -333,29 +333,29 @@ class AwesomeSezzle {
         this.insertWidgetTypeCSSClassInElement();
         this.setElementMargins();
         if (this.scaleFactor || this.fixedHeight) this.setWidgetSize();
-        var node = document.createElement("button");
+        const node = document.createElement("button");
         node.ariaHasPopup = "dialog";
         node.className = "sezzle-checkout-button-wrapper sezzle-modal-link";
         // node.style.cursor = 'pointer';
-        var sezzleButtonText = document.createElement("div");
+        const sezzleButtonText = document.createElement("div");
         sezzleButtonText.className = "sezzle-button-text";
         this.setImageURL();
-        var widgetTextArray = widgetText.split("%%");
+        const widgetTextArray = widgetText.split("%%");
         widgetTextArray.forEach(
             function (subtemplate) {
                 switch (subtemplate) {
                     case "price":
-                        var priceSpanNode = document.createElement("span");
+                        const priceSpanNode = document.createElement("span");
                         priceSpanNode.className =
                             "sezzle-payment-amount sezzle-button-text";
-                        var priceValueText = document.createTextNode(
+                        const priceValueText = document.createTextNode(
                             this.getFormattedPrice()
                         );
                         priceSpanNode.appendChild(priceValueText);
                         sezzleButtonText.appendChild(priceSpanNode);
                         break;
                     case "logo":
-                        var logoNode = document.createElementNS(
+                        const logoNode = document.createElementNS(
                             "http://www.w3.org/2000/svg",
                             "svg"
                         );
@@ -380,21 +380,21 @@ class AwesomeSezzle {
                         }
                         break;
                     case "link":
-                        var learnMoreNode = document.createElement("div");
+                        const learnMoreNode = document.createElement("div");
                         learnMoreNode.style.color = this.textColor;
                         learnMoreNode.ariaLabel = `${
                             this.translationsMap[this.language].learnMoreAlt
                         } Sezzle`;
                         learnMoreNode.className =
                             "sezzle-learn-more sezzle-modal-open-link";
-                        var learnMoreText = document.createTextNode(
+                        const learnMoreText = document.createTextNode(
                             this.translationsMap[this.language].learnMoreLink
                         );
                         learnMoreNode.appendChild(learnMoreText);
                         sezzleButtonText.appendChild(learnMoreNode);
                         break;
                     case "info":
-                        var infoIconNode = document.createElement("div");
+                        const infoIconNode = document.createElement("div");
                         infoIconNode.ariaLabel = `${
                             this.translationsMap[this.language].learnMoreAlt
                         } Sezzle`;
@@ -404,14 +404,14 @@ class AwesomeSezzle {
                         sezzleButtonText.appendChild(infoIconNode);
                         break;
                     case "question-mark":
-                        var questionMarkButton =
+                        const questionMarkButton =
                             document.createElement("button");
                         questionMarkButton.role = "button";
                         questionMarkButton.type = "button";
                         questionMarkButton.ariaLabel = `${
                             this.translationsMap[this.language].learnMoreLink
                         } Sezzle`;
-                        var questionMarkIconNode = document.createElementNS(
+                        const questionMarkIconNode = document.createElementNS(
                             "http://www.w3.org/2000/svg",
                             "svg"
                         );
@@ -494,7 +494,7 @@ class AwesomeSezzle {
                         this.setLogoSize(apNode);
                         break;
                     case "afterpay-info-icon":
-                        var apInfoIconNode = document.createElement("button");
+                        const apInfoIconNode = document.createElement("button");
                         apInfoIconNode.role = "button";
                         apInfoIconNode.type = "button";
                         apInfoIconNode.ariaLabel = `${
@@ -506,10 +506,10 @@ class AwesomeSezzle {
                         sezzleButtonText.appendChild(apInfoIconNode);
                         break;
                     case "afterpay-link-icon":
-                        var apAnchor = document.createElement("a");
+                        const apAnchor = document.createElement("a");
                         apAnchor.href = this.apLink;
                         apAnchor.target = "_blank";
-                        var apLinkIconNode = document.createElement("code");
+                        const apLinkIconNode = document.createElement("code");
                         apLinkIconNode.ariaLabel = `${
                             this.translationsMap[this.language].learnMoreAlt
                         } Afterpay`;
@@ -582,7 +582,7 @@ class AwesomeSezzle {
                         this.setLogoSize(qpNode);
                         break;
                     case "quadpay-info-icon":
-                        var quadpayInfoIconNode =
+                        const quadpayInfoIconNode =
                             document.createElement("button");
                         quadpayInfoIconNode.role = "button";
                         quadpayInfoIconNode.type = "button";
@@ -661,7 +661,7 @@ class AwesomeSezzle {
                         this.setLogoSize(affirmNode);
                         break;
                     case "affirm-info-icon":
-                        var affirmInfoIconNode =
+                        const affirmInfoIconNode =
                             document.createElement("button");
                         affirmInfoIconNode.role = "button";
                         affirmInfoIconNode.type = "button";
@@ -740,7 +740,7 @@ class AwesomeSezzle {
                         this.setLogoSize(klarnaNode);
                         break;
                     case "klarna-info-icon":
-                        var klarnaInfoIconNode =
+                        const klarnaInfoIconNode =
                             document.createElement("button");
                         klarnaInfoIconNode.role = "button";
                         klarnaInfoIconNode.type = "button";
@@ -753,31 +753,31 @@ class AwesomeSezzle {
                         sezzleButtonText.appendChild(klarnaInfoIconNode);
                         break;
                     case "line-break":
-                        var lineBreakNode = document.createElement("br");
+                        const lineBreakNode = document.createElement("br");
                         sezzleButtonText.appendChild(lineBreakNode);
                         break;
                     case "&eacute;":
-                        var eacute = document.createElement("span");
+                        const eacute = document.createElement("span");
                         eacute.innerHTML = "&#233;";
                         sezzleButtonText.appendChild(eacute);
                         break;
                     case "&ecirc;":
-                        var ecirc = document.createElement("span");
+                        const ecirc = document.createElement("span");
                         ecirc.innerHTML = "&#234;";
                         sezzleButtonText.appendChild(ecirc);
                         break;
                     case "&auml;":
-                        var auml = document.createElement("span");
+                        const auml = document.createElement("span");
                         auml.innerHTML = "&#228;";
                         sezzleButtonText.appendChild(auml);
                         break;
                     case "&uuml;":
-                        var uuml = document.createElement("span");
+                        const uuml = document.createElement("span");
                         uuml.innerHTML = "&#252;";
                         sezzleButtonText.appendChild(uuml);
                         break;
                     default:
-                        var widgetTextNode =
+                        const widgetTextNode =
                             document.createTextNode(subtemplate);
                         sezzleButtonText.appendChild(widgetTextNode);
                         break;
@@ -795,22 +795,22 @@ class AwesomeSezzle {
     }
 
     isProductEligible(priceText) {
-        var price =
+        let price =
             this.parseMode === "default"
                 ? HelperClass.parsePrice(priceText)
                 : HelperClass.parsePrice(priceText, this.parseMode);
         this.productPrice = price;
-        var priceInCents = price * 100;
+        let priceInCents = price * 100;
         return priceInCents >= this.minPrice && priceInCents <= this.maxPrice;
     }
 
     isProductEligibleLT(priceText) {
-        var price =
+        let price =
             this.parseMode === "default"
                 ? HelperClass.parsePrice(priceText)
                 : HelperClass.parsePrice(priceText, this.parseMode);
         this.productPrice = price;
-        var priceInCents = price * 100;
+        let priceInCents = price * 100;
         return (
             this.minPriceLT &&
             priceInCents >= this.minPriceLT &&
@@ -842,9 +842,9 @@ class AwesomeSezzle {
     }
 
     addDelimiters(priceString, parseMode) {
-        var parsedPrice = Number(priceString).toFixed(2);
+        const parsedPrice = Number(priceString).toFixed(2);
         if (parsedPrice.length > 6 && parseMode === "comma") {
-            var commaPrice = parsedPrice.replace(".", ",");
+            const commaPrice = parsedPrice.replace(".", ",");
             return (
                 commaPrice.substring(0, commaPrice.indexOf(",") - 3) +
                 "." +
@@ -881,9 +881,9 @@ class AwesomeSezzle {
     }
 
     currencySymbol(priceText) {
-        // var currency = this.amount.split('').filter(function(character){ return /[$|€|£]/.test(character)})[0] || '$';
+        // let currency = this.amount.split('').filter(function(character){ return /[$|€|£]/.test(character)})[0] || '$';
         // doesn't work with ISO-8859-1
-        var currency = 0;
+        let currency = 0;
         for (let i = 0; i < priceText.length; i++) {
             if (
                 priceText.charCodeAt(i) === 8364 ||
@@ -956,7 +956,7 @@ class AwesomeSezzle {
                 for (let i = 0; i < modals.length; i++) {
                     modals[i].style.display = "none";
                 }
-                var newFocus = document.querySelector("#sezzle-modal-return");
+                let newFocus = document.querySelector("#sezzle-modal-return");
                 if (newFocus) {
                     newFocus.focus();
                     newFocus.removeAttribute("id");
@@ -994,10 +994,10 @@ class AwesomeSezzle {
             modalNode.ariaDescription =
                 this.translationsMap[this.language].aboutSezzle;
             if (this.isProductEligibleLT(this.amount)) {
-                var currency = String.fromCharCode(
+                let currency = String.fromCharCode(
                     this.currencySymbol(this.amount)
                 );
-                var priceString =
+                let priceString =
                     this.amount.indexOf(currency) > -1
                         ? this.amount.split(currency)[1]
                         : this.amount;
@@ -1005,7 +1005,7 @@ class AwesomeSezzle {
                     this.parseMode === "comma"
                         ? priceString.replace(".", "").replace(",", ".")
                         : priceString.replace(",", "");
-                var terms = this.termsToShow(priceString);
+                let terms = this.termsToShow(priceString);
                 if (this.ltAltModalHTML) {
                     modalNode.innerHTML = this.ltAltModalHTML;
                 } else {
@@ -1370,7 +1370,7 @@ class AwesomeSezzle {
                             ? "-grayscale"
                             : "-color"
                     } sezzle-checkout-modal-hidden`;
-                    var newFocus = document.querySelector(
+                    let newFocus = document.querySelector(
                         "#sezzle-modal-return"
                     );
                     if (newFocus) {
@@ -1442,7 +1442,7 @@ class AwesomeSezzle {
             function (el) {
                 el.addEventListener("click", function () {
                     modalNode.style.display = "none";
-                    var newFocus = document.querySelector(
+                    let newFocus = document.querySelector(
                         "#sezzle-modal-return"
                     );
                     if (newFocus) {
@@ -1489,7 +1489,7 @@ class AwesomeSezzle {
             function (el) {
                 el.addEventListener("click", function () {
                     modalNode.style.display = "none";
-                    var newFocus = document.querySelector(
+                    let newFocus = document.querySelector(
                         "#sezzle-modal-return"
                     );
                     if (newFocus) {
@@ -1536,7 +1536,7 @@ class AwesomeSezzle {
             function (el) {
                 el.addEventListener("click", function () {
                     modalNode.style.display = "none";
-                    var newFocus = document.querySelector(
+                    let newFocus = document.querySelector(
                         "#sezzle-modal-return"
                     );
                     if (newFocus) {
@@ -1585,7 +1585,7 @@ class AwesomeSezzle {
             function (el) {
                 el.addEventListener("click", function () {
                     modalNode.style.display = "none";
-                    var newFocus = document.querySelector(
+                    let newFocus = document.querySelector(
                         "#sezzle-modal-return"
                     );
                     if (newFocus) {
@@ -1629,7 +1629,7 @@ class AwesomeSezzle {
     }
 
     addClickEventForModal(sezzleElement) {
-        var modalLinks = document.getElementsByClassName("sezzle-modal-link");
+        const modalLinks = document.getElementsByClassName("sezzle-modal-link");
         Array.prototype.forEach.call(
             modalLinks,
             function (modalLink) {
@@ -1660,7 +1660,7 @@ class AwesomeSezzle {
                 );
             }.bind(this)
         );
-        var apModalLinks =
+        const apModalLinks =
             sezzleElement.getElementsByClassName("ap-modal-info-link");
         Array.prototype.forEach.call(
             apModalLinks,
@@ -1679,7 +1679,7 @@ class AwesomeSezzle {
                 );
             }.bind(this)
         );
-        var qpModalLinks = sezzleElement.getElementsByClassName(
+        const qpModalLinks = sezzleElement.getElementsByClassName(
             "quadpay-modal-info-link"
         );
         Array.prototype.forEach.call(
@@ -1699,7 +1699,7 @@ class AwesomeSezzle {
                 );
             }.bind(this)
         );
-        var affirmModalLinks = sezzleElement.getElementsByClassName(
+        const affirmModalLinks = sezzleElement.getElementsByClassName(
             "affirm-modal-info-link"
         );
         Array.prototype.forEach.call(
@@ -1719,7 +1719,7 @@ class AwesomeSezzle {
                 );
             }.bind(this)
         );
-        var klarnaModalLinks = sezzleElement.getElementsByClassName(
+        const klarnaModalLinks = sezzleElement.getElementsByClassName(
             "klarna-modal-info-link"
         );
         Array.prototype.forEach.call(
@@ -1753,7 +1753,7 @@ class AwesomeSezzle {
     }
 
     init() {
-        var els = [];
+        let els = [];
 
         function renderModals() {
             this.renderModal();
@@ -1792,7 +1792,7 @@ class AwesomeSezzle {
                 function (el, index) {
                     if (!el.element.childElementCount) {
                         this.renderElement = el.element;
-                        var sz = this.renderAwesomeSezzle();
+                        const sz = this.renderAwesomeSezzle();
                         this.addClickEventForModal(document);
                     }
                 }.bind(this)
