@@ -18,30 +18,10 @@ class AwesomeSezzle {
 			default:
 				this.language = 'en';
 		}
-		switch (options.merchantLocale) {
-			case 'North America':
-			case 'US':
-			case 'CA':
-			case 'IN':
-			case 'GU':
-			case 'PR':
-			case 'VI':
-			case 'AS':
-			case 'MP':
-			case 'MX':
-			case '':
-			case undefined:
-			case null:
-				this.merchantLocale = 'North America';
-				break;
-			default:
-				this.merchantLocale = 'Europe';
-				break;
-		}
 		if (this.language === 'french') this.language = 'fr';
 		if (this.language === 'spanish' || this.language === 'espanol' || this.language === 'español') this.language = 'es';
-		this.numberOfPayments = options.numberOfPayments || 4;
-		var templateString = this.widgetLanguageTranslation(this.language, this.numberOfPayments, this.merchantLocale)
+		this.numberOfPayments = 4;
+		var templateString = this.widgetLanguageTranslation(this.language)
 		var templateStringLT = this.widgetLanguageTranslationLT(this.language);
 		this.widgetTemplate = this.getWidgetTemplateOverride(options.widgetTemplate) || templateString;
 		this.widgetTemplateLT = this.getWidgetTemplateOverride(options.widgetTemplateLT) || templateStringLT;
@@ -101,12 +81,12 @@ class AwesomeSezzle {
 		return widgetTemplate;
 	}
 
-	widgetLanguageTranslation(language, numberOfPayments, merchantLocale) {
+	widgetLanguageTranslation(language) {
 		const translations = {
-			'en': 'or ' + numberOfPayments + (merchantLocale === 'North America' ? ' interest-free' : '') + ' payments of %%price%% with %%logo%% %%info%%' + (merchantLocale === 'Europe' ? ' - no fee' : ''),
-			'fr': 'ou ' + numberOfPayments + ' paiements de %%price%%' + (merchantLocale === 'North America' ? ' sans int%%&eacute;%%r%%&ecirc;%%ts' : '') + ' avec %%logo%% %%info%%' + (merchantLocale === 'Europe' ? ' - gratuit' : ''),
-			'es': 'o ' + numberOfPayments + ' pagos' + (merchantLocale === 'North America' ? ' sin intereses' : '') + ' de %%price%% con %%logo%% %%info%%' + (merchantLocale === 'Europe' ? ' - gratis' : '')
-		};
+            en: "or 4 interest-free payments of %%price%% with %%logo%% %%info%%",
+            fr: "ou 4 paiements de %%price%% sans interéts avec %%logo%% %%info%%",
+            es: "o 4 pagos sin intereses de %%price%% con %%logo%% %%info%%",
+        };
 		return translations[language] || translations.en;
 	};
 
@@ -334,20 +314,33 @@ class AwesomeSezzle {
 		var learnMoreTranslations = {
 			en: 'Learn more',
 			fr: 'Apprendre encore plus',
-			de: 'Erfahren Sie mehr',
 			es: 'Aprende más'
 		};
 		var learnMoreAltTranslations = {
 			en: 'Click here to learn more about',
 			fr: 'Cliquez ici pour en savoir plus sur',
-			de: 'Klicken Sie hier, um erfahren Sie mehr über',
-			es: 'Clic aquí para aprender más sobre',
-			'en-GB': 'Click to learn more about',
-			'fr-FR': 'Cliquez ici pour en savoir plus sur',
-			'de-DE': 'Klicken Sie hier, um erfahren Sie mehr über',
-			'es-ES': 'Clic aquí para aprender más sobre',
-			'it-IT': 'Clicca qui per ulteriori informazioni su'
-		}
+			es: 'Clic aquí para aprender más sobre'
+		};
+		var afterpayInfo = {
+            en: "Afterpay Information",
+            fr: "Informations Afterpay",
+            es: "Información de Afterpay",
+        };
+		var quadpayInfo = {
+            en: "Quadpay Information",
+            fr: "Informations Quadpay",
+            es: "Información de Quadpay",
+        };
+		var affirmInfo = {
+            en: "Affirm Information",
+            fr: "Informations Affirm",
+            es: "Información de Affirm",
+        };
+		var klarnaInfo = {
+            en: "Klarna Information",
+            fr: "Informations Klarna",
+            es: "Información de Klarna",
+        };
 		widgetTextArray.forEach(function (subtemplate) {
 			switch (subtemplate) {
 				case 'price':
@@ -1083,8 +1076,9 @@ class AwesomeSezzle {
 		modalNode.style = 'position: center';
 		modalNode.style.display = 'none';
 		modalNode.role = 'dialog';
-		modalNode.ariaLabel = 'Afterpay Information';
-		modalNode.ariaDescription = 'Click to learn more about Afterpay';
+		modalNode.ariaLabel = afterpayInfo[this.language];
+		modalNode.ariaDescription =
+            `${learnMoreAltTranslations[this.language]} Afterpay`;
 
 		if (this.apModalHTML) {
 			modalNode.innerHTML = this.apModalHTML
@@ -1119,8 +1113,9 @@ class AwesomeSezzle {
 		modalNode.style = 'position: center';
 		modalNode.style.display = 'none';
 		modalNode.role = 'dialog';
-		modalNode.ariaLabel = 'Quadpay Information';
-		modalNode.ariaDescription = 'Click to learn more about Quadpay';
+		modalNode.ariaLabel = quadpayInfo[this.language];
+		modalNode.ariaDescription =
+            `${learnMoreAltTranslations[this.language]} Quadpay`;
 		modalNode.innerHTML = this.qpModalHTML;
 		document.getElementsByTagName('html')[0].appendChild(modalNode);
 		Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
@@ -1150,8 +1145,9 @@ class AwesomeSezzle {
 		modalNode.style = 'position: center';
 		modalNode.style.display = 'none';
 		modalNode.role = 'dialog';
-		modalNode.ariaLabel = 'Affirm Information';
-		modalNode.ariaDescription = 'Click to learn more about Affirm';
+		modalNode.ariaLabel = affirmInfo[this.language];
+		modalNode.ariaDescription =
+            `${learnMoreAltTranslations[this.language]}  Affirm`;
 		modalNode.innerHTML = this.affirmModalHTML;
 		document.getElementsByTagName('html')[0].appendChild(modalNode);
 		Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
@@ -1181,8 +1177,8 @@ class AwesomeSezzle {
 		modalNode.style = 'position: center';
 		modalNode.style.display = 'none';
 		modalNode.role = 'dialog';
-		modalNode.ariaLabel = 'Klarna Information';
-		modalNode.ariaDescription = 'Click to learn more about Klarna';
+		modalNode.ariaLabel = klarnaInfo[this.language];
+		modalNode.ariaDescription = `${learnMoreAltTranslations[this.language]}  Klarna`;
 		modalNode.innerHTML = this.klarnaModalHTML;
 		document.getElementsByTagName('html')[0].appendChild(modalNode);
 		Array.prototype.forEach.call(document.getElementsByClassName('close-sezzle-modal'), function (el) {
