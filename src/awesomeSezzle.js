@@ -167,21 +167,9 @@ class AwesomeSezzle {
     addCSSTheme() {
         switch (this.theme) {
             case "dark":
-                this.renderElement.children[0].children[0].className +=
-                    " szl-dark";
-                break;
             case "white":
-                this.renderElement.children[0].children[0].className +=
-                    "szl-dark";
-                break;
             case "white-flat":
-                this.renderElement.children[0].children[0].className +=
-                    "szl-dark";
-                break;
             case "white-pill":
-                this.renderElement.children[0].children[0].className +=
-                    "szl-dark";
-                break;
             default:
                 this.renderElement.children[0].children[0].className +=
                     " szl-light";
