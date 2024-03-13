@@ -93,7 +93,7 @@ class AwesomeSezzle {
         this.fixedHeight = options.fixedHeight || 0;
         this.logoStyle = options.logoStyle || {};
         this.theme = options.theme || "light";
-        this.parseMode = options.parseMode || "default"; // other available option is comma (For french)
+        this.parseMode = options.parseMode || "default";
         this.widgetTemplate = this.widgetTemplate;
         this.widgetTemplateLT = this.widgetTemplateLT;
         this.ineligibleWidgetTemplate =
@@ -281,13 +281,12 @@ class AwesomeSezzle {
     eraseWidget() {
         this.renderElementArray.forEach(function (element, index) {
             let sezzleElement = document.getElementById(element);
-            if (sezzleElement) {
-                let checkoutButtonWrapper = sezzleElement.querySelector(
-                    ".sezzle-checkout-button-wrapper"
+            if (sezzleElement.innerHTML.length) {
+                sezzleElement.removeChild(
+                    sezzleElement.querySelector(
+                        ".sezzle-checkout-button-wrapper"
+                    )
                 );
-                if (checkoutButtonWrapper) {
-                    checkoutButtonWrapper.remove();
-                }
             }
         });
         let modals = document.getElementsByClassName(
@@ -335,7 +334,6 @@ class AwesomeSezzle {
         const node = document.createElement("button");
         node.ariaHasPopup = "dialog";
         node.className = "sezzle-checkout-button-wrapper sezzle-modal-link";
-        // node.style.cursor = 'pointer';
         const sezzleButtonText = document.createElement("div");
         sezzleButtonText.className = "sezzle-button-text";
         this.setImageURL();
@@ -864,8 +862,6 @@ class AwesomeSezzle {
     }
 
     currencySymbol(priceText) {
-        // let currency = this.amount.split('').filter(function(character){ return /[$|€|£]/.test(character)})[0] || '$';
-        // doesn't work with ISO-8859-1
         let currency = 0;
         for (let i = 0; i < priceText.length; i++) {
             if (
