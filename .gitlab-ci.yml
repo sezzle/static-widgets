@@ -1,6 +1,6 @@
 include:
   - project: "DevOps/templates"
-    ref: "v2.0.3"
+    ref: "v2.0.4"
     file:
       - ".compile/js.yml"
       - ".build/npm.yml"
