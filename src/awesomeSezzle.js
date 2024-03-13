@@ -31,12 +31,13 @@ class AwesomeSezzle {
             fr: frTranslations,
             es: esTranslations,
         };
-        this.language = this.translationsMap[this.language]
+        this.language = this.translations
             ? this.language
             : "en";
+        this.translations = this.translationsMap[this.language];
         this.numberOfPayments = 4;
-        const templateString = this.translationsMap[this.language].widget;
-        const templateStringLT = this.translationsMap[this.language].widgetLT;
+        const templateString = this.translations.widget;
+        const templateStringLT = this.translations.widgetLT;
         this.widgetTemplate =
             this.getWidgetTemplateOverride(options.widgetTemplate) ||
             templateString;
@@ -383,12 +384,12 @@ class AwesomeSezzle {
                         const learnMoreNode = document.createElement("div");
                         learnMoreNode.style.color = this.textColor;
                         learnMoreNode.ariaLabel = `${
-                            this.translationsMap[this.language].learnMoreAlt
+                            this.translations.learnMoreAlt
                         } Sezzle`;
                         learnMoreNode.className =
                             "sezzle-learn-more sezzle-modal-open-link";
                         const learnMoreText = document.createTextNode(
-                            this.translationsMap[this.language].learnMoreLink
+                            this.translations.learnMoreLink
                         );
                         learnMoreNode.appendChild(learnMoreText);
                         sezzleButtonText.appendChild(learnMoreNode);
@@ -396,7 +397,7 @@ class AwesomeSezzle {
                     case "info":
                         const infoIconNode = document.createElement("div");
                         infoIconNode.ariaLabel = `${
-                            this.translationsMap[this.language].learnMoreAlt
+                            this.translations.learnMoreAlt
                         } Sezzle`;
                         infoIconNode.className =
                             "sezzle-info-icon sezzle-modal-open-link";
@@ -409,7 +410,7 @@ class AwesomeSezzle {
                         questionMarkButton.role = "button";
                         questionMarkButton.type = "button";
                         questionMarkButton.ariaLabel = `${
-                            this.translationsMap[this.language].learnMoreLink
+                            this.translations.learnMoreLink
                         } Sezzle`;
                         const questionMarkIconNode = document.createElementNS(
                             "http://www.w3.org/2000/svg",
@@ -498,7 +499,7 @@ class AwesomeSezzle {
                         apInfoIconNode.role = "button";
                         apInfoIconNode.type = "button";
                         apInfoIconNode.ariaLabel = `${
-                            this.translationsMap[this.language].learnMoreAlt
+                            this.translations.learnMoreAlt
                         } Afterpay`;
                         apInfoIconNode.className =
                             "ap-modal-info-link no-sezzle-info";
@@ -511,7 +512,7 @@ class AwesomeSezzle {
                         apAnchor.target = "_blank";
                         const apLinkIconNode = document.createElement("code");
                         apLinkIconNode.ariaLabel = `${
-                            this.translationsMap[this.language].learnMoreAlt
+                            this.translations.learnMoreAlt
                         } Afterpay`;
                         apLinkIconNode.className = "ap-info-link";
                         apLinkIconNode.innerHTML = "&#9432;";
@@ -587,7 +588,7 @@ class AwesomeSezzle {
                         quadpayInfoIconNode.role = "button";
                         quadpayInfoIconNode.type = "button";
                         quadpayInfoIconNode.ariaLabel = `${
-                            this.translationsMap[this.language].learnMoreAlt
+                            this.translations.learnMoreAlt
                         } Quadpay`;
                         quadpayInfoIconNode.className =
                             "quadpay-modal-info-link no-sezzle-info";
@@ -666,7 +667,7 @@ class AwesomeSezzle {
                         affirmInfoIconNode.role = "button";
                         affirmInfoIconNode.type = "button";
                         affirmInfoIconNode.ariaLabel = `${
-                            this.translationsMap[this.language].learnMoreAlt
+                            this.translations.learnMoreAlt
                         } Affirm`;
                         affirmInfoIconNode.className =
                             "affirm-modal-info-link no-sezzle-info";
@@ -745,7 +746,7 @@ class AwesomeSezzle {
                         klarnaInfoIconNode.role = "button";
                         klarnaInfoIconNode.type = "button";
                         klarnaInfoIconNode.ariaLabel = `${
-                            this.translationsMap[this.language].learnMoreAlt
+                            this.translations.learnMoreAlt
                         } Klarna`;
                         klarnaInfoIconNode.className =
                             "klarna-modal-info-link no-sezzle-info";
@@ -990,9 +991,9 @@ class AwesomeSezzle {
             modalNode.role = "dialog";
             modalNode.lang = this.language;
             modalNode.ariaLabel =
-                this.translationsMap[this.language].sezzleInfo;
+                this.translations.sezzleInfo;
             modalNode.ariaDescription =
-                this.translationsMap[this.language].aboutSezzle;
+                this.translations.aboutSezzle;
             if (this.isProductEligibleLT(this.amount)) {
                 let currency = String.fromCharCode(
                     this.currencySymbol(this.amount)
@@ -1011,12 +1012,12 @@ class AwesomeSezzle {
                 } else {
                     modalNode.innerHTML = `
 				<div id="sezzle-modal-container" role="dialog" aria-label="Sezzle Modal" aria-description="${
-                    this.translationsMap[this.language].aboutSezzle
+                    this.translations.aboutSezzle
                 }" class="sezzle-checkout-modal-hidden long-term">
 					<div class="sezzle-modal">
 						<div>
 							<button role="button" aria-label="${
-                                this.translationsMap[this.language]
+                                this.translations
                                     .closeSezzleModal
                             }" class="close-sezzle-modal"></button>
 						</div>
@@ -1024,16 +1025,16 @@ class AwesomeSezzle {
 						<div id="sezzle-modal-core-content" class="sezzle-modal-content">
 
 							<header class="sezzle-header">${
-                                this.translationsMap[this.language]
+                                this.translations
                                     .sezzleHeaderLt
                             }</header>
 							<div class="sezzle-row">${
-                                this.translationsMap[this.language]
+                                this.translations
                                     .sezzleRowLtChild
                             }</div>
 							<div class="sezzle-lt-payments">
 								<div class="sezzle-lt-payment-header">${
-                                    this.translationsMap[this.language]
+                                    this.translations
                                         .sezzleLtPaymentHeader
                                 } <span>${
                         currency +
@@ -1056,19 +1057,19 @@ class AwesomeSezzle {
                                             )
                                         }</span>
 										<span aria-label="${
-                                            this.translationsMap[this.language]
+                                            this.translations
                                                 .perMonth
                                         }"><span class="per-month" aria-hidden="true">${
-                        this.translationsMap[this.language].monthlyAmount
+                        this.translations.monthlyAmount
                     }<sup>*</sup></span></span>
 									</div>
 									<div class="term-length">${terms[2]} ${
-                        this.translationsMap[this.language].termLength
+                        this.translations.termLength
                     }</div>
 								</div>
 									<div class="plan-details">
 										<div class="adjusted-total">${
-                                            this.translationsMap[this.language]
+                                            this.translations
                                                 .adjustedTotal
                                         } <span>${
                         currency +
@@ -1080,7 +1081,7 @@ class AwesomeSezzle {
                         )
                     }</span></div>
 										<div class="interest-amount">${
-                                            this.translationsMap[this.language]
+                                            this.translations
                                                 .interest
                                         } <span>${
                         currency +
@@ -1092,9 +1093,9 @@ class AwesomeSezzle {
                         )
                     }</span></div>
 										<div class="sample-apr">
-											<span aria-label="${this.translationsMap[this.language].readApr} ${
+											<span aria-label="${this.translations.readApr} ${
                         this.bestAPR
-                    } ${this.translationsMap[this.language].percent}">
+                    } ${this.translations.percent}">
 											<span aria-hidden="true">${
                                                 this.translationsMap[
                                                     this.language
@@ -1122,16 +1123,16 @@ class AwesomeSezzle {
                                                     this.language
                                                 ].perMonth
                                             }"><span class="per-month" aria-hidden="true">${
-                        this.translationsMap[this.language].monthlyAmount
+                        this.translations.monthlyAmount
                     }<sup>*</sup></span></span>
 										</div>
 										<div class="term-length">${terms[1]} ${
-                        this.translationsMap[this.language].termLength
+                        this.translations.termLength
                     }</div>
 									</div>
 									<div class="plan-details">
 										<div class="adjusted-total">${
-                                            this.translationsMap[this.language]
+                                            this.translations
                                                 .adjustedTotal
                                         } <span>${
                         currency +
@@ -1143,7 +1144,7 @@ class AwesomeSezzle {
                         )
                     }</span></div>
 										<div class="interest-amount">${
-                                            this.translationsMap[this.language]
+                                            this.translations
                                                 .interest
                                         } <span>${
                         currency +
@@ -1155,9 +1156,9 @@ class AwesomeSezzle {
                         )
                     }</span></div>
 										<div class="sample-apr">
-											<span aria-label="${this.translationsMap[this.language].readApr} ${
+											<span aria-label="${this.translations.readApr} ${
                         this.bestAPR
-                    } ${this.translationsMap[this.language].percent}">
+                    } ${this.translations.percent}">
 											<span aria-hidden="true">${
                                                 this.translationsMap[
                                                     this.language
@@ -1185,16 +1186,16 @@ class AwesomeSezzle {
                                                     this.language
                                                 ].perMonth
                                             }"><span class="per-month" aria-hidden="true">${
-                        this.translationsMap[this.language].monthlyAmount
+                        this.translations.monthlyAmount
                     }<sup>*</sup></span></span>
 										</div>
 										<div class="term-length">${terms[0]} ${
-                        this.translationsMap[this.language].termLength
+                        this.translations.termLength
                     }</div>
 									</div>
 									<div class="plan-details">
 										<div class="adjusted-total">${
-                                            this.translationsMap[this.language]
+                                            this.translations
                                                 .adjustedTotal
                                         } <span>${
                         currency +
@@ -1206,7 +1207,7 @@ class AwesomeSezzle {
                         )
                     }</span></div>
 										<div class="interest-amount">${
-                                            this.translationsMap[this.language]
+                                            this.translations
                                                 .interest
                                         } <span>${
                         currency +
@@ -1218,9 +1219,9 @@ class AwesomeSezzle {
                         )
                     }</span></div>
 										<div class="sample-apr">
-											<span aria-label="${this.translationsMap[this.language].readApr} ${
+											<span aria-label="${this.translations.readApr} ${
                         this.bestAPR
-                    } ${this.translationsMap[this.language].percent}">
+                    } ${this.translations.percent}">
 											<span aria-hidden="true">${
                                                 this.translationsMap[
                                                     this.language
@@ -1233,21 +1234,21 @@ class AwesomeSezzle {
 								</div>
 							</div>
 							<div class="details">${
-                                this.translationsMap[this.language]
+                                this.translations
                                     .singleFeatureAffordable
                             }</div>
 							<div class="details">${
-                                this.translationsMap[this.language]
+                                this.translations
                                     .singleFeaturePrequalify
                             }</div>
 							<div class="details">${
-                                this.translationsMap[this.language]
+                                this.translations
                                     .singleFeatureTrusted
                             }</div>
 							<div class="terms">
-								<p>${this.translationsMap[this.language].termsLt1}</p>
-								<p>${this.translationsMap[this.language].termsLt2}</p>
-								<p>${this.translationsMap[this.language].termsLt3}</p>
+								<p>${this.translations.termsLt1}</p>
+								<p>${this.translations.termsLt2}</p>
+								<p>${this.translations.termsLt3}</p>
 							</div>
 						</div>
 					</div>
@@ -1258,29 +1259,29 @@ class AwesomeSezzle {
             } else {
                 modalNode.innerHTML = `
         <div id="sezzle-modal-container" role="dialog" aria-label="Sezzle Modal" aria-description="${
-            this.translationsMap[this.language].aboutSezzle
+            this.translations.aboutSezzle
         }" class="sezzle-checkout-modal-hidden">
 		<div class="sezzle-modal">
 				<div><button role="button" aria-label="${
-                    this.translationsMap[this.language].closeSezzleModal
+                    this.translations.closeSezzleModal
                 }" class="close-sezzle-modal"></button></div>
 				<div class="sezzle-logo" title="Sezzle"></div>
 				<div id="sezzle-modal-core-content" class="sezzle-modal-content">
 					<header class="sezzle-header">${
-                        this.translationsMap[this.language].sezzleHeader
+                        this.translations.sezzleHeader
                     }
 					</header>
         			<p class="sezzle-row">
-						${this.translationsMap[this.language].sezzleHeaderChild}
+						${this.translations.sezzleHeaderChild}
 					</p>
         		<div class="sezzle-four-pay">
             		<p class="sezzle-row">
-						${this.translationsMap[this.language].sezzleRowChild}
+						${this.translations.sezzleRowChild}
 					</p>
 					<div class="sezzle-pie-area">
 						<div class="due-today">
 							<div class="payment-item">
-								<div title="${this.translationsMap[this.language].pieAlt} 25%">
+								<div title="${this.translations.pieAlt} 25%">
 									<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path d="M40 20C40 31.0457 31.0457 40 20 40C8.9543 40 0 31.0457 0 20C0 8.9543 8.9543 0 20 0C31.0457 0 40 8.9543 40 20ZM10 20C10 25.5228 14.4772 30 20 30C25.5228 30 30 25.5228 30 20C30 14.4772 25.5228 10 20 10C14.4772 10 10 14.4772 10 20Z" fill="#8333D4" fill-opacity="0.05"/>
 										<path d="M20 -7.62939e-05C22.6264 -7.64088e-05 25.2272 0.51724 27.6537 1.52233C30.0802 2.52743 32.285 4.00062 34.1421 5.85779C35.9993 7.71496 37.4725 9.91974 38.4776 12.3463C39.4827 14.7728 40 17.3735 40 19.9999L30 19.9999C30 18.6867 29.7413 17.3863 29.2388 16.1731C28.7362 14.9598 27.9997 13.8574 27.0711 12.9289C26.1425 12.0003 25.0401 11.2637 23.8268 10.7611C22.6136 10.2586 21.3132 9.99992 20 9.99992L20 -7.62939e-05Z" fill="#8333D4"/>
@@ -1290,13 +1291,13 @@ class AwesomeSezzle {
 								</div>
 								<p class="breakdown-row">
 									<span class="percentage">25%</span>
-									<span class="due">${this.translationsMap[this.language].today}</span>
+									<span class="due">${this.translations.today}</span>
 								</p>
 							</div>
 						</div>
 						<div class="future-payments">
 							<div class="payment-item">
-								<div title="${this.translationsMap[this.language].pieAlt} 50%">
+								<div title="${this.translations.pieAlt} 50%">
 									<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path d="M40 20C40 31.0457 31.0457 40 20 40C8.9543 40 0 31.0457 0 20C0 8.9543 8.9543 0 20 0C31.0457 0 40 8.9543 40 20ZM10 20C10 25.5228 14.4772 30 20 30C25.5228 30 30 25.5228 30 20C30 14.4772 25.5228 10 20 10C14.4772 10 10 14.4772 10 20Z" fill="#8333D4" fill-opacity="0.05"/>
 										<path fill-rule="evenodd" clip-rule="evenodd" d="M40 20C40 31.0457 31.0457 40 20 40C17.2386 40 15 37.7614 15 35C15 32.2386 17.2386 30 20 30C25.5228 30 30 25.5228 30 20C30 14.4772 25.5228 10 20 10V0C31.0457 0 40 8.9543 40 20Z" fill="#8333D4"/>
@@ -1304,11 +1305,11 @@ class AwesomeSezzle {
 								</div>
 								<p class="breakdown-row">
 									<span class="percentage">25%</span>
-									<span class="due">${this.translationsMap[this.language].week} 2</span>
+									<span class="due">${this.translations.week} 2</span>
 								</p>
 							</div>
 							<div class="payment-item">
-								<div title="${this.translationsMap[this.language].pieAlt} 75%">
+								<div title="${this.translations.pieAlt} 75%">
 									<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path d="M40 20C40 31.0457 31.0457 40 20 40C8.9543 40 0 31.0457 0 20C0 8.9543 8.9543 0 20 0C31.0457 0 40 8.9543 40 20ZM10 20C10 25.5228 14.4772 30 20 30C25.5228 30 30 25.5228 30 20C30 14.4772 25.5228 10 20 10C14.4772 10 10 14.4772 10 20Z" fill="#8333D4" fill-opacity="0.05"/>
 										<path d="M20 -8.74228e-07C23.9556 -1.04713e-06 27.8224 1.17298 31.1114 3.37061C34.4004 5.56824 36.9638 8.69181 38.4776 12.3463C39.9913 16.0009 40.3874 20.0222 39.6157 23.9018C38.844 27.7814 36.9392 31.3451 34.1421 34.1421C31.3451 36.9392 27.7814 38.844 23.9018 39.6157C20.0222 40.3874 16.0009 39.9913 12.3463 38.4776C8.69181 36.9638 5.56824 34.4004 3.37061 31.1114C1.17298 27.8224 -7.48492e-07 23.9556 -8.74228e-07 20L10 20C10 21.9778 10.5865 23.9112 11.6853 25.5557C12.7841 27.2002 14.3459 28.4819 16.1732 29.2388C18.0004 29.9957 20.0111 30.1937 21.9509 29.8079C23.8907 29.422 25.6725 28.4696 27.0711 27.0711C28.4696 25.6725 29.422 23.8907 29.8079 21.9509C30.1937 20.0111 29.9957 18.0004 29.2388 16.1732C28.4819 14.3459 27.2002 12.7841 25.5557 11.6853C23.9112 10.5865 21.9778 10 20 10L20 -8.74228e-07Z" fill="#8333D4"/>
@@ -1318,18 +1319,18 @@ class AwesomeSezzle {
 								</div>
 								<p class="breakdown-row">
 									<span class="percentage">25%</span>
-									<span class="due">${this.translationsMap[this.language].week} 4</span>
+									<span class="due">${this.translations.week} 4</span>
 								</p>
 							</div>
 							<div class="payment-item">
-								<div title="${this.translationsMap[this.language].pieAlt} 100%">
+								<div title="${this.translations.pieAlt} 100%">
 									<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path d="M40 20C40 31.0457 31.0457 40 20 40C8.9543 40 0 31.0457 0 20C0 8.9543 8.9543 0 20 0C31.0457 0 40 8.9543 40 20ZM10 20C10 25.5228 14.4772 30 20 30C25.5228 30 30 25.5228 30 20C30 14.4772 25.5228 10 20 10C14.4772 10 10 14.4772 10 20Z" fill="#8333D4"/>
 									</svg>
 								</div>
 								<p class="breakdown-row">
 									<span class="percentage">25%</span>
-									<span class="due">${this.translationsMap[this.language].week} 6</span>
+									<span class="due">${this.translations.week} 6</span>
 								</p>
 							</div>
 						</div>
@@ -1337,17 +1338,17 @@ class AwesomeSezzle {
 				</div>
 						<div class="sezzle-features">
            					<p class="single-feature">
-								${this.translationsMap[this.language].singleFeatureCredit}
+								${this.translations.singleFeatureCredit}
 							</p>
             				<p class="single-feature">
-								${this.translationsMap[this.language].singleFeatureOptions}
+								${this.translations.singleFeatureOptions}
 							</p>
 							<p class="single-feature">
-								${this.translationsMap[this.language].singleFeatureCreditBuilding}
+								${this.translations.singleFeatureCreditBuilding}
 							</p>
         				</div>
-        			<p class="terms">${this.translationsMap[this.language].terms1}</p>
-        			<p class="terms">${this.translationsMap[this.language].terms2}</p>
+        			<p class="terms">${this.translations.terms1}</p>
+        			<p class="terms">${this.translations.terms2}</p>
 				</div>
 			</div>
 		</div>`;
@@ -1426,9 +1427,9 @@ class AwesomeSezzle {
         modalNode.style = "position: center";
         modalNode.style.display = "none";
         modalNode.role = "dialog";
-        modalNode.ariaLabel = this.translationsMap[this.language].afterpayInfo;
+        modalNode.ariaLabel = this.translations.afterpayInfo;
         modalNode.ariaDescription = `${
-            this.translationsMap[this.language].learnMoreAlt
+            this.translations.learnMoreAlt
         } Afterpay`;
 
         if (this.apModalHTML) {
@@ -1478,9 +1479,9 @@ class AwesomeSezzle {
         modalNode.style = "position: center";
         modalNode.style.display = "none";
         modalNode.role = "dialog";
-        modalNode.ariaLabel = this.translationsMap[this.language].quadpayInfo;
+        modalNode.ariaLabel = this.translations.quadpayInfo;
         modalNode.ariaDescription = `${
-            this.translationsMap[this.language].learnMoreAlt
+            this.translations.learnMoreAlt
         } Quadpay`;
         modalNode.innerHTML = this.qpModalHTML;
         document.getElementsByTagName("html")[0].appendChild(modalNode);
@@ -1525,9 +1526,9 @@ class AwesomeSezzle {
         modalNode.style = "position: center";
         modalNode.style.display = "none";
         modalNode.role = "dialog";
-        modalNode.ariaLabel = this.translationsMap[this.language].affirmInfo;
+        modalNode.ariaLabel = this.translations.affirmInfo;
         modalNode.ariaDescription = `${
-            this.translationsMap[this.language].learnMoreAlt
+            this.translations.learnMoreAlt
         }  Affirm`;
         modalNode.innerHTML = this.affirmModalHTML;
         document.getElementsByTagName("html")[0].appendChild(modalNode);
@@ -1574,9 +1575,9 @@ class AwesomeSezzle {
         modalNode.style = "position: center";
         modalNode.style.display = "none";
         modalNode.role = "dialog";
-        modalNode.ariaLabel = this.translationsMap[this.language].klarnaInfo;
+        modalNode.ariaLabel = this.translations.klarnaInfo;
         modalNode.ariaDescription = `${
-            this.translationsMap[this.language].learnMoreAlt
+            this.translations.learnMoreAlt
         }  Klarna`;
         modalNode.innerHTML = this.klarnaModalHTML;
         document.getElementsByTagName("html")[0].appendChild(modalNode);
