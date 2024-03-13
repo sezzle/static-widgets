@@ -31,7 +31,7 @@ class AwesomeSezzle {
             fr: frTranslations,
             es: esTranslations,
         };
-        this.language = this.translations
+        this.language = this.translationsMap[this.language]
             ? this.language
             : "en";
         this.translations = this.translationsMap[this.language];
@@ -122,13 +122,19 @@ class AwesomeSezzle {
         }
         switch (newAlignment || this.alignment) {
             case "left":
-                this.renderElement.children[0].children[0].classList.add("sezzle-left");
+                this.renderElement.children[0].children[0].classList.add(
+                    "sezzle-left"
+                );
                 break;
             case "right":
-                this.renderElement.children[0].children[0].classList.add("sezzle-right");
+                this.renderElement.children[0].children[0].classList.add(
+                    "sezzle-right"
+                );
                 break;
             case "center":
-                this.renderElement.children[0].children[0].classList.add("sezzle-center");
+                this.renderElement.children[0].children[0].classList.add(
+                    "sezzle-center"
+                );
             default:
                 break;
         }
@@ -167,9 +173,14 @@ class AwesomeSezzle {
             case "white":
             case "white-flat":
             case "white-pill":
-                this.renderElement.children[0].children[0].classList.add("szl-dark");
+                this.renderElement.children[0].children[0].classList.add(
+                    "szl-dark"
+                );
+                break;
             default:
-                this.renderElement.children[0].children[0].classList.add("szl-light");
+                this.renderElement.children[0].children[0].classList.add(
+                    "szl-light"
+                );
                 break;
         }
     }
@@ -225,7 +236,9 @@ class AwesomeSezzle {
                 this.renderElement.classList.add("sezzle-cart-page-widget");
                 break;
             case "product-preview":
-                this.renderElement.classList.add("sezzle-product-preview-widget");
+                this.renderElement.classList.add(
+                    "sezzle-product-preview-widget"
+                );
                 break;
             default:
                 this.renderElement.classList.add("sezzle-product-page-widget");
@@ -268,12 +281,13 @@ class AwesomeSezzle {
     eraseWidget() {
         this.renderElementArray.forEach(function (element, index) {
             let sezzleElement = document.getElementById(element);
-            if (sezzleElement.innerHTML.length) {
-                sezzleElement.removeChild(
-                    sezzleElement.querySelector(
-                        ".sezzle-checkout-button-wrapper"
-                    )
+            if (sezzleElement) {
+                let checkoutButtonWrapper = sezzleElement.querySelector(
+                    ".sezzle-checkout-button-wrapper"
                 );
+                if (checkoutButtonWrapper) {
+                    checkoutButtonWrapper.remove();
+                }
             }
         });
         let modals = document.getElementsByClassName(
@@ -367,9 +381,7 @@ class AwesomeSezzle {
                     case "link":
                         const learnMoreNode = document.createElement("div");
                         learnMoreNode.style.color = this.textColor;
-                        learnMoreNode.ariaLabel = `${
-                            this.translations.learnMoreAlt
-                        } Sezzle`;
+                        learnMoreNode.ariaLabel = `${this.translations.learnMoreAlt} Sezzle`;
                         learnMoreNode.className =
                             "sezzle-learn-more sezzle-modal-open-link";
                         const learnMoreText = document.createTextNode(
@@ -380,9 +392,7 @@ class AwesomeSezzle {
                         break;
                     case "info":
                         const infoIconNode = document.createElement("div");
-                        infoIconNode.ariaLabel = `${
-                            this.translations.learnMoreAlt
-                        } Sezzle`;
+                        infoIconNode.ariaLabel = `${this.translations.learnMoreAlt} Sezzle`;
                         infoIconNode.className =
                             "sezzle-info-icon sezzle-modal-open-link";
                         infoIconNode.innerHTML = "&#9432;";
@@ -393,9 +403,7 @@ class AwesomeSezzle {
                             document.createElement("button");
                         questionMarkButton.role = "button";
                         questionMarkButton.type = "button";
-                        questionMarkButton.ariaLabel = `${
-                            this.translations.learnMoreLink
-                        } Sezzle`;
+                        questionMarkButton.ariaLabel = `${this.translations.learnMoreLink} Sezzle`;
                         const questionMarkIconNode = document.createElementNS(
                             "http://www.w3.org/2000/svg",
                             "svg"
@@ -482,9 +490,7 @@ class AwesomeSezzle {
                         const apInfoIconNode = document.createElement("button");
                         apInfoIconNode.role = "button";
                         apInfoIconNode.type = "button";
-                        apInfoIconNode.ariaLabel = `${
-                            this.translations.learnMoreAlt
-                        } Afterpay`;
+                        apInfoIconNode.ariaLabel = `${this.translations.learnMoreAlt} Afterpay`;
                         apInfoIconNode.className =
                             "ap-modal-info-link no-sezzle-info";
                         apInfoIconNode.innerHTML = "&#9432;";
@@ -495,9 +501,7 @@ class AwesomeSezzle {
                         apAnchor.href = this.apLink;
                         apAnchor.target = "_blank";
                         const apLinkIconNode = document.createElement("code");
-                        apLinkIconNode.ariaLabel = `${
-                            this.translations.learnMoreAlt
-                        } Afterpay`;
+                        apLinkIconNode.ariaLabel = `${this.translations.learnMoreAlt} Afterpay`;
                         apLinkIconNode.className = "ap-info-link";
                         apLinkIconNode.innerHTML = "&#9432;";
                         apAnchor.appendChild(apLinkIconNode);
@@ -571,9 +575,7 @@ class AwesomeSezzle {
                             document.createElement("button");
                         quadpayInfoIconNode.role = "button";
                         quadpayInfoIconNode.type = "button";
-                        quadpayInfoIconNode.ariaLabel = `${
-                            this.translations.learnMoreAlt
-                        } Quadpay`;
+                        quadpayInfoIconNode.ariaLabel = `${this.translations.learnMoreAlt} Quadpay`;
                         quadpayInfoIconNode.className =
                             "quadpay-modal-info-link no-sezzle-info";
                         quadpayInfoIconNode.innerHTML = "&#9432;";
@@ -650,9 +652,7 @@ class AwesomeSezzle {
                             document.createElement("button");
                         affirmInfoIconNode.role = "button";
                         affirmInfoIconNode.type = "button";
-                        affirmInfoIconNode.ariaLabel = `${
-                            this.translations.learnMoreAlt
-                        } Affirm`;
+                        affirmInfoIconNode.ariaLabel = `${this.translations.learnMoreAlt} Affirm`;
                         affirmInfoIconNode.className =
                             "affirm-modal-info-link no-sezzle-info";
                         affirmInfoIconNode.innerHTML = "&#9432;";
@@ -729,9 +729,7 @@ class AwesomeSezzle {
                             document.createElement("button");
                         klarnaInfoIconNode.role = "button";
                         klarnaInfoIconNode.type = "button";
-                        klarnaInfoIconNode.ariaLabel = `${
-                            this.translations.learnMoreAlt
-                        } Klarna`;
+                        klarnaInfoIconNode.ariaLabel = `${this.translations.learnMoreAlt} Klarna`;
                         klarnaInfoIconNode.className =
                             "klarna-modal-info-link no-sezzle-info";
                         klarnaInfoIconNode.innerHTML = "&#9432;";
@@ -974,10 +972,8 @@ class AwesomeSezzle {
             modalNode.style.display = "none";
             modalNode.role = "dialog";
             modalNode.lang = this.language;
-            modalNode.ariaLabel =
-                this.translations.sezzleInfo;
-            modalNode.ariaDescription =
-                this.translations.aboutSezzle;
+            modalNode.ariaLabel = this.translations.sezzleInfo;
+            modalNode.ariaDescription = this.translations.aboutSezzle;
             if (this.isProductEligibleLT(this.amount)) {
                 let currency = String.fromCharCode(
                     this.currencySymbol(this.amount)
@@ -1001,25 +997,17 @@ class AwesomeSezzle {
 					<div class="sezzle-modal">
 						<div>
 							<button role="button" aria-label="${
-                                this.translations
-                                    .closeSezzleModal
+                                this.translations.closeSezzleModal
                             }" class="close-sezzle-modal"></button>
 						</div>
 						<div class="sezzle-logo" title="Sezzle"> </div>
 						<div id="sezzle-modal-core-content" class="sezzle-modal-content">
 
-							<header class="sezzle-header">${
-                                this.translations
-                                    .sezzleHeaderLt
-                            }</header>
-							<div class="sezzle-row">${
-                                this.translations
-                                    .sezzleRowLtChild
-                            }</div>
+							<header class="sezzle-header">${this.translations.sezzleHeaderLt}</header>
+							<div class="sezzle-row">${this.translations.sezzleRowLtChild}</div>
 							<div class="sezzle-lt-payments">
 								<div class="sezzle-lt-payment-header">${
-                                    this.translations
-                                        .sezzleLtPaymentHeader
+                                    this.translations.sezzleLtPaymentHeader
                                 } <span>${
                         currency +
                         this.addDelimiters(priceString, this.parseMode)
@@ -1041,21 +1029,15 @@ class AwesomeSezzle {
                                             )
                                         }</span>
 										<span aria-label="${
-                                            this.translations
-                                                .perMonth
+                                            this.translations.perMonth
                                         }"><span class="per-month" aria-hidden="true">${
                         this.translations.monthlyAmount
                     }<sup>*</sup></span></span>
 									</div>
-									<div class="term-length">${terms[2]} ${
-                        this.translations.termLength
-                    }</div>
+									<div class="term-length">${terms[2]} ${this.translations.termLength}</div>
 								</div>
 									<div class="plan-details">
-										<div class="adjusted-total">${
-                                            this.translations
-                                                .adjustedTotal
-                                        } <span>${
+										<div class="adjusted-total">${this.translations.adjustedTotal} <span>${
                         currency +
                         this.formatAdjustedTotal(
                             priceString,
@@ -1064,10 +1046,7 @@ class AwesomeSezzle {
                             this.bestAPR
                         )
                     }</span></div>
-										<div class="interest-amount">${
-                                            this.translations
-                                                .interest
-                                        } <span>${
+										<div class="interest-amount">${this.translations.interest} <span>${
                         currency +
                         this.formatTotalInterest(
                             priceString,
@@ -1077,9 +1056,9 @@ class AwesomeSezzle {
                         )
                     }</span></div>
 										<div class="sample-apr">
-											<span aria-label="${this.translations.readApr} ${
-                        this.bestAPR
-                    } ${this.translations.percent}">
+											<span aria-label="${this.translations.readApr} ${this.bestAPR} ${
+                        this.translations.percent
+                    }">
 											<span aria-hidden="true">${
                                                 this.translationsMap[
                                                     this.language
@@ -1110,15 +1089,10 @@ class AwesomeSezzle {
                         this.translations.monthlyAmount
                     }<sup>*</sup></span></span>
 										</div>
-										<div class="term-length">${terms[1]} ${
-                        this.translations.termLength
-                    }</div>
+										<div class="term-length">${terms[1]} ${this.translations.termLength}</div>
 									</div>
 									<div class="plan-details">
-										<div class="adjusted-total">${
-                                            this.translations
-                                                .adjustedTotal
-                                        } <span>${
+										<div class="adjusted-total">${this.translations.adjustedTotal} <span>${
                         currency +
                         this.formatAdjustedTotal(
                             priceString,
@@ -1127,10 +1101,7 @@ class AwesomeSezzle {
                             this.bestAPR
                         )
                     }</span></div>
-										<div class="interest-amount">${
-                                            this.translations
-                                                .interest
-                                        } <span>${
+										<div class="interest-amount">${this.translations.interest} <span>${
                         currency +
                         this.formatTotalInterest(
                             priceString,
@@ -1140,9 +1111,9 @@ class AwesomeSezzle {
                         )
                     }</span></div>
 										<div class="sample-apr">
-											<span aria-label="${this.translations.readApr} ${
-                        this.bestAPR
-                    } ${this.translations.percent}">
+											<span aria-label="${this.translations.readApr} ${this.bestAPR} ${
+                        this.translations.percent
+                    }">
 											<span aria-hidden="true">${
                                                 this.translationsMap[
                                                     this.language
@@ -1173,15 +1144,10 @@ class AwesomeSezzle {
                         this.translations.monthlyAmount
                     }<sup>*</sup></span></span>
 										</div>
-										<div class="term-length">${terms[0]} ${
-                        this.translations.termLength
-                    }</div>
+										<div class="term-length">${terms[0]} ${this.translations.termLength}</div>
 									</div>
 									<div class="plan-details">
-										<div class="adjusted-total">${
-                                            this.translations
-                                                .adjustedTotal
-                                        } <span>${
+										<div class="adjusted-total">${this.translations.adjustedTotal} <span>${
                         currency +
                         this.formatAdjustedTotal(
                             priceString,
@@ -1190,10 +1156,7 @@ class AwesomeSezzle {
                             this.bestAPR
                         )
                     }</span></div>
-										<div class="interest-amount">${
-                                            this.translations
-                                                .interest
-                                        } <span>${
+										<div class="interest-amount">${this.translations.interest} <span>${
                         currency +
                         this.formatTotalInterest(
                             priceString,
@@ -1203,9 +1166,9 @@ class AwesomeSezzle {
                         )
                     }</span></div>
 										<div class="sample-apr">
-											<span aria-label="${this.translations.readApr} ${
-                        this.bestAPR
-                    } ${this.translations.percent}">
+											<span aria-label="${this.translations.readApr} ${this.bestAPR} ${
+                        this.translations.percent
+                    }">
 											<span aria-hidden="true">${
                                                 this.translationsMap[
                                                     this.language
@@ -1217,18 +1180,9 @@ class AwesomeSezzle {
 									</div>
 								</div>
 							</div>
-							<div class="details">${
-                                this.translations
-                                    .singleFeatureAffordable
-                            }</div>
-							<div class="details">${
-                                this.translations
-                                    .singleFeaturePrequalify
-                            }</div>
-							<div class="details">${
-                                this.translations
-                                    .singleFeatureTrusted
-                            }</div>
+							<div class="details">${this.translations.singleFeatureAffordable}</div>
+							<div class="details">${this.translations.singleFeaturePrequalify}</div>
+							<div class="details">${this.translations.singleFeatureTrusted}</div>
 							<div class="terms">
 								<p>${this.translations.termsLt1}</p>
 								<p>${this.translations.termsLt2}</p>
@@ -1242,18 +1196,12 @@ class AwesomeSezzle {
                 modalNode.innerHTML = this.altModalHTML;
             } else {
                 modalNode.innerHTML = `
-        <div id="sezzle-modal-container" role="dialog" aria-label="Sezzle Modal" aria-description="${
-            this.translations.aboutSezzle
-        }" class="sezzle-checkout-modal-hidden">
+        <div id="sezzle-modal-container" role="dialog" aria-label="Sezzle Modal" aria-description="${this.translations.aboutSezzle}" class="sezzle-checkout-modal-hidden">
 		<div class="sezzle-modal">
-				<div><button role="button" aria-label="${
-                    this.translations.closeSezzleModal
-                }" class="close-sezzle-modal"></button></div>
+				<div><button role="button" aria-label="${this.translations.closeSezzleModal}" class="close-sezzle-modal"></button></div>
 				<div class="sezzle-logo" title="Sezzle"></div>
 				<div id="sezzle-modal-core-content" class="sezzle-modal-content">
-					<header class="sezzle-header">${
-                        this.translations.sezzleHeader
-                    }
+					<header class="sezzle-header">${this.translations.sezzleHeader}
 					</header>
         			<p class="sezzle-row">
 						${this.translations.sezzleHeaderChild}
@@ -1412,9 +1360,7 @@ class AwesomeSezzle {
         modalNode.style.display = "none";
         modalNode.role = "dialog";
         modalNode.ariaLabel = this.translations.afterpayInfo;
-        modalNode.ariaDescription = `${
-            this.translations.learnMoreAlt
-        } Afterpay`;
+        modalNode.ariaDescription = `${this.translations.learnMoreAlt} Afterpay`;
 
         if (this.apModalHTML) {
             modalNode.innerHTML = this.apModalHTML;
@@ -1464,9 +1410,7 @@ class AwesomeSezzle {
         modalNode.style.display = "none";
         modalNode.role = "dialog";
         modalNode.ariaLabel = this.translations.quadpayInfo;
-        modalNode.ariaDescription = `${
-            this.translations.learnMoreAlt
-        } Quadpay`;
+        modalNode.ariaDescription = `${this.translations.learnMoreAlt} Quadpay`;
         modalNode.innerHTML = this.qpModalHTML;
         document.getElementsByTagName("html")[0].appendChild(modalNode);
         Array.prototype.forEach.call(
@@ -1511,9 +1455,7 @@ class AwesomeSezzle {
         modalNode.style.display = "none";
         modalNode.role = "dialog";
         modalNode.ariaLabel = this.translations.affirmInfo;
-        modalNode.ariaDescription = `${
-            this.translations.learnMoreAlt
-        }  Affirm`;
+        modalNode.ariaDescription = `${this.translations.learnMoreAlt}  Affirm`;
         modalNode.innerHTML = this.affirmModalHTML;
         document.getElementsByTagName("html")[0].appendChild(modalNode);
         Array.prototype.forEach.call(
@@ -1560,9 +1502,7 @@ class AwesomeSezzle {
         modalNode.style.display = "none";
         modalNode.role = "dialog";
         modalNode.ariaLabel = this.translations.klarnaInfo;
-        modalNode.ariaDescription = `${
-            this.translations.learnMoreAlt
-        }  Klarna`;
+        modalNode.ariaDescription = `${this.translations.learnMoreAlt}  Klarna`;
         modalNode.innerHTML = this.klarnaModalHTML;
         document.getElementsByTagName("html")[0].appendChild(modalNode);
         Array.prototype.forEach.call(
