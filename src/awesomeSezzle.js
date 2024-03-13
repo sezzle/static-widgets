@@ -122,16 +122,13 @@ class AwesomeSezzle {
         }
         switch (newAlignment || this.alignment) {
             case "left":
-                this.renderElement.children[0].children[0].className +=
-                    " sezzle-left";
+                this.renderElement.children[0].children[0].classList.add("sezzle-left");
                 break;
             case "right":
-                this.renderElement.children[0].children[0].className +=
-                    " sezzle-right";
+                this.renderElement.children[0].children[0].classList.add("sezzle-right");
                 break;
             case "center":
-                this.renderElement.children[0].children[0].className +=
-                    " sezzle-center";
+                this.renderElement.children[0].children[0].classList.add("sezzle-center");
             default:
                 break;
         }
@@ -170,9 +167,9 @@ class AwesomeSezzle {
             case "white":
             case "white-flat":
             case "white-pill":
+                this.renderElement.children[0].children[0].classList.add("szl-dark");
             default:
-                this.renderElement.children[0].children[0].className +=
-                    " szl-light";
+                this.renderElement.children[0].children[0].classList.add("szl-light");
                 break;
         }
     }
@@ -225,14 +222,13 @@ class AwesomeSezzle {
     insertWidgetTypeCSSClassInElement() {
         switch (this.widgetType) {
             case "cart":
-                this.renderElement.className += " sezzle-cart-page-widget";
+                this.renderElement.classList.add("sezzle-cart-page-widget");
                 break;
             case "product-preview":
-                this.renderElement.className +=
-                    " sezzle-product-preview-widget";
+                this.renderElement.classList.add("sezzle-product-preview-widget");
                 break;
             default:
-                this.renderElement.className += " sezzle-product-page-widget";
+                this.renderElement.classList.add("sezzle-product-page-widget");
                 break;
         }
     }
