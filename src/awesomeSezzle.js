@@ -281,12 +281,13 @@ class AwesomeSezzle {
     eraseWidget() {
         this.renderElementArray.forEach(function (element, index) {
             let sezzleElement = document.getElementById(element);
-            if (sezzleElement.innerHTML.length) {
-                sezzleElement.removeChild(
-                    sezzleElement.querySelector(
-                        ".sezzle-checkout-button-wrapper"
-                    )
+            if (sezzleElement) {
+                let checkoutButtonWrapper = sezzleElement.querySelector(
+                    ".sezzle-checkout-button-wrapper"
                 );
+                if (checkoutButtonWrapper) {
+                    checkoutButtonWrapper.remove();
+                }
             }
         });
         let modals = document.getElementsByClassName(
