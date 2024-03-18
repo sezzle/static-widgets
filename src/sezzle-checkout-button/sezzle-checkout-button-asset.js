@@ -18,6 +18,10 @@ class SezzleCheckoutButton {
             },
         };
         this.theme = options.theme === "dark" ? "dark" : "light";
+        this.language = this.defaultTemplate[document.documentElement.lang]
+            ? document.documentElement.lang
+            : "en";
+        this.translation = this.defaultTemplate[this.language];
         this.template = this.getTranslation(options.template);
         this.eventLogger = new EventLogger({
             merchantUUID: options.merchantUUID,
@@ -36,12 +40,7 @@ class SezzleCheckoutButton {
             typeof template === "string" && template.split(" ")[0] === "Pay"
                 ? "Pay"
                 : "Checkout";
-        const languageToGet = this.defaultTemplate[
-            document.documentElement.lang
-        ]
-            ? document.documentElement.lang
-            : "en";
-        return this.defaultTemplate[languageToGet][templateToGet];
+        return this.translation[templateToGet];
     }
 
     exceedsMaxPrice() {
@@ -132,10 +131,7 @@ class SezzleCheckoutButton {
     getMinPriceText(minPrice) {
         const minPriceText = document.createElement("div");
         minPriceText.className = `min-price`;
-        minPriceText.innerHTML =
-            this.defaultTemplate[document.documentElement.lang || "en"]
-                .minPrice +
-            minPrice / 100;
+        minPriceText.innerHTML = this.translation.minPrice + minPrice / 100;
         minPriceText.style.display = "block";
         return minPriceText;
     }
