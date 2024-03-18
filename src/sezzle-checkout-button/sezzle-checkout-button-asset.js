@@ -1,26 +1,21 @@
 class SezzleCheckoutButton {
     constructor(options) {
         this.defaultTemplate = {
-            Checkout: {
-                en: "Checkout with %%logo%%",
-                fr: "Achetez avec %%logo%%",
-                es: "Compra con %%logo%%",
+            en: {
+                Checkout: "Checkout with %%logo%%",
+                Pay: "Pay with %%logo%%",
+                minPrice: "on orders above $",
             },
-            Pay: {
-                en: "Pay with %%logo%%",
-                fr: "Payez avec %%logo%%",
-                es: "Paga con %%logo%%",
+            es: {
+                Checkout: "Compra con %%logo%%",
+                Pay: "Paga con %%logo%%",
+                minPrice: "para compras de más de $",
             },
-            "%%logo%%": {
-                en: "%%logo%%",
-                fr: "%%logo%%",
-                es: "%%logo%%",
+            fr: {
+                Checkout: "Achetez avec %%logo%%",
+                Pay: "Payez avec %%logo%%",
+                minPrice: "pour les achats de plus de $",
             },
-            minPrice: {
-                en: "on orders above $",
-                fr: "pour les achats de plus de $",
-                es: "para compras de más de $"
-			}
         };
         this.theme = options.theme === "dark" ? "dark" : "light";
         this.template = this.getTranslation(options.template);
@@ -38,16 +33,15 @@ class SezzleCheckoutButton {
 
     getTranslation(template) {
         const templateToGet =
-            typeof template === "string" &&
-            this.defaultTemplate[template.split(" ")[0]]
-                ? template.split(" ")[0]
+            typeof template === "string" && template.split(" ")[0] === "Pay"
+                ? "Pay"
                 : "Checkout";
-        const languageToGet = this.defaultTemplate[templateToGet][
+        const languageToGet = this.defaultTemplate[
             document.documentElement.lang
         ]
             ? document.documentElement.lang
             : "en";
-        return this.defaultTemplate[templateToGet][languageToGet];
+        return this.defaultTemplate[languageToGet][templateToGet];
     }
 
     exceedsMaxPrice() {
@@ -138,7 +132,10 @@ class SezzleCheckoutButton {
     getMinPriceText(minPrice) {
         const minPriceText = document.createElement("div");
         minPriceText.className = `min-price`;
-		minPriceText.innerHTML = this.defaultTemplate.minPrice[document.documentElement.lang || 'en'] + minPrice / 100;
+        minPriceText.innerHTML =
+            this.defaultTemplate[document.documentElement.lang || "en"]
+                .minPrice +
+            minPrice / 100;
         minPriceText.style.display = "block";
         return minPriceText;
     }
