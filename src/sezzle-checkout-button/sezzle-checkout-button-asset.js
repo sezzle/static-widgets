@@ -740,6 +740,13 @@ class SezzleCheckoutButton {
                     );
                 }.bind(this)
             );
+        sezzleButtonModal
+            .querySelector(".sezzle-checkout-modal-close")
+            .addEventListener("click", function (e) {
+                document.querySelector(
+                    ".sezzle-checkout-button-modal-overlay"
+                ).style.display = "none";
+            });
     }
 
     init() {
