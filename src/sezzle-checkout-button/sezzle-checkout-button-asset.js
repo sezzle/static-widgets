@@ -5,6 +5,7 @@ class SezzleCheckoutButton {
                 Checkout: "Checkout with %%logo%%",
                 Pay: "Pay with %%logo%%",
                 minPrice: "on orders above $",
+                closeSezzleModal: "Close Sezzle modal",
                 header: "How to use Sezzle at checkout",
                 chooseSezzle:
                     'Choose "Buy Now, Pay Later with Sezzle" at checkout',
@@ -16,6 +17,7 @@ class SezzleCheckoutButton {
                 Checkout: "Compra con %%logo%%",
                 Pay: "Paga con %%logo%%",
                 minPrice: "para compras de más de $",
+                closeSezzleModal: "Cerrar Sezzle modal",
                 header: "Cómo utilizar Sezzle al finalizar la compra",
                 chooseSezzle:
                     'Elija "Compre ahora, pague después con Sezzle" al finalizar la compra',
@@ -27,6 +29,7 @@ class SezzleCheckoutButton {
                 Checkout: "Achetez avec %%logo%%",
                 Pay: "Payez avec %%logo%%",
                 minPrice: "pour les achats de plus de $",
+                closeSezzleModal: "Fermer Sezzle modal",
                 header: "Comment utiliser Sezzle lors du paiement",
                 chooseSezzle:
                     "Choisissez « Acheter maintenant, payer plus tard avec Sezzle » lors du paiement.",
@@ -181,6 +184,8 @@ class SezzleCheckoutButton {
                 height: 24px;
                 justify-content: flex-end;
                 align-items: center;
+				background: none;
+				border: none;
             }
             .sezzle-checkout-modal-close svg {
                 width: 24px;
@@ -391,7 +396,7 @@ class SezzleCheckoutButton {
         sezzleButtonModal.className = "sezzle-checkout-button-modal-overlay";
         sezzleButtonModal.innerHTML = `
                 <div class="sezzle-checkout-button-modal">
-                <div class="sezzle-checkout-modal-close">
+				<button role="button" aria-label="${this.translation.closeSezzleModal}" class="sezzle-checkout-modal-close">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -411,7 +416,7 @@ class SezzleCheckoutButton {
                             </clipPath>
                         </defs>
                     </svg>
-                </div>
+                </button>
                 <div class="sezzle-checkout-button-modal-content">
                     <h2 class="sezzle-checkout-button-modal-header">
                         ${this.translation.header}
