@@ -409,6 +409,19 @@ class SezzleCheckoutButton {
             </div>
     `;
         document.body.append(sezzleButtonModal);
+        sezzleButtonModal
+            .querySelector(".sezzle-checkout-button-modal-button")
+            .addEventListener(
+                "click",
+                function (e) {
+                    this.eventLogger.sendEvent("checkout-button-modal-onclick");
+                    e.stopPropagation();
+                    e.preventDefault();
+                    location.assign(
+                        "/checkout?shop_pay_logout=true&skip_shop_pay=true&shop_pay_checkout_as_guest=true"
+                    );
+                }.bind(this)
+            );
     }
 
     exceedsMaxPrice() {
@@ -492,7 +505,7 @@ class SezzleCheckoutButton {
 			.sezzle-checkout-button[data-route-copy] {
 				display: none;
 			}
-               .sezzle-checkout-button-modal-overlay {
+      		.sezzle-checkout-button-modal-overlay {
                 background-color: rgba(5, 31, 52, 0.57);
                 height: 100vh;
                 left: 0;
@@ -502,6 +515,7 @@ class SezzleCheckoutButton {
                 top: 0;
                 width: 100vw;
                 z-index: 99999998;
+				display: none;
             }
             .sezzle-checkout-button-modal {
                 display: flex;
@@ -631,9 +645,19 @@ class SezzleCheckoutButton {
                 this.eventLogger.sendEvent("checkout-button-onclick");
                 e.stopPropagation();
                 e.preventDefault();
-                location.assign(
-                    "/checkout?shop_pay_logout=true&skip_shop_pay=true&shop_pay_checkout_as_guest=true"
-                );
+                if (
+                    document.querySelector(
+                        ".sezzle-checkout-button-modal-overlay"
+                    )
+                ) {
+                    document.querySelector(
+                        ".sezzle-checkout-button-modal-overlay"
+                    ).style.display = "block";
+                } else {
+                    location.assign(
+                        "/checkout?shop_pay_logout=true&skip_shop_pay=true&shop_pay_checkout_as_guest=true"
+                    );
+                }
             }.bind(this)
         );
         this.checkMinPrice(sezzleCheckoutButton);
