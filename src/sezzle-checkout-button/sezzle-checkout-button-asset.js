@@ -142,6 +142,123 @@ class SezzleCheckoutButton {
 			.sezzle-checkout-button[data-route-copy] {
 				display: none;
 			}
+			.sezzle-checkout-button-modal-overlay {
+                background-color: rgba(5, 31, 52, 0.57);
+                height: 100vh;
+                left: 0;
+                overflow-x: hidden;
+                overflow-y: auto;
+                position: fixed;
+                top: 0;
+                width: 100vw;
+                z-index: 99999998;
+				display: none;
+            }
+            .sezzle-checkout-button-modal {
+                display: flex;
+                width: 344px;
+                padding: 24px;
+                border-radius: 10px;
+                background: #fff;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 24px;
+                flex: 1 0 0;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 16px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            .sezzle-checkout-modal-close {
+                display: flex;
+                width: 100%;
+                height: 24px;
+                justify-content: flex-end;
+                align-items: center;
+            }
+            .sezzle-checkout-modal-close svg {
+                width: 24px;
+                height: 24px;
+                flex-shrink: 0;
+            }
+
+            .sezzle-checkout-button-modal-content {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 32px;
+                align-self: stretch;
+            }
+            .sezzle-checkout-button-modal-header {
+                color: #303030;
+                text-align: center;
+				font-family: Satoshi, "Open Sans", sans-serif !important;
+                font-size: 26px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 35px;
+                margin: 0;
+            }
+            .sezzle-checkout-button-modal-body {
+                display: flex;
+                width: 100%;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 32px;
+            }
+            .sezzle-checkout-step {
+                display: flex;
+                align-items: center;
+                gap: 24px;
+                align-self: stretch;
+            }
+            .sezzle-checkout-step-graphic {
+                width: 46.885px;
+                height: 60.885px;
+            }
+            .sezzle-checkout-step-description {
+                width: 100%;
+                color: #303030;
+				font-family: Satoshi, "Open Sans", sans-serif !important;
+                font-size: 15px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 21px;
+                letter-spacing: 0.15px;
+            }
+            .sezzle-checkout-button-modal-button {
+                display: flex;
+                width: 100%;
+                height: 48px;
+                padding: 13px 16px;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+                border-radius: 100px;
+                background: #382757;
+                color: #fff;
+				font-family: Satoshi, "Open Sans", sans-serif !important;
+                font-size: 15px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 24px;
+                letter-spacing: 0.25px;
+                border: none;
+            }
+            .sezzle-checkout-button-modal-button:hover {
+            	background: #7D25CB;
+            }
+            .sezzle-checkout-button-modal-button:active {
+                background: #8E24AC;
+            }
 		`;
         document.head.appendChild(sezzleButtonStyle);
     }
@@ -173,9 +290,19 @@ class SezzleCheckoutButton {
                 this.eventLogger.sendEvent("checkout-button-onclick");
                 e.stopPropagation();
                 e.preventDefault();
-                location.assign(
-                    "/checkout?shop_pay_logout=true&skip_shop_pay=true&shop_pay_checkout_as_guest=true"
-                );
+                if (
+                    document.querySelector(
+                        ".sezzle-checkout-button-modal-overlay"
+                    )
+                ) {
+                    document.querySelector(
+                        ".sezzle-checkout-button-modal-overlay"
+                    ).style.display = "block";
+                } else {
+                    location.assign(
+                        "/checkout?shop_pay_logout=true&skip_shop_pay=true&shop_pay_checkout_as_guest=true"
+                    );
+                }
             }.bind(this)
         );
         this.checkMinPrice(sezzleCheckoutButton);
@@ -618,7 +745,7 @@ class SezzleCheckoutButton {
     init() {
         try {
             this.createButton();
-			this.renderModal();
+            this.renderModal();
             this.eventLogger.sendEvent("checkout-button-onload");
         } catch (e) {
             this.eventLogger.sendEvent("checkout-button-error", e.message);
