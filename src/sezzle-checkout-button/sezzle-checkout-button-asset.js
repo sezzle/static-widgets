@@ -225,7 +225,8 @@ class SezzleCheckoutButton {
 
     renderModal() {
         const sezzleButtonModal = document.createElement("div");
-        sezzleButtonModal.className = "sezzle-checkout-button-modal-overlay";
+        sezzleButtonModal.className =
+            "sezzle-checkout-button-modal-overlay sezzle-checkout-modal-close";
         sezzleButtonModal.innerHTML = `
                 <div class="sezzle-checkout-button-modal">
 				<button role="button" aria-label="${this.translation.closeSezzleModal}" class="sezzle-checkout-modal-close">
@@ -577,17 +578,19 @@ class SezzleCheckoutButton {
                     );
                 }.bind(this)
             );
-        sezzleButtonModal
-            .querySelector(".sezzle-checkout-modal-close")
-            .addEventListener("click", function (e) {
+        const closeButtons = document.querySelectorAll(
+            ".sezzle-checkout-modal-close"
+        );
+        closeButtons.forEach((button) => {
+            button.addEventListener("click", function (e) {
                 document.querySelector(
                     ".sezzle-checkout-button-modal-overlay"
                 ).style.display = "none";
             });
+        });
     }
 
     init() {
-            console.log("new");
         try {
             this.createButton();
             this.renderModal();
