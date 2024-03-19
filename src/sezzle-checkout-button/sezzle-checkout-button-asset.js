@@ -565,9 +565,14 @@ class SezzleCheckoutButton {
         );
         closeButtons.forEach((button) => {
             button.addEventListener("click", function (e) {
-                document.querySelector(
-                    ".sezzle-checkout-button-modal-overlay"
-                ).style.display = "none";
+                if (
+                    e.target.className.indexOf("sezzle-checkout-modal-close") >
+                    -1
+                ) {
+                    document.querySelector(
+                        ".sezzle-checkout-button-modal-overlay"
+                    ).style.display = "none";
+                }
             });
         });
     }
