@@ -99,6 +99,7 @@
             color: #595959;
             &:hover {
                 text-shadow: 0 0 2px #595959;
+                cursor: pointer;
             }
         }
         .sezzle-checkout-button-modal-content {
@@ -166,6 +167,7 @@
                     &:hover,
                     &:focus {
                         background: #7d25cb;
+                        cursor: pointer;
                     }
                     &:active {
                         background: #8e24ac;
