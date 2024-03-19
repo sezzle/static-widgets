@@ -1,3 +1,5 @@
+import "./style.scss";
+
 class SezzleCheckoutButton {
     constructor(options) {
         this.defaultTemplate = {
@@ -88,182 +90,12 @@ class SezzleCheckoutButton {
     matchStyle(pageStyle) {
         const sezzleButtonStyle = document.createElement("style");
         sezzleButtonStyle.innerHTML = `
-			@import url(https://fonts.googleapis.com/css?family=Comfortaa);
 			.sezzle-checkout-button {
-				cursor: pointer;
-				font-family: Satoshi, "Open Sans", sans-serif !important;
-				border: none;
-				text-align: center;
-				min-width: fit-content;
-				height: fit-content;
-				text-decoration: none;
-				text-transform: none;
-				padding: 9px;
-				font-size: 15px;
-				line-height: 29px;
-				justify-content: center;
 				display: ${pageStyle?.display === "block" ? "block" : "inline-block"};
 				width: ${pageStyle.width || "fit-content"};
 				margin: ${pageStyle.margin || "0px auto"};
 				border-radius: ${pageStyle.borderRadius || "0px"};
 			}
-			.sezzle-button-light {
-				background-color: #392558 !important;
-				color: white !important;
-			}
-			.sezzle-button-light:hover, .sezzle-button-light:focus {
-				background-color: #d784ff !important;
-			}
-			.sezzle-button-light:active {
-				background-color: purple !important;
-			}
-			.sezzle-button-dark {
-				background-color: #fff !important;
-				color: #392558 !important;
-			}
-			.sezzle-button-dark:hover, .sezzle-button-dark:focus {
-				background-color: #eee !important;
-			}
-			.sezzle-button-dark:active {
-				background-color: #ccc !important;
-			}
-			.sezzle-checkout-button .sezzle-button-logo-img {
-				width: 72px;
-				height: 18px;
-				position: relative;
-				top: -2px;
-				vertical-align: middle;
-				display: inline;
-				margin: 0px 2px;
-			}
-			.sezzle-checkout-button .min-price {
-             font-size: 12px;
-            }
-			.sezzle-checkout-button[data-route-ref] {
-				display: block;
-			}
-			.sezzle-checkout-button[data-route-copy] {
-				display: none;
-			}
-			.sezzle-checkout-button-modal-overlay {
-                background-color: rgba(5, 31, 52, 0.57);
-                height: 100vh;
-                left: 0;
-                overflow-x: hidden;
-                overflow-y: auto;
-                position: fixed;
-                top: 0;
-                width: 100vw;
-                z-index: 99999998;
-				display: none;
-            }
-            .sezzle-checkout-button-modal {
-                display: flex;
-                width: 344px;
-                padding: 24px;
-                border-radius: 10px;
-                background: #fff;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 24px;
-                flex: 1 0 0;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 16px;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-            }
-            .sezzle-checkout-modal-close {
-                display: flex;
-                width: 100%;
-                height: 24px;
-                justify-content: flex-end;
-                align-items: center;
-				background: none;
-				border: none;
-            }
-            .sezzle-checkout-modal-close svg {
-                width: 24px;
-                height: 24px;
-                flex-shrink: 0;
-            }
-
-            .sezzle-checkout-button-modal-content {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 32px;
-                align-self: stretch;
-            }
-            .sezzle-checkout-button-modal-header {
-                color: #303030;
-                text-align: center;
-				font-family: Satoshi, "Open Sans", sans-serif !important;
-                font-size: 26px;
-                font-style: normal;
-                font-weight: 700;
-                line-height: 35px;
-                margin: 0;
-            }
-            .sezzle-checkout-button-modal-body {
-                display: flex;
-                width: 100%;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 32px;
-            }
-            .sezzle-checkout-step {
-                display: flex;
-                align-items: center;
-                gap: 24px;
-                align-self: stretch;
-            }
-            .sezzle-checkout-step-graphic {
-                width: 46.885px;
-                height: 60.885px;
-            }
-            .sezzle-checkout-step-description {
-                width: 100%;
-                color: #303030;
-				font-family: Satoshi, "Open Sans", sans-serif !important;
-                font-size: 15px;
-                font-style: normal;
-                font-weight: 500;
-                line-height: 21px;
-                letter-spacing: 0.15px;
-            }
-            .sezzle-checkout-button-modal-button {
-                display: flex;
-                width: 100%;
-                height: 48px;
-                padding: 13px 16px;
-                justify-content: center;
-                align-items: center;
-                gap: 10px;
-                border-radius: 100px;
-                background: #382757;
-                color: #fff;
-				font-family: Satoshi, "Open Sans", sans-serif !important;
-                font-size: 15px;
-                font-style: normal;
-                font-weight: 400;
-                line-height: 24px;
-                letter-spacing: 0.25px;
-                border: none;
-            }
-            .sezzle-checkout-button-modal-button:hover {
-            	background: #7D25CB;
-            }
-            .sezzle-checkout-button-modal-button:active {
-                background: #8E24AC;
-            }
 		`;
         document.head.appendChild(sezzleButtonStyle);
     }
@@ -755,6 +587,7 @@ class SezzleCheckoutButton {
     }
 
     init() {
+            console.log("new");
         try {
             this.createButton();
             this.renderModal();
