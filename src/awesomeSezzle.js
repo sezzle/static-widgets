@@ -290,14 +290,12 @@ class AwesomeSezzle {
                 }
             }
         });
-        let modals = document.getElementsByClassName(
-            "sezzle-checkout-modal-lightbox"
+        let modals = document.querySelectorAll(
+            ".sezzle-checkout-modal-lightbox"
         );
-        if (modals.length) {
-            for (let i = modals.length - 1; modals.length > 0; i--) {
-                modals[i].parentElement.removeChild(modals[i]);
-            }
-        }
+        modals.forEach((modal)=>{
+            modal.remove();
+        })
     }
 
     setLogoSize(element) {
