@@ -128,26 +128,19 @@ class SezzleCheckoutButton {
                 e.stopPropagation();
                 e.preventDefault();
                 try {
-                    if (
-                        document.querySelector(
-                            ".sezzle-checkout-button-modal-overlay"
-                        )
-                    ) {
-                        document.querySelector(
-                            ".sezzle-checkout-button-modal-overlay"
-                        ).style.display = "block";
-                        this.eventLogger.sendEvent(
-                            "checkout-button-modal-onload"
-                        );
-                    } else {
-                        location.assign(
-                            "/checkout?shop_pay_logout=true&skip_shop_pay=true&shop_pay_checkout_as_guest=true"
-                        );
-                    }
+                    document.querySelector(
+                        ".sezzle-checkout-button-modal-overlay"
+                    ).style.display = "block";
+                    this.eventLogger.sendEvent(
+                        "checkout-button-modal-onload"
+                    );
                 } catch (e) {
                     this.eventLogger.sendEvent(
                         "checkout-button-modal-error",
                         e.message
+                    );
+                    location.assign(
+                        "/checkout?shop_pay_logout=true&skip_shop_pay=true&shop_pay_checkout_as_guest=true"
                     );
                 }
             }.bind(this)
