@@ -127,17 +127,27 @@ class SezzleCheckoutButton {
                 this.eventLogger.sendEvent("checkout-button-onclick");
                 e.stopPropagation();
                 e.preventDefault();
-                if (
-                    document.querySelector(
-                        ".sezzle-checkout-button-modal-overlay"
-                    )
-                ) {
-                    document.querySelector(
-                        ".sezzle-checkout-button-modal-overlay"
-                    ).style.display = "block";
-                } else {
-                    location.assign(
-                        "/checkout?shop_pay_logout=true&skip_shop_pay=true&shop_pay_checkout_as_guest=true"
+                try {
+                    if (
+                        document.querySelector(
+                            ".sezzle-checkout-button-modal-overlay"
+                        )
+                    ) {
+                        document.querySelector(
+                            ".sezzle-checkout-button-modal-overlay"
+                        ).style.display = "block";
+                        this.eventLogger.sendEvent(
+                            "checkout-button-modal-onload"
+                        );
+                    } else {
+                        location.assign(
+                            "/checkout?shop_pay_logout=true&skip_shop_pay=true&shop_pay_checkout_as_guest=true"
+                        );
+                    }
+                } catch (e) {
+                    this.eventLogger.sendEvent(
+                        "checkout-button-modal-error",
+                        e.message
                     );
                 }
             }.bind(this)
