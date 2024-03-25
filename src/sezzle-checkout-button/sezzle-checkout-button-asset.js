@@ -128,10 +128,20 @@ class SezzleCheckoutButton {
                 e.stopPropagation();
                 e.preventDefault();
                 try {
-                    this.renderModal();
-                    this.eventLogger.sendEvent(
-                        "checkout-button-modal-onload"
-                    );
+                    if (
+                        document.querySelector(
+                            ".sezzle-checkout-button-modal-overlay"
+                        )
+                    ) {
+                        document.querySelector(
+                            ".sezzle-checkout-button-modal-overlay"
+                        ).style.display = "none";
+                    } else {
+                        this.renderModal();
+                        this.eventLogger.sendEvent(
+                            "checkout-button-modal-onload"
+                        );
+                    }
                 } catch (e) {
                     this.eventLogger.sendEvent(
                         "checkout-button-modal-error",
