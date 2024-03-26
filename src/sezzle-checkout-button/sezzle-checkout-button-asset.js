@@ -135,7 +135,7 @@ class SezzleCheckoutButton {
                     ) {
                         document.querySelector(
                             ".sezzle-checkout-button-modal-overlay"
-                        ).style.display = "none";
+                        ).style.display = "block";
                     } else {
                         this.renderModal();
                         this.eventLogger.sendEvent(
