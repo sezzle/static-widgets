@@ -36,6 +36,6 @@
     "termsLt3": "Subject to credit approval by a third party lender. Rates from 5.99% - 34.99% APR; terms from 3 months – 48 months, which may vary by lender. 0% APR options may be available. APRs will vary depending on credit qualifications, loan amount, term, and lender. Minimum purchase is required.",
     "today": "Today",
     "week": "Week",
-    "widget": "or 4 interest-free payments of %{price}% with %{logo}% %{info}%",
-    "widgetLT": "or monthly payments as low as %{price}% with %{logo}% %{info}%"
+    "widget": "or 4 interest-free payments of %%price%% with %%logo%% %%info%%",
+    "widgetLT": "or monthly payments as low as %%price%% with %%logo%% %%info%%"
 }
