@@ -45,7 +45,7 @@ lokaliseApi
 
         try {
             // extract files to the directory
-            resultFile.extractAllTo(basePath, true);
+            resultFile.extractAllTo(".", true);
             console.log(
                 "🎉 🎉 🎉 🎉  Translation files were downloaded successfully"
             );
