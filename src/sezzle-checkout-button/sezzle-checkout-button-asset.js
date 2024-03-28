@@ -1,44 +1,14 @@
 import "./style.scss";
+import enTranslations from './translations/en.json'
+import frTranslations from './translations/fr.json'
+import esTranslations from './translations/es.json'
 
 class SezzleCheckoutButton {
     constructor(options) {
         this.defaultTemplate = {
-            en: {
-                Checkout: "Checkout with %%logo%%",
-                Pay: "Pay with %%logo%%",
-                minPrice: "on orders above $",
-                closeSezzleModal: "Close Sezzle modal",
-                header: "How to use Sezzle at checkout",
-                chooseSezzle:
-                    'Choose "Buy Now, Pay Later with Sezzle" at checkout',
-                selectPlan: "Select your payment plan",
-                completeOrder: "Complete your order",
-                continue: "Continue to checkout",
-            },
-            es: {
-                Checkout: "Compra con %%logo%%",
-                Pay: "Paga con %%logo%%",
-                minPrice: "para compras de más de $",
-                closeSezzleModal: "Cerrar Sezzle modal",
-                header: "Cómo utilizar Sezzle al finalizar la compra",
-                chooseSezzle:
-                    'Elija "Compre ahora, pague después con Sezzle" al finalizar la compra',
-                selectPlan: "Selecciona tu plan de pago",
-                completeOrder: "Completa tu pedido",
-                continue: "Continuar a la comprobación",
-            },
-            fr: {
-                Checkout: "Achetez avec %%logo%%",
-                Pay: "Payez avec %%logo%%",
-                minPrice: "pour les achats de plus de $",
-                closeSezzleModal: "Fermer Sezzle modal",
-                header: "Comment utiliser Sezzle lors du paiement",
-                chooseSezzle:
-                    "Choisissez « Acheter maintenant, payer plus tard avec Sezzle » lors du paiement.",
-                selectPlan: "Sélectionnez votre plan de paiement",
-                completeOrder: "Complétez votre commande",
-                continue: "Continuer à payer",
-            },
+            en: enTranslations,
+            es: esTranslations,
+            fr: frTranslations,
         };
         this.theme = options.theme === "dark" ? "dark" : "light";
         this.language = this.defaultTemplate[document.documentElement.lang]

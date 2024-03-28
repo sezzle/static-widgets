@@ -1,0 +1,11 @@
+{
+    "Checkout": "Achetez avec %%logo%%",
+    "Pay": "Payez avec %%logo%%",
+    "minPrice": "pour les achats de plus de $",
+    "closeSezzleModal": "Fermer Sezzle modal",
+    "header": "Comment utiliser Sezzle lors du paiement",
+    "chooseSezzle": "Choisissez « Acheter maintenant, payer plus tard avec Sezzle » lors du paiement.",
+    "selectPlan": "Sélectionnez votre plan de paiement",
+    "completeOrder": "Complétez votre commande",
+    "continue": "Continuer à payer"
+}
