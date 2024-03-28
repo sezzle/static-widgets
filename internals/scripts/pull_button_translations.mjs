@@ -30,7 +30,7 @@ lokaliseApi
         format: "json",
         bundle_structure: "%LANG_ISO%.json",
         placeholder_format: "icu",
-        original_filenames: false,
+        original_filenames: true,
         directory_prefix: "src/sezzle-checkout-button/translations/",
         add_newline_eof: true,
         json_unescaped_slashes: true,
