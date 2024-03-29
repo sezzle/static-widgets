@@ -6,10 +6,8 @@ import AdmZip from "adm-zip";
 import { Headers } from "node-fetch";
 
 global.Headers = Headers;
-const basePath = "src/translations";
-const tmpFileName = "translations.zip";
 
-const pathToDownloadFile = `${basePath}/${tmpFileName}`;
+const tmpFileName = "translations.zip";
 
 const apiKey = process.env.API_KEY;
 if (!apiKey) {
@@ -23,6 +21,9 @@ if (!projectId) {
 
 const lokaliseApi = new LokaliseApi({ apiKey });
 
+function pullTranslations(isButton){
+const basePath = isButton ? "src/sezzle-checkout-button/translations" : "src/translations";
+const pathToDownloadFile = `${basePath}/${tmpFileName}`;
 console.log("Start download translation files");
 lokaliseApi
     .files()
@@ -31,11 +32,13 @@ lokaliseApi
         bundle_structure: "%LANG_ISO%.json",
         placeholder_format: "icu",
         original_filenames: false,
-        directory_prefix: "src/translations/",
+        directory_prefix: `${basePath}/`,
         add_newline_eof: true,
         json_unescaped_slashes: true,
         indentation: "4sp",
-        filter_filenames: ["src/translations/%LANG_ISO%.json"],
+        filter_filenames: [
+            `${basePath}/%LANG_ISO%.json`,
+        ],
     })
     .then((response) =>
         // download zip file by URL which was returned from localise
@@ -62,12 +65,13 @@ lokaliseApi
         }
     })
     .then((_) => {
-        formatFrenchTranslationFiles();
-        formatSpanishTranslationFiles();
+        formatFrenchTranslationFiles(basePath);
+        formatSpanishTranslationFiles(basePath);
     })
     .catch((reason) => {
         console.error(reason);
     });
+}
 
 function downloadFile(url, dest) {
     return new Promise((resolve, reject) => {
@@ -101,13 +105,13 @@ const replaceFRSpecificCharacters = (messages) =>
         {}
     );
 
-function formatSpanishTranslationFiles() {
+function formatSpanishTranslationFiles(basePath) {
     const filePath = `${basePath}/es.json`;
     const esTransParsed = JSON.parse(fs.readFileSync(filePath).toString());
     saveToFile(esTransParsed, filePath);
 }
 
-function formatFrenchTranslationFiles() {
+function formatFrenchTranslationFiles(basePath) {
     const filePath = `${basePath}/fr.json`;
     const frTransParsed = JSON.parse(fs.readFileSync(filePath).toString());
     const frTransFormatted = replaceFRSpecificCharacters(frTransParsed);
@@ -126,3 +130,6 @@ function saveToFile(TransFormatted, filePath) {
         console.log("An error has occurred ", error);
     }
 }
+
+pullTranslations(false);
+pullTranslations(true);

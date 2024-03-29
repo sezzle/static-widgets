@@ -9,8 +9,7 @@
         "build-awesomeSezzle": "webpack --mode production --config webpack/webpack.config.js",
         "translate": "npm run translate:pull && npm run translate:push && echo \"\nPlease wait...\" && sleep 10 && npm run translate:pull",
         "translate:pull": "PROJECT_ID='9011409365ddb7b16ea8a5.04160017' babel-node --presets @babel/preset-env -- internals/scripts/pull_translations.mjs",
-        "translate:push": "PROJECT_ID='9011409365ddb7b16ea8a5.04160017' babel-node --presets @babel/preset-env -- internals/scripts/push_translations.mjs",
-        "translate:pull_button": "PROJECT_ID='9011409365ddb7b16ea8a5.04160017' babel-node --presets @babel/preset-env -- internals/scripts/pull_button_translations.mjs",
+        "translate:push": "PROJECT_ID='9011409365ddb7b16ea8a5.04160017' babel-node --presets @babel/preset-env -- internals/scripts/push_translations.mjs"
     },
     "repository": {
         "type": "git",
