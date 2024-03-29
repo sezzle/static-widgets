@@ -30,11 +30,14 @@ lokaliseApi
         format: "json",
         bundle_structure: "%LANG_ISO%.json",
         placeholder_format: "icu",
-        original_filenames: true,
+        original_filenames: false,
         directory_prefix: "src/sezzle-checkout-button/translations/",
         add_newline_eof: true,
         json_unescaped_slashes: true,
         indentation: "4sp",
+        filter_filenames: [
+            "src/sezzle-checkout-button/translations/%LANG_ISO%.json",
+        ],
     })
     .then((response) =>
         // download zip file by URL which was returned from localise

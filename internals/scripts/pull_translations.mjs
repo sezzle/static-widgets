@@ -30,11 +30,12 @@ lokaliseApi
         format: "json",
         bundle_structure: "%LANG_ISO%.json",
         placeholder_format: "icu",
-        original_filenames: true,
+        original_filenames: false,
         directory_prefix: "src/translations/",
         add_newline_eof: true,
         json_unescaped_slashes: true,
         indentation: "4sp",
+        filter_filenames: ["src/translations/%LANG_ISO%.json"],
     })
     .then((response) =>
         // download zip file by URL which was returned from localise
@@ -45,7 +46,7 @@ lokaliseApi
 
         try {
             // extract files to the directory
-            resultFile.extractAllTo(".", true);
+            resultFile.extractAllTo(basePath, true);
             console.log(
                 "🎉 🎉 🎉 🎉  Translation files were downloaded successfully"
             );

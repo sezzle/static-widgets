@@ -29,8 +29,10 @@ lokaliseApi
     .files()
     .upload(projectId, {
         data: file.toString("base64"),
-        filename: `${locale}.json`,
+        filename: `${basePath}/${locale}.json`,
         lang_iso: locale,
+        original_filenames: true,
+        convert_placeholders: false,
     })
     .then((result) => {
         console.log("🎉 🎉 🎉 🎉  translations pushed to lokalise!!!");
