@@ -108,10 +108,10 @@ class SezzleCheckoutButton {
                         ).style.display = "block";
                     } else {
                         this.renderModal();
-                        this.eventLogger.sendEvent(
-                            "checkout-button-modal-onload"
-                        );
                     }
+                    this.eventLogger.sendEvent(
+                        "checkout-button-modal-onload"
+                    );
                 } catch (e) {
                     this.eventLogger.sendEvent(
                         "checkout-button-modal-error",
