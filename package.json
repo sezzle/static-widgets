@@ -24,7 +24,7 @@
         "clean-webpack-plugin": "4.0.0",
         "css-loader": "6.11.0",
         "file-loader": "6.2.0",
-        "node": "21.7.1",
+        "node": "21.7.3",
         "sass-loader": "13.3.3",
         "style-loader": "3.3.4",
         "webpack": "5.91.0",
