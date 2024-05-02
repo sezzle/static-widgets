@@ -132,8 +132,8 @@
                     gap: 24px;
                     align-self: stretch;
                     .sezzle-checkout-step-graphic {
-                        width: 46.885px;
-                        height: 60.885px;
+                        width: auto;
+                        height: fit-content;
                     }
                     .sezzle-checkout-step-description {
                         width: 100%;
