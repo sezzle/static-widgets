@@ -221,9 +221,9 @@ class SezzleCheckoutButton {
                         <div class="sezzle-checkout-step">
                             <div alt="" class="sezzle-checkout-step-graphic">
                                 <svg
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
+                                    width="48"
+                                    height="61"
+                                    viewBox="0 0 48 61"
                                     fill="none"
                                     xmlns="http://www.w3.org/2000/svg"
                                 >
@@ -396,9 +396,9 @@ class SezzleCheckoutButton {
                             <div alt="" class="sezzle-checkout-step-graphic">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
+                                    width="47"
+                                    height="63"
+                                    viewBox="0 0 47 63"
                                     fill="none"
                                 >
                                     <path
@@ -469,9 +469,9 @@ class SezzleCheckoutButton {
                             <div alt="" class="sezzle-checkout-step-graphic">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
-                                    width="24px"
-                                    height="24px"
-                                    viewBox="0 0 24 24"
+                                    width="46px"
+                                    height="57px"
+                                    viewBox="0 0 46 57"
                                     fill="none"
                                 >
                                     <rect
