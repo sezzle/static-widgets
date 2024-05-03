@@ -469,8 +469,8 @@ class SezzleCheckoutButton {
                             <div alt="" class="sezzle-checkout-step-graphic">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
-                                    width="46px"
-                                    height="57px"
+                                    width="46"
+                                    height="57"
                                     viewBox="0 0 46 57"
                                     fill="none"
                                 >
