@@ -1,65 +1,66 @@
 import "./style.scss";
-import enTranslations from './translations/en.json'
-import frTranslations from './translations/fr.json'
-import esTranslations from './translations/es.json'
+import enTranslations from "./translations/en.json";
+import frTranslations from "./translations/fr.json";
+import esTranslations from "./translations/es.json";
 
 class SezzleCheckoutButton {
-    constructor(options) {
-        this.defaultTemplate = {
-            en: enTranslations,
-            es: esTranslations,
-            fr: frTranslations,
-        };
-        this.theme = options.theme === "dark" ? "dark" : "light";
-        this.language = this.defaultTemplate[document.documentElement.lang]
-            ? document.documentElement.lang
-            : "en";
-        this.translation = this.defaultTemplate[this.language];
-        this.template = this.getTranslation(options.template);
-        this.eventLogger = new EventLogger({
-            merchantUUID: options.merchantUUID,
-            widgetServerBaseUrl:
-                options.widgetServerBaseUrl || "https://widget.sezzle.com",
-        });
-        this.cartTotal = options.cartTotal;
-        this.defaultPlacement =
-            typeof options.defaultPlacement === "undefined"
-                ? true
-                : options.defaultPlacement === "true";
-    }
+  constructor(options) {
+    this.defaultTemplate = {
+      en: enTranslations,
+      es: esTranslations,
+      fr: frTranslations,
+    };
+    this.theme = options.theme === "dark" ? "dark" : "light";
+    this.language = this.defaultTemplate[document.documentElement.lang]
+      ? document.documentElement.lang
+      : "en";
+    this.translation = this.defaultTemplate[this.language];
+    this.template = this.getTranslation(options.template);
+    this.eventLogger = new EventLogger({
+      merchantUUID: options.merchantUUID,
+      widgetServerBaseUrl:
+        options.widgetServerBaseUrl || "https://widget.sezzle.com",
+    });
+    this.cartTotal = options.cartTotal;
+    this.defaultPlacement =
+      typeof options.defaultPlacement === "undefined"
+        ? true
+        : options.defaultPlacement === "true";
+  }
 
-    getTranslation(template) {
-        const templateToGet =
-            typeof template === "string" && template.split(" ")[0] === "Pay"
-                ? "Pay"
-                : "Checkout";
-        return this.translation[templateToGet];
-    }
+  getTranslation(template) {
+    const templateToGet =
+      typeof template === "string" && template.split(" ")[0] === "Pay"
+        ? "Pay"
+        : "Checkout";
+    return this.translation[templateToGet];
+  }
 
-    exceedsMaxPrice() {
-        const maxPrice =
-            document.longTermPaymentConfig?.maxPrice ||
-            document.sezzleConfig?.maxPrice ||
-            250000;
-        return this.cartTotal && this.cartTotal > maxPrice;
-    }
+  exceedsMaxPrice() {
+    const maxPrice =
+      document.longTermPaymentConfig?.maxPrice ||
+      document.sezzleConfig?.maxPrice ||
+      250000;
+    return this.cartTotal && this.cartTotal > maxPrice;
+  }
 
-    parseButtonTemplate() {
-        const sezzleImage = {
-            light: "https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg",
-            dark: "https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg",
-        };
-        const chosenImage = sezzleImage[this.theme];
-        const templateString = this.template.replace(
-            "%%logo%%",
-            `<img class='sezzle-button-logo-img' alt='Sezzle' src=${chosenImage} />`
-        );
-        return templateString;
-    }
+  parseButtonTemplate() {
+    const sezzleImage = {
+      light:
+        "https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor_WhiteWM.svg",
+      dark: "https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg",
+    };
+    const chosenImage = sezzleImage[this.theme];
+    const templateString = this.template.replace(
+      "%%logo%%",
+      `<img class='sezzle-button-logo-img' alt='Sezzle' src=${chosenImage} />`
+    );
+    return templateString;
+  }
 
-    matchStyle(pageStyle) {
-        const sezzleButtonStyle = document.createElement("style");
-        sezzleButtonStyle.innerHTML = `
+  matchStyle(pageStyle) {
+    const sezzleButtonStyle = document.createElement("style");
+    sezzleButtonStyle.innerHTML = `
 			.sezzle-checkout-button {
 				display: ${pageStyle?.display === "block" ? "block" : "inline-block"};
 				width: ${pageStyle.width || "fit-content"};
@@ -67,148 +68,142 @@ class SezzleCheckoutButton {
 				border-radius: ${pageStyle.borderRadius || "0px"};
 			}
 		`;
-        document.head.appendChild(sezzleButtonStyle);
-    }
+    document.head.appendChild(sezzleButtonStyle);
+  }
 
-    getMinPriceText(minPrice) {
-        const minPriceText = document.createElement("div");
-        minPriceText.className = `min-price`;
-        minPriceText.innerHTML = this.translation.minPrice + minPrice / 100;
-        minPriceText.style.display = "block";
-        return minPriceText;
-    }
+  getMinPriceText(minPrice) {
+    const minPriceText = document.createElement("div");
+    minPriceText.className = `min-price`;
+    minPriceText.innerHTML = this.translation.minPrice + minPrice / 100;
+    minPriceText.style.display = "block";
+    return minPriceText;
+  }
 
-    checkMinPrice(sezzleCheckoutButton) {
-        const minPrice = document.sezzleConfig?.minPrice || 0;
-        if (this.cartTotal && this.cartTotal < minPrice) {
-            const minPriceText = this.getMinPriceText(minPrice);
-            sezzleCheckoutButton.append(minPriceText);
+  checkMinPrice(sezzleCheckoutButton) {
+    const minPrice = document.sezzleConfig?.minPrice || 0;
+    if (this.cartTotal && this.cartTotal < minPrice) {
+      const minPriceText = this.getMinPriceText(minPrice);
+      sezzleCheckoutButton.append(minPriceText);
+    }
+  }
+
+  getButton() {
+    const sezzleCheckoutButton = document.createElement("a");
+    sezzleCheckoutButton.className = `sezzle-checkout-button sezzle-button-${this.theme}`;
+    sezzleCheckoutButton.innerHTML = this.parseButtonTemplate();
+    sezzleCheckoutButton.href = "";
+    sezzleCheckoutButton.addEventListener(
+      "click",
+      function (e) {
+        this.eventLogger.sendEvent("checkout-button-onclick");
+        e.stopPropagation();
+        e.preventDefault();
+        try {
+          if (document.querySelector(".sezzle-checkout-button-modal-overlay")) {
+            document.querySelector(
+              ".sezzle-checkout-button-modal-overlay"
+            ).style.display = "block";
+          } else {
+            this.renderModal();
+          }
+          this.eventLogger.sendEvent("checkout-button-modal-onload");
+        } catch (e) {
+          this.eventLogger.sendEvent("checkout-button-modal-error", e.message);
+          location.assign(
+            "/checkout?shop_pay_logout=true&skip_shop_pay=true&shop_pay_checkout_as_guest=true"
+          );
         }
-    }
+      }.bind(this)
+    );
+    this.checkMinPrice(sezzleCheckoutButton);
+    return sezzleCheckoutButton;
+  }
 
-    getButton() {
-        const sezzleCheckoutButton = document.createElement("a");
-        sezzleCheckoutButton.className = `sezzle-checkout-button sezzle-button-${this.theme}`;
-        sezzleCheckoutButton.innerHTML = this.parseButtonTemplate();
-        sezzleCheckoutButton.href = "";
-        sezzleCheckoutButton.addEventListener(
-            "click",
-            function (e) {
-                this.eventLogger.sendEvent("checkout-button-onclick");
-                e.stopPropagation();
-                e.preventDefault();
-                try {
-                    if (
-                        document.querySelector(
-                            ".sezzle-checkout-button-modal-overlay"
-                        )
-                    ) {
-                        document.querySelector(
-                            ".sezzle-checkout-button-modal-overlay"
-                        ).style.display = "block";
-                    } else {
-                        this.renderModal();
-                    }
-                    this.eventLogger.sendEvent(
-                        "checkout-button-modal-onload"
-                    );
-                } catch (e) {
-                    this.eventLogger.sendEvent(
-                        "checkout-button-modal-error",
-                        e.message
-                    );
-                    location.assign(
-                        "/checkout?shop_pay_logout=true&skip_shop_pay=true&shop_pay_checkout_as_guest=true"
-                    );
-                }
-            }.bind(this)
-        );
-        this.checkMinPrice(sezzleCheckoutButton);
-        return sezzleCheckoutButton;
-    }
-
-    renderUnderAPM(apmContainer) {
-        const apmStyles = getComputedStyle(apmContainer);
-        if (
-            apmStyles.display !== "none" &&
-            apmStyles.visibility === "visible" &&
-            !apmContainer?.querySelector(".sezzle-checkout-button")
-        ) {
-            const sezzleCheckoutButton = this.getButton();
-            const apmFirstChild = apmContainer.querySelector('[role="button"]');
-            this.matchStyle(
-                apmFirstChild
-                    ? getComputedStyle(apmFirstChild)
-                    : {
-                          display: "inline-block",
-                          width: "100%",
-                          margin: "10px auto",
-                          borderRadius: "4px",
-                      }
-            );
-            apmContainer.appendChild(sezzleCheckoutButton);
-        }
-    }
-
-    renderUnderButton(checkoutButton) {
-        const checkoutButtonStyles = getComputedStyle(checkoutButton);
-        let checkoutButtonParent = checkoutButton.parentElement
-            ? checkoutButton.parentElement
-            : checkoutButton;
-        if (
-            checkoutButtonStyles.display !== "none" &&
-            !checkoutButtonParent.querySelector(".sezzle-checkout-button")
-        ) {
-            const sezzleCheckoutButton = this.getButton();
-            this.matchStyle(getComputedStyle(checkoutButton));
-            checkoutButton.nextElementSibling
-                ? checkoutButtonParent.insertBefore(
-                      sezzleCheckoutButton,
-                      checkoutButton.nextElementSibling
-                  )
-                : checkoutButtonParent.appendChild(sezzleCheckoutButton);
-        }
-    }
-
-    createButton() {
-        if (this.exceedsMaxPrice()) {
-            return;
-        }
-        const containers = {
-            customPlaceholder: document.querySelector(
-                "#sezzle-checkout-button-container"
-            ),
-            apmContainers: document.getElementsByClassName(
-                "additional-checkout-buttons"
-            ),
-            checkoutButtons: document.getElementsByName("checkout"),
-        };
-        if (containers.customPlaceholder && !this.defaultPlacement) {
-            const sezzleCheckoutButton = this.getButton();
-            this.matchStyle({});
-            containers.customPlaceholder.append(sezzleCheckoutButton);
-        } else if (containers.apmContainers.length) {
-            for (let i = 0; i < containers.apmContainers.length; i++) {
-                this.renderUnderAPM(containers.apmContainers[i]);
+  renderUnderAPM(apmContainer) {
+    const apmStyles = getComputedStyle(apmContainer);
+    if (
+      apmStyles.display !== "none" &&
+      apmStyles.visibility === "visible" &&
+      !apmContainer?.querySelector(".sezzle-checkout-button")
+    ) {
+      const sezzleCheckoutButton = this.getButton();
+      const apmFirstChild = apmContainer.querySelector('[role="button"]');
+      this.matchStyle(
+        apmFirstChild
+          ? getComputedStyle(apmFirstChild)
+          : {
+              display: "inline-block",
+              width: "100%",
+              margin: "10px auto",
+              borderRadius: "4px",
             }
-        } else if (containers.checkoutButtons.length) {
-            Array.prototype.slice
-                .call(containers.checkoutButtons)
-                .forEach((checkoutButton) => {
-                    this.renderUnderButton(checkoutButton);
-                });
-        } else {
-            console.log(
-                "Sezzle checkout button could not be rendered: Shopify checkout button not found."
-            );
-        }
+      );
+      apmContainer.appendChild(sezzleCheckoutButton);
     }
+  }
 
-    renderModal() {
-        const sezzleButtonModal = document.createElement("div");
-        sezzleButtonModal.className =
-            "sezzle-checkout-button-modal-overlay sezzle-checkout-modal-close";
-        sezzleButtonModal.innerHTML = `
+  renderUnderButton(checkoutButton) {
+    const checkoutButtonStyles = getComputedStyle(checkoutButton);
+    let checkoutButtonParent = checkoutButton.parentElement
+      ? checkoutButton.parentElement
+      : checkoutButton;
+    if (
+      checkoutButtonStyles.display !== "none" &&
+      !checkoutButtonParent.querySelector(".sezzle-checkout-button")
+    ) {
+      const sezzleCheckoutButton = this.getButton();
+      this.matchStyle(getComputedStyle(checkoutButton));
+      checkoutButton.nextElementSibling
+        ? checkoutButtonParent.insertBefore(
+            sezzleCheckoutButton,
+            checkoutButton.nextElementSibling
+          )
+        : checkoutButtonParent.appendChild(sezzleCheckoutButton);
+    }
+  }
+
+  createButton() {
+    if (this.exceedsMaxPrice()) {
+      return;
+    }
+    const containers = {
+      customPlaceholder: document.querySelector(
+        "#sezzle-checkout-button-container"
+      ),
+      apmContainers: document.getElementsByClassName(
+        "additional-checkout-buttons"
+      ),
+      checkoutButtons: document.getElementsByName("checkout"),
+      cartDrawerCheckoutButton: document.getElementById("CartDrawer-Checkout"),
+    };
+    if (containers.customPlaceholder && !this.defaultPlacement) {
+      const sezzleCheckoutButton = this.getButton();
+      this.matchStyle({});
+      containers.customPlaceholder.append(sezzleCheckoutButton);
+    } else if (containers.apmContainers.length) {
+      for (let i = 0; i < containers.apmContainers.length; i++) {
+        this.renderUnderAPM(containers.apmContainers[i]);
+      }
+    } else if (containers.checkoutButtons.length) {
+      Array.prototype.slice
+        .call(containers.checkoutButtons)
+        .forEach((checkoutButton) => {
+          this.renderUnderButton(checkoutButton);
+        });
+    } else if (containers.cartDrawerCheckoutButton) {
+      this.renderUnderButton(containers.cartDrawerCheckoutButton);
+    } else {
+      console.log(
+        "Sezzle checkout button could not be rendered: Shopify checkout button not found."
+      );
+    }
+  }
+
+  renderModal() {
+    const sezzleButtonModal = document.createElement("div");
+    sezzleButtonModal.className =
+      "sezzle-checkout-button-modal-overlay sezzle-checkout-modal-close";
+    sezzleButtonModal.innerHTML = `
                 <div class="sezzle-checkout-button-modal">
 				<button role="button" aria-label="${this.translation.closeSezzleModal}" class="sezzle-checkout-modal-close">
                     &#x2715;
@@ -527,101 +522,88 @@ class SezzleCheckoutButton {
                 </div>
             </div>
     `;
-        document.body.append(sezzleButtonModal);
-        sezzleButtonModal
-            .querySelector(".sezzle-checkout-button-modal-button")
-            .addEventListener(
-                "click",
-                function (e) {
-                    this.eventLogger.sendEvent("checkout-button-modal-onclick");
-                    e.stopPropagation();
-                    e.preventDefault();
-                    location.assign(
-                        "/checkout?shop_pay_logout=true&skip_shop_pay=true&shop_pay_checkout_as_guest=true"
-                    );
-                }.bind(this)
-            );
-        const closeButtons = document.querySelectorAll(
-            ".sezzle-checkout-modal-close"
-        );
-        closeButtons.forEach((button) => {
-            button.addEventListener("click", function (e) {
-                if (
-                    e.target.className.indexOf("sezzle-checkout-modal-close") >
-                    -1
-                ) {
-                    document.querySelector(
-                        ".sezzle-checkout-button-modal-overlay"
-                    ).style.display = "none";
-                }
-            });
-        });
-    }
-
-    init() {
-        try {
-            this.createButton();
-            this.eventLogger.sendEvent("checkout-button-onload");
-        } catch (e) {
-            this.eventLogger.sendEvent("checkout-button-error", e.message);
+    document.body.append(sezzleButtonModal);
+    sezzleButtonModal
+      .querySelector(".sezzle-checkout-button-modal-button")
+      .addEventListener(
+        "click",
+        function (e) {
+          this.eventLogger.sendEvent("checkout-button-modal-onclick");
+          e.stopPropagation();
+          e.preventDefault();
+          location.assign(
+            "/checkout?shop_pay_logout=true&skip_shop_pay=true&shop_pay_checkout_as_guest=true"
+          );
+        }.bind(this)
+      );
+    const closeButtons = document.querySelectorAll(
+      ".sezzle-checkout-modal-close"
+    );
+    closeButtons.forEach((button) => {
+      button.addEventListener("click", function (e) {
+        if (e.target.className.indexOf("sezzle-checkout-modal-close") > -1) {
+          document.querySelector(
+            ".sezzle-checkout-button-modal-overlay"
+          ).style.display = "none";
         }
+      });
+    });
+  }
+
+  init() {
+    try {
+      this.createButton();
+      this.eventLogger.sendEvent("checkout-button-onload");
+    } catch (e) {
+      this.eventLogger.sendEvent("checkout-button-error", e.message);
     }
+  }
 }
 
 class EventLogger {
-    constructor(options) {
-        this.merchantUUID = options.merchantUUID || "";
-        this.widgetServerEventLogEndpoint = options.widgetServerBaseUrl
-            ? `${options.widgetServerBaseUrl}/v1/event/log`
-            : "https://widget.sezzle.com/v1/event/log";
-    }
+  constructor(options) {
+    this.merchantUUID = options.merchantUUID || "";
+    this.widgetServerEventLogEndpoint = options.widgetServerBaseUrl
+      ? `${options.widgetServerBaseUrl}/v1/event/log`
+      : "https://widget.sezzle.com/v1/event/log";
+  }
 
-    sendEvent(eventName, description = "") {
-        if (document.querySelector(".sezzle-checkout-button")) {
-            const body = [
-                {
-                    event_name: eventName,
-                    description: description,
-                    merchant_uuid: this.merchantUUID,
-                    merchant_site: window.location.hostname,
-                },
-            ];
-            this.httpRequestWrapper(
-                "POST",
-                this.widgetServerEventLogEndpoint,
-                body
-            );
+  sendEvent(eventName, description = "") {
+    if (document.querySelector(".sezzle-checkout-button")) {
+      const body = [
+        {
+          event_name: eventName,
+          description: description,
+          merchant_uuid: this.merchantUUID,
+          merchant_site: window.location.hostname,
+        },
+      ];
+      this.httpRequestWrapper("POST", this.widgetServerEventLogEndpoint, body);
+    }
+  }
+
+  async httpRequestWrapper(method, url, body = null) {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open(method, url, true);
+      if (body !== null) {
+        xhr.setRequestHeader("Content-Type", "application/json");
+      }
+      xhr.onload = function () {
+        if (this.status >= 200 && this.status < 300) {
+          resolve(xhr.response);
+        } else {
+          reject(new Error("Something went wrong, contact the Sezzle team!"));
         }
-    }
-
-    async httpRequestWrapper(method, url, body = null) {
-        return new Promise((resolve, reject) => {
-            const xhr = new XMLHttpRequest();
-            xhr.open(method, url, true);
-            if (body !== null) {
-                xhr.setRequestHeader("Content-Type", "application/json");
-            }
-            xhr.onload = function () {
-                if (this.status >= 200 && this.status < 300) {
-                    resolve(xhr.response);
-                } else {
-                    reject(
-                        new Error(
-                            "Something went wrong, contact the Sezzle team!"
-                        )
-                    );
-                }
-            };
-            xhr.onerror = function () {
-                reject(
-                    new Error("Something went wrong, contact the Sezzle team!")
-                );
-            };
-            body === null ? xhr.send() : xhr.send(JSON.stringify(body));
-        }).catch(function (e) {
-            console.log(e.message);
-        });
-    }
+      };
+      xhr.onerror = function () {
+        reject(new Error("Something went wrong, contact the Sezzle team!"));
+      };
+      body === null ? xhr.send() : xhr.send(JSON.stringify(body));
+    }).catch(function (e) {
+      console.log(e.message);
+    });
+  }
 }
 
 export default SezzleCheckoutButton;

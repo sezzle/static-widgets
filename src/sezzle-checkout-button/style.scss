@@ -182,3 +182,8 @@
         }
     }
 }
+
+.cart__ctas:has(.sezzle-checkout-button ) {
+    flex-direction: column;
+}
+  
