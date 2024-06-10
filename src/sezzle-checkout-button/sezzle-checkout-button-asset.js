@@ -3,6 +3,16 @@ import enTranslations from "./translations/en.json";
 import frTranslations from "./translations/fr.json";
 import esTranslations from "./translations/es.json";
 
+// List of events
+const Events = Object.freeze({
+  Onload: "checkout-button-onload",
+  Onclick: "checkout-button-onclick",
+  Error: "checkout-button-error",
+  ModalOnclick: "checkout-button-modal-onclick",
+  ModalOnload: "checkout-button-modal-onload",
+  ModalError: "checkout-button-modal-error",
+});
+
 class SezzleCheckoutButton {
   constructor(options) {
     this.defaultTemplate = {
@@ -95,7 +105,7 @@ class SezzleCheckoutButton {
     sezzleCheckoutButton.addEventListener(
       "click",
       function (e) {
-        this.eventLogger.sendEvent("checkout-button-onclick");
+        this.eventLogger.validateAndSendEvent(Events.Onclick);
         e.stopPropagation();
         e.preventDefault();
         try {
@@ -106,9 +116,9 @@ class SezzleCheckoutButton {
           } else {
             this.renderModal();
           }
-          this.eventLogger.sendEvent("checkout-button-modal-onload");
+          this.eventLogger.validateAndSendEvent(Events.ModalOnload);
         } catch (e) {
-          this.eventLogger.sendEvent("checkout-button-modal-error", e.message);
+          this.eventLogger.validateAndSendEvent(Events.ModalError, e.message);
           location.assign(
             "/checkout?shop_pay_logout=true&skip_shop_pay=true&shop_pay_checkout_as_guest=true"
           );
@@ -528,7 +538,7 @@ class SezzleCheckoutButton {
       .addEventListener(
         "click",
         function (e) {
-          this.eventLogger.sendEvent("checkout-button-modal-onclick");
+          this.eventLogger.validateAndSendEvent(Events.ModalOnclick);
           e.stopPropagation();
           e.preventDefault();
           location.assign(
@@ -553,9 +563,9 @@ class SezzleCheckoutButton {
   init() {
     try {
       this.createButton();
-      this.eventLogger.sendEvent("checkout-button-onload");
+      this.eventLogger.validateAndSendEvent(Events.Onload);
     } catch (e) {
-      this.eventLogger.sendEvent("checkout-button-error", e.message);
+      this.eventLogger.validateAndSendEvent(Events.Error, e.message);
     }
   }
 }
@@ -566,20 +576,74 @@ class EventLogger {
     this.widgetServerEventLogEndpoint = options.widgetServerBaseUrl
       ? `${options.widgetServerBaseUrl}/v1/event/log`
       : "https://widget.sezzle.com/v1/event/log";
+    this.debounceTimeout = null;
+    this.sentEvents = new Set();
+    this.eventsToFilterDuplicates = new Set([Events.Onload]);
+  }
+
+  isElementInViewport(element) {
+    const rect = element.getBoundingClientRect();
+    return (
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      rect.bottom <=
+        (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+  }
+
+  // executes the func after a delay
+  debounce(func, delay) {
+    if (this.debounceTimeout) {
+      clearTimeout(this.debounceTimeout);
+    }
+    this.debounceTimeout = setTimeout(func, delay);
+  }
+
+  addListeners() {
+    document.addEventListener("click", () => {
+      this.debounce(() => this.validateAndSendEvent(Events.Onload), 500);
+    });
+    document.addEventListener("scroll", () => {
+      this.debounce(() => this.validateAndSendEvent(Events.Onload), 500);
+    });
+  }
+
+  validateAndSendEvent(eventName, description = "") {
+    if (eventName === "checkout-button-onload") {
+      const checkoutBtn = document.querySelector(".sezzle-checkout-button");
+      const isElementInViewport = this.isElementInViewport(checkoutBtn);
+      if (checkoutBtn && isElementInViewport) {
+        this.sendEvent(eventName, description);
+      } else {
+        this.addListeners();
+      }
+    } else {
+      this.sendEvent(eventName, description);
+    }
   }
 
   sendEvent(eventName, description = "") {
-    if (document.querySelector(".sezzle-checkout-button")) {
-      const body = [
-        {
-          event_name: eventName,
-          description: description,
-          merchant_uuid: this.merchantUUID,
-          merchant_site: window.location.hostname,
-        },
-      ];
-      this.httpRequestWrapper("POST", this.widgetServerEventLogEndpoint, body);
+    // Check if the event is in eventsToFilterDuplicates and already sent
+    if (
+      this.eventsToFilterDuplicates.has(eventName) &&
+      this.sentEvents.has(eventName)
+    ) {
+      return;
     }
+    const body = [
+      {
+        event_name: eventName,
+        description: description,
+        merchant_uuid: this.merchantUUID,
+        merchant_site: window.location.hostname,
+      },
+    ];
+    this.httpRequestWrapper(
+      "POST",
+      this.widgetServerEventLogEndpoint,
+      body
+    ).then(this.sentEvents.add(eventName));
   }
 
   async httpRequestWrapper(method, url, body = null) {
