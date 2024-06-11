@@ -610,13 +610,9 @@ class EventLogger {
   }
 
   validateAndSendEvent(eventName, description = "") {
-    if (eventName === "checkout-button-onload") {
+    if (eventName === Events.Onload) {
       const checkoutBtn = document.querySelector(".sezzle-checkout-button");
-      if (!checkoutBtn) {
-        return;
-      }
-      const isElementInViewport = this.isElementInViewport(checkoutBtn);
-      if (checkoutBtn && isElementInViewport) {
+      if (!!checkoutBtn && this.isElementInViewport(checkoutBtn)) {
         this.sendEvent(eventName, description);
       } else {
         this.addListeners();
