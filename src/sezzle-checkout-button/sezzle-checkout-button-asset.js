@@ -582,17 +582,21 @@ class EventLogger {
   }
 
   isElementInViewport(element) {
-    const rect = element?.getBoundingClientRect();
+    if (element === undefined || element === null) {
+      return false;
+    }
+    const rect = element.getBoundingClientRect();
     if (rect) {
       return (
         rect.top >= 0 &&
         rect.left >= 0 &&
         rect.bottom <=
           (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        rect.right <=
+          (window.innerWidth || document.documentElement.clientWidth)
       );
     }
-  return false;
+    return false;
   }
 
   // executes the func after a delay
