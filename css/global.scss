@@ -92,7 +92,6 @@
         background: none;
         border: none;
         padding: 0px;
-
     }
 
     .quadpay-modal-info-link {
@@ -126,7 +125,6 @@
         display: none !important; // needs to be important in case there are styles added inline
     }
 
-
     // Alignments
     .sezzle-checkout-button-wrapper {
         &.sezzle-left {
@@ -146,32 +144,21 @@
     }
 }
 
-@import url('https://fonts.cdnfonts.com/css/satoshi');
+@import url("https://fonts.cdnfonts.com/css/satoshi");
 $breakpoint-large: 1150px;
 $breakpoint-medium: 965px;
 $breakpoint-small: 600px;
 $breakpoint-mobile: 450px;
-
 $breakpoint-minimum: 280px;
-
-$font-color: #000000;
+$font-color: #303030;
+$accent-color: #8333d4;
+$focus-color: #af0fda;
+$mute-color: #5e5e5e;
+$x-mute-color: #e5e5e5;
+$background-color: #ffffff;
 $font-family: Satoshi, "Open Sans", sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600&display=swap");
 
-.sezzle-checkout-modal-lightbox {
-    background-color: rgba(5, 31, 52, .57);
-    color: unset;
-    display: none;
-    height: 100vh;
-    left: 0;
-    overflow-x: hidden;
-    overflow-y: auto;
-    position: fixed;
-    top: 0;
-    width: 100vw;
-    z-index: 99999998;
-}
-
-// To make the body fixed when modal is open
 .sezzle-modal-open {
     position: fixed;
     top: 0;
@@ -180,11 +167,162 @@ $font-family: Satoshi, "Open Sans", sans-serif;
     left: 0;
 }
 
+.sezzle-checkout-modal-lightbox * {
+    vertical-align: baseline;
+    box-sizing: border-box;
+    line-height: normal;
+}
+
+.sezzle-checkout-modal-lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99999998;
+    background-color: rgba(5, 31, 52, 0.57);
+    width: 100vw;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    color: unset;
+
+    .sezzle-checkout-modal-hidden {
+        transition: all 0.4s ease;
+        margin-top: 0;
+    }
+
+    .sezzle-checkout-modal {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        margin-top: -384px;
+        margin-left: -325px;
+
+        z-index: 99999998;
+        background-color: $background-color;
+        box-shadow: 0 10px 20px rgba(5, 31, 52, 0.19),
+            0 6px 6px rgba(5, 31, 52, 0.2);
+        border-radius: 20px;
+        color: $font-color;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        transition: all 0.4s ease;
+        width: 650px;
+
+        @media (max-width: 650px) {
+            position: relative;
+            top: 0px;
+            left: 0px;
+            padding: 50px 20px;
+            margin: 0;
+            border-radius: 0;
+            height: 100%;
+            font-size: 15px;
+            max-width: 100%;
+            min-width: 320px;
+            overflow: auto;
+        }
+
+        @media (max-height: 767px) and (min-width: 651px) {
+            position: relative;
+            top: 0px;
+            left: 0px;
+            margin: 20px auto;
+        }
+
+        h1 {
+            font-size: 18px;
+            text-align: center;
+            margin: 0 auto;
+
+            @media (max-width: 450px) {
+                .sezzle-checkout-modal h1 {
+                    font-size: 16px;
+                }
+            }
+        }
+
+        p {
+            display: block;
+            text-align: center;
+            text-transform: none;
+            font-size: 12pt;
+            line-height: 25px;
+            font-weight: 300;
+            box-sizing: border-box;
+            color: $mute-color;
+            margin: 5px 0 !important;
+            letter-spacing: 0.25px;
+
+            @media (max-width: 768px) {
+                text-align: center;
+            }
+
+            @media (max-width: 450px) {
+                font-size: 11pt;
+                text-align: center;
+                letter-spacing: 0.5px;
+                line-height: 18px;
+            }
+
+            small {
+                display: block;
+                box-sizing: border-box;
+                font-size: 11pt;
+                opacity: 0.8;
+
+                @media (max-width: 450px) {
+                    font-size: 7.5pt;
+                }
+            }
+        }
+
+        a {
+            display: block;
+            margin: 4px auto 0;
+            color: #17ce6a;
+            font-size: 8pt;
+            font-weight: 500;
+            text-transform: lowercase;
+            text-align: left;
+            letter-spacing: 0.25px;
+            text-decoration: none;
+            transition: 0.15s;
+            opacity: 0.65;
+
+            &:hover {
+                transition: 0.1s;
+                opacity: 1;
+            }
+        }
+
+        h2 {
+            font-size: 18px;
+            text-align: center;
+            margin: 0 auto;
+            color: unset;
+
+            @media (max-width: 768px) {
+                text-align: center;
+            }
+
+            img {
+                margin: 0 4px;
+                display: inline-block;
+                height: 30px !important;
+                width: auto;
+                position: relative;
+                top: 6px;
+                vertical-align: initial;
+            }
+        }
+    }
+}
+
 .sezzle-checkout-modal-hidden {
     width: 100%;
     height: 100%;
     -webkit-font-smoothing: antialiased;
-    transition: all .4s ease;
+    transition: all 0.4s ease;
     margin-top: 0;
 
     @media screen and (min-width: 0px) and (max-width: $breakpoint-minimum) {
@@ -196,13 +334,14 @@ $font-family: Satoshi, "Open Sans", sans-serif;
         left: 50%;
         transform: translate(-50%, -50%);
         position: absolute;
-        box-shadow: 0 10px 20px rgba(5, 31, 52, 0.19), 0 6px 6px rgba(5, 31, 52, 0.2);
+        box-shadow: 0 10px 20px rgba(5, 31, 52, 0.19),
+            0 6px 6px rgba(5, 31, 52, 0.2);
         height: auto;
         max-height: 90%;
         width: 343px;
         color: $font-color;
         font-family: $font-family;
-        background-color: #fff;
+        background-color: $background-color;
         overflow: auto;
         padding: 20px 0;
         border-radius: 10px;
@@ -219,7 +358,7 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                 top: 16px;
                 width: 24px;
                 height: 24px;
-                opacity: .2;
+                opacity: 0.2;
                 cursor: pointer;
                 padding: 0;
                 outline: 0;
@@ -235,7 +374,6 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                     opacity: 0.5;
                 }
 
-                // always show x for mobile
                 @media screen and (max-width: $breakpoint-small) {
                     opacity: 0.8;
 
@@ -250,7 +388,7 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                     content: " ";
                     top: 0;
                     transform: rotate(45deg);
-                    background-color: #595959;
+                    background-color: $mute-color;
                     width: 2px;
                     height: 15px;
                 }
@@ -261,7 +399,7 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                     content: " ";
                     top: 0;
                     transform: rotate(-45deg);
-                    background-color: #595959;
+                    background-color: $mute-color;
                     width: 2px;
                     height: 15px;
                 }
@@ -270,8 +408,8 @@ $font-family: Satoshi, "Open Sans", sans-serif;
 
         .sezzle-logo {
             display: block;
-            height: 24px;
-            width: 98px;
+            height: 29.39px;
+            width: 120px;
             margin: 10px auto 0;
             background-image: url(https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg);
             background-repeat: no-repeat;
@@ -282,28 +420,107 @@ $font-family: Satoshi, "Open Sans", sans-serif;
             text-align: center;
             padding: 0px 16px;
 
+            .tp-widget-wrapper {
+                font-size: 12px;
+                margin: 16px 0px;
+
+                a {
+                    text-decoration: none;
+                    color: $font-color;
+                }
+
+                .tp-widget-trustscore {
+                    font-weight: 500;
+                    display: inline-block;
+                }
+
+                .tp-widget-stars {
+                    display: inline-block;
+                    width: 70px;
+                    position: relative;
+                    top: 2px;
+
+                    div {
+                        .tp-stars--4--half {
+                            div {
+                                svg {
+                                    display: block;
+                                    position: absolute;
+
+                                    .tp-star {
+                                        &:nth-of-type(-n + 4) {
+                                            .tp-star__canvas {
+                                                fill: #00b67a;
+                                            }
+                                        }
+
+                                        .tp-star__canvas {
+                                            fill: #dcdce6;
+                                        }
+
+                                        .tp-star__canvas--half {
+                                            fill: #00b67a;
+                                        }
+
+                                        .tp-star__shape {
+                                            fill: $background-color;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .widget-info {
+                    display: inline-block;
+
+                    .tp-widget-rating {
+                        display: inline-block;
+                    }
+
+                    .tp-widget-logo {
+                        display: inline-block;
+                        width: 60px;
+                        position: relative;
+                        top: 2px;
+                    }
+                }
+            }
+
             .sezzle-header {
                 display: block;
                 text-align: center;
                 font-style: normal;
-                font-size: 24px;
-                font-weight: 600;
-                line-height: 28px;
+                font-size: 19px;
+                font-weight: 700;
+                line-height: 26px;
+                letter-spacing: 0.1px;
                 font-family: $font-family;
                 color: $font-color;
-                margin-top: 24px;
+                margin: 16px 0;
             }
 
             .sezzle-row {
                 text-align: center;
                 font-style: normal;
-                font-size: 15px;
+                font-size: 13px;
                 font-weight: 400;
-                line-height: 20px;
+                line-height: 17px;
                 color: $font-color;
-                letter-spacing: -0.3px;
-                margin: 8px auto 24px;
+                letter-spacing: 0.4px;
+                margin: 12px 0px 24px;
                 font-family: $font-family;
+                display: grid;
+                gap: 4px;
+
+                span {
+                    display: block;
+
+                    sup {
+                        font-size: 0.75em;
+                    }
+                }
             }
 
             .sezzle-four-pay {
@@ -312,7 +529,8 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                 align-items: center;
                 background: rgba(131, 51, 212, 0.05);
                 border-radius: 16px;
-                padding: 16px;
+                padding: 16px 8px;
+                margin: 0px 12px;
 
                 .sezzle-row {
                     text-align: center;
@@ -334,14 +552,13 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                         display: flex;
                         flex-direction: column;
                         align-items: center;
-                        background: #FFFFFF;
-                        border: 1px solid #8333D4;
+                        background: $background-color;
                         border-radius: 8px;
                         margin: 0px 4px;
                         padding: 16px 0px;
 
-                        :first-child {
-                            padding: 0px 6px;
+                        .payment-item:first-child {
+                            padding: 0 8px;
                         }
                     }
 
@@ -349,19 +566,23 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                         display: flex;
                         flex-direction: row;
                         align-items: center;
-                        background: #FFFFFF;
-                        border: 1px solid #8333D4;
+                        background: $background-color;
                         border-radius: 8px;
                         margin: 0px 4px;
                         padding: 0px 4px;
-
-                        :first-child {
-                            padding: 0px 4px;
-                        }
                     }
 
                     .payment-item {
-                        padding: 16px 2px;
+                        padding: 16px 8px;
+
+                        div:first-child {
+                            padding: 0 4px;
+                            svg {
+                                width: 35px;
+                                height: 35px;
+                                stroke: none;
+                            }
+                        }
 
                         .breakdown-row {
                             display: flex;
@@ -373,22 +594,22 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                             .percentage {
                                 text-align: center;
                                 font-style: normal;
-                                font-size: 15px;
-                                font-weight: 500;
-                                line-height: 20px;
-                                color: #8333D4;
+                                font-size: 13.4px;
+                                font-weight: 400;
+                                line-height: 18.76px;
+                                color: $accent-color;
                                 font-family: $font-family;
                                 align-items: center;
-                                letter-spacing: -0.3px;
+                                letter-spacing: 0.13px;
                             }
 
                             .due {
                                 text-align: center;
                                 font-style: normal;
-                                font-size: 12px;
+                                font-size: 10.72px;
                                 font-weight: 400;
-                                line-height: 16px;
-                                color: #5E5E5E;
+                                line-height: 15.18px;
+                                color: $mute-color;
                                 font-family: $font-family;
                             }
                         }
@@ -405,13 +626,26 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                 .single-feature {
                     text-align: center;
                     font-style: normal;
-                    font-size: 17px;
-                    font-weight: 600;
-                    line-height: 22px;
+                    font-size: 13px;
+                    font-weight: 500;
+                    line-height: 17px;
                     color: $font-color;
-                    letter-spacing: -0.3px;
+                    letter-spacing: 0.4px;
                     margin: 8px auto;
                     font-family: $font-family;
+                }
+                &.hide {
+                    display: none;
+                }
+            }
+
+            .sezzle-giveaway {
+                font-size: 17px;
+                font-weight: 700;
+                line-height: 23px;
+                margin: 16px 0;
+                &.hide {
+                    display: none;
                 }
             }
 
@@ -419,7 +653,7 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                 font-size: 14px;
                 color: $font-color;
 
-                @media screen and (max-width: $breakpoint-small ) {
+                @media screen and (max-width: $breakpoint-small) {
                     font-size: 12px;
                 }
 
@@ -436,7 +670,7 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                     }
 
                     &:hover {
-                        color: #af0fda;
+                        color: $focus-color;
                     }
                 }
             }
@@ -446,9 +680,25 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                 font-style: normal;
                 font-size: 11px;
                 font-weight: 400;
-                line-height: 13px;
-                color: #5E5E5E;
+                line-height: 12px;
+                color: $mute-color;
                 font-family: $font-family;
+
+                sup {
+                    font-size: 0.75em;
+                    padding-right: 2px;
+                }
+
+                a {
+                    color: $accent-color;
+
+                    &:hover {
+                        color: $focus-color;
+                    }
+                }
+                &.hide {
+                    display: none;
+                }
             }
         }
     }
@@ -488,7 +738,7 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                     height: fit-content;
                     margin: 20px auto;
                     padding: 20px 0 0;
-                    border: 1px solid #e5e5e5;
+                    border: 1px solid $x-mute-color;
                     border-radius: 5px;
                     max-width: 502px;
                     display: block;
@@ -497,7 +747,6 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                     padding: 0px;
                     gap: 24px;
                     font-family: $font-family;
-
 
                     .sezzle-lt-payment-header {
                         font-family: $font-family;
@@ -510,7 +759,7 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                         text-align: center;
                         padding: 15px;
                         letter-spacing: -0.3px;
-                        border-bottom: 1px solid #e5e5e5;
+                        border-bottom: 1px solid $x-mute-color;
                         color: $font-color;
 
                         span {
@@ -525,7 +774,7 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                         line-height: 14px;
                         margin: 0px 20px 0;
                         padding: 20px 0px;
-                        border-bottom: 1px solid #e5e5e5;
+                        border-bottom: 1px solid $x-mute-color;
 
                         .plan {
                             display: flex;
@@ -537,7 +786,7 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                                 span {
                                     font-size: 17px;
                                     line-height: 22px;
-                                    color: #8333D4;
+                                    color: $accent-color;
                                     font-weight: 600;
                                     letter-spacing: -0.3px;
                                 }
@@ -545,14 +794,12 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                                 .per-month {
                                     font-size: 13px;
                                 }
-
-
                             }
 
                             .term-length {
                                 border-radius: 100px;
                                 background: rgba(41, 211, 162, 0.1);
-                                color: #00804A;
+                                color: #00804a;
                                 padding: 2px 8px;
                                 font-size: 12px;
                                 font-weight: 600;
@@ -566,7 +813,7 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                             justify-content: space-between;
 
                             .adjusted-total {
-                                color: #5E5E5E;
+                                color: $mute-color;
                                 font-size: 12px;
                                 width: fit-content;
                                 text-align: left;
@@ -579,7 +826,7 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                             }
 
                             .interest-amount {
-                                color: #5E5E5E;
+                                color: $mute-color;
                                 font-size: 12px;
                                 width: fit-content;
                                 text-align: left;
@@ -592,7 +839,7 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                             }
 
                             .sample-apr {
-                                color: #5E5E5E;
+                                color: $mute-color;
                                 font-size: 12px;
                                 width: fit-content;
                                 text-align: left;
@@ -623,10 +870,10 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                 .terms {
                     font-size: 11px;
                     line-height: 13px;
-                    color: #5E5E5E;
+                    color: $mute-color;
                     margin: 10px auto 0;
                     padding: 12px 0 0;
-                    border-top: 1px solid #e5e5e5;
+                    border-top: 1px solid $x-mute-color;
                     text-align: center;
                     font-family: $font-family;
                 }
