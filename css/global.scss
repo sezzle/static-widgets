@@ -518,6 +518,7 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                     display: block;
 
                     sup {
+                        vertical-align: super;
                         font-size: 0.75em;
                     }
                 }
@@ -617,6 +618,7 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                                 font-family: $font-family;
 
                                 sup {
+                                    vertical-align: super;
                                     font-size: 0.75em;
                                 }
                             }
@@ -693,6 +695,7 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                 font-family: $font-family;
 
                 sup {
+                    vertical-align: super;
                     font-size: 0.75em;
                     padding-right: 2px;
                 }
