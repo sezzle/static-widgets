@@ -615,6 +615,10 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                                 line-height: 15.18px;
                                 color: $mute-color;
                                 font-family: $font-family;
+
+                                sup {
+                                    font-size: 0.75em;
+                                }
                             }
                         }
                     }
