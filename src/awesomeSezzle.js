@@ -1191,9 +1191,13 @@ class AwesomeSezzle {
                 modalNode.innerHTML = this.altModalHTML;
             } else {
                 modalNode.innerHTML = `
-        <div id="sezzle-modal-container" role="dialog" aria-label="Sezzle Modal" aria-description="${this.translations.aboutSezzle}" class="sezzle-checkout-modal-hidden">
+        <div id="sezzle-modal-container" role="dialog" aria-label="Sezzle Modal" aria-description="${
+            this.translations.aboutSezzle
+        }" class="sezzle-checkout-modal-hidden">
 		<div class="sezzle-modal">
-				<div><button role="button" aria-label="${this.translations.closeSezzleModal}" class="close-sezzle-modal"></button></div>
+				<div><button role="button" aria-label="${
+                    this.translations.closeSezzleModal
+                }" class="close-sezzle-modal"></button></div>
 				<div class="sezzle-logo" title="Sezzle"></div>
 				<div id="sezzle-modal-core-content" class="sezzle-modal-content">
                     <div id="tp-widget-wrapper" class="tp-widget-wrapper visible">
@@ -1205,7 +1209,10 @@ class AwesomeSezzle {
                                         <div style="position: relative; height: 0; width: 100%; padding: 0; padding-bottom: 18.326693227091635%;">
 
                                             <svg role="img" viewBox="0 0 251 46" xmlns="http://www.w3.org/2000/svg" style="position: absolute; height: 100%; width: 100%; left: 0; top: 0;">
-                                                <title id="starRating-tfnn0cd6r0c" lang="en-US">${this.translations.trustPilotTitle}</title>
+                                                <title id="starRating-tfnn0cd6r0c" lang="en-US">${
+                                                    this.translations
+                                                        .trustPilotTitle
+                                                }</title>
                                                 <g class="tp-star">
                                                     <path class="tp-star__canvas" fill="#dcdce6" d="M0 46.330002h46.375586V0H0z"></path>
                                                     <path class="tp-star__shape" d="M39.533936 19.711433L13.230239 38.80065l3.838216-11.797827L7.02115 19.711433h12.418975l3.837417-11.798624 3.837418 11.798624h12.418975zM23.2785 31.510075l7.183595-1.509576 2.862114 8.800152L23.2785 31.510075z" fill="#FFF"></path>
@@ -1237,7 +1244,9 @@ class AwesomeSezzle {
                             </div>
                             <div class="widget-info">
                                 <!-- Business Info -->
-                                <div id="tp-widget-rating" class="tp-widget-rating">${this.translations.trustPilotReviews}</div>
+                                <div id="tp-widget-rating" class="tp-widget-rating">${
+                                    this.translations.trustPilotReviews
+                                }</div>
                                 <!-- Logo -->
                                 <div id="tp-widget-logo" class="tp-widget-logo">
                                     <div class="">
@@ -1260,7 +1269,9 @@ class AwesomeSezzle {
                         <span>${this.translations.sezzleHeaderChild}</span>
                         <span>${this.translations.sezzleHeaderChild2}</span>
 					</p>
-        		<div class="sezzle-four-pay">
+        		<div class="sezzle-four-pay ${
+                    this.language !== "en" ? "sezzle-four-pay-fr-es" : ""
+                }">
 					<div class="sezzle-pie-area">
 						<div class="due-today">
 							<div class="payment-item">
@@ -1313,7 +1324,7 @@ class AwesomeSezzle {
 								</div>
 								<p class="breakdown-row">
 									<span class="percentage">25%</span>
-									<span class="due">${this.translations.week} 6</span>
+									<span class="due">${this.translations.week} 6<sup>3</sup></span>
 								</p>
 							</div>
 						</div>
@@ -1331,9 +1342,9 @@ class AwesomeSezzle {
 							</p>
         				</div>
 				<div class="terms-container">
-        			<p class="terms"><span class="webbank-terms">${this.translations.webBankTerms}</span><br/>${this.translations.terms1}</p>
+        			<p class="terms">${this.translations.terms1}</p>
         			<p class="terms">${this.translations.terms2}</p>
-        			<p class="terms">${this.translations.terms3}</p>
+                    <p class="terms"><span class="webbank-terms">${this.translations.webBankTerms}</span><br/>${this.translations.termsHiw}</p>
 				</div>
 				</div>
 			</div>
