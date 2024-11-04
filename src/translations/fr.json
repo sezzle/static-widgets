@@ -19,7 +19,7 @@
   "schedulePayments": "3. Planifiez le reste de vos paiements.",
   "selectSezzle": "1. Payez plus tard en sélectionnant Sezzle au moment du paiement.",
   "sezzleHeader": "Acheter maintenant. Payer plus tard.",
-  "sezzleHeaderChild": "Disponible pour des achats de 20 $ à 2 500 $. <sup> 1 </sup>",
+  "sezzleHeaderChild": "Disponible pour des achats de %%min-price%% $ à %%max-price%% $. <sup> 1 </sup>",
   "sezzleHeaderChild2": "Décision instantanée. Aucun impact sur votre cote de crédit. <sup> 2 </sup>",
   "sezzleHeaderLt": "Effectuez des paiements mensuels faciles sur votre achat",
   "sezzleInfo": "Informations sur Sezzle.",

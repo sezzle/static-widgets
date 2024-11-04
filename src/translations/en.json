@@ -19,7 +19,7 @@
     "schedulePayments": "3. Schedule the rest of your payments.",
     "selectSezzle": "1. Pay later by selecting Sezzle at checkout.",
     "sezzleHeader": "Buy Now. Pay Later.",
-    "sezzleHeaderChild": "Available for purchases of $20 to $2,500.<sup>1</sup>",
+    "sezzleHeaderChild": "Available for purchases of $%%min-price%% to $%%max-price%%.<sup>1</sup>",
     "sezzleHeaderChild2": "Instant decision. No impact to your credit score.<sup>2</sup>",
     "sezzleHeaderLt": "Make easy monthly payments on your order",
     "sezzleInfo": "Sezzle Information.",
