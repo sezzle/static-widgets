@@ -321,7 +321,7 @@ Une fois le rendu du widget, des configurations supplémentaires peuvent être a
 
 **objetif**: Prix minimum en centimes pour lequel Sezzle peut être sélectionné lors du paiement. Si le prix sur `targetXPath` est inférieur à ce numéro, le widget ne s'affichera pas.
 **Type**: numéro
-**Défaut**: 0
+**Défaut**: 2000
 **Détails supplémentaires**: Cette configuration n'empêche pas un client de payer avec Sezzle en dessous de ce prix. Pour plus d'informations sur la définition d'une passerelle minimale, contactez votre représentant Merchant Success ou utilisez la section Contactez-nous du tableau de bord Sezzle Merchant.
 
 

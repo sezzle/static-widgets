@@ -331,7 +331,7 @@ Once the widget is rendering, additional configurations can be added to the Awes
 
 **Purpose**: Minimum price in cents for which Sezzle can be selected at checkout. If the price at `targetXPath` is lower than this number, the widget will not render.
 **Type**: number
-**Default**: 20
+**Default**: 2000
 **Additional Details**: This configuration does not prevent a customer from checking out with Sezzle below this price. For more information on setting a gateway minimum, contact your Merchant Success representative or use the Contact Us section of the Sezzle Merchant Dashboard.
 
 `maxPrice` (optional)
