@@ -34,7 +34,7 @@
     "singleFeatureTrusted": "Trusted by over 10 million consumers",
     "termLength": "months",
     "termsHiw": "<a href='https://sezzle.com/how-it-works' target='_blank'>Learn more about Sezzle buy now, pay later here.</a>",
-    "terms1": "<sup>1</sup>Subject to approval. <a href='https://legal.sezzle.com/user' target='_blank'>Click here for complete terms.</a> First payment date and amount may fluctuate based on eligibility and time of merchant order completion.",
+    "terms1": "<sup>1</sup>First payment date and amount may fluctuate based on eligibility and time of merchant order completion. Late fees and failed payment fees may apply.",
     "terms2": "<sup>2</sup>Signing up for Sezzle will not impact your credit score. You may opt-in to our free credit reporting program, Sezzle Up, to have your payments reported to credit bureaus.",
     "termsLt1": "Signing up for Sezzle will not impact your credit score. <a href=\"https://sezzle.com/how-it-works\" target=\"_blank\">Learn&nbsp;more&nbsp;here.</a>",
     "termsLt2": "Subject to approval. <a href=\"https://legal.sezzle.com/user\" target=\"_blank\">Click here for complete terms.</a> First payment date and amount may fluctuate based on eligibility and time of merchant order completion.",
@@ -42,7 +42,8 @@
     "today": "Today",
     "trustPilotReviews": "14K+ reviews on",
     "trustPilotTitle": "4.3 out of 5 star rating on Trustpilot",
-    "webBankTerms": "<sup>3</sup>Pay in 4 and Pay in 2 loans are originated by WebBank except loans in IA, Puerto Rico and Canada. For example, for a $300 Pay in 4 loan, you would make one $75 down payment today, then three $75 payments every two weeks for a 35.40% annual percentage rate (APR) and a total of payments of $305.99 which includes a $5.99 Service Fee (finance charge) charged at loan origination. Service fees vary and can range from $0 to $5.99 depending on the purchase price and Sezzle product. Actual fees are reflected in checkout.",
+    "webBankTerms": "<sup>3</sup>WebBank originates all Pay-in-2 and Pay-in-4 loans, except in Iowa ,Puerto Rico and Canada. All other loans originated by Sezzle.",
+    "linkToCompleteTerms": "<a href=\"https://legal.sezzle.com/user\" target=\"_blank\">Click here for complete terms.</a>",
     "week": "Week",
     "widget": "or 4 interest-free payments of %%price%% with %%logo%% %%info%%",
     "widgetLT": "or monthly payments as low as %%price%% with %%logo%% %%info%%"

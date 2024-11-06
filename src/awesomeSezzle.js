@@ -1268,24 +1268,30 @@ class AwesomeSezzle {
 						</div>
 					</div>
 				</div>
-						<div class="sezzle-features">
-           					<p class="single-feature">
-								${this.translations.selectSezzle}
-							</p>
-            				<p class="single-feature">
-								${this.translations.completePurchase}
-							</p>
-							<p class="single-feature">
-								${this.translations.schedulePayments}
-							</p>
-        				</div>
+        <div class="sezzle-features">
+          <p class="single-feature">
+            ${this.translations.selectSezzle}
+          </p>
+          <p class="single-feature">
+            ${this.translations.completePurchase}
+          </p>
+          <p class="single-feature">
+            ${this.translations.schedulePayments}
+          </p>
+        </div>
 				<div class="terms-container">
-        			<p class="terms">${this.translations.terms1}</p>
-        			<p class="terms">${this.translations.terms2}</p>
-                    <p class="terms"><span class="webbank-terms">${
-                      this.translations.webBankTerms
-                    }</span><br/>${this.translations.termsHiw}</p>
-				</div>
+          <p class="terms"><span>${
+            this.translations.terms1
+          }</span><br /><span>${this.translations.termsHiw}</span></p>
+          <p class="terms">${this.translations.terms2}</p>
+          <p class="terms">
+              <span class="webbank-terms">${
+                this.translations.webBankTerms
+              }</span>
+              <br />
+              <span>${this.translations.linkToCompleteTerms}</span>
+          </p>
+          </div>
 				</div>
 			</div>
 		</div>`;
