@@ -383,7 +383,7 @@ Once the widget is rendering, additional configurations can be added to the Awes
 **Purpose**: Minimum price in cents for which purchase is eligible for long-term lending. Above this amount, the monthly installments with interest will be reflected in the widget and modal. Below this amount, the 4-pay widget and modal will render.
 **Type**: number
 **Default**: 0
-**Additional Details**: The `maxPrice` option should be overwritten to `4000000` for long-term.
+**Additional Details**: The `maxPrice` option should be overwritten to `1500000` for long-term.
 
 `bestAPR` (optional)
 

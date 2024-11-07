@@ -808,11 +808,11 @@ class AwesomeSezzle {
       case price > 1000:
         return [24, 36, 48];
       case price > 500:
-        return [6, 12, 24];
-      case price > 250:
-        return [3, 6, 12];
+        return [12, 18, 24];
+      case price > 300:
+        return [6, 9, 12];
       default:
-        return [3, 6];
+        return [3, 6, 9];
     }
   }
 
