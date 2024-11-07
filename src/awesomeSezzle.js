@@ -49,7 +49,7 @@ class AwesomeSezzle {
     this.minPrice = options.minPrice || 2000;
     this.maxPrice = options.maxPrice || 250000;
     this.minPriceLT = options.minPriceLT || 0;
-    this.bestAPR = options.bestAPR || 0;
+    this.bestAPR = options.bestAPR || 9.99;
     this.altModalHTML = options.altLightboxHTML || "";
     this.ltAltModalHTML = options.ltAltModalHTML || "";
     this.apModalHTML = options.apModalHTML || "";
@@ -808,11 +808,11 @@ class AwesomeSezzle {
       case price > 1000:
         return [24, 36, 48];
       case price > 500:
-        return [6, 12, 24];
-      case price > 250:
-        return [3, 6, 12];
+        return [12, 18, 24];
+      case price > 300:
+        return [6, 9, 12];
       default:
-        return [3, 6];
+        return [3, 6, 9];
     }
   }
 

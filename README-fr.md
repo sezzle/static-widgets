@@ -374,7 +374,7 @@ Une fois le rendu du widget, des configurations supplémentaires peuvent être a
 **objetif**: Prix minimum en centimes pour lequel l'achat est éligible au prêt à long terme. Au-dessus de ce montant, les mensualités avec intérêts seront répercutées dans le widget et le modal. En dessous de ce montant, le widget et le modal à 4 paiements seront rendus.
 **Type**: numéro
 **Défaut**: 0
-**Détails supplémentaires**: L'option `maxPrice` doit être remplacée par `4000000` à long terme.
+**Détails supplémentaires**: L'option `maxPrice` doit être remplacée par `1500000` à long terme.
 
 `bestAPR` (meilleur APR, facultatif)
 
