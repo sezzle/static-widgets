@@ -49,7 +49,7 @@ class AwesomeSezzle {
     this.minPrice = options.minPrice || 2000;
     this.maxPrice = options.maxPrice || 250000;
     this.minPriceLT = options.minPriceLT || 0;
-    this.bestAPR = options.bestAPR || 0;
+    this.bestAPR = options.bestAPR || 9.99;
     this.altModalHTML = options.altLightboxHTML || "";
     this.ltAltModalHTML = options.ltAltModalHTML || "";
     this.apModalHTML = options.apModalHTML || "";
