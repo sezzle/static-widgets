@@ -369,7 +369,7 @@ class AwesomeSezzle {
             const infoIconNode = document.createElement("div");
             infoIconNode.ariaLabel = `${this.translations.learnMoreAlt} Sezzle`;
             infoIconNode.className = "sezzle-info-icon sezzle-modal-open-link";
-            infoIconNode.innerHTML = "&#9432;";
+            infoIconNode.innerHTML = "&#9312;";
             sezzleButtonText.appendChild(infoIconNode);
             break;
           case "question-mark":
