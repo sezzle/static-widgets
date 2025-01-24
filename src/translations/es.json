@@ -45,6 +45,6 @@
   "webBankTerms": "<sup>3</sup>WebBank origina todos los préstamos Pay-in-2 y Pay-in-4, excepto en Iowa, Puerto Rico y Canadá. Todos los demás préstamos fueron originados por Sezzle.",
   "linkToCompleteTerms": "<a href='https://legal.sezzle.com/user' target='_blank'>Haga clic aquí para ver los términos completos.</a>",
   "week": "Semana",
-  "widget": "o 4 pagos sin intereses\u00B9 de %%price%% con %%logo%% %%info%%",
+  "widget": "o 4 pagos sin intereses%%sup%% de %%price%% con %%logo%% %%info%%",
   "widgetLT": "o pagos mensuales tan bajos como %%price%% con %%logo%% %%info%%"
 }

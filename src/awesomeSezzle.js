@@ -353,6 +353,12 @@ class AwesomeSezzle {
               logoNode.style.transform = "scale(12)";
             }
             break;
+          case "sup": {
+            const supNode = document.createElement("sup");
+            supNode.textContent = '1';
+            sezzleButtonText.appendChild(supNode);
+            break;
+          }
           case "link":
             const learnMoreNode = document.createElement("div");
             learnMoreNode.style.color = this.textColor;
