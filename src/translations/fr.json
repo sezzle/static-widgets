@@ -45,6 +45,6 @@
   "webBankTerms": "<sup>3</sup>WebBank émet tous les prêts Pay-in-2 et Pay-in-4, sauf dans l'Iowa, Porto Rico et le Canada. Tous les autres prêts émis par Sezzle.",
   "linkToCompleteTerms": "<a href='https://legal.sezzle.com/user/fr-ca/' target='_blank'>Cliquez ici pour l'intégralité des conditions.</a>",
   "week": "Semaine",
-  "widget": "ou 4 paiements sans intérêt de %%price%% avec %%logo%% %%info%%",
+  "widget": "ou 4 paiements sans intérêt%%sup%% de %%price%% avec %%logo%% %%info%%",
   "widgetLT": "ou paiements mensuels aussi bas que %%price%% avec %%logo%% %%info%%"
 }

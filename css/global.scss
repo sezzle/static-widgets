@@ -29,6 +29,11 @@
         word-wrap: normal;
         //   font-size: 12px;
 
+        sup {
+        				vertical-align: super;
+        				font-size: 0.5em;
+        	}
+
         .sezzle-payment-amount {
             font-weight: 900;
         }
