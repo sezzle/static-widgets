@@ -45,6 +45,6 @@
     "trustPilotTitle": "4.3 out of 5 star rating on Trustpilot",
     "webBankTerms": "<sup>3</sup>WebBank originates all Pay-in-2 and Pay-in-4 loans, except in Iowa, Puerto Rico and Canada. All other loans originated by Sezzle.",
     "week": "Week",
-    "widget": "or 4 interest-free payments of %%price%% with %%logo%% %%info%%",
+    "widget": "or 4 interest-free%%sup%% payments of %%price%% with %%logo%% %%info%%",
     "widgetLT": "or monthly payments as low as %%price%% with %%logo%% %%info%%"
 }
