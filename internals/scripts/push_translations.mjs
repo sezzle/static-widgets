@@ -42,6 +42,7 @@ function sendToLokalise(filepath) {
             convert_placeholders: false,
             replace_modified: true,
             tag_updated_keys: true,
+            tags: ['updated']
         })
         .then((result) => {
             console.log("🎉 🎉 🎉 🎉  translations pushed to lokalise!!!");
