@@ -34,9 +34,7 @@ function sendToLokalise(filepath) {
         .files()
         .upload(projectId, {
             data: file.toString("base64"),
-            filename: `${
-                filepath.indexOf("button") > -1 ? buttonBasePath : basePath
-            }/${locale}.json`,
+            filename: `${filepath.indexOf('button') > -1 ? buttonBasePath : basePath}/${locale}.json`,
             lang_iso: locale,
             original_filenames: true,
             convert_placeholders: false,
