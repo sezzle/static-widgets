@@ -1,11 +1,11 @@
 {
     "Checkout": "Checkout with %%logo%%",
     "Pay": "Pay with %%logo%%",
-    "minPrice": "on orders above $",
-    "closeSezzleModal": "Close Sezzle modal",
-    "header": "How to use Sezzle at checkout",
     "chooseSezzle": "Choose \"Buy Now, Pay Later with Sezzle\" at checkout",
-    "selectPlan": "Select your payment plan",
+    "closeSezzleModal": "Close Sezzle modal",
     "completeOrder": "Complete your order",
-    "continue": "Continue to checkout"
+    "continue": "Continue to checkout",
+    "header": "How to use Sezzle at checkout",
+    "minPrice": "on orders above $",
+    "selectPlan": "Select your payment plan"
 }
