@@ -150,6 +150,7 @@
 }
 
 @import url("https://fonts.cdnfonts.com/css/satoshi");
+@import url("https://fonts.cdnfonts.com/css/roboto");
 $breakpoint-large: 1150px;
 $breakpoint-medium: 965px;
 $breakpoint-small: 600px;
@@ -161,6 +162,10 @@ $focus-color: #af0fda;
 $mute-color: #5e5e5e;
 $x-mute-color: #e5e5e5;
 $background-color: #ffffff;
+$purple-color: #7d25cb;
+$dark-purple-color: #382757;
+$teal-green-color: #00b67a;
+$grey-lavender-color: #dcdce6;
 $font-family: Satoshi, "Open Sans", sans-serif;
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600&display=swap");
 
@@ -176,6 +181,16 @@ $font-family: Satoshi, "Open Sans", sans-serif;
     vertical-align: baseline;
     box-sizing: border-box;
     line-height: normal;
+    background-color: unset;
+    box-shadow: unset;
+    font-family: unset;
+    color: unset;
+    font-size: unset;
+    font-weight: unset;
+    padding: unset;
+    border: unset;
+    margin: unset;
+    stroke: none;
 }
 
 .sezzle-checkout-modal-lightbox {
@@ -183,7 +198,7 @@ $font-family: Satoshi, "Open Sans", sans-serif;
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 99999998;
+    z-index: 2147483647;
     background-color: rgba(5, 31, 52, 0.57);
     width: 100vw;
     height: 100vh;
@@ -209,7 +224,7 @@ $font-family: Satoshi, "Open Sans", sans-serif;
             0 6px 6px rgba(5, 31, 52, 0.2);
         border-radius: 20px;
         color: $font-color;
-        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-family: $font-family;
         transition: all 0.4s ease;
         width: 650px;
 
@@ -342,8 +357,8 @@ $font-family: Satoshi, "Open Sans", sans-serif;
         box-shadow: 0 10px 20px rgba(5, 31, 52, 0.19),
             0 6px 6px rgba(5, 31, 52, 0.2);
         height: auto;
-        max-height: 90%;
-        width: 343px;
+        max-height: 100%;
+        width: 391px;
         color: $font-color;
         font-family: $font-family;
         background-color: $background-color;
@@ -351,9 +366,13 @@ $font-family: Satoshi, "Open Sans", sans-serif;
         padding: 20px 0;
         border-radius: 10px;
         box-sizing: border-box;
+        gap: 16px;
 
-        @media screen and (max-width: 374px) {
-            transform: scale(0.9) translate(-55%, -55%);
+        @media screen and (max-width: 768px) {
+            width: 100vw;
+            height: 100vh;
+            padding: 20px 0 2px 0;
+            border-radius: 0px;
         }
 
         div {
@@ -424,6 +443,7 @@ $font-family: Satoshi, "Open Sans", sans-serif;
             height: auto;
             text-align: center;
             padding: 0px 16px;
+            font-family: $font-family;
 
             .tp-widget-wrapper {
                 font-size: 12px;
@@ -433,6 +453,15 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                     text-decoration: none;
                     color: $font-color;
                 }
+                .tp-review-status {
+                    color: $dark-purple-color;
+                    font-size: 11.06px;
+                    font-family: Roboto;
+                    font-weight: 700;
+                    line-height: 23.95px;
+                    word-wrap: break-word;
+                    display: inline-block;
+                }
 
                 .tp-widget-trustscore {
                     font-weight: 500;
@@ -441,10 +470,10 @@ $font-family: Satoshi, "Open Sans", sans-serif;
 
                 .tp-widget-stars {
                     display: inline-block;
-                    width: 70px;
+                    width: 80px;
                     position: relative;
-                    top: 2px;
-
+                    top: 3px;
+                    margin-left: 7px;
                     div {
                         .tp-stars--4--half {
                             div {
@@ -455,16 +484,16 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                                     .tp-star {
                                         &:nth-of-type(-n + 4) {
                                             .tp-star__canvas {
-                                                fill: #00b67a;
+                                                fill: $teal-green-color;
                                             }
                                         }
 
                                         .tp-star__canvas {
-                                            fill: #dcdce6;
+                                            fill: $grey-lavender-color;
                                         }
 
                                         .tp-star__canvas--half {
-                                            fill: #00b67a;
+                                            fill: $teal-green-color;
                                         }
 
                                         .tp-star__shape {
@@ -480,15 +509,27 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                 .widget-info {
                     display: inline-block;
 
+                    .tp-widget-review-count {
+                        font-weight: 700;
+                        display: inline-block;
+                        margin-left: 7px;
+                        font-size: 12px;
+                        line-height: 23.95px;
+                    }
+
                     .tp-widget-rating {
                         display: inline-block;
+                        font-size: 12px;
+                        line-height: 23.95px;
                     }
 
                     .tp-widget-logo {
                         display: inline-block;
                         width: 60px;
                         position: relative;
-                        top: 2px;
+                        top: 3px;
+                        margin-left: 7px;
+                        line-height: 23.95px;
                     }
                 }
             }
@@ -497,9 +538,9 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                 display: block;
                 text-align: center;
                 font-style: normal;
-                font-size: 19px;
+                font-size: 26px;
                 font-weight: 700;
-                line-height: 26px;
+                line-height: 35px;
                 letter-spacing: 0.1px;
                 font-family: $font-family;
                 color: $font-color;
@@ -509,9 +550,9 @@ $font-family: Satoshi, "Open Sans", sans-serif;
             .sezzle-row {
                 text-align: center;
                 font-style: normal;
-                font-size: 13px;
+                font-size: 15px;
                 font-weight: 400;
-                line-height: 17px;
+                line-height: 21px;
                 color: $font-color;
                 letter-spacing: 0.4px;
                 margin: 12px 0px 24px;
@@ -521,10 +562,13 @@ $font-family: Satoshi, "Open Sans", sans-serif;
 
                 span {
                     display: block;
+                    font-family: $font-family;
 
                     sup {
                         vertical-align: super;
                         font-size: 0.75em;
+                        font-family: $font-family;
+                        position: unset;
                     }
                 }
             }
@@ -534,97 +578,85 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                 flex-direction: column;
                 align-items: center;
                 background: rgba(131, 51, 212, 0.05);
-                border-radius: 16px;
-                padding: 16px 8px;
-                margin: 0px 12px;
+                border-radius: 11.483px;
+                padding: 18.37px;
 
-                &.sezzle-four-pay-fr-es{
+                &.sezzle-four-pay-fr-es {
                     margin: 0px 0px;
-                }
-
-                .sezzle-row {
-                    text-align: center;
-                    font-style: normal;
-                    font-size: 15px;
-                    font-weight: 500;
-                    line-height: 20px;
-                    font-family: $font-family;
-                    color: $font-color;
-                    margin: 0px 0px 12px;
                 }
 
                 .sezzle-pie-area {
                     display: flex;
-                    flex-direction: row;
                     align-items: flex-start;
+                    justify-content: space-between;
+                    gap: 18.373px;
 
                     .due-today {
                         display: flex;
+                        padding: 18.373px;
                         flex-direction: column;
                         align-items: center;
+                        gap: 9.187px;
+                        border-radius: 11.483px;
                         background: $background-color;
-                        border-radius: 8px;
-                        margin: 0px 4px;
-                        padding: 16px 0px;
-
-                        .payment-item:first-child {
-                            padding: 0 8px;
-                        }
                     }
 
                     .future-payments {
                         display: flex;
-                        flex-direction: row;
-                        align-items: center;
+                        padding: 18.373px;
+                        align-items: flex-start;
+                        gap: 18.373px;
+                        border-radius: 11.483px;
                         background: $background-color;
-                        border-radius: 8px;
-                        margin: 0px 4px;
-                        padding: 0px 4px;
                     }
 
                     .payment-item {
-                        padding: 16px 8px;
+                        display: inline-flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        gap: 9.19px;
 
-                        div:first-child {
-                            padding: 0 4px;
+                        .pie-icon {
+                            position: relative;
                             svg {
-                                width: 35px;
-                                height: 35px;
-                                stroke: none;
+                                width: 45.93px;
+                                height: 45.93px;
                             }
                         }
 
                         .breakdown-row {
                             display: flex;
                             flex-direction: column;
+                            justify-content: center;
                             align-items: center;
-                            margin: 0px;
-                            padding: 8px 0px 0px;
+                            gap: 2.3px;
 
                             .percentage {
                                 text-align: center;
-                                font-style: normal;
-                                font-size: 13.4px;
-                                font-weight: 400;
-                                line-height: 18.76px;
                                 color: $accent-color;
+                                font-size: 17.22px;
                                 font-family: $font-family;
-                                align-items: center;
-                                letter-spacing: 0.13px;
+                                font-weight: 400;
+                                line-height: 24.11px;
+                                letter-spacing: 0.17px;
+                                word-wrap: break-word;
                             }
 
                             .due {
                                 text-align: center;
-                                font-style: normal;
-                                font-size: 10.72px;
-                                font-weight: 400;
-                                line-height: 15.18px;
                                 color: $mute-color;
+                                font-size: 13.78px;
                                 font-family: $font-family;
-
+                                font-weight: 400;
+                                line-height: 19.52px;
+                                letter-spacing: 0.46px;
+                                white-space: nowrap;
                                 sup {
                                     vertical-align: super;
                                     font-size: 0.75em;
+                                    font-family: $font-family;
+                                    position: unset;
                                 }
                             }
                         }
@@ -633,20 +665,16 @@ $font-family: Satoshi, "Open Sans", sans-serif;
             }
 
             .sezzle-features {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                margin: 16px;
-
+                margin: 16px 0 16px 0;
                 .single-feature {
                     text-align: center;
+                    align-self: stretch;
+                    font-size: 17px;
                     font-style: normal;
-                    font-size: 13px;
-                    font-weight: 500;
-                    line-height: 17px;
+                    font-weight: 700;
+                    line-height: 23px;
+                    letter-spacing: 0.2px;
                     color: $font-color;
-                    letter-spacing: 0.4px;
-                    margin: 8px auto;
                     font-family: $font-family;
                 }
                 &.hide {
@@ -654,7 +682,7 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                 }
             }
 
-            .sezzle-giveaway {
+            .sezzle-giveaway, .sezzle-promo {
                 font-size: 17px;
                 font-weight: 700;
                 line-height: 23px;
@@ -662,31 +690,12 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                 &.hide {
                     display: none;
                 }
-            }
 
-            .promo {
-                font-size: 14px;
-                color: $font-color;
-
-                @media screen and (max-width: $breakpoint-small) {
-                    font-size: 12px;
-                }
-
-                &::first-letter {
-                    text-transform: capitalize;
-                }
-
-                a {
-                    color: $font-color;
-                    text-decoration: underline;
-
-                    &:visited {
-                        color: #037269;
-                    }
-
-                    &:hover {
-                        color: $focus-color;
-                    }
+                sup {
+                    vertical-align: super;
+                    font-size: 0.75em;
+                    font-family: $font-family;
+                    position: unset;
                 }
             }
 
@@ -698,15 +707,24 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                 line-height: 12px;
                 color: $mute-color;
                 font-family: $font-family;
+                margin: 0 0 10px;
 
                 sup {
                     vertical-align: super;
                     font-size: 0.75em;
                     padding-right: 2px;
+                    font-family: $font-family;
+                    position: unset;
+                }
+
+                span {
+                    font-family: $font-family;
                 }
 
                 a {
                     color: $accent-color;
+                    font-family: $font-family;
+                    text-decoration: underline;
 
                     &:hover {
                         color: $focus-color;
@@ -715,6 +733,40 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                 &.hide {
                     display: none;
                 }
+            }
+            .close-btn-container {
+                margin-top: 10px;
+                display: flex;
+                justify-content: center;
+                @media screen and (max-width: 768px) {
+                    position: sticky;
+                    bottom: 0;
+                }
+            }
+
+            .close-btn {
+                display: flex;
+                width: 95%;
+                height: 48px;
+                padding: 13px 16px;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+                flex-shrink: 0;
+                border-radius: 100px;
+                background: $dark-purple-color;
+                &:hover {
+                    background: $purple-color;
+                }
+                color: $background-color;
+
+                /* Button/Large */
+                font-family: $font-family;
+                font-size: 15px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 24px; /* 160% */
+                letter-spacing: 0.25px;
             }
         }
     }
@@ -892,6 +944,9 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                     border-top: 1px solid $x-mute-color;
                     text-align: center;
                     font-family: $font-family;
+                    p {
+                        margin: 0 0 10px;
+                    }
                 }
             }
         }

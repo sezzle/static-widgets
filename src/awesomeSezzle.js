@@ -32,7 +32,7 @@ class AwesomeSezzle {
     this.translations = this.translationsMap[this.language];
     this.numberOfPayments = 4;
     const templateString = this.translations.widget;
-    const templateStringLT = this.translations.widgetLT;
+    const templateStringLT = this.translations.longTerm;
     this.widgetTemplate =
       this.getWidgetTemplateOverride(options.widgetTemplate) || templateString;
     this.widgetTemplateLT =
@@ -373,9 +373,9 @@ class AwesomeSezzle {
             break;
           case "info":
             const infoIconNode = document.createElement("div");
-            infoIconNode.ariaLabel = `${this.translations.learnMoreAlt} Sezzle`;
+            infoIconNode.ariaLabel = `${this.translations.clickToLearnMore} Sezzle`;
             infoIconNode.className = "sezzle-info-icon sezzle-modal-open-link";
-            infoIconNode.innerHTML = "&#9312;";
+            infoIconNode.innerHTML = "&#9432;";
             sezzleButtonText.appendChild(infoIconNode);
             break;
           case "question-mark":
@@ -924,7 +924,7 @@ class AwesomeSezzle {
       modalNode.style.display = "none";
       modalNode.role = "dialog";
       modalNode.lang = this.language;
-      modalNode.ariaLabel = this.translations.sezzleInfo;
+      modalNode.ariaLabel = this.translations.sezzleInformation;
       modalNode.ariaDescription = this.translations.aboutSezzle;
       if (this.isProductEligibleLT(this.amount)) {
         let currency = String.fromCharCode(this.currencySymbol(this.amount));
@@ -1146,6 +1146,9 @@ class AwesomeSezzle {
 				<div id="sezzle-modal-core-content" class="sezzle-modal-content">
                     <div id="tp-widget-wrapper" class="tp-widget-wrapper visible">
                         <a id="profile-link" target="_blank" href="https://www.trustpilot.com/review/sezzle.com?utm_medium=trustbox&amp;utm_source=MicroCombo">
+                            <div id="tp-review-status" class="tp-review-status">${
+                                this.translations.trustPilotReviewStatus
+                            }</div>
                             <!-- Stars -->
                             <div id="tp-widget-stars" class="tp-widget-stars">
                                 <div class="">
@@ -1188,6 +1191,9 @@ class AwesomeSezzle {
                             </div>
                             <div class="widget-info">
                                 <!-- Business Info -->
+                                <div id="tp-widget-review-count" class="tp-widget-review-count">${
+                                    this.translations.trustPilotReviewsCount
+                                }</div>
                                 <div id="tp-widget-rating" class="tp-widget-rating">${
                                   this.translations.trustPilotReviews
                                 }</div>
@@ -1297,6 +1303,9 @@ class AwesomeSezzle {
               <br />
               <span>${this.translations.linkToCompleteTerms}</span>
           </p>
+        </div>
+          <div class="close-btn-container">
+              <button class="close-btn">${this.translations.close}</button>
           </div>
 				</div>
 			</div>
