@@ -420,6 +420,27 @@ class AwesomeSezzle {
             sezzleButtonText.appendChild(apNode);
             this.setLogoSize(apNode);
             break;
+          case "afterpay-logo-black":
+              var apNode = document.createElementNS(
+                  "http://www.w3.org/2000/svg",
+                  "svg"
+              );
+              apNode.setAttribute("width", "170");
+              apNode.setAttribute("height", "35");
+              apNode.setAttribute("viewBox", "0 0 170 35");
+              apNode.setAttribute(
+                  "class",
+                  `sezzle-afterpay-logo ap-modal-info-link no-sezzle-info`
+              );
+              apNode.setAttribute(
+                  "style",
+                  `height: 20px !important;width: auto !important;margin: 0 -4px -8px 0;`
+              );
+              apNode.setAttribute("aria-label", "Afterpay");
+              apNode.innerHTML = HelperClass.svgImages().apNodeBlack;
+              sezzleButtonText.appendChild(apNode);
+              this.setLogoSize(apNode);
+              break;
           case "afterpay-logo-grey":
             var apNode = document.createElementNS(
               "http://www.w3.org/2000/svg",
