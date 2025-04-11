@@ -37,6 +37,7 @@
   <script>
     const renderSezzle = new AwesomeSezzle({
         widgetTemplate: 'Buy now, pay later with %%logo%% %%info%% or %%afterpay-logo-black%% %%afterpay-info-icon%%',
+        theme: 'black-flat',
       amount: document.querySelector('#price').querySelector('.currency').innerText + document.querySelector('#price').querySelector('.amount').innerText
     });
     renderSezzle.init();
