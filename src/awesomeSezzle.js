@@ -411,10 +411,6 @@ class AwesomeSezzle {
               "class",
               `sezzle-afterpay-logo ap-modal-info-link no-sezzle-info`
             );
-            apNode.setAttribute(
-              "style",
-              `height: 24px !important;width: auto !important;margin-bottom: -8px;`
-            );
             apNode.setAttribute("aria-label", "Afterpay");
             apNode.innerHTML = HelperClass.svgImages().apNodeColor;
             sezzleButtonText.appendChild(apNode);
@@ -430,11 +426,7 @@ class AwesomeSezzle {
               apNode.setAttribute("viewBox", "0 0 170 35");
               apNode.setAttribute(
                   "class",
-                  `sezzle-afterpay-logo ap-modal-info-link no-sezzle-info`
-              );
-              apNode.setAttribute(
-                  "style",
-                  `height: 18px !important;width: auto !important;margin: 0 -4px -7px 0;`
+                  `sezzle-afterpay-logo ap-modal-info-link no-sezzle-info afterpay-logo-text`
               );
               apNode.setAttribute("aria-label", "Afterpay");
               apNode.innerHTML = HelperClass.svgImages().apNodeBlack;
@@ -451,11 +443,7 @@ class AwesomeSezzle {
             apNode.setAttribute("viewBox", "0 0 115 40");
             apNode.setAttribute(
               "class",
-              `sezzle-afterpay-logo ap-modal-info-link no-sezzle-info`
-            );
-            apNode.setAttribute(
-              "style",
-              `height: 32px !important;width: auto !important;margin: -10px !important;`
+              `sezzle-afterpay-logo ap-modal-info-link no-sezzle-info afterpay-logo-pill`
             );
             apNode.setAttribute("aria-label", "Afterpay");
             apNode.innerHTML = HelperClass.svgImages().apNodeGrey;
@@ -472,11 +460,7 @@ class AwesomeSezzle {
             apNode.setAttribute("viewBox", "0 0 115 40");
             apNode.setAttribute(
               "class",
-              `sezzle-afterpay-logo ap-modal-info-link no-sezzle-info`
-            );
-            apNode.setAttribute(
-              "style",
-              `height: 32px !important;width: auto !important;margin: -10px !important`
+              `sezzle-afterpay-logo ap-modal-info-link no-sezzle-info  afterpay-logo-pill`
             );
             apNode.setAttribute("aria-label", "Afterpay");
             apNode.innerHTML = HelperClass.svgImages().apNodeWhite;
