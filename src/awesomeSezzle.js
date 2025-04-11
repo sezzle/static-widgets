@@ -434,7 +434,7 @@ class AwesomeSezzle {
               );
               apNode.setAttribute(
                   "style",
-                  `height: 18px !important;width: auto !important;margin: 0 -4px -7px 0;`
+                  `height: 18px !important;width: auto !important;margin: 0 -4px -6px 0;`
               );
               apNode.setAttribute("aria-label", "Afterpay");
               apNode.innerHTML = HelperClass.svgImages().apNodeBlack;
