@@ -1367,7 +1367,22 @@ class AwesomeSezzle {
       const response = await fetch(url);
       if (!response.ok) {
         throw new error(
-          `Failed to fetch aftetpay modal, status: ${response.status}`
+          `Failed to fetch afterpay modal, status: ${response.status}`
+        );
+      }
+      modalNode.innerHTML = await response.text();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+    async getKlarnaModal(modalNode) {
+    const url = `https://media.sezzle.com/klarna/modal/${this.language}.html`;
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new error(
+          `Failed to fetch klarna modal, status: ${response.status}`
         );
       }
       modalNode.innerHTML = await response.text();
@@ -1507,7 +1522,13 @@ class AwesomeSezzle {
     modalNode.role = "dialog";
     modalNode.ariaLabel = this.translations.klarnaInfo;
     modalNode.ariaDescription = `${this.translations.learnMoreAlt}  Klarna`;
-    modalNode.innerHTML = this.klarnaModalHTML;
+
+    if (this.klarnaModalHTML) {
+        modalNode.innerHTML = this.klarnaModalHTML;
+    } else {
+        this.getKlarnaModal(modalNode);
+    }
+
     document.getElementsByTagName("html")[0].appendChild(modalNode);
     Array.prototype.forEach.call(
       document.getElementsByClassName("close-sezzle-modal"),
