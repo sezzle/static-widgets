@@ -80,6 +80,23 @@
     // .sezzle-modal-link {
     //   cursor: pointer;
     // }
+    .sezzle-afterpay-logo {
+        height: 24px;
+        width: auto;
+        margin: -8px;
+
+        &.afterpay-logo-pill {
+            height: 32px !important;
+            width: auto !important;
+            margin: -10px !important
+        }
+
+        &.afterpay-logo-text {
+            height: 18px !important;
+            width: auto !important;
+            margin: 0 -4px -7px 0;
+        }
+    }
 
     button.affirm-modal-info-link {
         cursor: pointer;
