@@ -1309,7 +1309,7 @@ class AwesomeSezzle {
               <span>${this.translations.linkToCompleteTerms}</span>
           </p>
         </div>
-          <div class="close-btn-container">
+          <div class="close-btn-container close-sezzle-modal">
               <button class="close-btn">${this.translations.close}</button>
           </div>
 				</div>
