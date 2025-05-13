@@ -1600,6 +1600,8 @@ class AwesomeSezzle {
                 this.modalTheme === "grayscale" ? "-grayscale" : "-color"
               }`;
               event.target.id = "sezzle-modal-return";
+              event.preventDefault();
+              event.stopPropagation();
             }
           }.bind(this)
         );
@@ -1618,6 +1620,8 @@ class AwesomeSezzle {
             )[0].style.display = "block";
             document.getElementsByClassName("sezzle-ap-modal")[0].focus();
             event.target.id = "sezzle-modal-return";
+            event.preventDefault();
+            event.stopPropagation();
           }.bind(this)
         );
       }.bind(this)
@@ -1636,6 +1640,8 @@ class AwesomeSezzle {
             )[0].style.display = "block";
             document.getElementsByClassName("sezzle-qp-modal")[0].focus();
             event.target.id = "sezzle-modal-return";
+            event.preventDefault();
+            event.stopPropagation();
           }.bind(this)
         );
       }.bind(this)
@@ -1654,6 +1660,8 @@ class AwesomeSezzle {
             )[0].style.display = "block";
             document.getElementsByClassName("sezzle-affirm-modal")[0].focus();
             event.target.id = "sezzle-modal-return";
+            event.preventDefault();
+            event.stopPropagation();
           }.bind(this)
         );
       }.bind(this)
@@ -1672,6 +1680,8 @@ class AwesomeSezzle {
             )[0].style.display = "block";
             document.getElementsByClassName("sezzle-klarna-modal")[0].focus();
             event.target.id = "sezzle-modal-return";
+            event.preventDefault();
+            event.stopPropagation();
           }.bind(this)
         );
       }.bind(this)
