@@ -1474,11 +1474,7 @@ class AwesomeSezzle {
     modalNode.role = "dialog";
     modalNode.ariaLabel = this.translations.quadpayInfo;
     modalNode.ariaDescription = `${this.translations.learnMoreAlt} Quadpay`;
-    if (this.qpModalHTML) {
-      modalNode.innerHTML = this.qpModalHTML;
-    } else {
-      this.getQuadpayModal(modalNode);
-    }
+    modalNode.innerHTML = this.qpModalHTML;
     document.getElementsByTagName("html")[0].appendChild(modalNode);
     Array.prototype.forEach.call(
       document.getElementsByClassName("close-sezzle-modal"),
