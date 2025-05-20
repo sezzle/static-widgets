@@ -1406,6 +1406,21 @@ class AwesomeSezzle {
     }
   }
 
+  async getZipModal(modalNode) {
+    const url = `https://media.sezzle.com/zip/modal/${this.language}.html`;
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new error(
+          `Failed to fetch zip modal, status: ${response.status}`
+        );
+      }
+      modalNode.innerHTML = await response.text();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   async getKlarnaModal(modalNode) {
     const url = `https://media.sezzle.com/klarna/modal/${this.language}.html`;
     try {
@@ -1474,7 +1489,11 @@ class AwesomeSezzle {
     modalNode.role = "dialog";
     modalNode.ariaLabel = this.translations.quadpayInfo;
     modalNode.ariaDescription = `${this.translations.learnMoreAlt} Quadpay`;
-    modalNode.innerHTML = this.qpModalHTML;
+    if (this.qpModalHTML) {
+      modalNode.innerHTML = this.qpModalHTML;
+    } else {
+      this.getZipModal(modalNode);
+    }
     document.getElementsByTagName("html")[0].appendChild(modalNode);
     Array.prototype.forEach.call(
       document.getElementsByClassName("close-sezzle-modal"),
