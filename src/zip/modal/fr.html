@@ -1,0 +1,714 @@
+<style>
+    .qp-modal__overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow-y: auto;
+        width: 100vw;
+        height: 100vh;
+        display: none;
+        background: rgba(0, 0, 0, .75);
+        z-index: 200000001 !important
+    }
+
+    .qp-modal__container {
+        font-family: "sharp-grotesk-book", sans-serif;
+        letter-spacing: normal;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        width: 90%;
+        max-width: 375px;
+        margin: 1em auto;
+        position: relative;
+        opacity: 1;
+        z-index: 200000002;
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-box-shadow: 0px 6px 20px 2px rgba(100, 100, 100, .5);
+        box-shadow: 0px 6px 20px 2px rgba(100, 100, 100, .5);
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0)
+    }
+
+    .qp-container_top-half {
+        background: #dbccff;
+        color: #1a0826;
+        height: 100%;
+        width: 100%;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between
+    }
+
+    .qp-container_bottom-half {
+        background: #fffffa;
+        color: #1a0826;
+        height: 100%;
+        padding: 30px 0 13px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between
+    }
+
+    .qp-modal__container_SDK {
+        font-family: "sharp-grotesk-book", sans-serif;
+        letter-spacing: normal;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        height: 100%;
+        position: relative;
+        opacity: 1;
+        z-index: 200000002;
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-box-shadow: 0px 6px 20px 2px rgba(100, 100, 100, .5);
+        box-shadow: 0px 6px 20px 2px rgba(100, 100, 100, .5)
+    }
+
+    .qp-container_top-half-SDK {
+        background: #ede6ff;
+        color: #1a0826;
+        width: 100%;
+        padding: 30px 25px 28px;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between
+    }
+
+    .qp-modal__close {
+        width: 20px;
+        height: 20px;
+        -ms-flex-item-align: end;
+        align-self: flex-end;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        opacity: 1;
+        cursor: pointer
+    }
+
+    .qp-modal__close:hover {
+        opacity: .85;
+        -webkit-box-shadow: 0 1px 1px 1px rgba(100, 100, 100, .1);
+        box-shadow: 0 1px 1px 1px rgba(100, 100, 100, .1)
+    }
+
+    .qp-modal__tag {
+        font-family: "Sharp Grotesk SemiBold", sans-serif;
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 36px;
+        margin: 18px 0;
+        padding: 0 24px
+    }
+
+    #qp-modal__learn-more,
+    #qp-modal__payment-types {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: start;
+        -ms-flex-pack: start;
+        justify-content: flex-start
+    }
+
+    #qp-modal__payment-types {
+        margin-bottom: 10px
+    }
+
+    #qp-modal__learn-more-link,
+    #qp-modal__learn-more-link:active,
+    #qp-modal__payment-types-link,
+    #qp-modal__payment-types-link:active {
+        text-decoration: none;
+        font-family: "sharp-grotesk-medium", sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 15.6px;
+        color: #6542be;
+        outline: none
+    }
+
+    #qp-modal__learn-more-link:focus {
+        outline: solid
+    }
+
+    #qp-modal__hr {
+        margin: 15px auto 0;
+        width: 90%;
+        border: 1px solid #e2e4e8;
+        border-width: 1px 0 0
+    }
+
+    .qp-modal__disclaimer {
+        font-family: "sharp-grotesk-book", sans-serif;
+        font-size: 10px;
+        font-weight: 400;
+        line-height: 15px;
+        letter-spacing: .1px;
+        margin: 17px 24px 8px
+    }
+
+    .qp-modal__terms-link,
+    .qp-modal__terms-link:active {
+        font-family: "sharp-grotesk-book", sans-serif;
+        font-weight: 400;
+        outline: none;
+        text-decoration: underline;
+        color: #6542be
+    }
+
+    .qp-modal__terms-link:focus {
+        outline: solid
+    }
+
+    #qp-modal__copyright {
+        font-family: "sharp-grotesk-book", sans-serif;
+        text-align: left;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        padding-left: 24px;
+        font-size: 11px;
+        font-weight: 400;
+        line-height: 14.4px
+    }
+
+    #qp-modal__logo {
+        fill: #fff;
+        padding: 24px 24px 0 24px
+    }
+
+    .qp-modal__logo svg * {
+        stroke: none
+    }
+
+    .qp-modal__language-selector {
+        border: none;
+        font-family: "sharp-grotesk-medium", sans-serif;
+        font-size: 11px
+    }
+
+    .qp-modal__subtitle {
+        font-family: "sharp-grotesk-book", sans-serif;
+        color: #1a0826;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 18.2px
+    }
+
+    .qp-modal_steps-main-container {
+        padding: 0 30px 13px
+    }
+
+    .qp-modal__step-container {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: start;
+        -ms-flex-pack: start;
+        justify-content: flex-start
+    }
+
+    .qp-modal__step-container:nth-child(2),
+    .qp-modal__step-container:nth-child(3) {
+        margin: 20px 0
+    }
+
+    .qp-modal__step-icon {
+        width: 17%
+    }
+
+    .qp-modal__step-text-container {
+        width: 83%;
+        color: #1a0826;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-align: start;
+        -ms-flex-align: start;
+        align-items: flex-start
+    }
+
+    .qp-modal__step-header {
+        font-family: "sharp-grotesk-medium", sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 22px;
+        margin-bottom: 5px
+    }
+
+    .qp-modal__step-subhead {
+        font-family: "sharp-grotesk-book", sans-serif;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 16px;
+        color: #786e7a
+    }
+
+    .qp-spacer {
+        margin: 0 .4rem
+    }
+
+    #qp-modal__service-fee,
+    #qp-modal__mfpp {
+        font-family: "sharp-grotesk-medium", sans-serif;
+        text-align: center;
+        font-size: 11px;
+        font-weight: 400;
+        line-height: 15px;
+        letter-spacing: .1px;
+        margin: 15px 24px 0
+    }
+
+    .qp-modal__ada-disabled {
+        outline: none !important
+    }
+
+    .qp-modal__powered-by-text {
+        display: inline-block;
+        font-size: 12px;
+        -webkit-transform: scaleY(0.9);
+        transform: scaleY(0.9)
+    }
+
+    .qp-modal__gray-label-logo {
+        width: 200px;
+        margin-left: -2px
+    }
+
+    .languageselect {
+        width: 100px;
+        margin-top: -1px
+    }
+
+    .languageselect .selector {
+        background: none;
+        position: relative;
+        z-index: 1
+    }
+
+    .languageselect .selector .arrow {
+        position: absolute;
+        right: 40px;
+        top: 10%;
+        width: 0;
+        height: 0;
+        border: solid #000;
+        border-width: 0 3px 3px 0;
+        display: inline-block;
+        padding: 3px
+    }
+
+    .languageselect .selector .down {
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg)
+    }
+
+    .languageselect .selector .selected {
+        display: block;
+        font-size: 11px;
+        font-weight: bold
+    }
+
+    .languageselect ul {
+        font-family: "sharp-grotesk-medium", sans-serif;
+        width: 100%;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        font-size: 12px;
+        position: absolute;
+        z-index: 1;
+        background: #fff;
+        bottom: 0px
+    }
+
+    .languageselect li {
+        padding: 8px
+    }
+
+    .languageselect li:hover {
+        color: none;
+        background: none
+    }
+
+    .languageselect .current {
+        background: #f6f6ee
+    }
+
+    .languageselect .hidden {
+        visibility: hidden
+    }
+
+    .languageselect .visible {
+        visibility: visible
+    }
+
+    .qp-promo-container {
+        background: #ede6ff;
+        padding: 10px
+    }
+
+    .qp-promotional-banner {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        padding: 10px 0px;
+        gap: 12px;
+        -webkit-box-flex: 0;
+        -ms-flex: none;
+        flex: none;
+        -webkit-box-ordinal-group: 2;
+        -ms-flex-order: 1;
+        order: 1;
+        -ms-flex-item-align: stretch;
+        align-self: stretch;
+        -ms-flex-positive: 0;
+        flex-grow: 0
+    }
+
+    .qp-promo-details-link {
+        cursor: pointer;
+        text-decoration: underline;
+        font-size: 13px;
+        color: #6542be
+    }
+
+    .qp-promo-termsAndConditions {
+        font-size: 12px
+    }
+
+    .qp-promo-header {
+        font-weight: 700;
+        font-size: 14px;
+        margin: 0;
+        font-family: "Sharp Grotesk SemiBold"
+    }
+
+    .qp-promo-subheader {
+        font-weight: 400;
+        font-size: 13px;
+        margin: 0
+    }
+
+    @media screen and (max-width: 300px) {
+
+        .qp-modal__step-icon,
+        .qp-modal__step-text-container {
+            width: -webkit-fit-content;
+            width: -moz-fit-content;
+            width: fit-content
+        }
+
+        .qp-modal__step-container {
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center
+        }
+
+        .qp-modal__step-header,
+        .qp-modal__step-subhead {
+            text-align: center
+        }
+    }
+
+    .zip-experiment__text-variation .qp-modal__close {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: start;
+        -ms-flex-align: start;
+        align-items: flex-start;
+        -webkit-box-pack: end;
+        -ms-flex-pack: end;
+        justify-content: flex-end
+    }
+
+    .zip-experiment__text-variation .qp-container_bottom-half {
+        padding: 24px 0 13px;
+        background: #fff
+    }
+
+    .zip-experiment__text-variation .qp-modal__tag {
+        font-family: "Sharp Grotesk SemiBold", sans-serif;
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 36px;
+        margin: 18px 0 0;
+        padding: 0 24px
+    }
+
+    .zip-experiment__text-variation .qp-modal__step-header {
+        font-size: 16px
+    }
+
+    .zip-experiment__text-variation .qp-modal_steps-main-container {
+        padding: 0 24px 13px
+    }
+
+    .zip-experiment__text-variation .qp-modal__step-container:nth-child(2) {
+        margin: 16px 0
+    }
+
+    .zip-experiment__text-variation .qp-modal__step-subhead {
+        color: #786e7a
+    }
+
+    .zip-experiment__text-variation #qp-modal__learn-more {
+        text-align: left;
+        margin-left: 80px
+    }
+
+    .zip-experiment__text-variation #qp-modal__hr {
+        margin: 24px 24px 8px 24px;
+        border-color: #c6c3c5;
+        width: unset
+    }
+
+    .zip-experiment__text-variation #qp-modal__service-fee,
+    .zip-experiment__text-variation #qp-modal__mfpp {
+        font-size: 12px;
+        margin: 8px 24px 0
+    }
+
+    .zip-experiment__text-variation #qp-modal__copyright {
+        padding-left: 24px
+    }
+
+    .zip-experiment__text-variation .qp-modal__disclaimer {
+        font-family: "sharp-grotesk-book", sans-serif;
+        font-size: 10px;
+        font-weight: 400;
+        line-height: 15px;
+        letter-spacing: .1px;
+        margin: 17px 24px 8px
+    }
+</style>
+<div id="qp-modal__overlay" tabindex="0" class="qp-modal__overlay" style="display: block;">
+    <div id="qp-modal__container" class="qp-modal__container">
+        <div id="qp-container_top-half" class="qp-container_top-half">
+            <div id="qp-modal__close" tabindex="0" class="qp-modal__close"><svg width="14" height="14"
+                    viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <title>Close modal</title>
+                    <path
+                        d="M14 1.41012L12.59 0.00012207L7 5.59012L1.41 0.00012207L0 1.41012L5.59 7.00012L0 12.5901L1.41 14.0001L7 8.41012L12.59 14.0001L14 12.5901L8.41 7.00012L14 1.41012Z"
+                        fill="#1A0826"></path>
+                </svg></div>
+            <div id="qp-modal__logo" class="qp-modal__logo"><a href="https://www.quadpay.com/how-it-works/" target="new"
+                    class=""><svg width="88" height="32" viewBox="0 0 88 32" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <title>Zip - Pay in 4 installments, zero interest</title>
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M1.96815 25.7839L2.73119 31.9993H29.4411L28.5681 24.882H16.1128L16.0051 23.999L27.4752 15.9843L26.7088 9.75549H0L0.874114 16.8739H13.3483L13.4583 17.7636L1.96815 25.7839Z"
+                            fill="#1A0826"></path>
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M29.8125 9.75525L32.5437 31.9991H59.2747L56.5424 9.75525H29.8125Z" fill="#AA8FFF"></path>
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M32.401 6.80355C34.1504 8.35962 36.6739 8.35962 38.0367 6.80355C39.4006 5.24747 39.0874 2.72397 37.3381 1.16789C35.5898 -0.389298 33.0663 -0.389298 31.7024 1.16789C30.3396 2.72397 30.6517 5.24747 32.401 6.80355Z"
+                            fill="#1A0826"></path>
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M77.427 21.3141L69.0612 21.323L68.4059 15.985L76.815 15.9916C78.792 16.015 79.805 17.129 79.9682 18.6529C80.0726 19.6336 79.6239 21.3141 77.427 21.3141ZM87.3077 17.7643C86.6901 12.764 82.7627 9.734 77.4247 9.75499H59.6448L62.376 32H70.3741L69.8265 27.5506H78.2911C84.953 27.5506 88.0019 23.3988 87.3077 17.7643Z"
+                            fill="#1A0826"></path>
+                    </svg></a> <!----></div> <!---->
+            <div id="qp-modal__tag" class="qp-modal__tag">
+                <div data-i18n="baseModal.header-with-text-variation-line-one">Achetez maintenant,</div>
+                <div data-i18n="baseModal.header-with-text-variation-line-two">payer au fil du temps.</div>
+            </div> <!---->
+        </div>
+        <div id="qp-container_bottom-half" class="qp-container_bottom-half">
+            <div id="qp-modal_steps-main-container" class="qp-modal_steps-main-container">
+                <div class="qp-modal__step-container">
+                    <div class="qp-modal__step-icon"><img
+                            src="https://assets.quadpay.com/assets/widget/shopping_bag.svg"
+                            alt="widget shopping bag icon"></div>
+                    <div class="qp-modal__step-text-container">
+                        <div data-i18n="baseModal.step-header-1" class="qp-modal__step-header">Choisissez Zip à la
+                            caisse</div>
+                        <div data-i18n="baseModal.step-subhead-1" class="qp-modal__step-subhead">Rapide et facile.</div>
+                    </div>
+                </div>
+                <div class="qp-modal__step-container">
+                    <div id="qp-modal__step-icon" class="qp-modal__step-icon"><svg id="#cards-icon" width="40"
+                            height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M7.24219 28.2026L10.7172 29.1338M12.46 29.6008L34.041 35.3833M34.9984 31.8102L17.3921 27.0926"
+                                stroke="#1A0826"></path>
+                            <rect x="2.25" y="14.3721" width="27.7441" height="18.4961" rx="2.82602"
+                                transform="rotate(-30 2.25 14.3721)" stroke="#1A0826"></rect>
+                            <path
+                                d="M3.98959 13.5378C3.20954 14.4231 3.04069 15.7411 3.66327 16.8195L10.0853 27.9427C10.8657 29.2944 12.594 29.7575 13.9457 28.9771L33.078 17.9311C33.2444 17.835 33.3973 17.7246 33.5361 17.6023C33.3383 17.8267 33.1013 18.0233 32.828 18.1811L13.6957 29.2271C12.344 30.0075 10.6157 29.5444 9.83529 28.1927L3.41327 17.0695C2.72894 15.8842 3.00083 14.4092 3.98959 13.5378Z"
+                                fill="white"></path>
+                            <path
+                                d="M3.98959 13.5378C3.20954 14.4231 3.04069 15.7411 3.66327 16.8195L10.0853 27.9427C10.8657 29.2944 12.594 29.7575 13.9457 28.9771L33.078 17.9311C33.2444 17.835 33.3973 17.7246 33.5361 17.6023C33.3383 17.8267 33.1013 18.0233 32.828 18.1811L13.6957 29.2271C12.344 30.0075 10.6157 29.5444 9.83529 28.1927L3.41327 17.0695C2.72894 15.8842 3.00083 14.4092 3.98959 13.5378Z"
+                                stroke="#1A0826"></path>
+                            <path
+                                d="M8.19123 24.662L6.92121 29.4018C6.51726 30.9093 7.41192 32.459 8.91951 32.8629L30.2588 38.5808C31.7664 38.9847 33.316 38.0901 33.72 36.5825L37.0443 24.1761C37.4482 22.6685 36.5535 21.1189 35.046 20.7149L30.4086 19.4724"
+                                stroke="#1A0826"></path>
+                            <rect width="27.7441" height="3.69922"
+                                transform="matrix(0.866025 -0.5 -0.5 -0.866025 9.46484 26.8672)" stroke="#1A0826">
+                            </rect>
+                        </svg></div>
+                    <div class="qp-modal__step-text-container">
+                        <div data-i18n="baseModal.step-header-2" class="qp-modal__step-header">Utilisez votre carte de
+                            débit ou de crédit</div>
+                        <div data-i18n="baseModal.step-subhead-2" class="qp-modal__step-subhead">Processus de décision
+                            instantané.</div>
+                    </div>
+                </div>
+                <div class="qp-modal__step-container">
+                    <div id="qp-modal__step-icon" class="qp-modal__step-icon"><svg id="#money-icon" width="41"
+                            height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M23.944 6.70947L31.7318 8.90824L39.5195 11.107L33.7979 16.8348L16.6331 34.0183L8.84267 31.8187L1.05762 29.6207L6.93179 23.7402L11.507 19.16C11.7162 18.8119 11.9968 18.4662 12.3518 18.1285C12.6287 17.8651 12.9397 17.6171 13.2797 17.3854L23.944 6.70947Z"
+                                fill="white"></path>
+                            <path
+                                d="M23.944 6.70947L24.0799 6.22828C23.9056 6.17907 23.7183 6.22797 23.5903 6.35611L23.944 6.70947ZM39.5195 11.107L39.8733 11.4604C39.9987 11.3349 40.0481 11.1523 40.0033 10.9807C39.9585 10.8091 39.8261 10.674 39.6554 10.6258L39.5195 11.107ZM16.6331 34.0183L16.4973 34.4995C16.6716 34.5487 16.8589 34.4998 16.9869 34.3716L16.6331 34.0183ZM8.84267 31.8187L8.70681 32.2999H8.70681L8.84267 31.8187ZM1.05762 29.6207L0.703872 29.2674C0.578506 29.3929 0.529022 29.5754 0.573834 29.747C0.618646 29.9187 0.751044 30.0537 0.92176 30.1019L1.05762 29.6207ZM15.5648 24.6834L15.6883 24.1989L15.5648 24.6834ZM12.3518 18.1285L12.0071 17.7663V17.7663L12.3518 18.1285ZM25.0742 15.6361L25.1977 15.1516L25.0742 15.6361ZM23.8082 7.19066L31.5959 9.38943L31.8676 8.42705L24.0799 6.22828L23.8082 7.19066ZM31.5959 9.38943L39.3837 11.5882L39.6554 10.6258L31.8676 8.42705L31.5959 9.38943ZM39.1658 10.7536L33.4442 16.4815L34.1517 17.1882L39.8733 11.4604L39.1658 10.7536ZM33.4442 16.4815L16.2794 33.6649L16.9869 34.3716L34.1517 17.1882L33.4442 16.4815ZM16.769 33.5371L8.97852 31.3375L8.70681 32.2999L16.4973 34.4995L16.769 33.5371ZM8.97853 31.3375L1.19347 29.1395L0.92176 30.1019L8.70681 32.2999L8.97853 31.3375ZM1.41136 29.9741L7.28554 24.0935L6.57805 23.3868L0.703872 29.2674L1.41136 29.9741ZM7.28554 24.0935L11.8608 19.5133L11.1533 18.8066L6.57805 23.3868L7.28554 24.0935ZM11.8608 19.5133L13.6334 17.7388L12.9259 17.032L11.1533 18.8066L11.8608 19.5133ZM13.6334 17.7388L24.2978 7.06283L23.5903 6.35611L12.9259 17.032L13.6334 17.7388ZM31.378 8.55488C29.7221 10.2126 29.0493 12.0643 29.4831 13.7285C29.917 15.3929 31.4079 16.6796 33.6621 17.316L33.9338 16.3536C31.8869 15.7757 30.7648 14.6808 30.4508 13.4763C30.1368 12.2717 30.5815 10.7672 32.0855 9.2616L31.378 8.55488ZM9.19641 32.1721C10.8521 30.5146 11.5583 28.6321 11.1726 26.9376C10.7847 25.2328 9.33382 23.8988 7.06765 23.259L6.79593 24.2214C8.83083 24.7959 9.91538 25.9195 10.1976 27.1595C10.4821 28.4099 9.99318 29.9595 8.48892 31.4654L9.19641 32.1721ZM27.9426 21.8287C26.7229 22.9891 24.7439 23.8636 22.4953 24.3041C20.2545 24.7431 17.8063 24.7389 15.6883 24.1989L15.4413 25.1679C17.7237 25.7498 20.3238 25.7485 22.6876 25.2854C25.0437 24.8238 27.2256 23.8911 28.6319 22.5532L27.9426 21.8287ZM15.6883 24.1989C13.8485 23.7299 12.6248 22.9516 12.0128 22.101C11.4254 21.2847 11.3677 20.3626 11.9356 19.4175L11.0784 18.9025C10.3081 20.1845 10.3765 21.5391 11.2011 22.6851C12.0011 23.7969 13.4754 24.6668 15.4413 25.1679L15.6883 24.1989ZM11.9356 19.4175C12.1184 19.1132 12.3692 18.8021 12.6964 18.4908L12.0071 17.7663C11.6244 18.1304 11.3139 18.5106 11.0784 18.9025L11.9356 19.4175ZM12.6964 18.4908C12.9515 18.2481 13.241 18.0168 13.5612 17.7986L12.9981 16.9722C12.6383 17.2174 12.3058 17.4822 12.0071 17.7663L12.6964 18.4908ZM13.5612 17.7986C16.3133 15.9234 21.1357 15.148 24.9507 16.1206L25.1977 15.1516C21.1398 14.1171 16.0157 14.9161 12.9981 16.9722L13.5612 17.7986ZM24.9507 16.1206C27.0855 16.6648 28.3778 17.6201 28.8667 18.6174C29.3263 19.555 29.1442 20.6854 27.9426 21.8287L28.6319 22.5532C30.0562 21.1981 30.4679 19.612 29.7646 18.1772C29.0905 16.8021 27.4634 15.7292 25.1977 15.1516L24.9507 16.1206Z"
+                                fill="#1A0826"></path>
+                            <path
+                                d="M12.9004 14.7642H12.9016C12.9008 14.7363 12.9004 14.7083 12.9004 14.6802C12.9004 12.3606 15.721 10.4802 19.2004 10.4802C22.6798 10.4802 25.5004 12.3606 25.5004 14.6802C25.5004 14.7083 25.5 14.7363 25.4992 14.7642H25.5004V16.3602C25.5004 18.6798 22.6798 20.5602 19.2004 20.5602C15.721 20.5602 12.9004 18.6798 12.9004 16.3602V14.7642Z"
+                                fill="white"></path>
+                            <path
+                                d="M19.2004 18.8802C22.6377 18.8802 25.432 17.045 25.4992 14.7642H25.5004V16.3602C25.5004 18.6798 22.6798 20.5602 19.2004 20.5602C15.721 20.5602 12.9004 18.6798 12.9004 16.3602L12.9004 14.7642H12.9016C12.9687 17.045 15.7631 18.8802 19.2004 18.8802ZM19.2004 18.8802C22.6798 18.8802 25.5004 16.9998 25.5004 14.6802C25.5004 12.3606 22.6798 10.4802 19.2004 10.4802C15.721 10.4802 12.9004 12.3606 12.9004 14.6802C12.9004 16.9998 15.721 18.8802 19.2004 18.8802Z"
+                                stroke="#1A0826" stroke-linejoin="round"></path>
+                            <path
+                                d="M22 14.8264V14.8079H20.5629V14.814C20.4266 15.3682 19.9126 15.6268 19.042 15.6268C18.035 15.6268 17.4266 15.2266 17.4266 14.5308V14.4507C17.4266 13.7057 18.0874 13.3054 19.0524 13.3054C19.8916 13.3054 20.4266 13.5579 20.5524 14.1059V14.1244H21.9895V14.1121C21.8636 13.2315 21.0035 12.7635 19.7133 12.6466V12H18.4021V12.6466C16.9965 12.7882 16 13.4101 16 14.4507V14.5431C16 15.5591 16.8706 16.181 18.3916 16.3103V17H19.7028V16.3103C21.0035 16.1933 21.8846 15.7254 22 14.8264Z"
+                                fill="#1A0826"></path>
+                            <path
+                                d="M0.580078 14.7642H0.581313C0.580491 14.7363 0.580078 14.7083 0.580078 14.6802C0.580078 12.3606 3.40068 10.4802 6.88008 10.4802C10.3595 10.4802 13.1801 12.3606 13.1801 14.6802C13.1801 14.7083 13.1797 14.7363 13.1788 14.7642H13.1801V16.3602C13.1801 18.6798 10.3595 20.5602 6.88008 20.5602C3.40068 20.5602 0.580078 18.6798 0.580078 16.3602V14.7642Z"
+                                fill="white"></path>
+                            <path
+                                d="M6.88008 18.8802C10.3174 18.8802 13.1117 17.045 13.1788 14.7642H13.1801V16.3602C13.1801 18.6798 10.3595 20.5602 6.88008 20.5602C3.40068 20.5602 0.580078 18.6798 0.580078 16.3602L0.580078 14.7642H0.581313C0.648429 17.045 3.44278 18.8802 6.88008 18.8802ZM6.88008 18.8802C10.3595 18.8802 13.1801 16.9998 13.1801 14.6802C13.1801 12.3606 10.3595 10.4802 6.88008 10.4802C3.40068 10.4802 0.580078 12.3606 0.580078 14.6802C0.580078 16.9998 3.40068 18.8802 6.88008 18.8802Z"
+                                stroke="#1A0826" stroke-linejoin="round"></path>
+                            <path
+                                d="M2.78027 11.7242H2.78151C2.78069 11.6963 2.78027 11.6683 2.78027 11.6402C2.78027 9.32059 5.60088 7.44019 9.08027 7.44019C12.5597 7.44019 15.3803 9.32059 15.3803 11.6402C15.3803 11.6682 15.3799 11.6963 15.379 11.7242H15.3803V13.3202C15.3803 15.6398 12.5597 17.5202 9.08027 17.5202C5.60088 17.5202 2.78027 15.6398 2.78027 13.3202V11.7242Z"
+                                fill="white"></path>
+                            <path
+                                d="M9.08027 15.8402C12.5176 15.8402 15.3119 14.005 15.379 11.7242H15.3803V13.3202C15.3803 15.6398 12.5597 17.5202 9.08027 17.5202C5.60088 17.5202 2.78027 15.6398 2.78027 13.3202L2.78027 11.7242H2.78151C2.84862 14.005 5.64298 15.8402 9.08027 15.8402ZM9.08027 15.8402C12.5597 15.8402 15.3803 13.9598 15.3803 11.6402C15.3803 9.32059 12.5597 7.44019 9.08027 7.44019C5.60088 7.44019 2.78027 9.32059 2.78027 11.6402C2.78027 13.9598 5.60088 15.8402 9.08027 15.8402Z"
+                                stroke="#1A0826" stroke-linejoin="round"></path>
+                            <path
+                                d="M12 11.8264V11.8079H10.5629V11.814C10.4266 12.3682 9.91259 12.6268 9.04196 12.6268C8.03496 12.6268 7.42657 12.2266 7.42657 11.5308V11.4507C7.42657 10.7057 8.08741 10.3054 9.05245 10.3054C9.89161 10.3054 10.4266 10.5579 10.5524 11.1059V11.1244H11.9895V11.1121C11.8636 10.2315 11.0035 9.76355 9.71329 9.64655V9H8.4021V9.64655C6.9965 9.78818 6 10.4101 6 11.4507V11.5431C6 12.5591 6.87063 13.181 8.39161 13.3103V14H9.7028V13.3103C11.0035 13.1933 11.8846 12.7254 12 11.8264Z"
+                                fill="#1A0826"></path>
+                            <path
+                                d="M28.8 30.4801C25.3206 30.4801 22.5 28.5997 22.5 26.2801V24.6001C22.5 22.2806 25.3206 20.4001 28.8 20.4001C32.2794 20.4001 35.1 22.2806 35.1 24.6001V26.2801C35.1 28.5997 32.2794 30.4801 28.8 30.4801Z"
+                                fill="white"></path>
+                            <path
+                                d="M22.5 24.6001C22.5 26.9197 25.3206 28.8001 28.8 28.8001C32.2794 28.8001 35.1 26.9197 35.1 24.6001M22.5 24.6001C22.5 22.2806 25.3206 20.4001 28.8 20.4001C32.2794 20.4001 35.1 22.2806 35.1 24.6001M22.5 24.6001L22.5 26.2801C22.5 28.5997 25.3206 30.4801 28.8 30.4801C32.2794 30.4801 35.1 28.5997 35.1 26.2801V24.6001"
+                                stroke="#1A0826" stroke-linejoin="round"></path>
+                            <path
+                                d="M32 24.8264V24.8079H30.5629V24.814C30.4266 25.3682 29.9126 25.6268 29.042 25.6268C28.035 25.6268 27.4266 25.2266 27.4266 24.5308V24.4507C27.4266 23.7057 28.0874 23.3054 29.0524 23.3054C29.8916 23.3054 30.4266 23.5579 30.5524 24.1059V24.1244H31.9895V24.1121C31.8636 23.2315 31.0035 22.7635 29.7133 22.6466V22H28.4021V22.6466C26.9965 22.7882 26 23.4101 26 24.4507V24.5431C26 25.5591 26.8706 26.181 28.3916 26.3103V27H29.7028V26.3103C31.0035 26.1933 31.8846 25.7254 32 24.8264Z"
+                                fill="#1A0826"></path>
+                        </svg></div>
+                    <div class="qp-modal__step-text-container">
+                        <div data-i18n="baseModal.step-header-4" class="qp-modal__step-header">Payer en plusieurs
+                            versements</div>
+                        <div data-i18n="baseModal.step-subhead-3-with-text-variation" class="qp-modal__step-subhead">
+                            Profitez immédiatement de votre achat !</div>
+                    </div>
+                </div>
+                <div class="qp-modal__step-container">
+                    <div class="qp-modal__step-icon"></div>
+                    <div id="qp-modal__payment-types" class="qp-modal__payment-types qp-modal__step-text-container"><a
+                            id="qp-modal__payment-types-link"
+                            href="https://help.us.zip.co/hc/en-us/articles/360025530232-What-payment-methods-are-accepted-"
+                            target="_blank" rel="noopener" data-i18n="baseModal.payment-types" class="">Examiner les
+                            types de paiement acceptés</a></div>
+                </div>
+                <div class="qp-modal__step-container">
+                    <div class="qp-modal__step-icon"></div> <!---->
+                </div>
+            </div> <!----> <!----> <!---->
+            <div><!---->
+                <div class="qp-modal__disclaimer"><span data-i18n="baseModal.disclaimer-1">Des frais de retard peuvent
+                        être appliqués, sous réserve d'éligibilité. Voir complet</span> <!----> <span
+                        data-i18n="baseModal.disclaimer-5">pour plus de détails. Est. Les paiements sur les pages de
+                        produits excluent les taxes, les frais d'expédition et les frais de consommation ajoutés au
+                        moment du paiement. Les prêts aux résidents de Californie sont accordés en vertu de la licence
+                        CFL n° 60DBO-110414. Zip est l'initiateur de tous les prêts dans les pays suivants : CO, NV, MA
+                        et MD. Lorsque cela est indiqué dans les conditions générales, les prêts dans d'autres États
+                        sont accordés par WebBank. Tous les prêts sont soumis à approbation. Zip Co US Inc. ID 1963958
+                    </span> <span><a id="qp-modal__terms-link-2"
+                            href="https://mortgage.nationwidelicensingsystem.org/about/Pages/NMLSConsumerAccess.aspx"
+                            target="_blank" rel="noopener" data-i18n="baseModal.disclaimer-6"
+                            aria-label="NMLS Consumer Access" class="qp-modal__terms-link">Accès des consommateurs au
+                            NMLS</a></span></div>
+                <div id="qp-modal__copyright">
+                    Â© 2025 Zip Co
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
