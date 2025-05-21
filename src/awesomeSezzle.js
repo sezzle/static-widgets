@@ -355,7 +355,7 @@ class AwesomeSezzle {
             break;
           case "sup": {
             const supNode = document.createElement("sup");
-            supNode.textContent = '1';
+            supNode.textContent = "1";
             sezzleButtonText.appendChild(supNode);
             break;
           }
@@ -417,22 +417,22 @@ class AwesomeSezzle {
             this.setLogoSize(apNode);
             break;
           case "afterpay-logo-black":
-              var apNode = document.createElementNS(
-                  "http://www.w3.org/2000/svg",
-                  "svg"
-              );
-              apNode.setAttribute("width", "170");
-              apNode.setAttribute("height", "35");
-              apNode.setAttribute("viewBox", "0 0 170 35");
-              apNode.setAttribute(
-                  "class",
-                  `sezzle-afterpay-logo ap-modal-info-link no-sezzle-info afterpay-logo-text`
-              );
-              apNode.setAttribute("aria-label", "Afterpay");
-              apNode.innerHTML = HelperClass.svgImages().apNodeBlack;
-              sezzleButtonText.appendChild(apNode);
-              this.setLogoSize(apNode);
-              break;
+            var apNode = document.createElementNS(
+              "http://www.w3.org/2000/svg",
+              "svg"
+            );
+            apNode.setAttribute("width", "170");
+            apNode.setAttribute("height", "35");
+            apNode.setAttribute("viewBox", "0 0 170 35");
+            apNode.setAttribute(
+              "class",
+              `sezzle-afterpay-logo ap-modal-info-link no-sezzle-info afterpay-logo-text`
+            );
+            apNode.setAttribute("aria-label", "Afterpay");
+            apNode.innerHTML = HelperClass.svgImages().apNodeBlack;
+            sezzleButtonText.appendChild(apNode);
+            this.setLogoSize(apNode);
+            break;
           case "afterpay-logo-grey":
             var apNode = document.createElementNS(
               "http://www.w3.org/2000/svg",
@@ -492,9 +492,16 @@ class AwesomeSezzle {
               "http://www.w3.org/2000/svg",
               "svg"
             );
-            qpNode.setAttribute("width", "498");
-            qpNode.setAttribute("height", "135");
-            qpNode.setAttribute("viewBox", "0 0 498 135");
+
+            qpNode.setAttribute("id", "qp-logo-svg");
+            qpNode.setAttribute(
+              "alt",
+              "Zip logo, when clicked, opens infographic about the option of buying this item with 4 installment payments"
+            );
+            qpNode.setAttribute("version", "1.1");
+            qpNode.setAttribute("width", "50");
+            qpNode.setAttribute("height", "23");
+            qpNode.setAttribute("viewBox", "0 0 300 111");
             qpNode.setAttribute(
               "class",
               `sezzle-quadpay-logo quadpay-modal-info-link no-sezzle-info`
@@ -513,9 +520,16 @@ class AwesomeSezzle {
               "http://www.w3.org/2000/svg",
               "svg"
             );
-            qpNode.setAttribute("width", "498");
-            qpNode.setAttribute("height", "135");
-            qpNode.setAttribute("viewBox", "0 0 498 135");
+
+            qpNode.setAttribute("id", "qp-logo-svg-black-white");
+            qpNode.setAttribute(
+              "alt",
+              "Zip logo, when clicked, opens infographic about the option of buying this item with 4 installment payments"
+            );
+            qpNode.setAttribute("version", "1.1");
+            qpNode.setAttribute("width", "50");
+            qpNode.setAttribute("height", "23");
+            qpNode.setAttribute("viewBox", "0 0 50 19");
             qpNode.setAttribute(
               "class",
               `sezzle-quadpay-logo quadpay-modal-info-link no-sezzle-info`
@@ -534,9 +548,16 @@ class AwesomeSezzle {
               "http://www.w3.org/2000/svg",
               "svg"
             );
-            qpNode.setAttribute("width", "498");
-            qpNode.setAttribute("height", "135");
-            qpNode.setAttribute("viewBox", "0 0 498 135");
+
+            qpNode.setAttribute("id", "qp-logo-svg-secondary-light");
+            qpNode.setAttribute(
+              "alt",
+              "Zip logo, when clicked, opens infographic about the option of buying this item with 4 installment payments"
+            );
+            qpNode.setAttribute("version", "1.1");
+            qpNode.setAttribute("width", "50");
+            qpNode.setAttribute("height", "23");
+            qpNode.setAttribute("viewBox", "0 0 51 23");
             qpNode.setAttribute(
               "class",
               `sezzle-quadpay-logo quadpay-modal-info-link no-sezzle-info`
@@ -1152,7 +1173,7 @@ class AwesomeSezzle {
                     <div id="tp-widget-wrapper" class="tp-widget-wrapper visible">
                         <a id="profile-link" target="_blank" href="https://www.trustpilot.com/review/sezzle.com?utm_medium=trustbox&amp;utm_source=MicroCombo">
                             <div id="tp-review-status" class="tp-review-status">${
-                                this.translations.trustPilotReviewStatus
+                              this.translations.trustPilotReviewStatus
                             }</div>
                             <!-- Stars -->
                             <div id="tp-widget-stars" class="tp-widget-stars">
@@ -1197,7 +1218,7 @@ class AwesomeSezzle {
                             <div class="widget-info">
                                 <!-- Business Info -->
                                 <div id="tp-widget-review-count" class="tp-widget-review-count">${
-                                    this.translations.trustPilotReviewsCount
+                                  this.translations.trustPilotReviewsCount
                                 }</div>
                                 <div id="tp-widget-rating" class="tp-widget-rating">${
                                   this.translations.trustPilotReviews
@@ -1385,7 +1406,7 @@ class AwesomeSezzle {
     }
   }
 
-    async getKlarnaModal(modalNode) {
+  async getKlarnaModal(modalNode) {
     const url = `https://media.sezzle.com/klarna/modal/${this.language}.html`;
     try {
       const response = await fetch(url);
@@ -1533,9 +1554,9 @@ class AwesomeSezzle {
     modalNode.ariaDescription = `${this.translations.learnMoreAlt}  Klarna`;
 
     if (this.klarnaModalHTML) {
-        modalNode.innerHTML = this.klarnaModalHTML;
+      modalNode.innerHTML = this.klarnaModalHTML;
     } else {
-        this.getKlarnaModal(modalNode);
+      this.getKlarnaModal(modalNode);
     }
 
     document.getElementsByTagName("html")[0].appendChild(modalNode);
