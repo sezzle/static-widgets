@@ -1,0 +1,575 @@
+<div id="afterpay-modal-component">
+    <style>
+        .afterpay-modal-overlay {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(1.1);
+            transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+            z-index: 999999999;
+        }
+
+        #afterpay-modal-component .visible {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+            transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+        }
+
+        #afterpay-modal-component #afterpay-modal {
+            background-color: #fff;
+            color: #000;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 2px;
+            width: 774px;
+            max-width: 100vw;
+            max-height: 100%;
+            line-height: 1.1;
+            display: block;
+            overflow: auto;
+        }
+
+        #afterpay-modal-component #afterpay-modal.cashappafterpay {
+            width: 744px;
+            border-radius: 24px
+        }
+
+        #afterpay-modal-component #afterpay-modal .afterpay-close-button {
+            position: absolute;
+            z-index: 3;
+            background-color: transparent;
+            min-width: 0;
+            top: 18px;
+            right: 18px;
+            border: 0;
+            cursor: pointer;
+        }
+
+        #afterpay-modal-component button {
+            min-width: 80px;
+            background-color: #848e97;
+            border-color: #848e97;
+            border-style: solid;
+            border-radius: 2px;
+            padding: 3px;
+            color: white;
+            cursor: pointer;
+            display: none;
+        }
+
+        #afterpay-modal-component button:hover {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+
+        .afterpay-loading-indicator {
+            display: block;
+            background-color: transparent;
+            width: 80px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+        }
+
+        .afterpay-loading-indicator::after {
+            content: " ";
+            display: block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 5px solid #b2fce4;
+            border-color: #b2fce4 transparent #b2fce4 transparent;
+            animation: afterpay-loading-indicator 1.2s linear infinite;
+        }
+
+        .afterpay-loading-indicator.cashappafterpay::after {
+            content: " ";
+            display: block;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, transparent 0deg, transparent 15deg, #00d64f 15deg, #00d64f 345deg, transparent 345deg, transparent 360deg);
+            animation: afterpay-loading-indicator 1.2s linear infinite;
+            mask: radial-gradient(farthest-side, transparent calc(100% - 7px), #ffffff 0);
+            --webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 7px), #ffffff 0);
+            border: none;
+        }
+
+        @keyframes afterpay-loading-indicator {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .modal-content .error-container {
+            padding: 25px;
+            text-align: center;
+            background-color: #b2fce4;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .modal-content .error-container.cashappafterpay {
+            background-color: #f0f0f0;
+            color: #101010;
+        }
+
+        .modal-content.error .error-container {
+            opacity: 1;
+            visibility: visible;
+            font-family: 'Italian Plate No2 Expanded', sans-serif;
+        }
+
+        .modal-content.error .error-container.cashappafterpay {
+            opacity: 1;
+            visibility: visible;
+            font-family: 'CashSans', sans-serif;
+        }
+
+        @media (-ms-high-contrast:none),
+        (-ms-high-contrast:active) {
+            #afterpay-modal-component #afterpay-modal {
+                bottom: auto;
+            }
+        }
+    </style>
+    <div class="afterpay-modal-overlay visible">
+        <div class="afterpay-loading-indicator" style="display: none;"></div>
+        <div id="afterpay-modal" role="dialog" tabindex="-1" aria-modal="true"
+            aria-describedby="afterpay-modal-container" aria-label="Afterpay" class="cashappafterpay"><button
+                class="afterpay-close-button" type="button" id="afterpay-modal-close-button" tabindex="1"
+                autofocus="false" style="display: block;" aria-label="Afterpay modal close"><svg width="24" height="24"
+                    focusable="false" viewBox="0 0 24 24" fill="none" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <title>Afterpay modal close</title>
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M2.93934 2.93934C3.52513 2.35355 4.47487 2.35355 5.06066 2.93934L12 9.87868L18.9393 2.93934C19.5251 2.35355 20.4749 2.35355 21.0607 2.93934C21.6464 3.52513 21.6464 4.47487 21.0607 5.06066L14.1213 12L21.0607 18.9393C21.6464 19.5251 21.6464 20.4749 21.0607 21.0607C20.4749 21.6464 19.5251 21.6464 18.9393 21.0607L12 14.1213L5.06066 21.0607C4.47487 21.6464 3.52513 21.6464 2.93934 21.0607C2.35355 20.4749 2.35355 19.5251 2.93934 18.9393L9.87868 12L2.93934 5.06066C2.35355 4.47487 2.35355 3.52513 2.93934 2.93934Z"
+                        fill="#101010"></path>
+                </svg></button>
+            <div class="modal-content">
+                <div id="afterpay-modal-container" class="afterpay-modal-wrapper">
+                    <div class="grid-container"><svg width="130" height="32" viewBox="0 0 130 32" fill="none"
+                            xmlns="http://www.w3.org/2000/svg" class="brand-logo">
+                            <g clip-path="url(#clip0_3979_1576)">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M11.1464 0.0012311C7.93782 0.0012311 6.33228 0.00123113 4.61716 0.534298C2.72474 1.22002 1.23247 2.71212 0.546672 4.60678C0 6.33895 0 7.94184 0 11.1513V20.8351C0 24.0619 0 25.6512 0.533129 27.3797C1.21893 29.2731 2.71119 30.7652 4.60361 31.4509C6.33474 32 7.93782 32 11.1464 32H20.8412C24.0536 32 25.6554 32 27.3828 31.4509C29.2765 30.7652 30.7675 29.2731 31.4533 27.3797C32 25.6475 32 24.0446 32 20.8351V11.1649C32 7.95169 32 6.34879 31.4533 4.62033C30.7675 2.72689 29.2753 1.2348 27.3828 0.54907C25.6394 0 24.0536 0 20.8252 0H11.1452C11.1452 0 11.1464 0.0012311 11.1464 0.0012311Z"
+                                    fill="#00D633"></path>
+                                <path
+                                    d="M17.3158 14.7666C20.6912 15.4892 22.2342 16.886 22.2342 19.2463C22.2342 22.2052 19.8223 24.3893 16.057 24.6205L15.6897 26.3706C15.6537 26.5417 15.5027 26.6642 15.3278 26.6642H12.4311C12.1923 26.6642 12.0162 26.4416 12.0713 26.2096L12.5362 24.2523C10.6698 23.7219 9.16801 22.69 8.2925 21.4163C8.18227 21.256 8.21884 21.0369 8.37256 20.9175L10.3972 19.3444C10.5641 19.2148 10.8033 19.2528 10.9266 19.4243C11.9994 20.9158 13.6453 21.7992 15.628 21.7992C17.4122 21.7992 18.7624 20.9322 18.7624 19.6798C18.7624 18.7164 18.0873 18.2829 15.8209 17.8012C11.915 16.9824 10.372 15.5373 10.372 13.1771C10.372 10.4386 12.676 8.36988 16.1514 8.1012L16.5308 6.29357C16.5667 6.12251 16.7178 6 16.8927 6H19.7505C19.9863 6 20.1618 6.21743 20.1119 6.44759L19.6726 8.47296C21.1681 8.9328 22.3858 9.75501 23.1438 10.7696C23.2613 10.9269 23.2311 11.1496 23.0792 11.274L21.232 12.7871C21.0715 12.9186 20.8371 12.8898 20.7066 12.7286C19.7678 11.5687 18.2899 10.9132 16.6889 10.9132C14.9047 10.9132 13.7957 11.6839 13.7957 12.7917C13.7957 13.7069 14.6636 14.1886 17.3158 14.7666Z"
+                                    fill="white"></path>
+                                <path
+                                    d="M49.5586 8.22462C49.5043 8.08073 49.3664 7.98547 49.2125 7.98547H46.2058C46.0518 7.98547 45.914 8.08083 45.8597 8.22483L40.0675 23.6112C39.9765 23.8527 40.1552 24.1105 40.4136 24.1105H42.6912C42.8458 24.1105 42.9841 24.0145 43.0379 23.8697L44.2749 20.5397H51.0871L52.3349 23.8706C52.389 24.0149 52.527 24.1105 52.6812 24.1105H55.0155C55.2739 24.1105 55.4526 23.8525 55.3615 23.6109L49.5586 8.22462ZM45.2641 17.8784L47.6585 11.4103L50.0866 17.8784H45.2641Z"
+                                    fill="black"></path>
+                                <path
+                                    d="M70.0095 21.681C69.8008 21.6987 69.6026 21.7075 69.3201 21.7075C68.3759 21.7075 67.7912 21.584 67.7912 20.5509V14.7678H69.8609C70.0651 14.7678 70.2306 14.6025 70.2306 14.3985V12.6781C70.2306 12.4741 70.0651 12.3087 69.8609 12.3087H67.7912V9.2644C67.7912 9.0604 67.6257 8.89503 67.4215 8.89503H65.2832C65.079 8.89503 64.9135 9.0604 64.9135 9.2644V12.3087H60.2486V11.7922C60.2486 10.5345 60.7994 10.2314 61.8224 10.2314C61.9965 10.2314 62.1257 10.2314 62.2517 10.2344C62.4599 10.2395 62.6317 10.0733 62.6317 9.86525V8.13184C62.6317 7.93474 62.4765 7.77194 62.2793 7.76283C61.9953 7.74969 61.783 7.74969 61.4626 7.74969C58.686 7.74969 57.3258 9.13088 57.3258 11.6012V12.3087H56.0768C55.8726 12.3087 55.707 12.4741 55.707 12.6781V14.3985C55.707 14.6025 55.8726 14.7678 56.0768 14.7678H57.3258V23.7412C57.3258 23.9452 57.4913 24.1106 57.6955 24.1106H59.8788C60.083 24.1106 60.2486 23.9452 60.2486 23.7412V14.7678H64.9135V21.0899C64.9135 23.5043 66.15 24.2453 68.4658 24.2453C69.0688 24.2453 69.6273 24.2008 70.0991 24.1298C70.2789 24.1028 70.4106 23.9466 70.4106 23.7649V22.0489C70.4106 21.8326 70.2253 21.6626 70.0095 21.681Z"
+                                    fill="black"></path>
+                                <path
+                                    d="M77.3461 12.0841C74.0299 12.0841 71.658 14.7455 71.658 18.2152C71.658 21.8647 74.0299 24.3576 77.4585 24.3576C79.6787 24.3576 81.5211 23.2749 82.4339 21.3898C82.5282 21.1952 82.4289 20.9614 82.2256 20.887L80.4552 20.2388C80.2744 20.1725 80.0712 20.2556 79.9928 20.4314C79.5589 21.4049 78.6204 21.9209 77.4698 21.9209C75.8286 21.9209 74.6707 20.7642 74.4571 18.8553H82.2935C82.4977 18.8553 82.6632 18.6899 82.6632 18.4859V17.9457C82.6632 14.6781 80.8084 12.0841 77.3461 12.0841ZM74.5808 16.7779C74.9742 15.262 75.9971 14.476 77.3237 14.476C78.9424 14.476 79.718 15.5427 79.7406 16.7779H74.5808Z"
+                                    fill="black"></path>
+                                <path
+                                    d="M91.2577 12.2555C91.1321 12.247 90.9938 12.2413 90.8355 12.2413C89.3516 12.2413 88.1601 12.9488 87.643 14.0156V12.6781C87.643 12.4741 87.4774 12.3087 87.2732 12.3087H85.09C84.8858 12.3087 84.7202 12.4741 84.7202 12.6781V23.7412C84.7202 23.9452 84.8858 24.1106 85.09 24.1106H87.2732C87.4774 24.1106 87.643 23.9452 87.643 23.7412V18.0132C87.643 16.1603 88.9245 15.1048 90.5995 15.1048C90.8251 15.1048 91.0115 15.1126 91.1982 15.1283C91.4143 15.1464 91.6 14.9771 91.6 14.7605V12.6239C91.6 12.4305 91.4508 12.2686 91.2577 12.2555Z"
+                                    fill="black"></path>
+                                <path
+                                    d="M99.7835 12.0841C98.2772 12.0841 97.153 12.6793 96.4335 13.5439V12.6781C96.4335 12.4741 96.268 12.3087 96.0638 12.3087H93.8805C93.6763 12.3087 93.5107 12.4741 93.5107 12.6781V27.7612C93.5107 27.9652 93.6763 28.1306 93.8805 28.1306H96.0638C96.268 28.1306 96.4335 27.9652 96.4335 27.7612V22.8866C97.153 23.7624 98.2772 24.3576 99.7835 24.3576C103.066 24.3576 104.954 21.5727 104.954 18.2152C104.954 14.869 103.066 12.0841 99.7835 12.0841ZM99.1428 21.8311C97.5577 21.8311 96.3661 20.6519 96.3661 18.5633V17.8896C96.3661 15.7673 97.5577 14.6107 99.1428 14.6107C101.009 14.6107 102.009 16.0817 102.009 18.2152C102.009 20.36 101.009 21.8311 99.1428 21.8311Z"
+                                    fill="black"></path>
+                                <path
+                                    d="M116.938 21.9059C116.482 21.8855 116.297 21.6529 116.297 21.1236V16.1715C116.297 13.4429 114.543 12.0841 111.632 12.0841C109.114 12.0841 107.412 13.4419 106.733 15.22C106.651 15.4338 106.778 15.6703 107.003 15.7168L109.034 16.1374C109.212 16.1744 109.393 16.0754 109.455 15.904C109.781 15.0043 110.411 14.5545 111.519 14.5545C112.891 14.5545 113.441 15.217 113.441 16.2839V16.4747L110.339 17.0923C108.012 17.5415 106.225 18.5297 106.225 20.8316C106.225 22.9314 107.945 24.3127 110.227 24.3127C111.767 24.3127 112.981 23.8298 113.734 22.9989C114.168 23.9195 115.191 24.3216 116.964 24.1487C117.153 24.1303 117.297 23.9704 117.297 23.7806V22.2746C117.297 22.075 117.138 21.9148 116.938 21.9059ZM113.441 19.9333C113.441 21.3145 112.126 22.0444 110.744 22.0444C109.754 22.0444 109.114 21.5503 109.114 20.6857C109.114 19.6862 109.923 19.3382 111.013 19.1136L113.441 18.6083V19.9333Z"
+                                    fill="black"></path>
+                                <path
+                                    d="M128.646 12.3087H126.465C126.307 12.3087 126.166 12.4096 126.115 12.5595L123.48 20.3263L120.778 12.5569C120.727 12.4083 120.587 12.3087 120.429 12.3087H118.18C117.921 12.3087 117.743 12.5665 117.834 12.808L121.917 23.6614L121.501 24.6832C121.142 25.5815 120.703 25.8174 119.838 25.8174C119.642 25.8174 119.492 25.8103 119.337 25.7981C119.122 25.7813 118.938 25.9511 118.938 26.1663V27.8327C118.938 28.0228 119.083 28.1825 119.272 28.2004C119.494 28.2212 119.709 28.2317 120.107 28.2317C122.637 28.2317 123.693 26.9403 124.413 24.9977L128.992 12.8079C129.083 12.5664 128.904 12.3087 128.646 12.3087Z"
+                                    fill="black"></path>
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_3979_1576">
+                                    <rect width="130" height="32" fill="white"></rect>
+                                </clipPath>
+                            </defs>
+                        </svg>
+                        <div class="row-0"><svg width="375" height="253" viewBox="0 0 375 253" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M194.54 36.15C194.67 30.28 195.97 26.3 199.05 22.43C199.93 21.32 200.97 20.26 201.97 19.23C203.81 17.34 205.71 15.39 206.16 13.59C207.21 9.41999 204.8 7.16999 202.43 6.50999C199.08 5.57999 194.67 7.32999 192.89 13.35C192.61 14.28 191.64 14.82 190.71 14.54C189.78 14.26 189.25 13.28 189.53 12.35C191.87 4.41999 198.26 1.69999 203.36 3.10999C207.44 4.23999 211.12 8.26999 209.56 14.46C208.87 17.19 206.64 19.48 204.47 21.7C203.49 22.71 202.56 23.66 201.79 24.63C199.2 27.88 198.15 31.13 198.04 36.22V41.62H194.83L194.53 36.14L194.54 36.15Z"
+                                    fill="#00D64F" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                <path d="M227.84 89.88C225.45 110.08 210.16 97.54 210.7 83.9L227.84 89.88Z" fill="black"
+                                    stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+                                <path d="M204.52 88.98C199.49 109.18 166.91 109.43 166.19 87.33L204.52 88.98Z"
+                                    fill="black" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                <path
+                                    d="M237.09 238.18C215.07 235.51 177.22 234.72 150.86 236.91C128.43 238.77 123.04 240.07 122.77 243.44C122.54 246.29 125.55 247.68 130.83 248.15C152.59 250.47 209.9 252.57 239.5 250.23C250.04 249.74 254.3 248.13 254.3 244.98C254.3 241.83 248.48 239.53 237.09 238.19V238.18Z"
+                                    fill="black" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                <path
+                                    d="M154.62 37.27L147.2 90.26C147.09 90.9 147.49 91.41 148.39 91.39C177.12 91.96 208.22 91.58 233.43 91.19C234.16 91.17 234.52 91.25 235.25 90.25L240.46 41.63L154.62 37.27Z"
+                                    fill="white" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                <path
+                                    d="M158.99 53.88C176.6 53.46 218.32 53.48 229.43 53.08C230.47 53.11 231.03 53.57 230.91 54.51C230.19 61.68 228.7 75.34 227.96 82.77C227.86 83.51 227.39 83.87 226.61 83.91C215.54 84.28 206.8 84.63 197.69 84.56C184.02 84.45 171.43 84.88 155.12 84.88C154.23 84.71 153.94 84.19 153.99 83.47C154.08 82.26 157.69 55.66 157.69 55.66C157.77 54.77 158.26 53.98 158.99 53.88Z"
+                                    fill="white" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                <path
+                                    d="M171.47 84.22C171.63 80.01 171.83 75.67 172.31 70.15C173.07 61.46 173.37 57.83 173.87 53.64"
+                                    stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+                                <path
+                                    d="M186.36 84.22C186.51 80.11 187.29 75.77 187.75 70.39C188.49 61.92 188.79 58.37 189.28 54.29"
+                                    stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+                                <path d="M202.34 84.22C203.29 73.46 204.59 62.31 205.54 53.65" stroke="black"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M189.78 53.99C191 54.94 201.29 61.71 203.95 63.73" stroke="black"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path
+                                    d="M205.05 53.99C204.25 54.61 198.94 57.4 194.43 60.05C192.07 61.44 189.94 63.02 188.76 63.73"
+                                    stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+                                <path d="M230.03 62.9399C209.72 63.6299 182.64 64.7799 156.8 64.5299" stroke="black"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path
+                                    d="M228.56 74.08C212.65 74.44 210.24 74.32 192.58 74.35C182.13 74.37 163.71 74.5 155.55 74.4"
+                                    stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+                                <path
+                                    d="M155.05 36.6C163.21 36.62 186.58 36.66 197.03 36.69C215.38 36.75 217.43 37.16 239.27 37.26L238.5 46.65C216.66 46.55 213.82 46.47 195.47 46.4C185.02 46.36 161.7 46.45 153.53 46.42L155.05 36.59V36.6Z"
+                                    fill="black" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                <path
+                                    d="M219.11 36.69C219.11 36.69 218.64 34.46 218.46 33.64C217.53 28.18 225.05 28.44 222.33 33.76L220.87 36.74"
+                                    stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+                                <path
+                                    d="M207.33 36.32C207.33 36.32 206.79 34.92 206.61 34.09C204.96 28.4 212.35 28.51 210.88 33.83L210.06 36.37"
+                                    stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+                                <path
+                                    d="M184.17 36.3699C184.17 36.3699 183.73 35.4699 183.53 34.6399C182.18 28.4299 189.18 27.6999 187.61 33.9399L186.82 36.1899"
+                                    stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+                                <path
+                                    d="M175.78 36.35C176.23 35.57 176.6 34.79 176.88 33.92C178.87 27.82 171.42 27.96 172.76 33.92C172.94 34.74 173.27 35.52 173.64 36.28"
+                                    stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+                                <path
+                                    d="M235.07 36.7C235.56 35.95 235.96 35.21 236.27 34.39C238.44 28.58 230.33 28.7 231.78 34.39C231.98 35.17 232.34 35.91 232.73 36.64"
+                                    stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+                                <path
+                                    d="M160.59 36.19C159.54 35.22 158.94 33.8 158.99 32.39C159.02 31.72 159.19 31.03 159.63 30.51C160.07 29.99 160.8 29.67 161.47 29.83C161.98 29.95 162.39 30.33 162.64 30.77C162.89 31.21 162.99 31.72 163.03 32.22C163.14 33.5 162.88 34.82 162.28 35.97"
+                                    stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+                                <path d="M219.42 63.75L217.36 74.08L227.84 73.72L229.36 63.73L219.42 63.75Z"
+                                    fill="black" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                <path d="M167.41 54.29L166.58 63.98L172.29 63.75L173.28 54.29H167.41Z" fill="black"
+                                    stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+                                <path d="M158.25 55.01L156.99 63.98H158.99L160 54.74L158.25 55.01Z" fill="black"
+                                    stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+                                <path
+                                    d="M169.89 36.6901C165.97 54.3901 165.37 65.7901 166.11 74.8301C170.03 108.54 199.3 108.54 207.29 74.6001C210.81 62.2301 217.22 43.8501 221.77 37.2601H228.37C223.53 46.5501 215.99 68.2001 215.21 84.0201C214.84 91.44 216.59 97.7201 220.44 98.8701C223.52 99.8601 226.19 97.2501 227.14 93.7601C225.06 104.39 224.05 112.41 223.53 121.69C223.48 123.09 223.72 124.56 224.23 125.45C241.97 147.31 254.18 171.46 257.45 206.67L118.53 205.18C118.53 175 138.44 142.05 159.64 121.73C160.14 121.31 160.63 120.57 160.42 119.22C156.5 91.6601 157.1 61.9601 164.24 36.6801H169.89V36.6901Z"
+                                    fill="#00D64F" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                <path
+                                    d="M239.5 38.53L234.52 90.26C234.43 90.76 234.71 90.88 235.12 90.41L242.82 80.06L254.13 79.02L254.73 77.37L240.78 38.1C240.35 37.27 239.58 37.73 239.48 38.54L239.5 38.53Z"
+                                    fill="white" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                <path
+                                    d="M121.63 200.45C129.39 196.39 138.55 198.82 146.75 200.41C152.35 201.48 157.92 201.26 163.5 200.18C169.09 199.13 174.68 197.02 180.28 196.02C185.86 195.01 191.45 195.05 197.03 196.02C202.63 196.99 208.2 199.1 213.74 200.33C216.53 200.96 219.31 201.38 222.1 201.58C227.78 202.15 233.36 200.38 238.86 199.49C243.08 198.91 247.39 198.88 251.41 200.37C252.8 200.91 254.19 201.53 255.58 202.64C258.49 204.96 258.67 208.85 255.98 211.35C252.41 214.35 247.64 215.25 242.91 215.05C238.63 214.94 234.52 213.69 230.37 212.88C224.76 211.72 219.18 212.27 213.62 213.39C208.06 214.53 202.46 216.55 196.84 217.43C191.24 218.32 185.66 218.26 180.1 217.17C174.52 216.08 168.95 213.89 163.39 212.74C157.84 211.57 152.26 211.26 146.65 212.24C139.78 213.45 132.67 215.18 125.7 213.43C124.31 213.06 122.92 212.61 121.53 211.79C116.9 209.14 116.96 203.01 121.62 200.45H121.63Z"
+                                    fill="white" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                            </svg></div>
+                        <h3 class="row-1">Pay over time with Cash App Afterpay</h3>
+                        <div class="process-step-1 process-icon-container"><svg width="32" height="32"
+                                viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M12.727 6.26446C14.4369 6.26446 16.0759 6.95686 17.1468 7.90731C17.4176 8.14774 17.823 8.14627 18.0771 7.8887L19.3513 6.59646C19.6201 6.32371 19.6103 5.87713 19.3199 5.62789C18.465 4.89289 17.3172 4.17014 15.9045 3.7074L16.304 1.80453C16.3907 1.38978 16.0749 1 15.6508 1H13.1887C12.8739 1 12.6016 1.22035 12.536 1.52836L12.1761 3.22066C8.90314 3.38421 6.12915 5.01727 6.12915 8.36809C6.12915 11.2689 8.42424 12.5122 10.8466 13.3725C13.1417 14.2329 14.3527 14.5522 14.3527 15.7631C14.3527 17.0064 13.1417 17.7394 11.3564 17.7394C9.72873 17.7394 8.02369 17.2023 6.7006 15.8978C6.44107 15.6417 6.02583 15.6397 5.7663 15.8958L4.39718 17.2463C4.12933 17.5103 4.13178 17.9441 4.40159 18.2056C5.46907 19.2417 6.82057 19.9919 8.36303 20.4121L7.98746 22.1749C7.8998 22.5882 8.2127 22.9779 8.63578 22.9814L11.1018 23C11.4191 23.0024 11.6948 22.7806 11.7594 22.4697L12.1154 20.7749C16.0342 20.533 18.4326 18.4029 18.4326 15.2852C18.4326 12.4167 16.0426 11.2053 13.1417 10.2171C11.4842 9.61088 10.0495 9.19711 10.0495 7.95432C10.0495 6.74336 11.3887 6.26446 12.727 6.26446Z"
+                                    fill="#1E1E1E"></path>
+                            </svg></div>
+                        <div class="process-step-1 process-subheading">Add items to your cart and select Afterpay at
+                            checkout</div>
+                        <div class="process-step-2 process-icon-container"><svg width="32" height="32"
+                                viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M19.669 6.25671C20.0795 6.62617 20.1128 7.25846 19.7433 7.66897L10.7433 17.669C10.5469 17.8872 10.2645 18.0081 9.97099 17.9996C9.67749 17.9911 9.40258 17.854 9.21915 17.6247L5.21917 12.6247C4.87416 12.1934 4.94408 11.5641 5.37534 11.2191C5.80661 10.8741 6.4359 10.9441 6.78091 11.3753L10.0449 15.4553L18.2567 6.33104C18.6262 5.92053 19.2585 5.88726 19.669 6.25671Z"
+                                    fill="#1E1E1E"></path>
+                            </svg></div>
+                        <div class="process-step-2 process-subheading">Log in with your Afterpay account or Cash App
+                            account</div>
+                        <div class="process-step-3 process-icon-container"><svg width="32" height="32"
+                                viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M17.5 8C16.6716 8 16 7.32843 16 6.5C16 5.67157 16.6716 5 17.5 5C18.3284 5 19 5.67157 19 6.5C19 7.32843 18.3284 8 17.5 8ZM14 6.5C14 4.567 15.567 3 17.5 3C19.433 3 21 4.567 21 6.5C21 8.433 19.433 10 17.5 10C15.567 10 14 8.433 14 6.5ZM17.5 19C16.6716 19 16 18.3284 16 17.5C16 16.6716 16.6716 16 17.5 16C18.3284 16 19 16.6716 19 17.5C19 18.3284 18.3284 19 17.5 19ZM14 17.5C14 15.567 15.567 14 17.5 14C19.433 14 21 15.567 21 17.5C21 19.433 19.433 21 17.5 21C15.567 21 14 19.433 14 17.5ZM5 17.5C5 18.3284 5.67157 19 6.5 19C7.32843 19 8 18.3284 8 17.5C8 16.6716 7.32843 16 6.5 16C5.67157 16 5 16.6716 5 17.5ZM6.5 14C4.567 14 3 15.567 3 17.5C3 19.433 4.567 21 6.5 21C8.433 21 10 19.433 10 17.5C10 15.567 8.433 14 6.5 14ZM6.5 3C4.567 3 3 4.567 3 6.5C3 8.433 4.567 10 6.5 10C8.433 10 10 8.433 10 6.5C10 4.567 8.433 3 6.5 3Z"
+                                    fill="#1E1E1E"></path>
+                            </svg></div>
+                        <div class="process-step-3 process-subheading">Split your purchase into 4 interest-free
+                            payments, payable approx. every 2 weeks</div>
+                        <div class="cashapp-afterpay-modal-footer"><span>You must be over 18, a resident of the U.S. and
+                                meet additional eligibility criteria to qualify. Late fees may apply. Estimated payment
+                                amounts shown on product pages exclude taxes and shipping charges, which are added at
+                                checkout. For complete terms see <a
+                                    href="https://www.afterpay.com/en-US/installment-agreement"
+                                    aria-label="Afterpay terms (New Window)" target="_blank" rel="noopener"
+                                    class="disclaimer-link" tabindex="1">Afterpay terms</a> and <a
+                                    href="https://cash.app/legal/us/en-us/cash-app-afterpay-online-checkout-pi4-loan-terms"
+                                    aria-label="Afterpay terms (New Window)" target="_blank" rel="noopener"
+                                    class="disclaimer-link" tabindex="1">Cash App terms</a>. Loans to California
+                                residents made or arranged pursuant to a California Finance Lenders Law license.©
+                                Afterpay</span></div>
+                    </div>
+                </div>
+                <style>
+                    body.cashapp-afterpay-modal-body,
+                    html.cashapp-afterpay-modal-html {
+                        height: 100%;
+                        margin: 0;
+                        padding: 0
+                    }
+
+                    body.cashapp-afterpay-modal-body.theme-white {
+                        background: #fff
+                    }
+
+                    :-moz-ui-invalid:not(output) {
+                        box-shadow: none
+                    }
+
+                    .afterpay-modal-wrapper {
+                        min-height: 100%
+                    }
+
+                    .afterpay-modal-wrapper * {
+                        box-sizing: border-box;
+                        text-decoration: none;
+                        font-family: CashSans, sans-serif
+                    }
+
+                    .brand-logo {
+                        grid-area: logo;
+                        justify-self: center;
+                        margin: 48px 0 40px 0
+                    }
+
+                    .row-0 {
+                        grid-area: illustration;
+                        margin-bottom: 32px
+                    }
+
+                    .row-1 {
+                        font-weight: 700;
+                        line-height: 1.3;
+                        font-size: 40px;
+                        margin: 0 25px 40px;
+                        grid-area: headline
+                    }
+
+                    .cashapp-afterpay-modal-footer {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        font-size: 14px;
+                        color: #666;
+                        text-align: center;
+                        font-weight: 400;
+                        grid-area: footer
+                    }
+
+                    .cashapp-afterpay-modal-footer span {
+                        margin-bottom: 40px
+                    }
+
+                    .cashapp-afterpay-modal-footer .disclaimer-link {
+                        font-weight: 700;
+                        color: inherit;
+                        text-decoration: underline
+                    }
+                </style>
+                <style>
+                    .grid-container {
+                        display: grid;
+                        margin: 0 24px;
+                        max-width: 744px;
+                        text-align: center;
+                        font-size: 16px;
+                        grid-template-columns: repeat(3, 33.33%);
+                        grid-template-areas: "logo logo logo" "illustration illustration illustration" "headline headline headline" "body-a body-b body-c" "body-e body-f body-g" "footer footer footer"
+                    }
+
+                    .grid-container>div {
+                        align-content: stretch
+                    }
+
+                    .process-step-1.process-icon-container {
+                        grid-area: body-a;
+                        margin-bottom: 10px
+                    }
+
+                    .process-step-2.process-icon-container {
+                        grid-area: body-b;
+                        margin-bottom: 10px
+                    }
+
+                    .process-step-3.process-icon-container {
+                        grid-area: body-c;
+                        margin-bottom: 10px
+                    }
+
+                    .process-step-1.process-subheading {
+                        grid-area: body-e;
+                        padding: 0 8px
+                    }
+
+                    .process-step-2.process-subheading {
+                        grid-area: body-f;
+                        padding: 0 8px
+                    }
+
+                    .process-step-3.process-subheading {
+                        grid-area: body-g;
+                        padding: 0 20px 0 8px
+                    }
+
+                    .process-subheading {
+                        font-weight: 700;
+                        font-size: 15px;
+                        margin-bottom: 40px
+                    }
+
+                    @media (max-width:768px) {
+                        .grid-container {
+                            max-width: 768px;
+                            grid-template-columns: auto;
+                            grid-template-areas: "logo logo logo" "illustration illustration illustration" "headline headline headline" "body-a body-b body-c" "body-e body-f body-g" "footer footer footer";
+                            margin: 0 22px
+                        }
+
+                        .process-icon-container {
+                            padding: 0
+                        }
+
+                        .process-subheading {
+                            padding-left: 25px;
+                            text-align: left
+                        }
+                    }
+
+                    @media (max-width:600px) {
+                        .afterpay-modal-wrapper {
+                            padding: 0
+                        }
+
+                        .grid-container {
+                            padding: 10px;
+                            text-align: left;
+                            grid-template-columns: auto;
+                            grid-template-areas: "logo logo" "illustration illustration" "headline headline" "body-a body-e" "body-b body-f" "body-c body-g" "footer footer";
+                            align-items: center;
+                            margin: 0 20px
+                        }
+
+                        .row-0 {
+                            text-align: center
+                        }
+
+                        .row-1 {
+                            font-size: 40px;
+                            text-align: center;
+                            font-weight: 600;
+                            line-height: 1;
+                            padding: 0 28px
+                        }
+
+                        h3.cashapp-afterpay-modal-heading {
+                            font-size: 30px;
+                            text-align: center
+                        }
+
+                        .process-icon-container {
+                            text-align: right;
+                            padding: 12px 0
+                        }
+
+                        .process-subheading {
+                            padding-left: 25px
+                        }
+
+                        .row-3 {
+                            padding: 8% 0 20px 0
+                        }
+
+                        .cashapp-afterpay-modal-footer button {
+                            min-width: 345px;
+                            position: sticky;
+                            bottom: 24px
+                        }
+                    }
+
+                    @media (max-width:425px) {
+                        .grid-container {
+                            padding: 0;
+                            max-width: 425px;
+                            margin: 0 9px
+                        }
+
+                        h3.cashapp-afterpay-modal-heading {
+                            font-size: 36px
+                        }
+
+                        .process-icon-container {
+                            align-self: flex-start
+                        }
+
+                        .process-step-3.process-subheading {
+                            margin-bottom: 40px
+                        }
+
+                        .process-subheading {
+                            padding: 0 20px 0 25px;
+                            margin-bottom: 14px
+                        }
+
+                        .cashapp-afterpay-modal-footer {
+                            margin: 0;
+                            text-align: center
+                        }
+                    }
+
+                    @media (max-width:375px) {
+                        .grid-container {
+                            padding: 0;
+                            max-width: 375px;
+                            margin: 0
+                        }
+
+                        .process-icon-container,
+                        .process-subheading {
+                            margin-left: 10px
+                        }
+
+                        .cashapp-afterpay-modal-footer span {
+                            margin-left: 10px;
+                            margin-right: 10px
+                        }
+                    }
+                </style>
+                <script
+                    id="post-events-to-parent">!function () { try { var e = window && window.parent; e && e !== window.self && "function" == typeof e.postMessage && (e.postMessage("Afterpay.ready", "*"), document.addEventListener("keyup", (function (t) { var s = t.key || t.keyCode; "Escape" !== s && "Esc" !== s && 27 !== s || e.postMessage("Afterpay.keyup.esc", "*") }))) } catch (e) { } }()</script>
+            </div>
+        </div>
+    </div>
+</div>
