@@ -1463,7 +1463,7 @@ class AwesomeSezzle {
   }
 
   async getCashAppAfterpayModal(modalNode) {
-    // Cash App Afterpay is only available only in the US. They only have english version.
+    // Cash App Afterpay is available only in the US. They only have english version.
     const url = `https://media.sezzle.com/cash-app-afterpay/modal/${this.language}.html`;
     try {
       const response = await fetch(url);
