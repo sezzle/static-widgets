@@ -53,6 +53,7 @@ class AwesomeSezzle {
     this.altModalHTML = options.altLightboxHTML || "";
     this.ltAltModalHTML = options.ltAltModalHTML || "";
     this.apModalHTML = options.apModalHTML || "";
+    this.cashAppAfterpayModalHTML = options.cashAppAfterpayModalHTML || "";
     this.qpModalHTML = options.qpModalHTML || "";
     this.modalTheme = options.modalTheme || "color";
     this.affirmModalHTML = options.affirmModalHTML || "";
@@ -486,6 +487,61 @@ class AwesomeSezzle {
             apLinkIconNode.innerHTML = "&#9432;";
             apAnchor.appendChild(apLinkIconNode);
             sezzleButtonText.appendChild(apAnchor);
+            break;
+          case "cash-app-afterpay-logo":
+            var cashAppAfterpayNode = document.createElementNS(
+              "http://www.w3.org/2000/svg",
+              "svg"
+            );
+            cashAppAfterpayNode.setAttribute("width", "98");
+            cashAppAfterpayNode.setAttribute("height", "24");
+            cashAppAfterpayNode.setAttribute("viewBox", "0 0 98 24");
+            cashAppAfterpayNode.setAttribute(
+              "preserveAspectRatio",
+              "xMidYMid meet"
+            );
+            cashAppAfterpayNode.setAttribute(
+              "class",
+              `sezzle-cash-app-afterpay-logo cash-app-afterpay-modal-info-link no-sezzle-info`
+            );
+            cashAppAfterpayNode.setAttribute("aria-label", "Cash App Afterpay");
+            cashAppAfterpayNode.innerHTML =
+              HelperClass.svgImages().cashAppApNodeColor;
+            sezzleButtonText.appendChild(cashAppAfterpayNode);
+            this.setLogoSize(cashAppAfterpayNode);
+            break;
+          case "cash-app-afterpay-logo-black":
+            var cashAppAfterpayNode = document.createElementNS(
+              "http://www.w3.org/2000/svg",
+              "svg"
+            );
+            cashAppAfterpayNode.setAttribute("width", "98");
+            cashAppAfterpayNode.setAttribute("height", "24");
+            cashAppAfterpayNode.setAttribute("viewBox", "0 0 98 24");
+            cashAppAfterpayNode.setAttribute(
+              "preserveAspectRatio",
+              "xMidYMid meet"
+            );
+            cashAppAfterpayNode.setAttribute(
+              "class",
+              `sezzle-cash-app-afterpay-logo cash-app-afterpay-modal-info-link no-sezzle-info`
+            );
+            cashAppAfterpayNode.setAttribute("aria-label", "Cash App Afterpay");
+            cashAppAfterpayNode.innerHTML =
+              HelperClass.svgImages().cashAppApNodeBlack;
+            sezzleButtonText.appendChild(cashAppAfterpayNode);
+            this.setLogoSize(cashAppAfterpayNode);
+            break;
+          case "cash-app-afterpay-info-icon":
+            const cashAppAfterpayInfoIconNode =
+              document.createElement("button");
+            cashAppAfterpayInfoIconNode.role = "button";
+            cashAppAfterpayInfoIconNode.type = "button";
+            cashAppAfterpayInfoIconNode.ariaLabel = `${this.translations.learnMoreAlt} Cash App Afterpay`;
+            cashAppAfterpayInfoIconNode.className =
+              "cash-app-afterpay-modal-info-link cash-app-afterpay-info-icon no-sezzle-info";
+            cashAppAfterpayInfoIconNode.innerHTML = "&#9432;";
+            sezzleButtonText.appendChild(cashAppAfterpayInfoIconNode);
             break;
           case "quadpay-logo":
             var qpNode = document.createElementNS(
@@ -1406,6 +1462,22 @@ class AwesomeSezzle {
     }
   }
 
+  async getCashAppAfterpayModal(modalNode) {
+    // Cash App Afterpay is available only in the US. They only have english version.
+    const url = `https://media.sezzle.com/cash-app-afterpay/modal/en.html`;
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new error(
+          `Failed to fetch cash app afterpay modal, status: ${response.status}`
+        );
+      }
+      modalNode.innerHTML = await response.text();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   async getZipModal(modalNode) {
     const url = `https://media.sezzle.com/zip/modal/${this.language}.html`;
     try {
@@ -1465,6 +1537,51 @@ class AwesomeSezzle {
             document
               .querySelector(".sezzle-checkout-button-wrapper")
               .getElementsByClassName(`ap-modal-info-link`)[0]
+              .focus();
+          } else {
+            document.querySelector(".sezzle-checkout-button-wrapper").focus();
+          }
+        });
+      }
+    );
+    let sezzleModal = document.getElementsByClassName("sezzle-modal")[0];
+    if (!sezzleModal)
+      sezzleModal = document.getElementsByClassName("sezzle-checkout-modal")[0];
+    sezzleModal.addEventListener("click", function (event) {
+      event.stopPropagation();
+    });
+  }
+
+  renderCashAppAfterpayModal() {
+    var modalNode = document.createElement("section");
+    modalNode.className =
+      "sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-cash-app-afterpay-modal";
+    modalNode.style = "position: center";
+    modalNode.style.display = "none";
+    modalNode.role = "dialog";
+    modalNode.ariaLabel = this.translations.cashAppAfterpayInfo;
+    modalNode.ariaDescription = `${this.translations.learnMoreAlt} Cash App Afterpay`;
+    if (this.cashAppAfterpayModalHTML) {
+      modalNode.innerHTML = this.cashAppAfterpayModalHTML;
+    } else {
+      this.getCashAppAfterpayModal(modalNode);
+    }
+    document.getElementsByTagName("html")[0].appendChild(modalNode);
+    Array.prototype.forEach.call(
+      document.getElementsByClassName("close-sezzle-modal"),
+      function (el) {
+        el.addEventListener("click", function () {
+          modalNode.style.display = "none";
+          let newFocus = document.querySelector("#sezzle-modal-return");
+          if (newFocus) {
+            newFocus.focus();
+            newFocus.removeAttribute("id");
+          } else if (
+            document.querySelector(`.cash-app-afterpay-modal-info-link`)
+          ) {
+            document
+              .querySelector(".sezzle-checkout-button-wrapper")
+              .getElementsByClassName(`cash-app-afterpay-modal-info-link`)[0]
               .focus();
           } else {
             document.querySelector(".sezzle-checkout-button-wrapper").focus();
@@ -1666,6 +1783,28 @@ class AwesomeSezzle {
         );
       }.bind(this)
     );
+    const cashAppAfterpayModalLinks = sezzleElement.getElementsByClassName(
+      "cash-app-afterpay-modal-info-link"
+    );
+    Array.prototype.forEach.call(
+      cashAppAfterpayModalLinks,
+      function (modalLink) {
+        modalLink.addEventListener(
+          "click",
+          function (event) {
+            document.getElementsByClassName(
+              "sezzle-cash-app-afterpay-modal"
+            )[0].style.display = "block";
+            document
+              .getElementsByClassName("sezzle-cash-app-afterpay-modal")[0]
+              .focus();
+            event.target.id = "sezzle-modal-return";
+            event.preventDefault();
+            event.stopPropagation();
+          }.bind(this)
+        );
+      }.bind(this)
+    );
     const qpModalLinks = sezzleElement.getElementsByClassName(
       "quadpay-modal-info-link"
     );
@@ -1746,6 +1885,12 @@ class AwesomeSezzle {
       this.renderModal();
       if (document.getElementsByClassName("ap-modal-info-link").length > 0) {
         this.renderAPModal();
+      }
+      if (
+        document.getElementsByClassName("cash-app-afterpay-modal-info-link")
+          .length > 0
+      ) {
+        this.renderCashAppAfterpayModal();
       }
       if (
         document.getElementsByClassName("quadpay-modal-info-link").length > 0
