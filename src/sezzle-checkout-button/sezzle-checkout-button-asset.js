@@ -120,7 +120,7 @@ class SezzleCheckoutButton {
         } catch (e) {
           this.eventLogger.validateAndSendEvent(Events.ModalError, e.message);
           location.assign(
-            "/checkout?shop_pay_logout=true&skip_shop_pay=true&shop_pay_checkout_as_guest=true"
+              "/checkout?shop_pay_logout=true&skip_shop_pay=true&shop_pay_checkout_as_guest=true&checkout_as_guest=true&skip_shopify_pay=true"
           );
         }
       }.bind(this)
