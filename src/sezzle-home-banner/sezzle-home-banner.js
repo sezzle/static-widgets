@@ -3,7 +3,13 @@ import enTranslations from "./translations/en.json";
 import frTranslations from "./translations/fr.json";
 import esTranslations from "./translations/es.json";
 
-export default class SezzleCheckoutButton {
+const Events = Object.freeze({
+    Onload: "banner-onload",
+    Onclick: "banner-onclick",
+    Error: "banner-error"
+})
+
+class SezzleBanner {
     constructor(options) {
         this.translations = {
             en: enTranslations,
@@ -16,8 +22,15 @@ export default class SezzleCheckoutButton {
         this.theme =
             this.supportedThemes.indexOf(options.theme) > -1
                 ? options.theme
-                : "indigo";
-        this.renderToContainer = options.renderToContainer || '';
+                : "indigo";        
+        this.renderToContainer =
+            options.renderToContainer || "#sezzle-button-render-reference";
+        this.eventLogger = new EventLogger({
+            merchantUUID: this.merchantUUID,
+            widgetServerBaseUrl:
+                options.widgetServerBaseUrl || "https://widget.sezzle.com",
+        });
+      
     }
 
     createBanner() {
@@ -61,15 +74,78 @@ export default class SezzleCheckoutButton {
                 <span class="sezzle-banner-text">${this.template.shopNow} <a href="https://sezzle.com/how-it-works/" target="_blank" rel="noopener noreferrer" class="sezzle-banner-link">${this.template.learnMore}</a></span>
             </div>
         `;
-        document.querySelector(this.renderToContainer)?.appendChild(banner);
-        // return banner;
+        document.querySelector(this.renderToContainer)?.appendChild(banner);            
+        document.querySelector(".sezzle-banner-link")?.addEventListener('click', function(e){
+            this.eventLogger.sendEvent(Events.Onclick);
+            e.stopPropagation();
+            e.preventDefault();
+            // TODO: replace link with button to open modal, handle onClick here to render modal
+        })
     }
 
     init() {
         try {
             this.createBanner();
+            this.eventLogger.sendEvent(Events.Onload);
         } catch (e) {
-            console.log('Failed to render Sezzle banner: ', e)
+            console.log('Failed to render Sezzle banner: ', e);
+            this.eventLogger.sendEvent(Events.Error, e);
         }
     }
 }
+
+class EventLogger {
+    constructor(options) {
+        this.merchantUUID = options.merchantUUID || "";
+        this.widgetServerEventLogEndpoint = options.widgetServerBaseUrl
+            ? `${options.widgetServerBaseUrl}/v1/event/log`
+            : "https://widget.sezzle.com/v1/event/log";
+    }
+
+    sendEvent(eventName, description = "") {
+        const body = [
+            {
+                event_name: eventName,
+                description: description,
+                merchant_uuid: this.merchantUUID,
+                merchant_site: window.location.hostname,
+            },
+        ];
+        this.httpRequestWrapper(
+            "POST",
+            this.widgetServerEventLogEndpoint,
+            body
+        )
+    }
+
+    async httpRequestWrapper(method, url, body = null) {
+        return new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.open(method, url, true);
+            if (body !== null) {
+                xhr.setRequestHeader("Content-Type", "application/json");
+            }
+            xhr.onload = function () {
+                if (this.status >= 200 && this.status < 300) {
+                    resolve(xhr.response);
+                } else {
+                    reject(
+                        new Error(
+                            "Something went wrong, contact the Sezzle team!"
+                        )
+                    );
+                }
+            };
+            xhr.onerror = function () {
+                reject(
+                    new Error("Something went wrong, contact the Sezzle team!")
+                );
+            };
+            body === null ? xhr.send() : xhr.send(JSON.stringify(body));
+        }).catch(function (e) {
+            console.log(e.message);
+        });
+    }
+}  
+
+export default SezzleBanner;

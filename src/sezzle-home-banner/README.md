@@ -21,6 +21,7 @@ Paste the following snippet in the bottom of the layout/theme.liquid file, updat
 {{ "sezzle-home-banner.js" | asset_url | script_tag }}
 <script>
 new SezzleBanner({
+    merchantUUID: "enter ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
     theme : "indigo",  <!-- Other options: "violet" and "black" -->
     renderToContainer : ".your-class-name", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
 }).init();
