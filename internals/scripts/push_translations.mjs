@@ -6,10 +6,12 @@ global.Headers = Headers;
 
 const basePath = "src/translations";
 const buttonBasePath = "src/sezzle-checkout-button/translations";
+const bannerBasePath = "src/sezzle-home-banner/translations"
 const locale = process.env.LOCALE || "en";
 
 const translationFile = `${basePath}/${locale}.json`;
 const buttonTranslationFile = `${buttonBasePath}/${locale}.json`;
+const bannerTranslationFile = `${bannerBasePath}/${locale}.json`;
 
 const apiKey = process.env.API_KEY;
 if (!apiKey) {
@@ -50,3 +52,4 @@ function sendToLokalise(filepath) {
 
 sendToLokalise(translationFile);
 sendToLokalise(buttonTranslationFile);
+sendToLokalise(bannerTranslationFile);
