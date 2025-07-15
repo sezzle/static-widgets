@@ -21,8 +21,16 @@ if (!projectId) {
 
 const lokaliseApi = new LokaliseApi({ apiKey });
 
-function pullTranslations(isButton){
-const basePath = isButton ? "src/sezzle-checkout-button/translations" : "src/translations";
+const filePaths = {
+    widget: "src/translations",
+    button: "src/sezzle-checkout-button/translations",
+    banner: "src/sezzle-home-banner/translations",
+};
+
+function pullTranslations(fileType){
+    console.log(fileType)
+const basePath = filePaths[fileType] || "src/translations";
+console.log(basePath)
 const pathToDownloadFile = `${basePath}/${tmpFileName}`;
 console.log("Start download translation files");
 lokaliseApi
@@ -131,5 +139,6 @@ function saveToFile(TransFormatted, filePath) {
     }
 }
 
-pullTranslations(false);
-pullTranslations(true);
+pullTranslations('widget');
+pullTranslations('button');
+pullTranslations('banner');
