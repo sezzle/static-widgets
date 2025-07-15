@@ -35,7 +35,7 @@ _The Asset method is a one-size-fits-most - compatible with Shopify 2.0 onward, 
 
 > Use this method for testing the minified file
 
-1. Clone/pull down the Static-Widgets[https://github.com/sezzle/static-widgets/] project, then run `npm run build`
+1. Clone/pull down the Static-Widgets[https://github.com/sezzle/static-widgets/] project, then run `npm run build-button`
 2. Log in to your Shopify Admin
 3. Go to Online Store > Themes
 4. Next to the applicable theme, click `Actions` then `Edit Code`

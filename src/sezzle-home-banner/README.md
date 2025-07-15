@@ -7,7 +7,7 @@ new SezzleBanner({
 
 ### Install as Asset
 
-Clone/pull down the Static-Widgets[https://github.com/sezzle/static-widgets/] project, then run npm run build
+Clone/pull down the Static-Widgets[https://github.com/sezzle/static-widgets/] project, then run npm run build-banner
 Log in to your Shopify Admin
 Go to Online Store > Themes
 Next to the applicable theme, click Actions then Edit Code
@@ -32,7 +32,7 @@ new SezzleBanner({
 Log in to your Shopify Admin
 Go to Online Store > Themes
 Next to the applicable theme, click Actions then Edit Code
-Paste the code snippet here [https://github.com/sezzle/static-widgets/tree/production/src/sezzle-checkout-button/sezzle-checkout-button.html] into the sections/header.liquid file where the banner should appear, then click Save
+Paste the code snippet here [https://github.com/sezzle/static-widgets/tree/production/src/sezzle-home-banner/sezzle-home-banner.html] into the sections/header.liquid file where the banner should appear, then click Save
     Note: this is typically below the header or sticky-header closing tag. Open the file, then search (Cmd+F or Ctrl+F) for the word "sticky-header"
 Click Save
 

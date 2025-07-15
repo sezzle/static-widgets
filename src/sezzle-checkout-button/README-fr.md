@@ -35,7 +35,7 @@ _La méthode Asset est une taille unique - compatible avec Shopify 2.0 et versio
 
 > Utilisez cette méthode pour tester le fichier minifié
 
-1. Clonez/déroulez le projet Static-Widgets[https://github.com/sezzle/static-widgets/], puis exécutez `npm run build`
+1. Clonez/déroulez le projet Static-Widgets[https://github.com/sezzle/static-widgets/], puis exécutez `npm run build-button`
 2. Connectez-vous à votre administrateur Shopify
 3. Accédez à la boutique en ligne > Thèmes
 4. À côté du thème applicable, cliquez sur « Actions » puis sur « Modifier le code ».
