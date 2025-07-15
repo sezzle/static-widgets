@@ -58,7 +58,7 @@ export default class SezzleCheckoutButton {
                         </defs>
                     </svg>
                 </div>
-                <span class="sezzle-banner-text">${this.template.shopNow} <a href="#!" target="_blank" rel="noopener noreferrer" class="sezzle-banner-link">${this.template.learnMore}</a></span>
+                <span class="sezzle-banner-text">${this.template.shopNow} <a href="https://sezzle.com/how-it-works/" target="_blank" rel="noopener noreferrer" class="sezzle-banner-link">${this.template.learnMore}</a></span>
             </div>
         `;
         document.querySelector(this.renderToContainer)?.appendChild(banner);
