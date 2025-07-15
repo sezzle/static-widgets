@@ -1,0 +1,44 @@
+$font-color: #FFF;
+$font-family: "Satoshi", sans-serif;
+
+@import "https://fonts.cdnfonts.com/css/satoshi";
+.sezzle-banner-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background: #382757;
+	justify-items: center;
+    &.violet {
+        background: #8333D4;
+    }
+    &.indigo {
+        background: #382757;
+    }
+    &.black {
+        background: #303030;
+    }
+	.sezzle-banner-content {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		margin: 22px auto;
+		.sezzle-banner-logo {
+			width: 17px;
+			height: 20px;
+		}
+		.sezzle-banner-text {
+			color: $font-color;
+			text-align: center;
+			font-family: $font-family;
+			font-size: 15px;
+			font-weight: 600;
+			line-height: 20px;
+			letter-spacing: -0.23px;
+		}
+		.sezzle-banner-link {
+			color: $font-color;
+			text-decoration-line: underline;
+		}
+	}
+}
