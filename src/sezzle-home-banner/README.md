@@ -1,7 +1,12 @@
+# Sezzle Banner
+
+```
 new SezzleBanner({
-    theme : "indigo",  <!-- Other options: "violet" and "black" -->
+    merchantUUID: "enter ID here", <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
+    theme : "indigo", <!-- Other options: "violet" and "black" -->
     renderToContainer : ".your-class-name", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
 }).init();
+```
 
 ## Shopify
 
@@ -19,11 +24,12 @@ Paste the following snippet in the bottom of the layout/theme.liquid file, updat
 
 ```
 {{ "sezzle-home-banner.js" | asset_url | script_tag }}
+<div id="sezzle-banner-render-reference"></div>
 <script>
 new SezzleBanner({
     merchantUUID: "enter ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
     theme : "indigo",  <!-- Other options: "violet" and "black" -->
-    renderToContainer : ".your-class-name", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
+    renderToContainer : "#sezzle-banner-render-reference", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
 }).init();
 </script>
 ```
@@ -34,7 +40,7 @@ Log in to your Shopify Admin
 Go to Online Store > Themes
 Next to the applicable theme, click Actions then Edit Code
 Paste the code snippet here [https://github.com/sezzle/static-widgets/tree/production/src/sezzle-home-banner/sezzle-home-banner.html] into the sections/header.liquid file where the banner should appear, then click Save
-    Note: this is typically below the header or sticky-header closing tag. Open the file, then search (Cmd+F or Ctrl+F) for the word "sticky-header"
+Note: this is typically below the header or sticky-header closing tag. Open the file, then search (Cmd+F or Ctrl+F) for the word "sticky-header"
 Click Save
 
 #### CUSTOMIZATION

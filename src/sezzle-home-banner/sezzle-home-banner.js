@@ -6,8 +6,8 @@ import esTranslations from "./translations/es.json";
 const Events = Object.freeze({
     Onload: "banner-onload",
     Onclick: "banner-onclick",
-    Error: "banner-error"
-})
+    Error: "banner-error",
+});
 
 class SezzleBanner {
     constructor(options) {
@@ -16,13 +16,13 @@ class SezzleBanner {
             es: esTranslations,
             fr: frTranslations,
         };
-        this.language = document.querySelector('html')?.lang || 'en';
+        this.language = document.querySelector("html")?.lang || "en";
         this.template = this.translations[this.language];
         this.supportedThemes = ["violet", "indigo", "black"];
         this.theme =
             this.supportedThemes.indexOf(options.theme) > -1
                 ? options.theme
-                : "indigo";        
+                : "indigo";
         this.renderToContainer =
             options.renderToContainer || "#sezzle-button-render-reference";
         this.eventLogger = new EventLogger({
@@ -30,11 +30,140 @@ class SezzleBanner {
             widgetServerBaseUrl:
                 options.widgetServerBaseUrl || "https://widget.sezzle.com",
         });
-      
+    }
+
+    // disableBodyScroll(disable) {
+    //     const bodyElement = document.body;
+    //     if (disable) {
+    //         this.scrollDistance =
+    //             window.pageYOffset ||
+    //             (document.documentElement.clientHeight
+    //                 ? document.documentElement.scrollTop
+    //                 : document.body.scrollTop) ||
+    //             0;
+    //         bodyElement.classList.add("sezzle-modal-open");
+    //         bodyElement.style.top = `${this.scrollDistance * -1}px`;
+    //     } else {
+    //         bodyElement.classList.remove("sezzle-modal-open");
+    //         window.scrollTo(0, this.scrollDistance);
+    //         bodyElement.style.top = 0;
+    //         if (document.querySelector(".sezzle-modal")) {
+    //             document.querySelector(".sezzle-modal").scrollTop = 0;
+    //         }
+    //         this.scrollDistance = 0;
+    //     }
+    // }
+
+    // executeModalScript() {
+    //     if (ModalUI) {
+    //         ModalUI.load();
+    //     } else {
+    //         this.widgetEventLogger.logEvent(
+    //             "error",
+    //             "ModalUI is undefined. Problem adding modal script to the document"
+    //         );
+    //     }
+    // }
+
+    async getModalContent(modalNode) {
+        const sezzleModalURL =
+            "https://media.sezzle.com/shopify-app/assets/sezzle-modal-4.0.4.html";
+        try {
+            const response = await this.eventLogger.httpRequestWrapper("GET", sezzleModalURL);
+            modalNode.innerHTML = response;
+            // this.executeModalScript();
+        } catch (e) {
+            console.error("Unable to fetch Sezzle modal content", e);
+        }
+    }
+
+    createModal() {
+        try {
+            // check for existing modal nodes
+            const modalNodes = document.getElementsByClassName(
+                "sezzle-checkout-modal-lightbox"
+            );
+            if (modalNodes.length) {
+                return modalNodes[0];
+            } else {
+                // render modal container
+                const modalNode = document.createElement("section");
+                modalNode.className =
+                    "sezzle-checkout-modal-lightbox close-sezzle-modal";
+                modalNode.style.display = "none";
+                modalNode.role = "dialog";
+                modalNode.style.maxHeight = "100%";
+                modalNode.lang = this.language;
+                document.querySelector("body").appendChild(modalNode);
+
+                // get modal content from CDN
+                this.getModalContent(modalNode);
+
+                // // append modal JS to document head
+                // const head = document.head;
+                // const script = document.createElement("script");
+                // script.innerHTML = modalNode.querySelector("script").innerHTML;
+                // head.appendChild(script);
+                // handle modal close
+                // Array.prototype.forEach.call(
+                //     document.querySelectorAll(
+                //         ".close-sezzle-modal, .close-btn"
+                //     ),
+                //     (el) => {
+                //         el.addEventListener("click", (event) => {
+                //             // disable body scroll
+                //             this.disableBodyScroll(false);
+                //             // hide modal and replace focus
+                //             modalNode.style.display = "none";
+                //             modalNode.getElementsByClassName(
+                //                 "sezzle-modal"
+                //             )[0].className =
+                //                 "sezzle-modal sezzle-checkout-modal-hidden";
+                //             const newFocus =
+                //                 document.querySelector(
+                //                     "#sezzle-modal-return"
+                //                 ) ||
+                //                 document.querySelector(
+                //                     ".sezzle-banner-container"
+                //                 );
+                //             if (newFocus) {
+                //                 newFocus.focus();
+                //                 newFocus.removeAttribute("id");
+                //             }
+                //         });
+                //     }
+                // );
+                return modalNode;
+            }
+        } catch {
+            console.log("failed to render Sezzle modal");
+        }
+    }
+
+    addBannerClickListener() {
+        document.querySelector(".sezzle-banner-link")?.addEventListener(
+            "click",
+            function (e) {
+                // this.eventLogger.sendEvent(Events.Onclick);
+                e.stopPropagation();
+                e.preventDefault();
+                event.target.id = "sezzle-modal-return";
+                // this.disableBodyScroll(true);
+                let modalNode = this.createModal();
+                // modalNode.style.display = "block";
+                // modalNode
+                //     .getElementsByClassName("close-sezzle-modal")[0]
+                //     .focus();
+                // const modals = modalNode.getElementsByClassName("sezzle-modal");
+                // if (modals.length) {
+                //     modals[0].className = "sezzle-modal";
+                // }
+            }.bind(this)
+        );
     }
 
     createBanner() {
-        let banner = document.createElement('div');
+        let banner = document.createElement("div");
         banner.className = `sezzle-banner-container ${this.theme}`;
         banner.innerHTML = `
             <div class="sezzle-banner-content">
@@ -74,22 +203,24 @@ class SezzleBanner {
                 <span class="sezzle-banner-text">${this.template.shopNow} <a href="https://sezzle.com/how-it-works/" target="_blank" rel="noopener noreferrer" class="sezzle-banner-link">${this.template.learnMore}</a></span>
             </div>
         `;
-        document.querySelector(this.renderToContainer)?.appendChild(banner);            
-        document.querySelector(".sezzle-banner-link")?.addEventListener('click', function(e){
-            this.eventLogger.sendEvent(Events.Onclick);
-            e.stopPropagation();
-            e.preventDefault();
-            // TODO: replace link with button to open modal, handle onClick here to render modal
-        })
+        // TODO: replace link with button to open modal, handle onClick here to render modal
+        return banner;
+    }
+
+    renderBanner() {
+        let banner = this.createBanner();
+        document.querySelector(this.renderToContainer)?.appendChild(banner);
+        this.addBannerClickListener();
     }
 
     init() {
         try {
-            this.createBanner();
-            this.eventLogger.sendEvent(Events.Onload);
+            this.renderBanner();
+            // this.createModal();
+            // this.eventLogger.sendEvent(Events.Onload);
         } catch (e) {
-            console.log('Failed to render Sezzle banner: ', e);
-            this.eventLogger.sendEvent(Events.Error, e);
+            console.log("Failed to render Sezzle banner: ", e);
+            // this.eventLogger.sendEvent(Events.Error, e);
         }
     }
 }
@@ -115,7 +246,7 @@ class EventLogger {
             "POST",
             this.widgetServerEventLogEndpoint,
             body
-        )
+        );
     }
 
     async httpRequestWrapper(method, url, body = null) {
@@ -146,6 +277,6 @@ class EventLogger {
             console.log(e.message);
         });
     }
-}  
+}
 
 export default SezzleBanner;
