@@ -26,7 +26,7 @@ class SezzleBanner {
         this.renderToContainer =
             options.renderToContainer || "#sezzle-button-render-reference";
         this.eventLogger = new EventLogger({
-            merchantUUID: this.merchantUUID,
+            merchantUUID: options.merchantUUID,
             widgetServerBaseUrl:
                 options.widgetServerBaseUrl || "https://widget.sezzle.com",
         });
