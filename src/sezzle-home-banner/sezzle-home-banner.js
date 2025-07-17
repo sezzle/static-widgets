@@ -98,6 +98,13 @@ class SezzleBanner {
         const sezzleModalURL =
             "https://media.sezzle.com/shopify-app/assets/sezzle-modal-4.0.4.html";
         try {
+            const modalNodeContent = document.getElementById(
+                "sezzle-modal-core-content"
+            )
+            console.log(modalNodeContent?.innerHTML);
+            if(modalNodeContent?.innerHTML){
+                return;
+            };
             const response = await httpRequestWrapper("GET", sezzleModalURL);
             modalNode.innerHTML = response;
             // // append modal JS to document head
