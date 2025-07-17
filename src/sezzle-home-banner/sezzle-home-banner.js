@@ -129,9 +129,6 @@ class SezzleBanner {
                 modalNode.style.maxHeight = "100%";
                 modalNode.lang = this.language;
                 document.querySelector("body").appendChild(modalNode);
-
-                // get modal content from CDN
-                this.getModalContent(modalNode);
                 return modalNode;
             }
         } catch {
@@ -142,6 +139,7 @@ class SezzleBanner {
     renderModal() {
         this.disableBodyScroll(true);
         let modalNode = this.createModal();
+        this.getModalContent(modalNode);
         this.addModalCloseListeners(modalNode);
         modalNode.style.display = "block";
         modalNode.focus();
