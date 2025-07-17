@@ -54,41 +54,33 @@ class SezzleBanner {
     //     }
     // }
 
-    // handleModalClose(){
+    handleModalClose(modalNode) {
+        // disable body scroll
+        // this.disableBodyScroll(false);
+        // hide modal and replace focus
+        modalNode.style.display = "none";
+        modalNode.getElementsByClassName("sezzle-modal")[0].className =
+            "sezzle-modal sezzle-checkout-modal-hidden";
+        const newFocus =
+            document.querySelector("#sezzle-modal-return") ||
+            document.querySelector(".sezzle-banner-container");
+        if (newFocus) {
+            newFocus.focus();
+            newFocus.removeAttribute("id");
+        }
+    }
 
-    // }
-
-    // addModalCloseListeners(){
+    addModalCloseListeners(modalNode) {
         // handle modal close
-        // Array.prototype.forEach.call(
-        //     document.querySelectorAll(
-        //         ".close-sezzle-modal, .close-btn"
-        //     ),
-        //     (el) => {
-        //         el.addEventListener("click", (event) => {
-        //             // disable body scroll
-        //             this.disableBodyScroll(false);
-        //             // hide modal and replace focus
-        //             modalNode.style.display = "none";
-        //             modalNode.getElementsByClassName(
-        //                 "sezzle-modal"
-        //             )[0].className =
-        //                 "sezzle-modal sezzle-checkout-modal-hidden";
-        //             const newFocus =
-        //                 document.querySelector(
-        //                     "#sezzle-modal-return"
-        //                 ) ||
-        //                 document.querySelector(
-        //                     ".sezzle-banner-container"
-        //                 );
-        //             if (newFocus) {
-        //                 newFocus.focus();
-        //                 newFocus.removeAttribute("id");
-        //             }
-        //         });
-        //     }
-        // );
-    // }
+        Array.prototype.forEach.call(
+            document.querySelectorAll(".close-sezzle-modal, .close-btn"),
+            (el) => {
+                el.addEventListener("click", (event) => {
+                    this.handleModalClose(modalNode);
+                });
+            }
+        );
+    }
 
     executeModalScript() {
         if (ModalUI) {
@@ -152,13 +144,12 @@ class SezzleBanner {
         }
     }
 
-    renderModal(){
+    renderModal() {
         // this.disableBodyScroll(true);
         let modalNode = this.createModal();
+        this.addModalCloseListeners(modalNode);
         modalNode.style.display = "block";
-        modalNode
-            .getElementsByClassName("close-sezzle-modal")[0]
-            .focus();
+        // modalNode.getElementsByClassName("close-sezzle-modal")[0].focus();
         const modals = modalNode.getElementsByClassName("sezzle-modal");
         if (modals.length) {
             modals[0].className = "sezzle-modal";
