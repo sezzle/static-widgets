@@ -87,10 +87,10 @@ class SezzleBanner {
             console.log(
                 "ModalUI is undefined. Problem adding modal script to the document"
             );
-            // this.widgetEventLogger.logEvent(
-            //     Events.Error,
-            //     "ModalUI is undefined. Problem adding modal script to the document"
-            // );
+            this.widgetEventLogger.logEvent(
+                Events.Error,
+                "ModalUI is undefined. Problem adding modal script to the document"
+            );
         }
     }
 
@@ -98,10 +98,7 @@ class SezzleBanner {
         const sezzleModalURL =
             "https://media.sezzle.com/shopify-app/assets/sezzle-modal-4.0.4.html";
         try {
-            const response = await httpRequestWrapper(
-                "GET",
-                sezzleModalURL
-            );
+            const response = await httpRequestWrapper("GET", sezzleModalURL);
             modalNode.innerHTML = response;
             // // append modal JS to document head
             const head = document.head;
@@ -158,7 +155,7 @@ class SezzleBanner {
         document.querySelector(".sezzle-banner-link")?.addEventListener(
             "click",
             function (e) {
-                // this.eventLogger.sendEvent(Events.Onclick);
+                this.eventLogger.sendEvent(Events.Onclick);
                 e.stopPropagation();
                 e.preventDefault();
                 event.target.id = "sezzle-modal-return";
@@ -220,10 +217,10 @@ class SezzleBanner {
     init() {
         try {
             this.renderBanner();
-            // this.eventLogger.sendEvent(Events.Onload);
+            this.eventLogger.sendEvent(Events.Onload);
         } catch (e) {
             console.log("Failed to render Sezzle banner: ", e);
-            // this.eventLogger.sendEvent(Events.Error, e);
+            this.eventLogger.sendEvent(Events.Error, e);
         }
     }
 }
@@ -245,11 +242,7 @@ class EventLogger {
                 merchant_site: window.location.hostname,
             },
         ];
-        httpRequestWrapper(
-            "POST",
-            this.widgetServerEventLogEndpoint,
-            body
-        );
+        httpRequestWrapper("POST", this.widgetServerEventLogEndpoint, body);
     }
 }
 
@@ -265,16 +258,12 @@ async function httpRequestWrapper(method, url, body = null) {
                 resolve(xhr.response);
             } else {
                 reject(
-                    new Error(
-                        "Something went wrong, contact the Sezzle team!"
-                    )
+                    new Error("Something went wrong, contact the Sezzle team!")
                 );
             }
         };
         xhr.onerror = function () {
-            reject(
-                new Error("Something went wrong, contact the Sezzle team!")
-            );
+            reject(new Error("Something went wrong, contact the Sezzle team!"));
         };
         body === null ? xhr.send() : xhr.send(JSON.stringify(body));
     }).catch(function (e) {
