@@ -55,7 +55,6 @@ class SezzleBanner {
     }
 
     handleModalClose(modalNode) {
-        // disable body scroll
         this.disableBodyScroll(false);
         // hide modal and replace focus
         modalNode.style.display = "none";
@@ -71,7 +70,6 @@ class SezzleBanner {
     }
 
     addModalCloseListeners(modalNode) {
-        // handle modal close
         Array.prototype.forEach.call(
             document.querySelectorAll(".close-sezzle-modal, .close-btn"),
             (el) => {
@@ -149,7 +147,7 @@ class SezzleBanner {
         let modalNode = this.createModal();
         this.addModalCloseListeners(modalNode);
         modalNode.style.display = "block";
-        // modalNode.getElementsByClassName("close-sezzle-modal")[0].focus();
+        modalNode.focus();
         const modals = modalNode.getElementsByClassName("sezzle-modal");
         if (modals.length) {
             modals[0].className = "sezzle-modal";
