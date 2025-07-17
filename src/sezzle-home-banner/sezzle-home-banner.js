@@ -98,7 +98,7 @@ class SezzleBanner {
         const sezzleModalURL =
             "https://media.sezzle.com/shopify-app/assets/sezzle-modal-4.0.4.html";
         try {
-            const response = await this.eventLogger.httpRequestWrapper(
+            const response = await httpRequestWrapper(
                 "GET",
                 sezzleModalURL
             );
@@ -245,41 +245,41 @@ class EventLogger {
                 merchant_site: window.location.hostname,
             },
         ];
-        this.httpRequestWrapper(
+        httpRequestWrapper(
             "POST",
             this.widgetServerEventLogEndpoint,
             body
         );
     }
+}
 
-    async httpRequestWrapper(method, url, body = null) {
-        return new Promise((resolve, reject) => {
-            const xhr = new XMLHttpRequest();
-            xhr.open(method, url, true);
-            if (body !== null) {
-                xhr.setRequestHeader("Content-Type", "application/json");
-            }
-            xhr.onload = function () {
-                if (this.status >= 200 && this.status < 300) {
-                    resolve(xhr.response);
-                } else {
-                    reject(
-                        new Error(
-                            "Something went wrong, contact the Sezzle team!"
-                        )
-                    );
-                }
-            };
-            xhr.onerror = function () {
+async function httpRequestWrapper(method, url, body = null) {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open(method, url, true);
+        if (body !== null) {
+            xhr.setRequestHeader("Content-Type", "application/json");
+        }
+        xhr.onload = function () {
+            if (this.status >= 200 && this.status < 300) {
+                resolve(xhr.response);
+            } else {
                 reject(
-                    new Error("Something went wrong, contact the Sezzle team!")
+                    new Error(
+                        "Something went wrong, contact the Sezzle team!"
+                    )
                 );
-            };
-            body === null ? xhr.send() : xhr.send(JSON.stringify(body));
-        }).catch(function (e) {
-            console.log(e.message);
-        });
-    }
+            }
+        };
+        xhr.onerror = function () {
+            reject(
+                new Error("Something went wrong, contact the Sezzle team!")
+            );
+        };
+        body === null ? xhr.send() : xhr.send(JSON.stringify(body));
+    }).catch(function (e) {
+        console.log(e.message);
+    });
 }
 
 export default SezzleBanner;
