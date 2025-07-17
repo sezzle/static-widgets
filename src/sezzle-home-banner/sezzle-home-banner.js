@@ -32,31 +32,31 @@ class SezzleBanner {
         });
     }
 
-    // disableBodyScroll(disable) {
-    //     const bodyElement = document.body;
-    //     if (disable) {
-    //         this.scrollDistance =
-    //             window.pageYOffset ||
-    //             (document.documentElement.clientHeight
-    //                 ? document.documentElement.scrollTop
-    //                 : document.body.scrollTop) ||
-    //             0;
-    //         bodyElement.classList.add("sezzle-modal-open");
-    //         bodyElement.style.top = `${this.scrollDistance * -1}px`;
-    //     } else {
-    //         bodyElement.classList.remove("sezzle-modal-open");
-    //         window.scrollTo(0, this.scrollDistance);
-    //         bodyElement.style.top = 0;
-    //         if (document.querySelector(".sezzle-modal")) {
-    //             document.querySelector(".sezzle-modal").scrollTop = 0;
-    //         }
-    //         this.scrollDistance = 0;
-    //     }
-    // }
+    disableBodyScroll(disable) {
+        const bodyElement = document.body;
+        if (disable) {
+            this.scrollDistance =
+                window.pageYOffset ||
+                (document.documentElement.clientHeight
+                    ? document.documentElement.scrollTop
+                    : document.body.scrollTop) ||
+                0;
+            bodyElement.classList.add("sezzle-modal-open");
+            bodyElement.style.top = `${this.scrollDistance * -1}px`;
+        } else {
+            bodyElement.classList.remove("sezzle-modal-open");
+            window.scrollTo(0, this.scrollDistance);
+            bodyElement.style.top = 0;
+            if (document.querySelector(".sezzle-modal")) {
+                document.querySelector(".sezzle-modal").scrollTop = 0;
+            }
+            this.scrollDistance = 0;
+        }
+    }
 
     handleModalClose(modalNode) {
         // disable body scroll
-        // this.disableBodyScroll(false);
+        this.disableBodyScroll(false);
         // hide modal and replace focus
         modalNode.style.display = "none";
         modalNode.getElementsByClassName("sezzle-modal")[0].className =
@@ -90,7 +90,7 @@ class SezzleBanner {
                 "ModalUI is undefined. Problem adding modal script to the document"
             );
             // this.widgetEventLogger.logEvent(
-            //     "error",
+            //     Events.Error,
             //     "ModalUI is undefined. Problem adding modal script to the document"
             // );
         }
@@ -145,7 +145,7 @@ class SezzleBanner {
     }
 
     renderModal() {
-        // this.disableBodyScroll(true);
+        this.disableBodyScroll(true);
         let modalNode = this.createModal();
         this.addModalCloseListeners(modalNode);
         modalNode.style.display = "block";
