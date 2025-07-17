@@ -18,8 +18,8 @@
 <script>
 new SezzleBanner({
     merchantUUID: "enter ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
-    theme : "indigo",  <!-- Other options: "violet" and "black" -->
-    renderToContainer : "#sezzle-banner-render-reference", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
+    theme: "indigo",  <!-- Other options: "violet" and "black" -->
+    renderToContainer: "#sezzle-banner-render-reference", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
 }).init();
 </script>
 ```
@@ -43,8 +43,8 @@ new SezzleBanner({
 <script>
 new SezzleBanner({
     merchantUUID: "enter ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
-    theme : "indigo",  <!-- Other options: "violet" and "black" -->
-    renderToContainer : "#sezzle-banner-render-reference", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
+    theme: "indigo",  <!-- Other options: "violet" and "black" -->
+    renderToContainer: "#sezzle-banner-render-reference", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
 }).init();
 </script>
 ```
@@ -74,8 +74,8 @@ Paste the following where the banner should appear, such as below `</header>` an
 <script>
 new SezzleBanner({
     merchantUUID: "enter ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
-    theme : "indigo",  <!-- Other options: "violet" and "black" -->
-    renderToContainer : "#sezzle-banner-render-reference", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
+    theme: "indigo",  <!-- Other options: "violet" and "black" -->
+    renderToContainer: "#sezzle-banner-render-reference", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
 }).init();
 </script>
 ```
@@ -92,8 +92,8 @@ Paste the following where the banner should appear, such as below `</header>`, t
 <script>
 new SezzleBanner({
     merchantUUID: "enter ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
-    theme : "indigo",  <!-- Other options: "violet" and "black" -->
-    renderToContainer : "#sezzle-banner-render-reference", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
+    theme: "indigo",  <!-- Other options: "violet" and "black" -->
+    renderToContainer: "#sezzle-banner-render-reference", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
 }).init();
 </script>
 ```

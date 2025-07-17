@@ -18,8 +18,8 @@
 <script>
 new SezzleBanner({
     merchantUUID: "entrez l'ID ici",  <!-- Votre identifiant (format : xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
-    theme : "indigo",  <!-- Autres options: "violet" and "black" -->
-    renderToContainer : "#sezzle-banner-render-reference", <!-- Cela utilisera `querySelector` pour afficher la bannière, utilisez donc un identifiant ou une classe unique -->
+    theme: "indigo",  <!-- Autres options: "violet" and "black" -->
+    renderToContainer: "#sezzle-banner-render-reference", <!-- Cela utilisera `querySelector` pour afficher la bannière, utilisez donc un identifiant ou une classe unique -->
 }).init();
 </script>
 ```
@@ -42,8 +42,8 @@ new SezzleBanner({
 <script>
 new SezzleBanner({
     merchantUUID: "entrez l'ID ici",  <!-- Votre identifiant (format : xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
-    theme : "indigo",  <!-- Autres options: "violet" and "black" -->
-    renderToContainer : "#sezzle-banner-render-reference", <!-- Cela utilisera `querySelector` pour afficher la bannière, utilisez donc un identifiant ou une classe unique -->
+    theme: "indigo",  <!-- Autres options: "violet" and "black" -->
+    renderToContainer: "#sezzle-banner-render-reference", <!-- Cela utilisera `querySelector` pour afficher la bannière, utilisez donc un identifiant ou une classe unique -->
 }).init();
 </script>
 ```
@@ -73,8 +73,8 @@ Collez le texte suivant à l'emplacement où la bannière doit apparaître, par 
 <script>
 new SezzleBanner({
     merchantUUID: "entrez l'ID ici",  <!-- Votre identifiant (format : xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
-    theme : "indigo",  <!-- Autres options: "violet" and "black" -->
-    renderToContainer : "#sezzle-banner-render-reference", <!-- Cela utilisera `querySelector` pour afficher la bannière, utilisez donc un identifiant ou une classe unique -->
+    theme: "indigo",  <!-- Autres options: "violet" and "black" -->
+    renderToContainer: "#sezzle-banner-render-reference", <!-- Cela utilisera `querySelector` pour afficher la bannière, utilisez donc un identifiant ou une classe unique -->
 }).init();
 </script>
 ```
@@ -91,8 +91,8 @@ Collez le code suivant à l'emplacement où la bannière doit apparaître, par e
 <script>
 new SezzleBanner({
     merchantUUID: "entrez l'ID ici",  <!-- Votre identifiant (format : xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
-    theme : "indigo",  <!-- Autres options: "violet" and "black" -->
-    renderToContainer : "#sezzle-banner-render-reference", <!-- Cela utilisera `querySelector` pour afficher la bannière, utilisez donc un identifiant ou une classe unique -->
+    theme: "indigo",  <!-- Autres options: "violet" and "black" -->
+    renderToContainer: "#sezzle-banner-render-reference", <!-- Cela utilisera `querySelector` pour afficher la bannière, utilisez donc un identifiant ou une classe unique -->
 }).init();
 </script>
 ```
