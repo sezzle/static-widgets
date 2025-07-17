@@ -205,10 +205,9 @@ class SezzleBanner {
                         </defs>
                     </svg>
                 </div>
-                <span class="sezzle-banner-text">${this.template.shopNow} <a href="https://sezzle.com/how-it-works/" target="_blank" rel="noopener noreferrer" class="sezzle-banner-link">${this.template.learnMore}</a></span>
+                <span class="sezzle-banner-text">${this.template.shopNow} <div aria-haspopup="dialog" role="button" class="sezzle-banner-link">${this.template.learnMore}</div></span>
             </div>
         `;
-        // TODO: replace link with button to open modal, handle onClick here to render modal
         return banner;
     }
 
