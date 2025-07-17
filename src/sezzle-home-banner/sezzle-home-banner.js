@@ -54,24 +54,71 @@ class SezzleBanner {
     //     }
     // }
 
-    // executeModalScript() {
-    //     if (ModalUI) {
-    //         ModalUI.load();
-    //     } else {
-    //         this.widgetEventLogger.logEvent(
-    //             "error",
-    //             "ModalUI is undefined. Problem adding modal script to the document"
-    //         );
-    //     }
+    // handleModalClose(){
+
     // }
+
+    // addModalCloseListeners(){
+        // handle modal close
+        // Array.prototype.forEach.call(
+        //     document.querySelectorAll(
+        //         ".close-sezzle-modal, .close-btn"
+        //     ),
+        //     (el) => {
+        //         el.addEventListener("click", (event) => {
+        //             // disable body scroll
+        //             this.disableBodyScroll(false);
+        //             // hide modal and replace focus
+        //             modalNode.style.display = "none";
+        //             modalNode.getElementsByClassName(
+        //                 "sezzle-modal"
+        //             )[0].className =
+        //                 "sezzle-modal sezzle-checkout-modal-hidden";
+        //             const newFocus =
+        //                 document.querySelector(
+        //                     "#sezzle-modal-return"
+        //                 ) ||
+        //                 document.querySelector(
+        //                     ".sezzle-banner-container"
+        //                 );
+        //             if (newFocus) {
+        //                 newFocus.focus();
+        //                 newFocus.removeAttribute("id");
+        //             }
+        //         });
+        //     }
+        // );
+    // }
+
+    executeModalScript() {
+        if (ModalUI) {
+            ModalUI.load();
+        } else {
+            console.log(
+                "ModalUI is undefined. Problem adding modal script to the document"
+            );
+            // this.widgetEventLogger.logEvent(
+            //     "error",
+            //     "ModalUI is undefined. Problem adding modal script to the document"
+            // );
+        }
+    }
 
     async getModalContent(modalNode) {
         const sezzleModalURL =
             "https://media.sezzle.com/shopify-app/assets/sezzle-modal-4.0.4.html";
         try {
-            const response = await this.eventLogger.httpRequestWrapper("GET", sezzleModalURL);
+            const response = await this.eventLogger.httpRequestWrapper(
+                "GET",
+                sezzleModalURL
+            );
             modalNode.innerHTML = response;
-            // this.executeModalScript();
+            // // append modal JS to document head
+            const head = document.head;
+            const script = document.createElement("script");
+            script.innerHTML = modalNode.querySelector("script").innerHTML;
+            head.appendChild(script);
+            this.executeModalScript();
         } catch (e) {
             console.error("Unable to fetch Sezzle modal content", e);
         }
@@ -98,45 +145,23 @@ class SezzleBanner {
 
                 // get modal content from CDN
                 this.getModalContent(modalNode);
-
-                // // append modal JS to document head
-                // const head = document.head;
-                // const script = document.createElement("script");
-                // script.innerHTML = modalNode.querySelector("script").innerHTML;
-                // head.appendChild(script);
-                // handle modal close
-                // Array.prototype.forEach.call(
-                //     document.querySelectorAll(
-                //         ".close-sezzle-modal, .close-btn"
-                //     ),
-                //     (el) => {
-                //         el.addEventListener("click", (event) => {
-                //             // disable body scroll
-                //             this.disableBodyScroll(false);
-                //             // hide modal and replace focus
-                //             modalNode.style.display = "none";
-                //             modalNode.getElementsByClassName(
-                //                 "sezzle-modal"
-                //             )[0].className =
-                //                 "sezzle-modal sezzle-checkout-modal-hidden";
-                //             const newFocus =
-                //                 document.querySelector(
-                //                     "#sezzle-modal-return"
-                //                 ) ||
-                //                 document.querySelector(
-                //                     ".sezzle-banner-container"
-                //                 );
-                //             if (newFocus) {
-                //                 newFocus.focus();
-                //                 newFocus.removeAttribute("id");
-                //             }
-                //         });
-                //     }
-                // );
                 return modalNode;
             }
         } catch {
             console.log("failed to render Sezzle modal");
+        }
+    }
+
+    renderModal(){
+        // this.disableBodyScroll(true);
+        let modalNode = this.createModal();
+        modalNode.style.display = "block";
+        modalNode
+            .getElementsByClassName("close-sezzle-modal")[0]
+            .focus();
+        const modals = modalNode.getElementsByClassName("sezzle-modal");
+        if (modals.length) {
+            modals[0].className = "sezzle-modal";
         }
     }
 
@@ -148,16 +173,7 @@ class SezzleBanner {
                 e.stopPropagation();
                 e.preventDefault();
                 event.target.id = "sezzle-modal-return";
-                // this.disableBodyScroll(true);
-                let modalNode = this.createModal();
-                // modalNode.style.display = "block";
-                // modalNode
-                //     .getElementsByClassName("close-sezzle-modal")[0]
-                //     .focus();
-                // const modals = modalNode.getElementsByClassName("sezzle-modal");
-                // if (modals.length) {
-                //     modals[0].className = "sezzle-modal";
-                // }
+                this.renderModal();
             }.bind(this)
         );
     }
@@ -216,7 +232,6 @@ class SezzleBanner {
     init() {
         try {
             this.renderBanner();
-            // this.createModal();
             // this.eventLogger.sendEvent(Events.Onload);
         } catch (e) {
             console.log("Failed to render Sezzle banner: ", e);
