@@ -18,7 +18,7 @@
 <script>
 new SezzleBanner({
     merchantUUID: "enter ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
-    theme: "indigo",  <!-- Other options: "violet" and "black" -->
+    theme: "indigo",  <!-- Options: "indigo" and "black" -->
     renderToContainer: "#sezzle-banner-render-reference", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
 }).init();
 </script>
@@ -43,7 +43,7 @@ new SezzleBanner({
 <script>
 new SezzleBanner({
     merchantUUID: "enter ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
-    theme: "indigo",  <!-- Other options: "violet" and "black" -->
+    theme: "indigo",  <!-- Options: "indigo" and "black" -->
     renderToContainer: "#sezzle-banner-render-reference", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
 }).init();
 </script>
@@ -59,7 +59,7 @@ new SezzleBanner({
 
 #### CUSTOMIZATION
 
- - Update the wrapper element's class name to the theme color you desire (violet, indigo, or black)
+ - Update the wrapper element's class name to the theme color you desire (indigo or black)
  - Update the Learn More href URL to point to your own [How Sezzle Works](https://docs.sezzle.com/docs/guides/about-sezzle) page, if applicable
 
 ## Other Platforms
@@ -74,7 +74,7 @@ Paste the following where the banner should appear, such as below `</header>` an
 <script>
 new SezzleBanner({
     merchantUUID: "enter ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
-    theme: "indigo",  <!-- Other options: "violet" and "black" -->
+    theme: "indigo",  <!-- Options: "indigo" and "black" -->
     renderToContainer: "#sezzle-banner-render-reference", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
 }).init();
 </script>
@@ -92,7 +92,7 @@ Paste the following where the banner should appear, such as below `</header>`, t
 <script>
 new SezzleBanner({
     merchantUUID: "enter ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
-    theme: "indigo",  <!-- Other options: "violet" and "black" -->
+    theme: "indigo",  <!-- Options: "indigo" and "black" -->
     renderToContainer: "#sezzle-banner-render-reference", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
 }).init();
 </script>
@@ -104,5 +104,5 @@ Paste the code snippet here [https://github.com/sezzle/static-widgets/tree/produ
 
 #### CUSTOMIZATION
 
- - Update the wrapper element's class name to the theme color you desire (violet, indigo, or black)
+ - Update the wrapper element's class name to the theme color you desire (indigo or black)
  - Update the Learn More href URL to point to your own [How Sezzle Works](https://docs.sezzle.com/docs/guides/about-sezzle) page, if applicable

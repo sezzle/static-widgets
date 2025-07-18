@@ -18,7 +18,7 @@ class SezzleBanner {
         };
         this.language = document.querySelector("html")?.lang || "en";
         this.template = this.translations[this.language];
-        this.supportedThemes = ["violet", "indigo", "black"];
+        this.supportedThemes = ["indigo", "black"];
         this.theme =
             this.supportedThemes.indexOf(options.theme) > -1
                 ? options.theme

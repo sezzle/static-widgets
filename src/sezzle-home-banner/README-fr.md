@@ -18,7 +18,7 @@
 <script>
 new SezzleBanner({
     merchantUUID: "entrez l'ID ici",  <!-- Votre identifiant (format : xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
-    theme: "indigo",  <!-- Autres options: "violet" and "black" -->
+    theme: "indigo",  <!-- Options: "indigo" and "black" -->
     renderToContainer: "#sezzle-banner-render-reference", <!-- Cela utilisera `querySelector` pour afficher la bannière, utilisez donc un identifiant ou une classe unique -->
 }).init();
 </script>
@@ -42,7 +42,7 @@ new SezzleBanner({
 <script>
 new SezzleBanner({
     merchantUUID: "entrez l'ID ici",  <!-- Votre identifiant (format : xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
-    theme: "indigo",  <!-- Autres options: "violet" and "black" -->
+    theme: "indigo",  <!-- Options: "indigo" and "black" -->
     renderToContainer: "#sezzle-banner-render-reference", <!-- Cela utilisera `querySelector` pour afficher la bannière, utilisez donc un identifiant ou une classe unique -->
 }).init();
 </script>
@@ -58,7 +58,7 @@ new SezzleBanner({
 
 #### PERSONNALISATION
 
-- Modifiez le nom de la classe de l'élément wrapper avec la couleur de thème souhaitée (violet, indigo ou noir).
+- Modifiez le nom de la classe de l'élément wrapper avec la couleur de thème souhaitée (indigo ou noir).
 - Modifiez l'URL href `En savoir plus` pour qu'elle pointe vers votre page [Fonctionnement de Sezzle](https://docs.sezzle.com/docs/guides/about-sezzle), le cas échéant.
 
 ## Autres plateformes
@@ -73,7 +73,7 @@ Collez le texte suivant à l'emplacement où la bannière doit apparaître, par 
 <script>
 new SezzleBanner({
     merchantUUID: "entrez l'ID ici",  <!-- Votre identifiant (format : xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
-    theme: "indigo",  <!-- Autres options: "violet" and "black" -->
+    theme: "indigo",  <!-- Options: "indigo" and "black" -->
     renderToContainer: "#sezzle-banner-render-reference", <!-- Cela utilisera `querySelector` pour afficher la bannière, utilisez donc un identifiant ou une classe unique -->
 }).init();
 </script>
@@ -91,7 +91,7 @@ Collez le code suivant à l'emplacement où la bannière doit apparaître, par e
 <script>
 new SezzleBanner({
     merchantUUID: "entrez l'ID ici",  <!-- Votre identifiant (format : xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
-    theme: "indigo",  <!-- Autres options: "violet" and "black" -->
+    theme: "indigo",  <!-- Options: "indigo" and "black" -->
     renderToContainer: "#sezzle-banner-render-reference", <!-- Cela utilisera `querySelector` pour afficher la bannière, utilisez donc un identifiant ou une classe unique -->
 }).init();
 </script>
@@ -103,5 +103,5 @@ Collez l'extrait de code ici [https://github.com/sezzle/static-widgets/tree/prod
 
 #### PERSONNALISATION
 
-- Modifiez le nom de la classe de l'élément wrapper avec la couleur de thème souhaitée (violet, indigo ou noir).
+- Modifiez le nom de la classe de l'élément wrapper avec la couleur de thème souhaitée (indigo ou noir).
 - Modifiez l'URL href `En savoir plus` pour qu'elle pointe vers votre page [Fonctionnement de Sezzle](https://docs.sezzle.com/docs/guides/about-sezzle), le cas échéant.

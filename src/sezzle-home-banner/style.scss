@@ -7,9 +7,6 @@ $font-family: "Satoshi", sans-serif;
 	background: #382757;
     padding: 22px 0;
 	justify-items: center;
-    &.violet {
-        background: #8333D4;
-    }
     &.indigo {
         background: #382757;
     }
@@ -37,6 +34,12 @@ $font-family: "Satoshi", sans-serif;
 			display: inline;
 			color: $font-color;
 			text-decoration-line: underline;
+			&:hover {
+				color: #D1B2F8;
+			}
+			&:active {
+				color: #B585E5;
+			}
 		}
 	}
 }
