@@ -1,5 +1,22 @@
 # Bannière Sezzle
 
+Ajoutez une bannière Sezzle à votre boutique en ligne pour faire savoir aux clients qu'ils peuvent acheter maintenant et payer plus tard
+
+## Installation
+
+Sélectionnez l'implémentation qui correspond à vos besoins :
+
+### Shopify :
+- [Ressource du CDN](#from-cdn)
+- [Ressource en tant que fichier local](#local-file)
+- [HTML brut](#install-as-html)
+### Toutes les plateformes :
+- [Ressource du CDN](#from-cdn-2)
+- [Ressource en tant que fichier local](#local-file-2)
+- [HTML brut](#install-as-html-2)
+
+---
+
 ## Shopify
 
 ### Installer en tant que ressource
@@ -26,13 +43,13 @@ new SezzleBanner({
 
 #### Fichier local
 
-1. Clonez/déposez le projet Static-Widgets [https://github.com/sezzle/static-widgets/], puis exécutez `npm run build-banner`.
+1. Clonez/déposez le projet [Static-Widgets](https://github.com/sezzle/static-widgets/), puis exécutez `npm run build-banner`.
 1. Connectez-vous à votre interface administrateur Shopify.
 1. Accédez à `Boutique en ligne` > `Thèmes`.
 1. À côté du thème concerné, cliquez sur `Actions`, puis sur `Modifier le code`.
 1. Faites défiler jusqu'au dossier `Actifs`, puis cliquez sur `Ajouter un nouvel actif`.
 1. Cliquez sur `Créer un fichier vierge`, nommez la section `sezzle-home-banner`, sélectionnez `.js` comme type de fichier, puis cliquez sur `Ajouter un actif`.
-1. Dans le dossier `Actifs`, sélectionnez l'actif que vous venez de créer (vous devrez peut-être faire défiler la liste, car les fichiers ne sont pas classés par ordre alphabétique). 1. Remplacez le modèle de ressource par le code ici [../../../build/sezzle-home-banner.js], puis cliquez sur `Enregistrer`.
+1. Dans le dossier `Actifs`, sélectionnez l'actif que vous venez de créer (vous devrez peut-être faire défiler la liste, car les fichiers ne sont pas classés par ordre alphabétique). 1. Remplacez le modèle de ressource par le code ici: `static-widgets/build/sezzle-home-banner.js`, puis cliquez sur `Enregistrer`.
 1. Collez l'extrait suivant dans le fichier `sections/header.liquid` où la bannière doit apparaître, modifiez la valeur `merchantUUID`, puis cliquez sur `Enregistrer`.
 - Remarque : ce champ se trouve généralement sous la balise de fermeture `header` ou `sticky-header`. Ouvrez le fichier, puis recherchez (Cmd+F ou Ctrl+F) le mot `sticky-header`.
 
@@ -53,7 +70,7 @@ new SezzleBanner({
 1. Connectez-vous à votre interface administrateur Shopify
 1. Accédez à `Boutique en ligne` > `Thèmes`
 1. À côté du thème concerné, cliquez sur `Actions` puis sur `Modifier le code`
-1. Collez l'extrait de code ici [https://github.com/sezzle/static-widgets/tree/production/src/sezzle-home-banner/sezzle-home-banner.html] dans le fichier `sections/header.liquid` où la bannière doit apparaître, puis cliquez sur `Enregistrer`.
+1. Collez l'extrait de code [ici](https://github.com/sezzle/static-widgets/tree/production/src/sezzle-home-banner/sezzle-home-banner.html) dans le fichier `sections/header.liquid` où la bannière doit apparaître, puis cliquez sur `Enregistrer`.
 - Remarque : cet extrait se trouve généralement sous la balise de fermeture `header` ou `sticky-header`. Ouvrez le fichier, puis recherchez (Cmd+F ou Ctrl+F) le mot `sticky-header`.
 
 #### PERSONNALISATION
@@ -81,8 +98,8 @@ new SezzleBanner({
 
 ### Fichier local
 
-Clonez/déposez le projet Static-Widgets [https://github.com/sezzle/static-widgets/], puis exécutez `npm run build-banner`.
-Créez un fichier .js et intégrez-y le code suivant [../../../build/sezzle-home-banner.js].
+Clonez/déposez le projet [Static-Widgets](https://github.com/sezzle/static-widgets/), puis exécutez `npm run build-banner`.
+Créez un fichier .js et intégrez-y le code suivant: `static-widgets/build/sezzle-home-banner.js`.
 Collez le code suivant à l'emplacement où la bannière doit apparaître, par exemple sous `</header>`, puis modifiez le chemin d'accès au fichier et la valeur `merchantUUID`.
 
 ```
@@ -99,7 +116,7 @@ new SezzleBanner({
 
 ### Installer au format HTML
 
-Collez l'extrait de code ici [https://github.com/sezzle/static-widgets/tree/production/src/sezzle-home-banner/sezzle-home-banner.html] à l'endroit où la bannière doit apparaître, par exemple sous `</header>`.
+Collez l'extrait de code [ici](https://github.com/sezzle/static-widgets/tree/production/src/sezzle-home-banner/sezzle-home-banner.html) à l'endroit où la bannière doit apparaître, par exemple sous `</header>`.
 
 #### PERSONNALISATION
 

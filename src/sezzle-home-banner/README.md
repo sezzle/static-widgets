@@ -1,6 +1,6 @@
 # Sezzle Banner
 
-Install a banner to advertise Sezzle in your site header to let shoppers know about this payment method.
+Add a Sezzle banner to your online store to let customers know they can shop now and pay later
 
 ## Installation
 
