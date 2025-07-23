@@ -162,7 +162,7 @@ class SezzleBanner {
                 this.eventLogger.sendEvent(Events.Onclick);
                 e.stopPropagation();
                 e.preventDefault();
-                event.target.id = "sezzle-modal-return";
+                e.target.id = "sezzle-modal-return";
                 this.renderModal();
             }.bind(this)
         );
