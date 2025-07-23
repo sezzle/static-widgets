@@ -249,28 +249,23 @@ class EventLogger {
 }
 
 async function httpRequestWrapper(method, url, body = null) {
-    return new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest();
-        xhr.open(method, url, true);
+    try {
+        const options = {
+            method,
+            headers: {},
+        };
         if (body !== null) {
-            xhr.setRequestHeader("Content-Type", "application/json");
+            options.headers["Content-Type"] = "application/json";
+            options.body = JSON.stringify(body);
         }
-        xhr.onload = function () {
-            if (this.status >= 200 && this.status < 300) {
-                resolve(xhr.response);
-            } else {
-                reject(
-                    new Error("Something went wrong, contact the Sezzle team!")
-                );
-            }
-        };
-        xhr.onerror = function () {
-            reject(new Error("Something went wrong, contact the Sezzle team!"));
-        };
-        body === null ? xhr.send() : xhr.send(JSON.stringify(body));
-    }).catch(function (e) {
+        const response = await fetch(url, options);
+        if (!response.ok) {
+            throw new Error("Something went wrong, contact the Sezzle team!");
+        }
+        return await response.text();
+    } catch (e) {
         console.log(e.message);
-    });
+    }
 }
 
 export default SezzleBanner;
