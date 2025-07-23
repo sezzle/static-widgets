@@ -26,7 +26,11 @@ if (!projectId) {
 const lokaliseApi = new LokaliseApi({ apiKey });
 
 function sendToLokalise(fileType) {
-    const filepath = `${filePaths[fileType] || filePaths[widget]}/${locale}.json`;
+    if(!filePaths[fileType]){
+        console.log(`File type ${fileType} is not defined in filePaths`);
+        return;
+    }
+    const filepath = `${filePaths[fileType]}/${locale}.json`;
     console.log("Used translation file to upload: ", filepath);
 
     const file = fs.readFileSync(filepath);
