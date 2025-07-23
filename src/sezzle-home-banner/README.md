@@ -36,7 +36,7 @@ Select the implementation that fits your needs:
 <div id="sezzle-banner-render-reference"></div>
 <script>
 new SezzleBanner({
-    merchantUUID: "enter ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
+    merchantUUID: "enter merchant ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
     theme: "indigo",  <!-- Options: "indigo" and "black" -->
     renderToContainer: "#sezzle-banner-render-reference", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
 }).init();
@@ -63,7 +63,7 @@ new SezzleBanner({
 <div id="sezzle-banner-render-reference"></div>
 <script>
 new SezzleBanner({
-    merchantUUID: "enter ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
+    merchantUUID: "enter merchant ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
     theme: "indigo",  <!-- Options: "indigo" and "black" -->
     renderToContainer: "#sezzle-banner-render-reference", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
 }).init();
@@ -95,7 +95,7 @@ Paste the following where the banner should appear, such as below `</header>` an
 <div id="sezzle-banner-render-reference"></div>
 <script>
 new SezzleBanner({
-    merchantUUID: "enter ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
+    merchantUUID: "enter merchant ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
     theme: "indigo",  <!-- Options: "indigo" and "black" -->
     renderToContainer: "#sezzle-banner-render-reference", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
 }).init();
@@ -114,7 +114,7 @@ Paste the following where the banner should appear, such as below `</header>`, t
 <div id="sezzle-banner-render-reference"></div>
 <script>
 new SezzleBanner({
-    merchantUUID: "enter ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
+    merchantUUID: "enter merchant ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
     theme: "indigo",  <!-- Options: "indigo" and "black" -->
     renderToContainer: "#sezzle-banner-render-reference", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
 }).init();
