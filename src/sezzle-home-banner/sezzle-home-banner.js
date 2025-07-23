@@ -77,6 +77,12 @@ class SezzleBanner {
                 });
             }
         );
+        // prevent modal close on modal body click
+        let sezzleModal = document.querySelector("#sezzle-modal-core-content");
+        sezzleModal?.addEventListener("click", (event) => {
+                event.stopPropagation()
+            }
+        );
     }
 
     executeModalScript() {
@@ -100,7 +106,6 @@ class SezzleBanner {
             const modalNodeContent = document.getElementById(
                 "sezzle-modal-core-content"
             )
-            console.log(modalNodeContent?.innerHTML);
             if(modalNodeContent?.innerHTML){
                 return;
             };
