@@ -34,6 +34,7 @@ $font-family: "Satoshi", sans-serif;
 			display: inline;
 			color: $font-color;
 			text-decoration-line: underline;
+			cursor: pointer;
 			&:hover {
 				color: #D1B2F8;
 			}
