@@ -28,7 +28,11 @@ const filePaths = {
 };
 
 function pullTranslations(fileType){
-    const basePath = filePaths[fileType] || "src/translations";
+    const basePath = filePaths[fileType];
+    if (!basePath) {
+        console.log(`File type ${fileType} is not defined in filePaths`);
+        return;
+    }
     const pathToDownloadFile = `${basePath}/${tmpFileName}`;
     console.log("Start download translation files");
     lokaliseApi
