@@ -27,8 +27,7 @@ class SezzleBanner {
             options.renderToContainer || "#sezzle-button-render-reference";
         this.eventLogger = new EventLogger({
             merchantUUID: options.merchantUUID,
-            widgetServerBaseUrl:
-                options.widgetServerBaseUrl || "https://widget.sezzle.com",
+            widgetServerBaseUrl: "https://widget.sezzle.com",
         });
     }
 
@@ -233,9 +232,7 @@ class SezzleBanner {
 class EventLogger {
     constructor(options) {
         this.merchantUUID = options.merchantUUID || "";
-        this.widgetServerEventLogEndpoint = options.widgetServerBaseUrl
-            ? `${options.widgetServerBaseUrl}/v1/event/log`
-            : "https://widget.sezzle.com/v1/event/log";
+        this.widgetServerEventLogEndpoint = "https://widget.sezzle.com/v1/event/log";
     }
 
     sendEvent(eventName, description = "") {
