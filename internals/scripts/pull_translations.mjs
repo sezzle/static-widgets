@@ -28,57 +28,55 @@ const filePaths = {
 };
 
 function pullTranslations(fileType){
-    console.log(fileType)
-const basePath = filePaths[fileType] || "src/translations";
-console.log(basePath)
-const pathToDownloadFile = `${basePath}/${tmpFileName}`;
-console.log("Start download translation files");
-lokaliseApi
-    .files()
-    .download(projectId, {
-        format: "json",
-        bundle_structure: "%LANG_ISO%.json",
-        placeholder_format: "icu",
-        original_filenames: false,
-        directory_prefix: `${basePath}/`,
-        add_newline_eof: true,
-        json_unescaped_slashes: true,
-        indentation: "4sp",
-        filter_filenames: [
-            `${basePath}/%LANG_ISO%.json`,
-        ],
-    })
-    .then((response) =>
-        // download zip file by URL which was returned from localise
-        downloadFile(response.bundle_url, pathToDownloadFile)
-    )
-    .then((resultFilePath) => {
-        const resultFile = new AdmZip(resultFilePath);
+    const basePath = filePaths[fileType] || "src/translations";
+    const pathToDownloadFile = `${basePath}/${tmpFileName}`;
+    console.log("Start download translation files");
+    lokaliseApi
+        .files()
+        .download(projectId, {
+            format: "json",
+            bundle_structure: "%LANG_ISO%.json",
+            placeholder_format: "icu",
+            original_filenames: false,
+            directory_prefix: `${basePath}/`,
+            add_newline_eof: true,
+            json_unescaped_slashes: true,
+            indentation: "4sp",
+            filter_filenames: [
+                `${basePath}/%LANG_ISO%.json`,
+            ],
+        })
+        .then((response) =>
+            // download zip file by URL which was returned from localise
+            downloadFile(response.bundle_url, pathToDownloadFile)
+        )
+        .then((resultFilePath) => {
+            const resultFile = new AdmZip(resultFilePath);
 
-        try {
-            // extract files to the directory
-            resultFile.extractAllTo(basePath, true);
-            console.log(
-                "🎉 🎉 🎉 🎉  Translation files were downloaded successfully"
-            );
-        } catch (err) {
-            console.error(err);
-        } finally {
-            // remove zip file
-            fs.unlink(resultFilePath, (err) => {
-                if (err) {
-                    console.error(err);
-                }
-            });
-        }
-    })
-    .then((_) => {
-        formatFrenchTranslationFiles(basePath);
-        formatSpanishTranslationFiles(basePath);
-    })
-    .catch((reason) => {
-        console.error(reason);
-    });
+            try {
+                // extract files to the directory
+                resultFile.extractAllTo(basePath, true);
+                console.log(
+                    "🎉 🎉 🎉 🎉  Translation files were downloaded successfully"
+                );
+            } catch (err) {
+                console.error(err);
+            } finally {
+                // remove zip file
+                fs.unlink(resultFilePath, (err) => {
+                    if (err) {
+                        console.error(err);
+                    }
+                });
+            }
+        })
+        .then((_) => {
+            formatFrenchTranslationFiles(basePath);
+            formatSpanishTranslationFiles(basePath);
+        })
+        .catch((reason) => {
+            console.error(reason);
+        });
 }
 
 function downloadFile(url, dest) {
