@@ -5,7 +5,7 @@
     "main": "src/awesomeSezzle.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 0",
-        "build": "npm run build-widget && npm run build-button",
+        "build": "npm run build-widget && npm run build-button && npm run build-banner",
         "build-button": "webpack --mode production --config webpack/shopify-checkout-button.config.js",
         "build-banner": "webpack --mode production --config webpack/sezzle-home-banner.config.js",
         "build-widget": "webpack --mode production --config webpack/webpack.config.js",

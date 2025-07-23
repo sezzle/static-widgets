@@ -11,12 +11,12 @@ module.exports = {
         ],
     },
     output: {
-        path: path.resolve(path.join(__dirname, ".."), "build"),
+        path: path.resolve(path.join(__dirname, ".."), "build/banner"),
         filename: "[name].js",
         libraryTarget: "var",
         library: "SezzleBanner",
         libraryExport: "default",
-        publicPath: "/build/",
+        publicPath: "/build/banner",
     },
     target: ["web", "es5"],
     module: {

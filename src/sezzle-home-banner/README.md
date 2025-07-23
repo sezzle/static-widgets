@@ -32,7 +32,7 @@ Select the implementation that fits your needs:
  - [Find it here](https://dashboard.sezzle.com/merchant/settings/business)
 
 ```
-{{ "//checkout-sdk.sezzle.com/sezzle-home-banner.min.js" | script_tag }}
+{{ "//checkout-sdk.sezzle.com/banner/sezzle-home-banner.min.js" | script_tag }}
 <div id="sezzle-banner-render-reference"></div>
 <script>
 new SezzleBanner({
@@ -91,7 +91,7 @@ Paste the following where the banner should appear, such as below `</header>` an
  - [Find it here](https://dashboard.sezzle.com/merchant/settings/business)
 
 ```
-<script src="https://checkout-sdk.sezzle.com/sezzle-home-banner.min.js"></script>
+<script src="https://checkout-sdk.sezzle.com/banner/sezzle-home-banner.min.js"></script>
 <div id="sezzle-banner-render-reference"></div>
 <script>
 new SezzleBanner({
