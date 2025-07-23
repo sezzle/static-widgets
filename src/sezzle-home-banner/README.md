@@ -26,8 +26,10 @@ Select the implementation that fits your needs:
 1. Log in to your Shopify Admin
 1. Go to `Online Store` > `Themes`
 1. Next to the applicable theme, click `Actions` then `Edit Code`
-1. Paste the following snippet into the `sections/header.liquid` file where the banner should appear, update the `merchantUUID` value, then click `Save`
+1. Paste the following snippet into the `sections/header.liquid` file where the banner should appear
  - Note: this is typically below the `header` or `sticky-header` closing tag. Open the file, then search (Cmd+F or Ctrl+F) for the word "sticky-header"
+1. Update the `merchantUUID` value, then click `Save`
+ - [Find it here](https://dashboard.sezzle.com/merchant/settings/business)
 
 ```
 {{ "//checkout-sdk.sezzle.com/sezzle-home-banner.min.js" | script_tag }}
@@ -51,8 +53,10 @@ new SezzleBanner({
 1. Click `Create a Blank File`, name the section `sezzle-home-banner`, select `.js` as the file type, then click `Add Asset`
 1. In the Assets folder, select the asset you just created (you may need to scroll, files are not in alphabetical order).
 1. Overwrite the asset template with the code contents here: `static-widgets/build/sezzle-home-banner.js`, then click `Save`.
-1. Paste the following snippet into the `sections/header.liquid` file where the banner should appear, update the `merchantUUID` value, then click `Save`:
+1. Paste the following snippet into the `sections/header.liquid` file where the banner should appear:
  - Note: this is typically below the `header` or `sticky-header` closing tag. Open the file, then search (Cmd+F or Ctrl+F) for the word "sticky-header"
+1. Update the `merchantUUID` value, then click `Save`
+ - [Find it here](https://dashboard.sezzle.com/merchant/settings/business)
 
 ```
 {{ "sezzle-home-banner.js" | asset_url | script_tag }}
@@ -84,6 +88,7 @@ new SezzleBanner({
 ### From CDN
 
 Paste the following where the banner should appear, such as below `</header>` and update the `merchantUUID` value
+ - [Find it here](https://dashboard.sezzle.com/merchant/settings/business)
 
 ```
 <script src="https://checkout-sdk.sezzle.com/sezzle-home-banner.min.js"></script>
@@ -102,6 +107,7 @@ new SezzleBanner({
 Clone/pull down the [Static-Widgets](https://github.com/sezzle/static-widgets/) project, then run `npm run build-banner`
 Create a new .js file and populate it with the code contents from here: `static-widgets/build/sezzle-home-banner.js`
 Paste the following where the banner should appear, such as below `</header>`, then update the file path and `merchantUUID` value
+ - [Find it here](https://dashboard.sezzle.com/merchant/settings/business)
 
 ```
 <script src="YOUR_FILE_PATH_HERE.js"></script>
