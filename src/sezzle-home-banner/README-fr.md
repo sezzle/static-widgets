@@ -7,13 +7,13 @@ Ajoutez une bannière Sezzle à votre boutique en ligne pour faire savoir aux cl
 Sélectionnez l'implémentation qui correspond à vos besoins :
 
 ### Shopify :
-- [Ressource du CDN](#from-cdn)
-- [Ressource en tant que fichier local](#local-file)
-- [HTML brut](#install-as-html)
+- [Ressource du CDN](#depuis-le-cdn)
+- [Ressource en tant que fichier local](#fichier-local)
+- [HTML brut](#installer-au-format-html)
 ### Toutes les plateformes :
-- [Ressource du CDN](#from-cdn-2)
-- [Ressource en tant que fichier local](#local-file-2)
-- [HTML brut](#install-as-html-2)
+- [Ressource du CDN](#depuis-un-cdn)
+- [Ressource en tant que fichier local](#fichier-local-1)
+- [HTML brut](#installer-au-format-html-1)
 
 ---
 

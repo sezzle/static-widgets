@@ -11,9 +11,9 @@ Select the implementation that fits your needs:
     - [Asset as Local File](#local-file)
     - [Plain HTML](#install-as-html)
 ### All Platforms:
-    - [Asset from CDN](#from-cdn-2)
-    - [Asset as Local File](#local-file-2)
-    - [Plain HTML](#install-as-html-2)
+    - [Asset from CDN](#from-cdn-1)
+    - [Asset as Local File](#local-file-1)
+    - [Plain HTML](#install-as-html-1)
 
 ---
 
