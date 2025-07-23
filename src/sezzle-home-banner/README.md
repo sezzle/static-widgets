@@ -7,13 +7,13 @@ Add a Sezzle banner to your online store to let customers know they can shop now
 Select the implementation that fits your needs:
 
 ### Shopify:
-    - [Asset from CDN](#from-cdn)
-    - [Asset as Local File](#local-file)
-    - [Plain HTML](#install-as-html)
+- [Asset from CDN](#from-cdn)
+- [Asset as Local File](#local-file)
+- [Plain HTML](#install-as-html)
 ### All Platforms:
-    - [Asset from CDN](#from-cdn-1)
-    - [Asset as Local File](#local-file-1)
-    - [Plain HTML](#install-as-html-1)
+- [Asset from CDN](#from-cdn-1)
+- [Asset as Local File](#local-file-1)
+- [Plain HTML](#install-as-html-1)
 
 ---
 
