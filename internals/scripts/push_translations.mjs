@@ -4,12 +4,12 @@ import { Headers } from "node-fetch";
 
 global.Headers = Headers;
 
-const basePath = "src/translations";
-const buttonBasePath = "src/sezzle-checkout-button/translations";
+const filePaths = {
+    widget: "src/translations",
+    button: "src/sezzle-checkout-button/translations",
+    banner: "src/sezzle-home-banner/translations",
+};
 const locale = process.env.LOCALE || "en";
-
-const translationFile = `${basePath}/${locale}.json`;
-const buttonTranslationFile = `${buttonBasePath}/${locale}.json`;
 
 const apiKey = process.env.API_KEY;
 if (!apiKey) {
@@ -25,7 +25,12 @@ if (!projectId) {
 
 const lokaliseApi = new LokaliseApi({ apiKey });
 
-function sendToLokalise(filepath) {
+function sendToLokalise(fileType) {
+    if(!filePaths[fileType]){
+        console.log(`File type ${fileType} is not defined in filePaths`);
+        return;
+    }
+    const filepath = `${filePaths[fileType]}/${locale}.json`;
     console.log("Used translation file to upload: ", filepath);
 
     const file = fs.readFileSync(filepath);
@@ -34,7 +39,7 @@ function sendToLokalise(filepath) {
         .files()
         .upload(projectId, {
             data: file.toString("base64"),
-            filename: `${filepath.indexOf('button') > -1 ? buttonBasePath : basePath}/${locale}.json`,
+            filename: filepath,
             lang_iso: locale,
             original_filenames: true,
             convert_placeholders: false,
@@ -48,5 +53,6 @@ function sendToLokalise(filepath) {
         });
 }
 
-sendToLokalise(translationFile);
-sendToLokalise(buttonTranslationFile);
+sendToLokalise('widget');
+sendToLokalise('button');
+sendToLokalise('banner');
