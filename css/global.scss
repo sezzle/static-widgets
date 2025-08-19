@@ -162,21 +162,20 @@
     }
 
     // Alignments
-    .sezzle-checkout-button-wrapper {
-        &.sezzle-left {
-            text-align: left;
-            float: left;
-        }
 
-        &.sezzle-center {
-            text-align: center;
-            float: none;
-        }
+    &.sezzle-left {
+        text-align: left;
+        float: left;
+    }
 
-        &.sezzle-right {
-            text-align: right;
-            float: right;
-        }
+    &.sezzle-center {
+        text-align: center;
+        float: none;
+    }
+
+    &.sezzle-right {
+        text-align: right;
+        float: right;
     }
 }
 
