@@ -115,16 +115,16 @@ class AwesomeSezzle {
     }
     switch (newAlignment || this.alignment) {
       case "left":
-        this.renderElement.children[0].children[0].classList.add("sezzle-left");
+        this.renderElement.children[0].classList.add("sezzle-left");
         break;
       case "right":
-        this.renderElement.children[0].children[0].classList.add(
-          "sezzle-right"
+        this.renderElement.children[0].classList.add(
+            "sezzle-right"
         );
         break;
       case "center":
-        this.renderElement.children[0].children[0].classList.add(
-          "sezzle-center"
+        this.renderElement.children[0].classList.add(
+            "sezzle-center"
         );
       default:
         break;
