@@ -620,7 +620,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
                 modalNode.style.display = "none";
                 modalNode.role = "dialog";
                 modalNode.style.maxHeight = "100%";
-                modalNode.lang = language;
+                modalNode.lang = this.language;
                 document.querySelector("body").appendChild(modalNode);
                 return modalNode;
             }
