@@ -300,7 +300,7 @@ Une fois le rendu du widget, des configurations supplémentaires peuvent être a
 
 **objetif**: Contenu texte du widget. Modifie également la disposition du prix, du logo et de l'icône d'informations/en savoir plus dans le widget.
 **Type**: chaîne, ou objet
-**Défaut**: {en: 'or 4 interest-free payments of %%price%% with %%logo%% %%info%%', fr: 'ou 4 paiements de %%price%% sans intérêts avec %%logo%% %%info%%'}
+**Défaut**: {en: 'or payments of %%price%% with %%logo%% %%info%%', fr: 'ou 4 paiements de %%price%% sans intérêts avec %%logo%% %%info%%'}
 **Détails supplémentaires**: Les modèles disponibles incluent `%%price%%` (prix), `%%logo%%`, `%%link%%` (lien), `%%info%%`, `%%question-mark%%` (point d'interrogation), `%%line-break%%` (saut de ligne), `%%afterpay-logo%%`, `%%afterpay-logo-black%%` (logo afterpay-noir), `%%afterpay-logo-grey%%` (logo afterpay-gris), `%%afterpay-logo-white%%` (logo afterpay-blanc), `%%afterpay-info-icon%%` (icône info afterpay), `%%afterpay-link-icon%%` (icône de lien afterpay), `%%quadpay-logo%%`, `%%quadpay-logo-grey%%` (logo quadpay-gris), `%%quadpay-logo-white%%` (logo quadpay-blanc), `%%quadpay-info-icon%%` (icône info quadpay), `%%affirm-logo%%`, `%%affirm-logo-grey%%` (affirm logo gris), `%%affirm-logo-white%%` (affirm logo blanc), `%%affirm-info-icon%%` (info icône affirm), `%%klarna-logo%%`, `%%klarna-logo-grey%%` (klarna logo gris), `%%klarna-logo-white%%` (klarna logo blanc), `%%klarna-info-icon%%` (icône info klarna), `%%cash-app-afterpay-logo%%`, `%%cash-app-afterpay-logo-black%%` (logo cash app afterpay noir), `%%cash-app-afterpay-info-icon%%` (icône info cash app afterpay).
 
 `ineligibleWidgetTemplate` (Modèle de widget inéligible, optional)

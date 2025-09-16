@@ -139,7 +139,7 @@ Once the widget is rendering, additional configurations can be added to the Awes
     parseMode: "default",
     merchantLocale: "North America",
     ineligibleWidgetTemplate:
-      "%%logo%% Pay in 4 interest-free payments on purchases $35-$2,500. %%info%%",
+      "%%logo%% Pay in 4 payments on purchases $35-$2,500. %%info%%",
     minPrice: 3500, // Amount in cents
     maxPrice: 250000, // Amount in cents
   });
@@ -310,7 +310,7 @@ Once the widget is rendering, additional configurations can be added to the Awes
 
 **Purpose**: Text content of the widget. Also changes the arrangement of price, logo, and the info/learn-more icon within the widget.
 **Type**: string, or object
-**Default**: {en: 'or 4 interest-free payments of %%price%% with %%logo%% %%info%%', fr: 'ou 4 paiements de %%price%% sans intérêts avec %%logo%% %%info%%'}
+**Default**: {en: 'or 4 payments of %%price%% with %%logo%% %%info%%', fr: 'ou 4 paiements de %%price%% sans intérêts avec %%logo%% %%info%%'}
 **Additional Details**: Available templates include `%%price%%`, `%%logo%%`, `%%link%%`, `%%info%%`, `%%question-mark%%`, `%%line-break%%`, `%%afterpay-logo%%`, `%%afterpay-logo-black%%`, `%%afterpay-logo-grey%%`, `%%afterpay-logo-white%%`, `%%afterpay-info-icon%%`, `%%afterpay-link-icon%%`, `%%quadpay-logo%%`, `%%quadpay-logo-grey%%`, `%%quadpay-logo-white%%`, `%%quadpay-info-icon%%`, `%%affirm-logo%%`, `%%affirm-logo-grey%%`, `%%affirm-logo-white%%`, `%%affirm-info-icon%%`, `%%klarna-logo%%`, `%%klarna-logo-grey%%`, `%%klarna-logo-white%%`, `%%klarna-info-icon%%`, `%%cash-app-afterpay-logo%%`, `%%cash-app-afterpay-logo-black%%`, `%%cash-app-afterpay-info-icon%%`.
 
 `ineligibleWidgetTemplate` (optional)
@@ -453,7 +453,7 @@ The following functions are built into the static widget and are ready for use f
 ```js
 document.onchange = function () {
   renderSezzle.updateWidgetTemplate(
-    "%%logo%% Pay in 4 interest-free payments on purchases greater than $50. %%info%%"
+    "%%logo%% Pay in 4 payments on purchases greater than $50. %%info%%"
   );
 };
 ```
