@@ -62,10 +62,10 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
 
 	var installmentBox = document.querySelector('#sezzle-installment-widget-box');
 	if (!installmentBox.querySelector('.sezzle-payment-schedule-container')) {
-		// creates stylesheet for widget and modal
-		// TODO: check all stylesheets and event listeners to ensure they will not conflict with local stylesheet or regular Sezzle widget!
+        // creates stylesheet for widget and modal
+        // TODO: check all stylesheets and event listeners to ensure they will not conflict with local stylesheet or regular Sezzle widget!
 		var sezzleStyle = document.createElement('style');
-		sezzleStyle.innerHTML = `@import url("https://fonts.googleapis.com/css?family=Comfortaa");
+        sezzleStyle.innerHTML = `@import url("https://fonts.googleapis.com/css?family=Comfortaa");
 		#sezzle-installment-widget-box button {
 			display: inline;
 			border: none;
@@ -322,23 +322,24 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
 			}
 		}
 		`;
-		installmentBox.appendChild(sezzleStyle);
+        installmentBox.appendChild(sezzleStyle);
 
-		// creates the wrapper
-		var installmentContainer = document.createElement('div');
-		installmentContainer.className = 'sezzle-payment-schedule-container';
-		installmentBox.appendChild(installmentContainer);
+        // creates the wrapper
+        var installmentContainer = document.createElement("div");
+        installmentContainer.className = "sezzle-payment-schedule-container";
+        installmentBox.appendChild(installmentContainer);
 
-		// creates the intro verbiage
-		var installmentWidget = document.createElement('div');
-		installmentWidget.className = 'sezzle-installment-widget';
-		installmentContainer.appendChild(installmentWidget);
-		installmentWidget.innerHTML = translation[language].installmentWidget[interval];
-		installmentWidget.tabIndex = 0;
+        // creates the intro verbiage
+        var installmentWidget = document.createElement("div");
+        installmentWidget.className = "sezzle-installment-widget";
+        installmentContainer.appendChild(installmentWidget);
+        installmentWidget.innerHTML =
+            translation[language].installmentWidget[interval];
+        installmentWidget.tabIndex = 0;
 
-		// creates the pie graphic
-		var sezzlePie = document.createElement('div');
-		sezzlePie.className = 'sezzle-payment-pie';
+        // creates the pie graphic
+        var sezzlePie = document.createElement("div");
+        sezzlePie.className = "sezzle-payment-pie";
         sezzlePie.innerHTML = `<svg width="311" height="156" viewBox="0 0 311 156" fill="none" xmlns="http://www.w3.org/2000/svg">
 <rect width="311" height="156" rx="16" fill="#8333D4" fill-opacity="0.05"/>
 <rect x="17" y="17" width="73" height="122" rx="8" fill="white"/>
@@ -356,137 +357,164 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
 <path d="M274.5 53C274.5 64.0457 265.546 73 254.5 73C243.454 73 234.5 64.0457 234.5 53C234.5 41.9543 243.454 33 254.5 33C265.546 33 274.5 41.9543 274.5 53ZM244.5 53C244.5 58.5228 248.977 63 254.5 63C260.023 63 264.5 58.5228 264.5 53C264.5 47.4772 260.023 43 254.5 43C248.977 43 244.5 47.4772 244.5 53Z" fill="#8333D4"/>
 </svg>
 `;
-		installmentContainer.appendChild(sezzlePie);
-		sezzlePie.title = translation[language].paymentPieTitle
+        installmentContainer.appendChild(sezzlePie);
+        sezzlePie.title = translation[language].paymentPieTitle;
 
-		// creates container to receive the installment prices
-		var installmentPriceContainer = document.createElement('div');
-		installmentPriceContainer.className = 'sezzle-payment-schedule-prices';
-		installmentContainer.appendChild(installmentPriceContainer);
+        // creates container to receive the installment prices
+        var installmentPriceContainer = document.createElement("div");
+        installmentPriceContainer.className = "sezzle-payment-schedule-prices";
+        installmentContainer.appendChild(installmentPriceContainer);
 
-		// checks if character is numeric
-		function isNumeric(n) {
-			return !isNaN(parseFloat(n)) && isFinite(n);
-		}
+        // checks if character is numeric
+        function isNumeric(n) {
+            return !isNaN(parseFloat(n)) && isFinite(n);
+        }
 
-		function isAlphabet(n) {
-			return /^[a-zA-Z()]+$/.test(n)
-		}
+        function isAlphabet(n) {
+            return /^[a-zA-Z()]+$/.test(n);
+        }
 
-		function currencyType(priceText) {
-			var currency = '';
-			if (currencySymbol) {
-				currency = currencySymbol;
-			} else {
-				for (var i = 0; i < priceText.length; i++) {
-					if (/[$|€||£|₤|₹]/.test(priceText[i])) {
-						currency = priceText[i];
-					};
-					// use this instead if on ISO-8859-1, expanding to include any applicable currencies
-					// https://html-css-js.com/html/character-codes/currency/
-					// if(priceText[i] == String.fromCharCode(8364)){ //€ = 8364, 128 = , 163 = £, 8377 = ₹
-					// 	currency = String.fromCharCode(8364)
-					// }
-				}
-			}
-			return currency || '$';
-		}
+        function currencyType(priceText) {
+            var currency = "";
+            if (currencySymbol) {
+                currency = currencySymbol;
+            } else {
+                for (var i = 0; i < priceText.length; i++) {
+                    if (/[$|€||£|₤|₹]/.test(priceText[i])) {
+                        currency = priceText[i];
+                    }
+                    // use this instead if on ISO-8859-1, expanding to include any applicable currencies
+                    // https://html-css-js.com/html/character-codes/currency/
+                    // if(priceText[i] == String.fromCharCode(8364)){ //€ = 8364, 128 = , 163 = £, 8377 = ₹
+                    // 	currency = String.fromCharCode(8364)
+                    // }
+                }
+            }
+            return currency || "$";
+        }
 
+        // checks if price is comma (fr) format or period (en)
+        function commaDelimited(priceText) {
+            var priceOnly = "";
+            for (var i = 0; i < priceText.length; i++) {
+                if (
+                    isNumeric(priceText[i]) ||
+                    priceText[i] === "." ||
+                    priceText[i] === ","
+                ) {
+                    priceOnly += priceText[i];
+                }
+            }
+            var isComma = false;
+            if (priceOnly.indexOf(",") > -1 && priceOnly.indexOf(".") > -1) {
+                isComma = priceOnly.indexOf(",") > priceOnly.indexOf(".");
+            } else if (priceOnly.indexOf(",") > -1) {
+                isComma = priceOnly[priceOnly.length - 3] === ",";
+            } else if (priceOnly.indexOf(".") > -1) {
+                isComma = priceOnly[priceOnly.length - 3] !== ".";
+            } else {
+                isComma = false;
+            }
+            return isComma;
+        }
 
-		// checks if price is comma (fr) format or period (en)
-		function commaDelimited(priceText) {
-			var priceOnly = '';
-			for (var i = 0; i < priceText.length; i++) {
-				if (isNumeric(priceText[i]) || priceText[i] === '.' || priceText[i] === ',') {
-					priceOnly += priceText[i];
-				}
-			}
-			var isComma = false;
-			if (priceOnly.indexOf(',') > -1 && priceOnly.indexOf('.') > -1) {
-				isComma = priceOnly.indexOf(',') > priceOnly.indexOf('.');
-			} else if (priceOnly.indexOf(',') > -1) {
-				isComma = priceOnly[priceOnly.length - 3] === ',';
-			} else if (priceOnly.indexOf('.') > -1) {
-				isComma = priceOnly[priceOnly.length - 3] !== '.';
-			} else {
-				isComma = false;
-			}
-			return isComma;
-		}
+        // parses the checkout total text to numerical digits only
+        function parsePriceString(price, includeComma) {
+            var formattedPrice = "";
+            for (var i = 0; i < price.length; i++) {
+                if (
+                    isNumeric(price[i]) ||
+                    (!includeComma && price[i] === ".") ||
+                    (includeComma && price[i] === ",")
+                ) {
+                    // If current is a . and previous is a character, it can be something like Rs, ignore it
+                    if (i > 0 && price[i] === "." && isAlphabet(price[i - 1]))
+                        continue;
+                    formattedPrice += price[i];
+                }
+            }
+            if (includeComma) {
+                formattedPrice = formattedPrice.replace(",", ".");
+            }
+            return parseFloat(formattedPrice);
+        }
 
-		// parses the checkout total text to numerical digits only
-		function parsePriceString(price, includeComma) {
-			var formattedPrice = '';
-			for (var i = 0; i < price.length; i++) {
-				if (isNumeric(price[i]) || (!includeComma && price[i] === '.') || (includeComma && price[i] === ',')) {
-					// If current is a . and previous is a character, it can be something like Rs, ignore it
-					if (i > 0 && price[i] === '.' && isAlphabet(price[i - 1])) continue;
-					formattedPrice += price[i];
-				}
-			}
-			if (includeComma) {
-				formattedPrice = formattedPrice.replace(',', '.');
-			}
-			return parseFloat(formattedPrice);
-		}
+        // creates the installment price elements
+        function createInstallmentPrice(
+            installmentPrice,
+            includeComma,
+            currency
+        ) {
+            var installmentElement = document.createElement("span");
+            installmentElement.className = "sezzle-installment-amount";
+            installmentElement.tabIndex = 0;
+            installmentElement.innerText =
+                currency +
+                (includeComma
+                    ? installmentPrice.replace(".", ",")
+                    : installmentPrice);
+            document
+                .querySelector(".sezzle-payment-schedule-prices")
+                .appendChild(installmentElement);
+        }
 
-		// creates the installment price elements
-		function createInstallmentPrice(installmentPrice, includeComma, currency) {
-			var installmentElement = document.createElement('span');
-			installmentElement.className = 'sezzle-installment-amount';
-			installmentElement.tabIndex = 0;
-			installmentElement.innerText = currency + (includeComma ? installmentPrice.replace('.', ',') : installmentPrice);
-			document.querySelector('.sezzle-payment-schedule-prices').appendChild(installmentElement);
-		}
+        // calculates installment price from total price element content
+        var totalPriceText = checkoutTotal.innerText;
+        var includeComma = commaDelimited(totalPriceText);
+        var price = parsePriceString(totalPriceText, includeComma);
+        var currency = currencyType(totalPriceText);
+        var installmentAmount = (price / 4).toFixed(2);
+        for (var i = 0; i < 3; i++) {
+            createInstallmentPrice(installmentAmount, includeComma, currency);
+        }
+        // creates final installment as installment price + remainder if not divisible by 4
+        var finalInstallmentAmount = (price - installmentAmount * 3).toFixed(2);
+        createInstallmentPrice(finalInstallmentAmount, includeComma, currency);
 
-		// calculates installment price from total price element content
-		var totalPriceText = checkoutTotal.innerText;
-		var includeComma = commaDelimited(totalPriceText);
-		var price = parsePriceString(totalPriceText, includeComma);
-		var currency = currencyType(totalPriceText);
-		var installmentAmount = (price / 4).toFixed(2);
-		for (var i = 0; i < 3; i++) {
-			createInstallmentPrice(installmentAmount, includeComma, currency);
-		}
-		// creates final installment as installment price + remainder if not divisible by 4
-		var finalInstallmentAmount = (price - installmentAmount * 3).toFixed(2);
-		createInstallmentPrice(finalInstallmentAmount, includeComma, currency);
+        // creates container to receive the installment dates
+        var installmentPlanContainer = document.createElement("div");
+        installmentPlanContainer.className =
+            "sezzle-payment-schedule-frequency";
+        installmentContainer.appendChild(installmentPlanContainer);
 
-		// creates container to receive the installment dates
-		var installmentPlanContainer = document.createElement('div');
-		installmentPlanContainer.className = 'sezzle-payment-schedule-frequency';
-		installmentContainer.appendChild(installmentPlanContainer);
+        // creates the installment date elements
+        function createPaymentPlan(date, i) {
+            var installmentElement = document.querySelectorAll(
+                ".sezzle-installment-amount"
+            );
+            installmentElement[i].innerText =
+                installmentElement[i].innerText + "\n" + date;
+        }
 
-		// creates the installment date elements
-		function createPaymentPlan(date, i) {
-			var installmentElement = document.querySelectorAll(".sezzle-installment-amount")
-			installmentElement[i].innerText = installmentElement[i].innerText + "\n" + date;
-		}
+        // parses today's date to calculate each installment date
+        // TODO: french date translation
+        var todaysDate = new Date();
+        for (var i = 0; i < 4; i++) {
+            if (i === 0) {
+                createPaymentPlan(translation[language].today, i);
+            } else if (i > 0) {
+                var installmentDate = new Date(
+                    todaysDate.setDate(todaysDate.getDate() + interval)
+                ).toLocaleDateString(language, {
+                    month: "short",
+                    day: "numeric",
+                });
+                createPaymentPlan(installmentDate, i);
+            }
+        }
 
-		// parses today's date to calculate each installment date
-		// TODO: french date translation
-		var todaysDate = new Date();
-		for (var i = 0; i < 4; i++) {
-			if (i === 0) {
-				createPaymentPlan(translation[language].today, i);
-			} else if (i > 0) {
-				var installmentDate = new Date(todaysDate.setDate(todaysDate.getDate() + interval)).toLocaleDateString(language, { month: 'short', day: 'numeric' });
-				createPaymentPlan(installmentDate, i);
-			}
-		}
-
-		// creates the info icon to open the modal
-		var infoIcon = document.createElement('button');
-		infoIcon.className = 'sezzle-installment-info-icon';
-		infoIcon.type = 'button';
-		infoIcon.title = translation[language].infoIcon;
-		infoIcon.innerHTML = '&#9432;';
-		infoIcon.tabIndex = 0
-		installmentWidget.appendChild(infoIcon);
+        // creates the info icon to open the modal
+        var infoIcon = document.createElement("button");
+        infoIcon.className = "sezzle-installment-info-icon";
+        infoIcon.type = "button";
+        infoIcon.title = translation[language].infoIcon;
+        infoIcon.innerHTML = "&#9432;";
+        infoIcon.tabIndex = 0;
+        installmentWidget.appendChild(infoIcon);
         infoIcon.addEventListener("click", () => {
             this.renderModal();
         });
-	}
+    }
 }
 
     function disableBodyScroll(disable) {
