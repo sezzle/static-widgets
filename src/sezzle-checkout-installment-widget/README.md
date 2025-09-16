@@ -4,6 +4,12 @@ This product will display the installment amounts and payment dates on the check
 
 ## INSTALLATION
 
+### React Method
+
+Please refer to the instructions on [NPM](https://www.npmjs.com/package/@sezzle/sezzle-installment-widget) for React package installment
+
+### Javascript Method
+
 1. Create a copy of `src/sezzle-checkout-installment-widget/sezzle-checkout-installment-widget.js` within your store
 
 2.a (recommended) Add the following script to inject the placeholder element dynamically
