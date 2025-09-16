@@ -117,14 +117,14 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
 		#sezzle-installment-widget-box {
 			background: #fafafa;
 			width: 100%;
-			height: 210px;
+			height: fit-content;
 			display:flex;
 			justify-content: center;
 			border-top: 1px solid #d9d9d9;
 		}
 		.sezzle-payment-schedule-container {
-			width: 311px;
-			height: 190px;
+			width: fit-content;
+			height: fit-content;
 			padding: 10px 0px;
 		}
 		.sezzle-installment-widget {
@@ -147,38 +147,70 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
 			display: none;
 		}
 		.sezzle-payment-pie {
-			height: 130px;
-			width: 100%;
-			margin: 15px 0px -45px 0px !important;
+			background: rgba(131, 51, 212, .05);
+			border-radius: 11.483px;
+			padding: 12px;
+			width: fit-content;
+			margin-top: 8px;
 		}
-		.sezzle-payment-schedule-prices, .sezzle-payment-schedule-frequency {
-			width: 278px;
+		#sezzle-installment-widget-box .sezzle-pie-area {
 			display: flex;
-			justify-content: space-around;
-			font-family: Comfortaa;
-			padding: 0 16px;
+			align-items: flex-start;
+			justify-content: space-between;
+			gap: 12px;
+  		}
+		#sezzle-installment-widget-box .sezzle-installment-container {
+			display: flex;
+			padding: 8px;
+			flex-direction: row;
+			align-items: flex-start;
+			gap: 8px;
+			border-radius: 11.483px;
+			background: #ffffff;
 		}
-		.sezzle-installment-amount {
-			color: #392558 !important;
-			font-size: 12px !important;
-			font-family: Comfortaa !important;
-			padding-top:5px;
-			width: 25%;
+		#sezzle-installment-widget-box .sezzle-installment-container:first-child {
+			align-items: center;
+		}
+		#sezzle-installment-widget-box .payment-item {
+			display: inline-flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+  			gap: 8px;
+		}
+		#sezzle-installment-widget-box .pie-icon {
+			position: relative;
+		}
+		#sezzle-installment-widget-box .pie-icon svg {
+			width: 45.93px;
+			height: 45.93px;
+		}
+		#sezzle-installment-widget-box .breakdown-row {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			gap: 2.3px;
+		}
+		#sezzle-installment-widget-box .installment-amount {
 			text-align: center;
+			color: #8333d4;
+			font-size: 14px;
+			font-family: Satoshi, "Open Sans", sans-serif;
+			font-weight: 400;
+			line-height: 16px;
+			letter-spacing: 0.17px;
+			word-wrap: break-word;
 		}
-		.sezzle-payment-date {
-			color: #737373 !important;
-			font-size: 9px !important;
-			font-family: Comfortaa !important;
-			width: 25%;
+		#sezzle-installment-widget-box .due-date {
 			text-align: center;
-		}
-		.sezzle-installment-amount:first-child, .sezzle-payment-date:first-child {
-			width: 87px !important;
-    		padding-right: 8px;
-		}
-		.sezzle-installment-amount:last-child, .sezzle-payment-date:last-child {
-			padding-right: 16px;
+			color: #5e5e5e;
+			font-size: 10px;
+			font-family: Satoshi, "Open Sans", sans-serif;
+			font-weight: 400;
+			line-height: 12px;
+			letter-spacing: 0.46px;
+			white-space: nowrap;
 		}
 		.sezzle-modal-open {
 			position: fixed;
@@ -340,23 +372,63 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
         // creates the pie graphic
         var sezzlePie = document.createElement("div");
         sezzlePie.className = "sezzle-payment-pie";
-        sezzlePie.innerHTML = `<svg width="311" height="156" viewBox="0 0 311 156" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="311" height="156" rx="16" fill="#8333D4" fill-opacity="0.05"/>
-<rect x="17" y="17" width="73" height="122" rx="8" fill="white"/>
-<path d="M73 53C73 64.0457 64.0457 73 53 73C41.9543 73 33 64.0457 33 53C33 41.9543 41.9543 33 53 33C64.0457 33 73 41.9543 73 53ZM43 53C43 58.5228 47.4772 63 53 63C58.5228 63 63 58.5228 63 53C63 47.4772 58.5228 43 53 43C47.4772 43 43 47.4772 43 53Z" fill="#8333D4" fill-opacity="0.05"/>
-<path d="M53 33C55.6264 33 58.2272 33.5173 60.6537 34.5224C63.0802 35.5275 65.285 37.0007 67.1421 38.8579C68.9993 40.715 70.4725 42.9198 71.4776 45.3463C72.4827 47.7728 73 50.3736 73 53L63 53C63 51.6868 62.7413 50.3864 62.2388 49.1732C61.7362 47.9599 60.9997 46.8575 60.0711 45.9289C59.1425 45.0003 58.0401 44.2638 56.8268 43.7612C55.6136 43.2587 54.3132 43 53 43L53 33Z" fill="#8333D4"/>
-<path d="M73 53C73 55.7614 70.7614 57.9998 68 57.9998C65.2386 57.9998 63 55.7614 63 53C63 50.2386 65.2386 47.9998 68 47.9998C70.7614 47.9998 73 50.2386 73 53Z" fill="#8333D4"/>
-<circle cx="68" cy="53" r="5" fill="#8333D4"/>
-<rect x="98" y="17" width="196" height="122" rx="8" fill="white"/>
-<path d="M155 53C155 64.0457 146.046 73 135 73C123.954 73 115 64.0457 115 53C115 41.9543 123.954 33 135 33C146.046 33 155 41.9543 155 53ZM125 53C125 58.5228 129.477 63 135 63C140.523 63 145 58.5228 145 53C145 47.4772 140.523 43 135 43C129.477 43 125 47.4772 125 53Z" fill="#8333D4" fill-opacity="0.05"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M155 53C155 64.0457 146.046 73 135 73C132.239 73 130 70.7614 130 68C130 65.2386 132.239 63 135 63C140.523 63 145 58.5228 145 53C145 47.4772 140.523 43 135 43V33C146.046 33 155 41.9543 155 53Z" fill="#8333D4"/>
-<path d="M213.5 53C213.5 64.0457 204.546 73 193.5 73C182.454 73 173.5 64.0457 173.5 53C173.5 41.9543 182.454 33 193.5 33C204.546 33 213.5 41.9543 213.5 53ZM183.5 53C183.5 58.5228 187.977 63 193.5 63C199.023 63 203.5 58.5228 203.5 53C203.5 47.4772 199.023 43 193.5 43C187.977 43 183.5 47.4772 183.5 53Z" fill="#8333D4" fill-opacity="0.05"/>
-<path d="M193.5 33C197.456 33 201.322 34.173 204.611 36.3706C207.9 38.5682 210.464 41.6918 211.978 45.3463C213.491 49.0009 213.887 53.0222 213.116 56.9018C212.344 60.7814 210.439 64.3451 207.642 67.1421C204.845 69.9392 201.281 71.844 197.402 72.6157C193.522 73.3874 189.501 72.9913 185.846 71.4776C182.192 69.9638 179.068 67.4004 176.871 64.1114C174.673 60.8224 173.5 56.9556 173.5 53L183.5 53C183.5 54.9778 184.086 56.9112 185.185 58.5557C186.284 60.2002 187.846 61.4819 189.673 62.2388C191.5 62.9957 193.511 63.1937 195.451 62.8079C197.391 62.422 199.173 61.4696 200.571 60.0711C201.97 58.6725 202.922 56.8907 203.308 54.9509C203.694 53.0111 203.496 51.0004 202.739 49.1732C201.982 47.3459 200.7 45.7841 199.056 44.6853C197.411 43.5865 195.478 43 193.5 43L193.5 33Z" fill="#8333D4"/>
-<path d="M183.5 53C183.5 55.7614 181.261 58 178.5 58C175.739 58 173.5 55.7614 173.5 53C173.5 50.2386 175.739 48 178.5 48C181.261 48 183.5 50.2386 183.5 53Z" fill="#8333D4"/>
-<circle cx="178.5" cy="53" r="5" fill="#8333D4"/>
-<path d="M274.5 53C274.5 64.0457 265.546 73 254.5 73C243.454 73 234.5 64.0457 234.5 53C234.5 41.9543 243.454 33 254.5 33C265.546 33 274.5 41.9543 274.5 53ZM244.5 53C244.5 58.5228 248.977 63 254.5 63C260.023 63 264.5 58.5228 264.5 53C264.5 47.4772 260.023 43 254.5 43C248.977 43 244.5 47.4772 244.5 53Z" fill="#8333D4"/>
-</svg>
-`;
+        sezzlePie.innerHTML = `<div class="sezzle-pie-area">
+			<div class="sezzle-installment-container">
+				<div class="payment-item">
+					<div class="pie-icon" title="pie at 25%">
+						<svg xmlns="http://www.w3.org/2000/svg" width="46" height="47" viewBox="0 0 46 47" fill="none">
+							<path d="M45.9594 23.0996C45.9594 35.7835 35.677 46.0659 22.9931 46.0659C10.3092 46.0659 0.0268555 35.7835 0.0268555 23.0996C0.0268555 10.4157 10.3092 0.133301 22.9931 0.133301C35.677 0.133301 45.9594 10.4157 45.9594 23.0996ZM11.51 23.0996C11.51 29.4415 16.6512 34.5827 22.9931 34.5827C29.3351 34.5827 34.4763 29.4415 34.4763 23.0996C34.4763 16.7576 29.3351 11.6164 22.9931 11.6164C16.6512 11.6164 11.51 16.7576 11.51 23.0996Z" fill="#8333D4" fill-opacity="0.05"></path>
+							<path d="M22.9927 0.133171C26.0086 0.133171 28.9951 0.727215 31.7815 1.88138C34.5679 3.03554 37.0997 4.72722 39.2323 6.85984C41.3649 8.99245 43.0566 11.5242 44.2107 14.3106C45.3649 17.097 45.9589 20.0835 45.9589 23.0994L34.4758 23.0994C34.4758 21.5915 34.1788 20.0982 33.6017 18.705C33.0246 17.3118 32.1788 16.0459 31.1125 14.9796C30.0462 13.9133 28.7803 13.0675 27.3871 12.4904C25.9939 11.9133 24.5007 11.6163 22.9927 11.6163L22.9927 0.133171Z" fill="#8333D4"></path>
+							<path d="M45.9589 23.0994C45.9589 26.2704 43.3884 28.8408 40.2174 28.8408C37.0464 28.8408 34.4758 26.2704 34.4758 23.0994C34.4758 19.9285 37.0464 17.3577 40.2174 17.3577C43.3884 17.3577 45.9589 19.9285 45.9589 23.0994Z" fill="#8333D4"></path>
+							<ellipse cx="40.2181" cy="23.0995" rx="5.74157" ry="5.74157" fill="#8333D4"></ellipse>
+						</svg>
+					</div>
+					<div class="breakdown-row">
+						<div class="installment-amount"></div>
+						<div class="due-date"></div>
+					</div>
+				</div>
+			</div>
+			<div class="sezzle-installment-container">
+				<div class="payment-item">
+					<div class="pie-icon" title="pie at 50%">
+						<svg xmlns="http://www.w3.org/2000/svg" width="47" height="47" viewBox="0 0 47 47" fill="none">
+							<path d="M46.1933 23.0998C46.1933 35.7837 35.9109 46.0661 23.227 46.0661C10.5431 46.0661 0.260742 35.7837 0.260742 23.0998C0.260742 10.4159 10.5431 0.133545 23.227 0.133545C35.9109 0.133545 46.1933 10.4159 46.1933 23.0998ZM11.7439 23.0998C11.7439 29.4418 16.8851 34.583 23.227 34.583C29.569 34.583 34.7101 29.4418 34.7101 23.0998C34.7101 16.7579 29.569 11.6167 23.227 11.6167C16.8851 11.6167 11.7439 16.7579 11.7439 23.0998Z" fill="#8333D4" fill-opacity="0.05"></path>
+							<path fill-rule="evenodd" clip-rule="evenodd" d="M23.2953 46.0655C35.9478 46.0287 46.1933 35.7605 46.1933 23.0993C46.1933 10.4154 35.911 0.133057 23.2271 0.133057V11.6162C29.569 11.6162 34.7102 16.7574 34.7102 23.0993C34.7102 29.4413 29.569 34.5825 23.2271 34.5825V34.5828C20.0562 34.5829 17.4858 37.1535 17.4858 40.3243C17.4858 43.4953 20.0564 46.0659 23.2274 46.0659C23.2501 46.0659 23.2727 46.0658 23.2953 46.0655Z" fill="#8333D4"></path>
+						</svg>
+					</div>
+					<div class="breakdown-row">
+						<div class="installment-amount"></div>
+						<div class="due-date"></div>
+					</div>
+				</div>
+				<div class="payment-item">
+					<div class="pie-icon" title="pie at 75%">
+					<svg xmlns="http://www.w3.org/2000/svg" width="47" height="47" viewBox="0 0 47 47" fill="none">
+						<path d="M46.0663 23.0996C46.0663 35.7835 35.784 46.0659 23.1001 46.0659C10.4161 46.0659 0.133789 35.7835 0.133789 23.0996C0.133789 10.4157 10.4161 0.133301 23.1001 0.133301C35.784 0.133301 46.0663 10.4157 46.0663 23.0996ZM11.6169 23.0996C11.6169 29.4415 16.7581 34.5827 23.1001 34.5827C29.442 34.5827 34.5832 29.4415 34.5832 23.0996C34.5832 16.7576 29.442 11.6164 23.1001 11.6164C16.7581 11.6164 11.6169 16.7576 11.6169 23.0996Z" fill="#8333D4" fill-opacity="0.05"></path>
+						<path d="M23.1001 0.133368C27.6424 0.133368 32.0826 1.48031 35.8594 4.00388C39.6362 6.52745 42.5799 10.1143 44.3181 14.3108C46.0564 18.5074 46.5112 23.1251 45.625 27.5801C44.7389 32.0352 42.5516 36.1274 39.3397 39.3392C36.1278 42.5511 32.0356 44.7385 27.5806 45.6246C23.1255 46.5108 18.5078 46.056 14.3112 44.3177C10.1147 42.5795 6.52787 39.6358 4.0043 35.859C1.48074 32.0822 0.133788 27.6419 0.133788 23.0996L11.6169 23.0996C11.6169 25.3708 12.2904 27.5909 13.5522 29.4793C14.814 31.3677 16.6074 32.8395 18.7057 33.7087C20.8039 34.5778 23.1128 34.8052 25.3403 34.3621C27.5678 33.9191 29.6139 32.8254 31.2199 31.2194C32.8258 29.6135 33.9195 27.5674 34.3625 25.3399C34.8056 23.1124 34.5782 20.8035 33.7091 18.7052C32.84 16.607 31.3681 14.8135 29.4797 13.5518C27.5914 12.29 25.3712 11.6165 23.1001 11.6165L23.1001 0.133368Z" fill="#8333D4"></path>
+						<path d="M11.6169 23.0996C11.6169 26.2706 9.04634 28.8412 5.87536 28.8412C2.70438 28.8412 0.133788 26.2706 0.133788 23.0996C0.133788 19.9287 2.70438 17.3581 5.87536 17.3581C9.04634 17.3581 11.6169 19.9287 11.6169 23.0996Z" fill="#8333D4"></path>
+						<ellipse cx="5.87536" cy="23.0997" rx="5.74157" ry="5.74157" fill="#8333D4"></ellipse>
+					</svg>
+					</div>
+					<div class="breakdown-row">
+						<div class="installment-amount"></div>
+						<div class="due-date">due-date</div>
+					</div>
+				</div>
+				<div class="payment-item">
+					<div class="pie-icon" title="pie at 100%">
+						<svg xmlns="http://www.w3.org/2000/svg" width="47" height="47" viewBox="0 0 47 47" fill="none">
+							<path d="M46.4394 23.0996C46.4394 35.7835 36.157 46.0659 23.4731 46.0659C10.7892 46.0659 0.506836 35.7835 0.506836 23.0996C0.506836 10.4157 10.7892 0.133301 23.4731 0.133301C36.157 0.133301 46.4394 10.4157 46.4394 23.0996ZM11.99 23.0996C11.99 29.4415 17.1311 34.5827 23.4731 34.5827C29.8151 34.5827 34.9562 29.4415 34.9562 23.0996C34.9562 16.7576 29.8151 11.6164 23.4731 11.6164C17.1311 11.6164 11.99 16.7576 11.99 23.0996Z" fill="#8333D4"></path>
+						</svg>
+					</div>
+					<div class="breakdown-row">
+						<div class="installment-amount"></div>
+						<div class="due-date"><sup>3</sup></div>
+					</div>
+				</div>
+			</div>
+		</div>`;
         installmentContainer.appendChild(sezzlePie);
         sezzlePie.title = translation[language].paymentPieTitle;
 
@@ -443,19 +515,14 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
         function createInstallmentPrice(
             installmentPrice,
             includeComma,
-            currency
+            currency,
+            installmentElement
         ) {
-            var installmentElement = document.createElement("span");
-            installmentElement.className = "sezzle-installment-amount";
-            installmentElement.tabIndex = 0;
             installmentElement.innerText =
                 currency +
                 (includeComma
                     ? installmentPrice.replace(".", ",")
                     : installmentPrice);
-            document
-                .querySelector(".sezzle-payment-schedule-prices")
-                .appendChild(installmentElement);
         }
 
         // calculates installment price from total price element content
@@ -464,12 +531,25 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
         var price = parsePriceString(totalPriceText, includeComma);
         var currency = currencyType(totalPriceText);
         var installmentAmount = (price / 4).toFixed(2);
+        const installmentPriceElements = document
+            .querySelector("#sezzle-installment-widget-box")
+            ?.getElementsByClassName("installment-amount");
         for (var i = 0; i < 3; i++) {
-            createInstallmentPrice(installmentAmount, includeComma, currency);
+            createInstallmentPrice(
+                installmentAmount,
+                includeComma,
+                currency,
+                installmentPriceElements[i]
+            );
         }
         // creates final installment as installment price + remainder if not divisible by 4
         var finalInstallmentAmount = (price - installmentAmount * 3).toFixed(2);
-        createInstallmentPrice(finalInstallmentAmount, includeComma, currency);
+        createInstallmentPrice(
+            finalInstallmentAmount,
+            includeComma,
+            currency,
+            installmentPriceElements[3]
+        );
 
         // creates container to receive the installment dates
         var installmentPlanContainer = document.createElement("div");
@@ -478,20 +558,20 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
         installmentContainer.appendChild(installmentPlanContainer);
 
         // creates the installment date elements
-        function createPaymentPlan(date, i) {
-            var installmentElement = document.querySelectorAll(
-                ".sezzle-installment-amount"
-            );
-            installmentElement[i].innerText =
-                installmentElement[i].innerText + "\n" + date;
+        function createPaymentPlan(date, dateElement) {
+            dateElement.innerHTML = date;
         }
 
         // parses today's date to calculate each installment date
         // TODO: french date translation
         var todaysDate = new Date();
+
+        const dateElements = document
+            .querySelector("#sezzle-installment-widget-box")
+            ?.getElementsByClassName("due-date");
         for (var i = 0; i < 4; i++) {
             if (i === 0) {
-                createPaymentPlan(translation[language].today, i);
+                createPaymentPlan(translation[language].today, dateElements[0]);
             } else if (i > 0) {
                 var installmentDate = new Date(
                     todaysDate.setDate(todaysDate.getDate() + interval)
@@ -499,7 +579,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
                     month: "short",
                     day: "numeric",
                 });
-                createPaymentPlan(installmentDate, i);
+                createPaymentPlan(installmentDate, dateElements[i]);
             }
         }
 
