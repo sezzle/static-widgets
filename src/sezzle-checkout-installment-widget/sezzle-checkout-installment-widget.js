@@ -1,28 +1,3 @@
-// INSTALLATION
-// 1. Create a copy of this entire file within your store
-
-// 2.a (recommended) Add the following script to inject the placeholder element dynamically
-// add the following lines of code to run when the page has loaded (un-commented) and update the query to match your page:
-// Note: our top four platforms are given as examples - choose one or create your own
-// <script type="text/javascript">
-//	 document.addEventListener('readystatechange', function(){
-//		 var sezzlePaymentLine = document.querySelector('[alt="Sezzle"]').parentElement.parentElement.parentElement; //Shopify
-//		 var sezzlePaymentLine = document.querySelector('.payment_method_sezzlepay'); // WooCommerce
-//		 var sezzlePaymentLine = document.querySelector('.sezzle'); // CommentSold
-//		 var sezzlePaymentLine = document.querySelector('.linkGateway'); //3DCart
-//	 var sezzleCheckoutWidget = document.createElement('div');
-//	 sezzleCheckoutWidget.id = 'sezzle-installment-widget-box';
-//	 sezzlePaymentLine.parentElement.insertBefore(sezzleCheckoutWidget, sezzlePaymentLine.nextElementSibling);
-//	 })
-// </script>
-
-// 2.b Enter the following two lines of code (un-commented) where this widget should appear
-{/* <div id="sezzle-installment-widget-box"></div> */ }
-{/* <script src="sezzle-checkout-installment-widget.js"></script> */ }
-
-// 3. Update the querySelector target in checkoutTotal below to indicate the cart total element
-// Note: our top four platforms are given as examples - choose one or create your own
-
 // handles initial render, then watches checkout total for change event, updates installment amounts
 document.addEventListener('readystatechange', function (event) {
 	var merchantLocale = "" // "['US', 'CA', 'IN', 'GU', 'PR', 'VI', 'AS', 'MP']" serves bi-weekly product, else serves monthly
@@ -56,107 +31,34 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
 
 	// handles translations
 	var translation = {
-		'en': {
-			'today': 'today',
-			'days': 'days',
-			'week': 'week',
-			'month': 'month',
-			'installmentWidget': {
-				14: `4 interest-free payments over 6 weeks`,
-				30: `4 payments over 3 months. No Fee!`
-			},
-			'modalTitle': 'How it works',
-			'firstParagraph': {
-				14: `Split your entire order into 4 interest-free payments over 6 weeks. No fees if you pay on time with zero impact to your credit.`,
-				30: `Split your entire order into 4 payments over 3 months. No Fee!`
-			},
-			'secondParagraph': 'After clicking "Complete Order" on this site, you will be redirected to Sezzle to complete your purchase securely.',
-			'infoIcon': 'Learn More about Sezzle',
-			'paymentPieTitle': 'Sezzle payment pie chart',
-			'closeModalTitle': 'Close Modal',
-			'modalPie': 'Sezzle modal payment pie chart'
-		},
-		'fr': {
-			'today': 'aujourd\'hui',
-			'days': 'jours',
-			'week': 'semaine',
-			'month': 'mois',
-			'installmentWidget': {
-				14: `4 paiement sans inte&#769;re&#770;ts r&#233;partis sur 6 semaines`,
-				30: `4 paiement r&#233;partis sur 3 mois. Pas de frais!`,
-			},
-			'modalTitle': 'Comment &#231;a marche',
-			'firstParagraph': {
-				14: `R&#233;partissez le montant de votre commande en 4 versements sans int&#233;r&#234;ts &#233;tal&#233;s sur 6 semaines. Pas de frais si vous payez &#224; temps, pas d\'impact sur votre cote de cr&#233;dit.`,
-				30: `R&#233;partissez le montant de votre commande en 4 versements sur 3 mois. Pas de frais!`
-			},
-			'secondParagraph': 'Apr&#232;s avoir cliqu&#233; sur &#171;&nbsp;Terminer la commande&nbsp;&#187; sur ce site, vous serez redirig&#233;(e) vers Sezzle pour finaliser votre achat en toute s&#233;curit&#233;.',
-			'infoIcon': 'En savoir plus sur Sezzle',
-			'paymentPieTitle': 'Graphique circulaire de paiement Sezzle',
-			'closeModalTitle': 'Fermer modal',
-			'modalPie': 'Graphique circulaire de paiement modal Sezzle'
-		},
-		'de': {
-			'today': 'heute',
-			'days': 'Tage',
-			'week': 'Woche',
-			'month': 'Monat',
-			'installmentWidget': {
-				14: `4 zinslose Raten &#252;ber 6 Wochen verteilt`,
-				30: `4 Raten &#252;ber 3 Monate verteilt - Kostenlos!`,
-			},
-			'modalTitle': 'So funktioniert\'s',
-			'firstParagraph': {
-				14: `Dein Gesamtbestellwert wird auf 4 Raten &#252;ber 6 Wochen verteilt. Diese sind komplett zinsfrei, sofern du p&#252;nktlich bezahlst. Kein Einfluss auf deine Kreditw&#252;rdigkeit.`,
-				30: `Dein Gesamtbestellwert wird auf 4 Raten &#252;ber 3 Monate verteilt. Diese sind komplett kostenlos.`
-			},
-			'secondParagraph': 'Sobald du auf den Button &#8222;Bestellung abschlie&#223;en&#8220; klickst, wirst du zu Sezzle umgeleitet ' + (interval === 30 ? 'um' : 'und kannst') + ' deinen Einkauf sicher ' + (interval === 30 ? 'abzuschlie&#223;en.' : 'abschlie&#223;en.'),
-			'infoIcon': 'Erfahren Sie mehr &#252;ber Sezzle',
-			'paymentPieTitle': 'Sezzle-Zahlungskreisdiagramm',
-			'closeModalTitle': 'Modal schließen',
-			'modalPie': 'Sezzle Kreisdiagramm für modale Zahlungen'
-		},
-		'es': {
-			'today': 'hoy',
-			'days': 'dias',
-			'week': 'semana',
-			'month': 'mes',
-			'installmentWidget': {
-				14: `4 pagos sin intereses durante 6 semanas`,
-				30: `4 pagos durante 3 mes. &#161;Sin cargo!`
-			},
-			'modalTitle': 'C&#243;mo funciona',
-			'firstParagraph': {
-				14: `Divida su pedido completo en 4 pagos sin intereses durante 6 semanas. Sin cargos si paga a tiempo sin impacto en su cr&#233;dito.`,
-				30: `Divida su pedido completo en 4 pagos durante 3 meses. &#161;Sin cargo!`
-			},
-			'secondParagraph': 'Despu&#233;s de hacer clic en &quot;Completar pedido&quot; en este sitio, ser&#225; redirigido a Sezzle para completar su compra de forma segura.',
-			'infoIcon': 'M&#225;s informaci&#243;n sobre Sezzle',
-			'paymentPieTitle': 'Gráfico circular de pagos de Sezzle',
-			'closeModalTitle': 'Cerrar modal',
-			'modalPie': 'Gráfico circular de pago modal de Sezzle'
-		},
-		'it': {
-			'today': 'oggi',
-			'days': 'giorni',
-			'week': 'settimana',
-			'month': 'mese',
-			'installmentWidget': {
-				14: `4 rate senza interessi in 6 settimane`,
-				30: `4 rate in 3 mesi. Senza costi!`
-			},
-			'modalTitle': 'Come funziona',
-			'firstParagraph': {
-				14: `Dividi l&lsquo;intero ordine in 4 rate senza interessi in 6 settimane. Nessuna commissione se paghi in tempo e con impatto zero sul tuo credito.`,
-				30: `Dividi l&rsquo;intero ordine in 4 rate in 3 mesi. Senza costi!`
-			},
-			'secondParagraph': 'Dopo aver cliccato su &ldquo;Completa l&rsquo;ordine&rdquo; in questa pagina, verrai reindirizzato a Sezzle per completare l&rsquo;acquisto in modo sicuro',
-			'infoIcon': 'Maggiori informazioni riguardo Sezzle',
-			'paymentPieTitle': 'Grafico a torta di pagamento Sezzle',
-			'closeModalTitle': 'Chiudere modale',
-			'modalPie': 'Grafico a torta di pagamento modale Sezzle'
-		}
-	}
+        en: {
+            infoIcon: "Learn More about Sezzle",
+            installmentWidget: {
+                14: "4 payments over 6 weeks",
+                30: "4 payments over 3 months. No Fee!",
+            },
+            paymentPieTitle: "Sezzle payment pie chart",
+            today: "today",
+        },
+        fr: {
+            infoIcon: "En savoir plus sur Sezzle",
+            installmentWidget: {
+                14: "4 versements sur 6 semaines",
+                30: "4 versements sur 3 mois. Pas de frais!",
+            },
+            paymentPieTitle: "Graphique circulaire de paiement Sezzle",
+            today: "aujourd'hui",
+        },
+        es: {
+            infoIcon: "Más información sobre Sezzle",
+            installmentWidget: {
+                14: "4 pagos sin en 6 semanas",
+                30: "4 pagos en 3 meses. ¡Sin cargo!",
+            },
+            paymentPieTitle: "Gráfico circular de pagos de Sezzle",
+            today: "hoy",
+        },
+    };
 
 	var installmentBox = document.querySelector('#sezzle-installment-widget-box');
 	if (!installmentBox.querySelector('.sezzle-payment-schedule-container')) {
@@ -183,7 +85,6 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
 			list-style: none !important;
 			box-sizing: border-box;
 			font-family: Comfortaa !important;
-			width: 25% !important;
 			text-align: center !important;
 		}
 		.sezzle-modal-overlay div {
@@ -213,18 +114,17 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
 			text-align: center !important;
 			width: 25% !important;
 		}
-
 		#sezzle-installment-widget-box {
 			background: #fafafa;
 			width: 100%;
-			height: 140px;
+			height: 210px;
 			display:flex;
 			justify-content: center;
 			border-top: 1px solid #d9d9d9;
 		}
 		.sezzle-payment-schedule-container {
-			width: 290px;
-			height: 100px;
+			width: 311px;
+			height: 190px;
 			padding: 10px 0px;
 		}
 		.sezzle-installment-widget {
@@ -247,18 +147,16 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
 			display: none;
 		}
 		.sezzle-payment-pie {
-			background-image: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDM4Ny41IDEwMi4zIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAzODcuNSAxMDIuMzsiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+LnN0MHtlbmFibGUtYmFja2dyb3VuZDpuZXcgICAgO30uc3Qxe2ZpbGw6IzM4Mjc1Nzt9LnN0MntmaWxsOnVybCgjUGF0aF8xMF8pO30uc3Qze2ZpbGw6dXJsKCNQYXRoXzExXyk7fS5zdDR7ZmlsbDp1cmwoI1BhdGhfMTJfKTt9LnN0NXtmaWxsOnVybCgjUGF0aF8xM18pO30uc3Q2e2ZpbGw6dXJsKCNQYXRoXzE0Xyk7fS5zdDd7ZmlsbDp1cmwoI1BhdGhfMTVfKTt9LnN0OHtmaWxsOnVybCgjUGF0aF8xNl8pO30uc3Q5e2ZpbGw6dXJsKCNQYXRoXzE3Xyk7fS5zdDEwe2ZpbGw6dXJsKCNQYXRoXzE4Xyk7fS5zdDExe2ZpbGw6dXJsKCNQYXRoXzE5Xyk7fTwvc3R5bGU+PHRpdGxlPkdyb3VwPC90aXRsZT48ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz48ZyBpZD0iUGFnZS0xIj48ZyBpZD0iU2V6emxlLURlc2t0b3AtTW9kYWwiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC01MjEuMDAwMDAwLCAtMzY2LjAwMDAwMCkiPjxnIGlkPSJNb2RhbC1Qb3B1cCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjk4LjAwMDAwMCwgOTcuMDAwMDAwKSI+PGcgaWQ9Ikdyb3VwIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyMTguMDAwMDAwLCAyNjkuMDAwMDAwKSI+PGcgaWQ9IlBheW1lbnQtUGllLUdyYXBoaWMiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDI5LjAwMDAwMCwgMC4wMDAwMDApIj48ZyBpZD0iTmV3QnJhbmRfRm91clBheW1lbnRQaWUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMxNi4wMDAwMDAsIDAuMDAwMDAwKSI+PGxpbmVhckdyYWRpZW50IGlkPSJQYXRoXzEwXyIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHgxPSItODc4LjQ2NjciIHkxPSI3LjE2NjciIHgyPSItODc3LjQ2NjciIHkyPSI3LjE2NjciIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoMTggMCAwIDE4IDE1ODEyLjI2NTYgLTEwMCkiPjxzdG9wIG9mZnNldD0iMCIgc3R5bGU9InN0b3AtY29sb3I6I0NFNURDQiI+PC9zdG9wPjxzdG9wIG9mZnNldD0iMC4yMDk1IiBzdHlsZT0ic3RvcC1jb2xvcjojQzU1OENDIj48L3N0b3A+PHN0b3Agb2Zmc2V0PSIwLjU1MjUiIHN0eWxlPSJzdG9wLWNvbG9yOiNBQzRBQ0YiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjAuOTg0NSIgc3R5bGU9InN0b3AtY29sb3I6Izg1MzRENCI+PC9zdG9wPjxzdG9wIG9mZnNldD0iMSIgc3R5bGU9InN0b3AtY29sb3I6IzgzMzNENCI+PC9zdG9wPjwvbGluZWFyR3JhZGllbnQ+PHBhdGggaWQ9IlBhdGgiIGNsYXNzPSJzdDIiIGQ9Ik0tMC4xLDIwYzAsOS45LDguMSwxOCwxOCwxOGwwLDBWMjBILTAuMXoiPjwvcGF0aD48bGluZWFyR3JhZGllbnQgaWQ9IlBhdGhfMTFfIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9Ii04NzguNDY2NyIgeTE9IjcuMTY2NyIgeDI9Ii04NzcuNDY2NyIgeTI9IjcuMTY2NyIgZ3JhZGllbnRUcmFuc2Zvcm09Im1hdHJpeCgxOCAwIDAgMTggMTU4MzIuMjY1NiAtMTAwKSI+PHN0b3Agb2Zmc2V0PSIyLjM3MDAwMGUtMDIiIHN0eWxlPSJzdG9wLWNvbG9yOiNGRjU2NjciPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjAuNjU5MiIgc3R5bGU9InN0b3AtY29sb3I6I0ZDOEI4MiI+PC9zdG9wPjxzdG9wIG9mZnNldD0iMSIgc3R5bGU9InN0b3AtY29sb3I6I0ZCQTI4RSI+PC9zdG9wPjwvbGluZWFyR3JhZGllbnQ+PHBhdGggaWQ9IlBhdGhfMV8iIGNsYXNzPSJzdDMiIGQ9Ik0zNy45LDIwYzAsOS45LTguMSwxOC0xOCwxOGwwLDBWMjBIMzcuOXoiPjwvcGF0aD48bGluZWFyR3JhZGllbnQgaWQ9IlBhdGhfMTJfIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9Ii04NzguNDY2NyIgeTE9IjcuMTY2NyIgeDI9Ii04NzcuNDY2NyIgeTI9IjcuMTY2NyIgZ3JhZGllbnRUcmFuc2Zvcm09Im1hdHJpeCgxOCAwIDAgMTggMTU4MTIuMjY3NiAtMTIwKSI+PHN0b3Agb2Zmc2V0PSIwIiBzdHlsZT0ic3RvcC1jb2xvcjojRkNEN0I2Ij48L3N0b3A+PHN0b3Agb2Zmc2V0PSIwLjUwNzEiIHN0eWxlPSJzdG9wLWNvbG9yOiNGRUE1MDAiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjEiIHN0eWxlPSJzdG9wLWNvbG9yOiNGRjgxMDAiPjwvc3RvcD48L2xpbmVhckdyYWRpZW50PjxwYXRoIGlkPSJQYXRoXzJfIiBjbGFzcz0ic3Q0IiBkPSJNMTcuOSwwQzgsMC0wLjEsOC4xLTAuMSwxOGwwLDBoMThWMHoiPjwvcGF0aD48bGluZWFyR3JhZGllbnQgaWQ9IlBhdGhfMTNfIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9Ii04NzguNDY2NyIgeTE9IjcuMTY2NyIgeDI9Ii04NzcuNDY2NyIgeTI9IjcuMTY2NyIgZ3JhZGllbnRUcmFuc2Zvcm09Im1hdHJpeCgxOCAwIDAgMTggMTU4MzIuMjY1NiAtMTIwKSI+PHN0b3Agb2Zmc2V0PSIwIiBzdHlsZT0ic3RvcC1jb2xvcjojMDBCODc0Ij48L3N0b3A+PHN0b3Agb2Zmc2V0PSIwLjUxMjYiIHN0eWxlPSJzdG9wLWNvbG9yOiMyOUQzQTIiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjAuNjgxNyIgc3R5bGU9InN0b3AtY29sb3I6IzUzREZCNiI+PC9zdG9wPjxzdG9wIG9mZnNldD0iMSIgc3R5bGU9InN0b3AtY29sb3I6IzlGRjREOSI+PC9zdG9wPjwvbGluZWFyR3JhZGllbnQ+PHBhdGggaWQ9IlBhdGhfM18iIGNsYXNzPSJzdDUiIGQ9Ik0xOS45LDBjOS45LDAsMTgsOC4xLDE4LDE4bDAsMGgtMThDMTkuOSwxOCwxOS45LDAsMTkuOSwweiI+PC9wYXRoPjwvZz48ZyBpZD0iTmV3QnJhbmRfRm91clBheW1lbnRQaWUtQ29weSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjA3LjAwMDAwMCwgMC4wMDAwMDApIj48bGluZWFyR3JhZGllbnQgaWQ9IlBhdGhfMTRfIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9Ii02NjAuNDY2NyIgeTE9IjcuMTY2NyIgeDI9Ii02NTkuNDY2NyIgeTI9IjcuMTY2NyIgZ3JhZGllbnRUcmFuc2Zvcm09Im1hdHJpeCgxOCAwIDAgMTggMTE4ODguMjY1NiAtMTAwKSI+PHN0b3Agb2Zmc2V0PSIwIiBzdHlsZT0ic3RvcC1jb2xvcjojQ0U1RENCIj48L3N0b3A+PHN0b3Agb2Zmc2V0PSIwLjIwOTUiIHN0eWxlPSJzdG9wLWNvbG9yOiNDNTU4Q0MiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjAuNTUyNSIgc3R5bGU9InN0b3AtY29sb3I6I0FDNEFDRiI+PC9zdG9wPjxzdG9wIG9mZnNldD0iMC45ODQ1IiBzdHlsZT0ic3RvcC1jb2xvcjojODUzNEQ0Ij48L3N0b3A+PHN0b3Agb2Zmc2V0PSIxIiBzdHlsZT0ic3RvcC1jb2xvcjojODMzM0Q0Ij48L3N0b3A+PC9saW5lYXJHcmFkaWVudD48cGF0aCBpZD0iUGF0aF80XyIgY2xhc3M9InN0NiIgZD0iTS0wLjEsMjBjMCw5LjksOC4xLDE4LDE4LDE4VjIwSC0wLjF6Ij48L3BhdGg+PGxpbmVhckdyYWRpZW50IGlkPSJQYXRoXzE1XyIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHgxPSItNjYwLjQ2NjciIHkxPSI3LjE2NjciIHgyPSItNjU5LjQ2NjciIHkyPSI3LjE2NjciIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoMTggMCAwIDE4IDExOTA4LjI2NTYgLTEwMCkiPjxzdG9wIG9mZnNldD0iMi4zNzAwMDBlLTAyIiBzdHlsZT0ic3RvcC1jb2xvcjojRkY1NjY3Ij48L3N0b3A+PHN0b3Agb2Zmc2V0PSIwLjY1OTIiIHN0eWxlPSJzdG9wLWNvbG9yOiNGQzhCODIiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjEiIHN0eWxlPSJzdG9wLWNvbG9yOiNGQkEyOEUiPjwvc3RvcD48L2xpbmVhckdyYWRpZW50PjxwYXRoIGlkPSJQYXRoXzVfIiBjbGFzcz0ic3Q3IiBkPSJNMzcuOSwyMGMwLDkuOS04LjEsMTgtMTgsMThsMCwwVjIwSDM3Ljl6Ij48L3BhdGg+PGxpbmVhckdyYWRpZW50IGlkPSJQYXRoXzE2XyIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHgxPSItNjYwLjQ2NjciIHkxPSI3LjE2NjciIHgyPSItNjU5LjQ2NjciIHkyPSI3LjE2NjciIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoMTggMCAwIDE4IDExOTA4LjI2NTYgLTEyMCkiPjxzdG9wIG9mZnNldD0iMCIgc3R5bGU9InN0b3AtY29sb3I6IzAwQjg3NCI+PC9zdG9wPjxzdG9wIG9mZnNldD0iMC41MTI2IiBzdHlsZT0ic3RvcC1jb2xvcjojMjlEM0EyIj48L3N0b3A+PHN0b3Agb2Zmc2V0PSIwLjY4MTciIHN0eWxlPSJzdG9wLWNvbG9yOiM1M0RGQjYiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjEiIHN0eWxlPSJzdG9wLWNvbG9yOiM5RkY0RDkiPjwvc3RvcD48L2xpbmVhckdyYWRpZW50PjxwYXRoIGlkPSJQYXRoXzZfIiBjbGFzcz0ic3Q4IiBkPSJNMTkuOSwwYzkuOSwwLDE4LDguMSwxOCwxOGwwLDBoLTE4QzE5LjksMTgsMTkuOSwwLDE5LjksMHoiPjwvcGF0aD48L2c+PGcgaWQ9Ik5ld0JyYW5kX0ZvdXJQYXltZW50UGllLUNvcHktMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTEzLjAwMDAwMCwgMC4wMDAwMDApIj48bGluZWFyR3JhZGllbnQgaWQ9IlBhdGhfMTdfIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9Ii00NzIuNDY2NyIgeTE9IjcuMTY2NyIgeDI9Ii00NzEuNDY2NyIgeTI9IjcuMTY2NyIgZ3JhZGllbnRUcmFuc2Zvcm09Im1hdHJpeCgxOCAwIDAgMTggODUwNC4yNjU2IC0xMDApIj48c3RvcCBvZmZzZXQ9IjIuMzcwMDAwZS0wMiIgc3R5bGU9InN0b3AtY29sb3I6I0ZGNTY2NyI+PC9zdG9wPjxzdG9wIG9mZnNldD0iMC42NTkyIiBzdHlsZT0ic3RvcC1jb2xvcjojRkM4QjgyIj48L3N0b3A+PHN0b3Agb2Zmc2V0PSIxIiBzdHlsZT0ic3RvcC1jb2xvcjojRkJBMjhFIj48L3N0b3A+PC9saW5lYXJHcmFkaWVudD48cGF0aCBpZD0iUGF0aF83XyIgY2xhc3M9InN0OSIgZD0iTTE3LjksMjBjMCw5LjktOC4xLDE4LTE4LDE4bDAsMFYyMEgxNy45eiI+PC9wYXRoPjxsaW5lYXJHcmFkaWVudCBpZD0iUGF0aF8xOF8iIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiB4MT0iLTQ3Mi40NjY3IiB5MT0iNy4xNjY3IiB4Mj0iLTQ3MS40NjY3IiB5Mj0iNy4xNjY3IiBncmFkaWVudFRyYW5zZm9ybT0ibWF0cml4KDE4IDAgMCAxOCA4NTA0LjI2NTYgLTEyMCkiPjxzdG9wIG9mZnNldD0iMCIgc3R5bGU9InN0b3AtY29sb3I6IzAwQjg3NCI+PC9zdG9wPjxzdG9wIG9mZnNldD0iMC41MTI2IiBzdHlsZT0ic3RvcC1jb2xvcjojMjlEM0EyIj48L3N0b3A+PHN0b3Agb2Zmc2V0PSIwLjY4MTciIHN0eWxlPSJzdG9wLWNvbG9yOiM1M0RGQjYiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjEiIHN0eWxlPSJzdG9wLWNvbG9yOiM5RkY0RDkiPjwvc3RvcD48L2xpbmVhckdyYWRpZW50PjxwYXRoIGlkPSJQYXRoXzhfIiBjbGFzcz0ic3QxMCIgZD0iTS0wLjEsMGM5LjksMCwxOCw4LjEsMTgsMThsMCwwaC0xOEMtMC4xLDE4LTAuMSwwLTAuMSwweiI+PC9wYXRoPjwvZz48ZyBpZD0iTmV3QnJhbmRfRm91clBheW1lbnRQaWUtQ29weS0zIj48bGluZWFyR3JhZGllbnQgaWQ9IlBhdGhfMTlfIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9Ii0yNDYuNDY2NyIgeTE9IjcuMTY2NyIgeDI9Ii0yNDUuNDY2NyIgeTI9IjcuMTY2NyIgZ3JhZGllbnRUcmFuc2Zvcm09Im1hdHJpeCgxOCAwIDAgMTggNDQzNi4yNjYxIC0xMjApIj48c3RvcCBvZmZzZXQ9IjAiIHN0eWxlPSJzdG9wLWNvbG9yOiMwMEI4NzQiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjAuNTEyNiIgc3R5bGU9InN0b3AtY29sb3I6IzI5RDNBMiI+PC9zdG9wPjxzdG9wIG9mZnNldD0iMC42ODE3IiBzdHlsZT0ic3RvcC1jb2xvcjojNTNERkI2Ij48L3N0b3A+PHN0b3Agb2Zmc2V0PSIxIiBzdHlsZT0ic3RvcC1jb2xvcjojOUZGNEQ5Ij48L3N0b3A+PC9saW5lYXJHcmFkaWVudD48cGF0aCBpZD0iUGF0aF85XyIgY2xhc3M9InN0MTEiIGQ9Ik0tMC4xLDBjOS45LDAsMTgsOC4xLDE4LDE4bDAsMGgtMThDLTAuMSwxOC0wLjEsMC0wLjEsMHoiPjwvcGF0aD48L2c+PGcgaWQ9IkxpbmUtMiI+PHBhdGggY2xhc3M9InN0MSIgZD0iTTgzLjYsMjAuMkM4My42LDIwLjIsODMuNiwyMC4yLDgzLjYsMjAuMmwtNDMuNS0wLjRjLTAuNiwwLTEtMC41LTEtMWMwLTAuNSwwLjUtMSwxLTFjMCwwLDAsMCwwLDBsNDMuNSwwLjRjMC42LDAsMSwwLjUsMSwxQzg0LjYsMTkuOCw4NC4xLDIwLjIsODMuNiwyMC4yeiI+PC9wYXRoPjwvZz48ZyBpZD0iTGluZS0yLUNvcHkiPjxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0xODkuNiwyMC4yQzE4OS42LDIwLjIsMTg5LjYsMjAuMiwxODkuNiwyMC4ybC00My41LTAuNGMtMC42LDAtMS0wLjUtMS0xYzAtMC41LDAuNS0xLDEtMWMwLDAsMCwwLDAsMGw0My41LDAuNGMwLjYsMCwxLDAuNSwxLDFDMTkwLjYsMTkuOCwxOTAuMSwyMC4yLDE4OS42LDIwLjJ6Ij48L3BhdGg+PC9nPjxnIGlkPSJMaW5lLTItQ29weS0yIj48cGF0aCBjbGFzcz0ic3QxIiBkPSJNMzAzLjYsMjAuMkMzMDMuNiwyMC4yLDMwMy42LDIwLjIsMzAzLjYsMjAuMmwtNDMuNS0wLjRjLTAuNiwwLTEtMC41LTEtMWMwLTAuNSwwLjUtMSwxLTFjMCwwLDAsMCwwLDBsNDMuNSwwLjRjMC42LDAsMSwwLjUsMSwxQzMwNC42LDE5LjgsMzA0LjEsMjAuMiwzMDMuNiwyMC4yeiI+PC9wYXRoPjwvZz48L2c+PC9nPjwvZz48L2c+PC9nPjwvc3ZnPg==);
-			background-repeat: no-repeat;
-			background-position: center;
-			height: 70px;
+			height: 130px;
 			width: 100%;
 			margin: 15px 0px -45px 0px !important;
 		}
 		.sezzle-payment-schedule-prices, .sezzle-payment-schedule-frequency {
-			width: 100%;
+			width: 278px;
 			display: flex;
 			justify-content: space-around;
 			font-family: Comfortaa;
+			padding: 0 16px;
 		}
 		.sezzle-installment-amount {
 			color: #392558 !important;
@@ -269,11 +167,18 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
 			text-align: center;
 		}
 		.sezzle-payment-date {
-			color: #565656 !important;
+			color: #737373 !important;
 			font-size: 9px !important;
 			font-family: Comfortaa !important;
 			width: 25%;
 			text-align: center;
+		}
+		.sezzle-installment-amount:first-child, .sezzle-payment-date:first-child {
+			width: 87px !important;
+    		padding-right: 8px;
+		}
+		.sezzle-installment-amount:last-child, .sezzle-payment-date:last-child {
+			padding-right: 16px;
 		}
 		.sezzle-modal-open {
 			position: fixed;
@@ -354,10 +259,12 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
 			width: 100%;
 			margin: 40px 0px -35px 0px;
 		}
-		.sezzle-modal-payment-percent{
+		.sezzle-modal-payment-percent, .sezzle-modal-payment-schedule {
 			display: flex;
 			justify-content: space-around;
 			width: 100%;
+		}
+		.sezzle-modal-payment-schedule {
 			margin-bottom: 20px;
 		}
 		.sezzle-modal-payment-percent span {
@@ -367,7 +274,13 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
 			text-align: center;
 			width: 25%;
 			margin-top:5px;
-
+		}
+		.sezzle-modal-payment-schedule span {
+			color: #737373;
+			font-size: 9px;
+			font-family: Comfortaa !important;
+			text-align: center;
+			width: 25%;
 		}
 		@media only screen and (min-width: 520px){
 			.sezzle-checkout-modal {
@@ -404,6 +317,9 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
 			.sezzle-modal-payment-percent span {
 				font-size: 18px;
 			}
+			.sezzle-modal-payment-schedule span {
+				font-size: 12px;
+			}
 		}
 		`;
 		installmentBox.appendChild(sezzleStyle);
@@ -423,6 +339,23 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
 		// creates the pie graphic
 		var sezzlePie = document.createElement('div');
 		sezzlePie.className = 'sezzle-payment-pie';
+        sezzlePie.innerHTML = `<svg width="311" height="156" viewBox="0 0 311 156" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="311" height="156" rx="16" fill="#8333D4" fill-opacity="0.05"/>
+<rect x="17" y="17" width="73" height="122" rx="8" fill="white"/>
+<path d="M73 53C73 64.0457 64.0457 73 53 73C41.9543 73 33 64.0457 33 53C33 41.9543 41.9543 33 53 33C64.0457 33 73 41.9543 73 53ZM43 53C43 58.5228 47.4772 63 53 63C58.5228 63 63 58.5228 63 53C63 47.4772 58.5228 43 53 43C47.4772 43 43 47.4772 43 53Z" fill="#8333D4" fill-opacity="0.05"/>
+<path d="M53 33C55.6264 33 58.2272 33.5173 60.6537 34.5224C63.0802 35.5275 65.285 37.0007 67.1421 38.8579C68.9993 40.715 70.4725 42.9198 71.4776 45.3463C72.4827 47.7728 73 50.3736 73 53L63 53C63 51.6868 62.7413 50.3864 62.2388 49.1732C61.7362 47.9599 60.9997 46.8575 60.0711 45.9289C59.1425 45.0003 58.0401 44.2638 56.8268 43.7612C55.6136 43.2587 54.3132 43 53 43L53 33Z" fill="#8333D4"/>
+<path d="M73 53C73 55.7614 70.7614 57.9998 68 57.9998C65.2386 57.9998 63 55.7614 63 53C63 50.2386 65.2386 47.9998 68 47.9998C70.7614 47.9998 73 50.2386 73 53Z" fill="#8333D4"/>
+<circle cx="68" cy="53" r="5" fill="#8333D4"/>
+<rect x="98" y="17" width="196" height="122" rx="8" fill="white"/>
+<path d="M155 53C155 64.0457 146.046 73 135 73C123.954 73 115 64.0457 115 53C115 41.9543 123.954 33 135 33C146.046 33 155 41.9543 155 53ZM125 53C125 58.5228 129.477 63 135 63C140.523 63 145 58.5228 145 53C145 47.4772 140.523 43 135 43C129.477 43 125 47.4772 125 53Z" fill="#8333D4" fill-opacity="0.05"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M155 53C155 64.0457 146.046 73 135 73C132.239 73 130 70.7614 130 68C130 65.2386 132.239 63 135 63C140.523 63 145 58.5228 145 53C145 47.4772 140.523 43 135 43V33C146.046 33 155 41.9543 155 53Z" fill="#8333D4"/>
+<path d="M213.5 53C213.5 64.0457 204.546 73 193.5 73C182.454 73 173.5 64.0457 173.5 53C173.5 41.9543 182.454 33 193.5 33C204.546 33 213.5 41.9543 213.5 53ZM183.5 53C183.5 58.5228 187.977 63 193.5 63C199.023 63 203.5 58.5228 203.5 53C203.5 47.4772 199.023 43 193.5 43C187.977 43 183.5 47.4772 183.5 53Z" fill="#8333D4" fill-opacity="0.05"/>
+<path d="M193.5 33C197.456 33 201.322 34.173 204.611 36.3706C207.9 38.5682 210.464 41.6918 211.978 45.3463C213.491 49.0009 213.887 53.0222 213.116 56.9018C212.344 60.7814 210.439 64.3451 207.642 67.1421C204.845 69.9392 201.281 71.844 197.402 72.6157C193.522 73.3874 189.501 72.9913 185.846 71.4776C182.192 69.9638 179.068 67.4004 176.871 64.1114C174.673 60.8224 173.5 56.9556 173.5 53L183.5 53C183.5 54.9778 184.086 56.9112 185.185 58.5557C186.284 60.2002 187.846 61.4819 189.673 62.2388C191.5 62.9957 193.511 63.1937 195.451 62.8079C197.391 62.422 199.173 61.4696 200.571 60.0711C201.97 58.6725 202.922 56.8907 203.308 54.9509C203.694 53.0111 203.496 51.0004 202.739 49.1732C201.982 47.3459 200.7 45.7841 199.056 44.6853C197.411 43.5865 195.478 43 193.5 43L193.5 33Z" fill="#8333D4"/>
+<path d="M183.5 53C183.5 55.7614 181.261 58 178.5 58C175.739 58 173.5 55.7614 173.5 53C173.5 50.2386 175.739 48 178.5 48C181.261 48 183.5 50.2386 183.5 53Z" fill="#8333D4"/>
+<circle cx="178.5" cy="53" r="5" fill="#8333D4"/>
+<path d="M274.5 53C274.5 64.0457 265.546 73 254.5 73C243.454 73 234.5 64.0457 234.5 53C234.5 41.9543 243.454 33 254.5 33C265.546 33 274.5 41.9543 274.5 53ZM244.5 53C244.5 58.5228 248.977 63 254.5 63C260.023 63 264.5 58.5228 264.5 53C264.5 47.4772 260.023 43 254.5 43C248.977 43 244.5 47.4772 244.5 53Z" fill="#8333D4"/>
+</svg>
+`;
 		installmentContainer.appendChild(sezzlePie);
 		sezzlePie.title = translation[language].paymentPieTitle
 
@@ -542,98 +475,6 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
 			}
 		}
 
-		// create the modal container
-		var modalOverlay = document.createElement('section');
-		modalOverlay.className = 'sezzle-modal-overlay close-sezzle-modal';
-		modalOverlay.style.display = 'none';
-		modalOverlay.tabIndex = -1;
-		document.body.appendChild(modalOverlay);
-
-		// creates the modal content wrapper
-		var modalContent = document.createElement('div');
-		modalContent.className = 'sezzle-checkout-modal';
-		modalOverlay.appendChild(modalContent);
-		modalContent.tabIndex = 0;
-		modalContent.setAttribute("role", "dialog");
-		modalContent.ariaLabel = "Sezzle modal"
-
-		// creates the close modal button
-		var closeModal = document.createElement('button');
-		closeModal.className = 'close-sezzle-modal';
-		closeModal.type = 'button';
-		closeModal.title = translation[language].closeModalTitle;
-		closeModal.innerText = 'X';
-		closeModal.tabIndex = 0;
-		modalContent.appendChild(closeModal);
-
-		// creates the Sezzle logo
-		var sezzleLogo = document.createElement('div');
-		sezzleLogo.className = 'sezzle-modal-logo';
-		sezzleLogo.title = 'Sezzle';
-		modalContent.appendChild(sezzleLogo);
-
-		// creates the modal title
-		var modalTitle = document.createElement('header');
-		modalTitle.className = 'sezzle-modal-title';
-		modalContent.appendChild(modalTitle);
-		modalTitle.tabIndex = 0;
-		modalTitle.innerHTML = translation[language].modalTitle;
-
-		// creates the description container
-		var overview = document.createElement('div');
-		overview.className = 'sezzle-modal-overview';
-		modalContent.appendChild(overview);
-		overview.tabIndex = 0;
-
-		// creates the first overview paragraph
-		var firstParagraph = document.createElement('p');
-		overview.appendChild(firstParagraph);
-		firstParagraph.innerHTML = translation[language].firstParagraph[interval];
-
-		// creates the second overview paragraph
-		var secondParagraph = document.createElement('p');
-		overview.appendChild(secondParagraph);
-		secondParagraph.innerHTML = translation[language].secondParagraph;
-
-		// creates the modal content wrapper
-		var installmentWrapper = document.createElement('div');
-		installmentWrapper.className = 'sezzle-modal-installment-wrapper';
-		modalContent.appendChild(installmentWrapper);
-
-		// creates the modal pie graphic
-		var modalPie = document.createElement('div');
-		modalPie.className = 'sezzle-modal-payment-pie';
-		installmentWrapper.appendChild(modalPie);
-		modalPie.title = translation[language].modalPie;
-
-		// creates the installment schedule container
-		var percentages = document.createElement('div');
-		percentages.className = 'sezzle-modal-payment-percent';
-		percentages.tabIndex = 0;
-		installmentWrapper.appendChild(percentages);
-
-		// creates each percentage
-		for (var i = 0; i < 4; i++) {
-			var percent = document.createElement('span');
-			percent.innerText = '25%';
-			percentages.appendChild(percent);
-		}
-
-
-		// creates each installment
-		for (var i = 0; i < 4; i++) {
-			var payment = document.querySelector(".sezzle-modal-payment-percent").getElementsByTagName("span")
-			if (i === 0) {
-				payment[i].innerText = payment[i].innerText + "\n" + translation[language].today;
-			} else if (i > 0 && interval === 30) {
-				payment[i].innerText = payment[i].innerText + (i * 30) + " " + translation[language].days;
-			} else if (i > 0) {
-				payment[i].innerText = payment[i].innerText + "\n" + translation[language].week + " " + (i * 2);
-			} else {
-				payment.innerText = translation[language].week + "\n" + " " + (i * 2);
-			}
-		}
-
 		// creates the info icon to open the modal
 		var infoIcon = document.createElement('button');
 		infoIcon.className = 'sezzle-installment-info-icon';
@@ -643,60 +484,5 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
 		infoIcon.tabIndex = 0
 		installmentWidget.appendChild(infoIcon);
 
-		// watches info icon for click event, opens modal
-		function openSezzleModal() {
-			document.querySelector('.sezzle-modal-overlay').style.display = "block";
-			document.body.classList.add('sezzle-modal-open');
-			modalKeyboardNavigation()
-		}
-		infoIcon.addEventListener('click', openSezzleModal);
-		infoIcon.addEventListener('click', function () {
-			document.querySelector(".sezzle-modal-overlay").getElementsByClassName("sezzle-checkout-modal")[0].focus();
-		});
-
-		// watches overlay and modal X for click event, closes modal
-		function closeSezzleModal() {
-			document.querySelector('.sezzle-modal-overlay').style.display = "none";
-			document.body.classList.remove('sezzle-modal-open')
-		}
-		var sezzleModalClose = document.getElementsByClassName('close-sezzle-modal');
-		if (sezzleModalClose.length) {
-			for (var i = 0; i < sezzleModalClose.length; i++) {
-				sezzleModalClose[i].addEventListener('click', closeSezzleModal);
-				sezzleModalClose[i].addEventListener('click', function () {
-					document.querySelector(".sezzle-installment-info-icon").focus();
-				});
-			}
-		}
-	}
-	function modalKeyboardNavigation() {
-		let focusableElements = document.querySelector('.sezzle-modal-overlay').querySelectorAll('[tabIndex="0"]');
-		let firstFocusableElement = focusableElements[0];
-		let lastFocusableElement = focusableElements[focusableElements.length - 1];
-		document.addEventListener('keydown', function (event) {
-			if (event.key === 'Tab') {
-				if (event.shiftKey && document.activeElement === firstFocusableElement) {
-					lastFocusableElement.focus();
-					//event.preventDefault()
-				} else if (document.activeElement === lastFocusableElement) {
-					firstFocusableElement.focus();
-					event.preventDefault()
-				}
-			} else if (event.key === 'Escape') {
-				let modals = document.getElementsByClassName('sezzle-modal-overlay');
-				for (let i = 0; i < modals.length; i++) {
-					modals[i].style.display = 'none';
-				}
-				var newFocus = document.querySelector('#sezzle-modal-return');
-				if (newFocus) {
-					newFocus.focus();
-					newFocus.removeAttribute('id');
-				} else if (document.querySelector('.sezzle-payment-schedule-container').querySelector('.sezzle-installment-info-icon')) {
-					document.querySelector('.sezzle-payment-schedule-container').querySelector('.sezzle-installment-info-icon').focus();
-				} else {
-					document.querySelector('.sezzle-payment-schedule-container').focus();
-				}
-			}
-		})
 	}
 }
