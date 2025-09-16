@@ -512,7 +512,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
         infoIcon.tabIndex = 0;
         installmentWidget.appendChild(infoIcon);
         infoIcon.addEventListener("click", () => {
-            this.renderModal();
+            renderModal();
         });
     }
 }
@@ -520,27 +520,27 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
     function disableBodyScroll(disable) {
         const bodyElement = document.body;
         if (disable) {
-            this.scrollDistance =
+            scrollDistance =
                 window.pageYOffset ||
                 (document.documentElement.clientHeight
                     ? document.documentElement.scrollTop
                     : document.body.scrollTop) ||
                 0;
             bodyElement.classList.add("sezzle-modal-open");
-            bodyElement.style.top = `${this.scrollDistance * -1}px`;
+            bodyElement.style.top = `${scrollDistance * -1}px`;
         } else {
             bodyElement.classList.remove("sezzle-modal-open");
-            window.scrollTo(0, this.scrollDistance);
+            window.scrollTo(0, scrollDistance);
             bodyElement.style.top = 0;
             if (document.querySelector(".sezzle-modal")) {
                 document.querySelector(".sezzle-modal").scrollTop = 0;
             }
-            this.scrollDistance = 0;
+            scrollDistance = 0;
         }
     }
 
     function handleModalClose(modalNode) {
-        this.disableBodyScroll(false);
+        disableBodyScroll(false);
         // hide modal and replace focus
         modalNode.style.display = "none";
         modalNode.getElementsByClassName("sezzle-modal")[0].className =
@@ -559,7 +559,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
             document.querySelectorAll(".close-sezzle-modal, .close-btn"),
             (el) => {
                 el.addEventListener("click", (event) => {
-                    this.handleModalClose(modalNode);
+                    handleModalClose(modalNode);
                 });
             }
         );
@@ -598,7 +598,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
             const script = document.createElement("script");
             script.innerHTML = modalNode.querySelector("script").innerHTML;
             head.appendChild(script);
-            this.executeModalScript();
+            executeModalScript();
         } catch (e) {
             console.error("Unable to fetch Sezzle modal content", e);
         }
@@ -620,7 +620,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
                 modalNode.style.display = "none";
                 modalNode.role = "dialog";
                 modalNode.style.maxHeight = "100%";
-                modalNode.lang = this.language;
+                modalNode.lang = language;
                 document.querySelector("body").appendChild(modalNode);
                 return modalNode;
             }
@@ -630,10 +630,10 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
     }
 
     function renderModal() {
-        this.disableBodyScroll(true);
-        let modalNode = this.createModal();
-        this.getModalContent(modalNode);
-        this.addModalCloseListeners(modalNode);
+        disableBodyScroll(true);
+        let modalNode = createModal();
+        getModalContent(modalNode);
+        addModalCloseListeners(modalNode);
         modalNode.style.display = "block";
         modalNode.focus();
         const modals = modalNode.getElementsByClassName("sezzle-modal");
