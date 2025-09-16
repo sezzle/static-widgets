@@ -10,7 +10,7 @@ Please refer to the instructions on [NPM](https://www.npmjs.com/package/@sezzle/
 
 ### Shopify Method
 
-*Note: Compatible with Shopify Plus stores only.
+*Note: Compatible with Shopify Plus stores only.*
 
 1. Log in to your Shopify Admin
 1. Go to Online Store > Themes
@@ -51,8 +51,9 @@ Please refer to the instructions on [NPM](https://www.npmjs.com/package/@sezzle/
     </script>
     ```
 
-    Option 2: Enter the following two lines of code where the installment widget should appear
-    ```html
+    Option 2: Enter the following two lines of code where the installment widget should appear:
+
+    ``` html
         <div id="sezzle-installment-widget-box"></div>
         <script src="sezzle-checkout-installment-widget.js"></script>
     ```
