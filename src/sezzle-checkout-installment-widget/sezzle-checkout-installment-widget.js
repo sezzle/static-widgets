@@ -564,7 +564,7 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
             }
         );
         // prevent modal close on modal body click
-        let sezzleModal = document.querySelector("#sezzle-modal-core-content");
+        const sezzleModal = document.querySelector("#sezzle-modal-core-content");
         sezzleModal?.addEventListener("click", (event) => {
                 event.stopPropagation()
             }
