@@ -483,6 +483,159 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
 		infoIcon.innerHTML = '&#9432;';
 		infoIcon.tabIndex = 0
 		installmentWidget.appendChild(infoIcon);
-
+        infoIcon.addEventListener("click", () => {
+            this.renderModal();
+        });
 	}
 }
+
+    function disableBodyScroll(disable) {
+        const bodyElement = document.body;
+        if (disable) {
+            this.scrollDistance =
+                window.pageYOffset ||
+                (document.documentElement.clientHeight
+                    ? document.documentElement.scrollTop
+                    : document.body.scrollTop) ||
+                0;
+            bodyElement.classList.add("sezzle-modal-open");
+            bodyElement.style.top = `${this.scrollDistance * -1}px`;
+        } else {
+            bodyElement.classList.remove("sezzle-modal-open");
+            window.scrollTo(0, this.scrollDistance);
+            bodyElement.style.top = 0;
+            if (document.querySelector(".sezzle-modal")) {
+                document.querySelector(".sezzle-modal").scrollTop = 0;
+            }
+            this.scrollDistance = 0;
+        }
+    }
+
+    function handleModalClose(modalNode) {
+        this.disableBodyScroll(false);
+        // hide modal and replace focus
+        modalNode.style.display = "none";
+        modalNode.getElementsByClassName("sezzle-modal")[0].className =
+            "sezzle-modal sezzle-checkout-modal-hidden";
+        const newFocus =
+            document.querySelector("#sezzle-modal-return") ||
+            document.querySelector(".sezzle-banner-container");
+        if (newFocus) {
+            newFocus.focus();
+            newFocus.removeAttribute("id");
+        }
+    }
+
+    function addModalCloseListeners(modalNode) {
+        Array.prototype.forEach.call(
+            document.querySelectorAll(".close-sezzle-modal, .close-btn"),
+            (el) => {
+                el.addEventListener("click", (event) => {
+                    this.handleModalClose(modalNode);
+                });
+            }
+        );
+        // prevent modal close on modal body click
+        let sezzleModal = document.querySelector("#sezzle-modal-core-content");
+        sezzleModal?.addEventListener("click", (event) => {
+                event.stopPropagation()
+            }
+        );
+    }
+
+    function executeModalScript() {
+        if (ModalUI) {
+            ModalUI.load();
+        } else {
+            console.log(
+                "ModalUI is undefined. Problem adding modal script to the document"
+            );
+            this.widgetEventLogger.logEvent(
+                Events.Error,
+                "ModalUI is undefined. Problem adding modal script to the document"
+            );
+        }
+    }
+
+    async function getModalContent(modalNode) {
+        const sezzleModalURL =
+            "https://media.sezzle.com/shopify-app/assets/sezzle-modal-4.0.4.html";
+        try {
+            const modalNodeContent = document.getElementById(
+                "sezzle-modal-core-content"
+            )
+            if(modalNodeContent?.innerHTML){
+                return;
+            };
+            const response = await httpRequestWrapper("GET", sezzleModalURL);
+            modalNode.innerHTML = response;
+            // // append modal JS to document head
+            const head = document.head;
+            const script = document.createElement("script");
+            script.innerHTML = modalNode.querySelector("script").innerHTML;
+            head.appendChild(script);
+            this.executeModalScript();
+        } catch (e) {
+            console.error("Unable to fetch Sezzle modal content", e);
+        }
+    }
+
+    function createModal() {
+        try {
+            // check for existing modal nodes
+            const modalNodes = document.getElementsByClassName(
+                "sezzle-checkout-modal-lightbox"
+            );
+            if (modalNodes.length) {
+                return modalNodes[0];
+            } else {
+                // render modal container
+                const modalNode = document.createElement("section");
+                modalNode.className =
+                    "sezzle-checkout-modal-lightbox close-sezzle-modal";
+                modalNode.style.display = "none";
+                modalNode.role = "dialog";
+                modalNode.style.maxHeight = "100%";
+                modalNode.lang = this.language;
+                document.querySelector("body").appendChild(modalNode);
+                return modalNode;
+            }
+        } catch {
+            console.log("failed to render Sezzle modal");
+        }
+    }
+
+    function renderModal() {
+        this.disableBodyScroll(true);
+        let modalNode = this.createModal();
+        this.getModalContent(modalNode);
+        this.addModalCloseListeners(modalNode);
+        modalNode.style.display = "block";
+        modalNode.focus();
+        const modals = modalNode.getElementsByClassName("sezzle-modal");
+        if (modals.length) {
+            modals[0].className = "sezzle-modal";
+        }
+    }
+
+	async function httpRequestWrapper(method, url, body = null) {
+        try {
+            const options = {
+                method,
+                headers: {},
+            };
+            if (body !== null) {
+                options.headers["Content-Type"] = "application/json";
+                options.body = JSON.stringify(body);
+            }
+            const response = await fetch(url, options);
+            if (!response.ok) {
+                throw new Error(
+                    "Something went wrong, contact the Sezzle team!"
+                );
+            }
+            return await response.text();
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
