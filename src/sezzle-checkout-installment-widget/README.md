@@ -34,7 +34,7 @@ Please refer to the instructions on [NPM](https://www.npmjs.com/package/@sezzle/
     - currencySymbol (optional): The currency symbol to display in the installment widget. If unassigned, the currency symbol will be automatically detected in the targeted checkout total element contents or default to `$`
     - checkoutTotal (*required*): The element where the checkout total is rendered. (Example value is given for Shopify default)
 
-### Javascript Method
+### Javascript Method (Non-Shopify platforms)
 
 1. Create a copy of `src/sezzle-checkout-installment-widget/sezzle-checkout-installment-widget.js` within your store's theme code, then import it into the checkout page code.
 
