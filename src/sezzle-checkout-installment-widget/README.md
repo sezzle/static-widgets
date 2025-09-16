@@ -18,7 +18,7 @@ Please refer to the instructions on [NPM](https://www.npmjs.com/package/@sezzle/
 1. In the `Assets` folder, click `New File` and name it `sezzle-installment-widget.js`
 1. Copy+paste the contents of `src/sezzle-checkout-installment-widget/sezzle-checkout-installment-widget.js` then click Save
 1. Paste the following into the bottom of the `templates/checkout.liquid` file in Shopify, then click Save:
-    ```html
+    ```
     {{ "sezzle-installment-widget.js" | asset_url | script_tag }}
     <script type="text/javascript">
         document.addEventListener('readystatechange', function(){
@@ -40,7 +40,7 @@ Please refer to the instructions on [NPM](https://www.npmjs.com/package/@sezzle/
 
 2.
     Option 1 (recommended): To inject the placeholder element dynamically, add the following lines of code to run once the rest of the page has loaded, updating `sezzlePaymentLine` to target the Sezzle payment method line, below which the installment widget asset will display:
-    ```html
+    ```
     <script type="text/javascript">
         document.addEventListener('readystatechange', function(){
             var sezzlePaymentLine = document.querySelector('[alt="Sezzle"]').parentElement.parentElement.parentElement; // Shopify example
@@ -53,7 +53,7 @@ Please refer to the instructions on [NPM](https://www.npmjs.com/package/@sezzle/
 
     Option 2: Enter the following two lines of code where the installment widget should appear:
 
-    ``` html
+    ```
         <div id="sezzle-installment-widget-box"></div>
         <script src="sezzle-checkout-installment-widget.js"></script>
     ```
