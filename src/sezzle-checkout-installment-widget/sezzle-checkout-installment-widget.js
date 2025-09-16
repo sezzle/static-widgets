@@ -578,10 +578,6 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
             console.log(
                 "ModalUI is undefined. Problem adding modal script to the document"
             );
-            this.widgetEventLogger.logEvent(
-                Events.Error,
-                "ModalUI is undefined. Problem adding modal script to the document"
-            );
         }
     }
 
