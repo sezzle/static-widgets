@@ -534,6 +534,12 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
         const installmentPriceElements = document
             .querySelector("#sezzle-installment-widget-box")
             ?.getElementsByClassName("installment-amount");
+        if (
+            !installmentPriceElements ||
+            installmentPriceElements.length !== 4
+        ) {
+            return;
+        }
         for (var i = 0; i < 3; i++) {
             createInstallmentPrice(
                 installmentAmount,
@@ -569,6 +575,9 @@ function renderInstallmentWidget(checkoutTotal, serviceRegion, currencySymbol) {
         const dateElements = document
             .querySelector("#sezzle-installment-widget-box")
             ?.getElementsByClassName("due-date");
+        if (!dateElements || dateElements.length !== 4) {
+            return;
+        }
         for (var i = 0; i < 4; i++) {
             if (i === 0) {
                 createPaymentPlan(translation[language].today, dateElements[0]);
