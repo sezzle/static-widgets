@@ -18,7 +18,10 @@ class AwesomeSezzle {
                         : options.language.substring(0, 2).toLowerCase();
                 break;
             case "function":
-        this.language = options.language().substring(0, 2).toLowerCase();
+                this.language = options
+                    .language()
+                    .substring(0, 2)
+                    .toLowerCase();
                 break;
             default:
                 this.language = "en";
@@ -28,18 +31,22 @@ class AwesomeSezzle {
             fr: frTranslations,
             es: esTranslations,
         };
-    this.language = this.translationsMap[this.language] ? this.language : "en";
+        this.language = this.translationsMap[this.language]
+            ? this.language
+            : "en";
         this.translations = this.translationsMap[this.language];
         this.numberOfPayments = 4;
         const templateString = this.translations.widget;
         const templateStringLT = this.translations.longTerm;
         this.widgetTemplate =
-      this.getWidgetTemplateOverride(options.widgetTemplate) || templateString;
+            this.getWidgetTemplateOverride(options.widgetTemplate) ||
+            templateString;
         this.widgetTemplateLT =
             this.getWidgetTemplateOverride(options.widgetTemplateLT) ||
             templateStringLT;
         this.ineligibleWidgetTemplate =
-      this.getWidgetTemplateOverride(options.ineligibleWidgetTemplate) || "";
+            this.getWidgetTemplateOverride(options.ineligibleWidgetTemplate) ||
+            "";
         this.renderElementInitial = options.renderElement || "sezzle-widget";
         this.assignConfigs(options);
     }
@@ -73,7 +80,8 @@ class AwesomeSezzle {
                 : this.renderElementInitial;
         this.renderElement = this.renderElementInitial;
         this.apLink =
-      options.apLink || "https://www.afterpay.com/purchase-payment-agreement";
+            options.apLink ||
+            "https://www.afterpay.com/purchase-payment-agreement";
         this.widgetType = options.widgetType || "product-page";
         this.bannerURL = options.bannerURL || "";
         this.bannerClass = options.bannerClass || "";
@@ -119,14 +127,10 @@ class AwesomeSezzle {
                 this.renderElement.children[0].classList.add("sezzle-left");
                 break;
             case "right":
-        this.renderElement.children[0].classList.add(
-            "sezzle-right"
-        );
+                this.renderElement.children[0].classList.add("sezzle-right");
                 break;
             case "center":
-        this.renderElement.children[0].classList.add(
-            "sezzle-center"
-        );
+                this.renderElement.children[0].classList.add("sezzle-center");
             default:
                 break;
         }
@@ -154,7 +158,8 @@ class AwesomeSezzle {
 
     addCSSTextColor() {
         if (this.textColor) {
-      this.renderElement.children[0].children[0].style.color = this.textColor;
+            this.renderElement.children[0].children[0].style.color =
+                this.textColor;
         }
     }
 
@@ -164,10 +169,14 @@ class AwesomeSezzle {
             case "white":
             case "white-flat":
             case "white-pill":
-        this.renderElement.children[0].children[0].classList.add("szl-dark");
+                this.renderElement.children[0].children[0].classList.add(
+                    "szl-dark"
+                );
                 break;
             default:
-        this.renderElement.children[0].children[0].classList.add("szl-light");
+                this.renderElement.children[0].children[0].classList.add(
+                    "szl-light"
+                );
                 break;
         }
     }
@@ -223,7 +232,9 @@ class AwesomeSezzle {
                 this.renderElement.classList.add("sezzle-cart-page-widget");
                 break;
             case "product-preview":
-        this.renderElement.classList.add("sezzle-product-preview-widget");
+                this.renderElement.classList.add(
+                    "sezzle-product-preview-widget"
+                );
                 break;
             default:
                 this.renderElement.classList.add("sezzle-product-page-widget");
@@ -275,7 +286,9 @@ class AwesomeSezzle {
                 }
             }
         });
-    let modals = document.querySelectorAll(".sezzle-checkout-modal-lightbox");
+        let modals = document.querySelectorAll(
+            ".sezzle-checkout-modal-lightbox"
+        );
         modals.forEach((modal) => {
             modal.remove();
         });
@@ -351,7 +364,10 @@ class AwesomeSezzle {
                         sezzleButtonText.appendChild(logoNode);
                         if (this.logoStyle != {}) this.setLogoStyle(logoNode);
                         this.setLogoSize(logoNode);
-            if (this.theme === "purple-pill" || this.theme == "white-pill") {
+                        if (
+                            this.theme === "purple-pill" ||
+                            this.theme == "white-pill"
+                        ) {
                             logoNode.style.transform = "scale(12)";
                         }
                         break;
@@ -376,12 +392,14 @@ class AwesomeSezzle {
                     case "info":
                         const infoIconNode = document.createElement("div");
                         infoIconNode.ariaLabel = `${this.translations.clickToLearnMore} Sezzle`;
-            infoIconNode.className = "sezzle-info-icon sezzle-modal-open-link";
+                        infoIconNode.className =
+                            "sezzle-info-icon sezzle-modal-open-link";
                         infoIconNode.innerHTML = "&#9432;";
                         sezzleButtonText.appendChild(infoIconNode);
                         break;
                     case "question-mark":
-            const questionMarkButton = document.createElement("button");
+                        const questionMarkButton =
+                            document.createElement("button");
                         questionMarkButton.role = "button";
                         questionMarkButton.type = "button";
                         questionMarkButton.ariaLabel = `${this.translations.learnMoreLink} Sezzle`;
@@ -391,7 +409,10 @@ class AwesomeSezzle {
                         );
                         questionMarkIconNode.setAttribute("width", "14");
                         questionMarkIconNode.setAttribute("height", "14");
-            questionMarkIconNode.setAttribute("viewBox", "0 0 369 371");
+                        questionMarkIconNode.setAttribute(
+                            "viewBox",
+                            "0 0 369 371"
+                        );
                         questionMarkButton.setAttribute(
                             "class",
                             "sezzle-question-mark-icon sezzle-modal-open-link"
@@ -474,7 +495,8 @@ class AwesomeSezzle {
                         apInfoIconNode.role = "button";
                         apInfoIconNode.type = "button";
                         apInfoIconNode.ariaLabel = `${this.translations.learnMoreAlt} Afterpay`;
-            apInfoIconNode.className = "ap-modal-info-link no-sezzle-info";
+                        apInfoIconNode.className =
+                            "ap-modal-info-link no-sezzle-info";
                         apInfoIconNode.innerHTML = "&#9432;";
                         sezzleButtonText.appendChild(apInfoIconNode);
                         break;
@@ -496,7 +518,10 @@ class AwesomeSezzle {
                         );
                         cashAppAfterpayNode.setAttribute("width", "98");
                         cashAppAfterpayNode.setAttribute("height", "24");
-            cashAppAfterpayNode.setAttribute("viewBox", "0 0 98 24");
+                        cashAppAfterpayNode.setAttribute(
+                            "viewBox",
+                            "0 0 98 24"
+                        );
                         cashAppAfterpayNode.setAttribute(
                             "preserveAspectRatio",
                             "xMidYMid meet"
@@ -505,7 +530,10 @@ class AwesomeSezzle {
                             "class",
                             `sezzle-cash-app-afterpay-logo cash-app-afterpay-modal-info-link no-sezzle-info`
                         );
-            cashAppAfterpayNode.setAttribute("aria-label", "Cash App Afterpay");
+                        cashAppAfterpayNode.setAttribute(
+                            "aria-label",
+                            "Cash App Afterpay"
+                        );
                         cashAppAfterpayNode.innerHTML =
                             HelperClass.svgImages().cashAppApNodeColor;
                         sezzleButtonText.appendChild(cashAppAfterpayNode);
@@ -518,7 +546,10 @@ class AwesomeSezzle {
                         );
                         cashAppAfterpayNode.setAttribute("width", "98");
                         cashAppAfterpayNode.setAttribute("height", "24");
-            cashAppAfterpayNode.setAttribute("viewBox", "0 0 98 24");
+                        cashAppAfterpayNode.setAttribute(
+                            "viewBox",
+                            "0 0 98 24"
+                        );
                         cashAppAfterpayNode.setAttribute(
                             "preserveAspectRatio",
                             "xMidYMid meet"
@@ -527,7 +558,10 @@ class AwesomeSezzle {
                             "class",
                             `sezzle-cash-app-afterpay-logo cash-app-afterpay-modal-info-link no-sezzle-info`
                         );
-            cashAppAfterpayNode.setAttribute("aria-label", "Cash App Afterpay");
+                        cashAppAfterpayNode.setAttribute(
+                            "aria-label",
+                            "Cash App Afterpay"
+                        );
                         cashAppAfterpayNode.innerHTML =
                             HelperClass.svgImages().cashAppApNodeBlack;
                         sezzleButtonText.appendChild(cashAppAfterpayNode);
@@ -542,7 +576,9 @@ class AwesomeSezzle {
                         cashAppAfterpayInfoIconNode.className =
                             "cash-app-afterpay-modal-info-link cash-app-afterpay-info-icon no-sezzle-info";
                         cashAppAfterpayInfoIconNode.innerHTML = "&#9432;";
-            sezzleButtonText.appendChild(cashAppAfterpayInfoIconNode);
+                        sezzleButtonText.appendChild(
+                            cashAppAfterpayInfoIconNode
+                        );
                         break;
                     case "quadpay-logo":
                         var qpNode = document.createElementNS(
@@ -606,7 +642,10 @@ class AwesomeSezzle {
                             "svg"
                         );
 
-            qpNode.setAttribute("id", "qp-logo-svg-secondary-light");
+                        qpNode.setAttribute(
+                            "id",
+                            "qp-logo-svg-secondary-light"
+                        );
                         qpNode.setAttribute(
                             "alt",
                             "Zip logo, when clicked, opens infographic about the option of buying this item with 4 installment payments"
@@ -629,7 +668,8 @@ class AwesomeSezzle {
                         this.setLogoSize(qpNode);
                         break;
                     case "quadpay-info-icon":
-            const quadpayInfoIconNode = document.createElement("button");
+                        const quadpayInfoIconNode =
+                            document.createElement("button");
                         quadpayInfoIconNode.role = "button";
                         quadpayInfoIconNode.type = "button";
                         quadpayInfoIconNode.ariaLabel = `${this.translations.learnMoreAlt} Quadpay`;
@@ -655,7 +695,8 @@ class AwesomeSezzle {
                             `height: 24px !important;width: auto !important;`
                         );
                         affirmNode.setAttribute("aria-label", "Affirm");
-            affirmNode.innerHTML = HelperClass.svgImages().affirmNodeColor;
+                        affirmNode.innerHTML =
+                            HelperClass.svgImages().affirmNodeColor;
                         sezzleButtonText.appendChild(affirmNode);
                         this.setLogoSize(affirmNode);
                         break;
@@ -676,7 +717,8 @@ class AwesomeSezzle {
                             `height: 24px !important;width: auto !important;`
                         );
                         affirmNode.setAttribute("aria-label", "Affirm");
-            affirmNode.innerHTML = HelperClass.svgImages().affirmNodeGrey;
+                        affirmNode.innerHTML =
+                            HelperClass.svgImages().affirmNodeGrey;
                         sezzleButtonText.appendChild(affirmNode);
                         this.setLogoSize(affirmNode);
                         break;
@@ -697,12 +739,14 @@ class AwesomeSezzle {
                             `height: 24px !important;width: auto !important;`
                         );
                         affirmNode.setAttribute("aria-label", "Affirm");
-            affirmNode.innerHTML = HelperClass.svgImages().affirmNodeWhite;
+                        affirmNode.innerHTML =
+                            HelperClass.svgImages().affirmNodeWhite;
                         sezzleButtonText.appendChild(affirmNode);
                         this.setLogoSize(affirmNode);
                         break;
                     case "affirm-info-icon":
-            const affirmInfoIconNode = document.createElement("button");
+                        const affirmInfoIconNode =
+                            document.createElement("button");
                         affirmInfoIconNode.role = "button";
                         affirmInfoIconNode.type = "button";
                         affirmInfoIconNode.ariaLabel = `${this.translations.learnMoreAlt} Affirm`;
@@ -728,7 +772,8 @@ class AwesomeSezzle {
                             `height: 25px !important;width: auto !important; margin-bottom: -5px;`
                         );
                         klarnaNode.setAttribute("aria-label", "Klarna");
-            klarnaNode.innerHTML = HelperClass.svgImages().klarnaNodeColor;
+                        klarnaNode.innerHTML =
+                            HelperClass.svgImages().klarnaNodeColor;
                         sezzleButtonText.appendChild(klarnaNode);
                         this.setLogoSize(klarnaNode);
                         break;
@@ -749,7 +794,8 @@ class AwesomeSezzle {
                             `height: 25px !important;width: auto !important; margin-bottom: -5px;`
                         );
                         klarnaNode.setAttribute("aria-label", "Klarna");
-            klarnaNode.innerHTML = HelperClass.svgImages().klarnaNodeGrey;
+                        klarnaNode.innerHTML =
+                            HelperClass.svgImages().klarnaNodeGrey;
                         sezzleButtonText.appendChild(klarnaNode);
                         this.setLogoSize(klarnaNode);
                         break;
@@ -770,12 +816,14 @@ class AwesomeSezzle {
                             `height: 25px !important;width: auto !important; margin-bottom: -5px;`
                         );
                         klarnaNode.setAttribute("aria-label", "Klarna");
-            klarnaNode.innerHTML = HelperClass.svgImages().klarnaNodeWhite;
+                        klarnaNode.innerHTML =
+                            HelperClass.svgImages().klarnaNodeWhite;
                         sezzleButtonText.appendChild(klarnaNode);
                         this.setLogoSize(klarnaNode);
                         break;
                     case "klarna-info-icon":
-            const klarnaInfoIconNode = document.createElement("button");
+                        const klarnaInfoIconNode =
+                            document.createElement("button");
                         klarnaInfoIconNode.role = "button";
                         klarnaInfoIconNode.type = "button";
                         klarnaInfoIconNode.ariaLabel = `${this.translations.learnMoreAlt} Klarna`;
@@ -842,7 +890,8 @@ class AwesomeSezzle {
                         sezzleButtonText.appendChild(uuml);
                         break;
                     default:
-            const widgetTextNode = document.createTextNode(subtemplate);
+                        const widgetTextNode =
+                            document.createTextNode(subtemplate);
                         sezzleButtonText.appendChild(widgetTextNode);
                         break;
                 }
@@ -912,13 +961,19 @@ class AwesomeSezzle {
             return (
                 commaPrice.substring(0, commaPrice.indexOf(",") - 3) +
                 "." +
-        commaPrice.substring(commaPrice.indexOf(",") - 3, commaPrice.length)
+                commaPrice.substring(
+                    commaPrice.indexOf(",") - 3,
+                    commaPrice.length
+                )
             );
         } else if (parsedPrice.length > 6) {
             return (
                 parsedPrice.substring(0, parsedPrice.indexOf(".") - 3) +
                 "," +
-        parsedPrice.substring(parsedPrice.indexOf(".") - 3, parsedPrice.length)
+                parsedPrice.substring(
+                    parsedPrice.indexOf(".") - 3,
+                    parsedPrice.length
+                )
             );
         } else {
             return parsedPrice;
@@ -992,7 +1047,8 @@ class AwesomeSezzle {
             ".sezzle-modal-content"
         ).childNodes;
         let firstFocusableElement = focusableElements[0];
-    let lastFocusableElement = focusableElements[focusableElements.length - 1];
+        let lastFocusableElement =
+            focusableElements[focusableElements.length - 1];
         document.addEventListener("keydown", function (event) {
             if (
                 event.key === "ArrowDown" &&
@@ -1025,7 +1081,9 @@ class AwesomeSezzle {
                         .querySelector(".sezzle-info-icon")
                         .focus();
                 } else {
-          document.querySelector(".sezzle-checkout-button-wrapper").focus();
+                    document
+                        .querySelector(".sezzle-checkout-button-wrapper")
+                        .focus();
                 }
             }
         });
@@ -1033,17 +1091,21 @@ class AwesomeSezzle {
 
     renderModal() {
         if (
-      !document.getElementsByClassName("sezzle-checkout-modal-lightbox").length
+            !document.getElementsByClassName("sezzle-checkout-modal-lightbox")
+                .length
         ) {
             var modalNode = document.createElement("section");
-      modalNode.className = "sezzle-checkout-modal-lightbox close-sezzle-modal";
+            modalNode.className =
+                "sezzle-checkout-modal-lightbox close-sezzle-modal";
             modalNode.style.display = "none";
             modalNode.role = "dialog";
             modalNode.lang = this.language;
             modalNode.ariaLabel = this.translations.sezzleInformation;
             modalNode.ariaDescription = this.translations.aboutSezzle;
             if (this.isProductEligibleLT(this.amount)) {
-        let currency = String.fromCharCode(this.currencySymbol(this.amount));
+                let currency = String.fromCharCode(
+                    this.currencySymbol(this.amount)
+                );
                 let priceString =
                     this.amount.indexOf(currency) > -1
                         ? this.amount.split(currency)[1]
@@ -1075,7 +1137,8 @@ class AwesomeSezzle {
 								<div class="sezzle-lt-payment-header">${
                                     this.translations.sezzleLtPaymentHeader
                                 } <span>${
-            currency + this.addDelimiters(priceString, this.parseMode)
+                        currency +
+                        this.addDelimiters(priceString, this.parseMode)
                     }</span></div>
 								<div class="sezzle-lt-payment-options ${terms[2]}-month" ${
                         terms[2] === undefined
@@ -1125,7 +1188,9 @@ class AwesomeSezzle {
                         this.translations.percent
                     }">
 											<span aria-hidden="true">${
-                        this.translationsMap[this.language].sampleApr
+                                                this.translationsMap[
+                                                    this.language
+                                                ].sampleApr
                                             }</span><span aria-hidden="true">${
                         this.bestAPR
                     }%</span></span>
@@ -1145,7 +1210,9 @@ class AwesomeSezzle {
                                                 )
                                             }</span>
 											<span aria-label="${
-                        this.translationsMap[this.language].perMonth
+                                                this.translationsMap[
+                                                    this.language
+                                                ].perMonth
                                             }"><span class="per-month" aria-hidden="true">${
                         this.translations.monthlyAmount
                     }<sup>*</sup></span></span>
@@ -1176,7 +1243,9 @@ class AwesomeSezzle {
                         this.translations.percent
                     }">
 											<span aria-hidden="true">${
-                        this.translationsMap[this.language].sampleApr
+                                                this.translationsMap[
+                                                    this.language
+                                                ].sampleApr
                                             }</span><span aria-hidden="true">${
                         this.bestAPR
                     }%</span></span>
@@ -1196,7 +1265,9 @@ class AwesomeSezzle {
                                                 )
                                             }</span>
 											<span aria-label="${
-                        this.translationsMap[this.language].perMonth
+                                                this.translationsMap[
+                                                    this.language
+                                                ].perMonth
                                             }"><span class="per-month" aria-hidden="true">${
                         this.translations.monthlyAmount
                     }<sup>*</sup></span></span>
@@ -1227,7 +1298,9 @@ class AwesomeSezzle {
                         this.translations.percent
                     }">
 											<span aria-hidden="true">${
-                        this.translationsMap[this.language].sampleApr
+                                                this.translationsMap[
+                                                    this.language
+                                                ].sampleApr
                                             }</span><span aria-hidden="true">${
                         this.bestAPR
                     }%</span></span>
@@ -1429,11 +1502,15 @@ class AwesomeSezzle {
                 const updatedModalHTML = modalHTML
                     .replace(
                         "%%min-price%%",
-            Intl.NumberFormat(this.language).format(this.minPrice / 100)
+                        Intl.NumberFormat(this.language).format(
+                            this.minPrice / 100
+                        )
                     )
                     .replace(
                         "%%max-price%%",
-            Intl.NumberFormat(this.language).format(this.maxPrice / 100)
+                        Intl.NumberFormat(this.language).format(
+                            this.maxPrice / 100
+                        )
                     );
                 modalNode.innerHTML = updatedModalHTML;
             }
@@ -1451,9 +1528,13 @@ class AwesomeSezzle {
                     modalNode.getElementsByClassName(
                         "sezzle-modal"
                     )[0].className = `sezzle-modal sezzle-modal${
-            this.modalTheme === "grayscale" ? "-grayscale" : "-color"
+                        this.modalTheme === "grayscale"
+                            ? "-grayscale"
+                            : "-color"
                     } sezzle-checkout-modal-hidden`;
-          let newFocus = document.querySelector("#sezzle-modal-return");
+                    let newFocus = document.querySelector(
+                        "#sezzle-modal-return"
+                    );
                     if (newFocus) {
                         newFocus.focus();
                         newFocus.removeAttribute("id");
@@ -1467,14 +1548,18 @@ class AwesomeSezzle {
                             .querySelector(".sezzle-info-icon")
                             .focus();
                     } else {
-            document.querySelector(".sezzle-checkout-button-wrapper").focus();
+                        document
+                            .querySelector(".sezzle-checkout-button-wrapper")
+                            .focus();
                     }
                 });
             }
         );
         let sezzleModal = document.getElementsByClassName("sezzle-modal")[0];
         if (!sezzleModal)
-      sezzleModal = document.getElementsByClassName("sezzle-checkout-modal")[0];
+            sezzleModal = document.getElementsByClassName(
+                "sezzle-checkout-modal"
+            )[0];
         sezzleModal.addEventListener("click", function (event) {
             event.stopPropagation();
         });
@@ -1578,7 +1663,9 @@ class AwesomeSezzle {
             function (el) {
                 el.addEventListener("click", function () {
                     modalNode.style.display = "none";
-          let newFocus = document.querySelector("#sezzle-modal-return");
+                    let newFocus = document.querySelector(
+                        "#sezzle-modal-return"
+                    );
                     if (newFocus) {
                         newFocus.focus();
                         newFocus.removeAttribute("id");
@@ -1588,14 +1675,18 @@ class AwesomeSezzle {
                             .getElementsByClassName(`ap-modal-info-link`)[0]
                             .focus();
                     } else {
-            document.querySelector(".sezzle-checkout-button-wrapper").focus();
+                        document
+                            .querySelector(".sezzle-checkout-button-wrapper")
+                            .focus();
                     }
                 });
             }
         );
         let sezzleModal = document.getElementsByClassName("sezzle-modal")[0];
         if (!sezzleModal)
-      sezzleModal = document.getElementsByClassName("sezzle-checkout-modal")[0];
+            sezzleModal = document.getElementsByClassName(
+                "sezzle-checkout-modal"
+            )[0];
         sezzleModal.addEventListener("click", function (event) {
             event.stopPropagation();
         });
@@ -1621,26 +1712,36 @@ class AwesomeSezzle {
             function (el) {
                 el.addEventListener("click", function () {
                     modalNode.style.display = "none";
-          let newFocus = document.querySelector("#sezzle-modal-return");
+                    let newFocus = document.querySelector(
+                        "#sezzle-modal-return"
+                    );
                     if (newFocus) {
                         newFocus.focus();
                         newFocus.removeAttribute("id");
                     } else if (
-            document.querySelector(`.cash-app-afterpay-modal-info-link`)
+                        document.querySelector(
+                            `.cash-app-afterpay-modal-info-link`
+                        )
                     ) {
                         document
                             .querySelector(".sezzle-checkout-button-wrapper")
-              .getElementsByClassName(`cash-app-afterpay-modal-info-link`)[0]
+                            .getElementsByClassName(
+                                `cash-app-afterpay-modal-info-link`
+                            )[0]
                             .focus();
                     } else {
-            document.querySelector(".sezzle-checkout-button-wrapper").focus();
+                        document
+                            .querySelector(".sezzle-checkout-button-wrapper")
+                            .focus();
                     }
                 });
             }
         );
         let sezzleModal = document.getElementsByClassName("sezzle-modal")[0];
         if (!sezzleModal)
-      sezzleModal = document.getElementsByClassName("sezzle-checkout-modal")[0];
+            sezzleModal = document.getElementsByClassName(
+                "sezzle-checkout-modal"
+            )[0];
         sezzleModal.addEventListener("click", function (event) {
             event.stopPropagation();
         });
@@ -1666,7 +1767,9 @@ class AwesomeSezzle {
             function (el) {
                 el.addEventListener("click", function () {
                     modalNode.style.display = "none";
-          let newFocus = document.querySelector("#sezzle-modal-return");
+                    let newFocus = document.querySelector(
+                        "#sezzle-modal-return"
+                    );
                     if (newFocus) {
                         newFocus.focus();
                         newFocus.removeAttribute("id");
@@ -1676,14 +1779,18 @@ class AwesomeSezzle {
                             .getElementsByClassName(`qp-modal-info-link`)[0]
                             .focus();
                     } else {
-            document.querySelector(".sezzle-checkout-button-wrapper").focus();
+                        document
+                            .querySelector(".sezzle-checkout-button-wrapper")
+                            .focus();
                     }
                 });
             }
         );
         let sezzleModal = document.getElementsByClassName("sezzle-modal")[0];
         if (!sezzleModal)
-      sezzleModal = document.getElementsByClassName("sezzle-checkout-modal")[0];
+            sezzleModal = document.getElementsByClassName(
+                "sezzle-checkout-modal"
+            )[0];
         sezzleModal.addEventListener("click", function (event) {
             event.stopPropagation();
         });
@@ -1705,24 +1812,32 @@ class AwesomeSezzle {
             function (el) {
                 el.addEventListener("click", function () {
                     modalNode.style.display = "none";
-          let newFocus = document.querySelector("#sezzle-modal-return");
+                    let newFocus = document.querySelector(
+                        "#sezzle-modal-return"
+                    );
                     if (newFocus) {
                         newFocus.focus();
                         newFocus.removeAttribute("id");
-          } else if (document.querySelector(`.affirm-modal-info-link`)) {
+                    } else if (
+                        document.querySelector(`.affirm-modal-info-link`)
+                    ) {
                         document
                             .querySelector(".sezzle-checkout-button-wrapper")
                             .getElementsByClassName(`affirm-modal-info-link`)[0]
                             .focus();
                     } else {
-            document.querySelector(".sezzle-checkout-button-wrapper").focus();
+                        document
+                            .querySelector(".sezzle-checkout-button-wrapper")
+                            .focus();
                     }
                 });
             }
         );
         let sezzleModal = document.getElementsByClassName("sezzle-modal")[0];
         if (!sezzleModal)
-      sezzleModal = document.getElementsByClassName("sezzle-checkout-modal")[0];
+            sezzleModal = document.getElementsByClassName(
+                "sezzle-checkout-modal"
+            )[0];
         sezzleModal.addEventListener("click", function (event) {
             event.stopPropagation();
         });
@@ -1750,30 +1865,40 @@ class AwesomeSezzle {
             function (el) {
                 el.addEventListener("click", function () {
                     modalNode.style.display = "none";
-          let newFocus = document.querySelector("#sezzle-modal-return");
+                    let newFocus = document.querySelector(
+                        "#sezzle-modal-return"
+                    );
                     if (newFocus) {
                         newFocus.focus();
                         newFocus.removeAttribute("id");
-          } else if (document.querySelector(`.shoppay-modal-info-link`)) {
+                    } else if (
+                        document.querySelector(`.shoppay-modal-info-link`)
+                    ) {
                         document
                             .querySelector(".sezzle-checkout-button-wrapper")
-                            .getElementsByClassName(`shoppay-modal-info-link`)[0]
+                            .getElementsByClassName(
+                                `shoppay-modal-info-link`
+                            )[0]
                             .focus();
                     } else {
-            document.querySelector(".sezzle-checkout-button-wrapper").focus();
+                        document
+                            .querySelector(".sezzle-checkout-button-wrapper")
+                            .focus();
                     }
                 });
             }
         );
         let sezzleModal = document.getElementsByClassName("sezzle-modal")[0];
         if (!sezzleModal)
-      sezzleModal = document.getElementsByClassName("sezzle-checkout-modal")[0];
+            sezzleModal = document.getElementsByClassName(
+                "sezzle-checkout-modal"
+            )[0];
         sezzleModal.addEventListener("click", function (event) {
             event.stopPropagation();
         });
     }
 
-      renderKlarnaModal() {
+    renderKlarnaModal() {
         var modalNode = document.createElement("section");
         modalNode.className =
             "sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-klarna-modal";
@@ -1795,24 +1920,32 @@ class AwesomeSezzle {
             function (el) {
                 el.addEventListener("click", function () {
                     modalNode.style.display = "none";
-          let newFocus = document.querySelector("#sezzle-modal-return");
+                    let newFocus = document.querySelector(
+                        "#sezzle-modal-return"
+                    );
                     if (newFocus) {
                         newFocus.focus();
                         newFocus.removeAttribute("id");
-          } else if (document.querySelector(`.klarna-modal-info-link`)) {
+                    } else if (
+                        document.querySelector(`.klarna-modal-info-link`)
+                    ) {
                         document
                             .querySelector(".sezzle-checkout-button-wrapper")
                             .getElementsByClassName(`klarna-modal-info-link`)[0]
                             .focus();
                     } else {
-            document.querySelector(".sezzle-checkout-button-wrapper").focus();
+                        document
+                            .querySelector(".sezzle-checkout-button-wrapper")
+                            .focus();
                     }
                 });
             }
         );
         let sezzleModal = document.getElementsByClassName("sezzle-modal")[0];
         if (!sezzleModal)
-      sezzleModal = document.getElementsByClassName("sezzle-checkout-modal")[0];
+            sezzleModal = document.getElementsByClassName(
+                "sezzle-checkout-modal"
+            )[0];
         sezzleModal.addEventListener("click", function (event) {
             event.stopPropagation();
         });
@@ -1839,16 +1972,22 @@ class AwesomeSezzle {
                     "click",
                     function (event) {
                         event.preventDefault();
-            if (!event.target.classList.contains("no-sezzle-info")) {
+                        if (
+                            !event.target.classList.contains("no-sezzle-info")
+                        ) {
                             var modalNode = document.getElementsByClassName(
                                 "sezzle-checkout-modal-lightbox"
                             )[0];
                             modalNode.style.display = "block";
-              modalNode.getElementsByClassName("close-sezzle-modal")[0].focus();
+                            modalNode
+                                .getElementsByClassName("close-sezzle-modal")[0]
+                                .focus();
                             modalNode.getElementsByClassName(
                                 "sezzle-modal"
                             )[0].className = `sezzle-modal sezzle-modal${
-                this.modalTheme === "grayscale" ? "-grayscale" : "-color"
+                                this.modalTheme === "grayscale"
+                                    ? "-grayscale"
+                                    : "-color"
                             }`;
                             event.target.id = "sezzle-modal-return";
                             event.preventDefault();
@@ -1869,7 +2008,9 @@ class AwesomeSezzle {
                         document.getElementsByClassName(
                             "sezzle-ap-modal"
                         )[0].style.display = "block";
-            document.getElementsByClassName("sezzle-ap-modal")[0].focus();
+                        document
+                            .getElementsByClassName("sezzle-ap-modal")[0]
+                            .focus();
                         event.target.id = "sezzle-modal-return";
                         event.preventDefault();
                         event.stopPropagation();
@@ -1890,7 +2031,9 @@ class AwesomeSezzle {
                             "sezzle-cash-app-afterpay-modal"
                         )[0].style.display = "block";
                         document
-              .getElementsByClassName("sezzle-cash-app-afterpay-modal")[0]
+                            .getElementsByClassName(
+                                "sezzle-cash-app-afterpay-modal"
+                            )[0]
                             .focus();
                         event.target.id = "sezzle-modal-return";
                         event.preventDefault();
@@ -1911,7 +2054,9 @@ class AwesomeSezzle {
                         document.getElementsByClassName(
                             "sezzle-qp-modal"
                         )[0].style.display = "block";
-            document.getElementsByClassName("sezzle-qp-modal")[0].focus();
+                        document
+                            .getElementsByClassName("sezzle-qp-modal")[0]
+                            .focus();
                         event.target.id = "sezzle-modal-return";
                         event.preventDefault();
                         event.stopPropagation();
@@ -1931,7 +2076,9 @@ class AwesomeSezzle {
                         document.getElementsByClassName(
                             "sezzle-affirm-modal"
                         )[0].style.display = "block";
-            document.getElementsByClassName("sezzle-affirm-modal")[0].focus();
+                        document
+                            .getElementsByClassName("sezzle-affirm-modal")[0]
+                            .focus();
                         event.target.id = "sezzle-modal-return";
                         event.preventDefault();
                         event.stopPropagation();
@@ -1951,7 +2098,9 @@ class AwesomeSezzle {
                         document.getElementsByClassName(
                             "sezzle-klarna-modal"
                         )[0].style.display = "block";
-            document.getElementsByClassName("sezzle-klarna-modal")[0].focus();
+                        document
+                            .getElementsByClassName("sezzle-klarna-modal")[0]
+                            .focus();
                         event.target.id = "sezzle-modal-return";
                         event.preventDefault();
                         event.stopPropagation();
@@ -1971,7 +2120,9 @@ class AwesomeSezzle {
                         document.getElementsByClassName(
                             "sezzle-shoppay-modal"
                         )[0].style.display = "block";
-            document.getElementsByClassName("sezzle-shoppay-modal")[0].focus();
+                        document
+                            .getElementsByClassName("sezzle-shoppay-modal")[0]
+                            .focus();
                         event.target.id = "sezzle-modal-return";
                         event.preventDefault();
                         event.stopPropagation();
@@ -1997,27 +2148,33 @@ class AwesomeSezzle {
 
         function renderModals() {
             this.renderModal();
-      if (document.getElementsByClassName("ap-modal-info-link").length > 0) {
+            if (
+                document.getElementsByClassName("ap-modal-info-link").length > 0
+            ) {
                 this.renderAPModal();
             }
             if (
-        document.getElementsByClassName("cash-app-afterpay-modal-info-link")
-          .length > 0
+                document.getElementsByClassName(
+                    "cash-app-afterpay-modal-info-link"
+                ).length > 0
             ) {
                 this.renderCashAppAfterpayModal();
             }
             if (
-        document.getElementsByClassName("quadpay-modal-info-link").length > 0
+                document.getElementsByClassName("quadpay-modal-info-link")
+                    .length > 0
             ) {
                 this.renderQPModal();
             }
             if (
-        document.getElementsByClassName("affirm-modal-info-link").length > 0
+                document.getElementsByClassName("affirm-modal-info-link")
+                    .length > 0
             ) {
                 this.renderAffirmModal();
             }
             if (
-        document.getElementsByClassName("klarna-modal-info-link").length > 0
+                document.getElementsByClassName("klarna-modal-info-link")
+                    .length > 0
             ) {
                 this.renderKlarnaModal();
             }
