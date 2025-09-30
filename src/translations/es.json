@@ -9,6 +9,7 @@
   "completePurchase": "2. Completa tu compra con un pago inicial del 25%.",
   "interest": "Interés Total:",
   "klarnaInfo": "Información Klarna",
+  "learnMoreAlt": "Obtenga más información sobre",
   "learnMoreLink": "Aprende más",
   "linkToCompleteTerms": "<a href=\"https://legal.sezzle.com/user\" target=\"_blank\">Haga clic aquí para conocer los términos completos.</a>",
   "longTerm": "o pagos mensuales tan bajos como %%price%% con %%logo%% %%info%%",

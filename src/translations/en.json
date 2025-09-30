@@ -9,6 +9,7 @@
     "completePurchase": "2. Complete your purchase with a 25% down payment.",
     "interest": "Total Interest:",
     "klarnaInfo": "Klarna Information",
+    "learnMoreAlt": "Learn more about",
     "learnMoreLink": "Learn more",
     "linkToCompleteTerms": "<a href=\"https://legal.sezzle.com/user\" target=\"_blank\">Click here for complete terms.</a>",
     "longTerm": "or monthly payments as low as %%price%% with %%logo%% %%info%%",
