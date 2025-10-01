@@ -785,7 +785,7 @@ class AwesomeSezzle {
             sezzleButtonText.appendChild(klarnaInfoIconNode);
             break;
                     case "shoppay-logo":
-                        var shoppayNode = document.createElementNS(
+                        const shoppayNode = document.createElementNS(
                             "http://www.w3.org/2000/svg",
                             "svg"
                         );
@@ -1729,7 +1729,7 @@ class AwesomeSezzle {
   }
 
       renderShoppayModal() {
-        var modalNode = document.createElement("section");
+        const modalNode = document.createElement("section");
         modalNode.className =
             "sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-shoppay-modal";
         modalNode.style = "position: center";
