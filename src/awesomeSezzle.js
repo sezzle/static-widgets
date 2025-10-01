@@ -802,7 +802,7 @@ class AwesomeSezzle {
                         );
                         shoppayNode.setAttribute("aria-label", "Shoppay");
                         shoppayNode.innerHTML =
-                            HelperClass.svgImages().shoppayLight;
+                            HelperClass?.svgImages()?.shoppayLight || '';
                         sezzleButtonText.appendChild(shoppayNode);
                         this.setLogoSize(shoppayNode);
                         break;
