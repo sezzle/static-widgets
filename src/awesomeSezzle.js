@@ -58,6 +58,7 @@ class AwesomeSezzle {
     this.modalTheme = options.modalTheme || "color";
     this.affirmModalHTML = options.affirmModalHTML || "";
     this.klarnaModalHTML = options.klarnaModalHTML || "";
+    this.shoppayModalHTML = options.shoppayModalHTML || "";
     this.alignmentSwitchMinWidth = options.alignmentSwitchMinWidth || 760;
     this.alignmentSwitchType = options.alignmentSwitchType || "";
     this.alignment = options.alignment || "left";
@@ -783,6 +784,39 @@ class AwesomeSezzle {
             klarnaInfoIconNode.innerHTML = "&#9432;";
             sezzleButtonText.appendChild(klarnaInfoIconNode);
             break;
+                    case "shoppay-logo":
+                        const shoppayNode = document.createElementNS(
+                            "http://www.w3.org/2000/svg",
+                            "svg"
+                        );
+                        shoppayNode.setAttribute("width", "99");
+                        shoppayNode.setAttribute("height", "25");
+                        shoppayNode.setAttribute("viewBox", "0 0 99 25");
+                        shoppayNode.setAttribute(
+                            "class",
+                            `sezzle-shoppay-logo shoppay-modal-info-link no-sezzle-info`
+                        );
+                        shoppayNode.setAttribute(
+                            "style",
+                            `height: 18px !important;width: auto !important; margin-bottom: -5px;`
+                        );
+                        shoppayNode.setAttribute("aria-label", "Shoppay");
+                        shoppayNode.innerHTML =
+                            HelperClass?.svgImages()?.shoppayLight || '';
+                        sezzleButtonText.appendChild(shoppayNode);
+                        this.setLogoSize(shoppayNode);
+                        break;
+                    case "shoppay-info-icon":
+                        const shoppayInfoIconNode =
+                            document.createElement("button");
+                        shoppayInfoIconNode.role = "button";
+                        shoppayInfoIconNode.type = "button";
+                        shoppayInfoIconNode.ariaLabel = `${this.translations.learnMoreAlt} Shoppay`;
+                        shoppayInfoIconNode.className =
+                            "shoppay-modal-info-link no-sezzle-info";
+                        shoppayInfoIconNode.innerHTML = "&#9432;";
+                        sezzleButtonText.appendChild(shoppayInfoIconNode);
+                        break;
           case "line-break":
             const lineBreakNode = document.createElement("br");
             sezzleButtonText.appendChild(lineBreakNode);
@@ -1493,6 +1527,21 @@ class AwesomeSezzle {
     }
   }
 
+    async getShoppayModal(modalNode) {
+        const url = `https://media.sezzle.com/shoppay/modal/${this.language}.html`;
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new error(
+                    `Failed to fetch shoppay modal, status: ${response.status}`
+                );
+            }
+            modalNode.innerHTML = await response.text();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
   async getKlarnaModal(modalNode) {
     const url = `https://media.sezzle.com/klarna/modal/${this.language}.html`;
     try {
@@ -1678,6 +1727,61 @@ class AwesomeSezzle {
       event.stopPropagation();
     });
   }
+
+      renderShoppayModal() {
+        const modalNode = document.createElement("section");
+        modalNode.className =
+            "sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-shoppay-modal";
+        modalNode.style = "position: center";
+        modalNode.style.display = "none";
+        modalNode.role = "dialog";
+        modalNode.ariaLabel = this.translations.shoppayInfo;
+        modalNode.ariaDescription = `${this.translations.learnMoreAlt}  Shoppay`;
+
+        if (this.shoppayModalHTML) {
+            modalNode.innerHTML = this.shoppayModalHTML;
+        } else {
+            this.getShoppayModal(modalNode);
+        }
+
+        document.getElementsByTagName("html")[0].appendChild(modalNode);
+        Array.prototype.forEach.call(
+            document.getElementsByClassName("close-sezzle-modal"),
+            function (el) {
+                el.addEventListener("click", function () {
+                    modalNode.style.display = "none";
+                    let newFocus = document.querySelector(
+                        "#sezzle-modal-return"
+                    );
+                    if (newFocus) {
+                        newFocus.focus();
+                        newFocus.removeAttribute("id");
+                    } else if (
+                        document.querySelector(`.shoppay-modal-info-link`)
+                    ) {
+                        document
+                            .querySelector(".sezzle-checkout-button-wrapper")
+                            .getElementsByClassName(
+                                `shoppay-modal-info-link`
+                            )[0]
+                            .focus();
+                    } else {
+                        document
+                            .querySelector(".sezzle-checkout-button-wrapper")
+                            .focus();
+                    }
+                });
+            }
+        );
+        let sezzleModal = document.getElementsByClassName("sezzle-modal")[0];
+        if (!sezzleModal)
+            sezzleModal = document.getElementsByClassName(
+                "sezzle-checkout-modal"
+            )[0];
+        sezzleModal.addEventListener("click", function (event) {
+            event.stopPropagation();
+        });
+    }
 
   renderKlarnaModal() {
     var modalNode = document.createElement("section");
@@ -1865,6 +1969,28 @@ class AwesomeSezzle {
         );
       }.bind(this)
     );
+        const shoppayModalLinks = sezzleElement.getElementsByClassName(
+            "shoppay-modal-info-link"
+        );
+        Array.prototype.forEach.call(
+            shoppayModalLinks,
+            function (modalLink) {
+                modalLink.addEventListener(
+                    "click",
+                    function (event) {
+                        document.getElementsByClassName(
+                            "sezzle-shoppay-modal"
+                        )[0].style.display = "block";
+                        document
+                            .getElementsByClassName("sezzle-shoppay-modal")[0]
+                            .focus();
+                        event.target.id = "sezzle-modal-return";
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }.bind(this)
+                );
+            }.bind(this)
+        );
   }
 
   isMobileBrowser() {
@@ -1907,6 +2033,11 @@ class AwesomeSezzle {
       ) {
         this.renderKlarnaModal();
       }
+            if (
+        document.getElementsByClassName("shoppay-modal-info-link").length > 0
+            ) {
+                this.renderShoppayModal();
+            }
     }
 
     function sezzleWidgetCheckInterval() {

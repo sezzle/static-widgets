@@ -102,3 +102,25 @@ deploy_cloudfront:cash_app_afterpay_modals:
   rules:
     - !reference [.deploy_default_rules]
     - !reference [.deploy_production_rules]
+
+deploy_cloudfront:shoppay_modals:
+  extends:
+    - .deploy_cloudfront
+  environment: "shoppay_modals/${env_production}"
+  tags:
+    - ${tag_deploy_us}
+  variables:
+    S3_BUCKET: "sezzlemedia/shoppay"
+    CF_DIST: "EFV0KW59BE883"
+  script:
+    - |
+      log section "Copy static files to ./build"
+      mkdir -p ./build/modal
+      cp -v ./src/shoppay/modal/*.html ./build/modal
+      log section-end
+    - |
+      aws_cloudfront_deploy --dryrun
+      aws_cloudfront_deploy
+  rules:
+    - !reference [.deploy_default_rules]
+    - !reference [.deploy_production_rules]

@@ -147,6 +147,14 @@
         border: none;
         padding: 0px;
     }
+    .shoppay-modal-info-link {
+        cursor: pointer;
+        margin-left: 3px !important;
+        color: inherit;
+        background: none;
+        border: none;
+        padding: 0px;
+    }
 
     .sezzle-inline-text {
         padding-right: 6px;
@@ -220,7 +228,6 @@ $font-family: Satoshi, "Open Sans", sans-serif;
     padding: unset;
     border: unset;
     margin: unset;
-    stroke: none;
 }
 
 .sezzle-checkout-modal-lightbox {
