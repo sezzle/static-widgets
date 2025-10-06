@@ -176,7 +176,7 @@ class AwesomeSezzle {
     switch (this.theme) {
       case "dark":
         this.imageClassName = "szl-dark-image";
-        this.imageInnerHTML = HelperClass.svgImages().sezzleDark;
+        this.imageInnerHTML = HelperClass.svgImages().sezzleDark();
         break;
       case "grayscale":
         this.imageClassName = "szl-light-image";
@@ -204,7 +204,7 @@ class AwesomeSezzle {
         break;
       default:
         this.imageClassName = "szl-light-image";
-        this.imageInnerHTML = HelperClass.svgImages().sezzleLight;
+        this.imageInnerHTML = HelperClass.svgImages().sezzleLight();
         break;
     }
   }
