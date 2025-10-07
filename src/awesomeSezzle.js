@@ -180,7 +180,7 @@ class AwesomeSezzle {
         break;
       case "grayscale":
         this.imageClassName = "szl-light-image";
-        this.imageInnerHTML = HelperClass.svgImages().sezzleGrey;
+        this.imageInnerHTML = HelperClass.svgImages().sezzleGrey();
         break;
       case "black-flat":
         this.imageClassName = "szl-light-image";
