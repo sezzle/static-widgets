@@ -188,7 +188,7 @@ class AwesomeSezzle {
         break;
       case "white":
         this.imageClassName = "szl-dark-image";
-        this.imageInnerHTML = HelperClass.svgImages().sezzleWhite;
+        this.imageInnerHTML = HelperClass.svgImages().sezzleWhite();
         break;
       case "white-flat":
         this.imageClassName = "szl-dark-image";
