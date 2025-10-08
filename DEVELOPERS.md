@@ -1,7 +1,7 @@
 
 ## Testing Static Widget
 
-In Terminal, run: `npm install & npx webpack --mode production --config webpack/webpack.config.js`
+In Terminal, run: `npm install && npx webpack --mode production --config webpack/webpack.config.js`
 Go to playground/index.html
 Update the HTML and config for the feature you wish to test.
 Secondary-click on the file and select "Open in Default Browser"

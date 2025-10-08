@@ -176,11 +176,11 @@ class AwesomeSezzle {
     switch (this.theme) {
       case "dark":
         this.imageClassName = "szl-dark-image";
-        this.imageInnerHTML = HelperClass.svgImages().sezzleDark;
+        this.imageInnerHTML = HelperClass.svgImages().sezzleDark();
         break;
       case "grayscale":
         this.imageClassName = "szl-light-image";
-        this.imageInnerHTML = HelperClass.svgImages().sezzleGrey;
+        this.imageInnerHTML = HelperClass.svgImages().sezzleGrey();
         break;
       case "black-flat":
         this.imageClassName = "szl-light-image";
@@ -188,7 +188,7 @@ class AwesomeSezzle {
         break;
       case "white":
         this.imageClassName = "szl-dark-image";
-        this.imageInnerHTML = HelperClass.svgImages().sezzleWhite;
+        this.imageInnerHTML = HelperClass.svgImages().sezzleWhite();
         break;
       case "white-flat":
         this.imageClassName = "szl-dark-image";
@@ -204,7 +204,7 @@ class AwesomeSezzle {
         break;
       default:
         this.imageClassName = "szl-light-image";
-        this.imageInnerHTML = HelperClass.svgImages().sezzleLight;
+        this.imageInnerHTML = HelperClass.svgImages().sezzleLight();
         break;
     }
   }
