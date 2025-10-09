@@ -23,11 +23,12 @@
     <div id='sezzle-widget'></div>
 
     <!-- To test renderElement array, disable L21, enable L24-28 -->
-    <!-- Desktop
-        <div id='sezzle-widget-desktop'></div>
-
-        Mobile
-        <div id='sezzle-widget-mobile'></div> -->
+    
+    <p>Desktop</p>
+    <div id='sezzle-widget-desktop'></div>
+    <br/>
+    <p>Mobile</p>
+    <div id='sezzle-widget-mobile'></div>
 
     <!-- To test renderModalByfunction -->
     <!-- <button id='yourClickableElementIdHere' type="button">Show Me the Modal</button> -->
@@ -36,8 +37,9 @@
   <script src='../dist/bundle.js'></script>
   <script>
     const renderSezzle = new AwesomeSezzle({
-        widgetTemplate: 'Buy now, pay later with %%logo%% %%info%% or %%afterpay-logo-black%% %%afterpay-info-icon%%',
-        theme: 'black-flat',
+        // widgetTemplate: 'Buy now, pay later with %%logo%% %%info%% or %%afterpay-logo-black%% %%afterpay-info-icon%%',
+        renderElement: ['sezzle-widget-desktop', 'sezzle-widget-mobile'],
+        theme: 'light',
       amount: document.querySelector('#price').querySelector('.currency').innerText + document.querySelector('#price').querySelector('.amount').innerText
     });
     renderSezzle.init();
