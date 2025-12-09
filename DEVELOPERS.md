@@ -40,9 +40,7 @@ For futher information,please follow the link https://sezzle.atlassian.net/wiki/
 2. Update `version` number in `package.json`
    1. This can also be done using `npm version <update_type>` where update_type options are `major`, `minor`, or `patch`
 3. `npm install`
-4. `npm publish`
-   1. You cannot overwrite previously published versions
-   2. If you accidentally publish, use `npm unpublish @sezzle/sezzle-static-widget@2.1.1` to back out the changes within 24 hours.
+4. Merge to production - Releasing to NPM is now handled by the pipeline.
 
 ## Testing the Checkout Button
 
