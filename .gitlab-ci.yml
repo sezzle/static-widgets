@@ -16,59 +16,6 @@ variables:
   cf_dist_production: "E2HSGLI0811JNF"
   cf_dist_staging: "E2VP0QA9ZBJOEA"
 
-# NPM PUBLISH #
-deploy_npm:publish:
-  stage: deploy
-  environment: "$CI_COMMIT_BRANCH"
-  allow_failure: true
-  extends:
-    - .build_npm
-  variables:
-    TARGET_ENV: production
-  script:
-    - |
-      if [ -z "$PACKAGE" ]; then
-        log error "PACKAGE env must be set"
-        exit 1
-      fi
-
-      npm_set_auth --full
-
-      for package in $PACKAGE; do
-        log section "Publishing: $package"
-        npm publish
-        npm_exit=$?
-        log "npm exited: $npm_exit"
-        if [ "$npm_exit" = "0" ]; then
-          log success "Successfully published: $package"
-          published_ok=$(echo -e "${published_ok}\n${package}")
-        else
-          log error "Error publishing: $package"
-          published_nok=$(echo -e "${published_nok}\n${package}")
-        fi
-        log section-end
-      done
-
-      title="New packages have been published"
-      body="Commit Author: @${CI_COMMIT_USER_LOGIN}"
-
-      if [ -n "$published_ok" ]; then
-        body=$(echo -e "${body}\nSuccessfully Published:\n${published_ok}")
-      fi
-      
-      if [ -n "$published_nok" ]; then
-        npm_exit=1
-        body=$(echo -e "${body}\nFailed to Publish:\n${published_nok}")
-      fi
-
-      npm_slack_alert --title "$title" --body "$body" || true
-
-      exit $npm_exit
-  rules:
-    - !reference [ .deploy_default_rules ]
-    - if: $CI_COMMIT_BRANCH == 'production'
-      when: manual
-
 deploy_cloudfront:afterpay_modals:
   extends:
     - .deploy_cloudfront
