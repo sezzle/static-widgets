@@ -37,10 +37,10 @@ For futher information,please follow the link https://sezzle.atlassian.net/wiki/
 ## Releasing updates to NPM:
 
 1. Update CHANGELOG.md
-2. Update `version` number in `package.json`
-   1. This can also be done using `npm version <update_type>` where update_type options are `major`, `minor`, or `patch`
-3. `npm install`
-4. Merge to production - Releasing to NPM is now handled by the pipeline.
+2. Create tag in Gitlab to reflect the new version and attach to your branch
+3. Merge the branch to production - the pipeline will bump the version number in package.json and release to NPM
+
+If you accidentally publish, use `npm unpublish @sezzle/sezzle-static-widget@{Major.minor.patch}` to back out the changes within 24 hours.
 
 ## Testing the Checkout Button
 
