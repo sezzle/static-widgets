@@ -387,9 +387,9 @@ Once the widget is rendering, additional configurations can be added to the Awes
 
 `bestAPR` (optional)
 
-**Purpose**: Standard APR rate by which interest should be calculated.
+**Purpose**: Standard APR rate by which interest should be calculated. (Note: the key is a misnomer - our lending partner now requires the APR to be calculated based on average awarded APR)
 **Type**: number
-**Default**: 9.99
+**Default**: 21.99
 
 `widgetTemplateLT` (optional)
 
