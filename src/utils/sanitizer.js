@@ -49,14 +49,6 @@ const DANGEROUS_TAGS = new Set([
 const DANGEROUS_PROTOCOLS = ['javascript:', 'data:', 'vbscript:', 'file:'];
 
 /**
- * Whitelist of allowed script sources
- */
-const ALLOWED_SCRIPT_ORIGINS = [
-  'https://media.sezzle.com',
-  'https://widget.sezzle.com'
-];
-
-/**
  * Escapes HTML special characters to prevent XSS
  * @param {string} str - String to escape
  * @returns {string} Escaped string safe for HTML insertion
@@ -110,17 +102,6 @@ function hasDangerousProtocol(url) {
 
   const lowerUrl = url.toLowerCase().trim();
   return DANGEROUS_PROTOCOLS.some(protocol => lowerUrl.startsWith(protocol));
-}
-
-/**
- * Checks if a script source URL is from an allowed origin
- * @param {string} src - Script source URL
- * @returns {boolean} True if source is allowed
- */
-function isAllowedScriptSource(src) {
-  if (!src) return false;
-
-  return ALLOWED_SCRIPT_ORIGINS.some(origin => src.startsWith(origin));
 }
 
 /**
@@ -210,100 +191,8 @@ function cleanAttributes(element) {
   }
 }
 
-/**
- * Validates and sanitizes fetched HTML from trusted CDN
- * Less strict than user-supplied HTML since content is Sezzle-controlled
- * @param {string} html - HTML string from CDN
- * @returns {string} Sanitized HTML string
- */
-function sanitizeFetchedHTML(html) {
-  if (!html || typeof html !== 'string') {
-    return '';
-  }
-
-  // Use less strict sanitization (allow more tags)
-  const temp = document.createElement('div');
-  temp.innerHTML = html;
-
-  // Remove only dangerous tags and attributes
-  removeDangerousTags(temp);
-  cleanNode(temp, false);
-
-  return temp.innerHTML;
-}
-
-/**
- * Removes dangerous tags from a node tree
- * @param {Node} node - Root node to clean
- */
-function removeDangerousTags(node) {
-  const children = Array.from(node.childNodes);
-
-  for (const child of children) {
-    if (child.nodeType === Node.ELEMENT_NODE) {
-      const tagName = child.tagName.toLowerCase();
-
-      // Remove dangerous tags
-      if (DANGEROUS_TAGS.has(tagName)) {
-        child.remove();
-        continue;
-      }
-
-      // Recursively process children
-      removeDangerousTags(child);
-    }
-  }
-}
-
-/**
- * Extracts and validates script tags from HTML
- * Only allows scripts from whitelisted origins
- * @param {string} html - HTML string potentially containing scripts
- * @returns {Array<string>} Array of validated script URLs
- */
-function extractValidatedScripts(html) {
-  if (!html || typeof html !== 'string') {
-    return [];
-  }
-
-  const temp = document.createElement('div');
-  temp.innerHTML = html;
-
-  const scripts = temp.querySelectorAll('script');
-  const validatedScripts = [];
-
-  for (const script of scripts) {
-    const src = script.getAttribute('src');
-
-    // Only allow external scripts with whitelisted sources
-    // Block inline scripts completely
-    if (src && isAllowedScriptSource(src)) {
-      validatedScripts.push(src);
-    }
-  }
-
-  return validatedScripts;
-}
-
-/**
- * Logs security events if logging is enabled
- * @param {string} eventType - Type of security event
- * @param {Object} details - Event details
- */
-function logSecurityEvent(eventType, details) {
-  // This function can be expanded to send events to analytics
-  if (console && console.warn) {
-    console.warn(`[Sezzle Security] ${eventType}:`, details);
-  }
-}
-
 // Export functions for use in widget modules
 export {
   sanitizeHTML,
-  sanitizeFetchedHTML,
-  escapeHTML,
-  isAllowedScriptSource,
-  extractValidatedScripts,
-  logSecurityEvent,
-  ALLOWED_SCRIPT_ORIGINS
+  escapeHTML
 };

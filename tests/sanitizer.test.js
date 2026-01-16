@@ -11,10 +11,7 @@
 
 import {
   sanitizeHTML,
-  sanitizeFetchedHTML,
   escapeHTML,
-  isAllowedScriptSource,
-  extractValidatedScripts,
 } from '../src/utils/sanitizer';
 
 describe('Sanitizer Module - XSS Protection', () => {
@@ -118,30 +115,6 @@ describe('Sanitizer Module - XSS Protection', () => {
     });
   });
 
-  describe('sanitizeFetchedHTML() - CDN-fetched HTML', () => {
-    test('should sanitize fetched HTML with dangerous tags removed', () => {
-      const html = '<div>Safe</div><script>alert(1)</script>';
-      const result = sanitizeFetchedHTML(html);
-      expect(result).toContain('<div>Safe</div>');
-      expect(result).not.toContain('<script');
-    });
-
-    test('should remove form elements', () => {
-      const html = '<form action="/evil"><input type="text"></form>';
-      const result = sanitizeFetchedHTML(html);
-      expect(result).not.toContain('<form');
-      expect(result).not.toContain('<input');
-    });
-
-    test('should preserve allowed HTML structure', () => {
-      const html = '<div class="modal"><h1>Title</h1><p>Content</p></div>';
-      const result = sanitizeFetchedHTML(html);
-      expect(result).toContain('<div');
-      expect(result).toContain('<h1>Title</h1>');
-      expect(result).toContain('<p>Content</p>');
-    });
-  });
-
   describe('escapeHTML() - Template data escaping', () => {
     test('should escape < and >', () => {
       const input = '<script>alert(1)</script>';
@@ -172,84 +145,6 @@ describe('Sanitizer Module - XSS Protection', () => {
       const input = '</script>';
       const result = escapeHTML(input);
       expect(result).toContain('&#x2F;');
-    });
-  });
-
-  describe('isAllowedScriptSource() - Script source validation', () => {
-    test('should allow media.sezzle.com scripts', () => {
-      const url = 'https://media.sezzle.com/modal/script.js';
-      expect(isAllowedScriptSource(url)).toBe(true);
-    });
-
-    test('should allow widget.sezzle.com scripts', () => {
-      const url = 'https://widget.sezzle.com/v1/widget.js';
-      expect(isAllowedScriptSource(url)).toBe(true);
-    });
-
-    test('should block non-whitelisted domains', () => {
-      const url = 'https://evil.com/malicious.js';
-      expect(isAllowedScriptSource(url)).toBe(false);
-    });
-
-    test('should block http:// URLs (non-HTTPS)', () => {
-      const url = 'http://media.sezzle.com/script.js';
-      expect(isAllowedScriptSource(url)).toBe(false);
-    });
-
-    test('should block empty or null URLs', () => {
-      expect(isAllowedScriptSource('')).toBe(false);
-      expect(isAllowedScriptSource(null)).toBe(false);
-      expect(isAllowedScriptSource(undefined)).toBe(false);
-    });
-
-    test('should block javascript: protocol', () => {
-      const url = 'javascript:alert(1)';
-      expect(isAllowedScriptSource(url)).toBe(false);
-    });
-
-    test('should block data: protocol', () => {
-      const url = 'data:text/javascript,alert(1)';
-      expect(isAllowedScriptSource(url)).toBe(false);
-    });
-  });
-
-  describe('extractValidatedScripts() - Script extraction', () => {
-    test('should extract scripts from whitelisted sources', () => {
-      const html = '<script src="https://media.sezzle.com/modal.js"></script>';
-      const result = extractValidatedScripts(html);
-      expect(result).toHaveLength(1);
-      expect(result[0]).toBe('https://media.sezzle.com/modal.js');
-    });
-
-    test('should block inline scripts (no src attribute)', () => {
-      const html = '<script>alert(1);</script>';
-      const result = extractValidatedScripts(html);
-      expect(result).toHaveLength(0);
-    });
-
-    test('should block scripts from non-whitelisted sources', () => {
-      const html = '<script src="https://evil.com/malicious.js"></script>';
-      const result = extractValidatedScripts(html);
-      expect(result).toHaveLength(0);
-    });
-
-    test('should handle multiple script tags', () => {
-      const html = `
-        <script src="https://media.sezzle.com/good1.js"></script>
-        <script src="https://evil.com/bad.js"></script>
-        <script src="https://widget.sezzle.com/good2.js"></script>
-        <script>alert(1)</script>
-      `;
-      const result = extractValidatedScripts(html);
-      expect(result).toHaveLength(2);
-      expect(result[0]).toBe('https://media.sezzle.com/good1.js');
-      expect(result[1]).toBe('https://widget.sezzle.com/good2.js');
-    });
-
-    test('should handle empty or null input', () => {
-      expect(extractValidatedScripts('')).toEqual([]);
-      expect(extractValidatedScripts(null)).toEqual([]);
-      expect(extractValidatedScripts(undefined)).toEqual([]);
     });
   });
 
