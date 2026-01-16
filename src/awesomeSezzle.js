@@ -2,6 +2,7 @@ import HelperClass from "./awesomeHelper";
 import enTranslations from "./translations/en";
 import frTranslations from "./translations/fr";
 import esTranslations from "./translations/es";
+import { sanitizeHTML, escapeHTML } from "./utils/sanitizer";
 import "../css/global.scss";
 
 class AwesomeSezzle {
@@ -50,8 +51,8 @@ class AwesomeSezzle {
     this.maxPrice = options.maxPrice || 250000;
     this.minPriceLT = options.minPriceLT || 0;
     this.bestAPR = options.bestAPR || 9.99;
-    this.altModalHTML = options.altLightboxHTML || "";
-    this.ltAltModalHTML = options.ltAltModalHTML || "";
+    this.altModalHTML = options.altLightboxHTML ? sanitizeHTML(options.altLightboxHTML) : "";
+    this.ltAltModalHTML = options.ltAltModalHTML ? sanitizeHTML(options.ltAltModalHTML) : "";
     this.apModalHTML = options.apModalHTML || "";
     this.cashAppAfterpayModalHTML = options.cashAppAfterpayModalHTML || "";
     this.qpModalHTML = options.qpModalHTML || "";
@@ -1053,6 +1054,10 @@ class AwesomeSezzle {
             ? priceString.replace(".", "").replace(",", ".")
             : priceString.replace(",", "");
         let terms = this.termsToShow(priceString);
+        // Escape currency and price values for XSS protection
+        const safeCurrency = escapeHTML(currency);
+        const safePrice = escapeHTML(this.addDelimiters(priceString, this.parseMode));
+        const safeBestAPR = escapeHTML(String(this.bestAPR));
         if (this.ltAltModalHTML) {
           modalNode.innerHTML = this.ltAltModalHTML;
         } else {
@@ -1075,7 +1080,7 @@ class AwesomeSezzle {
 								<div class="sezzle-lt-payment-header">${
                   this.translations.sezzleLtPaymentHeader
                 } <span>${
-            currency + this.addDelimiters(priceString, this.parseMode)
+            safeCurrency + safePrice
           }</span></div>
 								<div class="sezzle-lt-payment-options ${terms[2]}-month" ${
             terms[2] === undefined
@@ -1085,13 +1090,13 @@ class AwesomeSezzle {
 									<div class="plan">
 									<div class="monthly-amount">
 										<span>${
-                      currency +
-                      this.formatMonthly(
+                      safeCurrency +
+                      escapeHTML(this.formatMonthly(
                         priceString,
                         this.parseMode,
                         terms[2],
                         this.bestAPR
-                      )
+                      ))
                     }</span>
 										<span aria-label="${
                       this.translations.perMonth
@@ -1103,31 +1108,31 @@ class AwesomeSezzle {
 								</div>
 									<div class="plan-details">
 										<div class="adjusted-total">${this.translations.adjustedTotal} <span>${
-            currency +
-            this.formatAdjustedTotal(
+            safeCurrency +
+            escapeHTML(this.formatAdjustedTotal(
               priceString,
               this.parseMode,
               terms[2],
               this.bestAPR
-            )
+            ))
           }</span></div>
 										<div class="interest-amount">${this.translations.interest} <span>${
-            currency +
-            this.formatTotalInterest(
+            safeCurrency +
+            escapeHTML(this.formatTotalInterest(
               priceString,
               this.parseMode,
               terms[2],
               this.bestAPR
-            )
+            ))
           }</span></div>
 										<div class="sample-apr">
-											<span aria-label="${this.translations.readApr} ${this.bestAPR} ${
+											<span aria-label="${this.translations.readApr} ${safeBestAPR} ${
             this.translations.percent
           }">
 											<span aria-hidden="true">${
                         this.translationsMap[this.language].sampleApr
                       }</span><span aria-hidden="true">${
-            this.bestAPR
+            safeBestAPR
           }%</span></span>
 										</div>
 									</div>
@@ -1136,13 +1141,13 @@ class AwesomeSezzle {
 									<div class="plan">
 										<div class="monthly-amount">
 											<span>${
-                        currency +
-                        this.formatMonthly(
+                        safeCurrency +
+                        escapeHTML(this.formatMonthly(
                           priceString,
                           this.parseMode,
                           terms[1],
                           this.bestAPR
-                        )
+                        ))
                       }</span>
 											<span aria-label="${
                         this.translationsMap[this.language].perMonth
@@ -1154,22 +1159,22 @@ class AwesomeSezzle {
 									</div>
 									<div class="plan-details">
 										<div class="adjusted-total">${this.translations.adjustedTotal} <span>${
-            currency +
-            this.formatAdjustedTotal(
+            safeCurrency +
+            escapeHTML(this.formatAdjustedTotal(
               priceString,
               this.parseMode,
               terms[1],
               this.bestAPR
-            )
+            ))
           }</span></div>
 										<div class="interest-amount">${this.translations.interest} <span>${
-            currency +
-            this.formatTotalInterest(
+            safeCurrency +
+            escapeHTML(this.formatTotalInterest(
               priceString,
               this.parseMode,
               terms[1],
               this.bestAPR
-            )
+            ))
           }</span></div>
 										<div class="sample-apr">
 											<span aria-label="${this.translations.readApr} ${this.bestAPR} ${
@@ -1187,13 +1192,13 @@ class AwesomeSezzle {
 									<div class="plan">
 										<div class="monthly-amount">
 											<span>${
-                        currency +
-                        this.formatMonthly(
+                        safeCurrency +
+                        escapeHTML(this.formatMonthly(
                           priceString,
                           this.parseMode,
                           terms[0],
                           this.bestAPR
-                        )
+                        ))
                       }</span>
 											<span aria-label="${
                         this.translationsMap[this.language].perMonth
@@ -1205,22 +1210,22 @@ class AwesomeSezzle {
 									</div>
 									<div class="plan-details">
 										<div class="adjusted-total">${this.translations.adjustedTotal} <span>${
-            currency +
-            this.formatAdjustedTotal(
+            safeCurrency +
+            escapeHTML(this.formatAdjustedTotal(
               priceString,
               this.parseMode,
               terms[0],
               this.bestAPR
-            )
+            ))
           }</span></div>
 										<div class="interest-amount">${this.translations.interest} <span>${
-            currency +
-            this.formatTotalInterest(
+            safeCurrency +
+            escapeHTML(this.formatTotalInterest(
               priceString,
               this.parseMode,
               terms[0],
               this.bestAPR
-            )
+            ))
           }</span></div>
 										<div class="sample-apr">
 											<span aria-label="${this.translations.readApr} ${this.bestAPR} ${
@@ -1429,11 +1434,11 @@ class AwesomeSezzle {
         const updatedModalHTML = modalHTML
           .replace(
             "%%min-price%%",
-            Intl.NumberFormat(this.language).format(this.minPrice / 100)
+            escapeHTML(Intl.NumberFormat(this.language).format(this.minPrice / 100))
           )
           .replace(
             "%%max-price%%",
-            Intl.NumberFormat(this.language).format(this.maxPrice / 100)
+            escapeHTML(Intl.NumberFormat(this.language).format(this.maxPrice / 100))
           );
         modalNode.innerHTML = updatedModalHTML;
       }
