@@ -1602,129 +1602,37 @@ class AwesomeSezzle {
         );
       }.bind(this)
     );
-    const apModalLinks =
-      sezzleElement.getElementsByClassName("afterpay-modal-info-link");
-    Array.prototype.forEach.call(
-      apModalLinks,
-      function (modalLink) {
-        modalLink.addEventListener(
-          "click",
-          function (event) {
-            document.getElementsByClassName(
-              "sezzle-afterpay-modal"
-            )[0].style.display = "block";
-            document.getElementsByClassName("sezzle-afterpay-modal")[0].focus();
-            event.target.id = "sezzle-modal-return";
-            event.preventDefault();
-            event.stopPropagation();
-          }.bind(this)
-        );
-      }.bind(this)
-    );
-    const cashAppAfterpayModalLinks = sezzleElement.getElementsByClassName(
-      "cash-app-afterpay-modal-info-link"
-    );
-    Array.prototype.forEach.call(
-      cashAppAfterpayModalLinks,
-      function (modalLink) {
-        modalLink.addEventListener(
-          "click",
-          function (event) {
-            document.getElementsByClassName(
-              "sezzle-cash-app-afterpay-modal"
-            )[0].style.display = "block";
-            document
-              .getElementsByClassName("sezzle-cash-app-afterpay-modal")[0]
-              .focus();
-            event.target.id = "sezzle-modal-return";
-            event.preventDefault();
-            event.stopPropagation();
-          }.bind(this)
-        );
-      }.bind(this)
-    );
-    const zipModalLinks = sezzleElement.getElementsByClassName(
-      "zip-modal-info-link"
-    );
-    Array.prototype.forEach.call(
-      zipModalLinks,
-      function (modalLink) {
-        modalLink.addEventListener(
-          "click",
-          function (event) {
-            document.getElementsByClassName(
-              "sezzle-zip-modal"
-            )[0].style.display = "block";
-            document.getElementsByClassName("sezzle-zip-modal")[0].focus();
-            event.target.id = "sezzle-modal-return";
-            event.preventDefault();
-            event.stopPropagation();
-          }.bind(this)
-        );
-      }.bind(this)
-    );
-    const affirmModalLinks = sezzleElement.getElementsByClassName(
-      "affirm-modal-info-link"
-    );
-    Array.prototype.forEach.call(
-      affirmModalLinks,
-      function (modalLink) {
-        modalLink.addEventListener(
-          "click",
-          function (event) {
-            document.getElementsByClassName(
-              "sezzle-affirm-modal"
-            )[0].style.display = "block";
-            document.getElementsByClassName("sezzle-affirm-modal")[0].focus();
-            event.target.id = "sezzle-modal-return";
-            event.preventDefault();
-            event.stopPropagation();
-          }.bind(this)
-        );
-      }.bind(this)
-    );
-    const klarnaModalLinks = sezzleElement.getElementsByClassName(
-      "klarna-modal-info-link"
-    );
-    Array.prototype.forEach.call(
-      klarnaModalLinks,
-      function (modalLink) {
-        modalLink.addEventListener(
-          "click",
-          function (event) {
-            document.getElementsByClassName(
-              "sezzle-klarna-modal"
-            )[0].style.display = "block";
-            document.getElementsByClassName("sezzle-klarna-modal")[0].focus();
-            event.target.id = "sezzle-modal-return";
-            event.preventDefault();
-            event.stopPropagation();
-          }.bind(this)
-        );
-      }.bind(this)
-    );
-        const shoppayModalLinks = sezzleElement.getElementsByClassName(
-            "shoppay-modal-info-link"
-        );
-        Array.prototype.forEach.call(
-            shoppayModalLinks,
-            function (modalLink) {
-                modalLink.addEventListener(
-                    "click",
-                    function (event) {
-                        document.getElementsByClassName(
-                            "sezzle-shoppay-modal"
-                        )[0].style.display = "block";
-                        document
-                            .getElementsByClassName("sezzle-shoppay-modal")[0]
-                            .focus();
-                        event.target.id = "sezzle-modal-return";
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }.bind(this)
-                );
+
+    const competitors = [
+      "afterpay",
+      "cash-app-afterpay",
+      "zip",
+      "affirm",
+      "klarna",
+      "shoppay"
+    ];
+
+    competitors.forEach(competitor => {
+      const competitorModalLinks = sezzleElement.getElementsByClassName(
+        `${competitor}-modal-info-link`
+      );
+      Array.prototype.forEach.call(
+        competitorModalLinks,
+        function (modalLink) {
+          modalLink.addEventListener(
+            "click",
+            function (event) {
+              const modalClass = `sezzle-${competitor}-modal`;
+              document.getElementsByClassName(modalClass)[0].style.display = "block";
+              document.getElementsByClassName(modalClass)[0].focus();
+              event.target.id = "sezzle-modal-return";
+              event.preventDefault();
+              event.stopPropagation();
             }.bind(this)
-        );
+          );
+        }.bind(this)
+      );
+    });
   }
 
   isMobileBrowser() {
