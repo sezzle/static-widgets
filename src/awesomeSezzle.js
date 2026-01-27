@@ -1564,7 +1564,7 @@ class AwesomeSezzle {
 
   renderCompetitorModal(config) {
     const modalNode = document.createElement("section");
-    modalNode.className = `sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-${config.modalClass}-modal`;
+    modalNode.className = `sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-${config.competitorClass}-modal`;
     modalNode.style = "position: center";
     modalNode.style.display = "none";
     modalNode.role = "dialog";
@@ -1587,10 +1587,10 @@ class AwesomeSezzle {
           if (newFocus) {
             newFocus.focus();
             newFocus.removeAttribute("id");
-          } else if (document.querySelector(`.${config.infoLinkClass}`)) {
+          } else if (document.querySelector(`.${config.competitorClass}-info-link`)) {
             document
               .querySelector(".sezzle-checkout-button-wrapper")
-              .getElementsByClassName(config.infoLinkClass)[0]
+              .getElementsByClassName(config.competitorClass + "-info-link")[0]
               .focus();
           } else {
             document.querySelector(".sezzle-checkout-button-wrapper").focus();
@@ -1790,48 +1790,42 @@ class AwesomeSezzle {
 
       const competitors = [
         {
-          infoLinkClass: "afterpay",
-          modalClass: "afterpay",
+          competitorClass: "afterpay",
           ariaLabel: this.translations.afterpayInfo,
           ariaDescriptionName: "Afterpay",
           modalHTML: this.apModalHTML,
           getModalMethod: this.getAPModal
         },
         {
-          infoLinkClass: "cash-app-afterpay",
-          modalClass: "cash-app-afterpay",
+          competitorClass: "cash-app-afterpay",
           ariaLabel: this.translations.cashAppAfterpayInfo,
           ariaDescriptionName: "Cash App Afterpay",
           modalHTML: this.cashAppAfterpayModalHTML,
           getModalMethod: this.getCashAppAfterpayModal
         },
         {
-          infoLinkClass: "quadpay",
-          modalClass: "quadpay",
+          competitorClass: "quadpay",
           ariaLabel: this.translations.quadpayInfo,
           ariaDescriptionName: "Quadpay",
           modalHTML: this.qpModalHTML,
           getModalMethod: this.getZipModal
         },
         {
-          infoLinkClass: "affirm",
-          modalClass: "affirm",
+          competitorClass: "affirm",
           ariaLabel: this.translations.affirmInfo,
           ariaDescriptionName: "Affirm",
           modalHTML: this.affirmModalHTML,
           getModalMethod: null
         },
         {
-          infoLinkClass: "klarna",
-          modalClass: "klarna",
+          competitorClass: "klarna",
           ariaLabel: this.translations.klarnaInfo,
           ariaDescriptionName: "Klarna",
           modalHTML: this.klarnaModalHTML,
           getModalMethod: this.getKlarnaModal
         },
         {
-          infoLinkClass: "shoppay",
-          modalClass: "shoppay",
+          competitorClass: "shoppay",
           ariaLabel: this.translations.shoppayInfo,
           ariaDescriptionName: "Shoppay",
           modalHTML: this.shoppayModalHTML,
@@ -1842,7 +1836,7 @@ class AwesomeSezzle {
       competitors.forEach(competitor => {
         if (
             document.getElementsByClassName(
-                `${competitor.infoLinkClass}-modal-info-link`,
+                `${competitor.competitorClass}-modal-info-link`,
             ).length > 0
         ) {
             this.renderCompetitorModal(competitor);
