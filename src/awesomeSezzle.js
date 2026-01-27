@@ -294,6 +294,213 @@ class AwesomeSezzle {
     }
   }
 
+  getCompetitorConfig() {
+    return {
+      afterpay: {
+        name: "Afterpay",
+        logoClass: "sezzle-afterpay-logo",
+        linkClass: "afterpay-modal-info-link",
+        variants: {
+          "logo": {
+            width: "115", height: "40", viewBox: "0 0 115 40",
+            svg: HelperClass.svgImages().apNodeColor
+          },
+          "logo-black": {
+            width: "170", height: "35", viewBox: "0 0 170 35",
+            svg: HelperClass.svgImages().apNodeBlack,
+            extraClass: "afterpay-logo-text"
+          },
+          "logo-grey": {
+            width: "115", height: "40", viewBox: "0 0 115 40",
+            svg: HelperClass.svgImages().apNodeGrey,
+            extraClass: "afterpay-logo-pill"
+          },
+          "logo-white": {
+            width: "115", height: "40", viewBox: "0 0 115 40",
+            svg: HelperClass.svgImages().apNodeWhite,
+            extraClass: "afterpay-logo-pill"
+          }
+        },
+        hasLinkIcon: true
+      },
+      "cash-app-afterpay": {
+        name: "Cash App Afterpay",
+        logoClass: "sezzle-cash-app-afterpay-logo",
+        linkClass: "cash-app-afterpay-modal-info-link",
+        variants: {
+          "logo": {
+            width: "98", height: "24", viewBox: "0 0 98 24",
+            preserveAspectRatio: "xMidYMid meet",
+            svg: HelperClass.svgImages().cashAppApNodeColor
+          },
+          "logo-black": {
+            width: "98", height: "24", viewBox: "0 0 98 24",
+            preserveAspectRatio: "xMidYMid meet",
+            svg: HelperClass.svgImages().cashAppApNodeBlack
+          }
+        },
+        infoIconExtraClass: "cash-app-afterpay-info-icon"
+      },
+      zip: {
+        name: "Zip",
+        logoClass: "sezzle-zip-logo",
+        linkClass: "zip-modal-info-link",
+        aliases: ["quadpay"],
+        variants: {
+          "logo": {
+            id: "zip-logo-svg",
+            alt: "Zip logo, when clicked, opens infographic about the option of buying this item with 4 installment payments",
+            version: "1.1",
+            width: "50", height: "23", viewBox: "0 0 300 111",
+            style: "height: 22px !important;width: auto !important;margin-bottom: -5px;",
+            svg: HelperClass.svgImages().zipNodeColor
+          },
+          "logo-grey": {
+            id: "zip-logo-svg-black-white",
+            alt: "Zip logo, when clicked, opens infographic about the option of buying this item with 4 installment payments",
+            version: "1.1",
+            width: "50", height: "23", viewBox: "0 0 50 19",
+            style: "height: 22px !important;width: auto !important;margin-bottom: -5px;",
+            svg: HelperClass.svgImages().zipNodeGrey
+          },
+          "logo-white": {
+            id: "zip-logo-svg-secondary-light",
+            alt: "Zip logo, when clicked, opens infographic about the option of buying this item with 4 installment payments",
+            version: "1.1",
+            width: "50", height: "23", viewBox: "0 0 51 23",
+            style: "height: 22px !important;width: auto !important;margin-bottom: -5px;",
+            svg: HelperClass.svgImages().zipNodeWhite
+          }
+        }
+      },
+      affirm: {
+        name: "Affirm",
+        logoClass: "sezzle-affirm-logo",
+        linkClass: "affirm-modal-info-link",
+        variants: {
+          "logo": {
+            width: "450", height: "170", viewBox: "0 0 450 170",
+            style: "height: 24px !important;width: auto !important;",
+            svg: HelperClass.svgImages().affirmNodeColor
+          },
+          "logo-grey": {
+            width: "450", height: "170", viewBox: "0 0 450 170",
+            style: "height: 24px !important;width: auto !important;",
+            svg: HelperClass.svgImages().affirmNodeGrey
+          },
+          "logo-white": {
+            width: "450", height: "170", viewBox: "0 0 450 170",
+            style: "height: 24px !important;width: auto !important;",
+            svg: HelperClass.svgImages().affirmNodeWhite
+          }
+        }
+      },
+      klarna: {
+        name: "Klarna",
+        logoClass: "sezzle-klarna-logo",
+        linkClass: "klarna-modal-info-link",
+        variants: {
+          "logo": {
+            width: "45", height: "25", viewBox: "0 0 45 23",
+            style: "height: 25px !important;width: auto !important; margin-bottom: -5px;",
+            svg: HelperClass.svgImages().klarnaNodeColor
+          },
+          "logo-grey": {
+            width: "45", height: "25", viewBox: "0 0 45 23",
+            style: "height: 25px !important;width: auto !important; margin-bottom: -5px;",
+            svg: HelperClass.svgImages().klarnaNodeGrey
+          },
+          "logo-white": {
+            width: "45", height: "25", viewBox: "0 0 45 23",
+            style: "height: 25px !important;width: auto !important; margin-bottom: -5px;",
+            svg: HelperClass.svgImages().klarnaNodeWhite
+          }
+        }
+      },
+      shoppay: {
+        name: "Shoppay",
+        logoClass: "sezzle-shoppay-logo",
+        linkClass: "shoppay-modal-info-link",
+        variants: {
+          "logo": {
+            width: "99", height: "25", viewBox: "0 0 99 25",
+            style: "height: 18px !important;width: auto !important; margin-bottom: -5px;",
+            svg: HelperClass?.svgImages()?.shoppayLight || ""
+          }
+        }
+      }
+    };
+  }
+
+  renderCompetitorLogo(competitor, variant, config, sezzleButtonText) {
+    const variantConfig = config.variants[variant];
+    if (!variantConfig) return false;
+
+    const node = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+
+    node.setAttribute("width", variantConfig.width);
+    node.setAttribute("height", variantConfig.height);
+    node.setAttribute("viewBox", variantConfig.viewBox);
+    node.setAttribute("aria-label", config.name);
+
+    let className = `${config.logoClass} ${config.linkClass} no-sezzle-info`;
+    if (variantConfig.extraClass) {
+      className += ` ${variantConfig.extraClass}`;
+    }
+    node.setAttribute("class", className);
+
+    if (variantConfig.style) {
+      node.setAttribute("style", variantConfig.style);
+    }
+    if (variantConfig.id) {
+      node.setAttribute("id", variantConfig.id);
+    }
+    if (variantConfig.alt) {
+      node.setAttribute("alt", variantConfig.alt);
+    }
+    if (variantConfig.version) {
+      node.setAttribute("version", variantConfig.version);
+    }
+    if (variantConfig.preserveAspectRatio) {
+      node.setAttribute("preserveAspectRatio", variantConfig.preserveAspectRatio);
+    }
+
+    node.innerHTML = variantConfig.svg;
+    sezzleButtonText.appendChild(node);
+    this.setLogoSize(node);
+    return true;
+  }
+
+  renderCompetitorInfoIcon(competitor, config, sezzleButtonText) {
+    const iconNode = document.createElement("button");
+    iconNode.role = "button";
+    iconNode.type = "button";
+    iconNode.ariaLabel = `${this.translations.learnMoreAlt} ${config.name}`;
+
+    let className = `${config.linkClass} no-sezzle-info`;
+    if (config.infoIconExtraClass) {
+      className += ` ${config.infoIconExtraClass}`;
+    }
+    iconNode.className = className;
+    iconNode.innerHTML = "&#9432;";
+
+    sezzleButtonText.appendChild(iconNode);
+    return true;
+  }
+
+  renderCompetitorLinkIcon(sezzleButtonText) {
+    const apAnchor = document.createElement("a");
+    apAnchor.href = this.apLink;
+    apAnchor.target = "_blank";
+    const apLinkIconNode = document.createElement("code");
+    apLinkIconNode.ariaLabel = `${this.translations.learnMoreAlt} Afterpay`;
+    apLinkIconNode.className = "ap-info-link";
+    apLinkIconNode.innerHTML = "&#9432;";
+    apAnchor.appendChild(apLinkIconNode);
+    sezzleButtonText.appendChild(apAnchor);
+    return true;
+  }
+
   renderAwesomeSezzle() {
     if (
       !this.isProductEligible(this.amount) &&
@@ -323,6 +530,39 @@ class AwesomeSezzle {
     const widgetTextArray = widgetText.split("%%");
     widgetTextArray.forEach(
       function (subtemplate) {
+        const competitorConfigs = this.getCompetitorConfig();
+        let handled = false;
+
+        for (const [competitorKey, competitorConfig] of Object.entries(competitorConfigs)) {
+          const competitors = [competitorKey, ...(competitorConfig.aliases || [])];
+
+          for (const competitor of competitors) {
+            if (subtemplate === `${competitor}-link-icon` && competitorConfig.hasLinkIcon) {
+              this.renderCompetitorLinkIcon(sezzleButtonText);
+              handled = true;
+              break;
+            }
+
+            if (subtemplate === `${competitor}-info-icon`) {
+              this.renderCompetitorInfoIcon(competitor, competitorConfig, sezzleButtonText);
+              handled = true;
+              break;
+            }
+
+            const logoMatch = subtemplate.match(new RegExp(`^${competitor}-(logo(?:-\\w+)?)$`));
+            if (logoMatch) {
+              const variant = logoMatch[1];
+              this.renderCompetitorLogo(competitor, variant, competitorConfig, sezzleButtonText);
+              handled = true;
+              break;
+            }
+          }
+
+          if (handled) break;
+        }
+
+        if (handled) return;
+
         switch (subtemplate) {
             case "price":
                 const priceSpanNode = document.createElement("span");
@@ -405,432 +645,6 @@ class AwesomeSezzle {
                     HelperClass.svgImages().questionMarkIcon;
                 questionMarkButton.appendChild(questionMarkIconNode);
                 sezzleButtonText.appendChild(questionMarkButton);
-                break;
-            case "afterpay-logo":
-                var apNode = document.createElementNS(
-                    "http://www.w3.org/2000/svg",
-                    "svg",
-                );
-                apNode.setAttribute("width", "115");
-                apNode.setAttribute("height", "40");
-                apNode.setAttribute("viewBox", "0 0 115 40");
-                apNode.setAttribute(
-                    "class",
-                    `sezzle-afterpay-logo afterpay-modal-info-link no-sezzle-info`,
-                );
-                apNode.setAttribute("aria-label", "Afterpay");
-                apNode.innerHTML = HelperClass.svgImages().apNodeColor;
-                sezzleButtonText.appendChild(apNode);
-                this.setLogoSize(apNode);
-                break;
-            case "afterpay-logo-black":
-                var apNode = document.createElementNS(
-                    "http://www.w3.org/2000/svg",
-                    "svg",
-                );
-                apNode.setAttribute("width", "170");
-                apNode.setAttribute("height", "35");
-                apNode.setAttribute("viewBox", "0 0 170 35");
-                apNode.setAttribute(
-                    "class",
-                    `sezzle-afterpay-logo afterpay-modal-info-link no-sezzle-info afterpay-logo-text`,
-                );
-                apNode.setAttribute("aria-label", "Afterpay");
-                apNode.innerHTML = HelperClass.svgImages().apNodeBlack;
-                sezzleButtonText.appendChild(apNode);
-                this.setLogoSize(apNode);
-                break;
-            case "afterpay-logo-grey":
-                var apNode = document.createElementNS(
-                    "http://www.w3.org/2000/svg",
-                    "svg",
-                );
-                apNode.setAttribute("width", "115");
-                apNode.setAttribute("height", "40");
-                apNode.setAttribute("viewBox", "0 0 115 40");
-                apNode.setAttribute(
-                    "class",
-                    `sezzle-afterpay-logo afterpay-modal-info-link no-sezzle-info afterpay-logo-pill`,
-                );
-                apNode.setAttribute("aria-label", "Afterpay");
-                apNode.innerHTML = HelperClass.svgImages().apNodeGrey;
-                sezzleButtonText.appendChild(apNode);
-                this.setLogoSize(apNode);
-                break;
-            case "afterpay-logo-white":
-                var apNode = document.createElementNS(
-                    "http://www.w3.org/2000/svg",
-                    "svg",
-                );
-                apNode.setAttribute("width", "115");
-                apNode.setAttribute("height", "40");
-                apNode.setAttribute("viewBox", "0 0 115 40");
-                apNode.setAttribute(
-                    "class",
-                    `sezzle-afterpay-logo afterpay-modal-info-link no-sezzle-info  afterpay-logo-pill`,
-                );
-                apNode.setAttribute("aria-label", "Afterpay");
-                apNode.innerHTML = HelperClass.svgImages().apNodeWhite;
-                sezzleButtonText.appendChild(apNode);
-                this.setLogoSize(apNode);
-                break;
-            case "afterpay-info-icon":
-                const apInfoIconNode = document.createElement("button");
-                apInfoIconNode.role = "button";
-                apInfoIconNode.type = "button";
-                apInfoIconNode.ariaLabel = `${this.translations.learnMoreAlt} Afterpay`;
-                apInfoIconNode.className =
-                    "afterpay-modal-info-link no-sezzle-info";
-                apInfoIconNode.innerHTML = "&#9432;";
-                sezzleButtonText.appendChild(apInfoIconNode);
-                break;
-            case "afterpay-link-icon":
-                const apAnchor = document.createElement("a");
-                apAnchor.href = this.apLink;
-                apAnchor.target = "_blank";
-                const apLinkIconNode = document.createElement("code");
-                apLinkIconNode.ariaLabel = `${this.translations.learnMoreAlt} Afterpay`;
-                apLinkIconNode.className = "ap-info-link";
-                apLinkIconNode.innerHTML = "&#9432;";
-                apAnchor.appendChild(apLinkIconNode);
-                sezzleButtonText.appendChild(apAnchor);
-                break;
-            case "cash-app-afterpay-logo":
-                var cashAppAfterpayNode = document.createElementNS(
-                    "http://www.w3.org/2000/svg",
-                    "svg",
-                );
-                cashAppAfterpayNode.setAttribute("width", "98");
-                cashAppAfterpayNode.setAttribute("height", "24");
-                cashAppAfterpayNode.setAttribute("viewBox", "0 0 98 24");
-                cashAppAfterpayNode.setAttribute(
-                    "preserveAspectRatio",
-                    "xMidYMid meet",
-                );
-                cashAppAfterpayNode.setAttribute(
-                    "class",
-                    `sezzle-cash-app-afterpay-logo cash-app-afterpay-modal-info-link no-sezzle-info`,
-                );
-                cashAppAfterpayNode.setAttribute(
-                    "aria-label",
-                    "Cash App Afterpay",
-                );
-                cashAppAfterpayNode.innerHTML =
-                    HelperClass.svgImages().cashAppApNodeColor;
-                sezzleButtonText.appendChild(cashAppAfterpayNode);
-                this.setLogoSize(cashAppAfterpayNode);
-                break;
-            case "cash-app-afterpay-logo-black":
-                var cashAppAfterpayNode = document.createElementNS(
-                    "http://www.w3.org/2000/svg",
-                    "svg",
-                );
-                cashAppAfterpayNode.setAttribute("width", "98");
-                cashAppAfterpayNode.setAttribute("height", "24");
-                cashAppAfterpayNode.setAttribute("viewBox", "0 0 98 24");
-                cashAppAfterpayNode.setAttribute(
-                    "preserveAspectRatio",
-                    "xMidYMid meet",
-                );
-                cashAppAfterpayNode.setAttribute(
-                    "class",
-                    `sezzle-cash-app-afterpay-logo cash-app-afterpay-modal-info-link no-sezzle-info`,
-                );
-                cashAppAfterpayNode.setAttribute(
-                    "aria-label",
-                    "Cash App Afterpay",
-                );
-                cashAppAfterpayNode.innerHTML =
-                    HelperClass.svgImages().cashAppApNodeBlack;
-                sezzleButtonText.appendChild(cashAppAfterpayNode);
-                this.setLogoSize(cashAppAfterpayNode);
-                break;
-            case "cash-app-afterpay-info-icon":
-                const cashAppAfterpayInfoIconNode =
-                    document.createElement("button");
-                cashAppAfterpayInfoIconNode.role = "button";
-                cashAppAfterpayInfoIconNode.type = "button";
-                cashAppAfterpayInfoIconNode.ariaLabel = `${this.translations.learnMoreAlt} Cash App Afterpay`;
-                cashAppAfterpayInfoIconNode.className =
-                    "cash-app-afterpay-modal-info-link cash-app-afterpay-info-icon no-sezzle-info";
-                cashAppAfterpayInfoIconNode.innerHTML = "&#9432;";
-                sezzleButtonText.appendChild(cashAppAfterpayInfoIconNode);
-                break;
-            case "quadpay-logo":
-            case "zip-logo":
-                var zipNode = document.createElementNS(
-                    "http://www.w3.org/2000/svg",
-                    "svg",
-                );
-
-                zipNode.setAttribute("id", "zip-logo-svg");
-                zipNode.setAttribute(
-                    "alt",
-                    "Zip logo, when clicked, opens infographic about the option of buying this item with 4 installment payments",
-                );
-                zipNode.setAttribute("version", "1.1");
-                zipNode.setAttribute("width", "50");
-                zipNode.setAttribute("height", "23");
-                zipNode.setAttribute("viewBox", "0 0 300 111");
-                zipNode.setAttribute(
-                    "class",
-                    `sezzle-zip-logo zip-modal-info-link no-sezzle-info`,
-                );
-                zipNode.setAttribute(
-                    "style",
-                    `height: 22px !important;width: auto !important;margin-bottom: -5px;`,
-                );
-                zipNode.setAttribute("aria-label", "Zip");
-                zipNode.innerHTML = HelperClass.svgImages().zipNodeColor;
-                sezzleButtonText.appendChild(zipNode);
-                this.setLogoSize(zipNode);
-                break;
-            case "quadpay-logo-grey":
-            case "zip-logo-grey":
-                var zipNode = document.createElementNS(
-                    "http://www.w3.org/2000/svg",
-                    "svg",
-                );
-
-                zipNode.setAttribute("id", "zip-logo-svg-black-white");
-                zipNode.setAttribute(
-                    "alt",
-                    "Zip logo, when clicked, opens infographic about the option of buying this item with 4 installment payments",
-                );
-                zipNode.setAttribute("version", "1.1");
-                zipNode.setAttribute("width", "50");
-                zipNode.setAttribute("height", "23");
-                zipNode.setAttribute("viewBox", "0 0 50 19");
-                zipNode.setAttribute(
-                    "class",
-                    `sezzle-zip-logo zip-modal-info-link no-sezzle-info`,
-                );
-                zipNode.setAttribute(
-                    "style",
-                    `height: 22px !important;width: auto !important;margin-bottom: -5px;`,
-                );
-                zipNode.setAttribute("aria-label", "Zip");
-                zipNode.innerHTML = HelperClass.svgImages().zipNodeGrey;
-                sezzleButtonText.appendChild(zipNode);
-                this.setLogoSize(zipNode);
-                break;
-            case "quadpay-logo-white":
-            case "zip-logo-white":
-                var zipNode = document.createElementNS(
-                    "http://www.w3.org/2000/svg",
-                    "svg",
-                );
-
-                zipNode.setAttribute("id", "zip-logo-svg-secondary-light");
-                zipNode.setAttribute(
-                    "alt",
-                    "Zip logo, when clicked, opens infographic about the option of buying this item with 4 installment payments",
-                );
-                zipNode.setAttribute("version", "1.1");
-                zipNode.setAttribute("width", "50");
-                zipNode.setAttribute("height", "23");
-                zipNode.setAttribute("viewBox", "0 0 51 23");
-                zipNode.setAttribute(
-                    "class",
-                    `sezzle-zip-logo zip-modal-info-link no-sezzle-info`,
-                );
-                zipNode.setAttribute(
-                    "style",
-                    `height: 22px !important;width: auto !important;margin-bottom: -5px;`,
-                );
-                zipNode.setAttribute("aria-label", "Zip");
-                zipNode.innerHTML = HelperClass.svgImages().zipNodeWhite;
-                sezzleButtonText.appendChild(zipNode);
-                this.setLogoSize(zipNode);
-                break;
-            case "quadpay-info-icon":
-            case "zip-info-icon":
-                const zipInfoIconNode = document.createElement("button");
-                zipInfoIconNode.role = "button";
-                zipInfoIconNode.type = "button";
-                zipInfoIconNode.ariaLabel = `${this.translations.learnMoreAlt} Zip`;
-                zipInfoIconNode.className =
-                    "zip-modal-info-link no-sezzle-info";
-                zipInfoIconNode.innerHTML = "&#9432;";
-                sezzleButtonText.appendChild(zipInfoIconNode);
-                break;
-            case "affirm-logo":
-                var affirmNode = document.createElementNS(
-                    "http://www.w3.org/2000/svg",
-                    "svg",
-                );
-                affirmNode.setAttribute("width", "450");
-                affirmNode.setAttribute("height", "170");
-                affirmNode.setAttribute("viewBox", "0 0 450 170");
-                affirmNode.setAttribute(
-                    "class",
-                    `sezzle-affirm-logo affirm-modal-info-link no-sezzle-info`,
-                );
-                affirmNode.setAttribute(
-                    "style",
-                    `height: 24px !important;width: auto !important;`,
-                );
-                affirmNode.setAttribute("aria-label", "Affirm");
-                affirmNode.innerHTML = HelperClass.svgImages().affirmNodeColor;
-                sezzleButtonText.appendChild(affirmNode);
-                this.setLogoSize(affirmNode);
-                break;
-            case "affirm-logo-grey":
-                var affirmNode = document.createElementNS(
-                    "http://www.w3.org/2000/svg",
-                    "svg",
-                );
-                affirmNode.setAttribute("width", "450");
-                affirmNode.setAttribute("height", "170");
-                affirmNode.setAttribute("viewBox", "0 0 450 170");
-                affirmNode.setAttribute(
-                    "class",
-                    `sezzle-affirm-logo affirm-modal-info-link no-sezzle-info`,
-                );
-                affirmNode.setAttribute(
-                    "style",
-                    `height: 24px !important;width: auto !important;`,
-                );
-                affirmNode.setAttribute("aria-label", "Affirm");
-                affirmNode.innerHTML = HelperClass.svgImages().affirmNodeGrey;
-                sezzleButtonText.appendChild(affirmNode);
-                this.setLogoSize(affirmNode);
-                break;
-            case "affirm-logo-white":
-                var affirmNode = document.createElementNS(
-                    "http://www.w3.org/2000/svg",
-                    "svg",
-                );
-                affirmNode.setAttribute("width", "450");
-                affirmNode.setAttribute("height", "170");
-                affirmNode.setAttribute("viewBox", "0 0 450 170");
-                affirmNode.setAttribute(
-                    "class",
-                    `sezzle-affirm-logo affirm-modal-info-link no-sezzle-info`,
-                );
-                affirmNode.setAttribute(
-                    "style",
-                    `height: 24px !important;width: auto !important;`,
-                );
-                affirmNode.setAttribute("aria-label", "Affirm");
-                affirmNode.innerHTML = HelperClass.svgImages().affirmNodeWhite;
-                sezzleButtonText.appendChild(affirmNode);
-                this.setLogoSize(affirmNode);
-                break;
-            case "affirm-info-icon":
-                const affirmInfoIconNode = document.createElement("button");
-                affirmInfoIconNode.role = "button";
-                affirmInfoIconNode.type = "button";
-                affirmInfoIconNode.ariaLabel = `${this.translations.learnMoreAlt} Affirm`;
-                affirmInfoIconNode.className =
-                    "affirm-modal-info-link no-sezzle-info";
-                affirmInfoIconNode.innerHTML = "&#9432;";
-                sezzleButtonText.appendChild(affirmInfoIconNode);
-                break;
-            case "klarna-logo":
-                var klarnaNode = document.createElementNS(
-                    "http://www.w3.org/2000/svg",
-                    "svg",
-                );
-                klarnaNode.setAttribute("width", "45");
-                klarnaNode.setAttribute("height", "25");
-                klarnaNode.setAttribute("viewBox", "0 0 45 23");
-                klarnaNode.setAttribute(
-                    "class",
-                    `sezzle-klarna-logo klarna-modal-info-link no-sezzle-info`,
-                );
-                klarnaNode.setAttribute(
-                    "style",
-                    `height: 25px !important;width: auto !important; margin-bottom: -5px;`,
-                );
-                klarnaNode.setAttribute("aria-label", "Klarna");
-                klarnaNode.innerHTML = HelperClass.svgImages().klarnaNodeColor;
-                sezzleButtonText.appendChild(klarnaNode);
-                this.setLogoSize(klarnaNode);
-                break;
-            case "klarna-logo-grey":
-                var klarnaNode = document.createElementNS(
-                    "http://www.w3.org/2000/svg",
-                    "svg",
-                );
-                klarnaNode.setAttribute("width", "45");
-                klarnaNode.setAttribute("height", "25");
-                klarnaNode.setAttribute("viewBox", "0 0 45 23");
-                klarnaNode.setAttribute(
-                    "class",
-                    `sezzle-klarna-logo klarna-modal-info-link no-sezzle-info`,
-                );
-                klarnaNode.setAttribute(
-                    "style",
-                    `height: 25px !important;width: auto !important; margin-bottom: -5px;`,
-                );
-                klarnaNode.setAttribute("aria-label", "Klarna");
-                klarnaNode.innerHTML = HelperClass.svgImages().klarnaNodeGrey;
-                sezzleButtonText.appendChild(klarnaNode);
-                this.setLogoSize(klarnaNode);
-                break;
-            case "klarna-logo-white":
-                var klarnaNode = document.createElementNS(
-                    "http://www.w3.org/2000/svg",
-                    "svg",
-                );
-                klarnaNode.setAttribute("width", "45");
-                klarnaNode.setAttribute("height", "25");
-                klarnaNode.setAttribute("viewBox", "0 0 45 23");
-                klarnaNode.setAttribute(
-                    "class",
-                    `sezzle-klarna-logo klarna-modal-info-link no-sezzle-info`,
-                );
-                klarnaNode.setAttribute(
-                    "style",
-                    `height: 25px !important;width: auto !important; margin-bottom: -5px;`,
-                );
-                klarnaNode.setAttribute("aria-label", "Klarna");
-                klarnaNode.innerHTML = HelperClass.svgImages().klarnaNodeWhite;
-                sezzleButtonText.appendChild(klarnaNode);
-                this.setLogoSize(klarnaNode);
-                break;
-            case "klarna-info-icon":
-                const klarnaInfoIconNode = document.createElement("button");
-                klarnaInfoIconNode.role = "button";
-                klarnaInfoIconNode.type = "button";
-                klarnaInfoIconNode.ariaLabel = `${this.translations.learnMoreAlt} Klarna`;
-                klarnaInfoIconNode.className =
-                    "klarna-modal-info-link no-sezzle-info";
-                klarnaInfoIconNode.innerHTML = "&#9432;";
-                sezzleButtonText.appendChild(klarnaInfoIconNode);
-                break;
-            case "shoppay-logo":
-                const shoppayNode = document.createElementNS(
-                    "http://www.w3.org/2000/svg",
-                    "svg",
-                );
-                shoppayNode.setAttribute("width", "99");
-                shoppayNode.setAttribute("height", "25");
-                shoppayNode.setAttribute("viewBox", "0 0 99 25");
-                shoppayNode.setAttribute(
-                    "class",
-                    `sezzle-shoppay-logo shoppay-modal-info-link no-sezzle-info`,
-                );
-                shoppayNode.setAttribute(
-                    "style",
-                    `height: 18px !important;width: auto !important; margin-bottom: -5px;`,
-                );
-                shoppayNode.setAttribute("aria-label", "Shoppay");
-                shoppayNode.innerHTML =
-                    HelperClass?.svgImages()?.shoppayLight || "";
-                sezzleButtonText.appendChild(shoppayNode);
-                this.setLogoSize(shoppayNode);
-                break;
-            case "shoppay-info-icon":
-                const shoppayInfoIconNode = document.createElement("button");
-                shoppayInfoIconNode.role = "button";
-                shoppayInfoIconNode.type = "button";
-                shoppayInfoIconNode.ariaLabel = `${this.translations.learnMoreAlt} Shoppay`;
-                shoppayInfoIconNode.className =
-                    "shoppay-modal-info-link no-sezzle-info";
-                shoppayInfoIconNode.innerHTML = "&#9432;";
-                sezzleButtonText.appendChild(shoppayInfoIconNode);
                 break;
             case "line-break":
                 const lineBreakNode = document.createElement("br");
