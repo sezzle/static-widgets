@@ -1562,246 +1562,19 @@ class AwesomeSezzle {
     }
   }
 
-  renderAPModal() {
-    var modalNode = document.createElement("section");
-    modalNode.className =
-      "sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-ap-modal";
+  renderCompetitorModal(config) {
+    const modalNode = document.createElement("section");
+    modalNode.className = `sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-${config.modalClass}-modal`;
     modalNode.style = "position: center";
     modalNode.style.display = "none";
     modalNode.role = "dialog";
-    modalNode.ariaLabel = this.translations.afterpayInfo;
-    modalNode.ariaDescription = `${this.translations.learnMoreAlt} Afterpay`;
+    modalNode.ariaLabel = config.ariaLabel;
+    modalNode.ariaDescription = `${this.translations.learnMoreAlt} ${config.ariaDescriptionName}`;
 
-    if (this.apModalHTML) {
-      modalNode.innerHTML = this.apModalHTML;
-    } else {
-      this.getAPModal(modalNode);
-    }
-    document.getElementsByTagName("html")[0].appendChild(modalNode);
-    Array.prototype.forEach.call(
-      document.getElementsByClassName("close-sezzle-modal"),
-      function (el) {
-        el.addEventListener("click", function () {
-          modalNode.style.display = "none";
-          let newFocus = document.querySelector("#sezzle-modal-return");
-          if (newFocus) {
-            newFocus.focus();
-            newFocus.removeAttribute("id");
-          } else if (document.querySelector(`.ap-modal-info-link`)) {
-            document
-              .querySelector(".sezzle-checkout-button-wrapper")
-              .getElementsByClassName(`ap-modal-info-link`)[0]
-              .focus();
-          } else {
-            document.querySelector(".sezzle-checkout-button-wrapper").focus();
-          }
-        });
-      }
-    );
-    let sezzleModal = document.getElementsByClassName("sezzle-modal")[0];
-    if (!sezzleModal)
-      sezzleModal = document.getElementsByClassName("sezzle-checkout-modal")[0];
-    sezzleModal.addEventListener("click", function (event) {
-      event.stopPropagation();
-    });
-  }
-
-  renderCashAppAfterpayModal() {
-    var modalNode = document.createElement("section");
-    modalNode.className =
-      "sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-cash-app-afterpay-modal";
-    modalNode.style = "position: center";
-    modalNode.style.display = "none";
-    modalNode.role = "dialog";
-    modalNode.ariaLabel = this.translations.cashAppAfterpayInfo;
-    modalNode.ariaDescription = `${this.translations.learnMoreAlt} Cash App Afterpay`;
-    if (this.cashAppAfterpayModalHTML) {
-      modalNode.innerHTML = this.cashAppAfterpayModalHTML;
-    } else {
-      this.getCashAppAfterpayModal(modalNode);
-    }
-    document.getElementsByTagName("html")[0].appendChild(modalNode);
-    Array.prototype.forEach.call(
-      document.getElementsByClassName("close-sezzle-modal"),
-      function (el) {
-        el.addEventListener("click", function () {
-          modalNode.style.display = "none";
-          let newFocus = document.querySelector("#sezzle-modal-return");
-          if (newFocus) {
-            newFocus.focus();
-            newFocus.removeAttribute("id");
-          } else if (
-            document.querySelector(`.cash-app-afterpay-modal-info-link`)
-          ) {
-            document
-              .querySelector(".sezzle-checkout-button-wrapper")
-              .getElementsByClassName(`cash-app-afterpay-modal-info-link`)[0]
-              .focus();
-          } else {
-            document.querySelector(".sezzle-checkout-button-wrapper").focus();
-          }
-        });
-      }
-    );
-    let sezzleModal = document.getElementsByClassName("sezzle-modal")[0];
-    if (!sezzleModal)
-      sezzleModal = document.getElementsByClassName("sezzle-checkout-modal")[0];
-    sezzleModal.addEventListener("click", function (event) {
-      event.stopPropagation();
-    });
-  }
-
-  renderQPModal() {
-    var modalNode = document.createElement("section");
-    modalNode.className =
-      "sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-qp-modal";
-    modalNode.style = "position: center";
-    modalNode.style.display = "none";
-    modalNode.role = "dialog";
-    modalNode.ariaLabel = this.translations.quadpayInfo;
-    modalNode.ariaDescription = `${this.translations.learnMoreAlt} Quadpay`;
-    if (this.qpModalHTML) {
-      modalNode.innerHTML = this.qpModalHTML;
-    } else {
-      this.getZipModal(modalNode);
-    }
-    document.getElementsByTagName("html")[0].appendChild(modalNode);
-    Array.prototype.forEach.call(
-      document.getElementsByClassName("close-sezzle-modal"),
-      function (el) {
-        el.addEventListener("click", function () {
-          modalNode.style.display = "none";
-          let newFocus = document.querySelector("#sezzle-modal-return");
-          if (newFocus) {
-            newFocus.focus();
-            newFocus.removeAttribute("id");
-          } else if (document.querySelector(`.qp-modal-info-link`)) {
-            document
-              .querySelector(".sezzle-checkout-button-wrapper")
-              .getElementsByClassName(`qp-modal-info-link`)[0]
-              .focus();
-          } else {
-            document.querySelector(".sezzle-checkout-button-wrapper").focus();
-          }
-        });
-      }
-    );
-    let sezzleModal = document.getElementsByClassName("sezzle-modal")[0];
-    if (!sezzleModal)
-      sezzleModal = document.getElementsByClassName("sezzle-checkout-modal")[0];
-    sezzleModal.addEventListener("click", function (event) {
-      event.stopPropagation();
-    });
-  }
-
-  renderAffirmModal() {
-    var modalNode = document.createElement("section");
-    modalNode.className =
-      "sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-affirm-modal";
-    modalNode.style = "position: center";
-    modalNode.style.display = "none";
-    modalNode.role = "dialog";
-    modalNode.ariaLabel = this.translations.affirmInfo;
-    modalNode.ariaDescription = `${this.translations.learnMoreAlt}  Affirm`;
-    modalNode.innerHTML = this.affirmModalHTML;
-    document.getElementsByTagName("html")[0].appendChild(modalNode);
-    Array.prototype.forEach.call(
-      document.getElementsByClassName("close-sezzle-modal"),
-      function (el) {
-        el.addEventListener("click", function () {
-          modalNode.style.display = "none";
-          let newFocus = document.querySelector("#sezzle-modal-return");
-          if (newFocus) {
-            newFocus.focus();
-            newFocus.removeAttribute("id");
-          } else if (document.querySelector(`.affirm-modal-info-link`)) {
-            document
-              .querySelector(".sezzle-checkout-button-wrapper")
-              .getElementsByClassName(`affirm-modal-info-link`)[0]
-              .focus();
-          } else {
-            document.querySelector(".sezzle-checkout-button-wrapper").focus();
-          }
-        });
-      }
-    );
-    let sezzleModal = document.getElementsByClassName("sezzle-modal")[0];
-    if (!sezzleModal)
-      sezzleModal = document.getElementsByClassName("sezzle-checkout-modal")[0];
-    sezzleModal.addEventListener("click", function (event) {
-      event.stopPropagation();
-    });
-  }
-
-      renderShoppayModal() {
-        const modalNode = document.createElement("section");
-        modalNode.className =
-            "sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-shoppay-modal";
-        modalNode.style = "position: center";
-        modalNode.style.display = "none";
-        modalNode.role = "dialog";
-        modalNode.ariaLabel = this.translations.shoppayInfo;
-        modalNode.ariaDescription = `${this.translations.learnMoreAlt}  Shoppay`;
-
-        if (this.shoppayModalHTML) {
-            modalNode.innerHTML = this.shoppayModalHTML;
-        } else {
-            this.getShoppayModal(modalNode);
-        }
-
-        document.getElementsByTagName("html")[0].appendChild(modalNode);
-        Array.prototype.forEach.call(
-            document.getElementsByClassName("close-sezzle-modal"),
-            function (el) {
-                el.addEventListener("click", function () {
-                    modalNode.style.display = "none";
-                    let newFocus = document.querySelector(
-                        "#sezzle-modal-return"
-                    );
-                    if (newFocus) {
-                        newFocus.focus();
-                        newFocus.removeAttribute("id");
-                    } else if (
-                        document.querySelector(`.shoppay-modal-info-link`)
-                    ) {
-                        document
-                            .querySelector(".sezzle-checkout-button-wrapper")
-                            .getElementsByClassName(
-                                `shoppay-modal-info-link`
-                            )[0]
-                            .focus();
-                    } else {
-                        document
-                            .querySelector(".sezzle-checkout-button-wrapper")
-                            .focus();
-                    }
-                });
-            }
-        );
-        let sezzleModal = document.getElementsByClassName("sezzle-modal")[0];
-        if (!sezzleModal)
-            sezzleModal = document.getElementsByClassName(
-                "sezzle-checkout-modal"
-            )[0];
-        sezzleModal.addEventListener("click", function (event) {
-            event.stopPropagation();
-        });
-    }
-
-  renderKlarnaModal() {
-    var modalNode = document.createElement("section");
-    modalNode.className =
-      "sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-klarna-modal";
-    modalNode.style = "position: center";
-    modalNode.style.display = "none";
-    modalNode.role = "dialog";
-    modalNode.ariaLabel = this.translations.klarnaInfo;
-    modalNode.ariaDescription = `${this.translations.learnMoreAlt}  Klarna`;
-
-    if (this.klarnaModalHTML) {
-      modalNode.innerHTML = this.klarnaModalHTML;
-    } else {
-      this.getKlarnaModal(modalNode);
+    if (config.modalHTML) {
+      modalNode.innerHTML = config.modalHTML;
+    } else if (config.getModalMethod) {
+      config.getModalMethod.call(this, modalNode);
     }
 
     document.getElementsByTagName("html")[0].appendChild(modalNode);
@@ -1814,10 +1587,10 @@ class AwesomeSezzle {
           if (newFocus) {
             newFocus.focus();
             newFocus.removeAttribute("id");
-          } else if (document.querySelector(`.klarna-modal-info-link`)) {
+          } else if (document.querySelector(`.${config.infoLinkClass}`)) {
             document
               .querySelector(".sezzle-checkout-button-wrapper")
-              .getElementsByClassName(`klarna-modal-info-link`)[0]
+              .getElementsByClassName(config.infoLinkClass)[0]
               .focus();
           } else {
             document.querySelector(".sezzle-checkout-button-wrapper").focus();
@@ -2014,35 +1787,67 @@ class AwesomeSezzle {
 
     function renderModals() {
       this.renderModal();
-      if (document.getElementsByClassName("ap-modal-info-link").length > 0) {
-        this.renderAPModal();
-      }
-      if (
-        document.getElementsByClassName("cash-app-afterpay-modal-info-link")
-          .length > 0
-      ) {
-        this.renderCashAppAfterpayModal();
-      }
-      if (
-        document.getElementsByClassName("quadpay-modal-info-link").length > 0
-      ) {
-        this.renderQPModal();
-      }
-      if (
-        document.getElementsByClassName("affirm-modal-info-link").length > 0
-      ) {
-        this.renderAffirmModal();
-      }
-      if (
-        document.getElementsByClassName("klarna-modal-info-link").length > 0
-      ) {
-        this.renderKlarnaModal();
-      }
-            if (
-        document.getElementsByClassName("shoppay-modal-info-link").length > 0
-            ) {
-                this.renderShoppayModal();
-            }
+
+      const competitors = [
+        {
+          infoLinkClass: "ap",
+          modalClass: "ap",
+          ariaLabel: this.translations.afterpayInfo,
+          ariaDescriptionName: "Afterpay",
+          modalHTML: this.apModalHTML,
+          getModalMethod: this.getAPModal
+        },
+        {
+          infoLinkClass: "cash-app-afterpay",
+          modalClass: "cash-app-afterpay",
+          ariaLabel: this.translations.cashAppAfterpayInfo,
+          ariaDescriptionName: "Cash App Afterpay",
+          modalHTML: this.cashAppAfterpayModalHTML,
+          getModalMethod: this.getCashAppAfterpayModal
+        },
+        {
+          infoLinkClass: "quadpay",
+          modalClass: "qp",
+          ariaLabel: this.translations.quadpayInfo,
+          ariaDescriptionName: "Quadpay",
+          modalHTML: this.qpModalHTML,
+          getModalMethod: this.getZipModal
+        },
+        {
+          infoLinkClass: "affirm",
+          modalClass: "affirm",
+          ariaLabel: this.translations.affirmInfo,
+          ariaDescriptionName: "Affirm",
+          modalHTML: this.affirmModalHTML,
+          getModalMethod: null
+        },
+        {
+          infoLinkClass: "klarna",
+          modalClass: "klarna",
+          ariaLabel: this.translations.klarnaInfo,
+          ariaDescriptionName: "Klarna",
+          modalHTML: this.klarnaModalHTML,
+          getModalMethod: this.getKlarnaModal
+        },
+        {
+          infoLinkClass: "shoppay",
+          modalClass: "shoppay",
+          ariaLabel: this.translations.shoppayInfo,
+          ariaDescriptionName: "Shoppay",
+          modalHTML: this.shoppayModalHTML,
+          getModalMethod: this.getShoppayModal
+        }
+      ];
+
+      competitors.forEach(competitor => {
+        if (
+            document.getElementsByClassName(
+                `${competitor.infoLinkClass}-modal-info-link`,
+            ).length > 0
+        ) {
+            this.renderCompetitorModal(competitor);
+        }
+      });
     }
 
     function sezzleWidgetCheckInterval() {
