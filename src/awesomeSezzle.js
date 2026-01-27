@@ -298,8 +298,7 @@ class AwesomeSezzle {
     return {
       afterpay: {
         name: "Afterpay",
-        logoClass: "sezzle-afterpay-logo",
-        linkClass: "afterpay-modal-info-link",
+        competitorClass: "afterpay",
         variants: {
           "logo": {
             width: "115", height: "40", viewBox: "0 0 115 40",
@@ -325,8 +324,7 @@ class AwesomeSezzle {
       },
       "cash-app-afterpay": {
         name: "Cash App Afterpay",
-        logoClass: "sezzle-cash-app-afterpay-logo",
-        linkClass: "cash-app-afterpay-modal-info-link",
+        competitorClass: "cash-app-afterpay",
         variants: {
           "logo": {
             width: "98", height: "24", viewBox: "0 0 98 24",
@@ -338,13 +336,11 @@ class AwesomeSezzle {
             preserveAspectRatio: "xMidYMid meet",
             svg: HelperClass.svgImages().cashAppApNodeBlack
           }
-        },
-        infoIconExtraClass: "cash-app-afterpay-info-icon"
+        }
       },
       zip: {
         name: "Zip",
-        logoClass: "sezzle-zip-logo",
-        linkClass: "zip-modal-info-link",
+        competitorClass: "zip",
         aliases: ["quadpay"],
         variants: {
           "logo": {
@@ -375,8 +371,7 @@ class AwesomeSezzle {
       },
       affirm: {
         name: "Affirm",
-        logoClass: "sezzle-affirm-logo",
-        linkClass: "affirm-modal-info-link",
+        competitorClass: "affirm",
         variants: {
           "logo": {
             width: "450", height: "170", viewBox: "0 0 450 170",
@@ -397,8 +392,7 @@ class AwesomeSezzle {
       },
       klarna: {
         name: "Klarna",
-        logoClass: "sezzle-klarna-logo",
-        linkClass: "klarna-modal-info-link",
+        competitorClass: "klarna",
         variants: {
           "logo": {
             width: "45", height: "25", viewBox: "0 0 45 23",
@@ -419,8 +413,7 @@ class AwesomeSezzle {
       },
       shoppay: {
         name: "Shoppay",
-        logoClass: "sezzle-shoppay-logo",
-        linkClass: "shoppay-modal-info-link",
+        competitorClass: "shoppay",
         variants: {
           "logo": {
             width: "99", height: "25", viewBox: "0 0 99 25",
@@ -432,9 +425,9 @@ class AwesomeSezzle {
     };
   }
 
-  renderCompetitorLogo(competitor, variant, config, sezzleButtonText) {
+  renderCompetitorLogo(variant, config, sezzleButtonText) {
     const variantConfig = config.variants[variant];
-    if (!variantConfig) return false;
+    if (!variantConfig) return config.variants["logo"];
 
     const node = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 
@@ -443,7 +436,7 @@ class AwesomeSezzle {
     node.setAttribute("viewBox", variantConfig.viewBox);
     node.setAttribute("aria-label", config.name);
 
-    let className = `${config.logoClass} ${config.linkClass} no-sezzle-info`;
+    let className = `sezzle-${config.competitorClass}-logo ${config.competitorClass} no-sezzle-info`;
     if (variantConfig.extraClass) {
       className += ` ${variantConfig.extraClass}`;
     }
@@ -471,17 +464,12 @@ class AwesomeSezzle {
     return true;
   }
 
-  renderCompetitorInfoIcon(competitor, config, sezzleButtonText) {
+  renderCompetitorInfoIcon(config, sezzleButtonText) {
     const iconNode = document.createElement("button");
     iconNode.role = "button";
     iconNode.type = "button";
     iconNode.ariaLabel = `${this.translations.learnMoreAlt} ${config.name}`;
-
-    let className = `${config.linkClass} no-sezzle-info`;
-    if (config.infoIconExtraClass) {
-      className += ` ${config.infoIconExtraClass}`;
-    }
-    iconNode.className = className;
+    iconNode.className = `${config.competitorClass}-modal-info-link no-sezzle-info ${config.competitorClass}-info-icon`;
     iconNode.innerHTML = "&#9432;";
 
     sezzleButtonText.appendChild(iconNode);
@@ -489,15 +477,15 @@ class AwesomeSezzle {
   }
 
   renderCompetitorLinkIcon(sezzleButtonText) {
-    const apAnchor = document.createElement("a");
-    apAnchor.href = this.apLink;
-    apAnchor.target = "_blank";
-    const apLinkIconNode = document.createElement("code");
-    apLinkIconNode.ariaLabel = `${this.translations.learnMoreAlt} Afterpay`;
-    apLinkIconNode.className = "ap-info-link";
-    apLinkIconNode.innerHTML = "&#9432;";
-    apAnchor.appendChild(apLinkIconNode);
-    sezzleButtonText.appendChild(apAnchor);
+    const anchor = document.createElement("a");
+    anchor.href = this.apLink;
+    anchor.target = "_blank";
+    const linkIconNode = document.createElement("code");
+    linkIconNode.ariaLabel = `${this.translations.learnMoreAlt} Afterpay`;
+    linkIconNode.className = "afterpay-info-link";
+    linkIconNode.innerHTML = "&#9432;";
+    anchor.appendChild(linkIconNode);
+    sezzleButtonText.appendChild(anchor);
     return true;
   }
 
@@ -544,7 +532,7 @@ class AwesomeSezzle {
             }
 
             if (subtemplate === `${competitor}-info-icon`) {
-              this.renderCompetitorInfoIcon(competitor, competitorConfig, sezzleButtonText);
+              this.renderCompetitorInfoIcon(competitorConfig, sezzleButtonText);
               handled = true;
               break;
             }
@@ -552,7 +540,7 @@ class AwesomeSezzle {
             const logoMatch = subtemplate.match(new RegExp(`^${competitor}-(logo(?:-\\w+)?)$`));
             if (logoMatch) {
               const variant = logoMatch[1];
-              this.renderCompetitorLogo(competitor, variant, competitorConfig, sezzleButtonText);
+              this.renderCompetitorLogo(variant, competitorConfig, sezzleButtonText);
               handled = true;
               break;
             }
