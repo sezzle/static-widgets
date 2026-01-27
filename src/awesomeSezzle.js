@@ -412,7 +412,7 @@ class AwesomeSezzle {
             apNode.setAttribute("viewBox", "0 0 115 40");
             apNode.setAttribute(
               "class",
-              `sezzle-afterpay-logo ap-modal-info-link no-sezzle-info`
+              `sezzle-afterpay-logo afterpay-modal-info-link no-sezzle-info`
             );
             apNode.setAttribute("aria-label", "Afterpay");
             apNode.innerHTML = HelperClass.svgImages().apNodeColor;
@@ -428,8 +428,8 @@ class AwesomeSezzle {
             apNode.setAttribute("height", "35");
             apNode.setAttribute("viewBox", "0 0 170 35");
             apNode.setAttribute(
-              "class",
-              `sezzle-afterpay-logo ap-modal-info-link no-sezzle-info afterpay-logo-text`
+                "class",
+                `sezzle-afterpay-logo afterpay-modal-info-link no-sezzle-info afterpay-logo-text`,
             );
             apNode.setAttribute("aria-label", "Afterpay");
             apNode.innerHTML = HelperClass.svgImages().apNodeBlack;
@@ -446,7 +446,7 @@ class AwesomeSezzle {
             apNode.setAttribute("viewBox", "0 0 115 40");
             apNode.setAttribute(
               "class",
-              `sezzle-afterpay-logo ap-modal-info-link no-sezzle-info afterpay-logo-pill`
+              `sezzle-afterpay-logo afterpay-modal-info-link no-sezzle-info afterpay-logo-pill`
             );
             apNode.setAttribute("aria-label", "Afterpay");
             apNode.innerHTML = HelperClass.svgImages().apNodeGrey;
@@ -463,7 +463,7 @@ class AwesomeSezzle {
             apNode.setAttribute("viewBox", "0 0 115 40");
             apNode.setAttribute(
               "class",
-              `sezzle-afterpay-logo ap-modal-info-link no-sezzle-info  afterpay-logo-pill`
+              `sezzle-afterpay-logo afterpay-modal-info-link no-sezzle-info  afterpay-logo-pill`
             );
             apNode.setAttribute("aria-label", "Afterpay");
             apNode.innerHTML = HelperClass.svgImages().apNodeWhite;
@@ -475,7 +475,7 @@ class AwesomeSezzle {
             apInfoIconNode.role = "button";
             apInfoIconNode.type = "button";
             apInfoIconNode.ariaLabel = `${this.translations.learnMoreAlt} Afterpay`;
-            apInfoIconNode.className = "ap-modal-info-link no-sezzle-info";
+            apInfoIconNode.className = "afterpay-modal-info-link no-sezzle-info";
             apInfoIconNode.innerHTML = "&#9432;";
             sezzleButtonText.appendChild(apInfoIconNode);
             break;
@@ -1647,7 +1647,7 @@ class AwesomeSezzle {
       }.bind(this)
     );
     const apModalLinks =
-      sezzleElement.getElementsByClassName("ap-modal-info-link");
+      sezzleElement.getElementsByClassName("afterpay-modal-info-link");
     Array.prototype.forEach.call(
       apModalLinks,
       function (modalLink) {
@@ -1655,9 +1655,9 @@ class AwesomeSezzle {
           "click",
           function (event) {
             document.getElementsByClassName(
-              "sezzle-ap-modal"
+              "sezzle-afterpay-modal"
             )[0].style.display = "block";
-            document.getElementsByClassName("sezzle-ap-modal")[0].focus();
+            document.getElementsByClassName("sezzle-afterpay-modal")[0].focus();
             event.target.id = "sezzle-modal-return";
             event.preventDefault();
             event.stopPropagation();
@@ -1697,9 +1697,9 @@ class AwesomeSezzle {
           "click",
           function (event) {
             document.getElementsByClassName(
-              "sezzle-qp-modal"
+              "sezzle-quadpay-modal"
             )[0].style.display = "block";
-            document.getElementsByClassName("sezzle-qp-modal")[0].focus();
+            document.getElementsByClassName("sezzle-quadpay-modal")[0].focus();
             event.target.id = "sezzle-modal-return";
             event.preventDefault();
             event.stopPropagation();
@@ -1790,8 +1790,8 @@ class AwesomeSezzle {
 
       const competitors = [
         {
-          infoLinkClass: "ap",
-          modalClass: "ap",
+          infoLinkClass: "afterpay",
+          modalClass: "afterpay",
           ariaLabel: this.translations.afterpayInfo,
           ariaDescriptionName: "Afterpay",
           modalHTML: this.apModalHTML,
@@ -1807,7 +1807,7 @@ class AwesomeSezzle {
         },
         {
           infoLinkClass: "quadpay",
-          modalClass: "qp",
+          modalClass: "quadpay",
           ariaLabel: this.translations.quadpayInfo,
           ariaDescriptionName: "Quadpay",
           modalHTML: this.qpModalHTML,
