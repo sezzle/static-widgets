@@ -302,7 +302,8 @@ class AwesomeSezzle {
         variants: {
           "logo": {
             width: "115", height: "40", viewBox: "0 0 115 40",
-            svg: HelperClass.svgImages().apNodeColor
+            svg: HelperClass.svgImages().apNodeColor,
+            extraClass: "afterpay-logo-pill"
           },
           "logo-black": {
             width: "170", height: "35", viewBox: "0 0 170 35",
