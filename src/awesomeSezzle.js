@@ -437,7 +437,7 @@ class AwesomeSezzle {
     node.setAttribute("viewBox", variantConfig.viewBox);
     node.setAttribute("aria-label", config.name);
 
-    let className = `sezzle-${config.competitorClass}-logo ${config.competitorClass} no-sezzle-info`;
+    let className = `sezzle-${config.competitorClass}-logo ${config.competitorClass} no-sezzle-info ${config.competitorClass}-modal-info-link`;
     if (variantConfig.extraClass) {
       className += ` ${variantConfig.extraClass}`;
     }
