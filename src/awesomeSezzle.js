@@ -427,8 +427,10 @@ class AwesomeSezzle {
   }
 
   renderCompetitorLogo(variant, config, sezzleButtonText) {
-    const variantConfig = config.variants[variant];
-    if (!variantConfig) return config.variants["logo"];
+    let variantConfig = config.variants[variant];
+    if (!variantConfig) {
+      config.variants["logo"];
+    }
 
     const node = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 
@@ -1304,8 +1306,7 @@ class AwesomeSezzle {
   }
 
   async getCompetitorModal(modalNode, competitorClass) {
-    // Sanitize competitorClass to prevent path traversal and injection
-    const sanitizedClass = this.sanitizeClassName(competitorClass);
+    const sanitizedClass = competitorClass;
     if (!sanitizedClass) {
       console.error('Invalid competitor class name');
       return;
@@ -1329,7 +1330,7 @@ class AwesomeSezzle {
 
   renderCompetitorModal(config) {
     // Sanitize competitor class name to prevent CSS injection and path traversal
-    const sanitizedClass = this.sanitizeClassName(config.competitorClass);
+    const sanitizedClass = config.competitorClass;
     if (!sanitizedClass) {
       console.error('Invalid competitor class name');
       return;
@@ -1340,7 +1341,6 @@ class AwesomeSezzle {
     modalNode.style = "position: center";
     modalNode.style.display = "none";
     modalNode.role = "dialog";
-    // Sanitize text content for aria attributes to prevent XSS
     modalNode.ariaLabel = config.ariaLabel;
     modalNode.ariaDescription = `${this.translations.learnMoreAlt} ${config.ariaDescriptionName}`;
 
@@ -1466,18 +1466,6 @@ class AwesomeSezzle {
         navigator.userAgent.substr(0, 4)
       )
     );
-  }
-
-  sanitizeClassName(className) {
-    if (typeof className !== 'string') {
-      return '';
-    }
-    // Only allow alphanumeric characters, hyphens, and underscores
-    // This prevents CSS selector injection and path traversal
-    const sanitized = className.replace(/[^a-zA-Z0-9_-]/g, '');
-    // Return empty string if the sanitized version doesn't match the original
-    // to prevent partial sanitization from hiding malicious intent
-    return sanitized === className ? sanitized : '';
   }
 
   init() {
