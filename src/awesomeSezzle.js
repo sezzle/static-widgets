@@ -429,7 +429,7 @@ class AwesomeSezzle {
   renderCompetitorLogo(variant, config, sezzleButtonText) {
     let variantConfig = config.variants[variant];
     if (!variantConfig) {
-      config.variants["logo"];
+      variantConfig = config.variants["logo"];
     }
 
     const node = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -1306,6 +1306,8 @@ class AwesomeSezzle {
   }
 
   async getCompetitorModal(modalNode, competitorClass) {
+    // competitorClass comes from hardcoded getCompetitorConfig() values
+    // Validated to be non-empty; no sanitization needed for trusted internal values
     if (!competitorClass) {
         console.error("Invalid competitor class name");
         return;
@@ -1319,8 +1321,7 @@ class AwesomeSezzle {
             `Failed to fetch ${competitorClass} modal, status: ${response.status}`,
         );
       }
-      // HTML from Sezzle's CDN is trusted, no sanitization needed
-      // Security is enforced by sanitizing the URL path parameter above
+      // HTML from Sezzle's own CDN is trusted
       modalNode.innerHTML = await response.text();
     } catch (error) {
       console.error(error);
@@ -1328,6 +1329,7 @@ class AwesomeSezzle {
   }
 
   renderCompetitorModal(config) {
+    // config.competitorClass comes from hardcoded getCompetitorConfig() values
     if (!config.competitorClass) {
         console.error("Invalid competitor class name");
         return;
