@@ -540,7 +540,9 @@ class AwesomeSezzle {
               break;
             }
 
-            const logoMatch = subtemplate.match(new RegExp(`^${competitor}-(logo(?:-\\w+)?)$`));
+            // Escape regex special characters to prevent regex injection
+            const escapedCompetitor = competitor.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const logoMatch = subtemplate.match(new RegExp(`^${escapedCompetitor}-(logo(?:-\\w+)?)$`));
             if (logoMatch) {
               const variant = logoMatch[1];
               this.renderCompetitorLogo(variant, competitorConfig, sezzleButtonText);
