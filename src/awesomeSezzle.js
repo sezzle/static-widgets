@@ -1341,8 +1341,8 @@ class AwesomeSezzle {
     modalNode.style.display = "none";
     modalNode.role = "dialog";
     // Sanitize text content for aria attributes to prevent XSS
-    modalNode.ariaLabel = this.sanitizeTextContent(config.ariaLabel);
-    modalNode.ariaDescription = `${this.sanitizeTextContent(this.translations.learnMoreAlt)} ${this.sanitizeTextContent(config.ariaDescriptionName)}`;
+    modalNode.ariaLabel = config.ariaLabel;
+    modalNode.ariaDescription = `${this.translations.learnMoreAlt} ${config.ariaDescriptionName}`;
 
     if (config.modalHTML) {
       // modalHTML is provided by Sezzle configuration, considered trusted
@@ -1478,17 +1478,6 @@ class AwesomeSezzle {
     // Return empty string if the sanitized version doesn't match the original
     // to prevent partial sanitization from hiding malicious intent
     return sanitized === className ? sanitized : '';
-  }
-
-  sanitizeTextContent(text) {
-    if (typeof text !== 'string') {
-      return '';
-    }
-    // Strip HTML tags and return plain text for safe attribute values
-    // Used for aria attributes which don't parse HTML
-    const temp = document.createElement('div');
-    temp.innerHTML = text;
-    return temp.textContent || temp.innerText || '';
   }
 
   init() {
