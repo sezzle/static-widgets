@@ -1304,14 +1304,23 @@ class AwesomeSezzle {
   }
 
   async getCompetitorModal(modalNode, competitorClass) {
-    const url = `https://media.sezzle.com/${competitorClass}/modal/${this.language}.html`;
+    // Sanitize competitorClass to prevent path traversal and injection
+    const sanitizedClass = this.sanitizeClassName(competitorClass);
+    if (!sanitizedClass) {
+      console.error('Invalid competitor class name');
+      return;
+    }
+
+    const url = `https://media.sezzle.com/${sanitizedClass}/modal/${this.language}.html`;
     try {
       const response = await fetch(url);
       if (!response.ok) {
         throw new error(
-          `Failed to fetch ${competitorClass} modal, status: ${response.status}`
+          `Failed to fetch ${sanitizedClass} modal, status: ${response.status}`
         );
       }
+      // HTML from Sezzle's CDN is trusted, no sanitization needed
+      // Security is enforced by sanitizing the URL path parameter above
       modalNode.innerHTML = await response.text();
     } catch (error) {
       console.error(error);
@@ -1319,20 +1328,30 @@ class AwesomeSezzle {
   }
 
   renderCompetitorModal(config) {
+    // Sanitize competitor class name to prevent CSS injection and path traversal
+    const sanitizedClass = this.sanitizeClassName(config.competitorClass);
+    if (!sanitizedClass) {
+      console.error('Invalid competitor class name');
+      return;
+    }
+
     const modalNode = document.createElement("section");
-    modalNode.className = `sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-${config.competitorClass}-modal`;
+    modalNode.className = `sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-${sanitizedClass}-modal`;
     modalNode.style = "position: center";
     modalNode.style.display = "none";
     modalNode.role = "dialog";
-    modalNode.ariaLabel = config.ariaLabel;
-    modalNode.ariaDescription = `${this.translations.learnMoreAlt} ${config.ariaDescriptionName}`;
+    // Sanitize text content for aria attributes to prevent XSS
+    modalNode.ariaLabel = this.sanitizeTextContent(config.ariaLabel);
+    modalNode.ariaDescription = `${this.sanitizeTextContent(this.translations.learnMoreAlt)} ${this.sanitizeTextContent(config.ariaDescriptionName)}`;
 
     if (config.modalHTML) {
+      // modalHTML is provided by Sezzle configuration, considered trusted
+      // CSS/styles are essential for modal rendering
       modalNode.innerHTML = config.modalHTML;
     } else {
       this.getCompetitorModal(
           modalNode,
-          config.competitorClass
+          sanitizedClass
       );
     }
 
@@ -1346,10 +1365,10 @@ class AwesomeSezzle {
           if (newFocus) {
             newFocus.focus();
             newFocus.removeAttribute("id");
-          } else if (document.querySelector(`.${config.competitorClass}-modal-info-link`)) {
+          } else if (document.querySelector(`.${sanitizedClass}-modal-info-link`)) {
             document
               .querySelector(".sezzle-checkout-button-wrapper")
-              .getElementsByClassName(`${config.competitorClass}-modal-info-link`)[0]
+              .getElementsByClassName(`${sanitizedClass}-modal-info-link`)[0]
               .focus();
           } else {
             document.querySelector(".sezzle-checkout-button-wrapper").focus();
@@ -1447,6 +1466,29 @@ class AwesomeSezzle {
         navigator.userAgent.substr(0, 4)
       )
     );
+  }
+
+  sanitizeClassName(className) {
+    if (typeof className !== 'string') {
+      return '';
+    }
+    // Only allow alphanumeric characters, hyphens, and underscores
+    // This prevents CSS selector injection and path traversal
+    const sanitized = className.replace(/[^a-zA-Z0-9_-]/g, '');
+    // Return empty string if the sanitized version doesn't match the original
+    // to prevent partial sanitization from hiding malicious intent
+    return sanitized === className ? sanitized : '';
+  }
+
+  sanitizeTextContent(text) {
+    if (typeof text !== 'string') {
+      return '';
+    }
+    // Strip HTML tags and return plain text for safe attribute values
+    // Used for aria attributes which don't parse HTML
+    const temp = document.createElement('div');
+    temp.innerHTML = text;
+    return temp.textContent || temp.innerText || '';
   }
 
   init() {
