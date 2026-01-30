@@ -1306,18 +1306,17 @@ class AwesomeSezzle {
   }
 
   async getCompetitorModal(modalNode, competitorClass) {
-    const sanitizedClass = competitorClass;
-    if (!sanitizedClass) {
-      console.error('Invalid competitor class name');
-      return;
+    if (!competitorClass) {
+        console.error("Invalid competitor class name");
+        return;
     }
 
-    const url = `https://media.sezzle.com/${sanitizedClass}/modal/${this.language}.html`;
+    const url = `https://media.sezzle.com/${competitorClass}/modal/${this.language}.html`;
     try {
       const response = await fetch(url);
       if (!response.ok) {
         throw new error(
-          `Failed to fetch ${sanitizedClass} modal, status: ${response.status}`
+            `Failed to fetch ${competitorClass} modal, status: ${response.status}`,
         );
       }
       // HTML from Sezzle's CDN is trusted, no sanitization needed
@@ -1329,15 +1328,13 @@ class AwesomeSezzle {
   }
 
   renderCompetitorModal(config) {
-    // Sanitize competitor class name to prevent CSS injection and path traversal
-    const sanitizedClass = config.competitorClass;
-    if (!sanitizedClass) {
-      console.error('Invalid competitor class name');
-      return;
+    if (!config.competitorClass) {
+        console.error("Invalid competitor class name");
+        return;
     }
 
     const modalNode = document.createElement("section");
-    modalNode.className = `sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-${sanitizedClass}-modal`;
+    modalNode.className = `sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-${config.competitorClass}-modal`;
     modalNode.style = "position: center";
     modalNode.style.display = "none";
     modalNode.role = "dialog";
@@ -1349,10 +1346,7 @@ class AwesomeSezzle {
       // CSS/styles are essential for modal rendering
       modalNode.innerHTML = config.modalHTML;
     } else {
-      this.getCompetitorModal(
-          modalNode,
-          sanitizedClass
-      );
+      this.getCompetitorModal(modalNode, config.competitorClass);
     }
 
     document.getElementsByTagName("html")[0].appendChild(modalNode);
@@ -1365,13 +1359,19 @@ class AwesomeSezzle {
           if (newFocus) {
             newFocus.focus();
             newFocus.removeAttribute("id");
-          } else if (document.querySelector(`.${sanitizedClass}-modal-info-link`)) {
-            document
-              .querySelector(".sezzle-checkout-button-wrapper")
-              .getElementsByClassName(`${sanitizedClass}-modal-info-link`)[0]
-              .focus();
+          } else if (
+              document.querySelector(
+                  `.${config.competitorClass}-modal-info-link`,
+              )
+          ) {
+              document
+                  .querySelector(".sezzle-checkout-button-wrapper")
+                  .getElementsByClassName(
+                      `${config.competitorClass}-modal-info-link`,
+                  )[0]
+                  .focus();
           } else {
-            document.querySelector(".sezzle-checkout-button-wrapper").focus();
+              document.querySelector(".sezzle-checkout-button-wrapper").focus();
           }
         });
       }
