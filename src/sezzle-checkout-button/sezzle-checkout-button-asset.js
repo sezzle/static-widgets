@@ -13,6 +13,8 @@ const Events = Object.freeze({
   ModalError: "checkout-button-modal-error",
 });
 
+const CHECKOUT_BUTTON_NOT_FOUND_KEY = "sezzleCheckoutButtonNotFoundLogged";
+
 class SezzleCheckoutButton {
   constructor(options) {
     this.defaultTemplate = {
@@ -203,9 +205,12 @@ class SezzleCheckoutButton {
     } else if (containers.cartDrawerCheckoutButton) {
       this.renderUnderButton(containers.cartDrawerCheckoutButton);
     } else {
-      console.log(
-        "Sezzle checkout button could not be rendered: Shopify checkout button not found."
-      );
+      if (!window[CHECKOUT_BUTTON_NOT_FOUND_KEY]) {
+        window[CHECKOUT_BUTTON_NOT_FOUND_KEY] = true;
+        console.log(
+          "Sezzle checkout button could not be rendered: Shopify checkout button not found."
+        );
+      }
     }
   }
 
