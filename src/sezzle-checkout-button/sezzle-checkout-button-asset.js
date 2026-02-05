@@ -13,6 +13,11 @@ const Events = Object.freeze({
   ModalError: "checkout-button-modal-error",
 });
 
+// One-time log guard: integration (e.g. theme-app-extension) uses a MutationObserver
+// that calls init() on every DOM change when no button exists, and the script can load
+// multiple times — so we use a global window flag to log at most once per page.
+const ButtonNotRenderedLoggedKey = "sezzleCheckoutButtonNotRenderedLogged";
+
 class SezzleCheckoutButton {
   constructor(options) {
     this.defaultTemplate = {
@@ -203,9 +208,12 @@ class SezzleCheckoutButton {
     } else if (containers.cartDrawerCheckoutButton) {
       this.renderUnderButton(containers.cartDrawerCheckoutButton);
     } else {
-      console.log(
-        "Sezzle checkout button could not be rendered: Shopify checkout button not found."
-      );
+      if (!window[ButtonNotRenderedLoggedKey]) {
+        window[ButtonNotRenderedLoggedKey] = true;
+        console.log(
+          "Sezzle checkout button could not be rendered: Shopify checkout button not found."
+        );
+      }
     }
   }
 
