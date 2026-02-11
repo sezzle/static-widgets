@@ -37,7 +37,7 @@
   <script src='../dist/bundle.js'></script>
   <script>
     const renderSezzle = new AwesomeSezzle({
-        // widgetTemplate: 'Buy now, pay later with %%logo%% %%info%% or %%afterpay-logo-black%% %%afterpay-info-icon%%',
+        widgetTemplate: '%%logo%% %%info%% %%afterpay-logo%% %%afterpay-info-icon%% %%quadpay-logo%% %%quadpay-info-icon%% %%zip-logo%% %%zip-info-icon%% %%affirm-logo%% %%affirm-info-icon%% %%klarna-logo%% %%klarna-info-icon%% %%cash-app-afterpay-logo%% %%cash-app-afterpay-info-icon%% %%shoppay-logo%% %%shoppay-info-icon%%',
         renderElement: ['sezzle-widget-desktop', 'sezzle-widget-mobile'],
         theme: 'light',
       amount: document.querySelector('#price').querySelector('.currency').innerText + document.querySelector('#price').querySelector('.amount').innerText

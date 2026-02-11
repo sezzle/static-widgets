@@ -1,0 +1,364 @@
+<div class="affirm-modal">
+    <div class="affirm-modal-content">
+        <style>
+            .affirm-modal {
+                font-family: "Calibre", "Inter", "Proxima Nova", "Helvetica Neue", sans-serif;
+                color: #0c0c14;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                /* height: 100%; */
+                border-radius: 24px;
+                width: 528px;
+                background: #f2f2f4;
+                margin: 20px auto;    
+            }
+            .affirm-modal-content {
+                margin: 0px 40px;
+            }
+            .logo-container {
+                display: flex;
+                flex-direction: row;
+                align-content: space-around;
+                justify-content: center;
+                align-items:center;
+                height: 64px;
+                width: 100%;
+                padding: 24px 0;
+                margin-bottom: 8px;
+                position: relative;
+                box-shadow: none;
+                background: none;
+                svg {
+                    height: 34px;
+                    width: 85px;
+                }
+            }
+            .affirm-modal-header {
+                font-size: 28px;
+                font-weight: 500;
+                line-height: 32px;
+                margin-top: 8px;
+                text-align: center;
+            }
+            .affirm-subheader {
+                color: #4b4b5c;
+                font-size: 18px;
+                font-weight: 400;
+                line-height: 26px;
+                margin: 8px 0 4px 0;
+                text-align: center;
+            }
+            .example-input-form {
+                margin-top: 24px;
+                text-align: center;
+            }
+            .example-input-form span {
+                font-size: 18px;
+                font-weight: 500;
+                line-height: 26px;
+                margin: 0px auto;
+            }
+            .example-input-form input {
+                background: #fff;
+                border: 1px solid #7e7e8d;
+                border-radius: 999px;
+                box-shadow: 0 4px 8px 0 rgba(16, 24, 32, .08);
+                font-size: 18px;
+                font-weight: 500;
+                padding: 6px 0;
+                margin-left: 10px;
+                text-align: center;
+            }
+            .plans {
+                background: #fff;
+                border: none;
+                border-radius: 16px;
+                box-shadow: 0 1px 4px color(var(--black-100) alpha(16%));
+                margin-top: 16px;
+            }
+            .plan {
+                padding: 16px;
+                border-bottom: 1px solid #e6e6e8;
+            }
+            .plan .line1 {
+                display: flex;
+                justify-content: space-between;
+            }
+            .installments .installment-amount {
+                color: #000061;
+                font-size: 20px;
+                font-weight: 500;
+                line-height: 24px;
+            }
+            .installments .installment-interval {
+                color: #000061;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 20px;
+                padding-left: 4px;
+            }
+            .line1 .term-pill {
+                color: #f7f7f8;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 20px;
+                background: #000049;
+                height: 24px;
+                width: 96px;
+                border-radius: 8px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .due-today {
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 20px;
+            }
+            .line3, .line4 {
+                margin-top: 8px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                min-height: 28px;
+                min-width: 120px;
+            }
+            .line3 .left, .line4 .left {
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 20px;
+                align-items: center;
+            }
+            .line3 .right, .line4 .right {
+                font-size: 16px;
+                font-weight: 500;
+                line-height: 24px;
+                align-items: center;
+                width: 96px;
+                justify-content: left;
+            }
+            .details {
+                padding: 0 16px;
+            }
+            .details h4 {
+                font-size: 14px;
+                font-weight: 500;
+                line-height: 20px;
+                text-align: left;
+                padding-right: 32px;
+                margin: 8px 0;
+            }
+            .details ul {
+                list-style: none;
+                margin: 0;
+                padding: 0 0 24px 0;
+            }
+            .details li {
+                color: #4b4b5c;
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 24px;
+                margin-left: 4px;
+            }
+            .details li svg {
+                --fill: #0C0C14;
+                height: 16px;
+                width: 16px;
+            }
+            .info {
+                margin-top: 24px;
+                background: #e2e2ff;
+                border-radius: 6px;
+                display: flex;
+                flex-direction: row;
+                font-size: 18px;
+                line-height: 26px;
+                max-width: 461px;
+                padding: 12px 16px;
+            }
+            .info svg {
+                --fill: #4A4AF4;
+                height: 16px;
+                width: 16px;
+                margin: 6px 11px 0 0 ;
+            }
+            .button {
+                border: none;
+                font-size: 18px;
+                font-weight: 500;
+                line-height: 26px;
+                padding: 11px 0;
+                border-radius: 999px;
+                width: 100%;
+                background: #000049;
+                color: #f7f7f8;
+                margin: 16px 0;
+            }
+            .how-to-affirm h3 {
+                font-size: 18px;
+                font-weight: 500;
+                line-height: 26px;
+                text-align: left;
+                display: flex;
+                align-items: center;
+            }
+            .how-to-affirm h3 svg {
+                height: 30px;
+                width: 48px;
+                margin-left: 4px;
+                vertical-align: middle;
+                position: relative;
+                top: -4px;
+            }
+            .cards {
+                background: #fff;
+                border-radius: 16px;
+                /* margin-right: 16px; */
+                
+            }
+            .step {
+                display: flex;
+                padding: 16px;
+                gap: 16px;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .step .left {
+                display: flex;
+                flex-direction: row;
+                gap: 16px;
+                align-items: center;
+            }
+            .step .number {
+                color: #4242cf;
+                font-weight: 500;
+                font-size: 14px;
+                background: #e2e2ff;
+                line-height: 24px;
+                width: 24px;
+                height: 24px;
+                border-radius: 8px;
+                text-align: center;
+            }
+            .step-description {
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 24px;
+                display: flex;
+                text-align: left;
+                align-items: center;
+            }
+            .step .icon svg {
+                height: 32px;
+                width: 32px;
+                flex-basis: 32px;
+                display: flex;
+                flex-direction: column;
+                -webkit-box-pack: center;
+                justify-content: center;
+            }
+            .terms {
+                color: #4b4b5c;
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 24px;
+                margin: 32px 0;
+            }
+            .terms a {
+                font-weight: 400;
+                text-decoration: underline;
+                color: #000061;
+            }
+        </style>
+        <div class="logo-container">
+            <svg aria-label="Affirm logo" class="preM7Y9dbts preywbHTtP6 pre3LrwBcen sc-iGgWBj eLesWC" role="img" aria-hidden="false" viewBox="0 0 175.3 69.9"><path fill="var(--fill-logo, #101820)" d="M14.4 39.4c-4.7 0-10.2 2.2-13.2 4.6l2.7 5.7c2.4-2.2 6.2-4 9.7-4 3.3 0 5.1 1.1 5.1 3.3 0 1.5-1.2 2.2-3.5 2.5C6.7 52.6 0 54.9 0 61.5c0 5.2 3.7 8.4 9.5 8.4 4.1 0 7.8-2.3 9.6-5.3V69h7.7V50.2c0-7.7-5.4-10.8-12.4-10.8zm-2.9 24.4c-2.2 0-3.2-1.1-3.2-2.8 0-3.3 3.6-4.4 10.3-5.1 0 4.4-3 7.9-7.1 7.9zM91.7 40.2V69h8.2V55.1c0-6.6 4-8.5 6.8-8.5 1.1 0 2.6.3 3.5 1l1.5-7.6c-1.3-.5-2.6-.7-3.7-.7-4.2 0-6.9 1.9-8.7 5.7v-4.8h-7.6zM150 39.4c-4.4 0-7.6 2.6-9.3 5.1a9.6 9.6 0 00-8.9-5.1 9.5 9.5 0 00-8.8 5.2v-4.4h-7.9V69h8.2V54.2c0-5.3 2.8-7.9 5.4-7.9 2.4 0 4.5 1.5 4.5 5.5V69h8.2V54.2c0-5.4 2.7-7.9 5.4-7.9 2.2 0 4.5 1.6 4.5 5.4V69h8.2V49.1c.1-6.5-4.2-9.7-9.5-9.7zM71.7 40.2h-7.5v-2.9c0-3.8 2.2-4.9 4.1-4.9 2.1 0 3.7.9 3.7.9l2.5-5.8s-2.6-1.7-7.3-1.7c-5.3 0-11.3 3-11.3 12.3v2.1H43.5v-2.9c0-3.8 2.2-4.9 4.1-4.9 1.1 0 2.5.2 3.7.9l2.5-5.8c-1.5-.9-4-1.7-7.3-1.7-5.3 0-11.3 3-11.3 12.3v2.1h-4.8v6.4h4.8V69h8.2V46.6H56V69h8.2V46.6h7.5v-6.4zM76.6 40.2h8.2V69h-8.2z"></path><path fill="var(--components-color-content-interactive-default, #4A4AF4)" d="M124.6 0a50.2 50.2 0 00-47.7 35.3H85a42.2 42.2 0 0139.6-27.8c23.1 0 43 17.6 43 44.9a57 57 0 01-2.3 16.6h7.8l.1-.3a65 65 0 001.9-16.3A50.3 50.3 0 00124.6 0z"></path></svg>
+        </div>
+        <h2 class="affirm-modal-header">Buy now, pay over time</h2>
+        <!-- <h3 class="affirm-subheader">Checking your eligibility won't affect your credt.</h3>
+        <div class="example-input-form">
+            <span>Example payments for</span>
+            <input type="text" value="$1,000.00" aria-label="Purchase amount" />
+        </div> -->
+        <div class="plans">
+            <div class="plan">
+                <div class="line1">
+                    <div class="installments">
+                        <span class="installment-amount">25%</span>
+                        <span class="installment-interval">every 2 weeks</span>
+                    </div>
+                    <div class="term-pill">6 weeks</div>
+                </div>
+                <div class="line2">
+                    <div class="due-today">25% due today</div>
+                </div>
+                <div class="line3">
+                    <div class="left">Interest (0.00% APR)</div>
+                    <!-- <div class="right">$0.00</div> -->
+                </div>
+                <!-- <div class="line4">
+                    <div class="left">Total of payments</div>
+                    <div class="right">$50.00</div>
+                </div> -->
+            </div>
+            <div class="details">
+                <h4>Details</h4>
+                <ul>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" class="preBuOOfkhB predFsWEovg" height="16px" width="16px" style="--fill: #0C0C14;"><path fill-rule="evenodd" clip-rule="evenodd" d="M16.257 8.197a.75.75 0 01.046 1.06l-5.5 6a.75.75 0 01-1.083.023l-2.5-2.5a.75.75 0 111.06-1.06l1.946 1.946 4.971-5.423a.75.75 0 011.06-.046z" fill="var(--fill)"></path></svg>
+                        There's no interest. Just pay for what you buy.
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" class="preBuOOfkhB predFsWEovg" height="16px" width="16px" style="--fill: #0C0C14;"><path fill-rule="evenodd" clip-rule="evenodd" d="M16.257 8.197a.75.75 0 01.046 1.06l-5.5 6a.75.75 0 01-1.083.023l-2.5-2.5a.75.75 0 111.06-1.06l1.946 1.946 4.971-5.423a.75.75 0 011.06-.046z" fill="var(--fill)"></path></svg>
+                        No impact on your credit score.
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" class="preBuOOfkhB predFsWEovg" height="16px" width="16px" style="--fill: #0C0C14;"><path fill-rule="evenodd" clip-rule="evenodd" d="M16.257 8.197a.75.75 0 01.046 1.06l-5.5 6a.75.75 0 01-1.083.023l-2.5-2.5a.75.75 0 111.06-1.06l1.946 1.946 4.971-5.423a.75.75 0 011.06-.046z" fill="var(--fill)"></path></svg>
+                        Pay every 2 weeks with debit or credit.
+                    </li>
+            </div>
+        </div>
+        <div class="info">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" class="preBuOOfkhB predFsWEovg" height="16px" width="16px" style="--fill: #4A4AF4;"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2.75a9.25 9.25 0 100 18.5 9.25 9.25 0 000-18.5zM1.25 12C1.25 6.063 6.063 1.25 12 1.25S22.75 6.063 22.75 12 17.937 22.75 12 22.75 1.25 17.937 1.25 12zM12 10.25a.75.75 0 01.75.75v5a.75.75 0 01-1.5 0v-5a.75.75 0 01.75-.75zM12 9a1 1 0 100-2 1 1 0 000 2z" fill="var(--fill)"></path></svg>
+            <div>Heads up - you'll need to spend $50+ to check out with Affirm.</div>
+        </div>
+        <!-- <button class="button">
+            See if you qualify
+        </button> -->
+        <div class="how-to-affirm">
+            <h3>How to check out with <svg aria-label="Affirm logo" class="preM7Y9dbts preywbHTtP6 pre534DOt0O sc-gmPhUn etdlOt" role="img" aria-hidden="false" viewBox="0 0 175.3 69.9"><path fill="var(--fill-logo, #101820)" d="M14.4 39.4c-4.7 0-10.2 2.2-13.2 4.6l2.7 5.7c2.4-2.2 6.2-4 9.7-4 3.3 0 5.1 1.1 5.1 3.3 0 1.5-1.2 2.2-3.5 2.5C6.7 52.6 0 54.9 0 61.5c0 5.2 3.7 8.4 9.5 8.4 4.1 0 7.8-2.3 9.6-5.3V69h7.7V50.2c0-7.7-5.4-10.8-12.4-10.8zm-2.9 24.4c-2.2 0-3.2-1.1-3.2-2.8 0-3.3 3.6-4.4 10.3-5.1 0 4.4-3 7.9-7.1 7.9zM91.7 40.2V69h8.2V55.1c0-6.6 4-8.5 6.8-8.5 1.1 0 2.6.3 3.5 1l1.5-7.6c-1.3-.5-2.6-.7-3.7-.7-4.2 0-6.9 1.9-8.7 5.7v-4.8h-7.6zM150 39.4c-4.4 0-7.6 2.6-9.3 5.1a9.6 9.6 0 00-8.9-5.1 9.5 9.5 0 00-8.8 5.2v-4.4h-7.9V69h8.2V54.2c0-5.3 2.8-7.9 5.4-7.9 2.4 0 4.5 1.5 4.5 5.5V69h8.2V54.2c0-5.4 2.7-7.9 5.4-7.9 2.2 0 4.5 1.6 4.5 5.4V69h8.2V49.1c.1-6.5-4.2-9.7-9.5-9.7zM71.7 40.2h-7.5v-2.9c0-3.8 2.2-4.9 4.1-4.9 2.1 0 3.7.9 3.7.9l2.5-5.8s-2.6-1.7-7.3-1.7c-5.3 0-11.3 3-11.3 12.3v2.1H43.5v-2.9c0-3.8 2.2-4.9 4.1-4.9 1.1 0 2.5.2 3.7.9l2.5-5.8c-1.5-.9-4-1.7-7.3-1.7-5.3 0-11.3 3-11.3 12.3v2.1h-4.8v6.4h4.8V69h8.2V46.6H56V69h8.2V46.6h7.5v-6.4zM76.6 40.2h8.2V69h-8.2z"></path><path fill="var(--components-color-content-interactive-default, #4A4AF4)" d="M124.6 0a50.2 50.2 0 00-47.7 35.3H85a42.2 42.2 0 0139.6-27.8c23.1 0 43 17.6 43 44.9a57 57 0 01-2.3 16.6h7.8l.1-.3a65 65 0 001.9-16.3A50.3 50.3 0 00124.6 0z"></path></svg></h3>
+            <div class="cards">
+                <div class="step">
+                    <div class="left">
+                        <div class="number">1</div>
+                        <div class="step-description">Load up your cart and select Affirm at checkout.</div>
+                    </div>
+                    <div class="icon">
+                        <svg width="32" viewBox="0 0 40 40" fill="none"><g id="color=dandelion, size=40x40" clip-path="url(#clip0_409_1386)"><path id="Vector" fill-rule="evenodd" clip-rule="evenodd" d="M25.7799 15C25.0699 15.3 24.5599 15.1 24.3199 14.53C23.8699 13.46 24.9099 12.59 26.9899 11.44C27.1495 11.7522 27.2448 12.0932 27.2702 12.443C27.2957 12.7927 27.2506 13.1439 27.1378 13.4759C27.0249 13.8079 26.8466 14.1138 26.6134 14.3756C26.3801 14.6374 26.0967 14.8497 25.7799 15ZM23.3199 6.61001C21.7835 7.32445 20.4977 8.48478 19.6299 9.94001L21.3099 11.44C21.8486 10.2741 22.7744 9.33069 23.9299 8.77001C25.0199 8.31001 25.7699 8.42001 26.0699 9.15001C26.2799 9.64001 25.9899 10.06 25.2799 10.47C22.6399 12.01 20.7699 13.71 21.6799 15.87C22.4099 17.58 24.0599 18.09 25.9599 17.29C26.5885 17.0253 27.1389 16.6043 27.559 16.067C27.9791 15.5297 28.2548 14.8939 28.3599 14.22L28.9999 15.69L31.5299 14.62L28.8999 8.46001C27.8299 5.92001 25.6199 5.63001 23.3199 6.61001Z" fill="var(--color-illustration-stroke)"></path><path id="Vector_2" fill-rule="evenodd" clip-rule="evenodd" d="M20.1301 19.43C18.7355 18.501 17.6185 17.2116 16.8977 15.6989C16.1769 14.1861 15.8791 12.5064 16.036 10.8381C16.1929 9.16974 16.7986 7.575 17.7888 6.22316C18.779 4.87132 20.1168 3.81282 21.6601 3.16003C23.2035 2.50938 24.8942 2.28857 26.5529 2.52101C28.2116 2.75345 29.7765 3.43048 31.0816 4.48029C32.3867 5.53011 33.3834 6.91357 33.9658 8.48395C34.5483 10.0543 34.6949 11.7531 34.3901 13.4L36.7301 12.4C36.8432 10.6275 36.5383 8.85317 35.8401 7.22003C35.1627 5.62937 34.1347 4.21226 32.8329 3.07449C31.5311 1.93672 29.9892 1.10767 28.3222 0.649225C26.6551 0.190781 24.9061 0.114784 23.2056 0.426907C21.5051 0.73903 19.897 1.43121 18.5015 2.45178C17.1059 3.47236 15.9589 4.79496 15.1461 6.32087C14.3332 7.84678 13.8755 9.53658 13.8071 11.2641C13.7387 12.9917 14.0614 14.7124 14.7511 16.2978C15.4407 17.8832 16.4796 19.2923 17.7901 20.42L20.1301 19.43Z" fill="var(--color-illustration-stroke)"></path><g id="Vector_3"><path d="M15.7201 29.9999C15.8537 30.3956 16.1078 30.7394 16.4468 30.9833C16.7857 31.2272 17.1925 31.3589 17.6101 31.3599H34.7501C35.1775 31.3646 35.5946 31.2278 35.9363 30.9711C36.2781 30.7143 36.5255 30.3518 36.6401 29.9399L39.3901 19.6099C39.4542 19.3189 39.4524 19.0171 39.3849 18.7268C39.3174 18.4365 39.1858 18.165 38.9999 17.9321C38.8139 17.6991 38.5782 17.5107 38.3101 17.3806C38.042 17.2505 37.7481 17.1819 37.4501 17.1799L11.5801 17.2799" fill="var(--color-illustration-fill-dandelion-dark)"></path><path d="M15.7201 29.9999C15.8537 30.3956 16.1078 30.7394 16.4468 30.9833C16.7857 31.2272 17.1925 31.3589 17.6101 31.3599H34.7501C35.1775 31.3646 35.5946 31.2278 35.9363 30.9711C36.2781 30.7143 36.5255 30.3518 36.6401 29.9399L39.3901 19.6099C39.4542 19.3189 39.4524 19.0171 39.3849 18.7268C39.3174 18.4365 39.1858 18.165 38.9999 17.9321C38.8139 17.6991 38.5782 17.5107 38.3101 17.3806C38.042 17.2505 37.7481 17.1819 37.4501 17.1799L11.5801 17.2799" stroke="var(--color-illustration-stroke)" stroke-linecap="round" stroke-linejoin="round"></path></g><path id="Vector_4" d="M17.6162 37.293C17.9382 35.8257 16.9792 34.3684 15.4742 34.0381C13.9691 33.7077 12.488 34.6294 12.1659 36.0967C11.8438 37.564 12.8028 39.0212 14.3079 39.3516C15.8129 39.6819 17.2941 38.7603 17.6162 37.293Z" fill="var(--color-illustration-fill-dandelion-mid)" stroke="var(--color-illustration-stroke)" stroke-linecap="round" stroke-linejoin="round"></path><path id="Vector_5" d="M33.5876 37.3062C33.9097 35.8389 32.9507 34.3816 31.4456 34.0513C29.9406 33.7209 28.4594 34.6426 28.1374 36.1098C27.8153 37.5771 28.7743 39.0344 30.2793 39.3648C31.7844 39.6951 33.2655 38.7735 33.5876 37.3062Z" fill="var(--color-illustration-fill-dandelion-mid)" stroke="var(--color-illustration-stroke)" stroke-linecap="round" stroke-linejoin="round"></path><path id="Vector_6" d="M13.18 29.9999C13.3142 30.3972 13.5698 30.7422 13.9108 30.9862C14.2517 31.2303 14.6608 31.361 15.08 31.3599H32.2201C32.6475 31.3646 33.0645 31.2278 33.4063 30.9711C33.7481 30.7143 33.9955 30.3518 34.1101 29.9399L36.85 19.6099C36.914 19.3197 36.9124 19.0188 36.8454 18.7292C36.7785 18.4397 36.6478 18.1687 36.463 17.9359C36.2781 17.7032 36.0437 17.5146 35.7768 17.3838C35.5099 17.253 35.2172 17.1834 34.92 17.1799L9.05005 17.2799" fill="var(--color-illustration-fill-flat)"></path><g id="Vector_7"><path d="M13.18 29.9999C13.3142 30.3972 13.5698 30.7422 13.9108 30.9862C14.2517 31.2303 14.6608 31.361 15.08 31.3599H32.2201C32.6475 31.3646 33.0645 31.2278 33.4063 30.9711C33.7481 30.7143 33.9955 30.3518 34.1101 29.9399L36.85 19.6099C36.914 19.3197 36.9124 19.0188 36.8454 18.7292C36.7785 18.4397 36.6478 18.1687 36.463 17.9359C36.2781 17.7032 36.0437 17.5146 35.7768 17.3838C35.5099 17.253 35.2172 17.1834 34.92 17.1799L9.05005 17.2799" fill="var(--color-illustration-fill-flat)"></path><path d="M13.18 29.9999C13.3142 30.3972 13.5698 30.7422 13.9108 30.9862C14.2517 31.2303 14.6608 31.361 15.08 31.3599H32.2201C32.6475 31.3646 33.0645 31.2278 33.4063 30.9711C33.7481 30.7143 33.9955 30.3518 34.1101 29.9399L36.85 19.6099C36.914 19.3197 36.9124 19.0188 36.8454 18.7292C36.7785 18.4397 36.6478 18.1687 36.463 17.9359C36.2781 17.7032 36.0437 17.5146 35.7768 17.3838C35.5099 17.253 35.2172 17.1834 34.92 17.1799L9.05005 17.2799" stroke="var(--color-illustration-stroke)" stroke-linecap="round" stroke-linejoin="round"></path></g><path id="Vector_8" d="M0.550049 13.24H6.42005C6.80243 13.2375 7.17579 13.3561 7.48658 13.5789C7.79738 13.8016 8.02964 14.1171 8.15005 14.48L13.23 30.11" stroke="var(--color-illustration-stroke)" stroke-linecap="round" stroke-linejoin="round"></path></g><defs><clipPath id="clip0_409_1386"><rect width="40" height="40" fill="var(--color-illustration-fill-flat)"></rect></clipPath></defs></svg>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="left">
+                        <div class="number">2</div>
+                        <div class="step-description">Log in or sign up for an account.</div>
+                    </div>
+                    <div class="icon">
+                        <svg width="32" viewBox="0 0 40 40" fill="none"><g clip-path="url(#clip0_196_6853)"><path d="M25.3727 39.45H6.7929C6.41304 39.4489 6.04723 39.3056 5.76775 39.0484C5.48827 38.7911 5.31537 38.4385 5.28289 38.0601L2.11296 2.19997C2.09343 1.99022 2.1179 1.7788 2.18499 1.57912C2.25207 1.37944 2.36016 1.19594 2.50237 1.04054C2.64458 0.885143 2.8177 0.761256 3.01067 0.676772C3.20363 0.592287 3.41208 0.549155 3.62273 0.550063H22.2028C22.5833 0.548859 22.9504 0.691268 23.2304 0.948989C23.5104 1.20671 23.6826 1.56063 23.7128 1.93996L26.8927 37.8001C26.9093 38.01 26.8825 38.221 26.8136 38.4201C26.7448 38.6191 26.6355 38.8018 26.4928 38.9567C26.3502 39.1116 26.177 39.2353 25.9843 39.3202C25.7916 39.4051 25.5833 39.4492 25.3727 39.45Z" fill="var(--color-illustration-fill-dandelion-dark)" stroke="var(--color-illustration-stroke)" stroke-linecap="round" stroke-linejoin="round"></path><path d="M27.3727 39.45H8.7929C8.41237 39.4512 8.04528 39.3088 7.76531 39.051C7.48534 38.7933 7.31312 38.4394 7.28289 38.0601L4.11296 2.19997C4.09343 1.99022 4.1179 1.7788 4.18499 1.57912C4.25207 1.37944 4.36016 1.19594 4.50237 1.04054C4.64458 0.885143 4.8177 0.761256 5.01067 0.676772C5.20363 0.592287 5.41208 0.549155 5.62273 0.550063H24.2028C24.5827 0.55117 24.9485 0.694406 25.228 0.951674C25.5074 1.20894 25.6803 1.56149 25.7128 1.93996L28.8827 37.8001C28.9023 38.0098 28.8778 38.2212 28.8107 38.4209C28.7436 38.6206 28.6355 38.8041 28.4933 38.9595C28.3511 39.1149 28.178 39.2388 27.985 39.3233C27.7921 39.4077 27.5834 39.4509 27.3727 39.45Z" fill="var(--color-illustration-fill-flat)" stroke="var(--color-illustration-stroke)" stroke-linecap="round" stroke-linejoin="round"></path><path d="M10.5933 0.550049H18.9031C18.9334 0.932353 18.8845 1.31678 18.759 1.6792C18.6336 2.04162 18.4345 2.37412 18.1743 2.65588C17.9142 2.93765 17.5986 3.16254 17.2473 3.31641C16.896 3.47028 16.5166 3.54987 16.1331 3.55005H13.4131C12.7173 3.55014 12.0468 3.28924 11.5339 2.81897C11.0211 2.3487 10.7031 1.70323 10.6431 1.01001L10.5933 0.550049Z" fill="var(--color-illustration-fill-dandelion-mid)" stroke="var(--color-illustration-stroke)" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9.64278 34.6599L7.33296 8.0099C7.30259 7.64816 7.34732 7.28401 7.46456 6.94045C7.58179 6.59689 7.76895 6.2814 8.01412 6.01369C8.25928 5.74598 8.55717 5.53184 8.88912 5.3849C9.22106 5.23797 9.57982 5.16142 9.94283 5.15993H21.603C22.2587 5.1576 22.8911 5.40214 23.3747 5.84499C23.8583 6.28783 24.1576 6.89654 24.2128 7.54994L26.593 34.1998C26.6249 34.5619 26.581 34.9267 26.4643 35.2709C26.3476 35.6151 26.1607 35.9313 25.9152 36.1994C25.6698 36.4674 25.3712 36.6815 25.0385 36.8279C24.7059 36.9743 24.3463 37.05 23.9829 37.0499H12.2529C11.5978 37.05 10.9665 36.8046 10.4834 36.3622C10.0002 35.9198 9.70028 35.3125 9.64278 34.6599Z" fill="var(--color-illustration-fill-light)"></path><path d="M25.5229 35.46C32.3547 35.46 37.8931 29.9217 37.8931 23.09C37.8931 16.2582 32.3547 10.72 25.5229 10.72C18.6912 10.72 13.1528 16.2582 13.1528 23.09C13.1528 29.9217 18.6912 35.46 25.5229 35.46Z" fill="var(--color-illustration-fill-mid)" stroke="var(--color-illustration-stroke)" stroke-linecap="round" stroke-linejoin="round"></path><path d="M19.8628 22.55L23.4126 27.45L31.1726 18.74" stroke="var(--color-illustration-stroke)" stroke-linecap="round" stroke-linejoin="round"></path></g><defs><clipPath id="clip0_196_6853"><rect width="40" height="40" fill="var(--color-illustration-fill-flat)"></rect></clipPath></defs></svg>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="left">
+                        <div class="number">3</div>
+                        <div class="step-description">Pick your plan and submit your order. That's it!</div>
+                    </div>
+                    <div class="icon">
+                        <svg width="32" viewBox="0 0 40 40" fill="none"><g clip-path="url(#clip0_421_3258)"><path d="M36.85 6.70997L34.85 4.86997C34.6306 4.63209 34.3932 4.41144 34.14 4.20997C33.2833 3.53456 32.2929 3.04888 31.2344 2.78511C30.1759 2.52135 29.0734 2.48551 28 2.67997L9.39 5.67997C6.95921 6.13133 4.7563 7.40154 3.14792 9.2792C1.53954 11.1569 0.6227 13.5287 0.55 16C0.521013 17.8566 1.17187 19.6598 2.38 21.07L2.44 21.13C2.68082 21.4057 2.94515 21.66 3.23 21.89L5.34 23.89L36.85 6.70997Z" fill="var(--color-illustration-fill-dandelion-dark)" stroke="var(--color-illustration-stroke)" stroke-linecap="round" stroke-linejoin="round"></path><path d="M30.61 22.84L12 25.86C10.9127 26.0931 9.78667 26.0753 8.70727 25.8082C7.62788 25.541 6.62354 25.0314 5.77049 24.3182C4.91744 23.6049 4.23811 22.7066 3.78406 21.6916C3.33001 20.6765 3.11317 19.5714 3.15002 18.46C3.23034 15.9938 4.15201 13.6292 5.76193 11.7592C7.37185 9.88912 9.5731 8.62614 12 8.18005L30.61 5.18005C31.6966 4.94876 32.8215 4.96783 33.8997 5.2358C34.9778 5.50377 35.9807 6.01361 36.8326 6.7267C37.6844 7.43978 38.3628 8.3374 38.8163 9.35154C39.2698 10.3657 39.4865 11.4697 39.45 12.58C39.3621 15.0403 38.4385 17.3972 36.8316 19.2623C35.2247 21.1273 33.0302 22.3893 30.61 22.84Z" fill="var(--color-illustration-fill-flat)" stroke="var(--color-illustration-stroke)" stroke-linecap="round" stroke-linejoin="round"></path><path d="M36.614 19.5264C40.1895 15.649 40.4154 10.0412 37.1186 7.00115C33.8217 3.96106 28.2506 4.63985 24.6751 8.51727C21.0997 12.3947 20.8738 18.0024 24.1706 21.0425C27.4674 24.0826 33.0385 23.4038 36.614 19.5264Z" fill="var(--color-illustration-fill-mid)"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M30.1901 16C29.8101 16.09 29.6201 15.95 29.6301 15.64C29.6301 15.07 30.3001 14.73 31.4701 14.32C31.4609 14.6992 31.3322 15.0658 31.1024 15.3675C30.8725 15.6692 30.5532 15.8906 30.1901 16ZM30.8401 11.59C29.9572 11.8441 29.1502 12.3111 28.4901 12.95L28.9401 13.84C29.4005 13.3168 29.9953 12.9294 30.6601 12.72C31.2401 12.58 31.5501 12.72 31.5401 13.09C31.5301 13.46 31.3201 13.53 30.9101 13.68C29.4101 14.23 28.2201 14.93 28.1901 16.08C28.1901 16.99 28.7901 17.38 29.8001 17.14C30.1614 17.045 30.4995 16.8772 30.7935 16.6467C31.0876 16.4163 31.3314 16.1282 31.5101 15.8V16.59L32.8601 16.26L33.0001 12.93C33.0001 11.58 32.1201 11.25 30.8901 11.55" fill="var(--color-illustration-stroke-invis)"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M26.7501 17.69C26.2685 17.0083 26.0323 16.1834 26.0801 15.35C26.1938 14.0357 26.7085 12.788 27.5544 11.7758C28.4004 10.7635 29.5368 10.0354 30.8101 9.69003C31.3371 9.50652 31.9018 9.45842 32.4523 9.55015C33.0028 9.64188 33.5214 9.87049 33.9605 10.215C34.3996 10.5595 34.745 11.0088 34.9651 11.5216C35.1852 12.0345 35.2729 12.5944 35.2201 13.15C35.1717 14.1064 34.8828 15.035 34.3801 15.85L35.6301 15.55C36.0387 14.7201 36.2703 13.8143 36.3101 12.89C36.4201 9.77003 33.9701 7.89003 30.8401 8.61003C29.2678 9.04168 27.865 9.94341 26.8195 11.1945C25.774 12.4455 25.1357 13.9861 24.9901 15.61C24.9487 16.4375 25.1245 17.2615 25.5001 18L26.7501 17.69Z" fill="var(--color-illustration-stroke-invis)"></path><path d="M36.614 19.5264C40.1895 15.649 40.4154 10.0412 37.1186 7.00115C33.8217 3.96106 28.2506 4.63985 24.6751 8.51727C21.0997 12.3947 20.8738 18.0024 24.1706 21.0425C27.4674 24.0826 33.0385 23.4038 36.614 19.5264Z" stroke="var(--color-illustration-stroke)" stroke-linecap="round" stroke-linejoin="round"></path><path d="M19.61 32.71L24.85 32.57C24.9903 32.5688 25.129 32.5998 25.2555 32.6604C25.382 32.7211 25.493 32.8099 25.58 32.92L28.77 37.08C28.8787 37.2252 29.0292 37.3337 29.2014 37.3909C29.3735 37.4482 29.559 37.4515 29.7331 37.4003C29.9071 37.3492 30.0614 37.2461 30.1752 37.1049C30.289 36.9636 30.357 36.791 30.37 36.61L31.71 19.16L19 31.17C18.8694 31.2921 18.7787 31.4507 18.7395 31.6251C18.7004 31.7995 18.7146 31.9816 18.7804 32.1478C18.8463 32.314 18.9606 32.4565 19.1085 32.5568C19.2565 32.657 19.4312 32.7104 19.61 32.71Z" fill="var(--color-illustration-fill-dandelion-mid)" stroke="var(--color-illustration-stroke)" stroke-linecap="round" stroke-linejoin="round"></path></g><defs><clipPath id="clip0_421_3258"><rect width="40" height="40" fill="var(--color-illustration-fill-flat)"></rect></clipPath></defs></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="terms">
+            Rates are between 0-32% APR (where available and subject to provincial regulatory limitations). A down payment (or payment due today) may be required. Subject to eligibility check and approval. Payment options depend on your purchase amount. Estimated payment amount excludes taxes and shipping fees. Actual terms may vary. Available in select provinces and/or territories. Visit <a class="preB84s544u pre-7Ybl58p preY9PCW-+r pre1YiGtEXh" tabindex="0" href="https://helpcenter.affirm.ca/ca/s" target="_blank" rel="noopener">affirm.ca/help</a> for more info.
+        </div>
+    </div>
+</div>

@@ -53,13 +53,13 @@ class AwesomeSezzle {
     this.bestAPR = options.bestAPR || 9.99;
     this.altModalHTML = options.altLightboxHTML ? sanitizeHTML(options.altLightboxHTML) : "";
     this.ltAltModalHTML = options.ltAltModalHTML ? sanitizeHTML(options.ltAltModalHTML) : "";
-    this.apModalHTML = options.apModalHTML || "";
-    this.cashAppAfterpayModalHTML = options.cashAppAfterpayModalHTML || "";
-    this.qpModalHTML = options.qpModalHTML || "";
+    this.apModalHTML = sanitizeHTML(options.apModalHTML) || "";
+    this.cashAppAfterpayModalHTML = sanitizeHTML(options.cashAppAfterpayModalHTML) || "";
+    this.zipModalHTML = sanitizeHTML(options.zipModalHTML) || sanitizeHTML(options.qpModalHTML) || "";
     this.modalTheme = options.modalTheme || "color";
-    this.affirmModalHTML = options.affirmModalHTML || "";
-    this.klarnaModalHTML = options.klarnaModalHTML || "";
-    this.shoppayModalHTML = options.shoppayModalHTML || "";
+    this.affirmModalHTML = sanitizeHTML(options.affirmModalHTML) || "";
+    this.klarnaModalHTML = sanitizeHTML(options.klarnaModalHTML) || "";
+    this.shoppayModalHTML = sanitizeHTML(options.shoppayModalHTML) || "";
     this.alignmentSwitchMinWidth = options.alignmentSwitchMinWidth || 760;
     this.alignmentSwitchType = options.alignmentSwitchType || "";
     this.alignment = options.alignment || "left";
@@ -294,6 +294,204 @@ class AwesomeSezzle {
     }
   }
 
+  getCompetitorConfig() {
+    return {
+      afterpay: {
+        name: "Afterpay",
+        competitorClass: "afterpay",
+        variants: {
+          "logo": {
+            width: "115", height: "40", viewBox: "0 0 115 40",
+            svg: HelperClass.svgImages().apNodeColor,
+            extraClass: "afterpay-logo-pill"
+          },
+          "logo-black": {
+            width: "170", height: "35", viewBox: "0 0 170 35",
+            svg: HelperClass.svgImages().apNodeBlack,
+            extraClass: "afterpay-logo-text"
+          },
+          "logo-grey": {
+            width: "115", height: "40", viewBox: "0 0 115 40",
+            svg: HelperClass.svgImages().apNodeGrey,
+            extraClass: "afterpay-logo-pill"
+          },
+          "logo-white": {
+            width: "115", height: "40", viewBox: "0 0 115 40",
+            svg: HelperClass.svgImages().apNodeWhite,
+            extraClass: "afterpay-logo-pill"
+          }
+        },
+        hasLinkIcon: true
+      },
+      "cash-app-afterpay": {
+        name: "Cash App Afterpay",
+        competitorClass: "cash-app-afterpay",
+        variants: {
+          "logo": {
+            width: "98", height: "24", viewBox: "0 0 98 24",
+            preserveAspectRatio: "xMidYMid meet",
+            svg: HelperClass.svgImages().cashAppApNodeColor
+          },
+          "logo-black": {
+            width: "98", height: "24", viewBox: "0 0 98 24",
+            preserveAspectRatio: "xMidYMid meet",
+            svg: HelperClass.svgImages().cashAppApNodeBlack
+          }
+        }
+      },
+      zip: {
+        name: "Zip",
+        competitorClass: "zip",
+        aliases: ["quadpay"],
+        variants: {
+          "logo": {
+            id: "zip-logo-svg",
+            alt: "Zip logo, when clicked, opens infographic about the option of buying this item with 4 installment payments",
+            version: "1.1",
+            width: "50", height: "23", viewBox: "0 0 300 111",
+            style: "height: 22px !important;width: auto !important;margin-bottom: -5px;",
+            svg: HelperClass.svgImages().zipNodeColor
+          },
+          "logo-grey": {
+            id: "zip-logo-svg-black-white",
+            alt: "Zip logo, when clicked, opens infographic about the option of buying this item with 4 installment payments",
+            version: "1.1",
+            width: "50", height: "23", viewBox: "0 0 50 19",
+            style: "height: 22px !important;width: auto !important;margin-bottom: -5px;",
+            svg: HelperClass.svgImages().zipNodeGrey
+          },
+          "logo-white": {
+            id: "zip-logo-svg-secondary-light",
+            alt: "Zip logo, when clicked, opens infographic about the option of buying this item with 4 installment payments",
+            version: "1.1",
+            width: "50", height: "23", viewBox: "0 0 51 23",
+            style: "height: 22px !important;width: auto !important;margin-bottom: -5px;",
+            svg: HelperClass.svgImages().zipNodeWhite
+          }
+        }
+      },
+      affirm: {
+        name: "Affirm",
+        competitorClass: "affirm",
+        variants: {
+          "logo": {
+            width: "450", height: "170", viewBox: "0 0 450 170",
+            style: "height: 24px !important;width: auto !important;",
+            svg: HelperClass.svgImages().affirmNodeColor
+          },
+          "logo-grey": {
+            width: "450", height: "170", viewBox: "0 0 450 170",
+            style: "height: 24px !important;width: auto !important;",
+            svg: HelperClass.svgImages().affirmNodeGrey
+          },
+          "logo-white": {
+            width: "450", height: "170", viewBox: "0 0 450 170",
+            style: "height: 24px !important;width: auto !important;",
+            svg: HelperClass.svgImages().affirmNodeWhite
+          }
+        }
+      },
+      klarna: {
+        name: "Klarna",
+        competitorClass: "klarna",
+        variants: {
+          "logo": {
+            width: "45", height: "25", viewBox: "0 0 45 23",
+            style: "height: 25px !important;width: auto !important; margin-bottom: -5px;",
+            svg: HelperClass.svgImages().klarnaNodeColor
+          },
+          "logo-grey": {
+            width: "45", height: "25", viewBox: "0 0 45 23",
+            style: "height: 25px !important;width: auto !important; margin-bottom: -5px;",
+            svg: HelperClass.svgImages().klarnaNodeGrey
+          },
+          "logo-white": {
+            width: "45", height: "25", viewBox: "0 0 45 23",
+            style: "height: 25px !important;width: auto !important; margin-bottom: -5px;",
+            svg: HelperClass.svgImages().klarnaNodeWhite
+          }
+        }
+      },
+      shoppay: {
+        name: "Shoppay",
+        competitorClass: "shoppay",
+        variants: {
+          "logo": {
+            width: "99", height: "25", viewBox: "0 0 99 25",
+            style: "height: 18px !important;width: auto !important; margin-bottom: -5px;",
+            svg: HelperClass?.svgImages()?.shoppayLight || ""
+          }
+        }
+      }
+    };
+  }
+
+  renderCompetitorLogo(variant, config, sezzleButtonText) {
+    let variantConfig = config.variants[variant];
+    if (!variantConfig) {
+      variantConfig = config.variants["logo"];
+    }
+
+    const node = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+
+    node.setAttribute("width", variantConfig.width);
+    node.setAttribute("height", variantConfig.height);
+    node.setAttribute("viewBox", variantConfig.viewBox);
+    node.setAttribute("aria-label", config.name);
+
+    let className = `sezzle-${config.competitorClass}-logo ${config.competitorClass} no-sezzle-info ${config.competitorClass}-modal-info-link`;
+    if (variantConfig.extraClass) {
+      className += ` ${variantConfig.extraClass}`;
+    }
+    node.setAttribute("class", className);
+
+    if (variantConfig.style) {
+      node.setAttribute("style", variantConfig.style);
+    }
+    if (variantConfig.id) {
+      node.setAttribute("id", variantConfig.id);
+    }
+    if (variantConfig.alt) {
+      node.setAttribute("alt", variantConfig.alt);
+    }
+    if (variantConfig.version) {
+      node.setAttribute("version", variantConfig.version);
+    }
+    if (variantConfig.preserveAspectRatio) {
+      node.setAttribute("preserveAspectRatio", variantConfig.preserveAspectRatio);
+    }
+
+    node.innerHTML = variantConfig.svg;
+    sezzleButtonText.appendChild(node);
+    this.setLogoSize(node);
+    return true;
+  }
+
+  renderCompetitorInfoIcon(config, sezzleButtonText) {
+    const iconNode = document.createElement("button");
+    iconNode.role = "button";
+    iconNode.type = "button";
+    iconNode.ariaLabel = `${this.translations.learnMoreAlt} ${config.name}`;
+    iconNode.className = `${config.competitorClass}-modal-info-link no-sezzle-info ${config.competitorClass}-info-icon`;
+    iconNode.innerHTML = "&#9432;";
+
+    sezzleButtonText.appendChild(iconNode);
+    return true;
+  }
+
+  renderCompetitorLinkIcon(sezzleButtonText) {
+    const anchor = document.createElement("a");
+    anchor.href = this.apLink;
+    anchor.target = "_blank";
+    const linkIconNode = document.createElement("code");
+    linkIconNode.ariaLabel = `${this.translations.learnMoreAlt} Afterpay`;
+    linkIconNode.className = "afterpay-info-link";
+    linkIconNode.innerHTML = "&#9432;";
+    anchor.appendChild(linkIconNode);
+    sezzleButtonText.appendChild(anchor);
+    return true;
+  }
+
   renderAwesomeSezzle() {
     if (
       !this.isProductEligible(this.amount) &&
@@ -323,529 +521,152 @@ class AwesomeSezzle {
     const widgetTextArray = widgetText.split("%%");
     widgetTextArray.forEach(
       function (subtemplate) {
-        switch (subtemplate) {
-          case "price":
-            const priceSpanNode = document.createElement("span");
-            priceSpanNode.className =
-              "sezzle-payment-amount sezzle-button-text";
-            const priceValueText = document.createTextNode(
-              this.getFormattedPrice()
-            );
-            priceSpanNode.appendChild(priceValueText);
-            sezzleButtonText.appendChild(priceSpanNode);
-            break;
-          case "logo":
-            const logoNode = document.createElementNS(
-              "http://www.w3.org/2000/svg",
-              "svg"
-            );
-            logoNode.setAttribute("width", "798.16");
-            logoNode.setAttribute("height", "199.56");
-            logoNode.setAttribute("viewBox", "0 0 798.16 199.56");
-            logoNode.setAttribute(
-              "class",
-              `sezzle-logo ${this.imageClassName}`
-            );
-            logoNode.setAttribute("aria-label", "Sezzle");
-            logoNode.style.height = "18px !important";
-            logoNode.innerHTML = this.imageInnerHTML;
-            sezzleButtonText.appendChild(logoNode);
-            if (this.logoStyle != {}) this.setLogoStyle(logoNode);
-            this.setLogoSize(logoNode);
-            if (this.theme === "purple-pill" || this.theme == "white-pill") {
-              logoNode.style.transform = "scale(12)";
+        const competitorConfigs = this.getCompetitorConfig();
+        let handled = false;
+
+        for (const [competitorKey, competitorConfig] of Object.entries(competitorConfigs)) {
+          const competitors = [competitorKey, ...(competitorConfig.aliases || [])];
+
+          for (const competitor of competitors) {
+            if (subtemplate === `${competitor}-link-icon` && competitorConfig.hasLinkIcon) {
+              this.renderCompetitorLinkIcon(sezzleButtonText);
+              handled = true;
+              break;
             }
-            break;
-          case "sup": {
-            const supNode = document.createElement("sup");
-            supNode.textContent = "1";
-            sezzleButtonText.appendChild(supNode);
-            break;
+
+            if (subtemplate === `${competitor}-info-icon`) {
+              this.renderCompetitorInfoIcon(competitorConfig, sezzleButtonText);
+              handled = true;
+              break;
+            }
+
+            // Escape regex special characters to prevent regex injection
+            const escapedCompetitor = competitor.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const logoMatch = subtemplate.match(new RegExp(`^${escapedCompetitor}-(logo(?:-\\w+)?)$`));
+            if (logoMatch) {
+              const variant = logoMatch[1];
+              this.renderCompetitorLogo(variant, competitorConfig, sezzleButtonText);
+              handled = true;
+              break;
+            }
           }
-          case "link":
-            const learnMoreNode = document.createElement("div");
-            learnMoreNode.style.color = this.textColor;
-            learnMoreNode.ariaLabel = `${this.translations.learnMoreAlt} Sezzle`;
-            learnMoreNode.className =
-              "sezzle-learn-more sezzle-modal-open-link";
-            const learnMoreText = document.createTextNode(
-              this.translations.learnMoreLink
-            );
-            learnMoreNode.appendChild(learnMoreText);
-            sezzleButtonText.appendChild(learnMoreNode);
-            break;
-          case "info":
-            const infoIconNode = document.createElement("div");
-            infoIconNode.ariaLabel = `${this.translations.clickToLearnMore} Sezzle`;
-            infoIconNode.className = "sezzle-info-icon sezzle-modal-open-link";
-            infoIconNode.innerHTML = "&#9432;";
-            sezzleButtonText.appendChild(infoIconNode);
-            break;
-          case "question-mark":
-            const questionMarkButton = document.createElement("button");
-            questionMarkButton.role = "button";
-            questionMarkButton.type = "button";
-            questionMarkButton.ariaLabel = `${this.translations.learnMoreLink} Sezzle`;
-            const questionMarkIconNode = document.createElementNS(
-              "http://www.w3.org/2000/svg",
-              "svg"
-            );
-            questionMarkIconNode.setAttribute("width", "14");
-            questionMarkIconNode.setAttribute("height", "14");
-            questionMarkIconNode.setAttribute("viewBox", "0 0 369 371");
-            questionMarkButton.setAttribute(
-              "class",
-              "sezzle-question-mark-icon sezzle-modal-open-link"
-            );
-            questionMarkIconNode.innerHTML =
-              HelperClass.svgImages().questionMarkIcon;
-            questionMarkButton.appendChild(questionMarkIconNode);
-            sezzleButtonText.appendChild(questionMarkButton);
-            break;
-          case "afterpay-logo":
-            var apNode = document.createElementNS(
-              "http://www.w3.org/2000/svg",
-              "svg"
-            );
-            apNode.setAttribute("width", "115");
-            apNode.setAttribute("height", "40");
-            apNode.setAttribute("viewBox", "0 0 115 40");
-            apNode.setAttribute(
-              "class",
-              `sezzle-afterpay-logo ap-modal-info-link no-sezzle-info`
-            );
-            apNode.setAttribute("aria-label", "Afterpay");
-            apNode.innerHTML = HelperClass.svgImages().apNodeColor;
-            sezzleButtonText.appendChild(apNode);
-            this.setLogoSize(apNode);
-            break;
-          case "afterpay-logo-black":
-            var apNode = document.createElementNS(
-              "http://www.w3.org/2000/svg",
-              "svg"
-            );
-            apNode.setAttribute("width", "170");
-            apNode.setAttribute("height", "35");
-            apNode.setAttribute("viewBox", "0 0 170 35");
-            apNode.setAttribute(
-              "class",
-              `sezzle-afterpay-logo ap-modal-info-link no-sezzle-info afterpay-logo-text`
-            );
-            apNode.setAttribute("aria-label", "Afterpay");
-            apNode.innerHTML = HelperClass.svgImages().apNodeBlack;
-            sezzleButtonText.appendChild(apNode);
-            this.setLogoSize(apNode);
-            break;
-          case "afterpay-logo-grey":
-            var apNode = document.createElementNS(
-              "http://www.w3.org/2000/svg",
-              "svg"
-            );
-            apNode.setAttribute("width", "115");
-            apNode.setAttribute("height", "40");
-            apNode.setAttribute("viewBox", "0 0 115 40");
-            apNode.setAttribute(
-              "class",
-              `sezzle-afterpay-logo ap-modal-info-link no-sezzle-info afterpay-logo-pill`
-            );
-            apNode.setAttribute("aria-label", "Afterpay");
-            apNode.innerHTML = HelperClass.svgImages().apNodeGrey;
-            sezzleButtonText.appendChild(apNode);
-            this.setLogoSize(apNode);
-            break;
-          case "afterpay-logo-white":
-            var apNode = document.createElementNS(
-              "http://www.w3.org/2000/svg",
-              "svg"
-            );
-            apNode.setAttribute("width", "115");
-            apNode.setAttribute("height", "40");
-            apNode.setAttribute("viewBox", "0 0 115 40");
-            apNode.setAttribute(
-              "class",
-              `sezzle-afterpay-logo ap-modal-info-link no-sezzle-info  afterpay-logo-pill`
-            );
-            apNode.setAttribute("aria-label", "Afterpay");
-            apNode.innerHTML = HelperClass.svgImages().apNodeWhite;
-            sezzleButtonText.appendChild(apNode);
-            this.setLogoSize(apNode);
-            break;
-          case "afterpay-info-icon":
-            const apInfoIconNode = document.createElement("button");
-            apInfoIconNode.role = "button";
-            apInfoIconNode.type = "button";
-            apInfoIconNode.ariaLabel = `${this.translations.learnMoreAlt} Afterpay`;
-            apInfoIconNode.className = "ap-modal-info-link no-sezzle-info";
-            apInfoIconNode.innerHTML = "&#9432;";
-            sezzleButtonText.appendChild(apInfoIconNode);
-            break;
-          case "afterpay-link-icon":
-            const apAnchor = document.createElement("a");
-            apAnchor.href = this.apLink;
-            apAnchor.target = "_blank";
-            const apLinkIconNode = document.createElement("code");
-            apLinkIconNode.ariaLabel = `${this.translations.learnMoreAlt} Afterpay`;
-            apLinkIconNode.className = "ap-info-link";
-            apLinkIconNode.innerHTML = "&#9432;";
-            apAnchor.appendChild(apLinkIconNode);
-            sezzleButtonText.appendChild(apAnchor);
-            break;
-          case "cash-app-afterpay-logo":
-            var cashAppAfterpayNode = document.createElementNS(
-              "http://www.w3.org/2000/svg",
-              "svg"
-            );
-            cashAppAfterpayNode.setAttribute("width", "98");
-            cashAppAfterpayNode.setAttribute("height", "24");
-            cashAppAfterpayNode.setAttribute("viewBox", "0 0 98 24");
-            cashAppAfterpayNode.setAttribute(
-              "preserveAspectRatio",
-              "xMidYMid meet"
-            );
-            cashAppAfterpayNode.setAttribute(
-              "class",
-              `sezzle-cash-app-afterpay-logo cash-app-afterpay-modal-info-link no-sezzle-info`
-            );
-            cashAppAfterpayNode.setAttribute("aria-label", "Cash App Afterpay");
-            cashAppAfterpayNode.innerHTML =
-              HelperClass.svgImages().cashAppApNodeColor;
-            sezzleButtonText.appendChild(cashAppAfterpayNode);
-            this.setLogoSize(cashAppAfterpayNode);
-            break;
-          case "cash-app-afterpay-logo-black":
-            var cashAppAfterpayNode = document.createElementNS(
-              "http://www.w3.org/2000/svg",
-              "svg"
-            );
-            cashAppAfterpayNode.setAttribute("width", "98");
-            cashAppAfterpayNode.setAttribute("height", "24");
-            cashAppAfterpayNode.setAttribute("viewBox", "0 0 98 24");
-            cashAppAfterpayNode.setAttribute(
-              "preserveAspectRatio",
-              "xMidYMid meet"
-            );
-            cashAppAfterpayNode.setAttribute(
-              "class",
-              `sezzle-cash-app-afterpay-logo cash-app-afterpay-modal-info-link no-sezzle-info`
-            );
-            cashAppAfterpayNode.setAttribute("aria-label", "Cash App Afterpay");
-            cashAppAfterpayNode.innerHTML =
-              HelperClass.svgImages().cashAppApNodeBlack;
-            sezzleButtonText.appendChild(cashAppAfterpayNode);
-            this.setLogoSize(cashAppAfterpayNode);
-            break;
-          case "cash-app-afterpay-info-icon":
-            const cashAppAfterpayInfoIconNode =
-              document.createElement("button");
-            cashAppAfterpayInfoIconNode.role = "button";
-            cashAppAfterpayInfoIconNode.type = "button";
-            cashAppAfterpayInfoIconNode.ariaLabel = `${this.translations.learnMoreAlt} Cash App Afterpay`;
-            cashAppAfterpayInfoIconNode.className =
-              "cash-app-afterpay-modal-info-link cash-app-afterpay-info-icon no-sezzle-info";
-            cashAppAfterpayInfoIconNode.innerHTML = "&#9432;";
-            sezzleButtonText.appendChild(cashAppAfterpayInfoIconNode);
-            break;
-          case "quadpay-logo":
-            var qpNode = document.createElementNS(
-              "http://www.w3.org/2000/svg",
-              "svg"
-            );
 
-            qpNode.setAttribute("id", "qp-logo-svg");
-            qpNode.setAttribute(
-              "alt",
-              "Zip logo, when clicked, opens infographic about the option of buying this item with 4 installment payments"
-            );
-            qpNode.setAttribute("version", "1.1");
-            qpNode.setAttribute("width", "50");
-            qpNode.setAttribute("height", "23");
-            qpNode.setAttribute("viewBox", "0 0 300 111");
-            qpNode.setAttribute(
-              "class",
-              `sezzle-quadpay-logo quadpay-modal-info-link no-sezzle-info`
-            );
-            qpNode.setAttribute(
-              "style",
-              `height: 22px !important;width: auto !important;margin-bottom: -5px;`
-            );
-            qpNode.setAttribute("aria-label", "Quadpay");
-            qpNode.innerHTML = HelperClass.svgImages().qpNodeColor;
-            sezzleButtonText.appendChild(qpNode);
-            this.setLogoSize(qpNode);
-            break;
-          case "quadpay-logo-grey":
-            var qpNode = document.createElementNS(
-              "http://www.w3.org/2000/svg",
-              "svg"
-            );
+          if (handled) break;
+        }
 
-            qpNode.setAttribute("id", "qp-logo-svg-black-white");
-            qpNode.setAttribute(
-              "alt",
-              "Zip logo, when clicked, opens infographic about the option of buying this item with 4 installment payments"
-            );
-            qpNode.setAttribute("version", "1.1");
-            qpNode.setAttribute("width", "50");
-            qpNode.setAttribute("height", "23");
-            qpNode.setAttribute("viewBox", "0 0 50 19");
-            qpNode.setAttribute(
-              "class",
-              `sezzle-quadpay-logo quadpay-modal-info-link no-sezzle-info`
-            );
-            qpNode.setAttribute(
-              "style",
-              `height: 22px !important;width: auto !important;margin-bottom: -5px;`
-            );
-            qpNode.setAttribute("aria-label", "Quadpay");
-            qpNode.innerHTML = HelperClass.svgImages().qpNodeGrey;
-            sezzleButtonText.appendChild(qpNode);
-            this.setLogoSize(qpNode);
-            break;
-          case "quadpay-logo-white":
-            var qpNode = document.createElementNS(
-              "http://www.w3.org/2000/svg",
-              "svg"
-            );
+        if (handled) return;
 
-            qpNode.setAttribute("id", "qp-logo-svg-secondary-light");
-            qpNode.setAttribute(
-              "alt",
-              "Zip logo, when clicked, opens infographic about the option of buying this item with 4 installment payments"
-            );
-            qpNode.setAttribute("version", "1.1");
-            qpNode.setAttribute("width", "50");
-            qpNode.setAttribute("height", "23");
-            qpNode.setAttribute("viewBox", "0 0 51 23");
-            qpNode.setAttribute(
-              "class",
-              `sezzle-quadpay-logo quadpay-modal-info-link no-sezzle-info`
-            );
-            qpNode.setAttribute(
-              "style",
-              `height: 22px !important;width: auto !important;margin-bottom: -5px;`
-            );
-            qpNode.setAttribute("aria-label", "Quadpay");
-            qpNode.innerHTML = HelperClass.svgImages().qpNodeWhite;
-            sezzleButtonText.appendChild(qpNode);
-            this.setLogoSize(qpNode);
-            break;
-          case "quadpay-info-icon":
-            const quadpayInfoIconNode = document.createElement("button");
-            quadpayInfoIconNode.role = "button";
-            quadpayInfoIconNode.type = "button";
-            quadpayInfoIconNode.ariaLabel = `${this.translations.learnMoreAlt} Quadpay`;
-            quadpayInfoIconNode.className =
-              "quadpay-modal-info-link no-sezzle-info";
-            quadpayInfoIconNode.innerHTML = "&#9432;";
-            sezzleButtonText.appendChild(quadpayInfoIconNode);
-            break;
-          case "affirm-logo":
-            var affirmNode = document.createElementNS(
-              "http://www.w3.org/2000/svg",
-              "svg"
-            );
-            affirmNode.setAttribute("width", "450");
-            affirmNode.setAttribute("height", "170");
-            affirmNode.setAttribute("viewBox", "0 0 450 170");
-            affirmNode.setAttribute(
-              "class",
-              `sezzle-affirm-logo affirm-modal-info-link no-sezzle-info`
-            );
-            affirmNode.setAttribute(
-              "style",
-              `height: 24px !important;width: auto !important;`
-            );
-            affirmNode.setAttribute("aria-label", "Affirm");
-            affirmNode.innerHTML = HelperClass.svgImages().affirmNodeColor;
-            sezzleButtonText.appendChild(affirmNode);
-            this.setLogoSize(affirmNode);
-            break;
-          case "affirm-logo-grey":
-            var affirmNode = document.createElementNS(
-              "http://www.w3.org/2000/svg",
-              "svg"
-            );
-            affirmNode.setAttribute("width", "450");
-            affirmNode.setAttribute("height", "170");
-            affirmNode.setAttribute("viewBox", "0 0 450 170");
-            affirmNode.setAttribute(
-              "class",
-              `sezzle-affirm-logo affirm-modal-info-link no-sezzle-info`
-            );
-            affirmNode.setAttribute(
-              "style",
-              `height: 24px !important;width: auto !important;`
-            );
-            affirmNode.setAttribute("aria-label", "Affirm");
-            affirmNode.innerHTML = HelperClass.svgImages().affirmNodeGrey;
-            sezzleButtonText.appendChild(affirmNode);
-            this.setLogoSize(affirmNode);
-            break;
-          case "affirm-logo-white":
-            var affirmNode = document.createElementNS(
-              "http://www.w3.org/2000/svg",
-              "svg"
-            );
-            affirmNode.setAttribute("width", "450");
-            affirmNode.setAttribute("height", "170");
-            affirmNode.setAttribute("viewBox", "0 0 450 170");
-            affirmNode.setAttribute(
-              "class",
-              `sezzle-affirm-logo affirm-modal-info-link no-sezzle-info`
-            );
-            affirmNode.setAttribute(
-              "style",
-              `height: 24px !important;width: auto !important;`
-            );
-            affirmNode.setAttribute("aria-label", "Affirm");
-            affirmNode.innerHTML = HelperClass.svgImages().affirmNodeWhite;
-            sezzleButtonText.appendChild(affirmNode);
-            this.setLogoSize(affirmNode);
-            break;
-          case "affirm-info-icon":
-            const affirmInfoIconNode = document.createElement("button");
-            affirmInfoIconNode.role = "button";
-            affirmInfoIconNode.type = "button";
-            affirmInfoIconNode.ariaLabel = `${this.translations.learnMoreAlt} Affirm`;
-            affirmInfoIconNode.className =
-              "affirm-modal-info-link no-sezzle-info";
-            affirmInfoIconNode.innerHTML = "&#9432;";
-            sezzleButtonText.appendChild(affirmInfoIconNode);
-            break;
-          case "klarna-logo":
-            var klarnaNode = document.createElementNS(
-              "http://www.w3.org/2000/svg",
-              "svg"
-            );
-            klarnaNode.setAttribute("width", "45");
-            klarnaNode.setAttribute("height", "25");
-            klarnaNode.setAttribute("viewBox", "0 0 45 23");
-            klarnaNode.setAttribute(
-              "class",
-              `sezzle-klarna-logo klarna-modal-info-link no-sezzle-info`
-            );
-            klarnaNode.setAttribute(
-              "style",
-              `height: 25px !important;width: auto !important; margin-bottom: -5px;`
-            );
-            klarnaNode.setAttribute("aria-label", "Klarna");
-            klarnaNode.innerHTML = HelperClass.svgImages().klarnaNodeColor;
-            sezzleButtonText.appendChild(klarnaNode);
-            this.setLogoSize(klarnaNode);
-            break;
-          case "klarna-logo-grey":
-            var klarnaNode = document.createElementNS(
-              "http://www.w3.org/2000/svg",
-              "svg"
-            );
-            klarnaNode.setAttribute("width", "45");
-            klarnaNode.setAttribute("height", "25");
-            klarnaNode.setAttribute("viewBox", "0 0 45 23");
-            klarnaNode.setAttribute(
-              "class",
-              `sezzle-klarna-logo klarna-modal-info-link no-sezzle-info`
-            );
-            klarnaNode.setAttribute(
-              "style",
-              `height: 25px !important;width: auto !important; margin-bottom: -5px;`
-            );
-            klarnaNode.setAttribute("aria-label", "Klarna");
-            klarnaNode.innerHTML = HelperClass.svgImages().klarnaNodeGrey;
-            sezzleButtonText.appendChild(klarnaNode);
-            this.setLogoSize(klarnaNode);
-            break;
-          case "klarna-logo-white":
-            var klarnaNode = document.createElementNS(
-              "http://www.w3.org/2000/svg",
-              "svg"
-            );
-            klarnaNode.setAttribute("width", "45");
-            klarnaNode.setAttribute("height", "25");
-            klarnaNode.setAttribute("viewBox", "0 0 45 23");
-            klarnaNode.setAttribute(
-              "class",
-              `sezzle-klarna-logo klarna-modal-info-link no-sezzle-info`
-            );
-            klarnaNode.setAttribute(
-              "style",
-              `height: 25px !important;width: auto !important; margin-bottom: -5px;`
-            );
-            klarnaNode.setAttribute("aria-label", "Klarna");
-            klarnaNode.innerHTML = HelperClass.svgImages().klarnaNodeWhite;
-            sezzleButtonText.appendChild(klarnaNode);
-            this.setLogoSize(klarnaNode);
-            break;
-          case "klarna-info-icon":
-            const klarnaInfoIconNode = document.createElement("button");
-            klarnaInfoIconNode.role = "button";
-            klarnaInfoIconNode.type = "button";
-            klarnaInfoIconNode.ariaLabel = `${this.translations.learnMoreAlt} Klarna`;
-            klarnaInfoIconNode.className =
-              "klarna-modal-info-link no-sezzle-info";
-            klarnaInfoIconNode.innerHTML = "&#9432;";
-            sezzleButtonText.appendChild(klarnaInfoIconNode);
-            break;
-                    case "shoppay-logo":
-                        const shoppayNode = document.createElementNS(
-                            "http://www.w3.org/2000/svg",
-                            "svg"
-                        );
-                        shoppayNode.setAttribute("width", "99");
-                        shoppayNode.setAttribute("height", "25");
-                        shoppayNode.setAttribute("viewBox", "0 0 99 25");
-                        shoppayNode.setAttribute(
-                            "class",
-                            `sezzle-shoppay-logo shoppay-modal-info-link no-sezzle-info`
-                        );
-                        shoppayNode.setAttribute(
-                            "style",
-                            `height: 18px !important;width: auto !important; margin-bottom: -5px;`
-                        );
-                        shoppayNode.setAttribute("aria-label", "Shoppay");
-                        shoppayNode.innerHTML =
-                            HelperClass?.svgImages()?.shoppayLight || '';
-                        sezzleButtonText.appendChild(shoppayNode);
-                        this.setLogoSize(shoppayNode);
-                        break;
-                    case "shoppay-info-icon":
-                        const shoppayInfoIconNode =
-                            document.createElement("button");
-                        shoppayInfoIconNode.role = "button";
-                        shoppayInfoIconNode.type = "button";
-                        shoppayInfoIconNode.ariaLabel = `${this.translations.learnMoreAlt} Shoppay`;
-                        shoppayInfoIconNode.className =
-                            "shoppay-modal-info-link no-sezzle-info";
-                        shoppayInfoIconNode.innerHTML = "&#9432;";
-                        sezzleButtonText.appendChild(shoppayInfoIconNode);
-                        break;
-          case "line-break":
-            const lineBreakNode = document.createElement("br");
-            sezzleButtonText.appendChild(lineBreakNode);
-            break;
-          case "&eacute;":
-            const eacute = document.createElement("span");
-            eacute.innerHTML = "&#233;";
-            sezzleButtonText.appendChild(eacute);
-            break;
-          case "&ecirc;":
-            const ecirc = document.createElement("span");
-            ecirc.innerHTML = "&#234;";
-            sezzleButtonText.appendChild(ecirc);
-            break;
-          case "&auml;":
-            const auml = document.createElement("span");
-            auml.innerHTML = "&#228;";
-            sezzleButtonText.appendChild(auml);
-            break;
-          case "&uuml;":
-            const uuml = document.createElement("span");
-            uuml.innerHTML = "&#252;";
-            sezzleButtonText.appendChild(uuml);
-            break;
-          default:
-            const widgetTextNode = document.createTextNode(subtemplate);
-            sezzleButtonText.appendChild(widgetTextNode);
-            break;
+        switch (subtemplate) {
+            case "price":
+                const priceSpanNode = document.createElement("span");
+                priceSpanNode.className =
+                    "sezzle-payment-amount sezzle-button-text";
+                const priceValueText = document.createTextNode(
+                    this.getFormattedPrice(),
+                );
+                priceSpanNode.appendChild(priceValueText);
+                sezzleButtonText.appendChild(priceSpanNode);
+                break;
+            case "logo":
+                const logoNode = document.createElementNS(
+                    "http://www.w3.org/2000/svg",
+                    "svg",
+                );
+                logoNode.setAttribute("width", "798.16");
+                logoNode.setAttribute("height", "199.56");
+                logoNode.setAttribute("viewBox", "0 0 798.16 199.56");
+                logoNode.setAttribute(
+                    "class",
+                    `sezzle-logo ${this.imageClassName}`,
+                );
+                logoNode.setAttribute("aria-label", "Sezzle");
+                logoNode.style.height = "18px !important";
+                logoNode.innerHTML = this.imageInnerHTML;
+                sezzleButtonText.appendChild(logoNode);
+                if (this.logoStyle != {}) this.setLogoStyle(logoNode);
+                this.setLogoSize(logoNode);
+                if (
+                    this.theme === "purple-pill" ||
+                    this.theme == "white-pill"
+                ) {
+                    logoNode.style.transform = "scale(12)";
+                }
+                break;
+            case "sup": {
+                const supNode = document.createElement("sup");
+                supNode.textContent = "1";
+                sezzleButtonText.appendChild(supNode);
+                break;
+            }
+            case "link":
+                const learnMoreNode = document.createElement("div");
+                learnMoreNode.style.color = this.textColor;
+                learnMoreNode.ariaLabel = `${this.translations.learnMoreAlt} Sezzle`;
+                learnMoreNode.className =
+                    "sezzle-learn-more sezzle-modal-open-link";
+                const learnMoreText = document.createTextNode(
+                    this.translations.learnMoreLink,
+                );
+                learnMoreNode.appendChild(learnMoreText);
+                sezzleButtonText.appendChild(learnMoreNode);
+                break;
+            case "info":
+                const infoIconNode = document.createElement("div");
+                infoIconNode.ariaLabel = `${this.translations.clickToLearnMore} Sezzle`;
+                infoIconNode.className =
+                    "sezzle-info-icon sezzle-modal-open-link";
+                infoIconNode.innerHTML = "&#9432;";
+                sezzleButtonText.appendChild(infoIconNode);
+                break;
+            case "question-mark":
+                const questionMarkButton = document.createElement("button");
+                questionMarkButton.role = "button";
+                questionMarkButton.type = "button";
+                questionMarkButton.ariaLabel = `${this.translations.learnMoreLink} Sezzle`;
+                const questionMarkIconNode = document.createElementNS(
+                    "http://www.w3.org/2000/svg",
+                    "svg",
+                );
+                questionMarkIconNode.setAttribute("width", "14");
+                questionMarkIconNode.setAttribute("height", "14");
+                questionMarkIconNode.setAttribute("viewBox", "0 0 369 371");
+                questionMarkButton.setAttribute(
+                    "class",
+                    "sezzle-question-mark-icon sezzle-modal-open-link",
+                );
+                questionMarkIconNode.innerHTML =
+                    HelperClass.svgImages().questionMarkIcon;
+                questionMarkButton.appendChild(questionMarkIconNode);
+                sezzleButtonText.appendChild(questionMarkButton);
+                break;
+            case "line-break":
+                const lineBreakNode = document.createElement("br");
+                sezzleButtonText.appendChild(lineBreakNode);
+                break;
+            case "&eacute;":
+                const eacute = document.createElement("span");
+                eacute.innerHTML = "&#233;";
+                sezzleButtonText.appendChild(eacute);
+                break;
+            case "&ecirc;":
+                const ecirc = document.createElement("span");
+                ecirc.innerHTML = "&#234;";
+                sezzleButtonText.appendChild(ecirc);
+                break;
+            case "&auml;":
+                const auml = document.createElement("span");
+                auml.innerHTML = "&#228;";
+                sezzleButtonText.appendChild(auml);
+                break;
+            case "&uuml;":
+                const uuml = document.createElement("span");
+                uuml.innerHTML = "&#252;";
+                sezzleButtonText.appendChild(uuml);
+                break;
+            default:
+                const widgetTextNode = document.createTextNode(subtemplate);
+                sezzleButtonText.appendChild(widgetTextNode);
+                break;
         }
       }.bind(this)
     );
@@ -1486,140 +1307,52 @@ class AwesomeSezzle {
     this.modalKeyboardNavigation();
   }
 
-  async getAPModal(modalNode) {
-    const url = `https://media.sezzle.com/afterpay/modal/${this.language}.html`;
+  async getCompetitorModal(modalNode, competitorClass) {
+    // competitorClass comes from hardcoded getCompetitorConfig() values
+    // Validated to be non-empty; no sanitization needed for trusted internal values
+    if (!competitorClass) {
+        console.error("Invalid competitor class name");
+        return;
+    }
+
+    const url = `https://media.sezzle.com/${competitorClass}/modal/${this.language}.html`;
     try {
       const response = await fetch(url);
       if (!response.ok) {
         throw new error(
-          `Failed to fetch afterpay modal, status: ${response.status}`
+            `Failed to fetch ${competitorClass} modal, status: ${response.status}`,
         );
       }
+      // HTML from Sezzle's own CDN is trusted
       modalNode.innerHTML = await response.text();
     } catch (error) {
       console.error(error);
     }
   }
 
-  async getCashAppAfterpayModal(modalNode) {
-    // Cash App Afterpay is available only in the US. They only have english version.
-    const url = `https://media.sezzle.com/cash-app-afterpay/modal/en.html`;
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new error(
-          `Failed to fetch cash app afterpay modal, status: ${response.status}`
-        );
-      }
-      modalNode.innerHTML = await response.text();
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  async getZipModal(modalNode) {
-    const url = `https://media.sezzle.com/zip/modal/${this.language}.html`;
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new error(
-          `Failed to fetch zip modal, status: ${response.status}`
-        );
-      }
-      modalNode.innerHTML = await response.text();
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-    async getShoppayModal(modalNode) {
-        const url = `https://media.sezzle.com/shoppay/modal/${this.language}.html`;
-        try {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new error(
-                    `Failed to fetch shoppay modal, status: ${response.status}`
-                );
-            }
-            modalNode.innerHTML = await response.text();
-        } catch (error) {
-            console.error(error);
-        }
+  renderCompetitorModal(config) {
+    // config.competitorClass comes from hardcoded getCompetitorConfig() values
+    if (!config.competitorClass) {
+        console.error("Invalid competitor class name");
+        return;
     }
 
-  async getKlarnaModal(modalNode) {
-    const url = `https://media.sezzle.com/klarna/modal/${this.language}.html`;
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new error(
-          `Failed to fetch klarna modal, status: ${response.status}`
-        );
-      }
-      modalNode.innerHTML = await response.text();
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  renderAPModal() {
-    var modalNode = document.createElement("section");
-    modalNode.className =
-      "sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-ap-modal";
+    const modalNode = document.createElement("section");
+    modalNode.className = `sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-${config.competitorClass}-modal`;
     modalNode.style = "position: center";
     modalNode.style.display = "none";
     modalNode.role = "dialog";
-    modalNode.ariaLabel = this.translations.afterpayInfo;
-    modalNode.ariaDescription = `${this.translations.learnMoreAlt} Afterpay`;
+    modalNode.ariaLabel = config.ariaLabel;
+    modalNode.ariaDescription = `${this.translations.learnMoreAlt} ${config.ariaDescriptionName}`;
 
-    if (this.apModalHTML) {
-      modalNode.innerHTML = this.apModalHTML;
+    if (config.modalHTML) {
+      // modalHTML is provided by Sezzle configuration, considered trusted
+      // CSS/styles are essential for modal rendering
+      modalNode.innerHTML = config.modalHTML;
     } else {
-      this.getAPModal(modalNode);
+      this.getCompetitorModal(modalNode, config.competitorClass);
     }
-    document.getElementsByTagName("html")[0].appendChild(modalNode);
-    Array.prototype.forEach.call(
-      document.getElementsByClassName("close-sezzle-modal"),
-      function (el) {
-        el.addEventListener("click", function () {
-          modalNode.style.display = "none";
-          let newFocus = document.querySelector("#sezzle-modal-return");
-          if (newFocus) {
-            newFocus.focus();
-            newFocus.removeAttribute("id");
-          } else if (document.querySelector(`.ap-modal-info-link`)) {
-            document
-              .querySelector(".sezzle-checkout-button-wrapper")
-              .getElementsByClassName(`ap-modal-info-link`)[0]
-              .focus();
-          } else {
-            document.querySelector(".sezzle-checkout-button-wrapper").focus();
-          }
-        });
-      }
-    );
-    let sezzleModal = document.getElementsByClassName("sezzle-modal")[0];
-    if (!sezzleModal)
-      sezzleModal = document.getElementsByClassName("sezzle-checkout-modal")[0];
-    sezzleModal.addEventListener("click", function (event) {
-      event.stopPropagation();
-    });
-  }
 
-  renderCashAppAfterpayModal() {
-    var modalNode = document.createElement("section");
-    modalNode.className =
-      "sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-cash-app-afterpay-modal";
-    modalNode.style = "position: center";
-    modalNode.style.display = "none";
-    modalNode.role = "dialog";
-    modalNode.ariaLabel = this.translations.cashAppAfterpayInfo;
-    modalNode.ariaDescription = `${this.translations.learnMoreAlt} Cash App Afterpay`;
-    if (this.cashAppAfterpayModalHTML) {
-      modalNode.innerHTML = this.cashAppAfterpayModalHTML;
-    } else {
-      this.getCashAppAfterpayModal(modalNode);
-    }
     document.getElementsByTagName("html")[0].appendChild(modalNode);
     Array.prototype.forEach.call(
       document.getElementsByClassName("close-sezzle-modal"),
@@ -1631,196 +1364,18 @@ class AwesomeSezzle {
             newFocus.focus();
             newFocus.removeAttribute("id");
           } else if (
-            document.querySelector(`.cash-app-afterpay-modal-info-link`)
+              document.querySelector(
+                  `.${config.competitorClass}-modal-info-link`,
+              )
           ) {
-            document
-              .querySelector(".sezzle-checkout-button-wrapper")
-              .getElementsByClassName(`cash-app-afterpay-modal-info-link`)[0]
-              .focus();
+              document
+                  .querySelector(".sezzle-checkout-button-wrapper")
+                  .getElementsByClassName(
+                      `${config.competitorClass}-modal-info-link`,
+                  )[0]
+                  .focus();
           } else {
-            document.querySelector(".sezzle-checkout-button-wrapper").focus();
-          }
-        });
-      }
-    );
-    let sezzleModal = document.getElementsByClassName("sezzle-modal")[0];
-    if (!sezzleModal)
-      sezzleModal = document.getElementsByClassName("sezzle-checkout-modal")[0];
-    sezzleModal.addEventListener("click", function (event) {
-      event.stopPropagation();
-    });
-  }
-
-  renderQPModal() {
-    var modalNode = document.createElement("section");
-    modalNode.className =
-      "sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-qp-modal";
-    modalNode.style = "position: center";
-    modalNode.style.display = "none";
-    modalNode.role = "dialog";
-    modalNode.ariaLabel = this.translations.quadpayInfo;
-    modalNode.ariaDescription = `${this.translations.learnMoreAlt} Quadpay`;
-    if (this.qpModalHTML) {
-      modalNode.innerHTML = this.qpModalHTML;
-    } else {
-      this.getZipModal(modalNode);
-    }
-    document.getElementsByTagName("html")[0].appendChild(modalNode);
-    Array.prototype.forEach.call(
-      document.getElementsByClassName("close-sezzle-modal"),
-      function (el) {
-        el.addEventListener("click", function () {
-          modalNode.style.display = "none";
-          let newFocus = document.querySelector("#sezzle-modal-return");
-          if (newFocus) {
-            newFocus.focus();
-            newFocus.removeAttribute("id");
-          } else if (document.querySelector(`.qp-modal-info-link`)) {
-            document
-              .querySelector(".sezzle-checkout-button-wrapper")
-              .getElementsByClassName(`qp-modal-info-link`)[0]
-              .focus();
-          } else {
-            document.querySelector(".sezzle-checkout-button-wrapper").focus();
-          }
-        });
-      }
-    );
-    let sezzleModal = document.getElementsByClassName("sezzle-modal")[0];
-    if (!sezzleModal)
-      sezzleModal = document.getElementsByClassName("sezzle-checkout-modal")[0];
-    sezzleModal.addEventListener("click", function (event) {
-      event.stopPropagation();
-    });
-  }
-
-  renderAffirmModal() {
-    var modalNode = document.createElement("section");
-    modalNode.className =
-      "sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-affirm-modal";
-    modalNode.style = "position: center";
-    modalNode.style.display = "none";
-    modalNode.role = "dialog";
-    modalNode.ariaLabel = this.translations.affirmInfo;
-    modalNode.ariaDescription = `${this.translations.learnMoreAlt}  Affirm`;
-    modalNode.innerHTML = this.affirmModalHTML;
-    document.getElementsByTagName("html")[0].appendChild(modalNode);
-    Array.prototype.forEach.call(
-      document.getElementsByClassName("close-sezzle-modal"),
-      function (el) {
-        el.addEventListener("click", function () {
-          modalNode.style.display = "none";
-          let newFocus = document.querySelector("#sezzle-modal-return");
-          if (newFocus) {
-            newFocus.focus();
-            newFocus.removeAttribute("id");
-          } else if (document.querySelector(`.affirm-modal-info-link`)) {
-            document
-              .querySelector(".sezzle-checkout-button-wrapper")
-              .getElementsByClassName(`affirm-modal-info-link`)[0]
-              .focus();
-          } else {
-            document.querySelector(".sezzle-checkout-button-wrapper").focus();
-          }
-        });
-      }
-    );
-    let sezzleModal = document.getElementsByClassName("sezzle-modal")[0];
-    if (!sezzleModal)
-      sezzleModal = document.getElementsByClassName("sezzle-checkout-modal")[0];
-    sezzleModal.addEventListener("click", function (event) {
-      event.stopPropagation();
-    });
-  }
-
-      renderShoppayModal() {
-        const modalNode = document.createElement("section");
-        modalNode.className =
-            "sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-shoppay-modal";
-        modalNode.style = "position: center";
-        modalNode.style.display = "none";
-        modalNode.role = "dialog";
-        modalNode.ariaLabel = this.translations.shoppayInfo;
-        modalNode.ariaDescription = `${this.translations.learnMoreAlt}  Shoppay`;
-
-        if (this.shoppayModalHTML) {
-            modalNode.innerHTML = this.shoppayModalHTML;
-        } else {
-            this.getShoppayModal(modalNode);
-        }
-
-        document.getElementsByTagName("html")[0].appendChild(modalNode);
-        Array.prototype.forEach.call(
-            document.getElementsByClassName("close-sezzle-modal"),
-            function (el) {
-                el.addEventListener("click", function () {
-                    modalNode.style.display = "none";
-                    let newFocus = document.querySelector(
-                        "#sezzle-modal-return"
-                    );
-                    if (newFocus) {
-                        newFocus.focus();
-                        newFocus.removeAttribute("id");
-                    } else if (
-                        document.querySelector(`.shoppay-modal-info-link`)
-                    ) {
-                        document
-                            .querySelector(".sezzle-checkout-button-wrapper")
-                            .getElementsByClassName(
-                                `shoppay-modal-info-link`
-                            )[0]
-                            .focus();
-                    } else {
-                        document
-                            .querySelector(".sezzle-checkout-button-wrapper")
-                            .focus();
-                    }
-                });
-            }
-        );
-        let sezzleModal = document.getElementsByClassName("sezzle-modal")[0];
-        if (!sezzleModal)
-            sezzleModal = document.getElementsByClassName(
-                "sezzle-checkout-modal"
-            )[0];
-        sezzleModal.addEventListener("click", function (event) {
-            event.stopPropagation();
-        });
-    }
-
-  renderKlarnaModal() {
-    var modalNode = document.createElement("section");
-    modalNode.className =
-      "sezzle-checkout-modal-lightbox close-sezzle-modal sezzle-klarna-modal";
-    modalNode.style = "position: center";
-    modalNode.style.display = "none";
-    modalNode.role = "dialog";
-    modalNode.ariaLabel = this.translations.klarnaInfo;
-    modalNode.ariaDescription = `${this.translations.learnMoreAlt}  Klarna`;
-
-    if (this.klarnaModalHTML) {
-      modalNode.innerHTML = this.klarnaModalHTML;
-    } else {
-      this.getKlarnaModal(modalNode);
-    }
-
-    document.getElementsByTagName("html")[0].appendChild(modalNode);
-    Array.prototype.forEach.call(
-      document.getElementsByClassName("close-sezzle-modal"),
-      function (el) {
-        el.addEventListener("click", function () {
-          modalNode.style.display = "none";
-          let newFocus = document.querySelector("#sezzle-modal-return");
-          if (newFocus) {
-            newFocus.focus();
-            newFocus.removeAttribute("id");
-          } else if (document.querySelector(`.klarna-modal-info-link`)) {
-            document
-              .querySelector(".sezzle-checkout-button-wrapper")
-              .getElementsByClassName(`klarna-modal-info-link`)[0]
-              .focus();
-          } else {
-            document.querySelector(".sezzle-checkout-button-wrapper").focus();
+              document.querySelector(".sezzle-checkout-button-wrapper").focus();
           }
         });
       }
@@ -1873,129 +1428,37 @@ class AwesomeSezzle {
         );
       }.bind(this)
     );
-    const apModalLinks =
-      sezzleElement.getElementsByClassName("ap-modal-info-link");
-    Array.prototype.forEach.call(
-      apModalLinks,
-      function (modalLink) {
-        modalLink.addEventListener(
-          "click",
-          function (event) {
-            document.getElementsByClassName(
-              "sezzle-ap-modal"
-            )[0].style.display = "block";
-            document.getElementsByClassName("sezzle-ap-modal")[0].focus();
-            event.target.id = "sezzle-modal-return";
-            event.preventDefault();
-            event.stopPropagation();
-          }.bind(this)
-        );
-      }.bind(this)
-    );
-    const cashAppAfterpayModalLinks = sezzleElement.getElementsByClassName(
-      "cash-app-afterpay-modal-info-link"
-    );
-    Array.prototype.forEach.call(
-      cashAppAfterpayModalLinks,
-      function (modalLink) {
-        modalLink.addEventListener(
-          "click",
-          function (event) {
-            document.getElementsByClassName(
-              "sezzle-cash-app-afterpay-modal"
-            )[0].style.display = "block";
-            document
-              .getElementsByClassName("sezzle-cash-app-afterpay-modal")[0]
-              .focus();
-            event.target.id = "sezzle-modal-return";
-            event.preventDefault();
-            event.stopPropagation();
-          }.bind(this)
-        );
-      }.bind(this)
-    );
-    const qpModalLinks = sezzleElement.getElementsByClassName(
-      "quadpay-modal-info-link"
-    );
-    Array.prototype.forEach.call(
-      qpModalLinks,
-      function (modalLink) {
-        modalLink.addEventListener(
-          "click",
-          function (event) {
-            document.getElementsByClassName(
-              "sezzle-qp-modal"
-            )[0].style.display = "block";
-            document.getElementsByClassName("sezzle-qp-modal")[0].focus();
-            event.target.id = "sezzle-modal-return";
-            event.preventDefault();
-            event.stopPropagation();
-          }.bind(this)
-        );
-      }.bind(this)
-    );
-    const affirmModalLinks = sezzleElement.getElementsByClassName(
-      "affirm-modal-info-link"
-    );
-    Array.prototype.forEach.call(
-      affirmModalLinks,
-      function (modalLink) {
-        modalLink.addEventListener(
-          "click",
-          function (event) {
-            document.getElementsByClassName(
-              "sezzle-affirm-modal"
-            )[0].style.display = "block";
-            document.getElementsByClassName("sezzle-affirm-modal")[0].focus();
-            event.target.id = "sezzle-modal-return";
-            event.preventDefault();
-            event.stopPropagation();
-          }.bind(this)
-        );
-      }.bind(this)
-    );
-    const klarnaModalLinks = sezzleElement.getElementsByClassName(
-      "klarna-modal-info-link"
-    );
-    Array.prototype.forEach.call(
-      klarnaModalLinks,
-      function (modalLink) {
-        modalLink.addEventListener(
-          "click",
-          function (event) {
-            document.getElementsByClassName(
-              "sezzle-klarna-modal"
-            )[0].style.display = "block";
-            document.getElementsByClassName("sezzle-klarna-modal")[0].focus();
-            event.target.id = "sezzle-modal-return";
-            event.preventDefault();
-            event.stopPropagation();
-          }.bind(this)
-        );
-      }.bind(this)
-    );
-        const shoppayModalLinks = sezzleElement.getElementsByClassName(
-            "shoppay-modal-info-link"
-        );
-        Array.prototype.forEach.call(
-            shoppayModalLinks,
-            function (modalLink) {
-                modalLink.addEventListener(
-                    "click",
-                    function (event) {
-                        document.getElementsByClassName(
-                            "sezzle-shoppay-modal"
-                        )[0].style.display = "block";
-                        document
-                            .getElementsByClassName("sezzle-shoppay-modal")[0]
-                            .focus();
-                        event.target.id = "sezzle-modal-return";
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }.bind(this)
-                );
+
+    const competitors = [
+      "afterpay",
+      "cash-app-afterpay",
+      "zip",
+      "affirm",
+      "klarna",
+      "shoppay"
+    ];
+
+    competitors.forEach(competitor => {
+      const competitorModalLinks = sezzleElement.getElementsByClassName(
+        `${competitor}-modal-info-link`
+      );
+      Array.prototype.forEach.call(
+        competitorModalLinks,
+        function (modalLink) {
+          modalLink.addEventListener(
+            "click",
+            function (event) {
+              const modalClass = `sezzle-${competitor}-modal`;
+              document.getElementsByClassName(modalClass)[0].style.display = "block";
+              document.getElementsByClassName(modalClass)[0].focus();
+              event.target.id = "sezzle-modal-return";
+              event.preventDefault();
+              event.stopPropagation();
             }.bind(this)
-        );
+          );
+        }.bind(this)
+      );
+    });
   }
 
   isMobileBrowser() {
@@ -2014,35 +1477,55 @@ class AwesomeSezzle {
 
     function renderModals() {
       this.renderModal();
-      if (document.getElementsByClassName("ap-modal-info-link").length > 0) {
-        this.renderAPModal();
-      }
-      if (
-        document.getElementsByClassName("cash-app-afterpay-modal-info-link")
-          .length > 0
-      ) {
-        this.renderCashAppAfterpayModal();
-      }
-      if (
-        document.getElementsByClassName("quadpay-modal-info-link").length > 0
-      ) {
-        this.renderQPModal();
-      }
-      if (
-        document.getElementsByClassName("affirm-modal-info-link").length > 0
-      ) {
-        this.renderAffirmModal();
-      }
-      if (
-        document.getElementsByClassName("klarna-modal-info-link").length > 0
-      ) {
-        this.renderKlarnaModal();
-      }
-            if (
-        document.getElementsByClassName("shoppay-modal-info-link").length > 0
-            ) {
-                this.renderShoppayModal();
-            }
+
+      const competitors = [
+        {
+          competitorClass: "afterpay",
+          ariaLabel: this.translations.afterpayInfo,
+          ariaDescriptionName: "Afterpay",
+          modalHTML: this.apModalHTML,
+        },
+        {
+          competitorClass: "cash-app-afterpay",
+          ariaLabel: this.translations.cashAppAfterpayInfo,
+          ariaDescriptionName: "Cash App Afterpay",
+          modalHTML: this.cashAppAfterpayModalHTML,
+        },
+        {
+          competitorClass: "zip",
+          ariaLabel: this.translations.zipInfo,
+          ariaDescriptionName: "Zip",
+          modalHTML: this.zipModalHTML,
+        },
+        {
+          competitorClass: "affirm",
+          ariaLabel: this.translations.affirmInfo,
+          ariaDescriptionName: "Affirm",
+          modalHTML: this.affirmModalHTML,
+        },
+        {
+          competitorClass: "klarna",
+          ariaLabel: this.translations.klarnaInfo,
+          ariaDescriptionName: "Klarna",
+          modalHTML: this.klarnaModalHTML,
+        },
+        {
+          competitorClass: "shoppay",
+          ariaLabel: this.translations.shoppayInfo,
+          ariaDescriptionName: "Shoppay",
+          modalHTML: this.shoppayModalHTML,
+        }
+      ];
+
+      competitors.forEach(competitor => {
+        if (
+            document.getElementsByClassName(
+                `${competitor.competitorClass}-modal-info-link`,
+            ).length > 0
+        ) {
+            this.renderCompetitorModal(competitor);
+        }
+      });
     }
 
     function sezzleWidgetCheckInterval() {
