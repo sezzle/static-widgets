@@ -6,185 +6,185 @@
 .sezzle-payment-amount,
 .sezzle-logo,
 .sezzle-info-icon {
-    all: unset;
+  all: unset;
 }
 
 .szl-grayscale-image {
-    display: inline-block;
-    height: 18px !important;
-    width: auto !important;
-    box-sizing: border-box;
-    padding-right: 2.5px;
-    margin-left: 1px;
-    margin-bottom: -4px;
+  display: inline-block;
+  height: 18px !important;
+  width: auto !important;
+  box-sizing: border-box;
+  padding-right: 2.5px;
+  margin-left: 1px;
+  margin-bottom: -4px;
 }
 
 // CSS Reset on the modal-lightbox
 .sezzle-checkout-button-wrapper {
-    .sezzle-button-text {
-        text-align: center;
-        line-height: 23px;
-        width: unset;
-        margin: 0 auto;
-        word-wrap: normal;
-        //   font-size: 12px;
+  .sezzle-button-text {
+    text-align: center;
+    line-height: 23px;
+    width: unset;
+    margin: 0 auto;
+    word-wrap: normal;
+    //   font-size: 12px;
 
-        sup {
-        				vertical-align: super;
-        				font-size: 0.5em;
-        	}
-
-        .sezzle-payment-amount {
-            font-weight: 900;
-        }
-
-        .szl-light-image,
-        .szl-dark-image {
-            display: inline-block;
-            height: 18px !important;
-            width: auto !important;
-            box-sizing: border-box;
-            padding-right: 2.5px;
-            margin-left: 1px;
-            margin-bottom: -4px;
-        }
-
-        .sezzle-learn-more {
-            text-decoration: underline;
-            cursor: pointer;
-            font-size: 8.5px;
-            background: none;
-            border: none;
-            padding: 0px;
-        }
-
-        .sezzle-info-icon {
-            color: inherit;
-            background-color: inherit;
-            cursor: pointer;
-            border: none;
-            padding: 0px;
-        }
-
-        .sezzle-question-mark-icon {
-            height: 12px;
-            width: auto;
-            margin-bottom: -0.5px;
-            cursor: pointer;
-            background: none;
-            border: none;
-            padding: 0px;
-        }
+    sup {
+      vertical-align: super;
+      font-size: 0.5em;
     }
 
-    // .sezzle-modal-link {
-    //   cursor: pointer;
-    // }
-    .sezzle-afterpay-logo {
-        height: 24px;
-        width: auto;
-        margin: -8px;
-
-        &.afterpay-logo-pill {
-            height: 28px !important;
-            width: auto !important;
-            margin: -10px 0 !important
-        }
-
-        &.afterpay-logo-text {
-            height: 18px !important;
-            width: auto !important;
-            margin: 0 -4px -7px 0;
-        }
+    .sezzle-payment-amount {
+      font-weight: 900;
     }
 
-    .sezzle-cash-app-afterpay-logo {
-        height: 20px;
-        width: auto;
-        margin: -6px 2px;
+    .szl-light-image,
+    .szl-dark-image {
+      display: inline-block;
+      height: 18px !important;
+      width: auto !important;
+      box-sizing: border-box;
+      padding-right: 2.5px;
+      margin-left: 1px;
+      margin-bottom: -4px;
     }
 
-    .cash-app-afterpay-info-icon {
-        cursor: pointer;
-        background: none;
-        border: none;
-        padding: 0px;
-        vertical-align: middle;
+    .sezzle-learn-more {
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 8.5px;
+      background: none;
+      border: none;
+      padding: 0px;
     }
 
-    button.affirm-modal-info-link {
-        cursor: pointer;
-        margin-left: -5px !important;
-        color: inherit;
-        background: none;
-        border: none;
-        padding: 0px;
+    .sezzle-info-icon {
+      color: inherit;
+      background-color: inherit;
+      cursor: pointer;
+      border: none;
+      padding: 0px;
     }
 
-    .afterpay-modal-info-link {
-        cursor: pointer;
-        margin-left: 3px !important;
-        color: inherit;
-        background: none;
-        border: none;
-        padding: 0px;
+    .sezzle-question-mark-icon {
+      height: 12px;
+      width: auto;
+      margin-bottom: -0.5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0px;
+    }
+  }
+
+  // .sezzle-modal-link {
+  //   cursor: pointer;
+  // }
+  .sezzle-afterpay-logo {
+    height: 24px;
+    width: auto;
+    margin: -8px;
+
+    &.afterpay-logo-pill {
+      height: 28px !important;
+      width: auto !important;
+      margin: -10px 0 !important;
     }
 
-    .zip-modal-info-link {
-        cursor: pointer;
-        margin-left: 3px !important;
-        color: inherit;
-        background: none;
-        border: none;
-        padding: 0px;
+    &.afterpay-logo-text {
+      height: 18px !important;
+      width: auto !important;
+      margin: 0 -4px -7px 0;
     }
+  }
 
-    .klarna-modal-info-link {
-        cursor: pointer;
-        margin-left: 3px !important;
-        color: inherit;
-        background: none;
-        border: none;
-        padding: 0px;
+  .sezzle-cash-app-afterpay-logo {
+    height: 20px;
+    width: auto;
+    margin: -6px 2px;
+  }
+
+  .cash-app-afterpay-info-icon {
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0px;
+    vertical-align: middle;
+  }
+
+  button.affirm-modal-info-link {
+    cursor: pointer;
+    margin-left: -5px !important;
+    color: inherit;
+    background: none;
+    border: none;
+    padding: 0px;
+  }
+
+  .afterpay-modal-info-link {
+    cursor: pointer;
+    margin-left: 3px !important;
+    color: inherit;
+    background: none;
+    border: none;
+    padding: 0px;
+  }
+
+  .zip-modal-info-link {
+    cursor: pointer;
+    margin-left: 3px !important;
+    color: inherit;
+    background: none;
+    border: none;
+    padding: 0px;
+  }
+
+  .klarna-modal-info-link {
+    cursor: pointer;
+    margin-left: 3px !important;
+    color: inherit;
+    background: none;
+    border: none;
+    padding: 0px;
+  }
+  .shoppay-modal-info-link {
+    cursor: pointer;
+    margin-left: 3px !important;
+    color: inherit;
+    background: none;
+    border: none;
+    padding: 0px;
+  }
+
+  .sezzle-inline-text {
+    padding-right: 6px;
+    padding-top: 2px;
+
+    @media (max-width: 350px) {
+      font-size: 14px;
     }
-    .shoppay-modal-info-link {
-        cursor: pointer;
-        margin-left: 3px !important;
-        color: inherit;
-        background: none;
-        border: none;
-        padding: 0px;
-    }
+  }
 
-    .sezzle-inline-text {
-        padding-right: 6px;
-        padding-top: 2px;
+  .sezzle-hidden {
+    display: none !important; // needs to be important in case there are styles added inline
+  }
 
-        @media (max-width: 350px) {
-            font-size: 14px;
-        }
-    }
+  // Alignments
 
-    .sezzle-hidden {
-        display: none !important; // needs to be important in case there are styles added inline
-    }
+  &.sezzle-left {
+    text-align: left;
+    float: left;
+  }
 
-    // Alignments
+  &.sezzle-center {
+    text-align: center;
+    float: none;
+  }
 
-    &.sezzle-left {
-        text-align: left;
-        float: left;
-    }
-
-    &.sezzle-center {
-        text-align: center;
-        float: none;
-    }
-
-    &.sezzle-right {
-        text-align: right;
-        float: right;
-    }
+  &.sezzle-right {
+    text-align: right;
+    float: right;
+  }
 }
 
 @import url("https://fonts.cdnfonts.com/css/satoshi");
@@ -209,1360 +209,1363 @@ $grey-lavender-color: #dcdce6;
 $font-family: Satoshi, "Open Sans", sans-serif;
 
 .sezzle-checkout-modal-lightbox {
-	display: none;
-	position: fixed;
-	top: 0;
-	left: 0;
-	z-index: 99999998;
-	background-color: rgba(5, 31, 52, 0.57);
-	width: 100vw;
-	height: 100vh;
-	overflow-y: auto;
-	overflow-x: hidden;
-	color: unset;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99999998;
+  background-color: rgba(5, 31, 52, 0.57);
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  color: unset;
 }
 
 .sezzle-modal-open {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
 }
 
 .sezzle-checkout-modal-lightbox * {
-    vertical-align: baseline;
-    box-sizing: border-box;
-    line-height: normal;
-    background-color: unset;
-    box-shadow: unset;
-    font-family: unset;
-    color: unset;
-    font-size: unset;
-    font-weight: unset;
-    padding: unset;
-    border: unset;
-    margin: unset;
-    stroke: none;
+  vertical-align: baseline;
+  box-sizing: border-box;
+  line-height: normal;
+  background-color: unset;
+  box-shadow: unset;
+  font-family: unset;
+  color: unset;
+  font-size: unset;
+  font-weight: unset;
+  padding: unset;
+  border: unset;
+  margin: unset;
+  stroke: none;
 }
 
 .sezzle-checkout-modal-lightbox {
-    display: none;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2147483647;
+  background-color: rgba(5, 31, 52, 0.57);
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  color: unset;
+
+  .sezzle-checkout-modal-hidden {
+    transition: all 0.4s ease;
+    margin-top: 0;
+  }
+
+  .sezzle-checkout-modal {
     position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 2147483647;
-    background-color: rgba(5, 31, 52, 0.57);
-    width: 100vw;
-    height: 100vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    color: unset;
+    top: 50%;
+    left: 50%;
+    margin-top: -384px;
+    margin-left: -325px;
 
-    .sezzle-checkout-modal-hidden {
-        transition: all 0.4s ease;
-        margin-top: 0;
+    z-index: 99999998;
+    background-color: $background-color;
+    box-shadow:
+      0 10px 20px rgba(5, 31, 52, 0.19),
+      0 6px 6px rgba(5, 31, 52, 0.2);
+    border-radius: 20px;
+    color: $font-color;
+    font-family: $font-family;
+    transition: all 0.4s ease;
+    width: 650px;
+
+    @media (max-width: 650px) {
+      position: relative;
+      top: 0px;
+      left: 0px;
+      padding: 50px 20px;
+      margin: 0;
+      border-radius: 0;
+      height: 100%;
+      font-size: 15px;
+      max-width: 100%;
+      min-width: 320px;
+      overflow: auto;
     }
 
-    .sezzle-checkout-modal {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        margin-top: -384px;
-        margin-left: -325px;
-
-        z-index: 99999998;
-        background-color: $background-color;
-        box-shadow: 0 10px 20px rgba(5, 31, 52, 0.19),
-            0 6px 6px rgba(5, 31, 52, 0.2);
-        border-radius: 20px;
-        color: $font-color;
-        font-family: $font-family;
-        transition: all 0.4s ease;
-        width: 650px;
-
-        @media (max-width: 650px) {
-            position: relative;
-            top: 0px;
-            left: 0px;
-            padding: 50px 20px;
-            margin: 0;
-            border-radius: 0;
-            height: 100%;
-            font-size: 15px;
-            max-width: 100%;
-            min-width: 320px;
-            overflow: auto;
-        }
-
-        @media (max-height: 767px) and (min-width: 651px) {
-            position: relative;
-            top: 0px;
-            left: 0px;
-            margin: 20px auto;
-        }
-
-        h1 {
-            font-size: 18px;
-            text-align: center;
-            margin: 0 auto;
-
-            @media (max-width: 450px) {
-                .sezzle-checkout-modal h1 {
-                    font-size: 16px;
-                }
-            }
-        }
-
-        p {
-            display: block;
-            text-align: center;
-            text-transform: none;
-            font-size: 12pt;
-            line-height: 25px;
-            font-weight: 300;
-            box-sizing: border-box;
-            color: $mute-color;
-            margin: 5px 0 !important;
-            letter-spacing: 0.25px;
-
-            @media (max-width: 768px) {
-                text-align: center;
-            }
-
-            @media (max-width: 450px) {
-                font-size: 11pt;
-                text-align: center;
-                letter-spacing: 0.5px;
-                line-height: 18px;
-            }
-
-            small {
-                display: block;
-                box-sizing: border-box;
-                font-size: 11pt;
-                opacity: 0.8;
-
-                @media (max-width: 450px) {
-                    font-size: 7.5pt;
-                }
-            }
-        }
-
-        a {
-            display: block;
-            margin: 4px auto 0;
-            color: #17ce6a;
-            font-size: 8pt;
-            font-weight: 500;
-            text-transform: lowercase;
-            text-align: left;
-            letter-spacing: 0.25px;
-            text-decoration: none;
-            transition: 0.15s;
-            opacity: 0.65;
-
-            &:hover {
-                transition: 0.1s;
-                opacity: 1;
-            }
-        }
-
-        h2 {
-            font-size: 18px;
-            text-align: center;
-            margin: 0 auto;
-            color: unset;
-
-            @media (max-width: 768px) {
-                text-align: center;
-            }
-
-            img {
-                margin: 0 4px;
-                display: inline-block;
-                height: 30px !important;
-                width: auto;
-                position: relative;
-                top: 6px;
-                vertical-align: initial;
-            }
-        }
+    @media (max-height: 767px) and (min-width: 651px) {
+      position: relative;
+      top: 0px;
+      left: 0px;
+      margin: 20px auto;
     }
+
+    h1 {
+      font-size: 18px;
+      text-align: center;
+      margin: 0 auto;
+
+      @media (max-width: 450px) {
+        .sezzle-checkout-modal h1 {
+          font-size: 16px;
+        }
+      }
+    }
+
+    p {
+      display: block;
+      text-align: center;
+      text-transform: none;
+      font-size: 12pt;
+      line-height: 25px;
+      font-weight: 300;
+      box-sizing: border-box;
+      color: $mute-color;
+      margin: 5px 0 !important;
+      letter-spacing: 0.25px;
+
+      @media (max-width: 768px) {
+        text-align: center;
+      }
+
+      @media (max-width: 450px) {
+        font-size: 11pt;
+        text-align: center;
+        letter-spacing: 0.5px;
+        line-height: 18px;
+      }
+
+      small {
+        display: block;
+        box-sizing: border-box;
+        font-size: 11pt;
+        opacity: 0.8;
+
+        @media (max-width: 450px) {
+          font-size: 7.5pt;
+        }
+      }
+    }
+
+    a {
+      display: block;
+      margin: 4px auto 0;
+      color: #17ce6a;
+      font-size: 8pt;
+      font-weight: 500;
+      text-transform: lowercase;
+      text-align: left;
+      letter-spacing: 0.25px;
+      text-decoration: none;
+      transition: 0.15s;
+      opacity: 0.65;
+
+      &:hover {
+        transition: 0.1s;
+        opacity: 1;
+      }
+    }
+
+    h2 {
+      font-size: 18px;
+      text-align: center;
+      margin: 0 auto;
+      color: unset;
+
+      @media (max-width: 768px) {
+        text-align: center;
+      }
+
+      img {
+        margin: 0 4px;
+        display: inline-block;
+        height: 30px !important;
+        width: auto;
+        position: relative;
+        top: 6px;
+        vertical-align: initial;
+      }
+    }
+  }
 }
 
 .sezzle-checkout-modal-hidden {
-    width: 100%;
-    height: 100%;
-    -webkit-font-smoothing: antialiased;
-    transition: all 0.4s ease;
-    margin-top: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  transition: all 0.4s ease;
+  margin-top: 0;
 
-    @media screen and (min-width: 0px) and (max-width: $breakpoint-minimum) {
-        display: none;
-    }
-    &.sezzle-four-pay {
-        .sezzle-modal {
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+  @media screen and (min-width: 0px) and (max-width: $breakpoint-minimum) {
+    display: none;
+  }
+  &.sezzle-four-pay {
+    .sezzle-modal {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      position: absolute;
+      box-shadow:
+        0 10px 20px rgba(5, 31, 52, 0.19),
+        0 6px 6px rgba(5, 31, 52, 0.2);
+      height: auto;
+      max-height: 100%;
+      width: 391px;
+      color: $font-color;
+      font-family: $font-family;
+      background-color: $background-color;
+      overflow: auto;
+      padding: 20px 0;
+      border-radius: 10px;
+      box-sizing: border-box;
+      gap: 16px;
+
+      @media screen and (max-width: 768px) {
+        width: 100vw;
+        height: 100vh;
+        padding: 20px 0 2px 0;
+        border-radius: 0px;
+      }
+
+      div {
+        button.close-sezzle-modal {
+          position: absolute;
+          right: 16px;
+          top: 16px;
+          width: 24px;
+          height: 24px;
+          opacity: 0.2;
+          cursor: pointer;
+          padding: 0;
+          outline: 0;
+          background: 0 0;
+          border: none;
+          box-shadow: none;
+
+          &:hover {
+            opacity: 1;
+          }
+
+          &:focus {
+            opacity: 0.5;
+          }
+
+          @media screen and (max-width: $breakpoint-small) {
+            opacity: 0.8;
+
+            &:focus {
+              opacity: 1;
+            }
+          }
+
+          &::before {
             position: absolute;
-            box-shadow: 0 10px 20px rgba(5, 31, 52, 0.19),
-                0 6px 6px rgba(5, 31, 52, 0.2);
-            height: auto;
-            max-height: 100%;
-            width: 391px;
-            color: $font-color;
-            font-family: $font-family;
-            background-color: $background-color;
-            overflow: auto;
-            padding: 20px 0;
-            border-radius: 10px;
-            box-sizing: border-box;
-            gap: 16px;
+            left: 10px;
+            content: " ";
+            top: 0;
+            transform: rotate(45deg);
+            background-color: $mute-color;
+            width: 2px;
+            height: 15px;
+          }
 
-            @media screen and (max-width: 768px) {
-                width: 100vw;
-                height: 100vh;
-                padding: 20px 0 2px 0;
-                border-radius: 0px;
-            }
-
-            div {
-                button.close-sezzle-modal {
-                    position: absolute;
-                    right: 16px;
-                    top: 16px;
-                    width: 24px;
-                    height: 24px;
-                    opacity: 0.2;
-                    cursor: pointer;
-                    padding: 0;
-                    outline: 0;
-                    background: 0 0;
-                    border: none;
-                    box-shadow: none;
-
-                    &:hover {
-                        opacity: 1;
-                    }
-
-                    &:focus {
-                        opacity: 0.5;
-                    }
-
-                    @media screen and (max-width: $breakpoint-small) {
-                        opacity: 0.8;
-
-                        &:focus {
-                            opacity: 1;
-                        }
-                    }
-
-                    &::before {
-                        position: absolute;
-                        left: 10px;
-                        content: " ";
-                        top: 0;
-                        transform: rotate(45deg);
-                        background-color: $mute-color;
-                        width: 2px;
-                        height: 15px;
-                    }
-
-                    &::after {
-                        position: absolute;
-                        left: 10px;
-                        content: " ";
-                        top: 0;
-                        transform: rotate(-45deg);
-                        background-color: $mute-color;
-                        width: 2px;
-                        height: 15px;
-                    }
-                }
-            }
-
-            .sezzle-logo {
-                display: block;
-                height: 29.39px;
-                width: 120px;
-                margin: 10px auto 0;
-                background-image: url(https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg);
-                background-repeat: no-repeat;
-            }
-
-            .sezzle-modal-content {
-                height: auto;
-                text-align: center;
-                padding: 0px 16px;
-                font-family: $font-family;
-
-                .tp-widget-wrapper {
-                    font-size: 12px;
-                    margin: 16px 0px;
-
-                    a {
-                        text-decoration: none;
-                        color: $font-color;
-                    }
-                    .tp-review-status {
-                        color: $dark-purple-color;
-                        font-size: 11.06px;
-                        font-family: $font-family;
-                        font-weight: 700;
-                        line-height: 23.95px;
-                        word-wrap: break-word;
-                        display: inline-block;
-                    }
-
-                    .tp-widget-trustscore {
-                        font-weight: 500;
-                        display: inline-block;
-                    }
-
-                    .tp-widget-stars {
-                        display: inline-block;
-                        width: 80px;
-                        position: relative;
-                        top: 3px;
-                        margin-left: 7px;
-                        div {
-                            .tp-stars--4--half {
-                                div {
-                                    svg {
-                                        display: block;
-                                        position: absolute;
-
-                                        .tp-star {
-                                            &:nth-of-type(-n + 4) {
-                                                .tp-star__canvas {
-                                                    fill: $teal-green-color;
-                                                }
-                                            }
-
-                                            .tp-star__canvas {
-                                                fill: $grey-lavender-color;
-                                            }
-
-                                            .tp-star__canvas--half {
-                                                fill: $teal-green-color;
-                                            }
-
-                                            .tp-star__shape {
-                                                fill: $background-color;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    .widget-info {
-                        display: inline-block;
-
-                        .tp-widget-review-count {
-                            font-weight: 700;
-                            display: inline-block;
-                            margin-left: 7px;
-                            font-size: 12px;
-                            line-height: 23.95px;
-                        }
-
-                        .tp-widget-rating {
-                            display: inline-block;
-                            font-size: 12px;
-                            line-height: 23.95px;
-                        }
-
-                        .tp-widget-logo {
-                            display: inline-block;
-                            width: 60px;
-                            position: relative;
-                            top: 3px;
-                            margin-left: 7px;
-                            line-height: 23.95px;
-                        }
-                    }
-                }
-
-                .sezzle-header {
-                    position: relative;
-                    display: block;
-                    text-align: center;
-                    font-style: normal;
-                    font-size: 26px;
-                    font-weight: 700;
-                    line-height: 35px;
-                    letter-spacing: 0.1px;
-                    font-family: $font-family;
-                    color: $font-color;
-                    margin: 16px 0;
-                    float:none;
-                }
-
-                .sezzle-row {
-                    text-align: center;
-                    font-style: normal;
-                    font-size: 15px;
-                    font-weight: 400;
-                    line-height: 21px;
-                    color: $font-color;
-                    letter-spacing: 0.4px;
-                    margin: 12px 0px 24px;
-                    font-family: $font-family;
-                    display: block;
-
-                    span {
-                        display: block;
-                        font-family: $font-family;
-
-                        sup {
-                            vertical-align: super;
-                            font-size: 0.75em;
-                            font-family: $font-family;
-                            position: unset;
-                        }
-                    }
-                }
-
-                .sezzle-four-pay {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    background: rgba(131, 51, 212, 0.05);
-                    border-radius: 11.483px;
-                    padding: 18.37px;
-
-                    &.sezzle-four-pay-fr-es {
-                        margin: 0px 0px;
-                    }
-
-                    .sezzle-pie-area {
-                        display: flex;
-                        align-items: flex-start;
-                        justify-content: space-between;
-                        gap: 18.373px;
-
-                        .due-today {
-                            display: flex;
-                            padding: 18.373px;
-                            flex-direction: column;
-                            align-items: center;
-                            gap: 9.187px;
-                            border-radius: 11.483px;
-                            background: $background-color;
-                        }
-
-                        .future-payments {
-                            display: flex;
-                            padding: 18.373px;
-                            align-items: flex-start;
-                            gap: 18.373px;
-                            border-radius: 11.483px;
-                            background: $background-color;
-                        }
-
-                        .payment-item {
-                            display: inline-flex;
-                            flex-direction: column;
-                            justify-content: center;
-                            align-items: center;
-                            gap: 9.19px;
-
-                            .pie-icon {
-                                position: relative;
-                                svg {
-                                    width: 45.93px;
-                                    height: 45.93px;
-                                }
-                            }
-
-                            .breakdown-row {
-                                display: flex;
-                                flex-direction: column;
-                                justify-content: center;
-                                align-items: center;
-                                gap: 2.3px;
-
-                                .percentage {
-                                    text-align: center;
-                                    color: $accent-color;
-                                    font-size: 17.22px;
-                                    font-family: $font-family;
-                                    font-weight: 400;
-                                    line-height: 24.11px;
-                                    letter-spacing: 0.17px;
-                                    word-wrap: break-word;
-                                }
-
-                                .due {
-                                    text-align: center;
-                                    color: $mute-color;
-                                    font-size: 13.78px;
-                                    font-family: $font-family;
-                                    font-weight: 400;
-                                    line-height: 19.52px;
-                                    letter-spacing: 0.46px;
-                                    white-space: nowrap;
-                                    sup {
-                                        vertical-align: super;
-                                        font-size: 0.75em;
-                                        font-family: $font-family;
-                                        position: unset;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-
-                .sezzle-features {
-                    margin: 16px 0 16px 0;
-                    .single-feature {
-                        text-align: center;
-                        align-self: stretch;
-                        font-size: 17px;
-                        font-style: normal;
-                        font-weight: 700;
-                        line-height: 23px;
-                        letter-spacing: 0.2px;
-                        color: $font-color;
-                        font-family: $font-family !important;
-                    }
-                    &.hide {
-                        display: none;
-                    }
-                }
-
-                .sezzle-giveaway, .sezzle-promo {
-                    font-size: 17px;
-                    font-weight: 700;
-                    line-height: 23px;
-                    margin: 16px 0;
-                    &.hide {
-                        display: none;
-                    }
-
-                    sup {
-                        vertical-align: super;
-                        font-size: 0.75em;
-                        font-family: $font-family;
-                        position: unset;
-                    }
-                }
-
-                .terms {
-                    text-align: center;
-                    font-style: normal;
-                    font-size: 11px;
-                    font-weight: 400;
-                    line-height: 12px;
-                    color: $mute-color;
-                    font-family: $font-family !important;
-                    margin: 0 0 10px;
-
-                    sup {
-                        vertical-align: super;
-                        font-size: 0.75em;
-                        padding-right: 2px;
-                        font-family: $font-family;
-                        position: unset;
-                    }
-
-                    span {
-                        font-family: $font-family;
-                    }
-
-                    a {
-                        color: $accent-color;
-                        font-family: $font-family;
-                        text-decoration: underline;
-
-                        &:hover {
-                            color: $focus-color;
-                        }
-                    }
-                    &.hide {
-                        display: none;
-                    }
-                }
-                .close-btn-container {
-                    margin-top: 10px;
-                    display: flex;
-                    justify-content: center;
-                    @media screen and (max-width: 768px) {
-                        position: sticky;
-                        bottom: 0;
-                    }
-                }
-
-                .close-btn {
-                    display: flex;
-                    width: 95%;
-                    height: 48px;
-                    position: static;
-                    padding: 13px 16px;
-                    justify-content: center;
-                    align-items: center;
-                    gap: 10px;
-                    flex-shrink: 0;
-                    border-radius: 100px;
-                    background: $dark-purple-color;
-                    &:hover {
-                        background: $purple-color;
-                    }
-                    color: $background-color;
-
-                    /* Button/Large */
-                    font-family: $font-family;
-                    font-size: 15px;
-                    font-style: normal;
-                    font-weight: 500;
-                    line-height: 24px; /* 160% */
-                    letter-spacing: 0.25px;
-                }
-            }
+          &::after {
+            position: absolute;
+            left: 10px;
+            content: " ";
+            top: 0;
+            transform: rotate(-45deg);
+            background-color: $mute-color;
+            width: 2px;
+            height: 15px;
+          }
         }
-    }
+      }
 
-    &.sezzle-five-pay {
-        .sezzle-modal {
-            width: fit-content;
-            border-radius: 10px;
-            padding: 16px;
-            gap: 10px;
-            background-color: $xx-mute-color;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            position: absolute;
-            box-shadow: 0 10px 20px rgba(5, 31, 52, 0.19),
-                0 6px 6px rgba(5, 31, 52, 0.2);
-            height: auto;
-            max-height: 100%;
+      .sezzle-logo {
+        display: block;
+        height: 29.39px;
+        width: 120px;
+        margin: 10px auto 0;
+        background-image: url(https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg);
+        background-repeat: no-repeat;
+      }
+
+      .sezzle-modal-content {
+        height: auto;
+        text-align: center;
+        padding: 0px 16px;
+        font-family: $font-family;
+
+        .tp-widget-wrapper {
+          font-size: 12px;
+          margin: 16px 0px;
+
+          a {
+            text-decoration: none;
             color: $font-color;
+          }
+          .tp-review-status {
+            color: $dark-purple-color;
+            font-size: 11.06px;
             font-family: $font-family;
-            overflow: auto;
-            box-sizing: border-box;
-            @media screen and (max-width: 768px) {
-                width: 100vw;
-                height: 100vh;
-                padding: 20px 0 2px 0;
-                border-radius: 0px;
-            }
+            font-weight: 700;
+            line-height: 23.95px;
+            word-wrap: break-word;
+            display: inline-block;
+          }
 
-            button.close-sezzle-modal {
-                position: absolute;
-                right: 16px;
-                top: 16px;
-                width: 24px;
-                height: 24px;
-                opacity: 0.2;
-                cursor: pointer;
-                padding: 0;
-                outline: 0;
-                background: 0 0;
-                border: none;
-                box-shadow: none;
+          .tp-widget-trustscore {
+            font-weight: 500;
+            display: inline-block;
+          }
 
-                &:hover {
-                    opacity: 1;
-                }
+          .tp-widget-stars {
+            display: inline-block;
+            width: 80px;
+            position: relative;
+            top: 3px;
+            margin-left: 7px;
+            div {
+              .tp-stars--4--half {
+                div {
+                  svg {
+                    display: block;
+                    position: absolute;
 
-                &:focus {
-                    opacity: 0.5;
-                }
+                    .tp-star {
+                      &:nth-of-type(-n + 4) {
+                        .tp-star__canvas {
+                          fill: $teal-green-color;
+                        }
+                      }
 
-                @media screen and (max-width: $breakpoint-small) {
-                    opacity: 0.8;
+                      .tp-star__canvas {
+                        fill: $grey-lavender-color;
+                      }
 
-                    &:focus {
-                        opacity: 1;
+                      .tp-star__canvas--half {
+                        fill: $teal-green-color;
+                      }
+
+                      .tp-star__shape {
+                        fill: $background-color;
+                      }
                     }
+                  }
                 }
+              }
+            }
+          }
 
-                &::before {
-                    position: absolute;
-                    left: 10px;
-                    content: " ";
-                    top: 0;
-                    transform: rotate(45deg);
-                    background-color: $mute-color;
-                    width: 2px;
-                    height: 15px;
-                }
+          .widget-info {
+            display: inline-block;
 
-                &::after {
-                    position: absolute;
-                    left: 10px;
-                    content: " ";
-                    top: 0;
-                    transform: rotate(-45deg);
-                    background-color: $mute-color;
-                    width: 2px;
-                    height: 15px;
-                }
+            .tp-widget-review-count {
+              font-weight: 700;
+              display: inline-block;
+              margin-left: 7px;
+              font-size: 12px;
+              line-height: 23.95px;
             }
 
-            .sezzle-logo {
-                display: block;
-                height: 29.39px;
-                width: 120px;
-                margin: 10px auto 0;
-                background-image: url(https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg);
-                background-repeat: no-repeat;
+            .tp-widget-rating {
+              display: inline-block;
+              font-size: 12px;
+              line-height: 23.95px;
             }
-            .sezzle-modal-content {
+
+            .tp-widget-logo {
+              display: inline-block;
+              width: 60px;
+              position: relative;
+              top: 3px;
+              margin-left: 7px;
+              line-height: 23.95px;
+            }
+          }
+        }
+
+        .sezzle-header {
+          position: relative;
+          display: block;
+          text-align: center;
+          font-style: normal;
+          font-size: 26px;
+          font-weight: 700;
+          line-height: 35px;
+          letter-spacing: 0.1px;
+          font-family: $font-family;
+          color: $font-color;
+          margin: 16px 0;
+          float: none;
+        }
+
+        .sezzle-row {
+          text-align: center;
+          font-style: normal;
+          font-size: 15px;
+          font-weight: 400;
+          line-height: 21px;
+          color: $font-color;
+          letter-spacing: 0.4px;
+          margin: 12px 0px 24px;
+          font-family: $font-family;
+          display: block;
+
+          span {
+            display: block;
+            font-family: $font-family;
+
+            sup {
+              vertical-align: super;
+              font-size: 0.75em;
+              font-family: $font-family;
+              position: unset;
+            }
+          }
+        }
+
+        .sezzle-four-pay {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          background: rgba(131, 51, 212, 0.05);
+          border-radius: 11.483px;
+          padding: 18.37px;
+
+          &.sezzle-four-pay-fr-es {
+            margin: 0px 0px;
+          }
+
+          .sezzle-pie-area {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 18.373px;
+
+            .due-today {
+              display: flex;
+              padding: 18.373px;
+              flex-direction: column;
+              align-items: center;
+              gap: 9.187px;
+              border-radius: 11.483px;
+              background: $background-color;
+            }
+
+            .future-payments {
+              display: flex;
+              padding: 18.373px;
+              align-items: flex-start;
+              gap: 18.373px;
+              border-radius: 11.483px;
+              background: $background-color;
+            }
+
+            .payment-item {
+              display: inline-flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              gap: 9.19px;
+
+              .pie-icon {
+                position: relative;
+                svg {
+                  width: 45.93px;
+                  height: 45.93px;
+                }
+              }
+
+              .breakdown-row {
                 display: flex;
                 flex-direction: column;
-                gap: 8px;
-                width: 326px;
-                .trusted {
+                justify-content: center;
+                align-items: center;
+                gap: 2.3px;
+
+                .percentage {
+                  text-align: center;
+                  color: $accent-color;
+                  font-size: 17.22px;
+                  font-family: $font-family;
+                  font-weight: 400;
+                  line-height: 24.11px;
+                  letter-spacing: 0.17px;
+                  word-wrap: break-word;
+                }
+
+                .due {
+                  text-align: center;
+                  color: $mute-color;
+                  font-size: 13.78px;
+                  font-family: $font-family;
+                  font-weight: 400;
+                  line-height: 19.52px;
+                  letter-spacing: 0.46px;
+                  white-space: nowrap;
+                  sup {
+                    vertical-align: super;
+                    font-size: 0.75em;
                     font-family: $font-family;
-                    font-weight: 400;
-                    font-size: 11px;
-                    line-height: 17px;
-                    letter-spacing: 0.2px;
-                    color: $mute-color;
-                    margin: 8px auto 0px;
+                    position: unset;
+                  }
                 }
-                .sezzle-header {
-                    font-family: $font-family;
-                    font-weight: 700;
-                    font-size: 21px;
-                    line-height: 28px;
-                    letter-spacing: 0.1px;
-                    text-align: center;
-                    color: $font-color;
-                    margin: auto;
-                }
-                .payment-plan-wrapper {
-                    .sample-payments {
-                        display: flex;
-                        justify-content: space-between;
-                        padding: 0 16px;
-                        margin: 8px auto;
-                        &.sezzle-five-pay-fr {
-                            padding: 0px;
-                        }
-                        .sample-payments-title {
-                            font-family: $font-family;
-                            font-weight: 400;
-                            font-size: 15px;
-                            line-height: 21px;
-                            letter-spacing: 0.15px;
-                            text-align: center;
-                            color: $font-color;
-                            align-content: center;
-                        }
-                        .input-amount-container {
-                            width: min-content;
-                            height: 58px;
-                            border-radius: 10px;
-                            padding: 0 16px;
-                            align-content: center;
-                            // gap: 16px;
-                            border: 1px solid $mid-mute-color;
-
-                            .input-amount-label {
-                                font-family: $font-family;
-                                font-weight: 500;
-                                font-size: 12px;
-                                line-height: 17px;
-                                letter-spacing: 0.4px;
-                                vertical-align: middle;
-                                color: $mute-color;
-                            }
-                            .input-amount {
-                                font-family: $font-family;
-                                font-weight: 500;
-                                font-size: 15px;
-                                line-height: 21px;
-                                letter-spacing: 0.15px;
-                                vertical-align: middle;
-                                color: $font-color;
-                                width: 75px;   
-                                background:none;
-                                border: none;  
-                                &:focus-visible {
-                                    outline: none;
-                                }                        
-                            }
-                            &:focus-within {
-                                border: 2px solid $focus-color;
-                            }
-                        }
-                    }
-                    .payment-cards {
-                        border-radius: 10px;
-                        background-color: $background-color;
-
-                        .payment-card {
-                            gap: 8px;
-                            padding: 16px;
-                            display: flex;
-                            flex-direction: column;
-
-                            &:first-child {
-                                border-bottom: 3px solid $xx-mute-color;
-                            }
-                            .plan-summary {
-
-                                .purple {
-                                    display: flex;
-                                    justify-content: space-between;
-
-                                    .left {
-                                        text-align: left;
-
-                                        .price {
-                                            font-family: $font-family;
-                                            font-weight: 700;
-                                            font-size: 17px;
-                                            line-height: 23px;
-                                            letter-spacing: 0.2px;
-                                            color: $accent-color;
-                                        }
-                                        .due {
-                                            font-family: $font-family;
-                                            font-weight: 700;
-                                            font-size: 15px;
-                                            line-height: 21px;
-                                            letter-spacing: 0.15px;
-                                            color: $accent-color;
-                                        }
-                                    }
-                                    .right {
-                                        width: fit-content;
-                                        border-radius: 24px;
-                                        height: fit-content;
-                                        padding: 4px 10px;
-                                        background-color: $mute-purple-color;
-                                        align-items: center;
-                                        display: flex;
-
-                                        .pill {
-                                            font-family: $font-family;
-                                            font-weight: 500;
-                                            font-size: 12px;
-                                            line-height: 17px;
-                                            letter-spacing: 0.4px;
-                                            color: $accent-color;
-                                            width: fit-content;
-                                        }
-                                    }
-                                }
-                                .grey {
-                                    font-family: $font-family;
-                                    font-weight: 400;
-                                    font-size: 12px;
-                                    line-height: 17px;
-                                    letter-spacing: 0.4px;
-                                    color: $mute-color;
-                                    text-align: left;
-                                }
-                            }
-                            .payment-breakdown {
-                                display: flex;
-                                justify-content: center;
-
-                                .installment {
-                                    width: -webkit-fill-available;
-                                    display: flex;
-                                    flex-direction: column;
-                                    gap: 8px;
-
-                                    .graphic {
-                                        display: flex;
-                                        justify-content: space-between;
-
-                                        .dash {
-                                            display: flex;
-                                            align-items: center;
-                                        }
-                                        .dot {
-                                            display: flex;
-
-                                            svg {
-                                                width: 16px;
-                                            }
-                                        }
-                                    }
-                                    .detail {
-                                        .amount {
-                                            font-family: $font-family;
-                                            font-weight: 500;
-                                            font-size: 12px;
-                                            line-height: 17px;
-                                            letter-spacing: 0.4px;
-                                            text-align: center;
-                                            color: $mute-color;
-                                        }
-                                        .due {
-                                            font-family: $font-family;
-                                            font-weight: 400;
-                                            font-size: 11px;
-                                            line-height: 17px;
-                                            letter-spacing: 0.2px;
-                                            text-align: center;
-                                            color: $mute-color;
-                                        }
-                                        &.first-installment {
-
-                                            .amount {
-                                                font-weight: 700;
-                                                color: $font-color;
-                                            }
-                                            .due {
-                                                color: $font-color;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                .how-to-sezzle {
-                    display: flex;
-                    flex-direction: column;
-                    padding-top: 8px;
-
-                    .carousel-header {
-                        display: flex;
-                        justify-content: space-between;
-
-                        .how-to-text-wrapper {
-                            gap: 4px;
-                            display: flex;
-
-                            .how-to-text {
-                                font-family: $font-family;
-                                font-weight: 500;
-                                font-size: 13px;
-                                line-height: 17px;
-                                letter-spacing: 0.4px;
-                                color: $font-color;
-                                align-content: center;
-                            }
-                            .how-to-logo {
-                                display: flex;
-                                align-items: center;
-                                svg {
-                                    width: 57.16667175292969px;
-                                    height: 24px;
-                                }
-                            }
-                        }
-                        .arrows {
-                            gap: 4px;
-                            display: flex;
-                            flex-direction: row;
-
-                            .arrow {
-                                &.disabled {
-                                    filter: grayscale(1) opacity(0.5);
-                                }
-                                svg {
-                                    width: 24px;
-                                    height: 24px;
-                                }
-                            }
-                        }
-                    }
-                    .carousel {
-                        gap: 8px;
-                        display: flex;
-                        flex-direction: row;
-                        overflow: hidden;
-                        &.position-1 {
-                            justify-content: start;
-                        }
-                        &.position-2 {
-                            justify-content: center;
-                        }
-                        &.position-3 {
-                            justify-content: end;
-                        }
-                        .carousel-item {
-                            border-radius: 10px;
-                            padding-top: 16px;
-                            padding-right: 12px;
-                            padding-bottom: 16px;
-                            padding-left: 12px;
-                            background-color: $background-color;
-                            display: flex;
-                            
-                            .carousel-item-content {
-                                width: 260px;
-                                display: flex;
-                                flex-direction: row;
-                                align-items: center;
-
-                                .step-number {
-                                    height: 20px;
-                                    border-radius: 31.04px;
-                                    padding: 0 2.47px;
-                                    background-color: $mute-purple-color;
-                                    display: flex;
-                                    .step-number-content {
-                                        display: flex;
-                                        font-family: $font-family;
-                                        font-weight: 500;
-                                        font-size: 12px;
-                                        line-height: 17px;
-                                        letter-spacing: 0.4px;
-                                        color: $accent-color;
-                                        width: 17px;
-                                        align-items: center;
-                                        justify-content: center;
-                                    }
-                                }
-                                .step-name {
-                                    font-family: $font-family;
-                                    font-weight: 400;
-                                    font-size: 12px;
-                                    line-height: 17px;
-                                    letter-spacing: 0.4px;
-                                    color: $font-color;
-                                    padding: 0 25px 0 8px;
-                                    text-align: left;
-                                }
-                                .step-image {
-                                    svg {
-                                        width: 28.5557861328125px;
-                                        height: 29.413787841796875px;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    .carousel-dots {
-                        display: flex;
-                        flex-direction: row;
-                        gap: 8px;
-                        justify-content: center;
-                        .dot {
-                            &:not(.active) {
-                                filter: grayscale(1) opacity(0.25);
-                            }
-                            svg {
-                                height: 20px;
-                                width: 6px;
-                            }
-                        }
-                    }
-                }
-                .terms-container {
-                    gap: 8px;
-                    display: flex;
-                    flex-direction: column;
-
-                    .terms {
-                        font-family: $font-family;
-                        font-weight: 400;
-                        font-size: 9px;
-                        line-height: 12px;
-                        letter-spacing: 0.2px;
-                        text-align: center;
-                        color: $mute-color;
-                        margin: 0;
-
-                        sup {
-                            vertical-align: super;
-                            font-size: 0.75em;
-                            padding-right: 2px;
-                            font-family: $font-family;
-                            position: unset;
-                        }
-
-                        a {
-                            font-family: $font-family;
-                            font-weight: 400;
-                            font-size: 9px;
-                            line-height: 12px;
-                            letter-spacing: 0.2px;
-                            color: $accent-color;
-                        }
-                    }
-                }
+              }
             }
+          }
         }
-    }
 
-    &.long-term {
-        .sezzle-modal {
-            background-image: none;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            position: absolute;
-            box-shadow: 0 10px 20px rgba(5, 31, 52, 0.19),
-                0 6px 6px rgba(5, 31, 52, 0.2);
-            height: auto;
-            max-height: 100%;
-            width: 391px;
+        .sezzle-features {
+          margin: 16px 0 16px 0;
+          .single-feature {
+            text-align: center;
+            align-self: stretch;
+            font-size: 17px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 23px;
+            letter-spacing: 0.2px;
             color: $font-color;
-            font-family: $font-family;
-            background-color: $background-color;
-            overflow: auto;
-            padding: 20px 0;
-            border-radius: 10px;
-            box-sizing: border-box;
-            gap: 16px;
-
-            @media screen and (max-width: 768px) {
-                width: 100vw;
-                height: 100vh;
-                padding: 20px 0 2px 0;
-                border-radius: 0px;
-            }
-
-            div {
-                button.close-sezzle-modal {
-                    position: absolute;
-                    right: 16px;
-                    top: 16px;
-                    width: 24px;
-                    height: 24px;
-                    opacity: 0.2;
-                    cursor: pointer;
-                    padding: 0;
-                    outline: 0;
-                    background: 0 0;
-                    border: none;
-                    box-shadow: none;
-
-                    &:hover {
-                        opacity: 1;
-                    }
-
-                    &:focus {
-                        opacity: 0.5;
-                    }
-
-                    @media screen and (max-width: $breakpoint-small) {
-                        opacity: 0.8;
-
-                        &:focus {
-                            opacity: 1;
-                        }
-                    }
-
-                    &::before {
-                        position: absolute;
-                        left: 10px;
-                        content: " ";
-                        top: 0;
-                        transform: rotate(45deg);
-                        background-color: $mute-color;
-                        width: 2px;
-                        height: 15px;
-                    }
-
-                    &::after {
-                        position: absolute;
-                        left: 10px;
-                        content: " ";
-                        top: 0;
-                        transform: rotate(-45deg);
-                        background-color: $mute-color;
-                        width: 2px;
-                        height: 15px;
-                    }
-                }
-            }
-
-            .sezzle-logo {
-                display: block;
-                width: 98px;
-                background-image: url(https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg);
-                background-repeat: no-repeat;
-                background-position: 50%;
-                height: 24px;
-                margin: 10px auto 20px auto;
-            }
-
-            .sezzle-modal-content {
-                height: auto;
-                width: auto;
-                text-align: center;
-                padding: 0px 16px;
-
-                .sezzle-header {
-                    font-size: 24px;
-                    line-height: 30px;
-                    margin: 10px auto;
-                    font-weight: 700;
-                }
-
-                .sezzle-row {
-                    font-size: 15px;
-                    line-height: 20px;
-                    margin: 8px auto;
-                }
-
-                .sezzle-lt-payments {
-                    height: fit-content;
-                    margin: 20px auto;
-                    padding: 20px 0 0;
-                    border: 1px solid $x-mute-color;
-                    border-radius: 5px;
-                    max-width: 502px;
-                    display: block;
-                    flex-direction: column;
-                    align-items: center;
-                    padding: 0px;
-                    gap: 24px;
-                    font-family: $font-family;
-
-                    .sezzle-lt-payment-header {
-                        font-family: $font-family;
-                        font-style: normal;
-                        font-weight: 600;
-                        font-size: 15px;
-                        line-height: 20px;
-                        display: block;
-                        align-items: center;
-                        text-align: center;
-                        padding: 15px;
-                        letter-spacing: -0.3px;
-                        border-bottom: 1px solid $x-mute-color;
-                        color: $font-color;
-
-                        span {
-                            font-size: 17px;
-                            line-height: 22px;
-                            font-weight: 700;
-                        }
-                    }
-
-                    .sezzle-lt-payment-options {
-                        font-size: 12px;
-                        line-height: 14px;
-                        margin: 0px 20px 0;
-                        padding: 20px 0px;
-                        border-bottom: 1px solid $x-mute-color;
-
-                        .plan {
-                            display: flex;
-                            justify-content: space-between;
-                            padding-bottom: 10px;
-                            font-size: 12px;
-
-                            .monthly-amount {
-                                span {
-                                    font-size: 17px;
-                                    line-height: 22px;
-                                    color: $accent-color;
-                                    font-weight: 600;
-                                    letter-spacing: -0.3px;
-                                }
-
-                                .per-month {
-                                    font-size: 13px;
-                                }
-                            }
-
-                            .term-length {
-                                border-radius: 100px;
-                                background: rgba(41, 211, 162, 0.1);
-                                color: #00804a;
-                                padding: 2px 8px;
-                                font-size: 12px;
-                                font-weight: 600;
-                                display: flex;
-                                align-items: center;
-                            }
-                        }
-
-                        .plan-details {
-                            display: flex;
-                            justify-content: space-between;
-
-                            .adjusted-total {
-                                color: $mute-color;
-                                font-size: 12px;
-                                width: fit-content;
-                                text-align: left;
-                                font-weight: 400;
-                                line-height: 16px;
-
-                                span {
-                                    display: block;
-                                }
-                            }
-
-                            .interest-amount {
-                                color: $mute-color;
-                                font-size: 12px;
-                                width: fit-content;
-                                text-align: left;
-                                font-weight: 400;
-                                line-height: 16px;
-
-                                span {
-                                    display: block;
-                                }
-                            }
-
-                            .sample-apr {
-                                color: $mute-color;
-                                font-size: 12px;
-                                width: fit-content;
-                                text-align: left;
-                                font-weight: 400;
-                                line-height: 16px;
-
-                                span {
-                                    display: block;
-                                }
-                            }
-                        }
-                    }
-
-                    &:last-child {
-                        border: none;
-                    }
-                }
-
-                .details {
-                    font-size: 17px;
-                    line-height: 22px;
-                    margin: 16px auto;
-                    font-weight: 600;
-                    font-family: $font-family;
-                    letter-spacing: -0.3px;
-                }
-
-                .terms {
-                    font-style: normal;
-                    font-size: 11px;
-                    line-height: 13px;
-                    color: $mute-color;
-                    margin: 10px auto 0;
-                    padding: 12px 0 0;
-                    border-top: 1px solid $x-mute-color;
-                    text-align: center;
-                    font-family: $font-family !important;
-                    font-weight: 400;
-
-                    p {
-                        margin: 0 0 10px;
-                        a {
-                            color: $accent-color;
-                            font-family: $font-family;
-                            text-decoration: underline;
-
-                            &:hover {
-                                color: $focus-color;
-                            }
-                        }
-                    }
-                }
-            }
+            font-family: $font-family !important;
+          }
+          &.hide {
+            display: none;
+          }
         }
+
+        .sezzle-giveaway,
+        .sezzle-promo {
+          font-size: 17px;
+          font-weight: 700;
+          line-height: 23px;
+          margin: 16px 0;
+          &.hide {
+            display: none;
+          }
+
+          sup {
+            vertical-align: super;
+            font-size: 0.75em;
+            font-family: $font-family;
+            position: unset;
+          }
+        }
+
+        .terms {
+          text-align: center;
+          font-style: normal;
+          font-size: 11px;
+          font-weight: 400;
+          line-height: 12px;
+          color: $mute-color;
+          font-family: $font-family !important;
+          margin: 0 0 10px;
+
+          sup {
+            vertical-align: super;
+            font-size: 0.75em;
+            padding-right: 2px;
+            font-family: $font-family;
+            position: unset;
+          }
+
+          span {
+            font-family: $font-family;
+          }
+
+          a {
+            color: $accent-color;
+            font-family: $font-family;
+            text-decoration: underline;
+
+            &:hover {
+              color: $focus-color;
+            }
+          }
+          &.hide {
+            display: none;
+          }
+        }
+        .close-btn-container {
+          margin-top: 10px;
+          display: flex;
+          justify-content: center;
+          @media screen and (max-width: 768px) {
+            position: sticky;
+            bottom: 0;
+          }
+        }
+
+        .close-btn {
+          display: flex;
+          width: 95%;
+          height: 48px;
+          position: static;
+          padding: 13px 16px;
+          justify-content: center;
+          align-items: center;
+          gap: 10px;
+          flex-shrink: 0;
+          border-radius: 100px;
+          background: $dark-purple-color;
+          &:hover {
+            background: $purple-color;
+          }
+          color: $background-color;
+
+          /* Button/Large */
+          font-family: $font-family;
+          font-size: 15px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 24px; /* 160% */
+          letter-spacing: 0.25px;
+        }
+      }
     }
+  }
+
+  &.sezzle-five-pay {
+    .sezzle-modal {
+      width: fit-content;
+      border-radius: 10px;
+      padding: 16px;
+      gap: 10px;
+      background-color: $xx-mute-color;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      position: absolute;
+      box-shadow:
+        0 10px 20px rgba(5, 31, 52, 0.19),
+        0 6px 6px rgba(5, 31, 52, 0.2);
+      height: auto;
+      max-height: 100%;
+      color: $font-color;
+      font-family: $font-family;
+      overflow: auto;
+      box-sizing: border-box;
+      @media screen and (max-width: 768px) {
+        width: 100vw;
+        height: 100vh;
+        padding: 20px 0 2px 0;
+        border-radius: 0px;
+      }
+
+      button.close-sezzle-modal {
+        position: absolute;
+        right: 16px;
+        top: 16px;
+        width: 24px;
+        height: 24px;
+        opacity: 0.2;
+        cursor: pointer;
+        padding: 0;
+        outline: 0;
+        background: 0 0;
+        border: none;
+        box-shadow: none;
+
+        &:hover {
+          opacity: 1;
+        }
+
+        &:focus {
+          opacity: 0.5;
+        }
+
+        @media screen and (max-width: $breakpoint-small) {
+          opacity: 0.8;
+
+          &:focus {
+            opacity: 1;
+          }
+        }
+
+        &::before {
+          position: absolute;
+          left: 10px;
+          content: " ";
+          top: 0;
+          transform: rotate(45deg);
+          background-color: $mute-color;
+          width: 2px;
+          height: 15px;
+        }
+
+        &::after {
+          position: absolute;
+          left: 10px;
+          content: " ";
+          top: 0;
+          transform: rotate(-45deg);
+          background-color: $mute-color;
+          width: 2px;
+          height: 15px;
+        }
+      }
+
+      .sezzle-logo {
+        display: block;
+        height: 29.39px;
+        width: 120px;
+        margin: 10px auto 0;
+        background-image: url(https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg);
+        background-repeat: no-repeat;
+      }
+      .sezzle-modal-content {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 326px;
+        .trusted {
+          font-family: $font-family;
+          font-weight: 400;
+          font-size: 11px;
+          line-height: 17px;
+          letter-spacing: 0.2px;
+          color: $mute-color;
+          margin: 8px auto 0px;
+        }
+        .sezzle-header {
+          font-family: $font-family;
+          font-weight: 700;
+          font-size: 21px;
+          line-height: 28px;
+          letter-spacing: 0.1px;
+          text-align: center;
+          color: $font-color;
+          margin: auto;
+        }
+        .payment-plan-wrapper {
+          .sample-payments {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 16px;
+            margin: 8px auto;
+            &.sezzle-five-pay-fr {
+              padding: 0px;
+            }
+            .sample-payments-title {
+              font-family: $font-family;
+              font-weight: 400;
+              font-size: 15px;
+              line-height: 21px;
+              letter-spacing: 0.15px;
+              text-align: center;
+              color: $font-color;
+              align-content: center;
+            }
+            .input-amount-container {
+              width: min-content;
+              height: 58px;
+              border-radius: 10px;
+              padding: 0 16px;
+              align-content: center;
+              // gap: 16px;
+              border: 1px solid $mid-mute-color;
+
+              .input-amount-label {
+                font-family: $font-family;
+                font-weight: 500;
+                font-size: 12px;
+                line-height: 17px;
+                letter-spacing: 0.4px;
+                vertical-align: middle;
+                color: $mute-color;
+              }
+              .input-amount {
+                font-family: $font-family;
+                font-weight: 500;
+                font-size: 15px;
+                line-height: 21px;
+                letter-spacing: 0.15px;
+                vertical-align: middle;
+                color: $font-color;
+                width: 75px;
+                background: none;
+                border: none;
+                &:focus-visible {
+                  outline: none;
+                }
+              }
+              &:focus-within {
+                border: 2px solid $focus-color;
+              }
+            }
+          }
+          .payment-cards {
+            border-radius: 10px;
+            background-color: $background-color;
+
+            .payment-card {
+              gap: 8px;
+              padding: 16px;
+              display: flex;
+              flex-direction: column;
+
+              &:first-child {
+                border-bottom: 3px solid $xx-mute-color;
+              }
+              .plan-summary {
+                .purple {
+                  display: flex;
+                  justify-content: space-between;
+
+                  .left {
+                    text-align: left;
+
+                    .price {
+                      font-family: $font-family;
+                      font-weight: 700;
+                      font-size: 17px;
+                      line-height: 23px;
+                      letter-spacing: 0.2px;
+                      color: $accent-color;
+                    }
+                    .due {
+                      font-family: $font-family;
+                      font-weight: 700;
+                      font-size: 15px;
+                      line-height: 21px;
+                      letter-spacing: 0.15px;
+                      color: $accent-color;
+                    }
+                  }
+                  .right {
+                    width: fit-content;
+                    border-radius: 24px;
+                    height: fit-content;
+                    padding: 4px 10px;
+                    background-color: $mute-purple-color;
+                    align-items: center;
+                    display: flex;
+
+                    .pill {
+                      font-family: $font-family;
+                      font-weight: 500;
+                      font-size: 12px;
+                      line-height: 17px;
+                      letter-spacing: 0.4px;
+                      color: $accent-color;
+                      width: fit-content;
+                    }
+                  }
+                }
+                .grey {
+                  font-family: $font-family;
+                  font-weight: 400;
+                  font-size: 12px;
+                  line-height: 17px;
+                  letter-spacing: 0.4px;
+                  color: $mute-color;
+                  text-align: left;
+                }
+              }
+              .payment-breakdown {
+                display: flex;
+                justify-content: center;
+
+                .installment {
+                  width: -webkit-fill-available;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 8px;
+
+                  .graphic {
+                    display: flex;
+                    justify-content: space-between;
+
+                    .dash {
+                      display: flex;
+                      align-items: center;
+                    }
+                    .dot {
+                      display: flex;
+
+                      svg {
+                        width: 16px;
+                      }
+                    }
+                  }
+                  .detail {
+                    .amount {
+                      font-family: $font-family;
+                      font-weight: 500;
+                      font-size: 12px;
+                      line-height: 17px;
+                      letter-spacing: 0.4px;
+                      text-align: center;
+                      color: $mute-color;
+                    }
+                    .due {
+                      font-family: $font-family;
+                      font-weight: 400;
+                      font-size: 11px;
+                      line-height: 17px;
+                      letter-spacing: 0.2px;
+                      text-align: center;
+                      color: $mute-color;
+                    }
+                    &.first-installment {
+                      .amount {
+                        font-weight: 700;
+                        color: $font-color;
+                      }
+                      .due {
+                        color: $font-color;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        .how-to-sezzle {
+          display: flex;
+          flex-direction: column;
+          padding-top: 8px;
+
+          .carousel-header {
+            display: flex;
+            justify-content: space-between;
+
+            .how-to-text-wrapper {
+              gap: 4px;
+              display: flex;
+
+              .how-to-text {
+                font-family: $font-family;
+                font-weight: 500;
+                font-size: 13px;
+                line-height: 17px;
+                letter-spacing: 0.4px;
+                color: $font-color;
+                align-content: center;
+              }
+              .how-to-logo {
+                display: flex;
+                align-items: center;
+                svg {
+                  width: 57.16667175292969px;
+                  height: 24px;
+                }
+              }
+            }
+            .arrows {
+              gap: 4px;
+              display: flex;
+              flex-direction: row;
+
+              .arrow {
+                &.disabled {
+                  filter: grayscale(1) opacity(0.5);
+                }
+                svg {
+                  width: 24px;
+                  height: 24px;
+                }
+              }
+            }
+          }
+          .carousel {
+            gap: 8px;
+            display: flex;
+            flex-direction: row;
+            overflow: hidden;
+            &.position-1 {
+              justify-content: start;
+            }
+            &.position-2 {
+              justify-content: center;
+            }
+            &.position-3 {
+              justify-content: end;
+            }
+            .carousel-item {
+              border-radius: 10px;
+              padding-top: 16px;
+              padding-right: 12px;
+              padding-bottom: 16px;
+              padding-left: 12px;
+              background-color: $background-color;
+              display: flex;
+
+              .carousel-item-content {
+                width: 260px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+                .step-number {
+                  height: 20px;
+                  border-radius: 31.04px;
+                  padding: 0 2.47px;
+                  background-color: $mute-purple-color;
+                  display: flex;
+                  .step-number-content {
+                    display: flex;
+                    font-family: $font-family;
+                    font-weight: 500;
+                    font-size: 12px;
+                    line-height: 17px;
+                    letter-spacing: 0.4px;
+                    color: $accent-color;
+                    width: 17px;
+                    align-items: center;
+                    justify-content: center;
+                  }
+                }
+                .step-name {
+                  font-family: $font-family;
+                  font-weight: 400;
+                  font-size: 12px;
+                  line-height: 17px;
+                  letter-spacing: 0.4px;
+                  color: $font-color;
+                  padding: 0 25px 0 8px;
+                  text-align: left;
+                }
+                .step-image {
+                  svg {
+                    width: 28.5557861328125px;
+                    height: 29.413787841796875px;
+                  }
+                }
+              }
+            }
+          }
+          .carousel-dots {
+            display: flex;
+            flex-direction: row;
+            gap: 8px;
+            justify-content: center;
+            .dot {
+              &:not(.active) {
+                filter: grayscale(1) opacity(0.25);
+              }
+              svg {
+                height: 20px;
+                width: 6px;
+              }
+            }
+          }
+        }
+        .terms-container {
+          gap: 8px;
+          display: flex;
+          flex-direction: column;
+
+          .terms {
+            font-family: $font-family;
+            font-weight: 400;
+            font-size: 9px;
+            line-height: 12px;
+            letter-spacing: 0.2px;
+            text-align: center;
+            color: $mute-color;
+            margin: 0;
+
+            sup {
+              vertical-align: super;
+              font-size: 0.75em;
+              padding-right: 2px;
+              font-family: $font-family;
+              position: unset;
+            }
+
+            a {
+              font-family: $font-family;
+              font-weight: 400;
+              font-size: 9px;
+              line-height: 12px;
+              letter-spacing: 0.2px;
+              color: $accent-color;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.long-term {
+    .sezzle-modal {
+      background-image: none;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      position: absolute;
+      box-shadow:
+        0 10px 20px rgba(5, 31, 52, 0.19),
+        0 6px 6px rgba(5, 31, 52, 0.2);
+      height: auto;
+      max-height: 100%;
+      width: 391px;
+      color: $font-color;
+      font-family: $font-family;
+      background-color: $background-color;
+      overflow: auto;
+      padding: 20px 0;
+      border-radius: 10px;
+      box-sizing: border-box;
+      gap: 16px;
+
+      @media screen and (max-width: 768px) {
+        width: 100vw;
+        height: 100vh;
+        padding: 20px 0 2px 0;
+        border-radius: 0px;
+      }
+
+      div {
+        button.close-sezzle-modal {
+          position: absolute;
+          right: 16px;
+          top: 16px;
+          width: 24px;
+          height: 24px;
+          opacity: 0.2;
+          cursor: pointer;
+          padding: 0;
+          outline: 0;
+          background: 0 0;
+          border: none;
+          box-shadow: none;
+
+          &:hover {
+            opacity: 1;
+          }
+
+          &:focus {
+            opacity: 0.5;
+          }
+
+          @media screen and (max-width: $breakpoint-small) {
+            opacity: 0.8;
+
+            &:focus {
+              opacity: 1;
+            }
+          }
+
+          &::before {
+            position: absolute;
+            left: 10px;
+            content: " ";
+            top: 0;
+            transform: rotate(45deg);
+            background-color: $mute-color;
+            width: 2px;
+            height: 15px;
+          }
+
+          &::after {
+            position: absolute;
+            left: 10px;
+            content: " ";
+            top: 0;
+            transform: rotate(-45deg);
+            background-color: $mute-color;
+            width: 2px;
+            height: 15px;
+          }
+        }
+      }
+
+      .sezzle-logo {
+        display: block;
+        width: 98px;
+        background-image: url(https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg);
+        background-repeat: no-repeat;
+        background-position: 50%;
+        height: 24px;
+        margin: 10px auto 20px auto;
+      }
+
+      .sezzle-modal-content {
+        height: auto;
+        width: auto;
+        text-align: center;
+        padding: 0px 16px;
+
+        .sezzle-header {
+          font-size: 24px;
+          line-height: 30px;
+          margin: 10px auto;
+          font-weight: 700;
+        }
+
+        .sezzle-row {
+          font-size: 15px;
+          line-height: 20px;
+          margin: 8px auto;
+        }
+
+        .sezzle-lt-payments {
+          height: fit-content;
+          margin: 20px auto;
+          padding: 20px 0 0;
+          border: 1px solid $x-mute-color;
+          border-radius: 5px;
+          max-width: 502px;
+          display: block;
+          flex-direction: column;
+          align-items: center;
+          padding: 0px;
+          gap: 24px;
+          font-family: $font-family;
+
+          .sezzle-lt-payment-header {
+            font-family: $font-family;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 15px;
+            line-height: 20px;
+            display: block;
+            align-items: center;
+            text-align: center;
+            padding: 15px;
+            letter-spacing: -0.3px;
+            border-bottom: 1px solid $x-mute-color;
+            color: $font-color;
+
+            span {
+              font-size: 17px;
+              line-height: 22px;
+              font-weight: 700;
+            }
+          }
+
+          .sezzle-lt-payment-options {
+            font-size: 12px;
+            line-height: 14px;
+            margin: 0px 20px 0;
+            padding: 20px 0px;
+            border-bottom: 1px solid $x-mute-color;
+
+            .plan {
+              display: flex;
+              justify-content: space-between;
+              padding-bottom: 10px;
+              font-size: 12px;
+
+              .monthly-amount {
+                span {
+                  font-size: 17px;
+                  line-height: 22px;
+                  color: $accent-color;
+                  font-weight: 600;
+                  letter-spacing: -0.3px;
+                }
+
+                .per-month {
+                  font-size: 13px;
+                }
+              }
+
+              .term-length {
+                border-radius: 100px;
+                background: rgba(41, 211, 162, 0.1);
+                color: #00804a;
+                padding: 2px 8px;
+                font-size: 12px;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+              }
+            }
+
+            .plan-details {
+              display: flex;
+              justify-content: space-between;
+
+              .adjusted-total {
+                color: $mute-color;
+                font-size: 12px;
+                width: fit-content;
+                text-align: left;
+                font-weight: 400;
+                line-height: 16px;
+
+                span {
+                  display: block;
+                }
+              }
+
+              .interest-amount {
+                color: $mute-color;
+                font-size: 12px;
+                width: fit-content;
+                text-align: left;
+                font-weight: 400;
+                line-height: 16px;
+
+                span {
+                  display: block;
+                }
+              }
+
+              .sample-apr {
+                color: $mute-color;
+                font-size: 12px;
+                width: fit-content;
+                text-align: left;
+                font-weight: 400;
+                line-height: 16px;
+
+                span {
+                  display: block;
+                }
+              }
+            }
+          }
+
+          &:last-child {
+            border: none;
+          }
+        }
+
+        .details {
+          font-size: 17px;
+          line-height: 22px;
+          margin: 16px auto;
+          font-weight: 600;
+          font-family: $font-family;
+          letter-spacing: -0.3px;
+        }
+
+        .terms {
+          font-style: normal;
+          font-size: 11px;
+          line-height: 13px;
+          color: $mute-color;
+          margin: 10px auto 0;
+          padding: 12px 0 0;
+          border-top: 1px solid $x-mute-color;
+          text-align: center;
+          font-family: $font-family !important;
+          font-weight: 400;
+
+          p {
+            margin: 0 0 10px;
+            a {
+              color: $accent-color;
+              font-family: $font-family;
+              text-decoration: underline;
+
+              &:hover {
+                color: $focus-color;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

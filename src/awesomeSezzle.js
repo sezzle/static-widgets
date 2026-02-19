@@ -559,7 +559,9 @@ class AwesomeSezzle {
 
         switch (subtemplate) {
             case "numberOfPayments":
-              const widgetInstallmentNode = document.createTextNode(this.numberOfPayments);
+                const widgetInstallmentNode = document.createTextNode(
+                  this.numberOfPayments,
+                );
                 sezzleButtonText.appendChild(widgetInstallmentNode);
                 break;
             case "price":
@@ -709,7 +711,10 @@ class AwesomeSezzle {
     );
   }
 
-  getFormattedPrice(numberOfPayments = this.numberOfPayments,amount = this.amount) {
+  getFormattedPrice(
+    numberOfPayments = this.numberOfPayments,
+    amount = this.amount,
+  ) {
     const priceText = amount;
     const priceString = HelperClass.parsePriceString(priceText, true);
     const price =
@@ -858,61 +863,61 @@ class AwesomeSezzle {
     });
   }
 
-    /** updateInstallmentContent
+  /** updateInstallmentContent
    * @description replaces text content of given element with new price
    * @param {HTMLElement} elements the element to update
    * @param {string} priceString the new price to populate
    * @returns none
    */
-  updateInstallmentContent(elements, priceString) { //
-      for(let i = 0; i < elements.length; i++){
-          elements[i].textContent = priceString;
-      }
+  updateInstallmentContent(elements, priceString) {
+    for (let i = 0; i < elements.length; i++) {
+      elements[i].textContent = priceString;
+    }
   }
 
-    /** handleCarousel
+  /** handleCarousel
    * @description rotates carousel and applies classes for conditional styling
    * @param none
    * @returns none
    */
   handleCarousel(modalNode) {
-      const CAROUSEL_MIN_TAB = 1;
-      const CAROUSEL_MAX_TAB = 3;
+    const CAROUSEL_MIN_TAB = 1;
+    const CAROUSEL_MAX_TAB = 3;
 
-      // Prevent attaching listeners multiple times
-      if (modalNode.dataset.carouselInitialized === 'true') {
-          return;
-      }
-      modalNode.dataset.carouselInitialized = 'true';
+    // Prevent attaching listeners multiple times
+    if (modalNode.dataset.carouselInitialized === "true") {
+      return;
+    }
+    modalNode.dataset.carouselInitialized = "true";
 
-      const arrows = modalNode.getElementsByClassName("arrow");
-      for (let i = 0; i < arrows.length; i++) {
-          arrows[i].addEventListener("click", (e) => {
-              let btn = e.currentTarget;
-              if (!btn.className.includes("disabled")) {
-                  if (btn.className.includes("arrow-right")) {
-                      this.activeTab++;
-                      btn.parentElement.firstElementChild.className = "arrow arrow-left";
-                      if (this.activeTab === CAROUSEL_MAX_TAB) {
-                          btn.className = "arrow arrow-right disabled";
-                      }
-                  } else {
-                      this.activeTab--;
-                      btn.parentElement.lastElementChild.className = "arrow arrow-right";
-                      if (this.activeTab === CAROUSEL_MIN_TAB) {
-                          btn.className = "arrow arrow-left disabled";
-                      }
-                  }
-                  let carouselWrapper = btn.parentElement.parentElement.parentElement;
-                  carouselWrapper.querySelector(".carousel").className =
-                      "carousel position-" + this.activeTab;
-                  let dots = carouselWrapper.querySelector(".carousel-dots").children;
-                  for (let j = 0; j < dots.length; j++) {
-                      dots[j].className = (this.activeTab - 1 === j) ? "dot active" : "dot";
-                  }
-              }
-          });
-      }
+    const arrows = modalNode.getElementsByClassName("arrow");
+    for (let i = 0; i < arrows.length; i++) {
+      arrows[i].addEventListener("click", (e) => {
+        let btn = e.currentTarget;
+        if (!btn.className.includes("disabled")) {
+          if (btn.className.includes("arrow-right")) {
+            this.activeTab++;
+            btn.parentElement.firstElementChild.className = "arrow arrow-left";
+            if (this.activeTab === CAROUSEL_MAX_TAB) {
+              btn.className = "arrow arrow-right disabled";
+            }
+          } else {
+            this.activeTab--;
+            btn.parentElement.lastElementChild.className = "arrow arrow-right";
+            if (this.activeTab === CAROUSEL_MIN_TAB) {
+              btn.className = "arrow arrow-left disabled";
+            }
+          }
+          let carouselWrapper = btn.parentElement.parentElement.parentElement;
+          carouselWrapper.querySelector(".carousel").className =
+            "carousel position-" + this.activeTab;
+          let dots = carouselWrapper.querySelector(".carousel-dots").children;
+          for (let j = 0; j < dots.length; j++) {
+            dots[j].className = this.activeTab - 1 === j ? "dot active" : "dot";
+          }
+        }
+      });
+    }
   }
 
   renderModal() {
@@ -946,13 +951,13 @@ class AwesomeSezzle {
         } else {
           modalNode.innerHTML = `
 				<div id="sezzle-modal-container" role="dialog" aria-label="Sezzle Modal" aria-description="${
-                    this.translations.aboutSezzle
-                }" class="sezzle-checkout-modal-hidden long-term">
+          this.translations.aboutSezzle
+        }" class="sezzle-checkout-modal-hidden long-term">
 					<div class="sezzle-modal">
 						<div>
 							<button role="button" aria-label="${
-                                this.translations.closeSezzleModal
-                            }" class="close-sezzle-modal"></button>
+                this.translations.closeSezzleModal
+              }" class="close-sezzle-modal"></button>
 						</div>
 						<div class="sezzle-logo" title="Sezzle"> </div>
 						<div id="sezzle-modal-core-content" class="sezzle-modal-content">
@@ -961,61 +966,65 @@ class AwesomeSezzle {
         <div class="sezzle-row">${this.translations.LTsezzleRowChild}</div>
         <div class="sezzle-lt-payments">
             <div class="sezzle-lt-payment-header">${
-                this.translations.LTsezzlePaymentHeader
-            } <span>&nbsp${
-              safeCurrency + safePrice
-            }</span></div>
+              this.translations.LTsezzlePaymentHeader
+            } <span>&nbsp${safeCurrency + safePrice}</span></div>
             <div class="sezzle-lt-payment-options ${terms[2]}-month" ${
-                terms[2] === undefined
-                    ? `style="display: none;"`
-                    : `style="display: block;"`
+              terms[2] === undefined
+                ? `style="display: none;"`
+                : `style="display: block;"`
             }>
                 <div class="plan">
                     <div class="monthly-amount">
 										<span>${
-                                            safeCurrency +
-                                            escapeHTML(this.formatMonthly(
-                                                    priceString,
-                                                    this.parseMode,
-                                                    terms[2],
-                                                    this.bestAPR
-                                                ))
-                                        }</span>
+                      safeCurrency +
+                      escapeHTML(
+                        this.formatMonthly(
+                          priceString,
+                          this.parseMode,
+                          terms[2],
+                          this.bestAPR,
+                        ),
+                      )
+                    }</span>
                         <span aria-label="${
-                            this.translations.LTperMonth
+                          this.translations.LTperMonth
                         }"><span class="per-month" aria-hidden="true">${
-                            this.translations.LTmonthlyAmount
+                          this.translations.LTmonthlyAmount
                         }<sup>*</sup></span></span>
                     </div>
                     <div class="term-length">${terms[2]} ${this.translations.LTtermLength}</div>
                 </div>
                 <div class="plan-details">
                     <div class="adjusted-total">${this.translations.LTadjustedTotal} <span>${
-            safeCurrency +
-            escapeHTML(this.formatAdjustedTotal(
-              priceString,
-              this.parseMode,
-              terms[2],
-              this.bestAPR
-            ))
+                      safeCurrency +
+                      escapeHTML(
+                        this.formatAdjustedTotal(
+                          priceString,
+                          this.parseMode,
+                          terms[2],
+                          this.bestAPR,
+                        ),
+                      )
                     }</span></div>
                     <div class="interest-amount">${this.translations.LTinterest} <span>${
-            safeCurrency +
-            escapeHTML(this.formatTotalInterest(
-              priceString,
-              this.parseMode,
-              terms[2],
-              this.bestAPR
-            ))
+                      safeCurrency +
+                      escapeHTML(
+                        this.formatTotalInterest(
+                          priceString,
+                          this.parseMode,
+                          terms[2],
+                          this.bestAPR,
+                        ),
+                      )
                     }</span></div>
                     <div class="sample-apr">
                         <span aria-label="${this.translations.LTreadApr} ${safeBestAPR} ${
-                            this.translations.LTpercent
+                          this.translations.LTpercent
                         }">
                             <span class="apr-label" aria-hidden="true">${
-                                this.translations.LTsampleApr
+                              this.translations.LTsampleApr
                             }</span><span aria-hidden="true">${
-                                safeBestAPR
+                              safeBestAPR
                             }%</span></span>
                     </div>
                 </div>
@@ -1025,48 +1034,54 @@ class AwesomeSezzle {
                     <div class="monthly-amount">
 											<span>${
                         safeCurrency +
-                        escapeHTML(this.formatMonthly(
-                          priceString,
-                          this.parseMode,
-                          terms[1],
-                          this.bestAPR
-                        ))
+                        escapeHTML(
+                          this.formatMonthly(
+                            priceString,
+                            this.parseMode,
+                            terms[1],
+                            this.bestAPR,
+                          ),
+                        )
                       }</span>
                         <span aria-label="${
-                            this.translations.LTperMonth
+                          this.translations.LTperMonth
                         }"><span class="per-month" aria-hidden="true">${
-                            this.translations.LTmonthlyAmount
+                          this.translations.LTmonthlyAmount
                         }<sup>*</sup></span></span>
                     </div>
                     <div class="term-length">${terms[1]} ${this.translations.LTtermLength}</div>
                 </div>
                 <div class="plan-details">
                     <div class="adjusted-total">${this.translations.LTadjustedTotal} <span>${
-            safeCurrency +
-            escapeHTML(this.formatAdjustedTotal(
-              priceString,
-              this.parseMode,
-              terms[1],
-              this.bestAPR
-            ))
+                      safeCurrency +
+                      escapeHTML(
+                        this.formatAdjustedTotal(
+                          priceString,
+                          this.parseMode,
+                          terms[1],
+                          this.bestAPR,
+                        ),
+                      )
                     }</span></div>
                     <div class="interest-amount">${this.translations.LTinterest} <span>${
-            safeCurrency +
-            escapeHTML(this.formatTotalInterest(
-              priceString,
-              this.parseMode,
-              terms[1],
-              this.bestAPR
-            ))
+                      safeCurrency +
+                      escapeHTML(
+                        this.formatTotalInterest(
+                          priceString,
+                          this.parseMode,
+                          terms[1],
+                          this.bestAPR,
+                        ),
+                      )
                     }</span></div>
                     <div class="sample-apr">
                         <span aria-label="${this.translations.LTreadApr} ${this.bestAPR} ${
-                            this.translations.LTpercent
+                          this.translations.LTpercent
                         }">
                             <span class="apr-label" aria-hidden="true">${
-                                this.translations.LTsampleApr
+                              this.translations.LTsampleApr
                             }</span><span aria-hidden="true">${
-                                this.bestAPR
+                              this.bestAPR
                             }%</span></span>
                     </div>
                 </div>
@@ -1076,48 +1091,54 @@ class AwesomeSezzle {
                     <div class="monthly-amount">
 											<span>${
                         safeCurrency +
-                        escapeHTML(this.formatMonthly(
-                          priceString,
-                          this.parseMode,
-                          terms[0],
-                          this.bestAPR
-                        ))
+                        escapeHTML(
+                          this.formatMonthly(
+                            priceString,
+                            this.parseMode,
+                            terms[0],
+                            this.bestAPR,
+                          ),
+                        )
                       }</span>
                         <span aria-label="${
-                            this.translations.LTperMonth
+                          this.translations.LTperMonth
                         }"><span class="per-month" aria-hidden="true">${
-                            this.translations.LTmonthlyAmount
+                          this.translations.LTmonthlyAmount
                         }<sup>*</sup></span></span>
                     </div>
                     <div class="term-length">${terms[0]} ${this.translations.LTtermLength}</div>
                 </div>
                 <div class="plan-details">
                     <div class="adjusted-total">${this.translations.LTadjustedTotal} <span>${
-                        safeCurrency +
-                        escapeHTML(this.formatAdjustedTotal(
+                      safeCurrency +
+                      escapeHTML(
+                        this.formatAdjustedTotal(
                           priceString,
                           this.parseMode,
                           terms[0],
-                          this.bestAPR
-                        ))
+                          this.bestAPR,
+                        ),
+                      )
                     }</span></div>
 										<div class="interest-amount">${this.translations.LTinterest} <span>${
-            safeCurrency +
-            escapeHTML(this.formatTotalInterest(
-              priceString,
-              this.parseMode,
-              terms[0],
-              this.bestAPR
-            ))
+                      safeCurrency +
+                      escapeHTML(
+                        this.formatTotalInterest(
+                          priceString,
+                          this.parseMode,
+                          terms[0],
+                          this.bestAPR,
+                        ),
+                      )
                     }</span></div>
                     <div class="sample-apr">
                         <span aria-label="${this.translations.LTreadApr} ${this.bestAPR} ${
-                            this.translations.LTpercent
+                          this.translations.LTpercent
                         }">
                             <span class="apr-label" aria-hidden="true">${
-                                this.translations.LTsampleApr
+                              this.translations.LTsampleApr
                             }</span><span aria-hidden="true">${
-                                this.bestAPR
+                              this.bestAPR
                             }%</span></span>
                     </div>
                 </div>
@@ -1137,48 +1158,46 @@ class AwesomeSezzle {
         }
       } else if (this.altModalHTML) {
         modalNode.innerHTML = this.altModalHTML;
-      } else if (this.numberOfPayments === 5){
-        let currency = String.fromCharCode(
-            this.currencySymbol(this.amount),
-        );
+      } else if (this.numberOfPayments === 5) {
+        let currency = String.fromCharCode(this.currencySymbol(this.amount));
         let priceString =
-            this.amount.indexOf(currency) > -1
-                ? this.amount.split(currency)[1]
-                : this.amount;
+          this.amount.indexOf(currency) > -1
+            ? this.amount.split(currency)[1]
+            : this.amount;
         priceString =
-            this.parseMode === "comma"
-                ? priceString.replace(".", "").replace(",", ".")
-                : priceString.replace(",", "");
+          this.parseMode === "comma"
+            ? priceString.replace(".", "").replace(",", ".")
+            : priceString.replace(",", "");
         // Escape currency and price values for XSS protection
         let safeCurrency = escapeHTML(currency);
         let safePrice = escapeHTML(
-            this.addDelimiters(priceString, this.parseMode),
+          this.addDelimiters(priceString, this.parseMode),
         );
         modalNode.innerHTML = `
                 <div id="sezzle-modal-container" role="dialog" aria-label="Sezzle Modal" aria-description="${
-                    this.translations.aboutSezzle
+                  this.translations.aboutSezzle
                 }" class="sezzle-checkout-modal-hidden sezzle-five-pay">
 		<div class="sezzle-modal">
 				<div><button role="button" aria-label="${
-                    this.translations.closeSezzleModal
-                }" class="close-sezzle-modal"></button></div>
+          this.translations.closeSezzleModal
+        }" class="close-sezzle-modal"></button></div>
 				<div class="sezzle-logo" title="Sezzle"></div>
 				<div id="sezzle-modal-core-content" class="sezzle-modal-content">
                     <p class='trusted'>${this.translations.PI5trusted}</p>
             <header class='sezzle-header'>${this.translations.PI5header}</header>
             <div class='payment-plan-wrapper'>
                 <p class='sample-payments ${
-                    this.language === "fr" ? "sezzle-five-pay-fr" : ""
+                  this.language === "fr" ? "sezzle-five-pay-fr" : ""
                 }'>
                     <span class="sample-payments-title">${
-                        this.translations.PI5SeePlans
+                      this.translations.PI5SeePlans
                     }</span>
                     <span class="input-amount-container"> 
                         <label class="input-amount-label" htmlFor="PI5-input-amount">${
-                            this.translations.PI5Amount
+                          this.translations.PI5Amount
                         }</label>
                         <input class='price input-amount' id="PI5-input-amount" value='${
-                            safeCurrency + safePrice
+                          safeCurrency + safePrice
                         }'/>
                     </span>
                 </p>
@@ -1188,21 +1207,21 @@ class AwesomeSezzle {
                             <div class='purple'>
                                 <div class='left'>
                                     <span class='price 4-pay-installment'>${this.getFormattedPrice(
-                                        4,
+                                      4,
                                     )}</span> 
                                     <span class='due'>${
-                                        this.translations.today
+                                      this.translations.today
                                     }</span>
                                 </div>
                                 <div class='right'>
                                     <span class='pill'>${
-                                        this.translations.PI5payIn
+                                      this.translations.PI5payIn
                                     } 4</span>
                                 </div>
                             </div>
                             <div class='grey'>
                                 <span class="4-pay-installment">${this.getFormattedPrice(
-                                    4,
+                                  4,
                                 )}</span> ${this.translations.PI5every2Weeks}
                             </div>
                         </div>
@@ -1326,21 +1345,21 @@ class AwesomeSezzle {
                             <div class='purple'>
                                 <div class='left'>
                                     <span class='price 5-pay-installment'>${this.getFormattedPrice(
-                                        5,
+                                      5,
                                     )}</span> 
                                     <span class='due'>${
-                                        this.translations.today
+                                      this.translations.today
                                     }</span>
                                 </div>
                                 <div class='right'>
                                     <span class='pill'>${
-                                        this.translations.PI5payIn
+                                      this.translations.PI5payIn
                                     } 5</span>
                                 </div>
                             </div>
                             <div class='grey'>
                                 <span class="5-pay-installment">${this.getFormattedPrice(
-                                    5,
+                                  5,
                                 )}</span> ${this.translations.PI5every2Weeks}
                             </div>
                         </div>
@@ -1493,7 +1512,7 @@ class AwesomeSezzle {
                 <div class='carousel-header'>
                     <div class='how-to-text-wrapper'>
                         <span class='how-to-text'>${
-                            this.translations.PI5howToPay
+                          this.translations.PI5howToPay
                         }</span>
                         <div class='how-to-logo'>
                             <svg width="58" height="14" viewBox="0 0 58 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1662,14 +1681,14 @@ class AwesomeSezzle {
             </div>
             <div class="terms-container">
                 <p class="terms"><span>${
-                    this.translations.terms1
+                  this.translations.terms1
                 }</span><br /><span>${this.translations.termsHiw}</span></p>
                 <p class="terms">${this.translations.terms2}</p>
                 <p class="terms">
                     <span class="webbank-terms">${
-                        this.translations.webBankTerms
+                      this.translations.webBankTerms
                     }</span> <span class="webbank-terms">${
-                        this.translations.webBankTermsPI5
+                      this.translations.webBankTermsPI5
                     }</span>
                     <br />
                     <span>${this.translations.linkToCompleteTerms}</span>
@@ -1680,56 +1699,51 @@ class AwesomeSezzle {
         this.handleCarousel(modalNode);
         const input = modalNode.querySelector(".input-amount");
         const pay4Installments =
-            modalNode.getElementsByClassName("4-pay-installment");
+          modalNode.getElementsByClassName("4-pay-installment");
         const pay5Installments =
-            modalNode.getElementsByClassName("5-pay-installment");
+          modalNode.getElementsByClassName("5-pay-installment");
         if (input) {
-            input.addEventListener("input", (event) => {
-              const amount = event.target.value.replace(
-                  /[^0-9,.$€£₤₹]/g,
-                  "",
-              );
-              currency = String.fromCharCode(
-                  this.currencySymbol(amount),
-              ) || '$';
-              priceString =
-                  amount.indexOf(currency) > -1
-                      ? amount.split(currency)[1]
-                      : amount;
-              priceString =
-                  this.parseMode === "comma"
-                      ? priceString.replace(".", "").replace(",", ".")
-                      : priceString.replace(",", "");
-              // Escape currency and price values for XSS protection
-              safeCurrency = escapeHTML(currency);
-              safePrice = escapeHTML(
-                  this.addDelimiters(priceString, this.parseMode),
-              );
-              this.updateInstallmentContent(
-                  pay4Installments,
-                  this.getFormattedPrice(4, safeCurrency + safePrice),
-              );
-              this.updateInstallmentContent(
-                  pay5Installments,
-                  this.getFormattedPrice(5, safeCurrency + safePrice),
-              );
-            });
+          input.addEventListener("input", (event) => {
+            const amount = event.target.value.replace(/[^0-9,.$€£₤₹]/g, "");
+            currency = String.fromCharCode(this.currencySymbol(amount)) || "$";
+            priceString =
+              amount.indexOf(currency) > -1
+                ? amount.split(currency)[1]
+                : amount;
+            priceString =
+              this.parseMode === "comma"
+                ? priceString.replace(".", "").replace(",", ".")
+                : priceString.replace(",", "");
+            // Escape currency and price values for XSS protection
+            safeCurrency = escapeHTML(currency);
+            safePrice = escapeHTML(
+              this.addDelimiters(priceString, this.parseMode),
+            );
+            this.updateInstallmentContent(
+              pay4Installments,
+              this.getFormattedPrice(4, safeCurrency + safePrice),
+            );
+            this.updateInstallmentContent(
+              pay5Installments,
+              this.getFormattedPrice(5, safeCurrency + safePrice),
+            );
+          });
         }
       } else {
         let modalHTML = `
         <div id="sezzle-modal-container" role="dialog" aria-label="Sezzle Modal" aria-description="${
-            this.translations.aboutSezzle
+          this.translations.aboutSezzle
         }" class="sezzle-checkout-modal-hidden sezzle-four-pay">
 		<div class="sezzle-modal">
 				<div><button role="button" aria-label="${
-                    this.translations.closeSezzleModal
-                }" class="close-sezzle-modal"></button></div>
+          this.translations.closeSezzleModal
+        }" class="close-sezzle-modal"></button></div>
 				<div class="sezzle-logo" title="Sezzle"></div>
 				<div id="sezzle-modal-core-content" class="sezzle-modal-content">
                     <div id="tp-widget-wrapper" class="tp-widget-wrapper visible">
                 <a id="profile-link" target="_blank" href="https://www.trustpilot.com/review/sezzle.com?utm_medium=trustbox&amp;utm_source=MicroCombo">
                 <div id="tp-review-status" class="tp-review-status">${
-                    this.translations.PI4trustPilotReviewStatus
+                  this.translations.PI4trustPilotReviewStatus
                 }</div>
                     <!-- Stars -->
                     <div id="tp-widget-stars" class="tp-widget-stars">
@@ -1739,8 +1753,7 @@ class AwesomeSezzle {
 
                                     <svg role="img" viewBox="0 0 251 46" xmlns="http://www.w3.org/2000/svg" style="position: absolute; height: 100%; width: 100%; left: 0; top: 0;">
                                         <title id="starRating-tfnn0cd6r0c" lang="en-US">${
-                                            this.translations
-                                            .PI4trustPilotTitle
+                                          this.translations.PI4trustPilotTitle
                                         }</title>
                                         <g class="tp-star">
                                             <path class="tp-star__canvas" fill="#dcdce6" d="M0 46.330002h46.375586V0H0z"></path>
@@ -1774,10 +1787,10 @@ class AwesomeSezzle {
                     <div class="widget-info">
                         <!-- Business Info -->
                         <div id="tp-widget-review-count" class="tp-widget-review-count">${
-                            this.translations.PI4trustPilotReviewsCount
+                          this.translations.PI4trustPilotReviewsCount
                         }</div>
                         <div id="tp-widget-rating" class="tp-widget-rating">${
-                            this.translations.PI4trustPilotReviews
+                          this.translations.PI4trustPilotReviews
                         }</div>
                         <!-- Logo -->
                         <div id="tp-widget-logo" class="tp-widget-logo">
@@ -1802,7 +1815,7 @@ class AwesomeSezzle {
                 <span>${this.translations.PI4sezzleHeaderChild2}</span>
             </p>
             <div class="sezzle-four-pay ${
-                this.language !== "en" ? "sezzle-four-pay-fr-es" : ""
+              this.language !== "en" ? "sezzle-four-pay-fr-es" : ""
             }">
                     <div class="sezzle-pie-area">
                         <div class="due-today">
@@ -1875,14 +1888,14 @@ class AwesomeSezzle {
             </div>
             <div class="terms-container">
                 <p class="terms"><span><sup>1</sup>${
-                    this.translations.terms1
+                  this.translations.terms1
                 }</span><br /><span>${this.translations.termsHiw}</span></p>
                 <p class="terms"><sup>2</sup>${this.translations.terms2}</p>
                 <p class="terms">
                     <span class="webbank-terms"><sup>3</sup>${
-                        this.translations.webBankTerms
+                      this.translations.webBankTerms
                     }</span><span class="webbank-terms">${
-                        this.translations.webBankTermsPI4
+                      this.translations.webBankTermsPI4
                     }</span>
                     <br />
                     <span>${this.translations.linkToCompleteTerms}</span>
