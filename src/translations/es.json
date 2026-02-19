@@ -13,7 +13,7 @@
     "sezzleInformation": "Información de Sezzle",
     "shoppayInfo": "Información de Shoppay",
     "thresholdPrice": " por compras superiores a %%min-price%%",
-    "widget": "o 4 pagos de %%price%% con %%logo%% %%info%%",
+    "widget": "o %%numberOfPayments%% pagos de %%price%% con %%logo%% %%info%%",
     "LTadjustedTotal": "Pago Total:",
     "LTinterest": "Interés Total:",
     "LTmonthlyAmount": "/ mes",

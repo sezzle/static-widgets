@@ -311,21 +311,22 @@ Once the widget is rendering, additional configurations can be added to the Awes
 **Purpose**: Text content of the widget. Also changes the arrangement of price, logo, and the info/learn-more icon within the widget.
 **Type**: string, or object
 **Default**: {en: 'or 4 payments of %%price%% with %%logo%% %%info%%', fr: 'ou 4 paiements de %%price%% avec %%logo%% %%info%%'}
-**Additional Details**: Available templates include `%%price%%`, `%%logo%%`, `%%link%%`, `%%info%%`, `%%question-mark%%`, `%%line-break%%`, `%%afterpay-logo%%`, `%%afterpay-logo-black%%`, `%%afterpay-logo-grey%%`, `%%afterpay-logo-white%%`, `%%afterpay-info-icon%%`, `%%afterpay-link-icon%%`, `%%quadpay-logo%%`, `%%quadpay-logo-grey%%`, `%%quadpay-logo-white%%`, `%%quadpay-info-icon%%`, `%%zip-logo%%`, `%%zip-logo-grey%%`, `%%zip-logo-white%%`, `%%zip-info-icon%%`, `%%affirm-logo%%`, `%%affirm-logo-grey%%`, `%%affirm-logo-white%%`, `%%affirm-info-icon%%`, `%%klarna-logo%%`, `%%klarna-logo-grey%%`, `%%klarna-logo-white%%`, `%%klarna-info-icon%%`, `%%cash-app-afterpay-logo%%`, `%%cash-app-afterpay-logo-black%%`, `%%cash-app-afterpay-info-icon%%`, `%%shoppay-logo%%`, `%%shoppay-info-icon%%`.
+**Additional Details**: Available templates include `%%numberOfPayments%%`, `%%price%%`, `%%logo%%`, `%%link%%`, `%%info%%`, `%%question-mark%%`, `%%line-break%%`, `%%afterpay-logo%%`, `%%afterpay-logo-black%%`, `%%afterpay-logo-grey%%`, `%%afterpay-logo-white%%`, `%%afterpay-info-icon%%`, `%%afterpay-link-icon%%`, `%%quadpay-logo%%`, `%%quadpay-logo-grey%%`, `%%quadpay-logo-white%%`, `%%quadpay-info-icon%%`, `%%zip-logo%%`, `%%zip-logo-grey%%`, `%%zip-logo-white%%`, `%%zip-info-icon%%`, `%%affirm-logo%%`, `%%affirm-logo-grey%%`, `%%affirm-logo-white%%`, `%%affirm-info-icon%%`, `%%klarna-logo%%`, `%%klarna-logo-grey%%`, `%%klarna-logo-white%%`, `%%klarna-info-icon%%`, `%%cash-app-afterpay-logo%%`, `%%cash-app-afterpay-logo-black%%`, `%%cash-app-afterpay-info-icon%%`, `%%shoppay-logo%%`, `%%shoppay-info-icon%%`.
 
 `ineligibleWidgetTemplate` (optional)
 
 **Purpose**: Text content of the widget when the amount is below the minimum or above the maximum price. Replacement variables are available except for `%%price%%` given this shows when the amount is outside those bounds.
 **Type**: string
 **Default**: ''
-**Additional Details**: Available templates include `%%logo%%`, `%%link%%`, `%%info%%`, `%%question-mark%%`, `%%line-break%%`, `%%afterpay-logo%%`, `%%afterpay-logo-black%%`, `%%afterpay-logo-grey%%`, `%%afterpay-logo-white%%`, `%%afterpay-info-icon%%`, `%%afterpay-link-icon%%`, `%%quadpay-logo%%`, `%%quadpay-logo-grey%%`, `%%quadpay-logo-white%%`, `%%quadpay-info-icon%%`, `%%zip-logo%%`, `%%zip-logo-grey%%`, `%%zip-logo-white%%`, `%%zip-info-icon%%`, `%%affirm-logo%%`, `%%affirm-logo-grey%%`, `%%affirm-logo-white%%`, `%%affirm-info-icon%%`, `%%klarna-logo%%`, `%%klarna-logo-grey%%`, `%%klarna-logo-white%%`, `%%klarna-info-icon%%`, `%%cash-app-afterpay-logo%%`, `%%cash-app-afterpay-logo-black%%`, `%%cash-app-afterpay-info-icon%%`, `%%shoppay-logo%%`, `%%shoppay-info-icon%%`.
+**Additional Details**: Available templates include `%%numberOfPayments%%`, `%%logo%%`, `%%link%%`, `%%info%%`, `%%question-mark%%`, `%%line-break%%`, `%%afterpay-logo%%`, `%%afterpay-logo-black%%`, `%%afterpay-logo-grey%%`, `%%afterpay-logo-white%%`, `%%afterpay-info-icon%%`, `%%afterpay-link-icon%%`, `%%quadpay-logo%%`, `%%quadpay-logo-grey%%`, `%%quadpay-logo-white%%`, `%%quadpay-info-icon%%`, `%%zip-logo%%`, `%%zip-logo-grey%%`, `%%zip-logo-white%%`, `%%zip-info-icon%%`, `%%affirm-logo%%`, `%%affirm-logo-grey%%`, `%%affirm-logo-white%%`, `%%affirm-info-icon%%`, `%%klarna-logo%%`, `%%klarna-logo-grey%%`, `%%klarna-logo-white%%`, `%%klarna-info-icon%%`, `%%cash-app-afterpay-logo%%`, `%%cash-app-afterpay-logo-black%%`, `%%cash-app-afterpay-info-icon%%`, `%%shoppay-logo%%`, `%%shoppay-info-icon%%`.
 
 `numberOfPayments` (optional)
 
 **Purpose**: Number of installments by which the shopper will pay the total, calculates installment amount within the widget.
 **Type**: number
+**Options**: 4, 5
 **Default**: 4
-**Additional Details**: There are very few merchants who offer anything other than a 4-pay model. This selection does not affect the appearance of the modal.
+**Additional Details**: There are very few merchants who offer anything other than a 4-pay model. The modal may still reflect Pay in 4.
 
 `minPrice` (optional)
 

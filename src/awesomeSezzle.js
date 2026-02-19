@@ -31,7 +31,7 @@ class AwesomeSezzle {
     };
     this.language = this.translationsMap[this.language] ? this.language : "en";
     this.translations = this.translationsMap[this.language];
-    this.numberOfPayments = 4;
+    this.numberOfPayments = options.numberOfPayments === 5 ? 5 : 4;
     const templateString = this.translations.widget;
     const templateStringLT = this.translations.longTerm;
     this.widgetTemplate =
@@ -557,6 +557,10 @@ class AwesomeSezzle {
         if (handled) return;
 
         switch (subtemplate) {
+            case "numberOfPayments":
+              const widgetInstallmentNode = document.createTextNode(this.numberOfPayments);
+                sezzleButtonText.appendChild(widgetInstallmentNode);
+                break;
             case "price":
                 const priceSpanNode = document.createElement("span");
                 priceSpanNode.className =
