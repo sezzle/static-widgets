@@ -827,6 +827,471 @@ $font-family: Satoshi, "Open Sans", sans-serif;
         }
     }
 
+    &.sezzle-five-pay {
+        .sezzle-modal {
+            width: fit-content;
+            border-radius: 10px;
+            padding: 16px;
+            gap: 10px;
+            background-color: $xx-mute-color;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            position: absolute;
+            box-shadow: 0 10px 20px rgba(5, 31, 52, 0.19),
+                0 6px 6px rgba(5, 31, 52, 0.2);
+            height: auto;
+            max-height: 100%;
+            color: $font-color;
+            font-family: $font-family;
+            overflow: auto;
+            box-sizing: border-box;
+            @media screen and (max-width: 768px) {
+                width: 100vw;
+                height: 100vh;
+                padding: 20px 0 2px 0;
+                border-radius: 0px;
+            }
+
+            button.close-sezzle-modal {
+                position: absolute;
+                right: 16px;
+                top: 16px;
+                width: 24px;
+                height: 24px;
+                opacity: 0.2;
+                cursor: pointer;
+                padding: 0;
+                outline: 0;
+                background: 0 0;
+                border: none;
+                box-shadow: none;
+
+                &:hover {
+                    opacity: 1;
+                }
+
+                &:focus {
+                    opacity: 0.5;
+                }
+
+                @media screen and (max-width: $breakpoint-small) {
+                    opacity: 0.8;
+
+                    &:focus {
+                        opacity: 1;
+                    }
+                }
+
+                &::before {
+                    position: absolute;
+                    left: 10px;
+                    content: " ";
+                    top: 0;
+                    transform: rotate(45deg);
+                    background-color: $mute-color;
+                    width: 2px;
+                    height: 15px;
+                }
+
+                &::after {
+                    position: absolute;
+                    left: 10px;
+                    content: " ";
+                    top: 0;
+                    transform: rotate(-45deg);
+                    background-color: $mute-color;
+                    width: 2px;
+                    height: 15px;
+                }
+            }
+
+            .sezzle-logo {
+                display: block;
+                height: 29.39px;
+                width: 120px;
+                margin: 10px auto 0;
+                background-image: url(https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg);
+                background-repeat: no-repeat;
+            }
+            .sezzle-modal-content {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                width: 326px;
+                .trusted {
+                    font-family: $font-family;
+                    font-weight: 400;
+                    font-size: 11px;
+                    line-height: 17px;
+                    letter-spacing: 0.2px;
+                    color: $mute-color;
+                    margin: 8px auto 0px;
+                }
+                .sezzle-header {
+                    font-family: $font-family;
+                    font-weight: 700;
+                    font-size: 21px;
+                    line-height: 28px;
+                    letter-spacing: 0.1px;
+                    text-align: center;
+                    color: $font-color;
+                    margin: auto;
+                }
+                .payment-plan-wrapper {
+                    .sample-payments {
+                        display: flex;
+                        justify-content: space-between;
+                        padding: 0 16px;
+                        margin: 8px auto;
+                        &.sezzle-five-pay-fr {
+                            padding: 0px;
+                        }
+                        .sample-payments-title {
+                            font-family: $font-family;
+                            font-weight: 400;
+                            font-size: 15px;
+                            line-height: 21px;
+                            letter-spacing: 0.15px;
+                            text-align: center;
+                            color: $font-color;
+                            align-content: center;
+                        }
+                        .input-amount-container {
+                            width: min-content;
+                            height: 58px;
+                            border-radius: 10px;
+                            padding: 0 16px;
+                            align-content: center;
+                            // gap: 16px;
+                            border: 1px solid $mid-mute-color;
+
+                            .input-amount-label {
+                                font-family: $font-family;
+                                font-weight: 500;
+                                font-size: 12px;
+                                line-height: 17px;
+                                letter-spacing: 0.4px;
+                                vertical-align: middle;
+                                color: $mute-color;
+                            }
+                            .input-amount {
+                                font-family: $font-family;
+                                font-weight: 500;
+                                font-size: 15px;
+                                line-height: 21px;
+                                letter-spacing: 0.15px;
+                                vertical-align: middle;
+                                color: $font-color;
+                                width: 75px;   
+                                background:none;
+                                border: none;  
+                                &:focus-visible {
+                                    outline: none;
+                                }                        
+                            }
+                            &:focus-within {
+                                border: 2px solid $focus-color;
+                            }
+                        }
+                    }
+                    .payment-cards {
+                        border-radius: 10px;
+                        background-color: $background-color;
+
+                        .payment-card {
+                            gap: 8px;
+                            padding: 16px;
+                            display: flex;
+                            flex-direction: column;
+
+                            &:first-child {
+                                border-bottom: 3px solid $xx-mute-color;
+                            }
+                            .plan-summary {
+
+                                .purple {
+                                    display: flex;
+                                    justify-content: space-between;
+
+                                    .left {
+                                        text-align: left;
+
+                                        .price {
+                                            font-family: $font-family;
+                                            font-weight: 700;
+                                            font-size: 17px;
+                                            line-height: 23px;
+                                            letter-spacing: 0.2px;
+                                            color: $accent-color;
+                                        }
+                                        .due {
+                                            font-family: $font-family;
+                                            font-weight: 700;
+                                            font-size: 15px;
+                                            line-height: 21px;
+                                            letter-spacing: 0.15px;
+                                            color: $accent-color;
+                                        }
+                                    }
+                                    .right {
+                                        width: fit-content;
+                                        border-radius: 24px;
+                                        height: fit-content;
+                                        padding: 4px 10px;
+                                        background-color: $mute-purple-color;
+                                        align-items: center;
+                                        display: flex;
+
+                                        .pill {
+                                            font-family: $font-family;
+                                            font-weight: 500;
+                                            font-size: 12px;
+                                            line-height: 17px;
+                                            letter-spacing: 0.4px;
+                                            color: $accent-color;
+                                            width: fit-content;
+                                        }
+                                    }
+                                }
+                                .grey {
+                                    font-family: $font-family;
+                                    font-weight: 400;
+                                    font-size: 12px;
+                                    line-height: 17px;
+                                    letter-spacing: 0.4px;
+                                    color: $mute-color;
+                                    text-align: left;
+                                }
+                            }
+                            .payment-breakdown {
+                                display: flex;
+                                justify-content: center;
+
+                                .installment {
+                                    width: -webkit-fill-available;
+                                    display: flex;
+                                    flex-direction: column;
+                                    gap: 8px;
+
+                                    .graphic {
+                                        display: flex;
+                                        justify-content: space-between;
+
+                                        .dash {
+                                            display: flex;
+                                            align-items: center;
+                                        }
+                                        .dot {
+                                            display: flex;
+
+                                            svg {
+                                                width: 16px;
+                                            }
+                                        }
+                                    }
+                                    .detail {
+                                        .amount {
+                                            font-family: $font-family;
+                                            font-weight: 500;
+                                            font-size: 12px;
+                                            line-height: 17px;
+                                            letter-spacing: 0.4px;
+                                            text-align: center;
+                                            color: $mute-color;
+                                        }
+                                        .due {
+                                            font-family: $font-family;
+                                            font-weight: 400;
+                                            font-size: 11px;
+                                            line-height: 17px;
+                                            letter-spacing: 0.2px;
+                                            text-align: center;
+                                            color: $mute-color;
+                                        }
+                                        &.first-installment {
+
+                                            .amount {
+                                                font-weight: 700;
+                                                color: $font-color;
+                                            }
+                                            .due {
+                                                color: $font-color;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                .how-to-sezzle {
+                    display: flex;
+                    flex-direction: column;
+                    padding-top: 8px;
+
+                    .carousel-header {
+                        display: flex;
+                        justify-content: space-between;
+
+                        .how-to-text-wrapper {
+                            gap: 4px;
+                            display: flex;
+
+                            .how-to-text {
+                                font-family: $font-family;
+                                font-weight: 500;
+                                font-size: 13px;
+                                line-height: 17px;
+                                letter-spacing: 0.4px;
+                                color: $font-color;
+                                align-content: center;
+                            }
+                            .how-to-logo {
+                                display: flex;
+                                align-items: center;
+                                svg {
+                                    width: 57.16667175292969px;
+                                    height: 24px;
+                                }
+                            }
+                        }
+                        .arrows {
+                            gap: 4px;
+                            display: flex;
+                            flex-direction: row;
+
+                            .arrow {
+                                &.disabled {
+                                    filter: grayscale(1) opacity(0.5);
+                                }
+                                svg {
+                                    width: 24px;
+                                    height: 24px;
+                                }
+                            }
+                        }
+                    }
+                    .carousel {
+                        gap: 8px;
+                        display: flex;
+                        flex-direction: row;
+                        overflow: hidden;
+                        &.position-1 {
+                            justify-content: start;
+                        }
+                        &.position-2 {
+                            justify-content: center;
+                        }
+                        &.position-3 {
+                            justify-content: end;
+                        }
+                        .carousel-item {
+                            border-radius: 10px;
+                            padding-top: 16px;
+                            padding-right: 12px;
+                            padding-bottom: 16px;
+                            padding-left: 12px;
+                            background-color: $background-color;
+                            display: flex;
+                            
+                            .carousel-item-content {
+                                width: 260px;
+                                display: flex;
+                                flex-direction: row;
+                                align-items: center;
+
+                                .step-number {
+                                    height: 20px;
+                                    border-radius: 31.04px;
+                                    padding: 0 2.47px;
+                                    background-color: $mute-purple-color;
+                                    display: flex;
+                                    .step-number-content {
+                                        display: flex;
+                                        font-family: $font-family;
+                                        font-weight: 500;
+                                        font-size: 12px;
+                                        line-height: 17px;
+                                        letter-spacing: 0.4px;
+                                        color: $accent-color;
+                                        width: 17px;
+                                        align-items: center;
+                                        justify-content: center;
+                                    }
+                                }
+                                .step-name {
+                                    font-family: $font-family;
+                                    font-weight: 400;
+                                    font-size: 12px;
+                                    line-height: 17px;
+                                    letter-spacing: 0.4px;
+                                    color: $font-color;
+                                    padding: 0 25px 0 8px;
+                                    text-align: left;
+                                }
+                                .step-image {
+                                    svg {
+                                        width: 28.5557861328125px;
+                                        height: 29.413787841796875px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .carousel-dots {
+                        display: flex;
+                        flex-direction: row;
+                        gap: 8px;
+                        justify-content: center;
+                        .dot {
+                            &:not(.active) {
+                                filter: grayscale(1) opacity(0.25);
+                            }
+                            svg {
+                                height: 20px;
+                                width: 6px;
+                            }
+                        }
+                    }
+                }
+                .terms-container {
+                    gap: 8px;
+                    display: flex;
+                    flex-direction: column;
+
+                    .terms {
+                        font-family: $font-family;
+                        font-weight: 400;
+                        font-size: 9px;
+                        line-height: 12px;
+                        letter-spacing: 0.2px;
+                        text-align: center;
+                        color: $mute-color;
+                        margin: 0;
+
+                        sup {
+                            vertical-align: super;
+                            font-size: 0.75em;
+                            padding-right: 2px;
+                            font-family: $font-family;
+                            position: unset;
+                        }
+
+                        a {
+                            font-family: $font-family;
+                            font-weight: 400;
+                            font-size: 9px;
+                            line-height: 12px;
+                            letter-spacing: 0.2px;
+                            color: $accent-color;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     &.long-term {
         .sezzle-modal {
             background-image: none;
@@ -1083,6 +1548,7 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                     text-align: center;
                     font-family: $font-family !important;
                     font-weight: 400;
+
                     p {
                         margin: 0 0 10px;
                         a {
