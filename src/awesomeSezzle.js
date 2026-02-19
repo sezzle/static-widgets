@@ -878,39 +878,37 @@ class AwesomeSezzle {
   handleCarousel(modalNode) {
       const CAROUSEL_MIN_TAB = 1;
       const CAROUSEL_MAX_TAB = 3;
-      const arrows = modalNode
-      .getElementsByClassName("arrow");
+
+      // Prevent attaching listeners multiple times
+      if (modalNode.dataset.carouselInitialized === 'true') {
+          return;
+      }
+      modalNode.dataset.carouselInitialized = 'true';
+
+      const arrows = modalNode.getElementsByClassName("arrow");
       for (let i = 0; i < arrows.length; i++) {
           arrows[i].addEventListener("click", (e) => {
               let btn = e.currentTarget;
-              if (btn.className.indexOf("disabled") === -1) {
-                  if (btn.className.indexOf("arrow-right") > -1) {
+              if (!btn.className.includes("disabled")) {
+                  if (btn.className.includes("arrow-right")) {
                       this.activeTab++;
-                      btn.parentElement.firstElementChild.className =
-                          "arrow arrow-left";
-                      this.activeTab === CAROUSEL_MAX_TAB &&
-                          (btn.className = "arrow arrow-right disabled");
+                      btn.parentElement.firstElementChild.className = "arrow arrow-left";
+                      if (this.activeTab === CAROUSEL_MAX_TAB) {
+                          btn.className = "arrow arrow-right disabled";
+                      }
                   } else {
                       this.activeTab--;
-                      btn.parentElement.lastElementChild.className =
-                          "arrow arrow-right";
-                      this.activeTab === CAROUSEL_MIN_TAB &&
-                          (btn.className = "arrow arrow-left disabled");
+                      btn.parentElement.lastElementChild.className = "arrow arrow-right";
+                      if (this.activeTab === CAROUSEL_MIN_TAB) {
+                          btn.className = "arrow arrow-left disabled";
+                      }
                   }
-                  let carouselWrapper =
-                      btn.parentElement.parentElement.parentElement;
+                  let carouselWrapper = btn.parentElement.parentElement.parentElement;
                   carouselWrapper.querySelector(".carousel").className =
                       "carousel position-" + this.activeTab;
-                  let dots =
-                      carouselWrapper.querySelector(
-                          ".carousel-dots"
-                      ).children;
+                  let dots = carouselWrapper.querySelector(".carousel-dots").children;
                   for (let j = 0; j < dots.length; j++) {
-                      if (this.activeTab - 1 === j) {
-                          dots[j].className = "dot active";
-                      } else {
-                          dots[j].className = "dot";
-                      }
+                      dots[j].className = (this.activeTab - 1 === j) ? "dot active" : "dot";
                   }
               }
           });
