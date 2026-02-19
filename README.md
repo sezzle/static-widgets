@@ -310,7 +310,7 @@ Once the widget is rendering, additional configurations can be added to the Awes
 
 **Purpose**: Text content of the widget. Also changes the arrangement of price, logo, and the info/learn-more icon within the widget.
 **Type**: string, or object
-**Default**: {en: 'or 4 payments of %%price%% with %%logo%% %%info%%', fr: 'ou 4 paiements de %%price%% avec %%logo%% %%info%%'}
+**Default**: {en: 'or %%numberOfPayments%% payments of %%price%% with %%logo%% %%info%%', fr: 'ou %%numberOfPayments%% paiements de %%price%% avec %%logo%% %%info%%'}
 **Additional Details**: Available templates include `%%numberOfPayments%%`, `%%price%%`, `%%logo%%`, `%%link%%`, `%%info%%`, `%%question-mark%%`, `%%line-break%%`, `%%afterpay-logo%%`, `%%afterpay-logo-black%%`, `%%afterpay-logo-grey%%`, `%%afterpay-logo-white%%`, `%%afterpay-info-icon%%`, `%%afterpay-link-icon%%`, `%%quadpay-logo%%`, `%%quadpay-logo-grey%%`, `%%quadpay-logo-white%%`, `%%quadpay-info-icon%%`, `%%zip-logo%%`, `%%zip-logo-grey%%`, `%%zip-logo-white%%`, `%%zip-info-icon%%`, `%%affirm-logo%%`, `%%affirm-logo-grey%%`, `%%affirm-logo-white%%`, `%%affirm-info-icon%%`, `%%klarna-logo%%`, `%%klarna-logo-grey%%`, `%%klarna-logo-white%%`, `%%klarna-info-icon%%`, `%%cash-app-afterpay-logo%%`, `%%cash-app-afterpay-logo-black%%`, `%%cash-app-afterpay-info-icon%%`, `%%shoppay-logo%%`, `%%shoppay-info-icon%%`.
 
 `ineligibleWidgetTemplate` (optional)
