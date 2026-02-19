@@ -188,7 +188,6 @@
 }
 
 @import url("https://fonts.cdnfonts.com/css/satoshi");
-@import url("https://fonts.cdnfonts.com/css/roboto");
 $breakpoint-large: 1150px;
 $breakpoint-medium: 965px;
 $breakpoint-small: 600px;
@@ -198,14 +197,30 @@ $font-color: #303030;
 $accent-color: #8333d4;
 $focus-color: #af0fda;
 $mute-color: #5e5e5e;
+$mid-mute-color: #767676;
 $x-mute-color: #e5e5e5;
+$xx-mute-color: #f4f4f4;
 $background-color: #ffffff;
+$mute-purple-color: #f9f5fd;
 $purple-color: #7d25cb;
 $dark-purple-color: #382757;
 $teal-green-color: #00b67a;
 $grey-lavender-color: #dcdce6;
 $font-family: Satoshi, "Open Sans", sans-serif;
-@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600&display=swap");
+
+.sezzle-checkout-modal-lightbox {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 99999998;
+	background-color: rgba(5, 31, 52, 0.57);
+	width: 100vw;
+	height: 100vh;
+	overflow-y: auto;
+	overflow-x: hidden;
+	color: unset;
+}
 
 .sezzle-modal-open {
     position: fixed;
@@ -228,6 +243,7 @@ $font-family: Satoshi, "Open Sans", sans-serif;
     padding: unset;
     border: unset;
     margin: unset;
+    stroke: none;
 }
 
 .sezzle-checkout-modal-lightbox {
@@ -385,157 +401,316 @@ $font-family: Satoshi, "Open Sans", sans-serif;
     @media screen and (min-width: 0px) and (max-width: $breakpoint-minimum) {
         display: none;
     }
+    &.sezzle-four-pay {
+        .sezzle-modal {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            position: absolute;
+            box-shadow: 0 10px 20px rgba(5, 31, 52, 0.19),
+                0 6px 6px rgba(5, 31, 52, 0.2);
+            height: auto;
+            max-height: 100%;
+            width: 391px;
+            color: $font-color;
+            font-family: $font-family;
+            background-color: $background-color;
+            overflow: auto;
+            padding: 20px 0;
+            border-radius: 10px;
+            box-sizing: border-box;
+            gap: 16px;
 
-    .sezzle-modal {
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        position: absolute;
-        box-shadow: 0 10px 20px rgba(5, 31, 52, 0.19),
-            0 6px 6px rgba(5, 31, 52, 0.2);
-        height: auto;
-        max-height: 100%;
-        width: 391px;
-        color: $font-color;
-        font-family: $font-family;
-        background-color: $background-color;
-        overflow: auto;
-        padding: 20px 0;
-        border-radius: 10px;
-        box-sizing: border-box;
-        gap: 16px;
+            @media screen and (max-width: 768px) {
+                width: 100vw;
+                height: 100vh;
+                padding: 20px 0 2px 0;
+                border-radius: 0px;
+            }
 
-        @media screen and (max-width: 768px) {
-            width: 100vw;
-            height: 100vh;
-            padding: 20px 0 2px 0;
-            border-radius: 0px;
-        }
+            div {
+                button.close-sezzle-modal {
+                    position: absolute;
+                    right: 16px;
+                    top: 16px;
+                    width: 24px;
+                    height: 24px;
+                    opacity: 0.2;
+                    cursor: pointer;
+                    padding: 0;
+                    outline: 0;
+                    background: 0 0;
+                    border: none;
+                    box-shadow: none;
 
-        div {
-            button.close-sezzle-modal {
-                position: absolute;
-                right: 16px;
-                top: 16px;
-                width: 24px;
-                height: 24px;
-                opacity: 0.2;
-                cursor: pointer;
-                padding: 0;
-                outline: 0;
-                background: 0 0;
-                border: none;
-                box-shadow: none;
-
-                &:hover {
-                    opacity: 1;
-                }
-
-                &:focus {
-                    opacity: 0.5;
-                }
-
-                @media screen and (max-width: $breakpoint-small) {
-                    opacity: 0.8;
+                    &:hover {
+                        opacity: 1;
+                    }
 
                     &:focus {
-                        opacity: 1;
+                        opacity: 0.5;
+                    }
+
+                    @media screen and (max-width: $breakpoint-small) {
+                        opacity: 0.8;
+
+                        &:focus {
+                            opacity: 1;
+                        }
+                    }
+
+                    &::before {
+                        position: absolute;
+                        left: 10px;
+                        content: " ";
+                        top: 0;
+                        transform: rotate(45deg);
+                        background-color: $mute-color;
+                        width: 2px;
+                        height: 15px;
+                    }
+
+                    &::after {
+                        position: absolute;
+                        left: 10px;
+                        content: " ";
+                        top: 0;
+                        transform: rotate(-45deg);
+                        background-color: $mute-color;
+                        width: 2px;
+                        height: 15px;
+                    }
+                }
+            }
+
+            .sezzle-logo {
+                display: block;
+                height: 29.39px;
+                width: 120px;
+                margin: 10px auto 0;
+                background-image: url(https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg);
+                background-repeat: no-repeat;
+            }
+
+            .sezzle-modal-content {
+                height: auto;
+                text-align: center;
+                padding: 0px 16px;
+                font-family: $font-family;
+
+                .tp-widget-wrapper {
+                    font-size: 12px;
+                    margin: 16px 0px;
+
+                    a {
+                        text-decoration: none;
+                        color: $font-color;
+                    }
+                    .tp-review-status {
+                        color: $dark-purple-color;
+                        font-size: 11.06px;
+                        font-family: $font-family;
+                        font-weight: 700;
+                        line-height: 23.95px;
+                        word-wrap: break-word;
+                        display: inline-block;
+                    }
+
+                    .tp-widget-trustscore {
+                        font-weight: 500;
+                        display: inline-block;
+                    }
+
+                    .tp-widget-stars {
+                        display: inline-block;
+                        width: 80px;
+                        position: relative;
+                        top: 3px;
+                        margin-left: 7px;
+                        div {
+                            .tp-stars--4--half {
+                                div {
+                                    svg {
+                                        display: block;
+                                        position: absolute;
+
+                                        .tp-star {
+                                            &:nth-of-type(-n + 4) {
+                                                .tp-star__canvas {
+                                                    fill: $teal-green-color;
+                                                }
+                                            }
+
+                                            .tp-star__canvas {
+                                                fill: $grey-lavender-color;
+                                            }
+
+                                            .tp-star__canvas--half {
+                                                fill: $teal-green-color;
+                                            }
+
+                                            .tp-star__shape {
+                                                fill: $background-color;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .widget-info {
+                        display: inline-block;
+
+                        .tp-widget-review-count {
+                            font-weight: 700;
+                            display: inline-block;
+                            margin-left: 7px;
+                            font-size: 12px;
+                            line-height: 23.95px;
+                        }
+
+                        .tp-widget-rating {
+                            display: inline-block;
+                            font-size: 12px;
+                            line-height: 23.95px;
+                        }
+
+                        .tp-widget-logo {
+                            display: inline-block;
+                            width: 60px;
+                            position: relative;
+                            top: 3px;
+                            margin-left: 7px;
+                            line-height: 23.95px;
+                        }
                     }
                 }
 
-                &::before {
-                    position: absolute;
-                    left: 10px;
-                    content: " ";
-                    top: 0;
-                    transform: rotate(45deg);
-                    background-color: $mute-color;
-                    width: 2px;
-                    height: 15px;
-                }
-
-                &::after {
-                    position: absolute;
-                    left: 10px;
-                    content: " ";
-                    top: 0;
-                    transform: rotate(-45deg);
-                    background-color: $mute-color;
-                    width: 2px;
-                    height: 15px;
-                }
-            }
-        }
-
-        .sezzle-logo {
-            display: block;
-            height: 29.39px;
-            width: 120px;
-            margin: 10px auto 0;
-            background-image: url(https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg);
-            background-repeat: no-repeat;
-        }
-
-        .sezzle-modal-content {
-            height: auto;
-            text-align: center;
-            padding: 0px 16px;
-            font-family: $font-family;
-
-            .tp-widget-wrapper {
-                font-size: 12px;
-                margin: 16px 0px;
-
-                a {
-                    text-decoration: none;
-                    color: $font-color;
-                }
-                .tp-review-status {
-                    color: $dark-purple-color;
-                    font-size: 11.06px;
-                    font-family: Roboto;
-                    font-weight: 700;
-                    line-height: 23.95px;
-                    word-wrap: break-word;
-                    display: inline-block;
-                }
-
-                .tp-widget-trustscore {
-                    font-weight: 500;
-                    display: inline-block;
-                }
-
-                .tp-widget-stars {
-                    display: inline-block;
-                    width: 80px;
+                .sezzle-header {
                     position: relative;
-                    top: 3px;
-                    margin-left: 7px;
-                    div {
-                        .tp-stars--4--half {
-                            div {
+                    display: block;
+                    text-align: center;
+                    font-style: normal;
+                    font-size: 26px;
+                    font-weight: 700;
+                    line-height: 35px;
+                    letter-spacing: 0.1px;
+                    font-family: $font-family;
+                    color: $font-color;
+                    margin: 16px 0;
+                    float:none;
+                }
+
+                .sezzle-row {
+                    text-align: center;
+                    font-style: normal;
+                    font-size: 15px;
+                    font-weight: 400;
+                    line-height: 21px;
+                    color: $font-color;
+                    letter-spacing: 0.4px;
+                    margin: 12px 0px 24px;
+                    font-family: $font-family;
+                    display: block;
+
+                    span {
+                        display: block;
+                        font-family: $font-family;
+
+                        sup {
+                            vertical-align: super;
+                            font-size: 0.75em;
+                            font-family: $font-family;
+                            position: unset;
+                        }
+                    }
+                }
+
+                .sezzle-four-pay {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    background: rgba(131, 51, 212, 0.05);
+                    border-radius: 11.483px;
+                    padding: 18.37px;
+
+                    &.sezzle-four-pay-fr-es {
+                        margin: 0px 0px;
+                    }
+
+                    .sezzle-pie-area {
+                        display: flex;
+                        align-items: flex-start;
+                        justify-content: space-between;
+                        gap: 18.373px;
+
+                        .due-today {
+                            display: flex;
+                            padding: 18.373px;
+                            flex-direction: column;
+                            align-items: center;
+                            gap: 9.187px;
+                            border-radius: 11.483px;
+                            background: $background-color;
+                        }
+
+                        .future-payments {
+                            display: flex;
+                            padding: 18.373px;
+                            align-items: flex-start;
+                            gap: 18.373px;
+                            border-radius: 11.483px;
+                            background: $background-color;
+                        }
+
+                        .payment-item {
+                            display: inline-flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                            gap: 9.19px;
+
+                            .pie-icon {
+                                position: relative;
                                 svg {
-                                    display: block;
-                                    position: absolute;
+                                    width: 45.93px;
+                                    height: 45.93px;
+                                }
+                            }
 
-                                    .tp-star {
-                                        &:nth-of-type(-n + 4) {
-                                            .tp-star__canvas {
-                                                fill: $teal-green-color;
-                                            }
-                                        }
+                            .breakdown-row {
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: center;
+                                align-items: center;
+                                gap: 2.3px;
 
-                                        .tp-star__canvas {
-                                            fill: $grey-lavender-color;
-                                        }
+                                .percentage {
+                                    text-align: center;
+                                    color: $accent-color;
+                                    font-size: 17.22px;
+                                    font-family: $font-family;
+                                    font-weight: 400;
+                                    line-height: 24.11px;
+                                    letter-spacing: 0.17px;
+                                    word-wrap: break-word;
+                                }
 
-                                        .tp-star__canvas--half {
-                                            fill: $teal-green-color;
-                                        }
-
-                                        .tp-star__shape {
-                                            fill: $background-color;
-                                        }
+                                .due {
+                                    text-align: center;
+                                    color: $mute-color;
+                                    font-size: 13.78px;
+                                    font-family: $font-family;
+                                    font-weight: 400;
+                                    line-height: 19.52px;
+                                    letter-spacing: 0.46px;
+                                    white-space: nowrap;
+                                    sup {
+                                        vertical-align: super;
+                                        font-size: 0.75em;
+                                        font-family: $font-family;
+                                        position: unset;
                                     }
                                 }
                             }
@@ -543,63 +718,32 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                     }
                 }
 
-                .widget-info {
-                    display: inline-block;
-
-                    .tp-widget-review-count {
+                .sezzle-features {
+                    margin: 16px 0 16px 0;
+                    .single-feature {
+                        text-align: center;
+                        align-self: stretch;
+                        font-size: 17px;
+                        font-style: normal;
                         font-weight: 700;
-                        display: inline-block;
-                        margin-left: 7px;
-                        font-size: 12px;
-                        line-height: 23.95px;
+                        line-height: 23px;
+                        letter-spacing: 0.2px;
+                        color: $font-color;
+                        font-family: $font-family !important;
                     }
-
-                    .tp-widget-rating {
-                        display: inline-block;
-                        font-size: 12px;
-                        line-height: 23.95px;
-                    }
-
-                    .tp-widget-logo {
-                        display: inline-block;
-                        width: 60px;
-                        position: relative;
-                        top: 3px;
-                        margin-left: 7px;
-                        line-height: 23.95px;
+                    &.hide {
+                        display: none;
                     }
                 }
-            }
 
-            .sezzle-header {
-                display: block;
-                text-align: center;
-                font-style: normal;
-                font-size: 26px;
-                font-weight: 700;
-                line-height: 35px;
-                letter-spacing: 0.1px;
-                font-family: $font-family;
-                color: $font-color;
-                margin: 16px 0;
-            }
-
-            .sezzle-row {
-                text-align: center;
-                font-style: normal;
-                font-size: 15px;
-                font-weight: 400;
-                line-height: 21px;
-                color: $font-color;
-                letter-spacing: 0.4px;
-                margin: 12px 0px 24px;
-                font-family: $font-family;
-                display: grid;
-                gap: 4px;
-
-                span {
-                    display: block;
-                    font-family: $font-family;
+                .sezzle-giveaway, .sezzle-promo {
+                    font-size: 17px;
+                    font-weight: 700;
+                    line-height: 23px;
+                    margin: 16px 0;
+                    &.hide {
+                        display: none;
+                    }
 
                     sup {
                         vertical-align: super;
@@ -608,202 +752,77 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                         position: unset;
                     }
                 }
-            }
 
-            .sezzle-four-pay {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                background: rgba(131, 51, 212, 0.05);
-                border-radius: 11.483px;
-                padding: 18.37px;
-
-                &.sezzle-four-pay-fr-es {
-                    margin: 0px 0px;
-                }
-
-                .sezzle-pie-area {
-                    display: flex;
-                    align-items: flex-start;
-                    justify-content: space-between;
-                    gap: 18.373px;
-
-                    .due-today {
-                        display: flex;
-                        padding: 18.373px;
-                        flex-direction: column;
-                        align-items: center;
-                        gap: 9.187px;
-                        border-radius: 11.483px;
-                        background: $background-color;
-                    }
-
-                    .future-payments {
-                        display: flex;
-                        padding: 18.373px;
-                        align-items: flex-start;
-                        gap: 18.373px;
-                        border-radius: 11.483px;
-                        background: $background-color;
-                    }
-
-                    .payment-item {
-                        display: inline-flex;
-                        flex-direction: column;
-                        justify-content: center;
-                        align-items: center;
-                        gap: 9.19px;
-
-                        .pie-icon {
-                            position: relative;
-                            svg {
-                                width: 45.93px;
-                                height: 45.93px;
-                            }
-                        }
-
-                        .breakdown-row {
-                            display: flex;
-                            flex-direction: column;
-                            justify-content: center;
-                            align-items: center;
-                            gap: 2.3px;
-
-                            .percentage {
-                                text-align: center;
-                                color: $accent-color;
-                                font-size: 17.22px;
-                                font-family: $font-family;
-                                font-weight: 400;
-                                line-height: 24.11px;
-                                letter-spacing: 0.17px;
-                                word-wrap: break-word;
-                            }
-
-                            .due {
-                                text-align: center;
-                                color: $mute-color;
-                                font-size: 13.78px;
-                                font-family: $font-family;
-                                font-weight: 400;
-                                line-height: 19.52px;
-                                letter-spacing: 0.46px;
-                                white-space: nowrap;
-                                sup {
-                                    vertical-align: super;
-                                    font-size: 0.75em;
-                                    font-family: $font-family;
-                                    position: unset;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            .sezzle-features {
-                margin: 16px 0 16px 0;
-                .single-feature {
+                .terms {
                     text-align: center;
-                    align-self: stretch;
-                    font-size: 17px;
                     font-style: normal;
-                    font-weight: 700;
-                    line-height: 23px;
-                    letter-spacing: 0.2px;
-                    color: $font-color;
-                    font-family: $font-family;
-                }
-                &.hide {
-                    display: none;
-                }
-            }
+                    font-size: 11px;
+                    font-weight: 400;
+                    line-height: 12px;
+                    color: $mute-color;
+                    font-family: $font-family !important;
+                    margin: 0 0 10px;
 
-            .sezzle-giveaway, .sezzle-promo {
-                font-size: 17px;
-                font-weight: 700;
-                line-height: 23px;
-                margin: 16px 0;
-                &.hide {
-                    display: none;
-                }
+                    sup {
+                        vertical-align: super;
+                        font-size: 0.75em;
+                        padding-right: 2px;
+                        font-family: $font-family;
+                        position: unset;
+                    }
 
-                sup {
-                    vertical-align: super;
-                    font-size: 0.75em;
-                    font-family: $font-family;
-                    position: unset;
-                }
-            }
+                    span {
+                        font-family: $font-family;
+                    }
 
-            .terms {
-                text-align: center;
-                font-style: normal;
-                font-size: 11px;
-                font-weight: 400;
-                line-height: 12px;
-                color: $mute-color;
-                font-family: $font-family;
-                margin: 0 0 10px;
+                    a {
+                        color: $accent-color;
+                        font-family: $font-family;
+                        text-decoration: underline;
 
-                sup {
-                    vertical-align: super;
-                    font-size: 0.75em;
-                    padding-right: 2px;
-                    font-family: $font-family;
-                    position: unset;
-                }
-
-                span {
-                    font-family: $font-family;
-                }
-
-                a {
-                    color: $accent-color;
-                    font-family: $font-family;
-                    text-decoration: underline;
-
-                    &:hover {
-                        color: $focus-color;
+                        &:hover {
+                            color: $focus-color;
+                        }
+                    }
+                    &.hide {
+                        display: none;
                     }
                 }
-                &.hide {
-                    display: none;
+                .close-btn-container {
+                    margin-top: 10px;
+                    display: flex;
+                    justify-content: center;
+                    @media screen and (max-width: 768px) {
+                        position: sticky;
+                        bottom: 0;
+                    }
                 }
-            }
-            .close-btn-container {
-                margin-top: 10px;
-                display: flex;
-                justify-content: center;
-                @media screen and (max-width: 768px) {
-                    position: sticky;
-                    bottom: 0;
-                }
-            }
 
-            .close-btn {
-                display: flex;
-                width: 95%;
-                height: 48px;
-                padding: 13px 16px;
-                justify-content: center;
-                align-items: center;
-                gap: 10px;
-                flex-shrink: 0;
-                border-radius: 100px;
-                background: $dark-purple-color;
-                &:hover {
-                    background: $purple-color;
-                }
-                color: $background-color;
+                .close-btn {
+                    display: flex;
+                    width: 95%;
+                    height: 48px;
+                    position: static;
+                    padding: 13px 16px;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 10px;
+                    flex-shrink: 0;
+                    border-radius: 100px;
+                    background: $dark-purple-color;
+                    &:hover {
+                        background: $purple-color;
+                    }
+                    color: $background-color;
 
-                /* Button/Large */
-                font-family: $font-family;
-                font-size: 15px;
-                font-style: normal;
-                font-weight: 500;
-                line-height: 24px; /* 160% */
-                letter-spacing: 0.25px;
+                    /* Button/Large */
+                    font-family: $font-family;
+                    font-size: 15px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 24px; /* 160% */
+                    letter-spacing: 0.25px;
+                }
             }
         }
     }
@@ -811,8 +830,88 @@ $font-family: Satoshi, "Open Sans", sans-serif;
     &.long-term {
         .sezzle-modal {
             background-image: none;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            position: absolute;
+            box-shadow: 0 10px 20px rgba(5, 31, 52, 0.19),
+                0 6px 6px rgba(5, 31, 52, 0.2);
+            height: auto;
+            max-height: 100%;
+            width: 391px;
+            color: $font-color;
+            font-family: $font-family;
+            background-color: $background-color;
+            overflow: auto;
+            padding: 20px 0;
+            border-radius: 10px;
+            box-sizing: border-box;
+            gap: 16px;
+
+            @media screen and (max-width: 768px) {
+                width: 100vw;
+                height: 100vh;
+                padding: 20px 0 2px 0;
+                border-radius: 0px;
+            }
+
+            div {
+                button.close-sezzle-modal {
+                    position: absolute;
+                    right: 16px;
+                    top: 16px;
+                    width: 24px;
+                    height: 24px;
+                    opacity: 0.2;
+                    cursor: pointer;
+                    padding: 0;
+                    outline: 0;
+                    background: 0 0;
+                    border: none;
+                    box-shadow: none;
+
+                    &:hover {
+                        opacity: 1;
+                    }
+
+                    &:focus {
+                        opacity: 0.5;
+                    }
+
+                    @media screen and (max-width: $breakpoint-small) {
+                        opacity: 0.8;
+
+                        &:focus {
+                            opacity: 1;
+                        }
+                    }
+
+                    &::before {
+                        position: absolute;
+                        left: 10px;
+                        content: " ";
+                        top: 0;
+                        transform: rotate(45deg);
+                        background-color: $mute-color;
+                        width: 2px;
+                        height: 15px;
+                    }
+
+                    &::after {
+                        position: absolute;
+                        left: 10px;
+                        content: " ";
+                        top: 0;
+                        transform: rotate(-45deg);
+                        background-color: $mute-color;
+                        width: 2px;
+                        height: 15px;
+                    }
+                }
+            }
 
             .sezzle-logo {
+                display: block;
                 width: 98px;
                 background-image: url(https://media.sezzle.com/branding/2.0/Sezzle_Logo_FullColor.svg);
                 background-repeat: no-repeat;
@@ -831,6 +930,7 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                     font-size: 24px;
                     line-height: 30px;
                     margin: 10px auto;
+                    font-weight: 700;
                 }
 
                 .sezzle-row {
@@ -973,6 +1073,7 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                 }
 
                 .terms {
+                    font-style: normal;
                     font-size: 11px;
                     line-height: 13px;
                     color: $mute-color;
@@ -980,9 +1081,19 @@ $font-family: Satoshi, "Open Sans", sans-serif;
                     padding: 12px 0 0;
                     border-top: 1px solid $x-mute-color;
                     text-align: center;
-                    font-family: $font-family;
+                    font-family: $font-family !important;
+                    font-weight: 400;
                     p {
                         margin: 0 0 10px;
+                        a {
+                            color: $accent-color;
+                            font-family: $font-family;
+                            text-decoration: underline;
+
+                            &:hover {
+                                color: $focus-color;
+                            }
+                        }
                     }
                 }
             }
