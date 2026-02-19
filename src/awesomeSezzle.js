@@ -876,6 +876,8 @@ class AwesomeSezzle {
    * @returns none
    */
   handleCarousel(modalNode) {
+      const CAROUSEL_MIN_TAB = 1;
+      const CAROUSEL_MAX_TAB = 3;
       const arrows = modalNode
       .getElementsByClassName("arrow");
       for (let i = 0; i < arrows.length; i++) {
@@ -886,13 +888,13 @@ class AwesomeSezzle {
                       this.activeTab++;
                       btn.parentElement.firstElementChild.className =
                           "arrow arrow-left";
-                      this.activeTab === 3 &&
+                      this.activeTab === CAROUSEL_MAX_TAB &&
                           (btn.className = "arrow arrow-right disabled");
                   } else {
                       this.activeTab--;
                       btn.parentElement.lastElementChild.className =
                           "arrow arrow-right";
-                      this.activeTab === 1 &&
+                      this.activeTab === CAROUSEL_MIN_TAB &&
                           (btn.className = "arrow arrow-left disabled");
                   }
                   let carouselWrapper =
@@ -903,11 +905,11 @@ class AwesomeSezzle {
                       carouselWrapper.querySelector(
                           ".carousel-dots"
                       ).children;
-                  for (let i = 0; i < dots.length; i++) {
-                      if (this.activeTab - 1 === i) {
-                          dots[i].className = "dot active";
+                  for (let j = 0; j < dots.length; j++) {
+                      if (this.activeTab - 1 === j) {
+                          dots[j].className = "dot active";
                       } else {
-                          dots[i].className = "dot";
+                          dots[j].className = "dot";
                       }
                   }
               }
@@ -1681,7 +1683,10 @@ class AwesomeSezzle {
         const input = modalNode.querySelector(".input-amount");
         if (input) {
             input.addEventListener("input", (event) => {
-              const amount = event.target.value;
+              const amount = event.target.value.replace(
+                  /[^0-9,.$€£₤₹]/g,
+                  "",
+              );
               currency = String.fromCharCode(
                   this.currencySymbol(amount),
               ) || '$';
