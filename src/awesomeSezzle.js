@@ -1679,6 +1679,10 @@ class AwesomeSezzle {
         `;
         this.handleCarousel(modalNode);
         const input = modalNode.querySelector(".input-amount");
+        const pay4Installments =
+            modalNode.getElementsByClassName("4-pay-installment");
+        const pay5Installments =
+            modalNode.getElementsByClassName("5-pay-installment");
         if (input) {
             input.addEventListener("input", (event) => {
               const amount = event.target.value.replace(
@@ -1701,10 +1705,6 @@ class AwesomeSezzle {
               safePrice = escapeHTML(
                   this.addDelimiters(priceString, this.parseMode),
               );
-              const pay4Installments =
-                  modalNode.getElementsByClassName("4-pay-installment");
-              const pay5Installments =
-                  modalNode.getElementsByClassName("5-pay-installment");
               this.updateInstallmentContent(
                   pay4Installments,
                   this.getFormattedPrice(4, safeCurrency + safePrice),
