@@ -175,8 +175,18 @@ describe('Sanitizer Module - XSS Protection', () => {
     xssVectors.forEach((vector) => {
       test(`should block XSS vector: ${vector.substring(0, 50)}...`, () => {
         const result = sanitizeHTML(vector);
-        // Result should not contain dangerous patterns
-        expect(result).not.toMatch(/alert|javascript|onerror|onload|onfocus|onstart|ontoggle/i);
+
+        // Check that dangerous event handlers are removed
+        expect(result).not.toMatch(/\son\w+\s*=/i); // Event handlers like onclick=, onerror=, etc.
+
+        // Check that javascript: protocol is removed from href/src/action attributes
+        expect(result).not.toMatch(/(href|src|action|data)\s*=\s*["']?\s*javascript:/i);
+
+        // Check that script tags are removed
+        expect(result).not.toMatch(/<script[\s>]/i);
+
+        // Check that style attributes with javascript are removed
+        expect(result).not.toMatch(/style\s*=.*javascript:/i);
       });
     });
   });

@@ -704,7 +704,7 @@ class AwesomeSezzle {
         : HelperClass.parsePrice(priceText, this.parseMode);
     this.productPrice = price;
     let priceInCents = price * 100;
-    return (
+    return !!(
       this.minPriceLT &&
       priceInCents >= this.minPriceLT &&
       priceInCents <= this.maxPrice
