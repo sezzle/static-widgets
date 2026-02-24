@@ -1894,7 +1894,7 @@ class AwesomeSezzle {
                 <p class="terms">
                     <span class="webbank-terms"><sup>3</sup>${
                       this.translations.webBankTerms
-                    }</span><span class="webbank-terms">${
+                    } ${
                       this.translations.webBankTermsPI4
                     }</span>
                     <br />
