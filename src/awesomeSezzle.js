@@ -94,6 +94,8 @@ class AwesomeSezzle {
     this.ineligibleWidgetTemplate =
       this.ineligibleWidgetTemplate.replace("%%price%%", "") || "";
     this.activeTab = 1;
+    this.CAROUSEL_MIN_TAB = 1;
+    this.CAROUSEL_MAX_TAB = 3;
   }
 
   getWidgetTemplateOverride(widgetTemplate) {
@@ -875,47 +877,56 @@ class AwesomeSezzle {
     }
   }
 
+  handleCarouselTabStyles(btn){
+    if (!btn.className.includes("disabled")) {
+        if (btn.className.includes("arrow-right")) {
+            this.activeTab++;
+            btn.parentElement.firstElementChild.className =
+                "arrow arrow-left";
+            if (this.activeTab === this.CAROUSEL_MAX_TAB) {
+                btn.className = "arrow arrow-right disabled";
+            }
+        } else {
+            this.activeTab--;
+            btn.parentElement.lastElementChild.className =
+                "arrow arrow-right";
+            if (this.activeTab === this.CAROUSEL_MIN_TAB) {
+                btn.className = "arrow arrow-left disabled";
+            }
+        }
+        let carouselWrapper =
+            btn.parentElement.parentElement.parentElement;
+        carouselWrapper.querySelector(".carousel").className =
+            "carousel position-" + this.activeTab;
+        let dots =
+            carouselWrapper.querySelector(".carousel-dots").children;
+        for (let j = 0; j < dots.length; j++) {
+            dots[j].className =
+                this.activeTab - 1 === j ? "dot active" : "dot";
+        }
+    }
+  }
+
   /** handleCarousel
    * @description rotates carousel and applies classes for conditional styling
    * @param none
    * @returns none
    */
   handleCarousel(modalNode) {
-    const CAROUSEL_MIN_TAB = 1;
-    const CAROUSEL_MAX_TAB = 3;
-
+    const arrows = modalNode.getElementsByClassName("arrow");
     // Prevent attaching listeners multiple times
     if (modalNode.dataset.carouselInitialized === "true") {
-      return;
+        this.activeTab = this.CAROUSEL_MIN_TAB; // Reset state when carousel initializes
+        for (let j = 0; j < arrows.length; j++) {
+          this.handleCarouselTabStyles(arrows[j]);
+        };
+        return;
     }
     modalNode.dataset.carouselInitialized = "true";
-
-    const arrows = modalNode.getElementsByClassName("arrow");
+    
     for (let i = 0; i < arrows.length; i++) {
       arrows[i].addEventListener("click", (e) => {
-        let btn = e.currentTarget;
-        if (!btn.className.includes("disabled")) {
-          if (btn.className.includes("arrow-right")) {
-            this.activeTab++;
-            btn.parentElement.firstElementChild.className = "arrow arrow-left";
-            if (this.activeTab === CAROUSEL_MAX_TAB) {
-              btn.className = "arrow arrow-right disabled";
-            }
-          } else {
-            this.activeTab--;
-            btn.parentElement.lastElementChild.className = "arrow arrow-right";
-            if (this.activeTab === CAROUSEL_MIN_TAB) {
-              btn.className = "arrow arrow-left disabled";
-            }
-          }
-          let carouselWrapper = btn.parentElement.parentElement.parentElement;
-          carouselWrapper.querySelector(".carousel").className =
-            "carousel position-" + this.activeTab;
-          let dots = carouselWrapper.querySelector(".carousel-dots").children;
-          for (let j = 0; j < dots.length; j++) {
-            dots[j].className = this.activeTab - 1 === j ? "dot active" : "dot";
-          }
-        }
+        this.handleCarouselTabStyles(e.currentTarget);
       });
     }
   }
@@ -2073,6 +2084,7 @@ class AwesomeSezzle {
                 "sezzle-checkout-modal-lightbox"
               )[0];
               modalNode.style.display = "block";
+              this.handleCarousel(modalNode);
               modalNode.getElementsByClassName("close-sezzle-modal")[0].focus();
               modalNode.getElementsByClassName(
                 "sezzle-modal"
