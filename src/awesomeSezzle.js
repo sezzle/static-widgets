@@ -1703,30 +1703,34 @@ class AwesomeSezzle {
         const pay5Installments =
           modalNode.getElementsByClassName("5-pay-installment");
         if (input) {
+          let debounceTimer;
           input.addEventListener("input", (event) => {
-            const amount = event.target.value.replace(/[^0-9,.$€£₤₹]/g, "");
-            currency = String.fromCharCode(this.currencySymbol(amount)) || "$";
-            priceString =
-              amount.indexOf(currency) > -1
-                ? amount.split(currency)[1]
-                : amount;
-            priceString =
-              this.parseMode === "comma"
-                ? priceString.replace(".", "").replace(",", ".")
-                : priceString.replace(",", "");
-            // Escape currency and price values for XSS protection
-            safeCurrency = escapeHTML(currency);
-            safePrice = escapeHTML(
-              this.addDelimiters(priceString, this.parseMode),
-            );
-            this.updateInstallmentContent(
-              pay4Installments,
-              this.getFormattedPrice(4, safeCurrency + safePrice),
-            );
-            this.updateInstallmentContent(
-              pay5Installments,
-              this.getFormattedPrice(5, safeCurrency + safePrice),
-            );
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+              const amount = event.target.value.replace(/[^0-9,.$€£₤₹]/g, "");
+              currency = String.fromCharCode(this.currencySymbol(amount)) || "$";
+              priceString =
+                amount.indexOf(currency) > -1
+                  ? amount.split(currency)[1]
+                  : amount;
+              priceString =
+                this.parseMode === "comma"
+                  ? priceString.replace(".", "").replace(",", ".")
+                  : priceString.replace(",", "");
+              // Escape currency and price values for XSS protection
+              safeCurrency = escapeHTML(currency);
+              safePrice = escapeHTML(
+                this.addDelimiters(priceString, this.parseMode),
+              );
+              this.updateInstallmentContent(
+                pay4Installments,
+                this.getFormattedPrice(4, safeCurrency + safePrice),
+              );
+              this.updateInstallmentContent(
+                pay5Installments,
+                this.getFormattedPrice(5, safeCurrency + safePrice),
+              );
+            }, 150);
           });
         }
       } else {
