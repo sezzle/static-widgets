@@ -1887,12 +1887,12 @@ class AwesomeSezzle {
                 </p>
             </div>
             <div class="terms-container">
-                <p class="terms"><span><sup>1</sup>${
+                <p class="terms"><span><sup role="doc-noteref" aria-label="${this.translations.PI4footnote} 1">1</sup>${
                   this.translations.terms1
                 }</span><br /><span>${this.translations.termsHiw}</span></p>
-                <p class="terms"><sup>2</sup>${this.translations.terms2}</p>
+                <p class="terms"><sup role="doc-noteref" aria-label="${this.translations.PI4footnote} 2">2</sup>${this.translations.terms2}</p>
                 <p class="terms">
-                    <span class="webbank-terms"><sup>3</sup>${
+                    <span class="webbank-terms"><sup role="doc-noteref" aria-label="${this.translations.PI4footnote} 3">3</sup>${
                       this.translations.webBankTerms
                     } ${
                       this.translations.webBankTermsPI4
