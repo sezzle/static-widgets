@@ -1869,7 +1869,7 @@ class AwesomeSezzle {
                                 </div>
                                 <div class="breakdown-row">
                                     <div class="percentage">25%</div>
-                                    <div class="due">${this.translations.week} 6<sup>3</sup></span></div>
+                                    <div class="due">${this.translations.week} 6<sup>3</sup></div>
                                 </div>
                             </div>
                         </div>
