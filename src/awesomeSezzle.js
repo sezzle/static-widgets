@@ -892,8 +892,7 @@ class AwesomeSezzle {
                 btn.classList.add("disabled");
             }
         }
-        let carouselWrapper =
-            btn.parentElement.parentElement.parentElement;
+        let carouselWrapper = btn.closest(".how-to-sezzle");
         carouselWrapper.querySelector(".carousel").className =
             "carousel position-" + this.activeTab;
         let dots =
