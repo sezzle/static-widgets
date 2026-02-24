@@ -3,10 +3,18 @@
  *
  * Tests cover:
  * - HTML sanitization with tag/attribute whitelisting
- * - XSS attack vector blocking
+ * - XSS attack vector blocking (OWASP Top 10)
+ * - Advanced XSS attack vectors (obfuscation, encoding)
+ * - Protocol-based attacks (javascript:, vbscript:, data:)
+ * - CSS injection attacks
+ * - SVG-based XSS
+ * - Form-based attacks
+ * - Meta tag attacks
  * - Script source validation
  * - HTML escaping for template data
+ * - Performance and stress testing
  * - Edge cases and error handling
+ * - Real-world widget scenarios
  */
 
 import {
