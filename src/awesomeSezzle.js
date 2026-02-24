@@ -1242,10 +1242,7 @@ class AwesomeSezzle {
                                         </svg>
                                     </div>
                                     <div class='dot'>
-                                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 16C12.8183 16 16.4 12.4183 16.4 8C16.4 3.58172 12.8183 0 8.39999 0C3.98172 0 0.399994 3.58172 0.399994 8C0.399994 12.4183 3.98172 16 8.39999 16Z" fill="white"/>
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 12C10.6091 12 12.4 10.2091 12.4 8C12.4 5.79086 10.6091 4 8.39999 4C6.19085 4 4.39999 5.79086 4.39999 8C4.39999 10.2091 6.19085 12 8.39999 12Z" fill="#8333D4"/>
-                                        </svg>
+                                        ${HelperClass.svgImages().dotImg}
                                     </div>
                                     <div class='dash right fourth'>
                                         <svg width="30" height="2" viewBox="0 0 30 2" fill="#E8E8E8" xmlns="http://www.w3.org/2000/svg">
@@ -1270,10 +1267,7 @@ class AwesomeSezzle {
                                         </svg>
                                     </div>
                                     <div class='dot'>
-                                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 16C12.8183 16 16.4 12.4183 16.4 8C16.4 3.58172 12.8183 0 8.39999 0C3.98172 0 0.399994 3.58172 0.399994 8C0.399994 12.4183 3.98172 16 8.39999 16Z" fill="white"/>
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 12C10.6091 12 12.4 10.2091 12.4 8C12.4 5.79086 10.6091 4 8.39999 4C6.19085 4 4.39999 5.79086 4.39999 8C4.39999 10.2091 6.19085 12 8.39999 12Z" fill="#8333D4"/>
-                                        </svg>
+                                        ${HelperClass.svgImages().dotImg}
                                     </div>
                                     <div class='dash right fourth'>
                                         <svg width="30" height="2" viewBox="0 0 30 2" fill="#E8E8E8" xmlns="http://www.w3.org/2000/svg">
@@ -1298,10 +1292,7 @@ class AwesomeSezzle {
                                         </svg>
                                     </div>
                                     <div class='dot'>
-                                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 16C12.8183 16 16.4 12.4183 16.4 8C16.4 3.58172 12.8183 0 8.39999 0C3.98172 0 0.399994 3.58172 0.399994 8C0.399994 12.4183 3.98172 16 8.39999 16Z" fill="white"/>
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 12C10.6091 12 12.4 10.2091 12.4 8C12.4 5.79086 10.6091 4 8.39999 4C6.19085 4 4.39999 5.79086 4.39999 8C4.39999 10.2091 6.19085 12 8.39999 12Z" fill="#8333D4"/>
-                                        </svg>
+                                        ${HelperClass.svgImages().dotImg}
                                     </div>
                                     <div class='dash right fourth'>
                                         <svg width="30" height="2" viewBox="0 0 30 2" fill="#E8E8E8" xmlns="http://www.w3.org/2000/svg">
@@ -1326,10 +1317,7 @@ class AwesomeSezzle {
                                         </svg>
                                     </div>
                                     <div class='dot'>
-                                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 16C12.8183 16 16.4 12.4183 16.4 8C16.4 3.58172 12.8183 0 8.39999 0C3.98172 0 0.399994 3.58172 0.399994 8C0.399994 12.4183 3.98172 16 8.39999 16Z" fill="white"/>
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 12C10.6091 12 12.4 10.2091 12.4 8C12.4 5.79086 10.6091 4 8.39999 4C6.19085 4 4.39999 5.79086 4.39999 8C4.39999 10.2091 6.19085 12 8.39999 12Z" fill="#8333D4"/>
-                                        </svg>
+                                        ${HelperClass.svgImages().dotImg}
                                     </div>
                                     <div class='dash right fourth'>
                                         <svg width="30" height="2" viewBox="0 0 30 2" fill="#E8E8E8" xmlns="http://www.w3.org/2000/svg" style="visibility: hidden">
@@ -1380,10 +1368,7 @@ class AwesomeSezzle {
                                         </svg>
                                     </div>
                                     <div class='dot'>
-                                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 16C12.8183 16 16.4 12.4183 16.4 8C16.4 3.58172 12.8183 0 8.39999 0C3.98172 0 0.399994 3.58172 0.399994 8C0.399994 12.4183 3.98172 16 8.39999 16Z" fill="white"/>
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 12C10.6091 12 12.4 10.2091 12.4 8C12.4 5.79086 10.6091 4 8.39999 4C6.19085 4 4.39999 5.79086 4.39999 8C4.39999 10.2091 6.19085 12 8.39999 12Z" fill="#8333D4"/>
-                                        </svg>
+                                        ${HelperClass.svgImages().dotImg}
                                     </div>
                                     <div class='dash right fifth'>
                                         <svg width="22" height="2" viewBox="0 0 22 2" fill="#E8E8E8" xmlns="http://www.w3.org/2000/svg">
@@ -1408,10 +1393,7 @@ class AwesomeSezzle {
                                         </svg>
                                     </div>
                                     <div class='dot'>
-                                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 16C12.8183 16 16.4 12.4183 16.4 8C16.4 3.58172 12.8183 0 8.39999 0C3.98172 0 0.399994 3.58172 0.399994 8C0.399994 12.4183 3.98172 16 8.39999 16Z" fill="white"/>
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 12C10.6091 12 12.4 10.2091 12.4 8C12.4 5.79086 10.6091 4 8.39999 4C6.19085 4 4.39999 5.79086 4.39999 8C4.39999 10.2091 6.19085 12 8.39999 12Z" fill="#8333D4"/>
-                                        </svg>
+                                        ${HelperClass.svgImages().dotImg}
                                     </div>
                                     <div class='dash right fifth'>
                                         <svg width="22" height="16" viewBox="0 0 22 16" fill="#E8E8E8" xmlns="http://www.w3.org/2000/svg">
@@ -1436,10 +1418,7 @@ class AwesomeSezzle {
                                         </svg>
                                     </div>
                                     <div class='dot'>
-                                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 16C12.8183 16 16.4 12.4183 16.4 8C16.4 3.58172 12.8183 0 8.39999 0C3.98172 0 0.399994 3.58172 0.399994 8C0.399994 12.4183 3.98172 16 8.39999 16Z" fill="white"/>
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 12C10.6091 12 12.4 10.2091 12.4 8C12.4 5.79086 10.6091 4 8.39999 4C6.19085 4 4.39999 5.79086 4.39999 8C4.39999 10.2091 6.19085 12 8.39999 12Z" fill="#8333D4"/>
-                                        </svg>
+                                        ${HelperClass.svgImages().dotImg}
                                     </div>
                                     <div class='dash right fifth'>
                                         <svg width="22" height="16" viewBox="0 0 22 16" fill="#E8E8E8" xmlns="http://www.w3.org/2000/svg">
@@ -1464,10 +1443,7 @@ class AwesomeSezzle {
                                         </svg>
                                     </div>
                                     <div class='dot'>
-                                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 16C12.8183 16 16.4 12.4183 16.4 8C16.4 3.58172 12.8183 0 8.39999 0C3.98172 0 0.399994 3.58172 0.399994 8C0.399994 12.4183 3.98172 16 8.39999 16Z" fill="white"/>
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 12C10.6091 12 12.4 10.2091 12.4 8C12.4 5.79086 10.6091 4 8.39999 4C6.19085 4 4.39999 5.79086 4.39999 8C4.39999 10.2091 6.19085 12 8.39999 12Z" fill="#8333D4"/>
-                                        </svg>
+                                        ${HelperClass.svgImages().dotImg}
                                     </div>
                                     <div class='dash right fifth'>
                                         <svg width="22" height="16" viewBox="0 0 22 16" fill="#E8E8E8" xmlns="http://www.w3.org/2000/svg">
@@ -1492,10 +1468,7 @@ class AwesomeSezzle {
                                         </svg>
                                     </div>
                                     <div class='dot'>
-                                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 16C12.8183 16 16.4 12.4183 16.4 8C16.4 3.58172 12.8183 0 8.39999 0C3.98172 0 0.399994 3.58172 0.399994 8C0.399994 12.4183 3.98172 16 8.39999 16Z" fill="white"/>
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 12C10.6091 12 12.4 10.2091 12.4 8C12.4 5.79086 10.6091 4 8.39999 4C6.19085 4 4.39999 5.79086 4.39999 8C4.39999 10.2091 6.19085 12 8.39999 12Z" fill="#8333D4"/>
-                                        </svg>
+                                        ${HelperClass.svgImages().dotImg}
                                     </div>
                                     <div class='dash right fifth'>
                                         <svg width="22" height="2" viewBox="0 0 22 2" fill="#E8E8E8" xmlns="http://www.w3.org/2000/svg" style="visibility: hidden">
