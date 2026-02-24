@@ -878,20 +878,18 @@ class AwesomeSezzle {
   }
 
   handleCarouselTabStyles(btn){
-    if (!btn.className.includes("disabled")) {
-        if (btn.className.includes("arrow-right")) {
+    if (!btn.classList.contains("disabled")) {
+        if (btn.classList.contains("arrow-right")) {
             this.activeTab++;
-            btn.parentElement.firstElementChild.className =
-                "arrow arrow-left";
+            btn.parentElement.firstElementChild.classList.remove("disabled");
             if (this.activeTab === this.CAROUSEL_MAX_TAB) {
-                btn.className = "arrow arrow-right disabled";
+                btn.classList.add("disabled");
             }
         } else {
             this.activeTab--;
-            btn.parentElement.lastElementChild.className =
-                "arrow arrow-right";
+            btn.parentElement.lastElementChild.classList.remove("disabled");
             if (this.activeTab === this.CAROUSEL_MIN_TAB) {
-                btn.className = "arrow arrow-left disabled";
+                btn.classList.add("disabled");
             }
         }
         let carouselWrapper =
