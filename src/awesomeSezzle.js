@@ -1193,7 +1193,7 @@ class AwesomeSezzle {
                       this.translations.PI5SeePlans
                     }</span>
                     <span class="input-amount-container"> 
-                        <label class="input-amount-label" htmlFor="PI5-input-amount">${
+                        <label class="input-amount-label" for="PI5-input-amount">${
                           this.translations.PI5Amount
                         }</label>
                         <input class='price input-amount' id="PI5-input-amount" value='${
