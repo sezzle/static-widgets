@@ -1555,16 +1555,16 @@ class AwesomeSezzle {
                         </div>
                     </div>
                     <div class='arrows'>
-                        <div class='arrow arrow-left disabled'>
+                        <button type='button' class='arrow arrow-left disabled' aria-label='${this.translations.PI5previousSlide}' aria-disabled='true'>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M14.5 16.4078C14.825 16.0828 14.825 15.5578 14.5 15.2328L11.2667 11.9995L14.5 8.76614C14.825 8.44114 14.825 7.91614 14.5 7.59114C14.175 7.26614 13.65 7.26614 13.325 7.59114L9.5 11.4161C9.175 11.7411 9.175 12.2661 9.5 12.5911L13.325 16.4161C13.6417 16.7328 14.175 16.7328 14.5 16.4078Z" fill="#8333D4"/>
                             </svg>
-                        </div>
-                        <div class='arrow arrow-right'>
+                        </button>
+                        <button class='arrow arrow-right' aria-label='${this.translations.nextSlide}'>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M9.5 7.59219C9.175 7.91719 9.175 8.44219 9.5 8.76719L12.7333 12.0005L9.5 15.2339C9.175 15.5589 9.175 16.0839 9.5 16.4089C9.825 16.7339 10.35 16.7339 10.675 16.4089L14.5 12.5839C14.825 12.2589 14.825 11.7339 14.5 11.4089L10.675 7.58386C10.3583 7.26719 9.825 7.26719 9.5 7.59219Z" fill="#8333D4"/>
                             </svg>
-                        </div>
+                        </button>
                     </div>
                 </div>
                 <div class='carousel position-1'>
