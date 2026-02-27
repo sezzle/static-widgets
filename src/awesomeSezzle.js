@@ -31,7 +31,7 @@ class AwesomeSezzle {
     };
     this.language = this.translationsMap[this.language] ? this.language : "en";
     this.translations = this.translationsMap[this.language];
-    this.numberOfPayments = options.numberOfPayments === 5 ? 5 : 4;
+    this.numberOfPayments = options.numberOfPayments === 4 ? 4 : 5;
     const templateString = this.translations.widget;
     const templateStringLT = this.translations.longTerm;
     this.widgetTemplate =

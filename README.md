@@ -322,11 +322,11 @@ Once the widget is rendering, additional configurations can be added to the Awes
 
 `numberOfPayments` (optional)
 
-**Purpose**: Number of installments by which the shopper will pay the total, calculates installment amount within the widget.
+**Purpose**: Number of installments by which the shopper will pay the total, calculates installment amount.
 **Type**: number
 **Options**: 4, 5
-**Default**: 4
-**Additional Details**: There are very few merchants who offer anything other than a 4-pay model. The modal may still reflect Pay in 4.
+**Default**: 5
+**Additional Details**: Pay-in-4 and Pay-in-5 are both available at checkout. Pay-in-5 modal reflects both plans, whereas Pay-in-4 modal will only reflect 4 installments.
 
 `minPrice` (optional)
 
