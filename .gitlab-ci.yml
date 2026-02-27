@@ -11,7 +11,7 @@ image: "node:21@sha256:4b232062fa976e3a966c49e9b6279efa56c8d207a67270868f51b3d15
 
 variables:
   JIRA_PROJECT_NAME: "MINT"
-  NPM_NEWVERSION: "3.2.3"
+  NPM_NEWVERSION: "3.2.4"
   s3_bucket_production: "checkout-sdk.sezzle.com"
   s3_bucket_staging: "staging.checkout-sdk.sezzle.com"
   cf_dist_production: "E2HSGLI0811JNF"

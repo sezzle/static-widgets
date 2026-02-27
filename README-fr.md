@@ -315,8 +315,8 @@ Une fois le rendu du widget, des configurations supplémentaires peuvent être a
 **objetif**: numéro de versements par lesquels l'acheteur paiera le total, calcule le montant des versements dans le widget.
 **Type**: numéro
 **Options**: 4, 5
-**Défaut**: 4
-**Détails supplémentaires**: Très peu de commerçants proposent autre chose qu'un modèle à 4 paiements. La fenêtre modale peut encore afficher « Payer dans 4 ».
+**Défaut**: 5
+**Détails supplémentaires**: Les options de paiement en 4 ou 5 versements sont toutes deux disponibles au moment du paiement. La fenêtre « Paiement en 5 versements » affiche les deux options, tandis que la fenêtre « Paiement en 4 versements » n'affiche que 4 versements.
 
 `minPrice` (prix minimum, facultatif)
 
