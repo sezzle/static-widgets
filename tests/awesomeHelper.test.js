@@ -110,8 +110,11 @@ describe("Helper Class - Utility Functions", () => {
     });
 
     test.skip("should handle special character after alphabet", () => {
-      // KNOWN ISSUE: Test skipped - edge case needs further consideration
-      // When a period follows an alphabet character, it should be skipped
+      // KNOWN LIMITATION: Complex edge case with mixed text/number contexts
+      // "No.123.45" has both a text period (after "No") and a decimal period
+      // Current implementation correctly skips first period but keeps decimal
+      // To fix would require context-aware parsing - not worth the complexity
+      // for this rare edge case. Current result: "123.45" instead of "12345"
       expect(HelperClass.parsePriceString("No.123.45", false)).toBe("12345");
     });
 
@@ -124,7 +127,11 @@ describe("Helper Class - Utility Functions", () => {
 
   describe("parsePriceStringModeComma() - Comma Mode", () => {
     test.skip("should convert commas to periods for European format", () => {
-      // KNOWN ISSUE: Test skipped - thousand separator handling needs consideration
+      // KNOWN LIMITATION: Thousand separator detection not implemented
+      // European format "1.234,56" uses periods for thousands and comma for decimals
+      // Current implementation converts all commas to periods without context awareness
+      // Would require pattern detection to distinguish thousand vs decimal separators
+      // Currently "1.234,56" becomes "1.234.56" (invalid) instead of "1234.56"
       expect(HelperClass.parsePriceStringModeComma("€123,45")).toBe("123.45");
       expect(HelperClass.parsePriceStringModeComma("1.234,56")).toBe(
         "1.234.56",

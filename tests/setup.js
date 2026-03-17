@@ -33,6 +33,9 @@ if (typeof window !== "undefined") {
       return [];
     }
   };
+
+  // Mock window.alert to suppress JSDOM warnings in tests
+  global.alert = jest.fn();
 }
 
 // Suppress console errors during tests (optional)

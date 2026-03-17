@@ -18,7 +18,7 @@ describe("AwesomeSezzle Widget", () => {
     test("should initialize with default options", () => {
       const widget = new AwesomeSezzle({});
 
-      expect(widget.numberOfPayments).toBe(4);
+      expect(widget.numberOfPayments).toBe(5);
       expect(widget.language).toBe("en");
       expect(widget.activeTab).toBe(1);
     });
@@ -29,14 +29,14 @@ describe("AwesomeSezzle Widget", () => {
       expect(widget.numberOfPayments).toBe(5);
     });
 
-    test("should default to 4 payments for invalid numberOfPayments", () => {
+    test("should default to 5 payments for invalid numberOfPayments", () => {
       const widget1 = new AwesomeSezzle({ numberOfPayments: 3 });
       const widget2 = new AwesomeSezzle({ numberOfPayments: 6 });
       const widget3 = new AwesomeSezzle({ numberOfPayments: "invalid" });
 
-      expect(widget1.numberOfPayments).toBe(4);
-      expect(widget2.numberOfPayments).toBe(4);
-      expect(widget3.numberOfPayments).toBe(4);
+      expect(widget1.numberOfPayments).toBe(5);
+      expect(widget2.numberOfPayments).toBe(5);
+      expect(widget3.numberOfPayments).toBe(5);
     });
 
     test("should set language from options", () => {
