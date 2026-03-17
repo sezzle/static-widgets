@@ -36,8 +36,8 @@ For futher information,please follow the link https://sezzle.atlassian.net/wiki/
 
 ## Releasing updates to NPM:
 
-1. Update NPM_NEWVERSION in .gitlab-ci.yml
-2. Update version in package.json then `npm i && npx webpack --mode production --config webpack/webpack.config.js`
+1. Update NPM_NEWVERSION in .gitlab-ci.yml. Do not update version in package.json
+2. `npm i && npx webpack --mode production --config webpack/webpack.config.js`
 3. Create tag in Gitlab to reflect the new version and attach to your branch
 4. Merge the branch to production - the pipeline will bump the version number in package.json and release to NPM
 

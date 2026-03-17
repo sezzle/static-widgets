@@ -31,7 +31,7 @@ class AwesomeSezzle {
     };
     this.language = this.translationsMap[this.language] ? this.language : "en";
     this.translations = this.translationsMap[this.language];
-    this.numberOfPayments = options.numberOfPayments === 5 ? 5 : 4;
+    this.numberOfPayments = options.numberOfPayments === 4 ? 4 : 5;
     const templateString = this.translations.widget;
     const templateStringLT = this.translations.longTerm;
     this.widgetTemplate =
@@ -94,6 +94,8 @@ class AwesomeSezzle {
     this.ineligibleWidgetTemplate =
       this.ineligibleWidgetTemplate.replace("%%price%%", "") || "";
     this.activeTab = 1;
+    this.CAROUSEL_MIN_TAB = 1;
+    this.CAROUSEL_MAX_TAB = 3;
   }
 
   getWidgetTemplateOverride(widgetTemplate) {
@@ -875,47 +877,53 @@ class AwesomeSezzle {
     }
   }
 
+  handleCarouselTabStyles(btn){
+    if (!btn.classList.contains("disabled")) {
+        if (btn.classList.contains("arrow-right")) {
+            this.activeTab++;
+            btn.parentElement.firstElementChild.classList.remove("disabled");
+            if (this.activeTab === this.CAROUSEL_MAX_TAB) {
+                btn.classList.add("disabled");
+            }
+        } else {
+            this.activeTab--;
+            btn.parentElement.lastElementChild.classList.remove("disabled");
+            if (this.activeTab === this.CAROUSEL_MIN_TAB) {
+                btn.classList.add("disabled");
+            }
+        }
+        let carouselWrapper = btn.closest(".how-to-sezzle");
+        carouselWrapper.querySelector(".carousel").className =
+            "carousel position-" + this.activeTab;
+        let dots =
+            carouselWrapper.querySelector(".carousel-dots").children;
+        for (let j = 0; j < dots.length; j++) {
+            dots[j].className =
+                this.activeTab - 1 === j ? "dot active" : "dot";
+        }
+    }
+  }
+
   /** handleCarousel
    * @description rotates carousel and applies classes for conditional styling
    * @param none
    * @returns none
    */
   handleCarousel(modalNode) {
-    const CAROUSEL_MIN_TAB = 1;
-    const CAROUSEL_MAX_TAB = 3;
-
+    const arrows = modalNode.getElementsByClassName("arrow");
     // Prevent attaching listeners multiple times
     if (modalNode.dataset.carouselInitialized === "true") {
-      return;
+        this.activeTab = this.CAROUSEL_MIN_TAB; // Reset state when carousel initializes
+        for (let j = 0; j < arrows.length; j++) {
+          this.handleCarouselTabStyles(arrows[j]);
+        };
+        return;
     }
     modalNode.dataset.carouselInitialized = "true";
-
-    const arrows = modalNode.getElementsByClassName("arrow");
+    
     for (let i = 0; i < arrows.length; i++) {
       arrows[i].addEventListener("click", (e) => {
-        let btn = e.currentTarget;
-        if (!btn.className.includes("disabled")) {
-          if (btn.className.includes("arrow-right")) {
-            this.activeTab++;
-            btn.parentElement.firstElementChild.className = "arrow arrow-left";
-            if (this.activeTab === CAROUSEL_MAX_TAB) {
-              btn.className = "arrow arrow-right disabled";
-            }
-          } else {
-            this.activeTab--;
-            btn.parentElement.lastElementChild.className = "arrow arrow-right";
-            if (this.activeTab === CAROUSEL_MIN_TAB) {
-              btn.className = "arrow arrow-left disabled";
-            }
-          }
-          let carouselWrapper = btn.parentElement.parentElement.parentElement;
-          carouselWrapper.querySelector(".carousel").className =
-            "carousel position-" + this.activeTab;
-          let dots = carouselWrapper.querySelector(".carousel-dots").children;
-          for (let j = 0; j < dots.length; j++) {
-            dots[j].className = this.activeTab - 1 === j ? "dot active" : "dot";
-          }
-        }
+        this.handleCarouselTabStyles(e.currentTarget);
       });
     }
   }
@@ -1193,7 +1201,7 @@ class AwesomeSezzle {
                       this.translations.PI5SeePlans
                     }</span>
                     <span class="input-amount-container"> 
-                        <label class="input-amount-label" htmlFor="PI5-input-amount">${
+                        <label class="input-amount-label" for="PI5-input-amount">${
                           this.translations.PI5Amount
                         }</label>
                         <input class='price input-amount' id="PI5-input-amount" value='${
@@ -1234,10 +1242,7 @@ class AwesomeSezzle {
                                         </svg>
                                     </div>
                                     <div class='dot'>
-                                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 16C12.8183 16 16.4 12.4183 16.4 8C16.4 3.58172 12.8183 0 8.39999 0C3.98172 0 0.399994 3.58172 0.399994 8C0.399994 12.4183 3.98172 16 8.39999 16Z" fill="white"/>
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 12C10.6091 12 12.4 10.2091 12.4 8C12.4 5.79086 10.6091 4 8.39999 4C6.19085 4 4.39999 5.79086 4.39999 8C4.39999 10.2091 6.19085 12 8.39999 12Z" fill="#8333D4"/>
-                                        </svg>
+                                        ${HelperClass.svgImages().dotImg}
                                     </div>
                                     <div class='dash right fourth'>
                                         <svg width="30" height="2" viewBox="0 0 30 2" fill="#E8E8E8" xmlns="http://www.w3.org/2000/svg">
@@ -1262,10 +1267,7 @@ class AwesomeSezzle {
                                         </svg>
                                     </div>
                                     <div class='dot'>
-                                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 16C12.8183 16 16.4 12.4183 16.4 8C16.4 3.58172 12.8183 0 8.39999 0C3.98172 0 0.399994 3.58172 0.399994 8C0.399994 12.4183 3.98172 16 8.39999 16Z" fill="white"/>
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 12C10.6091 12 12.4 10.2091 12.4 8C12.4 5.79086 10.6091 4 8.39999 4C6.19085 4 4.39999 5.79086 4.39999 8C4.39999 10.2091 6.19085 12 8.39999 12Z" fill="#8333D4"/>
-                                        </svg>
+                                        ${HelperClass.svgImages().dotImg}
                                     </div>
                                     <div class='dash right fourth'>
                                         <svg width="30" height="2" viewBox="0 0 30 2" fill="#E8E8E8" xmlns="http://www.w3.org/2000/svg">
@@ -1290,10 +1292,7 @@ class AwesomeSezzle {
                                         </svg>
                                     </div>
                                     <div class='dot'>
-                                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 16C12.8183 16 16.4 12.4183 16.4 8C16.4 3.58172 12.8183 0 8.39999 0C3.98172 0 0.399994 3.58172 0.399994 8C0.399994 12.4183 3.98172 16 8.39999 16Z" fill="white"/>
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 12C10.6091 12 12.4 10.2091 12.4 8C12.4 5.79086 10.6091 4 8.39999 4C6.19085 4 4.39999 5.79086 4.39999 8C4.39999 10.2091 6.19085 12 8.39999 12Z" fill="#8333D4"/>
-                                        </svg>
+                                        ${HelperClass.svgImages().dotImg}
                                     </div>
                                     <div class='dash right fourth'>
                                         <svg width="30" height="2" viewBox="0 0 30 2" fill="#E8E8E8" xmlns="http://www.w3.org/2000/svg">
@@ -1318,10 +1317,7 @@ class AwesomeSezzle {
                                         </svg>
                                     </div>
                                     <div class='dot'>
-                                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 16C12.8183 16 16.4 12.4183 16.4 8C16.4 3.58172 12.8183 0 8.39999 0C3.98172 0 0.399994 3.58172 0.399994 8C0.399994 12.4183 3.98172 16 8.39999 16Z" fill="white"/>
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 12C10.6091 12 12.4 10.2091 12.4 8C12.4 5.79086 10.6091 4 8.39999 4C6.19085 4 4.39999 5.79086 4.39999 8C4.39999 10.2091 6.19085 12 8.39999 12Z" fill="#8333D4"/>
-                                        </svg>
+                                        ${HelperClass.svgImages().dotImg}
                                     </div>
                                     <div class='dash right fourth'>
                                         <svg width="30" height="2" viewBox="0 0 30 2" fill="#E8E8E8" xmlns="http://www.w3.org/2000/svg" style="visibility: hidden">
@@ -1372,10 +1368,7 @@ class AwesomeSezzle {
                                         </svg>
                                     </div>
                                     <div class='dot'>
-                                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 16C12.8183 16 16.4 12.4183 16.4 8C16.4 3.58172 12.8183 0 8.39999 0C3.98172 0 0.399994 3.58172 0.399994 8C0.399994 12.4183 3.98172 16 8.39999 16Z" fill="white"/>
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 12C10.6091 12 12.4 10.2091 12.4 8C12.4 5.79086 10.6091 4 8.39999 4C6.19085 4 4.39999 5.79086 4.39999 8C4.39999 10.2091 6.19085 12 8.39999 12Z" fill="#8333D4"/>
-                                        </svg>
+                                        ${HelperClass.svgImages().dotImg}
                                     </div>
                                     <div class='dash right fifth'>
                                         <svg width="22" height="2" viewBox="0 0 22 2" fill="#E8E8E8" xmlns="http://www.w3.org/2000/svg">
@@ -1400,10 +1393,7 @@ class AwesomeSezzle {
                                         </svg>
                                     </div>
                                     <div class='dot'>
-                                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 16C12.8183 16 16.4 12.4183 16.4 8C16.4 3.58172 12.8183 0 8.39999 0C3.98172 0 0.399994 3.58172 0.399994 8C0.399994 12.4183 3.98172 16 8.39999 16Z" fill="white"/>
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 12C10.6091 12 12.4 10.2091 12.4 8C12.4 5.79086 10.6091 4 8.39999 4C6.19085 4 4.39999 5.79086 4.39999 8C4.39999 10.2091 6.19085 12 8.39999 12Z" fill="#8333D4"/>
-                                        </svg>
+                                        ${HelperClass.svgImages().dotImg}
                                     </div>
                                     <div class='dash right fifth'>
                                         <svg width="22" height="16" viewBox="0 0 22 16" fill="#E8E8E8" xmlns="http://www.w3.org/2000/svg">
@@ -1428,10 +1418,7 @@ class AwesomeSezzle {
                                         </svg>
                                     </div>
                                     <div class='dot'>
-                                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 16C12.8183 16 16.4 12.4183 16.4 8C16.4 3.58172 12.8183 0 8.39999 0C3.98172 0 0.399994 3.58172 0.399994 8C0.399994 12.4183 3.98172 16 8.39999 16Z" fill="white"/>
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 12C10.6091 12 12.4 10.2091 12.4 8C12.4 5.79086 10.6091 4 8.39999 4C6.19085 4 4.39999 5.79086 4.39999 8C4.39999 10.2091 6.19085 12 8.39999 12Z" fill="#8333D4"/>
-                                        </svg>
+                                        ${HelperClass.svgImages().dotImg}
                                     </div>
                                     <div class='dash right fifth'>
                                         <svg width="22" height="16" viewBox="0 0 22 16" fill="#E8E8E8" xmlns="http://www.w3.org/2000/svg">
@@ -1456,10 +1443,7 @@ class AwesomeSezzle {
                                         </svg>
                                     </div>
                                     <div class='dot'>
-                                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 16C12.8183 16 16.4 12.4183 16.4 8C16.4 3.58172 12.8183 0 8.39999 0C3.98172 0 0.399994 3.58172 0.399994 8C0.399994 12.4183 3.98172 16 8.39999 16Z" fill="white"/>
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 12C10.6091 12 12.4 10.2091 12.4 8C12.4 5.79086 10.6091 4 8.39999 4C6.19085 4 4.39999 5.79086 4.39999 8C4.39999 10.2091 6.19085 12 8.39999 12Z" fill="#8333D4"/>
-                                        </svg>
+                                        ${HelperClass.svgImages().dotImg}
                                     </div>
                                     <div class='dash right fifth'>
                                         <svg width="22" height="16" viewBox="0 0 22 16" fill="#E8E8E8" xmlns="http://www.w3.org/2000/svg">
@@ -1484,10 +1468,7 @@ class AwesomeSezzle {
                                         </svg>
                                     </div>
                                     <div class='dot'>
-                                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 16C12.8183 16 16.4 12.4183 16.4 8C16.4 3.58172 12.8183 0 8.39999 0C3.98172 0 0.399994 3.58172 0.399994 8C0.399994 12.4183 3.98172 16 8.39999 16Z" fill="white"/>
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.39999 12C10.6091 12 12.4 10.2091 12.4 8C12.4 5.79086 10.6091 4 8.39999 4C6.19085 4 4.39999 5.79086 4.39999 8C4.39999 10.2091 6.19085 12 8.39999 12Z" fill="#8333D4"/>
-                                        </svg>
+                                        ${HelperClass.svgImages().dotImg}
                                     </div>
                                     <div class='dash right fifth'>
                                         <svg width="22" height="2" viewBox="0 0 22 2" fill="#E8E8E8" xmlns="http://www.w3.org/2000/svg" style="visibility: hidden">
@@ -1555,16 +1536,16 @@ class AwesomeSezzle {
                         </div>
                     </div>
                     <div class='arrows'>
-                        <div class='arrow arrow-left disabled'>
+                        <button type='button' class='arrow arrow-left disabled' aria-label='${this.translations.PI5previousSlide}' aria-disabled='true'>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M14.5 16.4078C14.825 16.0828 14.825 15.5578 14.5 15.2328L11.2667 11.9995L14.5 8.76614C14.825 8.44114 14.825 7.91614 14.5 7.59114C14.175 7.26614 13.65 7.26614 13.325 7.59114L9.5 11.4161C9.175 11.7411 9.175 12.2661 9.5 12.5911L13.325 16.4161C13.6417 16.7328 14.175 16.7328 14.5 16.4078Z" fill="#8333D4"/>
                             </svg>
-                        </div>
-                        <div class='arrow arrow-right'>
+                        </button>
+                        <button class='arrow arrow-right' aria-label='${this.translations.nextSlide}'>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M9.5 7.59219C9.175 7.91719 9.175 8.44219 9.5 8.76719L12.7333 12.0005L9.5 15.2339C9.175 15.5589 9.175 16.0839 9.5 16.4089C9.825 16.7339 10.35 16.7339 10.675 16.4089L14.5 12.5839C14.825 12.2589 14.825 11.7339 14.5 11.4089L10.675 7.58386C10.3583 7.26719 9.825 7.26719 9.5 7.59219Z" fill="#8333D4"/>
                             </svg>
-                        </div>
+                        </button>
                     </div>
                 </div>
                 <div class='carousel position-1'>
@@ -1703,30 +1684,34 @@ class AwesomeSezzle {
         const pay5Installments =
           modalNode.getElementsByClassName("5-pay-installment");
         if (input) {
+          let debounceTimer;
           input.addEventListener("input", (event) => {
-            const amount = event.target.value.replace(/[^0-9,.$€£₤₹]/g, "");
-            currency = String.fromCharCode(this.currencySymbol(amount)) || "$";
-            priceString =
-              amount.indexOf(currency) > -1
-                ? amount.split(currency)[1]
-                : amount;
-            priceString =
-              this.parseMode === "comma"
-                ? priceString.replace(".", "").replace(",", ".")
-                : priceString.replace(",", "");
-            // Escape currency and price values for XSS protection
-            safeCurrency = escapeHTML(currency);
-            safePrice = escapeHTML(
-              this.addDelimiters(priceString, this.parseMode),
-            );
-            this.updateInstallmentContent(
-              pay4Installments,
-              this.getFormattedPrice(4, safeCurrency + safePrice),
-            );
-            this.updateInstallmentContent(
-              pay5Installments,
-              this.getFormattedPrice(5, safeCurrency + safePrice),
-            );
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+              const amount = event.target.value.replace(/[^0-9,.$€£₤₹]/g, "");
+              currency = String.fromCharCode(this.currencySymbol(amount)) || "$";
+              priceString =
+                amount.indexOf(currency) > -1
+                  ? amount.split(currency)[1]
+                  : amount;
+              priceString =
+                this.parseMode === "comma"
+                  ? priceString.replace(".", "").replace(",", ".")
+                  : priceString.replace(",", "");
+              // Escape currency and price values for XSS protection
+              safeCurrency = escapeHTML(currency);
+              safePrice = escapeHTML(
+                this.addDelimiters(priceString, this.parseMode),
+              );
+              this.updateInstallmentContent(
+                pay4Installments,
+                this.getFormattedPrice(4, safeCurrency + safePrice),
+              );
+              this.updateInstallmentContent(
+                pay5Installments,
+                this.getFormattedPrice(5, safeCurrency + safePrice),
+              );
+            }, 150);
           });
         }
       } else {
@@ -1869,7 +1854,7 @@ class AwesomeSezzle {
                                 </div>
                                 <div class="breakdown-row">
                                     <div class="percentage">25%</div>
-                                    <div class="due">${this.translations.week} 6<sup>3</sup></span></div>
+                                    <div class="due">${this.translations.week} 6<sup>3</sup></div>
                                 </div>
                             </div>
                         </div>
@@ -1887,14 +1872,14 @@ class AwesomeSezzle {
                 </p>
             </div>
             <div class="terms-container">
-                <p class="terms"><span><sup>1</sup>${
+                <p class="terms"><span><sup role="doc-noteref" aria-label="${this.translations.PI4footnote} 1">1</sup>${
                   this.translations.terms1
                 }</span><br /><span>${this.translations.termsHiw}</span></p>
-                <p class="terms"><sup>2</sup>${this.translations.terms2}</p>
+                <p class="terms"><sup role="doc-noteref" aria-label="${this.translations.PI4footnote} 2">2</sup>${this.translations.terms2}</p>
                 <p class="terms">
-                    <span class="webbank-terms"><sup>3</sup>${
+                    <span class="webbank-terms"><sup role="doc-noteref" aria-label="${this.translations.PI4footnote} 3">3</sup>${
                       this.translations.webBankTerms
-                    }</span><span class="webbank-terms">${
+                    } ${
                       this.translations.webBankTermsPI4
                     }</span>
                     <br />
@@ -2069,6 +2054,7 @@ class AwesomeSezzle {
                 "sezzle-checkout-modal-lightbox"
               )[0];
               modalNode.style.display = "block";
+              this.handleCarousel(modalNode);
               modalNode.getElementsByClassName("close-sezzle-modal")[0].focus();
               modalNode.getElementsByClassName(
                 "sezzle-modal"

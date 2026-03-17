@@ -34,6 +34,7 @@
   "LTterms3": "* Sous réserve de l'approbation du crédit par un prêteur tiers. Tarifs de 9,99 % à 34,99 % TAEG ; durées de 3 à 48 mois pouvant varier selon le prêteur. Des options de 0 % TAEG peuvent être disponibles. Les TAEG varient en fonction des qualifications en matière de crédit, du montant du prêt, de la durée et du prêteur. Un achat minimum est requis.",
   "PI4close": "Fermer",
   "PI4completePurchase": "2. Complétez votre achat avec un acompte de 25 %.",
+  "PI4footnote": "note de bas de page",
   "PI4pieAlt": "graphique circulaire à",
   "PI4schedulePayments": "3. Planifiez le reste de vos paiements.",
   "PI4selectSezzle": "1. Payez plus tard en sélectionnant Sezzle au moment du paiement.",
@@ -45,6 +46,8 @@
   "PI4trustPilotReviewsCount": "14 000 +",
   "PI4trustPilotTitle": "Note de 4,3 sur 5 étoiles sur Trustpilot",
   "PI5Amount": "Montant*",
+  "PI5nextSlide": "Diapositive suivante",
+  "PI5previousSlide": "Diapositive précédente",
   "PI5SeePlans": "Voir les plans de paiement pour",
   "PI5Step1": "Choisissez « Achetez maintenant, payez plus tard avec Sezzle » au moment du paiement.",
   "PI5Step2": "Sélectionnez votre plan de paiement",
@@ -62,6 +65,6 @@
   "today": "Aujourd'hui",
   "webBankTerms": "Les prêts à remboursement différé sont proposés par WebBank ou Sezzle. Consultez votre contrat de prêt pour obtenir des informations sur le prêteur.",
   "webBankTermsPI4": "Par exemple, pour un prêt de 300 $ payable en 4 fois, vous verseriez un acompte de 75 $ aujourd'hui, puis trois versements de 75 $ toutes les deux semaines, soit un taux annuel effectif global (TAEG) de 45 % et un total de 307,49 $, incluant des frais de service (frais financiers) de 7,49 $ facturés à l'octroi du prêt. Ces frais varient et peuvent aller de 0 $ à 7,49 $ selon le prix d'achat et le produit Sezzle. Les frais exacts sont indiqués au moment du paiement.",
-  "webBankTermsPI5": "Par exemple, pour un prêt de 300 $ payable en 5 fois, vous verseriez un acompte de 60 $ aujourd'hui, puis quatre versements de 60 $ toutes les deux semaines, soit un taux annuel effectif global (TAEG) de 33,56 % et un total de 307,49 $, incluant des frais de service (frais financiers) de 7,49 $ facturés à l'octroi du prêt. Ces frais varient et peuvent aller de 0 $ à 7,49 $ selon le prix d'achat et le produit Sezzle. Les frais exacts sont indiqués au moment du paiement.",
+  "webBankTermsPI5": "Par exemple, pour un prêt de 300 $ payable en 5 fois, vous verseriez un acompte de 60 $ aujourd'hui, puis quatre versements de 60 $ toutes les deux semaines, soit un taux annuel effectif global (TAEG) de 33,29 % et un total de 307,49 $, incluant des frais de service (frais financiers) de 7,49 $ facturés à l'octroi du prêt. Ces frais varient et peuvent aller de 0 $ à 7,49 $ selon le prix d'achat et le produit Sezzle. Les frais exacts sont indiqués au moment du paiement.",
   "week": "Semaine"
 }
