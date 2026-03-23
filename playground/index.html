@@ -24,11 +24,11 @@
 
     <!-- To test renderElement array, disable L21, enable L24-28 -->
     
-    <p>Desktop</p>
+    <!-- <p>Desktop</p>
     <div id='sezzle-widget-desktop'></div>
     <br/>
     <p>Mobile</p>
-    <div id='sezzle-widget-mobile'></div>
+    <div id='sezzle-widget-mobile'></div> -->
 
     <!-- To test renderModalByfunction -->
     <!-- <button id='yourClickableElementIdHere' type="button">Show Me the Modal</button> -->
@@ -38,9 +38,12 @@
   <script>
     const renderSezzle = new AwesomeSezzle({
         widgetTemplate: '%%logo%% %%info%% %%afterpay-logo%% %%afterpay-info-icon%% %%quadpay-logo%% %%quadpay-info-icon%% %%zip-logo%% %%zip-info-icon%% %%affirm-logo%% %%affirm-info-icon%% %%klarna-logo%% %%klarna-info-icon%% %%cash-app-afterpay-logo%% %%cash-app-afterpay-info-icon%% %%shoppay-logo%% %%shoppay-info-icon%%',
-        renderElement: ['sezzle-widget-desktop', 'sezzle-widget-mobile'],
-        theme: 'light',
-      amount: document.querySelector('#price').querySelector('.currency').innerText + document.querySelector('#price').querySelector('.amount').innerText
+        // renderElement: ['sezzle-widget-desktop', 'sezzle-widget-mobile'],
+        numberOfPayments: 5,
+        // theme: 'light',
+      amount: document.querySelector('#price').querySelector('.currency').innerText + document.querySelector('#price').querySelector('.amount').innerText,
+      // bestAPR: 21.99,
+      // minPriceLT: 100
     });
     renderSezzle.init();
 
