@@ -101,6 +101,12 @@ function hasDangerousProtocol(url) {
   if (!url) return false;
 
   const lowerUrl = url.toLowerCase().trim();
+
+  // Allow safe data: URIs for raster images (not SVG, which can contain scripts)
+  if (/^data:image\/(?:png|jpeg|jpg|gif|webp|bmp|ico)[;,]/.test(lowerUrl)) {
+    return false;
+  }
+
   return DANGEROUS_PROTOCOLS.some(protocol => lowerUrl.startsWith(protocol));
 }
 

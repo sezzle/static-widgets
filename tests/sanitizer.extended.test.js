@@ -113,12 +113,16 @@ describe("Sanitizer Module - Extended XSS Protection", () => {
     });
 
     test("should allow safe data: URIs for images", () => {
-      // Some sanitizers may allow data: URIs for images if properly validated
-      const safeDataUri =
-        '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUg==">';
-      const result = sanitizeHTML(safeDataUri);
-      // This test depends on your sanitizer's policy
-      // Adjust based on actual implementation
+        const safeDataUri =
+            '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUg==">';
+        const result = sanitizeHTML(safeDataUri);
+
+        // Verify safe image data URIs are preserved
+        expect(result).toContain("<img");
+        expect(result).toContain("data:image/png");
+
+        // But ensure no script execution is possible
+        expect(result).not.toMatch(/javascript:/i);
     });
   });
 
