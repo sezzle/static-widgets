@@ -50,6 +50,7 @@ class AwesomeSezzle {
     this.minPrice = options.minPrice || 2000;
     this.maxPrice = options.maxPrice || 250000;
     this.minPriceLT = options.minPriceLT || 0;
+    this.maxPriceLT = options.maxPriceLT || options.maxPrice || 1500000;
     this.bestAPR = options.bestAPR || 9.99;
     this.altModalHTML = options.altLightboxHTML ? sanitizeHTML(options.altLightboxHTML) : "";
     this.ltAltModalHTML = options.ltAltModalHTML ? sanitizeHTML(options.ltAltModalHTML) : "";
@@ -496,6 +497,17 @@ class AwesomeSezzle {
   }
 
   renderAwesomeSezzle() {
+    // If PI5 is enabled but price is below $50, fall back to PI4
+    if (this.numberOfPayments === 5) {
+      const price =
+        this.parseMode === "default"
+          ? HelperClass.parsePrice(this.amount)
+          : HelperClass.parsePrice(this.amount, this.parseMode);
+      if (price * 100 < 5000) {
+        this.numberOfPayments = 4;
+      }
+    }
+
     if (
       !this.isProductEligible(this.amount) &&
       this.ineligibleWidgetTemplate.length === 0
@@ -696,7 +708,10 @@ class AwesomeSezzle {
         : HelperClass.parsePrice(priceText, this.parseMode);
     this.productPrice = price;
     let priceInCents = price * 100;
-    return priceInCents >= this.minPrice && priceInCents <= this.maxPrice;
+    const maxEligiblePrice = this.minPriceLT
+      ? this.maxPriceLT
+      : this.maxPrice;
+    return priceInCents >= this.minPrice && priceInCents <= maxEligiblePrice;
   }
 
   isProductEligibleLT(priceText) {
@@ -709,7 +724,7 @@ class AwesomeSezzle {
     return !!(
       this.minPriceLT &&
       priceInCents >= this.minPriceLT &&
-      priceInCents <= this.maxPrice
+      priceInCents <= this.maxPriceLT
     );
   }
 
