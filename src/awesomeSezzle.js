@@ -987,30 +987,46 @@ class AwesomeSezzle {
       } else if (this.altModalHTML) {
         modalNode.innerHTML = this.altModalHTML;
       } else {
-        let currency = String.fromCharCode(this.currencySymbol(this.amount));
-        let priceString =
-          this.amount.indexOf(currency) > -1
-            ? this.amount.split(currency)[1]
-            : this.amount;
-        priceString =
-          this.parseMode === "comma"
-            ? priceString.replace(".", "").replace(",", ".")
-            : priceString.replace(",", "");
-        // Escape currency, price, and APR values for XSS protection
-        let safeCurrency = escapeHTML(currency);
-        let safePrice = escapeHTML(
-          this.addDelimiters(priceString, this.parseMode),
-        );
-        const safeBestAPR = escapeHTML(String(this.bestAPR));
-        let terms = this.termsToShow(priceString);
-        const price =
-          this.parseMode === "default"
-            ? HelperClass.parsePrice(this.amount)
-            : HelperClass.parsePrice(this.amount, this.parseMode);
-        let priceInCents = price * 100
-        let isPI4Eligible = priceInCents <= this.maxPrice;
-        let isPI5Eligible = this.configNumberOfPayments === 5 && priceInCents >= 5000 && priceInCents <= this.maxPrice;
-        modalNode.innerHTML = `
+        modalNode.innerHTML = this.buildModalHTML();
+        this.handleCarousel(modalNode);
+        this.handleFeaturesAccordion(modalNode);
+        this.handleModalInputUpdates(modalNode);
+      }
+      document.getElementsByTagName("html")[0].appendChild(modalNode);
+    } else {
+      modalNode = document.getElementsByClassName(
+        "sezzle-checkout-modal-lightbox"
+      )[0];
+    }
+    this.attachModalCloseHandlers(modalNode);
+    this.modalKeyboardNavigation();
+  }
+
+  buildModalHTML() {
+    let currency = String.fromCharCode(this.currencySymbol(this.amount));
+    let priceString =
+      this.amount.indexOf(currency) > -1
+        ? this.amount.split(currency)[1]
+        : this.amount;
+    priceString =
+      this.parseMode === "comma"
+        ? priceString.replace(".", "").replace(",", ".")
+        : priceString.replace(",", "");
+    const safeCurrency = escapeHTML(currency);
+    const safePrice = escapeHTML(
+      this.addDelimiters(priceString, this.parseMode),
+    );
+    const safeBestAPR = escapeHTML(String(this.bestAPR));
+    const terms = this.termsToShow(priceString);
+    const price =
+      this.parseMode === "default"
+        ? HelperClass.parsePrice(this.amount)
+        : HelperClass.parsePrice(this.amount, this.parseMode);
+    const priceInCents = price * 100;
+    const isLTEligible = this.isProductEligibleLT(this.amount);
+    const isPI4Eligible = priceInCents <= this.maxPrice;
+    const isPI5Eligible = this.configNumberOfPayments === 5 && priceInCents >= 5000 && priceInCents <= this.maxPrice;
+    return `
                 <div id="sezzle-modal-container" role="dialog" aria-label="Sezzle Modal" aria-description="${
                     this.translations.aboutSezzle
                 }" class="sezzle-checkout-modal-hidden sezzle-multi-plan">
@@ -1744,107 +1760,103 @@ class AwesomeSezzle {
             </div>
             </div></div></div>
         `;
-        this.handleCarousel(modalNode);
-        this.handleFeaturesAccordion(modalNode);
-        const input = modalNode.querySelector(".input-amount");
-        const pay4Installments =
-          modalNode.getElementsByClassName("4-pay-installment");
-        const pay5Installments =
-          modalNode.getElementsByClassName("5-pay-installment");
-        if (input) {
-          let debounceTimer;
-          input.addEventListener("input", (event) => {
-            clearTimeout(debounceTimer);
-            debounceTimer = setTimeout(() => {
-              const amount = event.target.value.replace(/[^0-9,.$€£₤₹]/g, "");
-              currency = String.fromCharCode(this.currencySymbol(amount)) || "$";
-              priceString =
-                amount.indexOf(currency) > -1
-                  ? amount.split(currency)[1]
-                  : amount;
-              priceString =
-                this.parseMode === "comma"
-                  ? priceString.replace(".", "").replace(",", ".")
-                  : priceString.replace(",", "");
-              const parsedPrice = parseFloat(priceString);
-              const inputPriceInCents = parsedPrice * 100;
-              const maxAllowed = this.minPriceLT ? this.maxPriceLT : this.maxPrice;
-              if (!parsedPrice || isNaN(parsedPrice) || parsedPrice <= 0 || inputPriceInCents < this.minPrice || inputPriceInCents > maxAllowed) {
-                input.classList.add("input-amount-error");
-                return;
-              }
-              input.classList.remove("input-amount-error");
-              // Escape currency and price values for XSS protection
-              safeCurrency = escapeHTML(currency);
-              safePrice = escapeHTML(
-                this.addDelimiters(priceString, this.parseMode),
-              );
-              const inputAmount = safeCurrency + safePrice;
-              const isInputPI4 = inputPriceInCents <= this.maxPrice;
-              const isInputPI5 = this.configNumberOfPayments === 5 && inputPriceInCents >= 5000 && inputPriceInCents <= this.maxPrice;
-              // Update biweekly card visibility
-              const biweeklySection = modalNode.querySelector(".payment-cards-biweekly");
-              const pi4Card = modalNode.getElementsByClassName("4-pay-installment-card")[0];
-              const pi5Card = modalNode.getElementsByClassName("5-pay-installment-card")[0];
-              if (biweeklySection) biweeklySection.style.display = isInputPI4 ? "block" : "none";
-              if (pi4Card) pi4Card.style.display = isInputPI4 ? "block" : "none";
-              if (pi5Card) pi5Card.style.display = isInputPI5 ? "block" : "none";
-              this.updateInstallmentContent(
-                pay4Installments,
-                this.getFormattedPrice(4, inputAmount),
-              );
-              this.updateInstallmentContent(
-                pay5Installments,
-                this.getFormattedPrice(5, inputAmount),
-              );
-              // Update webbank terms
-              const webbankTerms = modalNode.querySelector(".webbank-terms");
-              if (webbankTerms) {
-                webbankTerms.textContent =
-                  this.translations.webBankTerms + " " +
-                  (isInputPI5 ? this.translations.webBankTermsPI5 : this.translations.webBankTermsPI4);
-              }
-              // Update monthly installment cards
-              const isInputLTEligible = this.isProductEligibleLT(inputAmount);
-              const monthlyCards = modalNode.querySelectorAll(".monthly-installment-card");
-              const monthlySection = modalNode.querySelector(".payment-cards-monthly");
-              if (monthlySection) {
-                monthlySection.style.display = isInputLTEligible ? "block" : "none";
-              }
-              if (isInputLTEligible) {
-                const newTerms = this.termsToShow(priceString);
-                monthlyCards.forEach((card) => {
-                  const termIndex = [2, 1, 0][[...monthlyCards].indexOf(card)];
-                  const term = newTerms[termIndex];
-                  if (term === undefined) {
-                    card.style.display = "none";
-                    return;
-                  }
-                  card.style.display = "block";
-                  card.dataset.months = term;
-                  card.querySelector(".pill").textContent =
-                    `${term} ${this.translations.LTtermLength}`;
-                  card.querySelector(".monthly-amount").textContent =
-                    safeCurrency + escapeHTML(this.formatMonthly(priceString, this.parseMode, term, this.bestAPR));
-                  card.querySelector(".monthly-interest").textContent =
-                    safeCurrency + escapeHTML(this.formatTotalInterest(priceString, this.parseMode, term, this.bestAPR));
-                  card.querySelector(".monthly-total").textContent =
-                    safeCurrency + escapeHTML(this.formatAdjustedTotal(priceString, this.parseMode, term, this.bestAPR));
-                });
-              }
-              // Update LT terms visibility
-              const ltTerms = modalNode.querySelector(".lt-terms");
-              if (ltTerms) ltTerms.style.display = isInputLTEligible ? "block" : "none";
-            }, 150);
+  }
+
+  handleModalInputUpdates(modalNode) {
+    const input = modalNode.querySelector(".input-amount");
+    if (!input) return;
+
+    const pay4Installments =
+      modalNode.getElementsByClassName("4-pay-installment");
+    const pay5Installments =
+      modalNode.getElementsByClassName("5-pay-installment");
+    let debounceTimer;
+    input.addEventListener("input", (event) => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        const amount = event.target.value.replace(/[^0-9,.$€£₤₹]/g, "");
+        let currency = String.fromCharCode(this.currencySymbol(amount)) || "$";
+        let priceString =
+          amount.indexOf(currency) > -1
+            ? amount.split(currency)[1]
+            : amount;
+        priceString =
+          this.parseMode === "comma"
+            ? priceString.replace(".", "").replace(",", ".")
+            : priceString.replace(",", "");
+        const parsedPrice = parseFloat(priceString);
+        const inputPriceInCents = parsedPrice * 100;
+        const maxAllowed = this.minPriceLT ? this.maxPriceLT : this.maxPrice;
+        if (!parsedPrice || isNaN(parsedPrice) || parsedPrice <= 0 || inputPriceInCents < this.minPrice || inputPriceInCents > maxAllowed) {
+          input.classList.add("input-amount-error");
+          return;
+        }
+        input.classList.remove("input-amount-error");
+        const safeCurrency = escapeHTML(currency);
+        const safePrice = escapeHTML(
+          this.addDelimiters(priceString, this.parseMode),
+        );
+        const inputAmount = safeCurrency + safePrice;
+        const isInputPI4 = inputPriceInCents <= this.maxPrice;
+        const isInputPI5 = this.configNumberOfPayments === 5 && inputPriceInCents >= 5000 && inputPriceInCents <= this.maxPrice;
+        // Update biweekly card visibility
+        const biweeklySection = modalNode.querySelector(".payment-cards-biweekly");
+        const pi4Card = modalNode.getElementsByClassName("4-pay-installment-card")[0];
+        const pi5Card = modalNode.getElementsByClassName("5-pay-installment-card")[0];
+        if (biweeklySection) biweeklySection.style.display = isInputPI4 ? "block" : "none";
+        if (pi4Card) pi4Card.style.display = isInputPI4 ? "block" : "none";
+        if (pi5Card) pi5Card.style.display = isInputPI5 ? "block" : "none";
+        this.updateInstallmentContent(
+          pay4Installments,
+          this.getFormattedPrice(4, inputAmount),
+        );
+        this.updateInstallmentContent(
+          pay5Installments,
+          this.getFormattedPrice(5, inputAmount),
+        );
+        // Update webbank terms
+        const webbankTerms = modalNode.querySelector(".webbank-terms");
+        if (webbankTerms) {
+          webbankTerms.textContent =
+            this.translations.webBankTerms + " " +
+            (isInputPI5 ? this.translations.webBankTermsPI5 : this.translations.webBankTermsPI4);
+        }
+        // Update monthly installment cards
+        const isInputLTEligible = this.isProductEligibleLT(inputAmount);
+        const monthlyCards = modalNode.querySelectorAll(".monthly-installment-card");
+        const monthlySection = modalNode.querySelector(".payment-cards-monthly");
+        if (monthlySection) {
+          monthlySection.style.display = isInputLTEligible ? "block" : "none";
+        }
+        if (isInputLTEligible) {
+          const newTerms = this.termsToShow(priceString);
+          monthlyCards.forEach((card) => {
+            const termIndex = [2, 1, 0][[...monthlyCards].indexOf(card)];
+            const term = newTerms[termIndex];
+            if (term === undefined) {
+              card.style.display = "none";
+              return;
+            }
+            card.style.display = "block";
+            card.dataset.months = term;
+            card.querySelector(".pill").textContent =
+              `${term} ${this.translations.LTtermLength}`;
+            card.querySelector(".monthly-amount").textContent =
+              safeCurrency + escapeHTML(this.formatMonthly(priceString, this.parseMode, term, this.bestAPR));
+            card.querySelector(".monthly-interest").textContent =
+              safeCurrency + escapeHTML(this.formatTotalInterest(priceString, this.parseMode, term, this.bestAPR));
+            card.querySelector(".monthly-total").textContent =
+              safeCurrency + escapeHTML(this.formatAdjustedTotal(priceString, this.parseMode, term, this.bestAPR));
           });
         }
-      }
-      document.getElementsByTagName("html")[0].appendChild(modalNode);
-    } else {
-      modalNode = document.getElementsByClassName(
-        "sezzle-checkout-modal-lightbox"
-      )[0];
-    }
+        // Update LT terms visibility
+        const ltTerms = modalNode.querySelector(".lt-terms");
+        if (ltTerms) ltTerms.style.display = isInputLTEligible ? "block" : "none";
+      }, 150);
+    });
+  }
+
+  attachModalCloseHandlers(modalNode) {
     Array.prototype.forEach.call(
       document.getElementsByClassName("close-sezzle-modal"),
       function (el) {
@@ -1880,7 +1892,6 @@ class AwesomeSezzle {
     sezzleModal.addEventListener("click", function (event) {
       event.stopPropagation();
     });
-    this.modalKeyboardNavigation();
   }
 
   async getCompetitorModal(modalNode, competitorClass) {
