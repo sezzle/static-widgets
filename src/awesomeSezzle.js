@@ -1321,7 +1321,7 @@ class AwesomeSezzle {
                         <div class="payment-card monthly-installment-card" data-months="${terms[2]}" ${
                             terms[2] === undefined
                                 ? `style="display: none;"`
-                                : `style="display: block;"`
+                                : `style="display: flex;"`
                         }>
                             <div class="plan-summary">
                                 <div class="purple">
@@ -1386,7 +1386,7 @@ class AwesomeSezzle {
                         <div class="payment-card monthly-installment-card" data-months="${terms[1]}"  ${
                             terms[1] === undefined
                                 ? `style="display: none;"`
-                                : `style="display: block;"`
+                                : `style="display: flex;"`
                         }>
                             <div class="plan-summary">
                                 <div class="purple">
@@ -1452,7 +1452,7 @@ class AwesomeSezzle {
                         <div class="payment-card monthly-installment-card" data-months="${terms[0]}"  ${
                             terms[0] === undefined
                                 ? `style="display: none;"`
-                                : `style="display: block;"`
+                                : `style="display: flex;"`
                         }>
                             <div class="plan-summary">
                                 <div class="purple">
