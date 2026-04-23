@@ -1765,13 +1765,20 @@ class AwesomeSezzle {
                 this.parseMode === "comma"
                   ? priceString.replace(".", "").replace(",", ".")
                   : priceString.replace(",", "");
+              const parsedPrice = parseFloat(priceString);
+              const inputPriceInCents = parsedPrice * 100;
+              const maxAllowed = this.minPriceLT ? this.maxPriceLT : this.maxPrice;
+              if (!parsedPrice || isNaN(parsedPrice) || parsedPrice <= 0 || inputPriceInCents > maxAllowed) {
+                input.classList.add("input-amount-error");
+                return;
+              }
+              input.classList.remove("input-amount-error");
               // Escape currency and price values for XSS protection
               safeCurrency = escapeHTML(currency);
               safePrice = escapeHTML(
                 this.addDelimiters(priceString, this.parseMode),
               );
               const inputAmount = safeCurrency + safePrice;
-              const inputPriceInCents = parseFloat(priceString) * 100;
               const isInputPI4 = inputPriceInCents <= 250000;
               const isInputPI5 = inputPriceInCents >= 5000 && inputPriceInCents <=250000;
               // Update biweekly card visibility
