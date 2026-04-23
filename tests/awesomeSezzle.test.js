@@ -449,6 +449,84 @@ describe("AwesomeSezzle Widget", () => {
     });
   });
 
+  describe("configNumberOfPayments - Original Config Preserved", () => {
+    test("should store original numberOfPayments as configNumberOfPayments", () => {
+      const widget5 = new AwesomeSezzle({ numberOfPayments: 5 });
+      const widget4 = new AwesomeSezzle({ numberOfPayments: 4 });
+      const widgetDefault = new AwesomeSezzle({});
+
+      expect(widget5.configNumberOfPayments).toBe(5);
+      expect(widget4.configNumberOfPayments).toBe(4);
+      expect(widgetDefault.configNumberOfPayments).toBe(5);
+    });
+  });
+
+  describe("maxPriceLT - Long-Term Max Price Configuration", () => {
+    test("should default maxPriceLT to 1500000 when not provided", () => {
+      const widget = new AwesomeSezzle({});
+      expect(widget.maxPriceLT).toBe(1500000);
+    });
+
+    test("should use maxPriceLT when explicitly provided", () => {
+      const widget = new AwesomeSezzle({ maxPriceLT: 2000000 });
+      expect(widget.maxPriceLT).toBe(2000000);
+    });
+
+    test("should fall back to maxPrice for maxPriceLT when maxPrice is provided but maxPriceLT is not", () => {
+      const widget = new AwesomeSezzle({ maxPrice: 1000000 });
+      expect(widget.maxPriceLT).toBe(1000000);
+    });
+
+    test("should prefer maxPriceLT over maxPrice fallback", () => {
+      const widget = new AwesomeSezzle({ maxPrice: 1000000, maxPriceLT: 2000000 });
+      expect(widget.maxPriceLT).toBe(2000000);
+    });
+  });
+
+  describe("isProductEligibleLT() - Uses maxPriceLT", () => {
+    test("should use maxPriceLT instead of maxPrice for LT upper bound", () => {
+      const widget = new AwesomeSezzle({
+        minPriceLT: 15000,
+        maxPrice: 250000,
+        maxPriceLT: 1500000,
+      });
+      // $5000 is above maxPrice but within maxPriceLT
+      expect(widget.isProductEligibleLT("5000.00")).toBe(true);
+      // $16000 is above maxPriceLT
+      expect(widget.isProductEligibleLT("16000.00")).toBe(false);
+    });
+
+    test("should return false when minPriceLT is 0 (disabled)", () => {
+      const widget = new AwesomeSezzle({ minPriceLT: 0, maxPriceLT: 1500000 });
+      expect(widget.isProductEligibleLT("500.00")).toBe(false);
+    });
+  });
+
+  describe("isProductEligible() - Extended Range with LT", () => {
+    test("should use maxPriceLT as upper bound when LT is enabled", () => {
+      const widget = new AwesomeSezzle({
+        minPrice: 2000,
+        maxPrice: 250000,
+        minPriceLT: 15000,
+        maxPriceLT: 1500000,
+      });
+      // $5000 exceeds maxPrice but is within maxPriceLT
+      expect(widget.isProductEligible("5000.00")).toBe(true);
+      // $16000 exceeds maxPriceLT
+      expect(widget.isProductEligible("16000.00")).toBe(false);
+    });
+
+    test("should use maxPrice as upper bound when LT is disabled", () => {
+      const widget = new AwesomeSezzle({
+        minPrice: 2000,
+        maxPrice: 250000,
+        minPriceLT: 0,
+      });
+      expect(widget.isProductEligible("2500.00")).toBe(true);
+      expect(widget.isProductEligible("2500.01")).toBe(false);
+    });
+  });
+
   describe("Real-World Scenarios", () => {
     test("should handle typical e-commerce price: $49.99", () => {
       const widget = new AwesomeSezzle({ amount: "$49.99" });
