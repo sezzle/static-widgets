@@ -449,15 +449,19 @@ describe("AwesomeSezzle Widget", () => {
     });
   });
 
-  describe("configNumberOfPayments - Original Config Preserved", () => {
-    test("should store original numberOfPayments as configNumberOfPayments", () => {
+  describe("numberOfPayments / widgetNumberOfPayments - Config Preserved", () => {
+    test("numberOfPayments holds the original config and widgetNumberOfPayments mirrors it at construction", () => {
       const widget5 = new AwesomeSezzle({ numberOfPayments: 5 });
       const widget4 = new AwesomeSezzle({ numberOfPayments: 4 });
       const widgetDefault = new AwesomeSezzle({});
 
-      expect(widget5.configNumberOfPayments).toBe(5);
-      expect(widget4.configNumberOfPayments).toBe(4);
-      expect(widgetDefault.configNumberOfPayments).toBe(5);
+      expect(widget5.numberOfPayments).toBe(5);
+      expect(widget4.numberOfPayments).toBe(4);
+      expect(widgetDefault.numberOfPayments).toBe(5);
+
+      expect(widget5.widgetNumberOfPayments).toBe(5);
+      expect(widget4.widgetNumberOfPayments).toBe(4);
+      expect(widgetDefault.widgetNumberOfPayments).toBe(5);
     });
   });
 
