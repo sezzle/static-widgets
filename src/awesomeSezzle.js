@@ -32,6 +32,7 @@ class AwesomeSezzle {
     this.language = this.translationsMap[this.language] ? this.language : "en";
     this.translations = this.translationsMap[this.language];
     this.numberOfPayments = options.numberOfPayments === 4 ? 4 : 5;
+    this.configNumberOfPayments = this.numberOfPayments;
     const templateString = this.translations.widget;
     const templateStringLT = this.translations.longTerm;
     this.widgetTemplate =
@@ -1007,8 +1008,8 @@ class AwesomeSezzle {
             ? HelperClass.parsePrice(this.amount)
             : HelperClass.parsePrice(this.amount, this.parseMode);
         let priceInCents = price * 100
-        let isPI4Eligible = priceInCents <= 250000;
-        let isPI5Eligible = priceInCents >= 5000 && priceInCents <= 250000;
+        let isPI4Eligible = priceInCents <= this.maxPrice;
+        let isPI5Eligible = this.configNumberOfPayments === 5 && priceInCents >= 5000 && priceInCents <= this.maxPrice;
         modalNode.innerHTML = `
                 <div id="sezzle-modal-container" role="dialog" aria-label="Sezzle Modal" aria-description="${
                     this.translations.aboutSezzle
@@ -1037,8 +1038,8 @@ class AwesomeSezzle {
                         }'/>
                     </span>
                 </p>
-                <div class='payment-cards payment-cards-biweekly'>
-                    <div class='payment-card 4-pay-installment-card' ${isPI4Eligible ? `style="display: block"` : `style="display: none"`}>
+                <div class='payment-cards payment-cards-biweekly' ${isPI4Eligible ? `style="display: block"` : `style="display: none"`}>
+                    <div class='payment-card 4-pay-installment-card'>
                         <div class='plan-summary'>
                             <div class='purple'>
                                 <div class='left'>
@@ -1768,7 +1769,7 @@ class AwesomeSezzle {
               const parsedPrice = parseFloat(priceString);
               const inputPriceInCents = parsedPrice * 100;
               const maxAllowed = this.minPriceLT ? this.maxPriceLT : this.maxPrice;
-              if (!parsedPrice || isNaN(parsedPrice) || parsedPrice <= 0 || inputPriceInCents > maxAllowed) {
+              if (!parsedPrice || isNaN(parsedPrice) || parsedPrice <= 0 || inputPriceInCents < this.minPrice || inputPriceInCents > maxAllowed) {
                 input.classList.add("input-amount-error");
                 return;
               }
@@ -1779,11 +1780,13 @@ class AwesomeSezzle {
                 this.addDelimiters(priceString, this.parseMode),
               );
               const inputAmount = safeCurrency + safePrice;
-              const isInputPI4 = inputPriceInCents <= 250000;
-              const isInputPI5 = inputPriceInCents >= 5000 && inputPriceInCents <=250000;
+              const isInputPI4 = inputPriceInCents <= this.maxPrice;
+              const isInputPI5 = this.configNumberOfPayments === 5 && inputPriceInCents >= 5000 && inputPriceInCents <= this.maxPrice;
               // Update biweekly card visibility
+              const biweeklySection = modalNode.querySelector(".payment-cards-biweekly");
               const pi4Card = modalNode.getElementsByClassName("4-pay-installment-card")[0];
               const pi5Card = modalNode.getElementsByClassName("5-pay-installment-card")[0];
+              if (biweeklySection) biweeklySection.style.display = isInputPI4 ? "block" : "none";
               if (pi4Card) pi4Card.style.display = isInputPI4 ? "block" : "none";
               if (pi5Card) pi5Card.style.display = isInputPI5 ? "block" : "none";
               this.updateInstallmentContent(
@@ -1955,7 +1958,7 @@ class AwesomeSezzle {
     );
     let sezzleModal = document.getElementsByClassName("sezzle-modal")[0];
     if (!sezzleModal)
-      sezzleModal = document.getElementsByClassName("sezzle-checkout-modal")[0];
+      sezzleModal = document.getElementsByClassName("sezzle-checkout-modal-lightbox")[0];
     sezzleModal.addEventListener("click", function (event) {
       event.stopPropagation();
     });
