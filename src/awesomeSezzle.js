@@ -32,7 +32,7 @@ class AwesomeSezzle {
     this.language = this.translationsMap[this.language] ? this.language : "en";
     this.translations = this.translationsMap[this.language];
     this.numberOfPayments = options.numberOfPayments === 4 ? 4 : 5;
-    this.configNumberOfPayments = this.numberOfPayments;
+    this.widgetNumberOfPayments = this.numberOfPayments;
     const templateString = this.translations.widget;
     const templateStringLT = this.translations.longTerm;
     this.widgetTemplate =
@@ -498,14 +498,15 @@ class AwesomeSezzle {
   }
 
   renderAwesomeSezzle() {
-    // If PI5 is enabled but price is below $50, fall back to PI4
+    // If PI5 is enabled but price is below $50, fall back to PI4 for the widget display
+    this.widgetNumberOfPayments = this.numberOfPayments;
     if (this.numberOfPayments === 5) {
       const price =
         this.parseMode === "default"
           ? HelperClass.parsePrice(this.amount)
           : HelperClass.parsePrice(this.amount, this.parseMode);
       if (price * 100 < 5000) {
-        this.numberOfPayments = 4;
+        this.widgetNumberOfPayments = 4;
       }
     }
 
@@ -575,7 +576,7 @@ class AwesomeSezzle {
         switch (subtemplate) {
             case "numberOfPayments":
                 const widgetInstallmentNode = document.createTextNode(
-                  this.numberOfPayments,
+                  this.widgetNumberOfPayments,
                 );
                 sezzleButtonText.appendChild(widgetInstallmentNode);
                 break;
@@ -730,8 +731,9 @@ class AwesomeSezzle {
   }
 
   getFormattedPrice(
-    numberOfPayments = this.numberOfPayments,
+    numberOfPayments = this.widgetNumberOfPayments,
     amount = this.amount,
+    forceInstallment = false,
   ) {
     const priceText = amount;
     const priceString = HelperClass.parsePriceString(priceText, true);
@@ -741,13 +743,14 @@ class AwesomeSezzle {
         : HelperClass.parsePrice(priceText, this.parseMode);
     const formatter = priceText.replace(priceString, "{price}");
     const terms = this.termsToShow(price);
-    const sezzleInstallmentPrice = this.isProductEligibleLT(amount)
-      ? this.calculateMonthlyWithInterest(
-          price.toString(),
-          terms[terms.length - 1],
-          this.bestAPR
-        )
-      : price / numberOfPayments;
+    const sezzleInstallmentPrice =
+      !forceInstallment && this.isProductEligibleLT(amount)
+        ? this.calculateMonthlyWithInterest(
+            price.toString(),
+            terms[terms.length - 1],
+            this.bestAPR
+          )
+        : price / numberOfPayments;
     const sezzleInstallmentFormattedPrice = formatter.replace(
       "{price}",
       this.addDelimiters(sezzleInstallmentPrice, this.parseMode)
@@ -1025,7 +1028,7 @@ class AwesomeSezzle {
     const priceInCents = price * 100;
     const isLTEligible = this.isProductEligibleLT(this.amount);
     const isPI4Eligible = priceInCents <= this.maxPrice;
-    const isPI5Eligible = this.configNumberOfPayments === 5 && priceInCents >= 5000 && priceInCents <= this.maxPrice;
+    const isPI5Eligible = this.numberOfPayments === 5 && priceInCents >= 5000 && priceInCents <= this.maxPrice;
     return `
                 <div id="sezzle-modal-container" role="dialog" aria-label="Sezzle Modal" aria-description="${
                     this.translations.aboutSezzle
@@ -1061,7 +1064,9 @@ class AwesomeSezzle {
                                 <div class='left'>
                                     <span class='price 4-pay-installment'>${this.getFormattedPrice(
                                         4,
-                                    )}</span> 
+                                        this.amount,
+                                        true,
+                                    )}</span>
                                     <span class='due'>${
                                         this.translations.today
                                     }</span>
@@ -1075,6 +1080,8 @@ class AwesomeSezzle {
                             <div class='grey'>
                                 <span class="4-pay-installment">${this.getFormattedPrice(
                                     4,
+                                    this.amount,
+                                    true,
                                 )}</span> ${this.translations.MultiPlanevery2Weeks}
                             </div>
                         </div>
@@ -1097,7 +1104,7 @@ class AwesomeSezzle {
                                 </div>
                                 <div class='detail first-installment'>
                                     <div class='amount 4-pay-installment'>
-                                        ${this.getFormattedPrice(4)}
+                                        ${this.getFormattedPrice(4, this.amount, true)}
                                     </div>
                                     <div class='due'>
                                         ${this.translations.today}
@@ -1122,7 +1129,7 @@ class AwesomeSezzle {
                                 </div>
                                 <div class='detail'>
                                     <div class='amount 4-pay-installment'>
-                                        ${this.getFormattedPrice(4)}
+                                        ${this.getFormattedPrice(4, this.amount, true)}
                                     </div>
                                     <div class='due'>
                                         2 ${this.translations.MultiPlanweeks}
@@ -1147,7 +1154,7 @@ class AwesomeSezzle {
                                 </div>
                                 <div class='detail'>
                                     <div class='amount 4-pay-installment'>
-                                        ${this.getFormattedPrice(4)}
+                                        ${this.getFormattedPrice(4, this.amount, true)}
                                     </div>
                                     <div class='due'>
                                         4 ${this.translations.MultiPlanweeks}
@@ -1172,7 +1179,7 @@ class AwesomeSezzle {
                                 </div>
                                 <div class='detail'>
                                     <div class='amount 4-pay-installment'>
-                                        ${this.getFormattedPrice(4)}
+                                        ${this.getFormattedPrice(4, this.amount, true)}
                                     </div>
                                     <div class='due'>
                                         6 ${this.translations.MultiPlanweeks}
@@ -1187,7 +1194,9 @@ class AwesomeSezzle {
                                 <div class='left'>
                                     <span class='price 5-pay-installment'>${this.getFormattedPrice(
                                         5,
-                                    )}</span> 
+                                        this.amount,
+                                        true,
+                                    )}</span>
                                     <span class='due'>${
                                         this.translations.today
                                     }</span>
@@ -1201,6 +1210,8 @@ class AwesomeSezzle {
                             <div class='grey'>
                                 <span class="5-pay-installment">${this.getFormattedPrice(
                                     5,
+                                    this.amount,
+                                    true,
                                 )}</span> ${this.translations.MultiPlanevery2Weeks}
                             </div>
                         </div>
@@ -1223,7 +1234,7 @@ class AwesomeSezzle {
                                 </div>
                                 <div class='detail first-installment'>
                                     <div class='amount 5-pay-installment'>
-                                        ${this.getFormattedPrice(5)}
+                                        ${this.getFormattedPrice(5, this.amount, true)}
                                     </div>
                                     <div class='due'>
                                         ${this.translations.today}
@@ -1248,7 +1259,7 @@ class AwesomeSezzle {
                                 </div>
                                 <div class='detail'>
                                     <div class='amount 5-pay-installment'>
-                                        ${this.getFormattedPrice(5)}
+                                        ${this.getFormattedPrice(5, this.amount, true)}
                                     </div>
                                     <div class='due'>
                                         2 ${this.translations.MultiPlanweeks}
@@ -1273,7 +1284,7 @@ class AwesomeSezzle {
                                 </div>
                                 <div class='detail'>
                                     <div class='amount 5-pay-installment'>
-                                        ${this.getFormattedPrice(5)}
+                                        ${this.getFormattedPrice(5, this.amount, true)}
                                     </div>
                                     <div class='due'>
                                         4 ${this.translations.MultiPlanweeks}
@@ -1298,7 +1309,7 @@ class AwesomeSezzle {
                                 </div>
                                 <div class='detail'>
                                     <div class='amount 5-pay-installment'>
-                                        ${this.getFormattedPrice(5)}
+                                        ${this.getFormattedPrice(5, this.amount, true)}
                                     </div>
                                     <div class='due'>
                                         6 ${this.translations.MultiPlanweeks}
@@ -1323,7 +1334,7 @@ class AwesomeSezzle {
                                 </div>
                                 <div class='detail'>
                                     <div class='amount 5-pay-installment'>
-                                        ${this.getFormattedPrice(5)}
+                                        ${this.getFormattedPrice(5, this.amount, true)}
                                     </div>
                                     <div class='due'>
                                         8 ${this.translations.MultiPlanweeks}
@@ -1798,7 +1809,7 @@ class AwesomeSezzle {
         );
         const inputAmount = safeCurrency + safePrice;
         const isInputPI4 = inputPriceInCents <= this.maxPrice;
-        const isInputPI5 = this.configNumberOfPayments === 5 && inputPriceInCents >= 5000 && inputPriceInCents <= this.maxPrice;
+        const isInputPI5 = this.numberOfPayments === 5 && inputPriceInCents >= 5000 && inputPriceInCents <= this.maxPrice;
         // Update biweekly card visibility
         const biweeklySection = modalNode.querySelector(".payment-cards-biweekly");
         const pi4Card = modalNode.getElementsByClassName("4-pay-installment-card")[0];
@@ -1808,11 +1819,11 @@ class AwesomeSezzle {
         if (pi5Card) pi5Card.style.display = isInputPI5 ? "block" : "none";
         this.updateInstallmentContent(
           pay4Installments,
-          this.getFormattedPrice(4, inputAmount),
+          this.getFormattedPrice(4, inputAmount, true),
         );
         this.updateInstallmentContent(
           pay5Installments,
-          this.getFormattedPrice(5, inputAmount),
+          this.getFormattedPrice(5, inputAmount, true),
         );
         // Update webbank terms
         const webbankTerms = modalNode.querySelector(".webbank-terms");
