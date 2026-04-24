@@ -51,7 +51,7 @@ class AwesomeSezzle {
     this.minPrice = options.minPrice || 2000;
     this.maxPrice = options.maxPrice || 250000;
     this.minPriceLT = options.minPriceLT || 0;
-    this.maxPriceLT = options.maxPriceLT || options.maxPrice || 1500000;
+    this.maxPriceLT = options.maxPriceLT || 1500000;
     this.bestAPR = options.bestAPR || 9.99;
     this.altModalHTML = options.altLightboxHTML ? sanitizeHTML(options.altLightboxHTML) : "";
     this.ltAltModalHTML = options.ltAltModalHTML ? sanitizeHTML(options.ltAltModalHTML) : "";
@@ -1027,7 +1027,7 @@ class AwesomeSezzle {
         : HelperClass.parsePrice(this.amount, this.parseMode);
     const priceInCents = price * 100;
     const isLTEligible = this.isProductEligibleLT(this.amount);
-    const isPI4Eligible = priceInCents <= this.maxPrice;
+    const isPI4Eligible = priceInCents <= this.maxPrice; //
     const isPI5Eligible = this.numberOfPayments === 5 && priceInCents >= 5000 && priceInCents <= this.maxPrice;
     return `
                 <div id="sezzle-modal-container" role="dialog" aria-label="Sezzle Modal" aria-description="${
