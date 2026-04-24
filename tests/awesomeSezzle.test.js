@@ -173,8 +173,8 @@ describe("AwesomeSezzle Widget", () => {
     let widget;
 
     beforeEach(() => {
-      // minPriceLT and maxPrice are in cents: $250.00 = 25000 cents, $10000.00 = 1000000 cents
-      widget = new AwesomeSezzle({ minPriceLT: 25000, maxPrice: 1000000 });
+      // minPriceLT and maxPriceLT are in cents: $250.00 = 25000 cents, $10000.00 = 1000000 cents
+      widget = new AwesomeSezzle({ minPriceLT: 25000, maxPriceLT: 1000000 });
     });
 
     test("should return true for prices within long-term range", () => {
@@ -463,6 +463,40 @@ describe("AwesomeSezzle Widget", () => {
       expect(widget4.widgetNumberOfPayments).toBe(4);
       expect(widgetDefault.widgetNumberOfPayments).toBe(5);
     });
+
+    test("falls back widgetNumberOfPayments=4 when numberOfPayments=5 and amount < $50", () => {
+      const widget = new AwesomeSezzle({ numberOfPayments: 5, amount: "$30.00" });
+      try { widget.renderAwesomeSezzle(); } catch (e) { /* downstream DOM not relevant */ }
+      expect(widget.widgetNumberOfPayments).toBe(4);
+      expect(widget.numberOfPayments).toBe(5); // config unchanged
+    });
+
+    test("keeps widgetNumberOfPayments=5 when numberOfPayments=5 and amount >= $50", () => {
+      const widget = new AwesomeSezzle({ numberOfPayments: 5, amount: "$50.00" });
+      try { widget.renderAwesomeSezzle(); } catch (e) { /* downstream DOM not relevant */ }
+      expect(widget.widgetNumberOfPayments).toBe(5);
+    });
+  });
+
+  describe("getFormattedPrice() - forceInstallment flag", () => {
+    test("forceInstallment=true divides amount evenly and skips the LT monthly-with-interest path", () => {
+      // minPriceLT=15000 ($150) means $500 would normally take the LT path
+      const widget = new AwesomeSezzle({
+        amount: "$500.00",
+        parseMode: "default",
+        minPriceLT: 15000,
+        maxPriceLT: 1500000,
+        bestAPR: 9.99,
+      });
+
+      const forced = widget.getFormattedPrice(4, "$500.00", true);
+      // $500 / 4 = $125.00 exactly — confirms LT path was skipped
+      expect(forced).toContain("125.00");
+
+      const ltPath = widget.getFormattedPrice(4, "$500.00", false);
+      // LT path uses calculateMonthlyWithInterest, which yields a non-$125 value
+      expect(ltPath).not.toContain("125.00");
+    });
   });
 
   describe("maxPriceLT - Long-Term Max Price Configuration", () => {
@@ -476,12 +510,12 @@ describe("AwesomeSezzle Widget", () => {
       expect(widget.maxPriceLT).toBe(2000000);
     });
 
-    test("should fall back to maxPrice for maxPriceLT when maxPrice is provided but maxPriceLT is not", () => {
+    test("should default maxPriceLT to 1500000 even when maxPrice is provided", () => {
       const widget = new AwesomeSezzle({ maxPrice: 1000000 });
-      expect(widget.maxPriceLT).toBe(1000000);
+      expect(widget.maxPriceLT).toBe(1500000);
     });
 
-    test("should prefer maxPriceLT over maxPrice fallback", () => {
+    test("should use explicit maxPriceLT regardless of maxPrice", () => {
       const widget = new AwesomeSezzle({ maxPrice: 1000000, maxPriceLT: 2000000 });
       expect(widget.maxPriceLT).toBe(2000000);
     });
