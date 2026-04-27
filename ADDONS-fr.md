@@ -6,7 +6,7 @@ Les produits suivants sont inclus dans le projet `static-widgets` car, comme le 
 
 Le widget statique Sezzle Shopify Buy est une version allégée de notre widget statique. Les détails du produit Shopify Buy sont affichés dans une iframe sur la vitrine non-Shopify, qui n'est compatible ni avec le script de widget standard ni avec le produit de widget statique standard.<br/>
 
-<img src="./assets/static-widget.png"/>
+<img src="./assets/static-widget-lite.png"/>
 
 **<a href="https://github.com/sezzle/static-widgets/tree/production/src/sezzle-checkout-button" >Bouton de paiement Sezzle Shopify</a>**
 
