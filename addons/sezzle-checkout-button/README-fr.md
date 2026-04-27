@@ -87,52 +87,6 @@ L'apparence du bouton peut désormais être personnalisée selon les besoins à 
 
 ```
 
-## Installer en tant que section
-
-_La méthode Section possède une matrice de personnalisation intégrée. Cependant, comme vous ne pouvez pas insérer une section dans une autre section, si le code de votre page de panier se trouve dans `sections/cart.liquid` ou si vous n'êtes pas sûr, veuillez suivre les instructions pour `Installer en tant qu'extrait` ou `Installer en tant que HTML`._
-
-1. Connectez-vous à votre administrateur Shopify
-2. Accédez à la boutique en ligne > Thèmes
-3. À côté du thème applicable, cliquez sur « Actions » puis sur « Modifier le code ».
-4. Faites défiler jusqu'au dossier Sections, puis cliquez sur Ajouter une nouvelle section.
-5. Nommez la section `sezzle-checkout-button`, puis cliquez sur Créer une section
-6. Remplacez le modèle de section par le contenu du code ici [./sezzle-checkout-button-section.liquid].
-7. Collez l'extrait suivant dans le fichier `templates/cart.liquid` où le bouton doit apparaître, puis cliquez sur Enregistrer :
-    - Remarque : ceci se trouve généralement sous le bouton de paiement Shopify. Ouvrez le fichier, puis recherchez (Cmd+F ou Ctrl+F) le mot « checkout » – il s’agit généralement d’un bouton ou d’une entrée.
-
-```
-	{% section "sezzle-checkout-button" %}
-```
-
-8. Cliquez sur Personnaliser le thème
-9. Ajoutez un produit au panier, puis accédez à la page du panier
-10. Dans la barre d'outils de gauche, cliquez sur le bouton Sezzle Checkout.
-11. Apportez les modifications souhaitées, puis cliquez sur Enregistrer
-     - Si le bouton n'est pas dans la position souhaitée, modifiez l'emplacement de l'extrait de code ou ajoutez le style applicable si nécessaire.
-
-## Installer en tant qu'extrait
-
-_La méthode Snippet a le même code léger que la méthode HTML, mais peut être personnalisée via une configuration, et comme elle est enregistrée dans son propre fichier, la balise ajoutée à la page du panier est plus petite et plus facile à déplacer selon les besoins._
-
-1. Connectez-vous à votre administrateur Shopify
-2. Accédez à la boutique en ligne > Thèmes
-3. À côté du thème applicable, cliquez sur « Actions » puis sur « Modifier le code ».
-4. Faites défiler jusqu'au dossier Snippets, puis cliquez sur Ajouter un nouvel extrait.
-5. Nommez le fichier `sezzle-checkout-button`, puis cliquez sur Créer un extrait
-6. Remplacez le modèle d'extrait de code par le contenu du code ici [./sezzle-checkout-button-snippet.liquid].
-7. Collez l'extrait suivant dans le fichier `templates/cart.liquid` ou `sections/cart-template.liquid` où le bouton doit apparaître, puis cliquez sur Enregistrer :
-    - Remarque : ceci se trouve sous le bouton de paiement Shopify. Ouvrez le fichier, puis recherchez (Cmd+F ou Ctrl+F) le mot « checkout » – il s’agit généralement d’un bouton ou d’une entrée.
-
-```
-	{% include "sezzle-checkout-button" %}
-```
-
-8. Modifiez les valeurs des balises « assign » en haut du fichier pour modifier les styles. Détails comme suit :
-    - Le thème peut être `light` (clair) ou `dark` (sombre), correspondant à la couleur de fond de la page.
-    - Le type de bordure peut être "square" (carré), "semi-rounded" (semi-arrondi) or "rounded" (arrondi) pour modifier la forme du bouton.
-    - Le remplissage X peut être défini en px pour modifier l'espace à gauche et à droite du texte dans le bouton.
-    - Les modifications du texte peuvent être apportées directement dans le HTML, par exemple `Payer avec <img>`
-
 ## Installer en HTML
 
 _La méthode HTML est l'installation la plus légère mais la moins intuitive. Recommandé pour les commerçants qui sont à l'aise pour lire et écrire du code._

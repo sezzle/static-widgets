@@ -33,6 +33,8 @@ const COMPETITOR_CONFIG = {
   afterpay: {
     name: "Afterpay",
     competitorClass: "afterpay",
+    translationsKey: "afterpayInfo",
+    modalHTMLProperty: "apModalHTML",
     variants: {
       "logo": {
         width: "115", height: "40", viewBox: "0 0 115 40",
@@ -60,6 +62,8 @@ const COMPETITOR_CONFIG = {
   "cash-app-afterpay": {
     name: "Cash App Afterpay",
     competitorClass: "cash-app-afterpay",
+    translationsKey: "cashAppAfterpayInfo",
+    modalHTMLProperty: "cashAppAfterpayModalHTML",
     variants: {
       "logo": {
         width: "98", height: "24", viewBox: "0 0 98 24",
@@ -76,6 +80,8 @@ const COMPETITOR_CONFIG = {
   zip: {
     name: "Zip",
     competitorClass: "zip",
+    translationsKey: "zipInfo",
+    modalHTMLProperty: "zipModalHTML",
     aliases: ["quadpay"],
     variants: {
       "logo": {
@@ -107,6 +113,8 @@ const COMPETITOR_CONFIG = {
   affirm: {
     name: "Affirm",
     competitorClass: "affirm",
+    translationsKey: "affirmInfo",
+    modalHTMLProperty: "affirmModalHTML",
     variants: {
       "logo": {
         width: "450", height: "170", viewBox: "0 0 450 170",
@@ -128,6 +136,8 @@ const COMPETITOR_CONFIG = {
   klarna: {
     name: "Klarna",
     competitorClass: "klarna",
+    translationsKey: "klarnaInfo",
+    modalHTMLProperty: "klarnaModalHTML",
     variants: {
       "logo": {
         width: "45", height: "25", viewBox: "0 0 45 23",
@@ -149,6 +159,8 @@ const COMPETITOR_CONFIG = {
   shoppay: {
     name: "Shoppay",
     competitorClass: "shoppay",
+    translationsKey: "shoppayInfo",
+    modalHTMLProperty: "shoppayModalHTML",
     variants: {
       "logo": {
         width: "99", height: "25", viewBox: "0 0 99 25",
@@ -182,7 +194,7 @@ class AwesomeSezzle {
 
   assignConfigs(options) {
     this.amount = options.amount || null;
-    this.minPrice = options.minPrice || 2000;
+    this.minPrice = options.minPrice || 0;
     this.maxPrice = options.maxPrice || 250000;
     this.minPriceLT = options.minPriceLT || 0;
     this.maxPriceLT = options.maxPriceLT || 1500000;
@@ -288,16 +300,26 @@ class AwesomeSezzle {
     }
   }
 
+  _resetRenderState() {
+    this.renderElement = this.renderElementInitial;
+    this.renderElementArray = typeof this.renderElementInitial === "string"
+      ? [this.renderElementInitial]
+      : this.renderElementInitial;
+    this.activeTab = 1;
+    this.CAROUSEL_MIN_TAB = 1;
+    this.CAROUSEL_MAX_TAB = 3;
+  }
+
   alterPrice(amt) {
     this.eraseWidget();
-    this.assignConfigs(this);
+    this._resetRenderState();
     this.amount = amt;
     this.init();
   }
 
   updateWidgetTemplate(template) {
     this.eraseWidget();
-    this.assignConfigs(this);
+    this._resetRenderState();
     this.widgetTemplate = template;
     this.init();
   }
@@ -566,7 +588,7 @@ class AwesomeSezzle {
   }
 
   currencySymbol(priceText) {
-    const match = priceText.match(/[€\x80₤\xa3]/); // €, €-legacy(Win1252), ₤, £
+    const match = priceText.match(/[€\x80₤\xa3₹]/); // €, €-legacy(Win1252), ₤, £, ₹
     return match ? match[0].charCodeAt(0) : 36; // $ default
   }
 
@@ -592,6 +614,18 @@ class AwesomeSezzle {
     return this.addDelimiters(monthlyPayment * term, parseMode);
   }
 
+  _restoreFocusAfterModalClose(fallbackSelector = ".sezzle-info-icon") {
+    const returnTarget = document.querySelector("#sezzle-modal-return");
+    if (returnTarget) {
+      returnTarget.focus();
+      returnTarget.removeAttribute("id");
+      return;
+    }
+    const buttonWrapper = document.querySelector(".sezzle-checkout-button-wrapper");
+    const fallbackEl = buttonWrapper?.querySelector(fallbackSelector);
+    (fallbackEl || buttonWrapper)?.focus();
+  }
+
   modalKeyboardNavigation() {
     if (this._modalKeyboardNavInstalled) return;
     this._modalKeyboardNavInstalled = true;
@@ -610,15 +644,7 @@ class AwesomeSezzle {
         for (const modal of document.getElementsByClassName("sezzle-checkout-modal-lightbox")) {
           modal.style.display = "none";
         }
-        const returnTarget = document.querySelector("#sezzle-modal-return");
-        if (returnTarget) {
-          returnTarget.focus();
-          returnTarget.removeAttribute("id");
-          return;
-        }
-        const buttonWrapper = document.querySelector(".sezzle-checkout-button-wrapper");
-        const infoIcon = buttonWrapper?.querySelector(".sezzle-info-icon");
-        (infoIcon || buttonWrapper)?.focus();
+        this._restoreFocusAfterModalClose();
       }
     });
   }
@@ -1067,6 +1093,7 @@ class AwesomeSezzle {
                                 <div class="monthly-detail-row">
                                     <span class="detail-label">${this.translations.LTinterest}</span>
                                     <span class="detail-value monthly-interest">${ltAmounts[2].totalInterest}
+</span>
                                 </div>
                                 <div class="monthly-detail-row">
                                     <span class="detail-label">${this.translations.LTadjustedTotal}</span>
@@ -1464,15 +1491,7 @@ class AwesomeSezzle {
       el.addEventListener("click", () => {
         modalNode.style.display = "none";
         modalNode.getElementsByClassName("sezzle-modal")[0].className = "sezzle-modal sezzle-checkout-modal-hidden";
-        const returnTarget = document.querySelector("#sezzle-modal-return");
-        if (returnTarget) {
-          returnTarget.focus();
-          returnTarget.removeAttribute("id");
-          return;
-        }
-        const buttonWrapper = document.querySelector(".sezzle-checkout-button-wrapper");
-        const infoIcon = buttonWrapper?.querySelector(".sezzle-info-icon");
-        (infoIcon || buttonWrapper)?.focus();
+        this._restoreFocusAfterModalClose();
       });
     }
 
@@ -1503,7 +1522,7 @@ class AwesomeSezzle {
     }
   }
 
-  renderCompetitorModal(config) {
+  async renderCompetitorModal(config) {
     // config.competitorClass comes from hardcoded COMPETITOR_CONFIG values
     if (!config.competitorClass) {
       console.error("Invalid competitor class name");
@@ -1520,7 +1539,7 @@ class AwesomeSezzle {
     if (config.modalHTML) {
       modalNode.innerHTML = config.modalHTML;
     } else {
-      this.getCompetitorModal(modalNode, config.competitorClass);
+      await this.getCompetitorModal(modalNode, config.competitorClass);
     }
 
     document.documentElement.appendChild(modalNode);
@@ -1530,15 +1549,7 @@ class AwesomeSezzle {
       el.dataset.competitorCloseInstalled = "true";
       el.addEventListener("click", () => {
         modalNode.style.display = "none";
-        const returnTarget = document.querySelector("#sezzle-modal-return");
-        if (returnTarget) {
-          returnTarget.focus();
-          returnTarget.removeAttribute("id");
-          return;
-        }
-        const wrapper = document.querySelector(".sezzle-checkout-button-wrapper");
-        const infoLink = wrapper?.querySelector(`.${config.competitorClass}-modal-info-link`);
-        (infoLink || wrapper)?.focus();
+        this._restoreFocusAfterModalClose(`.${config.competitorClass}-modal-info-link`);
       });
     }
 
@@ -1608,20 +1619,15 @@ class AwesomeSezzle {
 
     this.renderModal();
 
-    const competitors = [
-      { competitorClass: "afterpay",          ariaLabel: this.translations.afterpayInfo,          ariaDescriptionName: "Afterpay",          modalHTML: this.apModalHTML },
-      { competitorClass: "cash-app-afterpay", ariaLabel: this.translations.cashAppAfterpayInfo,   ariaDescriptionName: "Cash App Afterpay", modalHTML: this.cashAppAfterpayModalHTML },
-      { competitorClass: "zip",               ariaLabel: this.translations.zipInfo,               ariaDescriptionName: "Zip",               modalHTML: this.zipModalHTML },
-      { competitorClass: "affirm",            ariaLabel: this.translations.affirmInfo,            ariaDescriptionName: "Affirm",            modalHTML: this.affirmModalHTML },
-      { competitorClass: "klarna",            ariaLabel: this.translations.klarnaInfo,            ariaDescriptionName: "Klarna",            modalHTML: this.klarnaModalHTML },
-      { competitorClass: "shoppay",           ariaLabel: this.translations.shoppayInfo,           ariaDescriptionName: "Shoppay",           modalHTML: this.shoppayModalHTML },
-    ];
-
-    competitors.forEach((competitor) => {
-      if (document.getElementsByClassName(`${competitor.competitorClass}-modal-info-link`).length > 0) {
-        this.renderCompetitorModal(competitor);
-      }
-    });
+    for (const [key, baseCfg] of Object.entries(COMPETITOR_CONFIG)) {
+      if (document.getElementsByClassName(`${key}-modal-info-link`).length === 0) continue;
+      this.renderCompetitorModal({
+        competitorClass: key,
+        ariaDescriptionName: baseCfg.name,
+        ariaLabel: this.translations[baseCfg.translationsKey],
+        modalHTML: this[baseCfg.modalHTMLProperty],
+      });
+    }
   }
 }
 

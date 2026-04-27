@@ -78,8 +78,12 @@ describe("AwesomeSezzle Widget", () => {
       expect(String.fromCharCode(code)).toBe("£");
     });
 
-    // Note: currencySymbol() currently only supports $, €, £
-    // ¥ (yen) and ₹ (rupee) detection not implemented
+    test("should detect rupee sign (₹)", () => {
+      const code = widget.currencySymbol("₹599.00");
+      expect(String.fromCharCode(code)).toBe("₹");
+    });
+
+    // Note: ¥ (yen) detection is not implemented
 
     test("should handle prices without currency symbols", () => {
       const code = widget.currencySymbol("99.99");
@@ -613,10 +617,12 @@ describe("AwesomeSezzle Widget", () => {
       const usd = widget.currencySymbol("$99.99");
       const eur = widget.currencySymbol("€99,99");
       const gbp = widget.currencySymbol("£99.99");
+      const inr = widget.currencySymbol("₹599.00");
 
       expect(String.fromCharCode(usd)).toBe("$");
       expect(String.fromCharCode(eur)).toBe("€");
       expect(String.fromCharCode(gbp)).toBe("£");
+      expect(String.fromCharCode(inr)).toBe("₹");
     });
   });
 });
