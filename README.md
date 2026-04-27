@@ -135,7 +135,6 @@ Once the widget is rendering, additional configurations can be added to the Awes
     logoStyle: {},
     language: "en",
     parseMode: "default",
-    merchantLocale: "North America",
     ineligibleWidgetTemplate:
       "%%logo%% Pay in 4 payments on purchases $35-$2,500. %%info%%",
     minPrice: 3500, // Amount in cents
@@ -280,13 +279,6 @@ Once the widget is rendering, additional configurations can be added to the Awes
 **Type**: string
 **Options**: 'default', 'comma'
 **Default**: 'default'
-
-`merchantLocale` (optional)
-
-**Purpose**: Allows widget to render the correct program details, depending on if the merchant is enrolled through Sezzle North America or Sezzle Europe.
-**Type**: string
-**Options**: North America, Europe
-**Default**: 'North America'
 
 ### <b>Please discuss with Sezzle point of contact before using the below config options:</b>
 

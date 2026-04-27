@@ -198,7 +198,7 @@ class AwesomeSezzle {
     this.maxPrice = options.maxPrice || 250000;
     this.minPriceLT = options.minPriceLT || 0;
     this.maxPriceLT = options.maxPriceLT || 1500000;
-    this.bestAPR = options.bestAPR || 9.99;
+    this.bestAPR = options.bestAPR || 21.99;
     this.altModalHTML = sanitizeHTML(options.altLightboxHTML) || "";
     this.ltAltModalHTML = sanitizeHTML(options.ltAltModalHTML) || "";
     this.apModalHTML = sanitizeHTML(options.apModalHTML) || "";
@@ -573,9 +573,9 @@ class AwesomeSezzle {
 
   addDelimiters(priceString, parseMode) {
     const parsedPrice = Number(priceString).toFixed(2);
-    if (parsedPrice.length <= 6) return parsedPrice;
     const [thousandsSep, decimalSep] = parseMode === "comma" ? [".", ","] : [",", "."];
     const working = parsedPrice.replace(".", decimalSep);
+    if (working.length <= 6) return working;
     const decimalIndex = working.indexOf(decimalSep);
     return working.slice(0, decimalIndex - 3) + thousandsSep + working.slice(decimalIndex - 3);
   }

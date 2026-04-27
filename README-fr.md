@@ -125,8 +125,7 @@ Une fois le rendu du widget, des configurations supplémentaires peuvent être a
     logoSize: 1.0,
     logoStyle: {},
     language: 'en',
-    parseMode: 'default',
-    merchantLocale: 'North America'
+    parseMode: 'default'
   })
   renderSezzle.init();
 </script>
@@ -270,13 +269,6 @@ Une fois le rendu du widget, des configurations supplémentaires peuvent être a
 **Options**: 'default' (défaut), 'comma' (virgule)
 **Défaut**: 'default'
 
-`merchantLocale` (paramètres régionaux du marchand, facultatif)
-
-**objetif**: permet au widget d'afficher les détails corrects du programme, selon que le commerçant est inscrit via Sezzle North America ou Sezzle Europe.
-**Type**: chaîne
-**Options**: North America (Amérique du Nord), Europe
-**Défaut**: 'North America'
-
 ### <b>Veuillez discuter avec le point de contact Sezzle avant d'utiliser les options de configuration ci-dessous :</b>
 
 `widgetTemplate` (Modèle de widget, facultatif)
@@ -371,7 +363,7 @@ Une fois le rendu du widget, des configurations supplémentaires peuvent être a
 
 **objetif**: taux TAEG standard selon lequel les intérêts doivent être calculés.
 **Type**: numéro
-**Défaut**: 9.99
+**Défaut**: 21.99
 
 `widgetTemplateLT` (modèle de widget à long terme, facultatif)
 
