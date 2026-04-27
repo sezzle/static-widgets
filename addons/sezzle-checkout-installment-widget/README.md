@@ -16,7 +16,7 @@ Please refer to the instructions on [NPM](https://www.npmjs.com/package/@sezzle/
 1. Go to Online Store > Themes
 1. On the theme you wish to edit, click `...` then select Edit Code
 1. In the `Assets` folder, click `New File` and name it `sezzle-installment-widget.js`
-1. Copy+paste the contents of `src/sezzle-checkout-installment-widget/sezzle-checkout-installment-widget.js` then click Save
+1. Copy+paste the contents of `./addons/sezzle-checkout-installment-widget/sezzle-checkout-installment-widget.js` then click Save
 1. Paste the following into the bottom of the `templates/checkout.liquid` file in Shopify, then click Save:
     ```
     {{ "sezzle-installment-widget.js" | asset_url | script_tag }}
@@ -36,7 +36,7 @@ Please refer to the instructions on [NPM](https://www.npmjs.com/package/@sezzle/
 
 ### Javascript Method (Non-Shopify platforms)
 
-1. Create a copy of `src/sezzle-checkout-installment-widget/sezzle-checkout-installment-widget.js` within your store's theme code, then import it into the checkout page code.
+1. Create a copy of `./addons/sezzle-checkout-installment-widget/sezzle-checkout-installment-widget.js` within your store's theme code, then import it into the checkout page code.
 
 2.
     Option 1 (recommended): To inject the placeholder element dynamically, add the following lines of code to run once the rest of the page has loaded, updating `sezzlePaymentLine` to target the Sezzle payment method line, below which the installment widget asset will display:

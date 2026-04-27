@@ -4,10 +4,10 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 module.exports = {
     entry: {
         "sezzle-checkout-button": [
-            "./src/sezzle-checkout-button/sezzle-checkout-button-asset.js",
+            "./addons/sezzle-checkout-button/sezzle-checkout-button-asset.js",
         ],
         "sezzle-checkout-button.min": [
-            "./src/sezzle-checkout-button/sezzle-checkout-button-asset.js",
+            "./addons/sezzle-checkout-button/sezzle-checkout-button-asset.js",
         ],
     },
     output: {

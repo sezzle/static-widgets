@@ -45,6 +45,6 @@ If you accidentally publish, use `npm unpublish @sezzle/sezzle-static-widget@{Ma
 
 ## Testing the Checkout Button
 
-Follow the instructions in src/sezzle--checkout-button/README.md to install the desired package in https://admin.shopify.com/store/sezzle-dev/themes
+Follow the instructions in ./addons/sezzle-checkout-button/README.md to install the desired package in https://admin.shopify.com/store/sezzle-dev/themes
  - If you don't have direct access to this store, you may be able to access it via Shopify Partners: https://partners.shopify.com/455865/stores?search_value=sezzle-dev.myshopify.com
  - If you don't have access via either method, you will need to submit a request to Sezzle Service Desk to be added as a staff member on Shopify Partners.
