@@ -118,7 +118,6 @@ Once the widget is rendering, additional configurations can be added to the Awes
     amount: "{{ product.selected_or_first_available_variant.price | money }}",
     renderElement: "new-sezzle-widget-container-id",
     theme: "light",
-    modalTheme: "color",
     maxWidth: 400,
     marginTop: 0,
     marginBottom: 0,
@@ -131,7 +130,6 @@ Once the widget is rendering, additional configurations can be added to the Awes
     fontFamily: "Comfortaa, sans-serif",
     fontSize: 12,
     fontWeight: 400,
-    widgetType: "product-page",
     fixedHeight: 0,
     logoSize: 1.0,
     logoStyle: {},
@@ -168,13 +166,6 @@ Once the widget is rendering, additional configurations can be added to the Awes
 **Options**: dark, light, black-flat, white-flat, grayscale, white
 **Default**: 'light'
 **Additional Details**: If theme is not specified, the widget will attempt to detect the background color and apply the appropriate contrasting logo. Use "light" or "black-flat" for light backgrounds, and "dark" or "white-flat" for dark backgrounds.
-
-`modalTheme` (optional)
-
-**Purpose**: Updates the modal color to coordinate with color or monochrome sites.
-**Type**: string
-**Options**: color, grayscale
-**Default**: 'color'
 
 `maxWidth` (optional)
 
@@ -254,13 +245,6 @@ Once the widget is rendering, additional configurations can be added to the Awes
 **Type**: number
 **Default**: 300
 **Additional Details**: 100 is the lightest, 900 is the boldest.
-
-`widgetType` (optional)
-
-**Purpose**: Specifies the page category on which the widget is being rendered.
-**Type**: string
-**Options**: product-page, product-preview, cart
-**Default**: 'product-page'
 
 `fixedHeight` (optional)
 

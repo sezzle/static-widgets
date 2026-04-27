@@ -337,7 +337,8 @@ class Helper {
     }
 
   svgImages() {
-    return {
+    if (this._svgImagesCache) return this._svgImagesCache;
+    this._svgImagesCache = {
         checkMarkIcon: `<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 11 11" fill="none">
 			<circle cx="5.5" cy="5.5" r="5.25" fill="#D0B2EF" stroke="#8333D4" stroke-width="0.5"/>
 			<path d="M3 6L5 8L9 4" stroke="#8333D4" stroke-linecap="round"/>
@@ -851,6 +852,7 @@ class Helper {
     <path d="M8.39999 12C10.6091 12 12.4 10.2091 12.4 8C12.4 5.79086 10.6091 4 8.39999 4C6.19085 4 4.39999 5.79086 4.39999 8C4.39999 10.2091 6.19085 12 8.39999 12Z" fill="#8333D4"></path>
   </svg>`,
     };
+    return this._svgImagesCache;
   }
 
   isAlphabet(n) {
@@ -858,41 +860,31 @@ class Helper {
   }
 
   parsePriceStringModeComma(price) {
-    var formattedPrice = "";
-    for (var i = 0; i < price.length; i++) {
-      if (this.isNumeric(price[i]) || price[i] == ",") {
-        if (i > 0 && price[i] == "," && this.isAlphabet(price[i - 1])) continue;
-        if (price[i] === ",") {
-          formattedPrice += ".";
-        } else {
-          formattedPrice += price[i];
-        }
-      }
+    let formattedPrice = "";
+    for (let i = 0; i < price.length; i++) {
+      const ch = price[i];
+      if (!this.isNumeric(ch) && ch !== ",") continue;
+      if (i > 0 && ch === "," && this.isAlphabet(price[i - 1])) continue;
+      formattedPrice += ch === "," ? "." : ch;
     }
     return formattedPrice;
   }
 
   parsePriceString(price, includeComma) {
-    var formattedPrice = "";
-    for (var i = 0; i < price.length; i++) {
-      if (
-        this.isNumeric(price[i]) ||
-        price[i] == "." ||
-        (includeComma && price[i] == ",")
-      ) {
-        if (i > 0 && price[i] == "." && this.isAlphabet(price[i - 1])) continue;
-        formattedPrice += price[i];
-      }
+    let formattedPrice = "";
+    for (let i = 0; i < price.length; i++) {
+      const ch = price[i];
+      const allowed = this.isNumeric(ch) || ch === "." || (includeComma && ch === ",");
+      if (!allowed) continue;
+      if (i > 0 && ch === "." && this.isAlphabet(price[i - 1])) continue;
+      formattedPrice += ch;
     }
     return formattedPrice;
   }
 
   parsePrice(price, mode = "default") {
-    if (mode === "default") {
-      return parseFloat(this.parsePriceString(price, false));
-    } else {
-      return parseFloat(this.parsePriceStringModeComma(price));
-    }
+    if (mode === "default") return parseFloat(this.parsePriceString(price, false));
+    return parseFloat(this.parsePriceStringModeComma(price));
   }
 }
 

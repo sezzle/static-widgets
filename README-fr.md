@@ -109,7 +109,6 @@ Une fois le rendu du widget, des configurations supplémentaires peuvent être a
     amount: '{{ product.selected_or_first_available_variant.price | money }}',
     renderElement: 'new-sezzle-widget-container-id',
     theme: 'light',
-    modalTheme:'color',
     maxWidth: 400,
     marginTop: 0,
     marginBottom: 0,
@@ -122,7 +121,6 @@ Une fois le rendu du widget, des configurations supplémentaires peuvent être a
     fontFamily: 'Comfortaa, sans-serif',
     fontSize: 12,
     fontWeight: 400,
-    widgetType: 'product',
     fixedHeight: 0,
     logoSize: 1.0,
     logoStyle: {},
@@ -155,14 +153,6 @@ Une fois le rendu du widget, des configurations supplémentaires peuvent être a
 **Options**: dark (sombre), light (clair), black-flat (noir mat), white-flat (blanc mat), grayscale (niveaux de gris), white (blanc)
 **Défaut**: 'light'
 **Détails supplémentaires**: Si le thème n'est pas spécifié, le widget tentera de détecter la couleur d'arrière-plan et d'appliquer le logo contrasté approprié. Utilisez `light` ou `black-flat` pour les arrière-plans clairs et `dark` ou `white-flat` pour les arrière-plans sombres.
-
-`modalTheme` (Thème modal, facultatif)
-
-**objetif**: met à jour la couleur modale pour la coordonner avec les sites couleur ou monochromes.
-**Type**: chaîne
-**Options**: color (couleur), grayscale (niveaux de gris)
-**Défaut**: 'color'
-
 
 `maxWidth` (largeur maximale, facultatif)
 
@@ -244,13 +234,6 @@ Une fois le rendu du widget, des configurations supplémentaires peuvent être a
 **Type**: numéro
 **Défaut**: 300
 **Détails supplémentaires**: 100 est le plus léger, 900 est le plus audacieux.
-
-`widgetType` (facultatif)
-
-**objetif**: Spécifie la catégorie de page sur laquelle le widget est affiché.
-**Type**: chaîne
-**Options**: product-page (page produit), product-preview (aperçu du produit), cart (panier)
-**Défaut**: 'product-page'
 
 `fixedHeight` (Hauteur fixe, facultatif)
 
