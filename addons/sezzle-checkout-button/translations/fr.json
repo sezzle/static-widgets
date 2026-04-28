@@ -1,7 +1,7 @@
 {
     "Checkout": "Achetez avec %%logo%%",
     "Pay": "Payez avec %%logo%%",
-    "chooseSezzle": "Choisissez « Acheter maintenant, payer plus tard avec Sezzle » lors du paiement.",
+    "chooseSezzle": "Choisissez « Achetez maintenant, payez plus tard avec Sezzle » lors du paiement.",
     "closeSezzleModal": "Fermez le modal Sezzle.",
     "completeOrder": "Complétez votre commande",
     "continue": "Continuer à payer",
