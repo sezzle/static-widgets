@@ -435,13 +435,14 @@ class AwesomeSezzle {
             break;
           }
 
-          // Escape regex special characters to prevent regex injection
-          const escapedCompetitor = competitor.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-          const logoMatch = subtemplate.match(new RegExp(`^${escapedCompetitor}-(logo(?:-\\w+)?)$`));
-          if (logoMatch) {
-            this.renderCompetitorLogo(logoMatch[1], competitorConfig, sezzleButtonText);
-            handled = true;
-            break;
+          const expectedPrefix = `${competitor}-`;
+          if (subtemplate.startsWith(expectedPrefix)) {
+            const variant = subtemplate.slice(expectedPrefix.length);
+            if (variant === "logo" || /^logo-\w+$/.test(variant)) {
+              this.renderCompetitorLogo(variant, competitorConfig, sezzleButtonText);
+              handled = true;
+              break;
+            }
           }
         }
 
