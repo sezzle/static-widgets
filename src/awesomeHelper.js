@@ -4,13 +4,13 @@ class Helper {
   }
 
 
-    generateUniqueId() {
-        return "sezzle-" + Math.random().toString(36).substring(2, 9);
-    }
+  generateUniqueId() {
+    return "sezzle-" + Math.random().toString(36).substring(2, 9);
+  }
 
-    generateSezzleLightSVG() {
-        const uniqueId = this.generateUniqueId();
-        return `<style type="text/css">
+  generateSezzleLightSVG() {
+    const uniqueId = this.generateUniqueId();
+    return `<style type="text/css">
       .${uniqueId}-st0{fill:url(#${uniqueId}_SVGID_1_);}
       .${uniqueId}-st1{fill:url(#${uniqueId}_SVGID_2_);}
       .${uniqueId}-st2{fill:url(#${uniqueId}_SVGID_6_);}
@@ -90,11 +90,11 @@ class Helper {
         l0.24,0.16c4.87,3.33,16.27,11.15,35.38,11.15l0.61,0c11.02-0.1,20.48-3.06,27.38-8.58c7.15-5.73,11.09-13.83,11.09-22.81
         C293.03,129.19,291.61,124.38,288.83,120.31z"/>
     </g>`;
-    }
+  }
 
-    generateSezzleDarkSVG() {
-        const uniqueId = this.generateUniqueId();
-        return `
+  generateSezzleDarkSVG() {
+    const uniqueId = this.generateUniqueId();
+    return `
         <style type="text/css">
           .${uniqueId}-st0{fill:url(#${uniqueId}_SVGID_1_);}
           .${uniqueId}-st1{fill:url(#${uniqueId}_SVGID_2_);}
@@ -178,11 +178,11 @@ class Helper {
           </g>
         </g>
       `;
-    }
+  }
 
-    generateSezzleGreySVG() {
-        const uniqueId = this.generateUniqueId();
-        return `<style type="text/css">
+  generateSezzleGreySVG() {
+    const uniqueId = this.generateUniqueId();
+    return `<style type="text/css">
       .${uniqueId}-st0{fill:url(#${uniqueId}_SVGID_1_);}
       .${uniqueId}-st1{fill:url(#${uniqueId}_SVGID_2_);}
       .${uniqueId}-st2{fill:url(#${uniqueId}_SVGID_6_);}
@@ -255,11 +255,11 @@ class Helper {
       </linearGradient>
       <path class="${uniqueId}-st2" d="M78.88,134.17c-18.04,18.05-18.04,47.3,0,65.35l68.83-68.83c18.05-18.04,18.05-47.3,0-65.34L78.88,134.17z"/>
     </g>`;
-    }
+  }
 
-    generateSezzleWhiteSVG() {
-        const uniqueId = this.generateUniqueId(); 
-        return `<style type="text/css">
+  generateSezzleWhiteSVG() {
+    const uniqueId = this.generateUniqueId(); 
+    return `<style type="text/css">
         .${uniqueId}-st0{fill:#FFFFFF;}
         .${uniqueId}-st1{fill:url(#sezzle-SVGID_1_);}
         .${uniqueId}-st2{fill:url(#sezzle-SVGID_2_);}
@@ -334,7 +334,7 @@ class Helper {
         </linearGradient>
         <path class="${uniqueId}-st3" d="M78.88,134.17c-18.04,18.05-18.04,47.3,0,65.35l68.83-68.83c18.05-18.04,18.05-47.3,0-65.34L78.88,134.17z"/>
       </g>`;
-    }
+  }
 
   svgImages() {
     if (this._svgImagesCache) return this._svgImagesCache;
