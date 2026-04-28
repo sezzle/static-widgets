@@ -4,10 +4,10 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 module.exports = {
     entry: {
         "sezzle-home-banner": [
-            "./src/sezzle-home-banner/sezzle-home-banner.js",
+            "./addons/sezzle-home-banner/sezzle-home-banner.js",
         ],
         "sezzle-home-banner.min": [
-            "./src/sezzle-home-banner/sezzle-home-banner.js",
+            "./addons/sezzle-home-banner/sezzle-home-banner.js",
         ],
     },
     output: {

@@ -42,7 +42,7 @@ _The Asset method is a one-size-fits-most - compatible with Shopify 2.0 onward, 
 5. Scroll to the Assets folder, then click Add A New Asset
 6. Click Create a Blank File, name the section `sezzle-checkout-button`, select `.js` as the file type, then click Add Asset
 7. In the Assets folder, select the asset you just created (you may need to scroll, files are not in alphabetical order).
-8. Overwrite the asset template with the code contents here[../../../build/sezzle-checkout-button.js], then click Save.
+8. Overwrite the asset template with the code contents here[../../build/sezzle-checkout-button.js], then click Save.
 9. Paste the following snippet in the bottom of the `layout/theme.liquid` file, enter the ID in the space provided, then click Save:
 
 ```html
@@ -92,7 +92,7 @@ _The HTML method is the most lightweight but the least intuitive install. Recomm
 1. Log in to your Shopify Admin
 2. Go to Online Store > Themes
 3. Next to the applicable theme, click `Actions` then `Edit Code`
-4. Paste the code snippet here [https://github.com/sezzle/static-widgets/tree/production/src/sezzle-checkout-button/sezzle-checkout-button.html] into the `templates/cart.liquid` or `sections/cart-template.liquid` file where the button should appear, then click Save:
+4. Paste the code snippet here [./sezzle-checkout-button.html] into the `templates/cart.liquid` or `sections/cart-template.liquid` file where the button should appear, then click Save:
    - Note: this is typically below the regular Shopify checkout button. Open the file, then search (Cmd+F or Ctrl+F) for the word "checkout" - it is usually a button or input
 5. Click Save
 6. Click Preview, then go to the cart page to confirm button is appearing correctly.

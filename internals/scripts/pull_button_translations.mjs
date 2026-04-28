@@ -6,7 +6,7 @@ import AdmZip from "adm-zip";
 import { Headers } from "node-fetch";
 
 global.Headers = Headers;
-const basePath = "src/sezzle-checkout-button/translations";
+const basePath = "addons/sezzle-checkout-button/translations";
 const tmpFileName = "translations.zip";
 
 const pathToDownloadFile = `${basePath}/${tmpFileName}`;
@@ -31,17 +31,17 @@ lokaliseApi
         bundle_structure: "%LANG_ISO%.json",
         placeholder_format: "icu",
         original_filenames: false,
-        directory_prefix: "src/sezzle-checkout-button/translations/",
+        directory_prefix: "addons/sezzle-checkout-button/translations/",
         add_newline_eof: true,
         json_unescaped_slashes: true,
         indentation: "4sp",
         filter_filenames: [
-            "src/sezzle-checkout-button/translations/%LANG_ISO%.json",
+            "addons/sezzle-checkout-button/translations/%LANG_ISO%.json",
         ],
     })
     .then((response) =>
         // download zip file by URL which was returned from localise
-        downloadFile(response.bundle_url, pathToDownloadFile)
+        downloadFile(response.bundle_url, pathToDownloadFile),
     )
     .then((resultFilePath) => {
         const resultFile = new AdmZip(resultFilePath);
@@ -50,7 +50,7 @@ lokaliseApi
             // extract files to the directory
             resultFile.extractAllTo(basePath, true);
             console.log(
-                "🎉 🎉 🎉 🎉  Translation files were downloaded successfully"
+                "🎉 🎉 🎉 🎉  Translation files were downloaded successfully",
             );
         } catch (err) {
             console.error(err);

@@ -42,7 +42,7 @@ _La méthode Asset est une taille unique - compatible avec Shopify 2.0 et versio
 5. Faites défiler jusqu'au dossier Actifs, puis cliquez sur Ajouter un nouvel actif.
 6. Cliquez sur Créer un fichier vierge, nommez la section `sezzle-checkout-button`, sélectionnez `.js` comme type de fichier, puis cliquez sur Ajouter un actif.
 7. Dans le dossier Assets, sélectionnez l'asset que vous venez de créer (vous devrez peut-être faire défiler, les fichiers ne sont pas classés par ordre alphabétique).
-8. Remplacez le modèle d'actif par le contenu du code ici[../../../build/sezzle-checkout-button-asset.js], puis cliquez sur Enregistrer.
+8. Remplacez le modèle d'actif par le contenu du code ici[../../build/sezzle-checkout-button-asset.js], puis cliquez sur Enregistrer.
 9. Collez l'extrait suivant au bas du fichier `layout/theme.liquid`, saisissez l'ID dans l'espace prévu, puis cliquez sur Enregistrer :
 
 ```html
@@ -64,7 +64,7 @@ _La méthode Asset est une taille unique - compatible avec Shopify 2.0 et versio
 ```
 
 9. Cliquez sur Aperçu, puis accédez à la page du panier pour confirmer que le bouton apparaît correctement.
-    > Pour tester un fichier non minifié, le processus est le même, sauf que vous sautez l'étape 1 et qu'au lieu de l'étape 8, copiez+collez le contenu du fichier à partir d'ici[https://github.com/sezzle/static-widgets/blob/production/src/sezzle-checkout-button/sezzle-checkout-button-asset.js] mais supprimez la ligne `export default` en bas et mettez à jour le chemin du fichier d'extrait en conséquence.
+    > Pour tester un fichier non minifié, le processus est le même, sauf que vous sautez l'étape 1 et qu'au lieu de l'étape 8, copiez+collez le contenu du fichier à partir d'ici[./sezzle-checkout-button-asset.js] mais supprimez la ligne `export default` en bas et mettez à jour le chemin du fichier d'extrait en conséquence.
 
 ### PERSONNALISATION DES STYLES
 
@@ -96,7 +96,7 @@ _La méthode Section possède une matrice de personnalisation intégrée. Cepend
 3. À côté du thème applicable, cliquez sur « Actions » puis sur « Modifier le code ».
 4. Faites défiler jusqu'au dossier Sections, puis cliquez sur Ajouter une nouvelle section.
 5. Nommez la section `sezzle-checkout-button`, puis cliquez sur Créer une section
-6. Remplacez le modèle de section par le contenu du code ici [https://github.com/sezzle/static-widgets/tree/production/src/sezzle-checkout-button/sezzle-checkout-button-section.liquid].
+6. Remplacez le modèle de section par le contenu du code ici [./sezzle-checkout-button-section.liquid].
 7. Collez l'extrait suivant dans le fichier `templates/cart.liquid` où le bouton doit apparaître, puis cliquez sur Enregistrer :
     - Remarque : ceci se trouve généralement sous le bouton de paiement Shopify. Ouvrez le fichier, puis recherchez (Cmd+F ou Ctrl+F) le mot « checkout » – il s’agit généralement d’un bouton ou d’une entrée.
 
@@ -119,7 +119,7 @@ _La méthode Snippet a le même code léger que la méthode HTML, mais peut êtr
 3. À côté du thème applicable, cliquez sur « Actions » puis sur « Modifier le code ».
 4. Faites défiler jusqu'au dossier Snippets, puis cliquez sur Ajouter un nouvel extrait.
 5. Nommez le fichier `sezzle-checkout-button`, puis cliquez sur Créer un extrait
-6. Remplacez le modèle d'extrait de code par le contenu du code ici [https://github.com/sezzle/static-widgets/tree/production/src/sezzle-checkout-button/sezzle-checkout-button-snippet.liquid].
+6. Remplacez le modèle d'extrait de code par le contenu du code ici [./sezzle-checkout-button-snippet.liquid].
 7. Collez l'extrait suivant dans le fichier `templates/cart.liquid` ou `sections/cart-template.liquid` où le bouton doit apparaître, puis cliquez sur Enregistrer :
     - Remarque : ceci se trouve sous le bouton de paiement Shopify. Ouvrez le fichier, puis recherchez (Cmd+F ou Ctrl+F) le mot « checkout » – il s’agit généralement d’un bouton ou d’une entrée.
 
@@ -140,7 +140,7 @@ _La méthode HTML est l'installation la plus légère mais la moins intuitive. R
 1. Connectez-vous à votre administrateur Shopify
 2. Accédez à la boutique en ligne > Thèmes
 3. À côté du thème applicable, cliquez sur « Actions » puis sur « Modifier le code ».
-4. Collez l'extrait de code ici [https://github.com/sezzle/static-widgets/tree/production/src/sezzle-checkout-button/sezzle-checkout-button.html] dans le fichier `templates/cart.liquid ` ou `sections/cart-template.liquid` où le bouton doit apparaître, puis cliquez sur Enregistrer :
+4. Collez l'extrait de code ici [./sezzle-checkout-button.html] dans le fichier `templates/cart.liquid ` ou `sections/cart-template.liquid` où le bouton doit apparaître, puis cliquez sur Enregistrer :
     - Remarque : il se trouve généralement sous le bouton de paiement Shopify habituel. Ouvrez le fichier, puis recherchez (Cmd+F ou Ctrl+F) le mot « checkout » – il s’agit généralement d’un bouton ou d’une entrée.
 5. Cliquez sur Enregistrer
 6. Cliquez sur Aperçu, puis accédez à la page du panier pour confirmer que le bouton apparaît correctement.

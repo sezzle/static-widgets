@@ -3,6 +3,11 @@
     "version": "3.2.1",
     "description": "Simple SDK is a stand-alone widget script which helps merchants integrate widget onto their website.",
     "main": "src/awesomeSezzle.js",
+    "files": [
+        "src/",
+        "css/",
+        "dist/"
+    ],
     "scripts": {
         "test": "jest",
         "test:watch": "jest --watch",

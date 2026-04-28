@@ -30,7 +30,7 @@ deploy_cloudfront:affirm_modals:
     - |
       log section "Copy static files to ./build"
       mkdir -p ./build/modal
-      cp -v ./src/affirm/modal/*.html ./build/modal
+      cp -v ./competitor-modals/affirm/modal/*.html ./build/modal
       log section-end
     - |
       aws_cloudfront_deploy --dryrun
@@ -52,7 +52,7 @@ deploy_cloudfront:afterpay_modals:
     - |
       log section "Copy static files to ./build"
       mkdir -p ./build/modal
-      cp -v ./src/afterpay/modal/*.html ./build/modal
+      cp -v ./competitor-modals/afterpay/modal/*.html ./build/modal
       log section-end
     - |
       aws_cloudfront_deploy --dryrun
@@ -74,7 +74,7 @@ deploy_cloudfront:klarna_modals:
     - |
       log section "Copy static files to ./build"
       mkdir -p ./build/modal
-      cp -v ./src/klarna/modal/*.html ./build/modal
+      cp -v ./competitor-modals/klarna/modal/*.html ./build/modal
       log section-end
     - |
       aws_cloudfront_deploy --dryrun
@@ -96,7 +96,7 @@ deploy_cloudfront:zip_modals:
     - |
       log section "Copy static files to ./build"
       mkdir -p ./build/modal
-      cp -v ./src/zip/modal/*.html ./build/modal
+      cp -v ./competitor-modals/zip/modal/*.html ./build/modal
       log section-end
     - |
       aws_cloudfront_deploy --dryrun
@@ -118,7 +118,7 @@ deploy_cloudfront:cash_app_afterpay_modals:
     - |
       log section "Copy static files to ./build"
       mkdir -p ./build/modal
-      cp -v ./src/cashAppAfterpay/modal/*.html ./build/modal
+      cp -v ./competitor-modals/cashAppAfterpay/modal/*.html ./build/modal
       log section-end
     - |
       aws_cloudfront_deploy --dryrun
@@ -140,7 +140,7 @@ deploy_cloudfront:shoppay_modals:
     - |
       log section "Copy static files to ./build"
       mkdir -p ./build/modal
-      cp -v ./src/shoppay/modal/*.html ./build/modal
+      cp -v ./competitor-modals/shoppay/modal/*.html ./build/modal
       log section-end
     - |
       aws_cloudfront_deploy --dryrun

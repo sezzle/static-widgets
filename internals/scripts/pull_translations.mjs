@@ -23,8 +23,8 @@ const lokaliseApi = new LokaliseApi({ apiKey });
 
 const filePaths = {
     widget: "src/translations",
-    button: "src/sezzle-checkout-button/translations",
-    banner: "src/sezzle-home-banner/translations",
+    button: "addons/sezzle-checkout-button/translations",
+    banner: "addons/sezzle-home-banner/translations",
 };
 
 function pullTranslations(fileType){

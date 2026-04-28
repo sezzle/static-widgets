@@ -75,7 +75,7 @@ new SezzleBanner({
 1. Log in to your Shopify Admin
 1. Go to `Online Store` > `Themes`
 1. Next to the applicable theme, click `Actions` then `Edit Code`
-1. Paste the code snippet [here](https://github.com/sezzle/static-widgets/tree/production/src/sezzle-home-banner/sezzle-home-banner.html) into the `sections/header.liquid` file where the banner should appear, then click `Save`
+1. Paste the code snippet [here](./sezzle-home-banner.html) into the `sections/header.liquid` file where the banner should appear, then click `Save`
  - Note: this is typically below the `header` or `sticky-header` closing tag. Open the file, then search (Cmd+F or Ctrl+F) for the word "sticky-header"
 
 #### Customization
@@ -123,7 +123,7 @@ new SezzleBanner({
 
 ### Install as HTML
 
-Paste the code snippet [here](https://github.com/sezzle/static-widgets/tree/production/src/sezzle-home-banner/sezzle-home-banner.html) where the banner should appear, such as below `</header>`
+Paste the code snippet [here](./sezzle-home-banner.html) where the banner should appear, such as below `</header>`
 
 #### Customization
 
