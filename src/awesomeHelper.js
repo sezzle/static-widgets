@@ -5,7 +5,9 @@ class Helper {
 
 
   generateUniqueId() {
-    return "sezzle-" + Math.random().toString(36).substring(2, 9);
+    const bytes = new Uint32Array(1);
+    crypto.getRandomValues(bytes);
+    return "sezzle-" + bytes[0].toString(36).padStart(7, "0").substring(0, 7);
   }
 
   generateSezzleLightSVG() {
