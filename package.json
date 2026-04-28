@@ -5,7 +5,8 @@
     "main": "src/awesomeSezzle.js",
     "files": [
         "src/",
-        "css/"
+        "css/",
+        "dist/"
     ],
     "scripts": {
         "test": "jest",
