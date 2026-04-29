@@ -203,14 +203,14 @@ describe("Helper Class - Utility Functions", () => {
       const id1 = HelperClass.generateUniqueId();
       const id2 = HelperClass.generateUniqueId();
 
-      // sezzle- (7 chars) + 7 random chars = 14 total
-      expect(id1.length).toBe(14);
-      expect(id2.length).toBe(14);
+      // sezzle- (7 chars) + 8 hex chars = 15 total
+      expect(id1.length).toBe(15);
+      expect(id2.length).toBe(15);
     });
 
     test("should generate IDs with alphanumeric characters", () => {
       const id = HelperClass.generateUniqueId();
-      expect(id).toMatch(/^sezzle-[a-z0-9]{7}$/);
+      expect(id).toMatch(/^sezzle-[0-9a-f]{8}$/);
     });
   });
 

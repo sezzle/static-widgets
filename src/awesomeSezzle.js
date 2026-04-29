@@ -178,6 +178,13 @@ class AwesomeSezzle {
       options = {};
     }
 
+    if (options.modalTheme || options.widgetType || options.merchantLocale) {
+      console.warn(
+        "[Sezzle] modalTheme, widgetType, and merchantLocale are no longer supported by the main widget and will be ignored. " +
+        "See README for current config options."
+      );
+    }
+
     const rawLang = typeof options.language === "function" ? options.language() : options.language;
     const lang = typeof rawLang === "string"
       ? (rawLang === "spanish" ? "es" : rawLang.slice(0, 2).toLowerCase())
@@ -272,14 +279,15 @@ class AwesomeSezzle {
 
   addCSSCustomisation() {
     this.addCSSAlignment();
-    const inner = this.renderElement.children[0].children[0];
+    const inner = this.renderElement.children[0]?.children[0];
+    if (!inner) return;
     if (this.fontWeight) inner.style.fontWeight = this.fontWeight;
     if (this.fontFamily) inner.style.fontFamily = this.fontFamily;
     if (typeof this.fontSize === "number") inner.style.fontSize = `${this.fontSize}px`;
     if (this.textColor) inner.style.color = this.textColor;
     if (this.maxWidth) inner.style.maxWidth = `${this.maxWidth}px`;
-    const darkThemes = ["dark", "white", "white-flat", "white-pill"];
-    inner.classList.add(darkThemes.includes(this.theme) ? "szl-dark" : "szl-light");
+    const entry = THEME_IMAGES[this.theme] || DEFAULT_THEME_IMAGE;
+    inner.classList.add(entry.class === "szl-dark-image" ? "szl-dark" : "szl-light");
   }
 
   setElementMargins() {
@@ -624,7 +632,13 @@ class AwesomeSezzle {
     }
     const buttonWrapper = document.querySelector(".sezzle-checkout-button-wrapper");
     const fallbackEl = buttonWrapper?.querySelector(fallbackSelector);
-    (fallbackEl || buttonWrapper)?.focus();
+    const target = fallbackEl || buttonWrapper;
+    if (target) {
+      if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
+      target.focus();
+    } else {
+      document.body.focus();
+    }
   }
 
   modalKeyboardNavigation() {
@@ -632,8 +646,20 @@ class AwesomeSezzle {
     this._modalKeyboardNavInstalled = true;
 
     document.addEventListener("keydown", (event) => {
-      const focusable = document.querySelector(".sezzle-modal-content")?.childNodes;
-      if (!focusable?.length) return;
+      if (event.key === "Escape") {
+        for (const modal of document.getElementsByClassName("sezzle-checkout-modal-lightbox")) {
+          modal.style.display = "none";
+        }
+        this._restoreFocusAfterModalClose();
+        return;
+      }
+
+      const container = document.querySelector(".sezzle-modal-content");
+      if (!container) return;
+      const focusable = container.querySelectorAll(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusable.length) return;
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
 
@@ -641,11 +667,6 @@ class AwesomeSezzle {
         first.focus();
       } else if (event.key === "ArrowUp" && document.activeElement === first) {
         last.focus();
-      } else if (event.key === "Escape") {
-        for (const modal of document.getElementsByClassName("sezzle-checkout-modal-lightbox")) {
-          modal.style.display = "none";
-        }
-        this._restoreFocusAfterModalClose();
       }
     });
   }
@@ -1609,14 +1630,16 @@ class AwesomeSezzle {
   }
 
   init() {
+    let rendered = false;
     this.renderElementArray.forEach((id) => {
       const element = document.getElementById(id);
       if (element && !element.childElementCount) {
         this.renderElement = element;
         this.renderAwesomeSezzle();
-        this.addClickEventForModal(document);
+        rendered = true;
       }
     });
+    if (rendered) this.addClickEventForModal(document);
 
     this.renderModal();
 
