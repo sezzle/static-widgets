@@ -48,26 +48,25 @@ const DANGEROUS_TAGS = new Set([
  */
 const DANGEROUS_PROTOCOLS = ['javascript:', 'data:', 'vbscript:', 'file:'];
 
+const HTML_ESCAPE_MAP = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#x27;',
+  '/': '&#x2F;',
+};
+const HTML_ESCAPE_REGEX = /[&<>"'/]/g;
+const SAFE_DATA_IMAGE_REGEX = /^data:image\/(?:png|jpeg|jpg|gif|webp|bmp|ico)[;,]/;
+
 /**
  * Escapes HTML special characters to prevent XSS
  * @param {string} str - String to escape
  * @returns {string} Escaped string safe for HTML insertion
  */
 function escapeHTML(str) {
-  if (typeof str !== 'string') {
-    return '';
-  }
-
-  const map = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;',
-    '/': '&#x2F;'
-  };
-
-  return str.replace(/[&<>"'/]/g, char => map[char]);
+  if (typeof str !== 'string') return '';
+  return str.replace(HTML_ESCAPE_REGEX, (char) => HTML_ESCAPE_MAP[char]);
 }
 
 /**
@@ -99,15 +98,10 @@ function isAllowedAttribute(attrName) {
  */
 function hasDangerousProtocol(url) {
   if (!url) return false;
-
   const lowerUrl = url.toLowerCase().trim();
-
   // Allow safe data: URIs for raster images (not SVG, which can contain scripts)
-  if (/^data:image\/(?:png|jpeg|jpg|gif|webp|bmp|ico)[;,]/.test(lowerUrl)) {
-    return false;
-  }
-
-  return DANGEROUS_PROTOCOLS.some(protocol => lowerUrl.startsWith(protocol));
+  if (SAFE_DATA_IMAGE_REGEX.test(lowerUrl)) return false;
+  return DANGEROUS_PROTOCOLS.some((protocol) => lowerUrl.startsWith(protocol));
 }
 
 /**
@@ -177,20 +171,18 @@ function cleanAttributes(element) {
     const attrName = attr.name.toLowerCase();
     const attrValue = attr.value;
 
-    // Remove if not in allowed list
+    // Always block style attribute (defense in depth — runs even if ALLOWED_ATTRS changes)
+    if (attrName === 'style') {
+      element.removeAttribute(attr.name);
+      continue;
+    }
+
     if (!isAllowedAttribute(attrName)) {
       element.removeAttribute(attr.name);
       continue;
     }
 
-    // Check URL attributes for dangerous protocols
     if ((attrName === 'href' || attrName === 'src') && hasDangerousProtocol(attrValue)) {
-      element.removeAttribute(attr.name);
-      continue;
-    }
-
-    // Special handling for style attribute (block inline styles)
-    if (attrName === 'style') {
       element.removeAttribute(attr.name);
       continue;
     }

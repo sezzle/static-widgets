@@ -37,14 +37,36 @@
   <script src='../dist/bundle.js'></script>
   <script>
     const renderSezzle = new AwesomeSezzle({
-        // widgetTemplate: '%%logo%% %%info%% %%afterpay-logo%% %%afterpay-info-icon%% %%quadpay-logo%% %%quadpay-info-icon%% %%zip-logo%% %%zip-info-icon%% %%affirm-logo%% %%affirm-info-icon%% %%klarna-logo%% %%klarna-info-icon%% %%cash-app-afterpay-logo%% %%cash-app-afterpay-info-icon%% %%shoppay-logo%% %%shoppay-info-icon%%',
-        // renderElement: ['sezzle-widget-desktop', 'sezzle-widget-mobile'],
-        // numberOfPayments: 5,
-        // theme: 'light',
-      amount: document.querySelector('#price').querySelector('.currency').innerText + document.querySelector('#price').querySelector('.amount').innerText,
-      bestAPR: 21.99,
-      minPriceLT: 15000
-    });
+    amount: document.querySelector('#price').querySelector('.currency').innerText + document.querySelector('#price').querySelector('.amount').innerText,
+    // renderElement: "new-sezzle-widget-container-id",
+    // renderElement: ['sezzle-widget-desktop', 'sezzle-widget-mobile'],
+    // numberOfPayments: 4,
+    // theme: "black-flat",
+    // maxWidth: 200,
+    // marginTop: 10,
+    // marginBottom: 10,
+    // marginLeft: 10,
+    // marginRight: 10,
+    // alignment: "right",
+    // alignmentSwitchMinWidth: 576,
+    // alignmentSwitchType: "center",
+    // textColor: "red",
+    // fontFamily: "Times New Roman, serif",
+    // fontSize: 16,
+    // fontWeight: 700,
+    // fixedHeight: 30,
+    // logoSize: 1.2,
+    // logoStyle: {"padding": "10px"},
+    // language: "fr",
+    // parseMode: "comma",
+    // widgetTemplate: '%%logo%% %%info%% %%afterpay-logo%% %%afterpay-info-icon%% %%quadpay-logo%% %%quadpay-info-icon%% %%zip-logo%% %%zip-info-icon%% %%affirm-logo%% %%affirm-info-icon%% %%klarna-logo%% %%klarna-info-icon%% %%cash-app-afterpay-logo%% %%cash-app-afterpay-info-icon%% %%shoppay-logo%% %%shoppay-info-icon%%',
+    // ineligibleWidgetTemplate: "%%logo%% Pay in 4 payments on purchases $35-$2,500. %%info%%",
+    // minPrice: 3500, // Amount in cents
+    // maxPrice: 200000, // Amount in cents
+    // bestAPR: 29.99,
+    // minPriceLT: 20000,
+    // maxPriceLT: 800000,
+  });
     renderSezzle.init();
 
     // // use this function to test price update

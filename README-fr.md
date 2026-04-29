@@ -25,7 +25,7 @@ Utilisez les options de configuration ci-dessous pour personnaliser l'apparence 
 * Remarque : la mise en œuvre varie considérablement selon la plateforme, le thème, etc. Vous trouverez ci-dessous un aperçu général du processus. Les extraits de code ci-dessous sont des <i>exemples</i> et devront peut-être être modifiés pour s'adapter à votre site. Pour les marchands Shopify, veuillez passer à la section suivante.
 
 Créez un nouveau fichier Javascript dans le code de votre site, le cas échéant. <br/>
-Copiez+collez <a href="https://github.com/sezzle/static-widgets/blob/production/dist/bundle.js">ce code minifié</a> dans le fichier nouvellement créé.<br/>
+Copiez+collez <a href="./dist/bundle.js">ce code minifié</a> dans le fichier nouvellement créé.<br/>
 Importez le nouveau fichier dans la ou les pages où le widget Sezzle sera ajouté.<br/>
   ```html
    <script src="../scripts/sezzle-static-widget.js"></script>
@@ -62,7 +62,7 @@ Cliquez sur Boutique en ligne > Thèmes<br/>
 Sous le dossier Actifs, cliquez sur « Ajouter un nouvel actif » <br/>
 Dans l'onglet Créer un fichier vierge, nommez le fichier `sezzle-static-widget` et sélectionnez `.js` comme type de fichier, puis cliquez sur Ajouter un élément<br/>
 Copiez le code du fichier de référentiel ci-dessous et collez-le dans ce nouveau fichier, puis cliquez sur Enregistrer<br/>
-* `https://github.com/sezzle/static-widgets/blob/production/dist/bundle.js`
+* `./dist/bundle.js`
 
 Ajoutez les lignes de code suivantes partout où le widget doit s'afficher sur la page du produit dans `templates/product.liquid` ou `sections/product-template.liquid`, selon le cas :
 
@@ -109,7 +109,6 @@ Une fois le rendu du widget, des configurations supplémentaires peuvent être a
     amount: '{{ product.selected_or_first_available_variant.price | money }}',
     renderElement: 'new-sezzle-widget-container-id',
     theme: 'light',
-    modalTheme:'color',
     maxWidth: 400,
     marginTop: 0,
     marginBottom: 0,
@@ -122,13 +121,11 @@ Une fois le rendu du widget, des configurations supplémentaires peuvent être a
     fontFamily: 'Comfortaa, sans-serif',
     fontSize: 12,
     fontWeight: 400,
-    widgetType: 'product',
     fixedHeight: 0,
     logoSize: 1.0,
     logoStyle: {},
     language: 'en',
-    parseMode: 'default',
-    merchantLocale: 'North America'
+    parseMode: 'default'
   })
   renderSezzle.init();
 </script>
@@ -155,14 +152,6 @@ Une fois le rendu du widget, des configurations supplémentaires peuvent être a
 **Options**: dark (sombre), light (clair), black-flat (noir mat), white-flat (blanc mat), grayscale (niveaux de gris), white (blanc)
 **Défaut**: 'light'
 **Détails supplémentaires**: Si le thème n'est pas spécifié, le widget tentera de détecter la couleur d'arrière-plan et d'appliquer le logo contrasté approprié. Utilisez `light` ou `black-flat` pour les arrière-plans clairs et `dark` ou `white-flat` pour les arrière-plans sombres.
-
-`modalTheme` (Thème modal, facultatif)
-
-**objetif**: met à jour la couleur modale pour la coordonner avec les sites couleur ou monochromes.
-**Type**: chaîne
-**Options**: color (couleur), grayscale (niveaux de gris)
-**Défaut**: 'color'
-
 
 `maxWidth` (largeur maximale, facultatif)
 
@@ -245,13 +234,6 @@ Une fois le rendu du widget, des configurations supplémentaires peuvent être a
 **Défaut**: 300
 **Détails supplémentaires**: 100 est le plus léger, 900 est le plus audacieux.
 
-`widgetType` (facultatif)
-
-**objetif**: Spécifie la catégorie de page sur laquelle le widget est affiché.
-**Type**: chaîne
-**Options**: product-page (page produit), product-preview (aperçu du produit), cart (panier)
-**Défaut**: 'product-page'
-
 `fixedHeight` (Hauteur fixe, facultatif)
 
 **objetif**: définit la valeur CSS de la hauteur fixe
@@ -287,13 +269,6 @@ Une fois le rendu du widget, des configurations supplémentaires peuvent être a
 **Options**: 'default' (défaut), 'comma' (virgule)
 **Défaut**: 'default'
 
-`merchantLocale` (paramètres régionaux du marchand, facultatif)
-
-**objetif**: permet au widget d'afficher les détails corrects du programme, selon que le commerçant est inscrit via Sezzle North America ou Sezzle Europe.
-**Type**: chaîne
-**Options**: North America (Amérique du Nord), Europe
-**Défaut**: 'North America'
-
 ### <b>Veuillez discuter avec le point de contact Sezzle avant d'utiliser les options de configuration ci-dessous :</b>
 
 `widgetTemplate` (Modèle de widget, facultatif)
@@ -322,7 +297,7 @@ Une fois le rendu du widget, des configurations supplémentaires peuvent être a
 
 **objetif**: Prix minimum en centimes pour lequel Sezzle peut être sélectionné lors du paiement. Si le prix sur `targetXPath` est inférieur à ce numéro, le widget ne s'affichera pas.
 **Type**: numéro
-**Défaut**: 2000
+**Défaut**: 0
 **Détails supplémentaires**: Cette configuration n'empêche pas un client de payer avec Sezzle en dessous de ce prix. Pour plus d'informations sur la définition d'une passerelle minimale, contactez votre représentant Merchant Success ou utilisez la section Contactez-nous du tableau de bord Sezzle Merchant.
 
 
@@ -388,7 +363,7 @@ Une fois le rendu du widget, des configurations supplémentaires peuvent être a
 
 **objetif**: taux TAEG standard selon lequel les intérêts doivent être calculés.
 **Type**: numéro
-**Défaut**: 9.99
+**Défaut**: 21.99
 
 `widgetTemplateLT` (modèle de widget à long terme, facultatif)
 

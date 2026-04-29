@@ -78,8 +78,12 @@ describe("AwesomeSezzle Widget", () => {
       expect(String.fromCharCode(code)).toBe("£");
     });
 
-    // Note: currencySymbol() currently only supports $, €, £
-    // ¥ (yen) and ₹ (rupee) detection not implemented
+    test("should detect rupee sign (₹)", () => {
+      const code = widget.currencySymbol("₹599.00");
+      expect(String.fromCharCode(code)).toBe("₹");
+    });
+
+    // Note: ¥ (yen) detection is not implemented
 
     test("should handle prices without currency symbols", () => {
       const code = widget.currencySymbol("99.99");
@@ -119,6 +123,12 @@ describe("AwesomeSezzle Widget", () => {
       expect(widget.addDelimiters("1234.56", "comma")).toBe("1.234,56");
     });
 
+    test("should use comma for decimals in comma mode for short prices (no thousands separator)", () => {
+      expect(widget.addDelimiters("150.00", "comma")).toBe("150,00");
+      expect(widget.addDelimiters("99.99", "comma")).toBe("99,99");
+      expect(widget.addDelimiters("500.25", "comma")).toBe("500,25");
+    });
+
     test("should handle numbers without delimiters", () => {
       expect(widget.addDelimiters("100", "default")).toBe("100.00");
       expect(widget.addDelimiters("99.99", "default")).toBe("99.99");
@@ -128,6 +138,7 @@ describe("AwesomeSezzle Widget", () => {
       expect(widget.addDelimiters("0", "default")).toBe("0.00");
       expect(widget.addDelimiters("0.00", "default")).toBe("0.00");
       expect(widget.addDelimiters("1", "default")).toBe("1.00");
+      expect(widget.addDelimiters("0", "comma")).toBe("0,00");
     });
   });
 
@@ -486,7 +497,7 @@ describe("AwesomeSezzle Widget", () => {
         parseMode: "default",
         minPriceLT: 15000,
         maxPriceLT: 1500000,
-        bestAPR: 9.99,
+        bestAPR: 21.99,
       });
 
       const forced = widget.getFormattedPrice(4, "$500.00", true);
@@ -613,10 +624,12 @@ describe("AwesomeSezzle Widget", () => {
       const usd = widget.currencySymbol("$99.99");
       const eur = widget.currencySymbol("€99,99");
       const gbp = widget.currencySymbol("£99.99");
+      const inr = widget.currencySymbol("₹599.00");
 
       expect(String.fromCharCode(usd)).toBe("$");
       expect(String.fromCharCode(eur)).toBe("€");
       expect(String.fromCharCode(gbp)).toBe("£");
+      expect(String.fromCharCode(inr)).toBe("₹");
     });
   });
 });

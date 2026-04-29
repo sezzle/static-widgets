@@ -26,7 +26,7 @@ Use the Configuration options below to customize the widget appearance as desire
 - Note: Implementation varies greatly by platform, theme, etc. Below is a general overview of the process. The code snippets below are <i>samples</i> and may need to be modified to fit your site. For Shopify merchants, please proceed to the next section.
 
 Create a new Javascript file within your site's code where appropriate. <br/>
-Copy+paste <a href="https://github.com/sezzle/static-widgets/blob/production/dist/bundle.js">this minified code</a> into the newly created file.<br/>
+Copy+paste <a href="./dist/bundle.js">this minified code</a> into the newly created file.<br/>
 Import the new file into the page(s) where the Sezzle widget will be added.<br/>
 
 ```html
@@ -70,7 +70,7 @@ Under the Assets folder, click “Add a new asset” <br/>
 On the Create a Blank File tab, name the file 'sezzle-static-widget’ and select “.js” as the file type, then click Add Asset<br/>
 Copy the code from the below repository file and paste it into this new file, then click Save<br/>
 
-- https://github.com/sezzle/static-widgets/blob/production/dist/bundle.js
+- ./dist/bundle.js
 
 Add the following lines of code wherever the widget should render on the product page within `templates/product.liquid` or `sections/product-template.liquid` as applicable:
 
@@ -118,7 +118,6 @@ Once the widget is rendering, additional configurations can be added to the Awes
     amount: "{{ product.selected_or_first_available_variant.price | money }}",
     renderElement: "new-sezzle-widget-container-id",
     theme: "light",
-    modalTheme: "color",
     maxWidth: 400,
     marginTop: 0,
     marginBottom: 0,
@@ -131,13 +130,11 @@ Once the widget is rendering, additional configurations can be added to the Awes
     fontFamily: "Comfortaa, sans-serif",
     fontSize: 12,
     fontWeight: 400,
-    widgetType: "product-page",
     fixedHeight: 0,
     logoSize: 1.0,
     logoStyle: {},
     language: "en",
     parseMode: "default",
-    merchantLocale: "North America",
     ineligibleWidgetTemplate:
       "%%logo%% Pay in 4 payments on purchases $35-$2,500. %%info%%",
     minPrice: 3500, // Amount in cents
@@ -168,13 +165,6 @@ Once the widget is rendering, additional configurations can be added to the Awes
 **Options**: dark, light, black-flat, white-flat, grayscale, white
 **Default**: 'light'
 **Additional Details**: If theme is not specified, the widget will attempt to detect the background color and apply the appropriate contrasting logo. Use "light" or "black-flat" for light backgrounds, and "dark" or "white-flat" for dark backgrounds.
-
-`modalTheme` (optional)
-
-**Purpose**: Updates the modal color to coordinate with color or monochrome sites.
-**Type**: string
-**Options**: color, grayscale
-**Default**: 'color'
 
 `maxWidth` (optional)
 
@@ -255,13 +245,6 @@ Once the widget is rendering, additional configurations can be added to the Awes
 **Default**: 300
 **Additional Details**: 100 is the lightest, 900 is the boldest.
 
-`widgetType` (optional)
-
-**Purpose**: Specifies the page category on which the widget is being rendered.
-**Type**: string
-**Options**: product-page, product-preview, cart
-**Default**: 'product-page'
-
 `fixedHeight` (optional)
 
 **Purpose**: Sets the CSS value of fixed-height
@@ -297,13 +280,6 @@ Once the widget is rendering, additional configurations can be added to the Awes
 **Options**: 'default', 'comma'
 **Default**: 'default'
 
-`merchantLocale` (optional)
-
-**Purpose**: Allows widget to render the correct program details, depending on if the merchant is enrolled through Sezzle North America or Sezzle Europe.
-**Type**: string
-**Options**: North America, Europe
-**Default**: 'North America'
-
 ### <b>Please discuss with Sezzle point of contact before using the below config options:</b>
 
 `widgetTemplate` (optional)
@@ -332,7 +308,7 @@ Once the widget is rendering, additional configurations can be added to the Awes
 
 **Purpose**: Minimum price in cents for which Sezzle can be selected at checkout. If the price at `targetXPath` is lower than this number, the widget will not render.
 **Type**: number
-**Default**: 2000
+**Default**: 0
 **Additional Details**: This configuration does not prevent a customer from checking out with Sezzle below this price. For more information on setting a gateway minimum, contact your Merchant Success representative or use the Contact Us section of the Sezzle Merchant Dashboard.
 
 `maxPrice` (optional)

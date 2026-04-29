@@ -1,11 +1,11 @@
 {
     "Checkout": "Compra con %%logo%%",
     "Pay": "Paga con %%logo%%",
-    "chooseSezzle": "Elija \"Compre ahora, pague después con Sezzle\" al finalizar la compra",
+    "chooseSezzle": "Elija \"Compra ahora, paga después con Sezzle\" al finalizar la compra.",
     "closeSezzleModal": "Cerrar modal Sezzle.",
     "completeOrder": "Completa tu pedido",
     "continue": "Continuar a la comprobación",
-    "header": "Cómo utilizar Sezzle al finalizar la compra",
+    "header": "Cómo usar Sezzle al pagar",
     "minPrice": "por compras superiores a $",
     "selectPlan": "Selecciona tu plan de pago"
 }
