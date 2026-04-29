@@ -10,11 +10,11 @@ const TRANSLATIONS = { en: enTranslations, fr: frTranslations, es: esTranslation
 const THEME_IMAGES = {
   dark:          { class: "szl-dark-image",  svg: () => HelperClass.svgImages().sezzleDark() },
   grayscale:     { class: "szl-light-image", svg: () => HelperClass.svgImages().sezzleGrey() },
-  "black-flat":  { class: "szl-light-image", svg: () => HelperClass.svgImages().sezzleBlack },
+  "black-flat":  { class: "szl-light-image", svg: () => HelperClass.svgImages().sezzleBlack() },
   white:         { class: "szl-dark-image",  svg: () => HelperClass.svgImages().sezzleWhite() },
-  "white-flat":  { class: "szl-dark-image",  svg: () => HelperClass.svgImages().sezzleWhiteAlt },
-  "purple-pill": { class: "szl-light-image", svg: () => HelperClass.svgImages().sezzlePurplePill },
-  "white-pill":  { class: "szl-dark-image",  svg: () => HelperClass.svgImages().sezzleWhitePill },
+  "white-flat":  { class: "szl-dark-image",  svg: () => HelperClass.svgImages().sezzleWhiteAlt() },
+  "purple-pill": { class: "szl-light-image", svg: () => HelperClass.svgImages().sezzlePurplePill() },
+  "white-pill":  { class: "szl-dark-image",  svg: () => HelperClass.svgImages().sezzleWhitePill() },
 };
 const DEFAULT_THEME_IMAGE = { class: "szl-light-image", svg: () => HelperClass.svgImages().sezzleLight() };
 
@@ -38,22 +38,22 @@ const COMPETITOR_CONFIG = {
     variants: {
       "logo": {
         width: "115", height: "40", viewBox: "0 0 115 40",
-        svg: HelperClass.svgImages().apNodeColor,
+        svg: () => HelperClass.svgImages().apNodeColor,
         extraClass: "afterpay-logo-pill"
       },
       "logo-black": {
         width: "170", height: "35", viewBox: "0 0 170 35",
-        svg: HelperClass.svgImages().apNodeBlack,
+        svg: () => HelperClass.svgImages().apNodeBlack,
         extraClass: "afterpay-logo-text"
       },
       "logo-grey": {
         width: "115", height: "40", viewBox: "0 0 115 40",
-        svg: HelperClass.svgImages().apNodeGrey,
+        svg: () => HelperClass.svgImages().apNodeGrey,
         extraClass: "afterpay-logo-pill"
       },
       "logo-white": {
         width: "115", height: "40", viewBox: "0 0 115 40",
-        svg: HelperClass.svgImages().apNodeWhite,
+        svg: () => HelperClass.svgImages().apNodeWhite,
         extraClass: "afterpay-logo-pill"
       }
     },
@@ -68,12 +68,12 @@ const COMPETITOR_CONFIG = {
       "logo": {
         width: "98", height: "24", viewBox: "0 0 98 24",
         preserveAspectRatio: "xMidYMid meet",
-        svg: HelperClass.svgImages().cashAppApNodeColor
+        svg: () => HelperClass.svgImages().cashAppApNodeColor
       },
       "logo-black": {
         width: "98", height: "24", viewBox: "0 0 98 24",
         preserveAspectRatio: "xMidYMid meet",
-        svg: HelperClass.svgImages().cashAppApNodeBlack
+        svg: () => HelperClass.svgImages().cashAppApNodeBlack
       }
     }
   },
@@ -90,7 +90,7 @@ const COMPETITOR_CONFIG = {
         version: "1.1",
         width: "50", height: "23", viewBox: "0 0 300 111",
         style: "height: 22px !important;width: auto !important;margin-bottom: -5px;",
-        svg: HelperClass.svgImages().zipNodeColor
+        svg: () => HelperClass.svgImages().zipNodeColor
       },
       "logo-grey": {
         id: "zip-logo-svg-black-white",
@@ -98,7 +98,7 @@ const COMPETITOR_CONFIG = {
         version: "1.1",
         width: "50", height: "23", viewBox: "0 0 50 19",
         style: "height: 22px !important;width: auto !important;margin-bottom: -5px;",
-        svg: HelperClass.svgImages().zipNodeGrey
+        svg: () => HelperClass.svgImages().zipNodeGrey
       },
       "logo-white": {
         id: "zip-logo-svg-secondary-light",
@@ -106,7 +106,7 @@ const COMPETITOR_CONFIG = {
         version: "1.1",
         width: "50", height: "23", viewBox: "0 0 51 23",
         style: "height: 22px !important;width: auto !important;margin-bottom: -5px;",
-        svg: HelperClass.svgImages().zipNodeWhite
+        svg: () => HelperClass.svgImages().zipNodeWhite
       }
     }
   },
@@ -119,17 +119,17 @@ const COMPETITOR_CONFIG = {
       "logo": {
         width: "450", height: "170", viewBox: "0 0 450 170",
         style: "height: 24px !important;width: auto !important;",
-        svg: HelperClass.svgImages().affirmNodeColor
+        svg: () => HelperClass.svgImages().affirmNodeColor
       },
       "logo-grey": {
         width: "450", height: "170", viewBox: "0 0 450 170",
         style: "height: 24px !important;width: auto !important;",
-        svg: HelperClass.svgImages().affirmNodeGrey
+        svg: () => HelperClass.svgImages().affirmNodeGrey
       },
       "logo-white": {
         width: "450", height: "170", viewBox: "0 0 450 170",
         style: "height: 24px !important;width: auto !important;",
-        svg: HelperClass.svgImages().affirmNodeWhite
+        svg: () => HelperClass.svgImages().affirmNodeWhite
       }
     }
   },
@@ -142,17 +142,17 @@ const COMPETITOR_CONFIG = {
       "logo": {
         width: "45", height: "25", viewBox: "0 0 45 23",
         style: "height: 25px !important;width: auto !important; margin-bottom: -5px;",
-        svg: HelperClass.svgImages().klarnaNodeColor
+        svg: () => HelperClass.svgImages().klarnaNodeColor
       },
       "logo-grey": {
         width: "45", height: "25", viewBox: "0 0 45 23",
         style: "height: 25px !important;width: auto !important; margin-bottom: -5px;",
-        svg: HelperClass.svgImages().klarnaNodeGrey
+        svg: () => HelperClass.svgImages().klarnaNodeGrey
       },
       "logo-white": {
         width: "45", height: "25", viewBox: "0 0 45 23",
         style: "height: 25px !important;width: auto !important; margin-bottom: -5px;",
-        svg: HelperClass.svgImages().klarnaNodeWhite
+        svg: () => HelperClass.svgImages().klarnaNodeWhite
       }
     }
   },
@@ -165,7 +165,7 @@ const COMPETITOR_CONFIG = {
       "logo": {
         width: "99", height: "25", viewBox: "0 0 99 25",
         style: "height: 18px !important;width: auto !important; margin-bottom: -5px;",
-        svg: HelperClass?.svgImages()?.shoppayLight || ""
+        svg: () => HelperClass?.svgImages()?.shoppayLight || ""
       }
     }
   }
@@ -358,7 +358,7 @@ class AwesomeSezzle {
       if (variantConfig[attr]) node.setAttribute(attr, variantConfig[attr]);
     });
 
-    node.innerHTML = variantConfig.svg;
+    node.innerHTML = variantConfig.svg();
     sezzleButtonText.appendChild(node);
     this.setLogoSize(node);
   }
@@ -589,7 +589,7 @@ class AwesomeSezzle {
   }
 
   currencySymbol(priceText) {
-    const match = priceText.match(/[€\x80₤\xa3₹]/); // €, €-legacy(Win1252), ₤, £, ₹
+    const match = priceText.match(/[€₤£₹]/);
     return match ? match[0].charCodeAt(0) : 36; // $ default
   }
 
