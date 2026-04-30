@@ -31,6 +31,9 @@ variables:
 compile_js:npm_install:
   before_script: !reference [.bun_registry_override, before_script]
 
+compile_js:unit_test:
+  before_script: !reference [.bun_registry_override, before_script]
+
 build_npm:branch:
   before_script: !reference [.bun_registry_override, before_script]
 

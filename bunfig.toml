@@ -1,3 +1,7 @@
+
+[test]
+preload = ["./tests/setup.js"]
+
 [install]
 # Match npm's flat node_modules layout
 linker = "hoisted"
