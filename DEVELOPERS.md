@@ -38,6 +38,14 @@ For futher information,please follow the link https://sezzle.atlassian.net/wiki/
 
 This project ships a `bun.lock` for local development and a `package-lock.json` that the GitLab pipeline consumes via `npm ci`. When you add or remove a dependency, run **both** `bun install` and `npm install` and commit both lockfiles — drift between the two will fail the release pipeline.
 
+`bunfig.toml` sets `minimumReleaseAge = 259200` (3 days) so Bun refuses to install package versions published in the last 3 days — a supply-chain safety guard. `npm ci` does not enforce this, so the protection only holds if you introduce dependency changes through Bun first:
+
+1. `bun add <pkg>` (or `bun update <pkg>`) — Bun applies the release-age filter and writes `bun.lock`.
+2. `npm install` — syncs `package-lock.json` to the version Bun selected.
+3. Commit both lockfiles.
+
+If you run `npm install <pkg>` first, npm has no release-age filter and may pick a freshly-published version; the next `bun install` will then accept it from the lockfile and silently bypass the guard.
+
 ## Releasing updates to NPM:
 
 1. Update NPM_NEWVERSION in .gitlab-ci.yml. Do not update version in package.json
