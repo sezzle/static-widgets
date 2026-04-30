@@ -7,7 +7,7 @@ include:
       - ".deploy/npm.yml"
       - ".deploy/cloudfront.yml"
 
-image: "node:21@sha256:4b232062fa976e3a966c49e9b6279efa56c8d207a67270868f51b3d155c4e33d"
+image: "${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/node:24"
 
 variables:
   JIRA_PROJECT_NAME: "MERCHANT"

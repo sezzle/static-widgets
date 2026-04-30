@@ -1,7 +1,7 @@
 
 ## Testing Static Widget
 
-In Terminal, run: `npm install && npx webpack --mode production --config webpack/webpack.config.js`
+In Terminal, run: `bun install && bun run build-widget`
 Go to playground/index.html
 Update the HTML and config for the feature you wish to test.
 Secondary-click on the file and select "Open in Default Browser"
@@ -21,25 +21,30 @@ Now we are using Localise tool here where we keep translations for widget servic
 ```json
   "myNewMessage" :  "Default message"
 ```
-1. Run command `API_KEY=<localise-api-key> npm run translate:push` where is `<localise-api-key>` your API key which you need for authentication. You can find Localise API key using following instructions given in the link (https://docs.lokalise.com/en/articles/1929556-api-tokens).
+1. Run command `API_KEY=<localise-api-key> bun run translate:push` where is `<localise-api-key>` your API key which you need for authentication. You can find Localise API key using following instructions given in the link (https://docs.lokalise.com/en/articles/1929556-api-tokens).
 2. Send translations keys to #translation-request Slack channel
 3. Then translator or developer can go to the Lokalise project and add translations for the needed languages.
 
 ### If you want to download translations from Lokalise
 
-1. Run command `API_KEY=<localise-api-key> npm run translate:pull` where is `<localise-api-key>` is your api key which you need for authentication.
+1. Run command `API_KEY=<localise-api-key> bun run translate:pull` where is `<localise-api-key>` is your api key which you need for authentication.
 2. Then updated files with translations should appear in the src/translations directory
 
 Commit and push the change and merge your MR.
 
 For futher information,please follow the link https://sezzle.atlassian.net/wiki/spaces/ME/pages/2887909400/Translation+-+everything+you+need+to+know
 
+## Working with dependencies
+
+This project ships a `bun.lock` for local development and a `package-lock.json` that the GitLab pipeline consumes via `npm ci`. When you add or remove a dependency, run **both** `bun install` and `npm install` and commit both lockfiles — drift between the two will fail the release pipeline.
+
 ## Releasing updates to NPM:
 
 1. Update NPM_NEWVERSION in .gitlab-ci.yml. Do not update version in package.json
-2. `npm i && npx webpack --mode production --config webpack/webpack.config.js`
-3. Create tag in Gitlab to reflect the new version and attach to your branch
-4. Merge the branch to production - the pipeline will bump the version number in package.json and release to NPM
+2. `bun install && npm install && bun run build-widget`
+3. If either lockfile was regenerated, commit and push the updated file(s) before tagging. CI will re-run on the new commit.
+4. Create tag in Gitlab to reflect the new version and attach to your branch
+5. Merge the branch to production - the pipeline will bump the version number in package.json and release to NPM
 
 If you accidentally publish, use `npm unpublish @sezzle/sezzle-static-widget@{Major.minor.patch}` to back out the changes within 24 hours.
 
