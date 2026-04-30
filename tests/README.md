@@ -1,11 +1,11 @@
 # Test Suite Documentation
 
-This directory contains comprehensive unit tests for the Sezzle Static Widget SDK.
+This directory contains unit tests for the Sezzle Static Widget SDK. Tests run under [`bun test`](https://bun.sh/docs/cli/test) with a [`jsdom`](https://github.com/jsdom/jsdom) DOM environment.
 
 ## Test Files
 
-### 1. **sanitizer.test.js** (Existing)
-Original test suite for XSS sanitization covering:
+### 1. **sanitizer.test.js**
+XSS sanitization tests covering:
 - HTML sanitization with tag/attribute whitelisting
 - XSS attack vector blocking
 - Script source validation
@@ -13,18 +13,7 @@ Original test suite for XSS sanitization covering:
 - OWASP XSS attack vectors
 - Real-world widget scenarios
 
-### 2. **sanitizer.extended.test.js** (New)
-Extended sanitization tests covering:
-- Advanced XSS attack vectors (encoded, obfuscated, Base64)
-- Protocol-based attacks (javascript:, vbscript:, data:)
-- CSS injection attacks
-- SVG-based XSS
-- Form-based attacks
-- Meta tag attacks
-- Performance and stress testing
-- Browser-specific attack vectors
-
-### 3. **awesomeHelper.test.js** (New)
+### 2. **awesomeHelper.test.js**
 Helper utility function tests covering:
 - `isNumeric()` - numeric validation
 - `isAlphabet()` - alphabetic validation
@@ -36,7 +25,7 @@ Helper utility function tests covering:
 - `svgImages()` - SVG image map
 - Edge cases and integration scenarios
 
-### 4. **awesomeSezzle.test.js** (New)
+### 3. **awesomeSezzle.test.js**
 Main widget class tests covering:
 - Constructor and initialization
 - `currencySymbol()` - currency detection ($, €, £, ¥, ₹)
@@ -51,55 +40,54 @@ Main widget class tests covering:
 - `updateInstallmentContent()` - DOM update functionality
 - Real-world e-commerce scenarios
 
-## Installation
+## Setup
 
-First, install the required testing dependencies:
+`bun test` is built into the Bun runtime — there's no separate test runner to install. The only test-time dependency is `jsdom`, declared in `devDependencies`. Running `bun install` (per the root `DEVELOPERS.md`) installs everything needed.
 
-```bash
-npm install --save-dev jest babel-jest @babel/preset-env @testing-library/jest-dom jest-environment-jsdom
-```
+`tests/setup.js` is preloaded for every test run via `[test] preload` in `bunfig.toml`. It:
+
+- Bootstraps a `jsdom` window and copies `window`/`document`/`navigator`/`HTMLElement`/`Element` and other DOM globals onto `globalThis`.
+- Registers a `Bun.plugin` that stubs `.css` and `.scss` imports so source files (e.g. `src/awesomeSezzle.js`, which does `import "../css/global.scss"`) load cleanly without a sass compiler.
+- Mocks `matchMedia`, `IntersectionObserver`, and `alert`.
 
 ## Running Tests
 
 ### Run all tests
 ```bash
-npm test
+bun test
 ```
 
 ### Run tests in watch mode
 ```bash
-npm test -- --watch
+bun test --watch
 ```
 
 ### Run tests with coverage
 ```bash
-npm test -- --coverage
+bun test --coverage
 ```
 
-### Run specific test file
+### Run a specific test file
 ```bash
-npm test sanitizer.test.js
-npm test awesomeHelper.test.js
-npm test awesomeSezzle.test.js
+bun test tests/sanitizer.test.js
 ```
 
-### Run tests matching a pattern
+### Run tests matching a name pattern
 ```bash
-npm test -- --testNamePattern="currency"
+bun test -t "currency"
 ```
+
+(`-t` / `--test-name-pattern` filters by `describe` + `test` name. File path filtering is positional.)
 
 ## Test Coverage
 
-To generate and view a coverage report:
-
 ```bash
-npm test -- --coverage
-open coverage/index.html  # macOS
-xdg-open coverage/index.html  # Linux
-start coverage/index.html  # Windows
+bun test --coverage
 ```
 
-Coverage reports include:
+Bun emits coverage to `coverage/` in lcov + text-summary by default. Configure additional formats in `bunfig.toml` under `[test]` if needed (e.g. `coverageReporter = ["lcov", "cobertura"]`). For a Cobertura report consumable by GitLab CI, point the pipeline at `coverage/cobertura-coverage.xml`.
+
+Coverage metrics include:
 - **Statements**: % of code statements executed
 - **Branches**: % of conditional branches tested
 - **Functions**: % of functions called
@@ -123,6 +111,15 @@ describe("Feature Name", () => {
     });
   });
 });
+```
+
+`describe`, `test`, `it`, `expect`, and the `beforeEach` / `afterEach` / `beforeAll` / `afterAll` hooks are available as globals — no `import` needed. For mocks, import from `bun:test`:
+
+```javascript
+import { mock, spyOn } from "bun:test";
+
+const fn = mock(() => "value");
+const spy = spyOn(obj, "method");
 ```
 
 ### Common Matchers
@@ -169,51 +166,43 @@ expect(fn).toThrow();                      // Function throws error
 
 ## Continuous Integration
 
-These tests can be integrated into CI/CD pipelines:
-
-```yaml
-# .gitlab-ci.yml example
-test:
-  script:
-    - npm install
-    - npm test -- --coverage
-  artifacts:
-    paths:
-      - coverage/
-    reports:
-      coverage_report:
-        coverage_format: cobertura
-        path: coverage/cobertura-coverage.xml
-```
+Tests run in the `compile_js:unit_test` job defined by the shared DevOps templates included in the project's `.gitlab-ci.yml`. That job invokes `npm test`, which the project's `package.json` aliases to `bun test`. The CI runner installs Bun on the fly when it sees a committed `bun.lock`.
 
 ## Troubleshooting
 
 ### "Cannot find module" errors
-- Ensure all dependencies are installed: `npm install`
+- Ensure dependencies are installed: `bun install`
 - Check that file paths in imports are correct
 
 ### "ReferenceError: document is not defined"
-- Make sure `jest.config.js` has `testEnvironment: "jsdom"`
+- The DOM globals come from `tests/setup.js`, which is preloaded via `[test] preload` in `bunfig.toml`. If you're running tests outside `bun test` (e.g. via `bun run`), the setup file won't be preloaded automatically.
 
 ### Tests timing out
-- Increase timeout: `jest.setTimeout(10000);` in setup.js
-- Check for infinite loops or async operations
+- Bump the per-test timeout: pass `--timeout <ms>` to `bun test`, or set it inline:
+  ```javascript
+  test("slow case", async () => { /* ... */ }, 10000);
+  ```
+- Check for unresolved promises or async operations.
+
+### CSS or SCSS import error
+- Imports of `.css`/`.scss` are stubbed by the `Bun.plugin` registration in `tests/setup.js`. If a new file extension shows up (e.g. `.sass`, `.less`), extend the plugin's `filter` regex.
 
 ### Coverage not generated
-- Run with `--coverage` flag
-- Check `collectCoverageFrom` in jest.config.js
+- Run with `--coverage`.
+- For thresholds and per-file include/exclude, use the `[test]` section of `bunfig.toml` (`coverageThreshold`, `coveragePathIgnorePatterns`).
 
 ## Contributing
 
 When adding new features:
 1. Write tests first (TDD approach recommended)
-2. Ensure all tests pass: `npm test`
+2. Ensure all tests pass: `bun test`
 3. Maintain high coverage (aim for > 80%)
 4. Add security tests for user-facing functions
 5. Update this README if adding new test categories
 
-## Questions?
+## References
 
-For questions about the test suite, contact the development team or refer to:
-- [Jest Documentation](https://jestjs.io/docs/getting-started)
-- [Testing Best Practices](https://testingjavascript.com/)
+- [Bun test runner](https://bun.sh/docs/cli/test)
+- [Bun mocks (`bun:test`)](https://bun.sh/docs/test/mocks)
+- [`bunfig.toml` test config](https://bun.sh/docs/runtime/bunfig#test)
+- [jsdom](https://github.com/jsdom/jsdom)

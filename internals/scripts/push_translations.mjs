@@ -1,8 +1,5 @@
 import { LokaliseApi } from "@lokalise/node-api";
 import fs from "fs";
-import { Headers } from "node-fetch";
-
-global.Headers = Headers;
 
 const filePaths = {
     widget: "src/translations",
