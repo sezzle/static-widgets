@@ -17,6 +17,35 @@ variables:
   cf_dist_production: "E2HSGLI0811JNF"
   cf_dist_staging: "E2VP0QA9ZBJOEA"
 
+# NPM_CONFIG_REGISTRY is set as a project/group CI/CD variable pointing at
+# Verdaccio. Verdaccio doesn't proxy public packages, so `bun install`
+# (which routes both metadata and tarballs through the configured registry)
+# 404s on public deps. `npm ci` is unaffected because package-lock.json
+# resolves tarballs directly from registry.npmjs.org. Override per-job here
+# until DevOps scopes the registry properly via .npmrc instead of an env var.
+.bun_registry_override:
+  before_script:
+    - export NPM_CONFIG_REGISTRY="https://registry.npmjs.org/"
+    - !reference [default, before_script]
+
+compile_js:npm_install:
+  before_script: !reference [.bun_registry_override, before_script]
+
+build_npm:branch:
+  before_script: !reference [.bun_registry_override, before_script]
+
+build_npm:preview:
+  before_script: !reference [.bun_registry_override, before_script]
+
+build_npm:staging:
+  before_script: !reference [.bun_registry_override, before_script]
+
+build_npm:sandbox:
+  before_script: !reference [.bun_registry_override, before_script]
+
+build_npm:production:
+  before_script: !reference [.bun_registry_override, before_script]
+
 deploy_cloudfront:affirm_modals:
   extends:
     - .deploy_cloudfront
