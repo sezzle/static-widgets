@@ -4,5 +4,6 @@
     "config:recommended",
     "preview:dockerCompose",
     "preview:dockerVersions"
-  ]
+  ],
+  "minimumReleaseAge": "3 days"
 }

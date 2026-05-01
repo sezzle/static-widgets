@@ -3,9 +3,7 @@ import chalk from "chalk";
 import fs from "fs";
 import https from "https";
 import AdmZip from "adm-zip";
-import { Headers } from "node-fetch";
 
-global.Headers = Headers;
 const basePath = "addons/sezzle-checkout-button/translations";
 const tmpFileName = "translations.zip";
 
