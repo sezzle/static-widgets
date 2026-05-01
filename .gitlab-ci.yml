@@ -48,20 +48,6 @@ build_npm:sandbox:
 build_npm:production:
   before_script: !reference [.bun_registry_override, before_script]
 
-deploy_npm:publish:
-  stage: deploy
-  environment: "$CI_COMMIT_BRANCH"
-  allow_failure: true
-  extends:
-    - .build_npm
-  variables:
-    TARGET_ENV: production
-    NPM_NEWVERSION: "4.0.0"
-  rules:
-    - !reference [ .deploy_default_rules ]
-    - if: $CI_COMMIT_BRANCH == 'production'
-      when: manual
-
 deploy_cloudfront:affirm_modals:
   extends:
     - .deploy_cloudfront

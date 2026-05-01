@@ -48,11 +48,12 @@ If you run `npm install <pkg>` first, npm has no release-age filter and may pick
 
 ## Releasing updates to NPM:
 
-1. Update NPM_NEWVERSION in .gitlab-ci.yml. Do not update version in package.json
+1. Do not update version in package.json
 2. `bun install && npm install && bun run build-widget`
 3. If either lockfile was regenerated, commit and push the updated file(s) before tagging. CI will re-run on the new commit.
 4. Create tag in Gitlab to reflect the new version and attach to your branch
 5. Merge the branch to production - the pipeline will bump the version number in package.json and release to NPM
+   - If prompted, enter NPM_NEWVERSION value with the desired new version number.
 
 If you accidentally publish, use `npm unpublish @sezzle/sezzle-static-widget@{Major.minor.patch}` to back out the changes within 24 hours.
 
