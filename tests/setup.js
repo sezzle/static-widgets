@@ -40,18 +40,29 @@ for (const [key, value] of Object.entries(explicitGlobals)) {
 }
 globalThis.getComputedStyle = window.getComputedStyle.bind(window);
 
-// Copy remaining window properties that aren't already on globalThis.
-for (const key of Object.getOwnPropertyNames(window)) {
-  if (!(key in globalThis)) {
-    try {
-      Object.defineProperty(
-        globalThis,
-        key,
-        Object.getOwnPropertyDescriptor(window, key),
-      );
-    } catch {
-      // Some properties can't be copied (e.g. non-configurable getters); skip.
-    }
+// Copy a fixed allowlist of jsdom globals onto globalThis. An allowlist keeps
+// the surface area small and makes setup regressions easy to spot — a missing
+// global throws here instead of silently leaving the test environment in a
+// half-configured state.
+const additionalGlobals = [
+  "Node",
+  "Event",
+  "CustomEvent",
+  "MouseEvent",
+  "KeyboardEvent",
+  "XMLHttpRequest",
+  "localStorage",
+  "sessionStorage",
+  "location",
+];
+
+for (const key of additionalGlobals) {
+  if (!(key in globalThis) && key in window) {
+    Object.defineProperty(
+      globalThis,
+      key,
+      Object.getOwnPropertyDescriptor(window, key),
+    );
   }
 }
 
