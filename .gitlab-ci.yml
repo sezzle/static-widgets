@@ -33,6 +33,9 @@ compile_js:npm_install:
 compile_js:unit_test:
   before_script: !reference [.bun_registry_override, before_script]
 
+compile_js:merge_train_test:
+  before_script: !reference [.bun_registry_override, before_script]
+
 build_npm:branch:
   before_script: !reference [.bun_registry_override, before_script]
 
