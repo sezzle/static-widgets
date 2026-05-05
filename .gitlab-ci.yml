@@ -25,6 +25,7 @@ variables:
 .bun_registry_override:
   before_script:
     - export NPM_CONFIG_REGISTRY="https://registry.npmjs.org/"
+    - export PATH="$HOME/.bun/bin:$PATH"
     - !reference [default, before_script]
 
 compile_js:npm_install:
