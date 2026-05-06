@@ -545,8 +545,8 @@ describe("AwesomeSezzle Widget", () => {
       expect(widget.isProductEligibleLT("16000.00")).toBe(false);
     });
 
-    test("should return false when minPriceLT is 0 (disabled)", () => {
-      const widget = new AwesomeSezzle({ minPriceLT: 0, maxPriceLT: 1500000 });
+    test("should return false when LT is disabled (minPriceLT and partner both unset)", () => {
+      const widget = new AwesomeSezzle({ maxPriceLT: 1500000 });
       expect(widget.isProductEligibleLT("500.00")).toBe(false);
     });
   });
@@ -569,7 +569,6 @@ describe("AwesomeSezzle Widget", () => {
       const widget = new AwesomeSezzle({
         minPrice: 2000,
         maxPrice: 250000,
-        minPriceLT: 0,
       });
       expect(widget.isProductEligible("2500.00")).toBe(true);
       expect(widget.isProductEligible("2500.01")).toBe(false);
@@ -661,7 +660,7 @@ describe("AwesomeSezzle Widget", () => {
       expect(widget.minPriceLT).toBe(40000);
       expect(widget.maxPriceLT).toBe(800000);
       expect(widget.minAPR).toBe(24.99);
-      expect(widget.medianAPR).toBe(25.99);
+      expect(widget.medianAPR).toBe(29.99);
       expect(widget.maxAPR).toBe(35.99);
     });
 
@@ -675,7 +674,7 @@ describe("AwesomeSezzle Widget", () => {
       expect(widget.minAPR).toBe(19.99);
       expect(widget.maxPriceLT).toBe(999999);
       // unspecified fields still come from partner 'b'
-      expect(widget.medianAPR).toBe(25.99);
+      expect(widget.medianAPR).toBe(29.99);
       expect(widget.maxAPR).toBe(35.99);
     });
 
@@ -696,19 +695,25 @@ describe("AwesomeSezzle Widget", () => {
   });
 
   describe("bestAPR backward compatibility", () => {
-    test("bestAPR maps to medianAPR when medianAPR is not set", () => {
+    test("bestAPR maps to minAPR when minAPR is not set", () => {
       const widget = new AwesomeSezzle({ bestAPR: 19.5 });
-      expect(widget.medianAPR).toBe(19.5);
+      expect(widget.minAPR).toBe(19.5);
     });
 
-    test("medianAPR takes precedence over bestAPR", () => {
-      const widget = new AwesomeSezzle({ bestAPR: 19.5, medianAPR: 22.5 });
-      expect(widget.medianAPR).toBe(22.5);
+    test("minAPR takes precedence over bestAPR", () => {
+      const widget = new AwesomeSezzle({ bestAPR: 19.5, minAPR: 12.5 });
+      expect(widget.minAPR).toBe(12.5);
     });
 
-    test("partner default still applies when neither bestAPR nor medianAPR is set", () => {
+    test("bestAPR does not affect medianAPR", () => {
+      const widget = new AwesomeSezzle({ bestAPR: 19.5 });
+      // medianAPR still comes from the partner default (Bread = 21.99)
+      expect(widget.medianAPR).toBe(21.99);
+    });
+
+    test("partner default still applies when neither bestAPR nor minAPR is set", () => {
       const widget = new AwesomeSezzle({ partner: "b" });
-      expect(widget.medianAPR).toBe(25.99);
+      expect(widget.minAPR).toBe(24.99);
     });
   });
 
@@ -740,6 +745,43 @@ describe("AwesomeSezzle Widget", () => {
       });
       expect(widget.termsToShow(300000)).toEqual([60]);
       expect(widget.termsToShow(100000)).toEqual([12]);
+    });
+
+    test("warns and falls back to partner default when termsToShow is malformed", () => {
+      const warnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
+      try {
+        const cases = [
+          { foo: "bar" },        // values are not arrays
+          "not an object",       // wrong type
+          [[24, 36], [12]],      // array instead of object
+          { 100000: [] },        // empty array
+          { 100000: ["a", "b"] },// non-numeric entries
+        ];
+        for (const bad of cases) {
+          warnSpy.mockClear();
+          const widget = new AwesomeSezzle({ partner: "b", termsToShow: bad });
+          expect(warnSpy).toHaveBeenCalledTimes(1);
+          // Falls back to partner 'b' default
+          expect(widget.termsToShowConfig).toEqual({
+            100000: [12, 24, 36],
+            80000: [9, 12, 24],
+            60000: [6, 9, 12],
+            default: [3, 6, 9],
+          });
+        }
+      } finally {
+        warnSpy.mockRestore();
+      }
+    });
+
+    test("does not warn when termsToShow is omitted", () => {
+      const warnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
+      try {
+        new AwesomeSezzle({ partner: "a" });
+        expect(warnSpy).not.toHaveBeenCalled();
+      } finally {
+        warnSpy.mockRestore();
+      }
     });
 
     test("derives minTermMonths and maxTermMonths from termsToShow union", () => {

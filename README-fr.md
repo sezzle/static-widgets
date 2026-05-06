@@ -383,7 +383,7 @@ L’option `maxPrice` correspond uniquement aux paiements bimensuels. Entre ces 
 **objetif**: TAEG représentatif utilisé pour calculer le montant de la mensualité affichée dans le widget et sur chaque carte de mensualité à long terme dans le modal.
 **Type**: numéro
 **Défaut**: 21.99
-**Détails supplémentaires**: Lorsque `partner` est défini, la valeur par défaut est `21.99` pour `a` ou `25.99` pour `b`.
+**Détails supplémentaires**: Lorsque `partner` est défini, la valeur par défaut est `21.99` pour `a` ou `29.99` pour `b`.
 
 `maxAPR` (TAEG maximum, facultatif)
 

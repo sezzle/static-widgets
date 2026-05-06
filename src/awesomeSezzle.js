@@ -171,8 +171,7 @@ const COMPETITOR_CONFIG = {
   }
 };
 
-// Long-term lending partner default config sets. Aliases are deliberately neutral
-// so the lending partner's name is not exposed in merchant-facing config.
+// Long-term lending partner default config sets. Aliases are deliberately neutral so the lending partner's name is not exposed in merchant-facing config. 
 // termsToShow keys are price thresholds in cents; values are term arrays in months.
 const LT_PARTNER_DEFAULTS = {
   a: {
@@ -187,12 +186,20 @@ const LT_PARTNER_DEFAULTS = {
     minPriceLT: 40000,
     maxPriceLT: 800000,
     minAPR: 24.99,
-    medianAPR: 25.99,
+    medianAPR: 29.99,
     maxAPR: 35.99,
     termsToShow: { 100000: [12, 24, 36], 80000: [9, 12, 24], 60000: [6, 9, 12], default: [3, 6, 9] },
   },
 };
 const DEFAULT_LT_PARTNER = "a";
+
+const isValidTermsToShow = (cfg) =>
+  !!cfg &&
+  typeof cfg === "object" &&
+  !Array.isArray(cfg) &&
+  Object.values(cfg).some(
+    (v) => Array.isArray(v) && v.length > 0 && v.every(Number.isFinite)
+  );
 
 class AwesomeSezzle {
   constructor(options) {
@@ -227,18 +234,25 @@ class AwesomeSezzle {
     this.minPrice = options.minPrice || 0;
     this.maxPrice = options.maxPrice || 250000;
     const explicitPartner = LT_PARTNER_DEFAULTS[options.partner] ? options.partner : null;
-    // Backcompat: pre-partner configs enabled LT via minPriceLT alone. When that's set
-    // without an explicit partner, auto-override to "a" so the rest of the LT defaults
-    // come from the original (Bread) preset.
+    // Backcompat: pre-partner configs enabled LT via minPriceLT alone. When that's set without an explicit partner, auto-override to "a" so the rest of the LT defaults come from the original (Bread) preset.
     const minPriceLTSet = options.minPriceLT != null;
     this.partner = explicitPartner || (minPriceLTSet ? DEFAULT_LT_PARTNER : null);
     const partnerDefaults = LT_PARTNER_DEFAULTS[this.partner] || LT_PARTNER_DEFAULTS[DEFAULT_LT_PARTNER];
-    this.minPriceLT = options.minPriceLT ?? (this.partner ? partnerDefaults.minPriceLT : 0);
-    this.maxPriceLT = options.maxPriceLT ?? partnerDefaults.maxPriceLT;
-    this.minAPR = options.minAPR ?? partnerDefaults.minAPR;
-    this.medianAPR = options.medianAPR ?? options.bestAPR ?? partnerDefaults.medianAPR;
-    this.maxAPR = options.maxAPR ?? partnerDefaults.maxAPR;
-    this.termsToShowConfig = options.termsToShow ?? partnerDefaults.termsToShow;
+    this.minPriceLT = options.minPriceLT || (this.partner ? partnerDefaults.minPriceLT : 0);
+    this.maxPriceLT = options.maxPriceLT || partnerDefaults.maxPriceLT;
+    this.minAPR = options.minAPR || options.bestAPR || partnerDefaults.minAPR;
+    this.medianAPR = options.medianAPR  || partnerDefaults.medianAPR;
+    this.maxAPR = options.maxAPR || partnerDefaults.maxAPR;
+    let termsToShow = options.termsToShow;
+    if (termsToShow != null && !isValidTermsToShow(termsToShow)) {
+      console.warn(
+        "[Sezzle] Invalid `termsToShow` config; falling back to partner default. " +
+        "Expected an object whose values are arrays of term-length numbers, e.g. " +
+        "{ 100000: [24, 36, 48], default: [3, 6, 9] }."
+      );
+      termsToShow = null;
+    }
+    this.termsToShowConfig = termsToShow || partnerDefaults.termsToShow;
     const allTerms = Object.values(this.termsToShowConfig)
       .filter((v) => Array.isArray(v))
       .flat()

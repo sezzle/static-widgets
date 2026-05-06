@@ -393,7 +393,7 @@ The `maxPrice` option corresponds to the biweekly installments only. Between the
 **Purpose**: Representative APR used to calculate the monthly installment amount shown in the widget and on each long-term installment card in the modal.
 **Type**: number
 **Default**: 21.99
-**Additional Details**: When `partner` is set, defaults to `21.99` for `a` or `25.99` for `b`.
+**Additional Details**: When `partner` is set, defaults to `21.99` for `a` or `29.99` for `b`.
 
 `maxAPR` (optional)
 
