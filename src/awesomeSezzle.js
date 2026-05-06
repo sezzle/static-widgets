@@ -259,6 +259,7 @@ class AwesomeSezzle {
       termsToShow = null;
     }
     this.termsToShowConfig = termsToShow || partnerDefaults.termsToShow;
+    this._warnedNoDefault = false;
     const allTerms = Object.values(this.termsToShowConfig)
       .filter((v) => Array.isArray(v))
       .flat()
@@ -631,9 +632,10 @@ class AwesomeSezzle {
     const priceString = HelperClass.parsePriceString(amount, true);
     const price = HelperClass.parsePrice(amount, this.parseMode);
     const formatter = amount.replace(priceString, "{price}");
-    const terms = this.termsToShow(price * 100);
+    const ltPath = !forceInstallment && this.isProductEligibleLT(amount);
+    const terms = ltPath ? this.termsToShow(price * 100) : [];
     const sezzleInstallmentPrice =
-      !forceInstallment && this.isProductEligibleLT(amount) && terms.length > 0
+      ltPath && terms.length > 0
         ? this.calculateMonthlyWithInterest(price.toString(), terms[terms.length - 1], this.medianAPR)
         : price / numberOfPayments;
     return formatter.replace("{price}", this.addDelimiters(sezzleInstallmentPrice, this.parseMode));
