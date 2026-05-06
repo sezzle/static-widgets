@@ -171,7 +171,7 @@ const COMPETITOR_CONFIG = {
   }
 };
 
-// Long-term lending partner default config sets. Aliases are deliberately neutral so the lending partner's name is not exposed in merchant-facing config. 
+// Long-term lending partner default config sets. Aliases are deliberately neutral so the lending partner's name is not exposed in merchant-facing config.
 // termsToShow keys are price thresholds in cents; values are term arrays in months.
 const LT_PARTNER_DEFAULTS = {
   a: {
@@ -233,15 +233,21 @@ class AwesomeSezzle {
     this.amount = options.amount || null;
     this.minPrice = options.minPrice || 0;
     this.maxPrice = options.maxPrice || 250000;
+    if (options.partner != null && !LT_PARTNER_DEFAULTS[options.partner]) {
+      console.warn(
+        `[Sezzle] Unknown partner "${options.partner}"; falling back to default. ` +
+        `Expected one of: ${Object.keys(LT_PARTNER_DEFAULTS).join(", ")}.`
+      );
+    }
     const explicitPartner = LT_PARTNER_DEFAULTS[options.partner] ? options.partner : null;
     // Backcompat: pre-partner configs enabled LT via minPriceLT alone. When that's set without an explicit partner, auto-override to "a" so the rest of the LT defaults come from the original (Bread) preset.
-    const minPriceLTSet = options.minPriceLT != null;
+    const minPriceLTSet = !!options.minPriceLT;
     this.partner = explicitPartner || (minPriceLTSet ? DEFAULT_LT_PARTNER : null);
     const partnerDefaults = LT_PARTNER_DEFAULTS[this.partner] || LT_PARTNER_DEFAULTS[DEFAULT_LT_PARTNER];
     this.minPriceLT = options.minPriceLT || (this.partner ? partnerDefaults.minPriceLT : 0);
     this.maxPriceLT = options.maxPriceLT || partnerDefaults.maxPriceLT;
-    this.minAPR = options.minAPR || options.bestAPR || partnerDefaults.minAPR;
-    this.medianAPR = options.medianAPR  || partnerDefaults.medianAPR;
+    this.minAPR = options.minAPR || partnerDefaults.minAPR;
+    this.medianAPR = options.medianAPR || partnerDefaults.medianAPR;
     this.maxAPR = options.maxAPR || partnerDefaults.maxAPR;
     let termsToShow = options.termsToShow;
     if (termsToShow != null && !isValidTermsToShow(termsToShow)) {
@@ -627,7 +633,7 @@ class AwesomeSezzle {
     const formatter = amount.replace(priceString, "{price}");
     const terms = this.termsToShow(price * 100);
     const sezzleInstallmentPrice =
-      !forceInstallment && this.isProductEligibleLT(amount)
+      !forceInstallment && this.isProductEligibleLT(amount) && terms.length > 0
         ? this.calculateMonthlyWithInterest(price.toString(), terms[terms.length - 1], this.medianAPR)
         : price / numberOfPayments;
     return formatter.replace("{price}", this.addDelimiters(sezzleInstallmentPrice, this.parseMode));
@@ -642,14 +648,15 @@ class AwesomeSezzle {
     return working.slice(0, decimalIndex - 3) + thousandsSep + working.slice(decimalIndex - 3);
   }
 
+  formatAPR(apr) {
+    const str = String(apr);
+    return this.language === "en" ? str : str.replace(".", ",");
+  }
+
   formatLTterms() {
-    const localeAPR = (apr) => {
-      const str = String(apr);
-      return this.language === "en" ? str : str.replace(".", ",");
-    };
     return this.translations.LTterms3
-      .replace("%%minAPR%%", escapeHTML(localeAPR(this.minAPR)))
-      .replace("%%maxAPR%%", escapeHTML(localeAPR(this.maxAPR)))
+      .replace("%%minAPR%%", escapeHTML(this.formatAPR(this.minAPR)))
+      .replace("%%maxAPR%%", escapeHTML(this.formatAPR(this.maxAPR)))
       .replace("%%minTermMonths%%", escapeHTML(String(this.minTermMonths)))
       .replace("%%maxTermMonths%%", escapeHTML(String(this.maxTermMonths)));
   }
@@ -664,7 +671,14 @@ class AwesomeSezzle {
     for (const threshold of thresholds) {
       if (priceInCents > threshold) return config[threshold];
     }
-    return config.default || [3, 6, 9];
+    if (!config.default && !this._warnedNoDefault) {
+      this._warnedNoDefault = true;
+      console.warn(
+        "[Sezzle] `termsToShow` has no `default` key; prices below all thresholds will yield no terms. " +
+        "LT cards will be hidden and the widget falls back to the bi-weekly installment price."
+      );
+    }
+    return config.default || [];
   }
 
   currencySymbol(priceText) {
@@ -842,7 +856,7 @@ class AwesomeSezzle {
       : priceString.replace(",", "");
     const safeCurrency = escapeHTML(currency);
     const safePrice = escapeHTML(this.addDelimiters(priceString, this.parseMode));
-    const safeMedianAPR = escapeHTML(String(this.medianAPR));
+    const safeMedianAPR = escapeHTML(this.formatAPR(this.medianAPR));
     const priceInCents = HelperClass.parsePrice(this.amount, this.parseMode) * 100;
     const terms = this.termsToShow(priceInCents);
     const isLTEligible = this.isProductEligibleLT(this.amount);

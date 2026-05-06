@@ -497,7 +497,7 @@ describe("AwesomeSezzle Widget", () => {
         parseMode: "default",
         minPriceLT: 15000,
         maxPriceLT: 1500000,
-        bestAPR: 21.99,
+        medianAPR: 21.99,
       });
 
       const forced = widget.getFormattedPrice(4, "$500.00", true);
@@ -633,7 +633,7 @@ describe("AwesomeSezzle Widget", () => {
   });
 
   describe("LT Partner Alias Configuration", () => {
-    test("defaults to partner 'a' (Bread) values when no partner is provided", () => {
+    test("partner is null when no LT options are provided, but Bread defaults still seed the LT fields", () => {
       const widget = new AwesomeSezzle({});
       expect(widget.partner).toBeNull();
       expect(widget.maxPriceLT).toBe(1500000);
@@ -678,11 +678,30 @@ describe("AwesomeSezzle Widget", () => {
       expect(widget.maxAPR).toBe(35.99);
     });
 
-    test("unknown partner is rejected (this.partner stays null) and Bread defaults apply", () => {
-      const widget = new AwesomeSezzle({ partner: "nonexistent" });
-      expect(widget.partner).toBeNull();
-      expect(widget.medianAPR).toBe(21.99);
-      expect(widget.maxAPR).toBe(34.99);
+    test("unknown partner is rejected (this.partner stays null), Bread defaults apply, and a warning is logged", () => {
+      const warnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
+      try {
+        const widget = new AwesomeSezzle({ partner: "nonexistent" });
+        expect(widget.partner).toBeNull();
+        expect(widget.medianAPR).toBe(21.99);
+        expect(widget.maxAPR).toBe(34.99);
+        expect(warnSpy).toHaveBeenCalledTimes(1);
+        expect(warnSpy.mock.calls[0][0]).toContain('Unknown partner "nonexistent"');
+      } finally {
+        warnSpy.mockRestore();
+      }
+    });
+
+    test("does not warn for known partners or when partner is omitted", () => {
+      const warnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
+      try {
+        new AwesomeSezzle({ partner: "a" });
+        new AwesomeSezzle({ partner: "b" });
+        new AwesomeSezzle({});
+        expect(warnSpy).not.toHaveBeenCalled();
+      } finally {
+        warnSpy.mockRestore();
+      }
     });
 
     test("setting minPriceLT without partner auto-overrides partner to 'a' (Bread defaults for other fields)", () => {
@@ -691,29 +710,6 @@ describe("AwesomeSezzle Widget", () => {
       expect(widget.minPriceLT).toBe(50000);
       expect(widget.medianAPR).toBe(21.99);
       expect(widget.maxAPR).toBe(34.99);
-    });
-  });
-
-  describe("bestAPR backward compatibility", () => {
-    test("bestAPR maps to minAPR when minAPR is not set", () => {
-      const widget = new AwesomeSezzle({ bestAPR: 19.5 });
-      expect(widget.minAPR).toBe(19.5);
-    });
-
-    test("minAPR takes precedence over bestAPR", () => {
-      const widget = new AwesomeSezzle({ bestAPR: 19.5, minAPR: 12.5 });
-      expect(widget.minAPR).toBe(12.5);
-    });
-
-    test("bestAPR does not affect medianAPR", () => {
-      const widget = new AwesomeSezzle({ bestAPR: 19.5 });
-      // medianAPR still comes from the partner default (Bread = 21.99)
-      expect(widget.medianAPR).toBe(21.99);
-    });
-
-    test("partner default still applies when neither bestAPR nor minAPR is set", () => {
-      const widget = new AwesomeSezzle({ partner: "b" });
-      expect(widget.minAPR).toBe(24.99);
     });
   });
 
@@ -760,7 +756,9 @@ describe("AwesomeSezzle Widget", () => {
         for (const bad of cases) {
           warnSpy.mockClear();
           const widget = new AwesomeSezzle({ partner: "b", termsToShow: bad });
-          expect(warnSpy).toHaveBeenCalledTimes(1);
+          // Assert on the message rather than count — robust to additional unrelated warnings
+          const calls = warnSpy.mock.calls.map((args) => args[0]);
+          expect(calls.some((msg) => typeof msg === "string" && msg.includes("Invalid `termsToShow`"))).toBe(true);
           // Falls back to partner 'b' default
           expect(widget.termsToShowConfig).toEqual({
             100000: [12, 24, 36],
@@ -779,6 +777,50 @@ describe("AwesomeSezzle Widget", () => {
       try {
         new AwesomeSezzle({ partner: "a" });
         expect(warnSpy).not.toHaveBeenCalled();
+      } finally {
+        warnSpy.mockRestore();
+      }
+    });
+
+    test("returns [] and warns once when no threshold matches and no default is set", () => {
+      const warnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
+      try {
+        const widget = new AwesomeSezzle({
+          partner: "a",
+          termsToShow: { 100000: [12, 24] }, // no default key
+        });
+        // Above-threshold price returns the configured array, no warning yet
+        expect(widget.termsToShow(150000)).toEqual([12, 24]);
+        expect(warnSpy).not.toHaveBeenCalled();
+
+        // Below-threshold price returns [] and triggers the warning
+        expect(widget.termsToShow(50000)).toEqual([]);
+        expect(warnSpy).toHaveBeenCalledTimes(1);
+        expect(warnSpy.mock.calls[0][0]).toContain("no `default` key");
+
+        // Subsequent below-threshold lookups do not re-warn
+        widget.termsToShow(40000);
+        widget.termsToShow(30000);
+        expect(warnSpy).toHaveBeenCalledTimes(1);
+      } finally {
+        warnSpy.mockRestore();
+      }
+    });
+
+    test("getFormattedPrice falls back to bi-weekly price when LT-eligible but termsToShow yields no terms", () => {
+      const warnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
+      try {
+        const widget = new AwesomeSezzle({
+          amount: "$200.00",
+          parseMode: "default",
+          minPriceLT: 5000,                   // LT enabled at $50
+          termsToShow: { 100000: [12, 24] },  // but no default and threshold above $200
+        });
+        // $200 is LT-eligible by minPriceLT but has no matching terms
+        const formatted = widget.getFormattedPrice(4, "$200.00", false);
+        // $200 / 4 = $50.00 — confirms fallback to bi-weekly path, not NaN
+        expect(formatted).toContain("50.00");
+        expect(formatted).not.toContain("NaN");
       } finally {
         warnSpy.mockRestore();
       }
@@ -821,6 +863,34 @@ describe("AwesomeSezzle Widget", () => {
       const out = widget.formatLTterms();
       expect(out).toContain("9,99");
       expect(out).toContain("34,99");
+    });
+  });
+
+  describe("formatAPR - locale-aware APR formatting", () => {
+    test("uses dot decimal in English", () => {
+      const widget = new AwesomeSezzle({ language: "en" });
+      expect(widget.formatAPR(21.99)).toBe("21.99");
+    });
+
+    test("uses comma decimal in French and Spanish", () => {
+      const widgetFr = new AwesomeSezzle({ language: "fr" });
+      expect(widgetFr.formatAPR(21.99)).toBe("21,99");
+
+      const widgetEs = new AwesomeSezzle({ language: "es" });
+      expect(widgetEs.formatAPR(21.99)).toBe("21,99");
+    });
+
+    test("per-card APR in modal HTML uses localized formatting (French)", () => {
+      const widget = new AwesomeSezzle({
+        amount: "$500.00",
+        parseMode: "default",
+        partner: "a",
+        language: "fr",
+      });
+      const html = widget.buildModalHTML();
+      // Disclaimer (already localized) and per-card APR rows now agree
+      expect(html).toContain("21,99%");
+      expect(html).not.toContain("21.99%");
     });
   });
 });

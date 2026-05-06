@@ -355,6 +355,8 @@ Once the widget is rendering, additional configurations can be added to the Awes
 
 ### <b>The following are reserved for merchants enrolled in our long-term payment program. Please discuss with Sezzle point of contact before using the below config options:</b>
 
+The default values listed below for each long-term option correspond to the `partner: "a"` preset. Setting `partner` to a different value shifts those defaults to that partner's preset (see each option's **Additional Details**). Individual options always take precedence over both the partner preset and the listed default.
+
 `partner` (optional)
 
 **Purpose**: Applies long-term settings based on your lending package. Please confirm the applicable value for your enrollment with your account manager.
@@ -401,11 +403,6 @@ The `maxPrice` option corresponds to the biweekly installments only. Between the
 **Type**: number
 **Default**: 34.99
 **Additional Details**: When `partner` is set, defaults to `34.99` for `a` or `35.99` for `b`.
-
-`bestAPR` (deprecated, optional)
-
-**Purpose**: Backward-compatible alias, functionality split between `minAPR` and `medianAPR`.
-**Type**: number
 
 `termsToShow` (optional)
 

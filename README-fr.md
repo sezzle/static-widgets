@@ -345,6 +345,8 @@ Une fois le rendu du widget, des configurations supplémentaires peuvent être a
 
 ### <b>Les éléments suivants sont réservés aux commerçants inscrits à notre programme de paiement à long terme. Veuillez en discuter avec le point de contact Sezzle avant d’utiliser les options de configuration ci-dessous :</b>
 
+Les valeurs par défaut indiquées ci-dessous pour chaque option à long terme correspondent au préréglage `partner : "a"`. Définir `partner` sur une autre valeur fait basculer ces valeurs par défaut vers le préréglage de ce partenaire (voir les **Détails supplémentaires** de chaque option). Les options individuelles l’emportent toujours sur le préréglage du partenaire et la valeur par défaut indiquée.
+
 `partner` (partenaire de prêt, facultatif)
 
 **objetif**: Applique les paramètres à long terme correspondant à votre forfait de prêt. Veuillez confirmer la valeur applicable à votre inscription auprès de votre gestionnaire de compte.
@@ -391,11 +393,6 @@ L’option `maxPrice` correspond uniquement aux paiements bimensuels. Entre ces 
 **Type**: numéro
 **Défaut**: 34.99
 **Détails supplémentaires**: Lorsque `partner` est défini, la valeur par défaut est `34.99` pour `a` ou `35.99` pour `b`.
-
-`bestAPR` (déprécié, facultatif)
-
-**objetif**: Alias rétrocompatible, dont les fonctionnalités sont désormais réparties entre `minAPR` et `medianAPR`.
-**Type**: numéro
 
 `termsToShow` (durées à afficher, facultatif)
 
