@@ -27,7 +27,7 @@
   "LTsingleFeaturePrequalify": "Pré-qualification simple et rapide",
   "LTsingleFeatureTrusted": "Approuvé par plus de 10&nbsp;millions de consommateurs",
   "LTtermLength": "mois",
-  "LTterms3": "* Sous réserve de l'approbation du crédit par un prêteur tiers. Tarifs de 9,99 % à 34,99 % TAEG ; durées de 3 à 48 mois pouvant varier selon le prêteur. Des options de 0 % TAEG peuvent être disponibles. Les TAEG varient en fonction des qualifications en matière de crédit, du montant du prêt, de la durée et du prêteur. Un achat minimum est requis.",
+  "LTterms3": "* Sous réserve de l'approbation du crédit par un prêteur tiers. Tarifs de %%minAPR%% % à %%maxAPR%% % TAEG ; durées de %%minTermMonths%% à %%maxTermMonths%% mois pouvant varier selon le prêteur. Des options de 0 % TAEG peuvent être disponibles. Les TAEG varient en fonction des qualifications en matière de crédit, du montant du prêt, de la durée et du prêteur. Un achat minimum est requis.",
   "MultiPlanAmount": "Montant*",
   "MultiPlannextSlide": "Diapositive suivante",
   "MultiPlanpreviousSlide": "Diapositive précédente",

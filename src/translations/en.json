@@ -27,7 +27,7 @@
   "LTsingleFeaturePrequalify": "Simple, quick pre-qualification",
   "LTsingleFeatureTrusted": "Trusted by over 10&nbsp;million consumers",
   "LTtermLength": "months",
-  "LTterms3": "* Subject to credit approval by a third party lender. Rates from 9.99% - 34.99% APR; terms from 3 months – 48 months, which may vary by lender. 0% APR options may be available. APRs will vary depending on credit qualifications, loan amount, term, and lender. Minimum purchase is required.",
+  "LTterms3": "* Subject to credit approval by a third party lender. Rates from %%minAPR%%% - %%maxAPR%%% APR; terms from %%minTermMonths%% months – %%maxTermMonths%% months, which may vary by lender. 0% APR options may be available. APRs will vary depending on credit qualifications, loan amount, term, and lender. Minimum purchase is required.",
   "MultiPlanAmount": "Amount*",
   "MultiPlannextSlide": "Next Slide",
   "MultiPlanpreviousSlide": "Previous Slide",

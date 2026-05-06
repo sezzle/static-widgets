@@ -171,6 +171,29 @@ const COMPETITOR_CONFIG = {
   }
 };
 
+// Long-term lending partner default config sets. Aliases are deliberately neutral
+// so the lending partner's name is not exposed in merchant-facing config.
+// termsToShow keys are price thresholds in cents; values are term arrays in months.
+const LT_PARTNER_DEFAULTS = {
+  a: {
+    minPriceLT: 15000,
+    maxPriceLT: 1500000,
+    minAPR: 9.99,
+    medianAPR: 21.99,
+    maxAPR: 34.99,
+    termsToShow: { 100000: [24, 36, 48], 50000: [12, 18, 24], 30000: [6, 9, 12], default: [3, 6, 9] },
+  },
+  b: {
+    minPriceLT: 40000,
+    maxPriceLT: 800000,
+    minAPR: 24.99,
+    medianAPR: 25.99,
+    maxAPR: 35.99,
+    termsToShow: { 100000: [12, 24, 36], 80000: [9, 12, 24], 60000: [6, 9, 12], default: [3, 6, 9] },
+  },
+};
+const DEFAULT_LT_PARTNER = "a";
+
 class AwesomeSezzle {
   constructor(options) {
     if (!options) {
@@ -203,9 +226,25 @@ class AwesomeSezzle {
     this.amount = options.amount || null;
     this.minPrice = options.minPrice || 0;
     this.maxPrice = options.maxPrice || 250000;
-    this.minPriceLT = options.minPriceLT || 0;
-    this.maxPriceLT = options.maxPriceLT || 1500000;
-    this.bestAPR = options.bestAPR || 21.99;
+    const explicitPartner = LT_PARTNER_DEFAULTS[options.partner] ? options.partner : null;
+    // Backcompat: pre-partner configs enabled LT via minPriceLT alone. When that's set
+    // without an explicit partner, auto-override to "a" so the rest of the LT defaults
+    // come from the original (Bread) preset.
+    const minPriceLTSet = options.minPriceLT != null;
+    this.partner = explicitPartner || (minPriceLTSet ? DEFAULT_LT_PARTNER : null);
+    const partnerDefaults = LT_PARTNER_DEFAULTS[this.partner] || LT_PARTNER_DEFAULTS[DEFAULT_LT_PARTNER];
+    this.minPriceLT = options.minPriceLT ?? (this.partner ? partnerDefaults.minPriceLT : 0);
+    this.maxPriceLT = options.maxPriceLT ?? partnerDefaults.maxPriceLT;
+    this.minAPR = options.minAPR ?? partnerDefaults.minAPR;
+    this.medianAPR = options.medianAPR ?? options.bestAPR ?? partnerDefaults.medianAPR;
+    this.maxAPR = options.maxAPR ?? partnerDefaults.maxAPR;
+    this.termsToShowConfig = options.termsToShow ?? partnerDefaults.termsToShow;
+    const allTerms = Object.values(this.termsToShowConfig)
+      .filter((v) => Array.isArray(v))
+      .flat()
+      .filter((n) => Number.isFinite(n));
+    this.minTermMonths = allTerms.length ? Math.min(...allTerms) : 3;
+    this.maxTermMonths = allTerms.length ? Math.max(...allTerms) : 48;
     this.altModalHTML = sanitizeHTML(options.altLightboxHTML) || "";
     this.ltAltModalHTML = sanitizeHTML(options.ltAltModalHTML) || "";
     this.apModalHTML = sanitizeHTML(options.apModalHTML) || "";
@@ -572,10 +611,10 @@ class AwesomeSezzle {
     const priceString = HelperClass.parsePriceString(amount, true);
     const price = HelperClass.parsePrice(amount, this.parseMode);
     const formatter = amount.replace(priceString, "{price}");
-    const terms = this.termsToShow(price);
+    const terms = this.termsToShow(price * 100);
     const sezzleInstallmentPrice =
       !forceInstallment && this.isProductEligibleLT(amount)
-        ? this.calculateMonthlyWithInterest(price.toString(), terms[terms.length - 1], this.bestAPR)
+        ? this.calculateMonthlyWithInterest(price.toString(), terms[terms.length - 1], this.medianAPR)
         : price / numberOfPayments;
     return formatter.replace("{price}", this.addDelimiters(sezzleInstallmentPrice, this.parseMode));
   }
@@ -589,11 +628,29 @@ class AwesomeSezzle {
     return working.slice(0, decimalIndex - 3) + thousandsSep + working.slice(decimalIndex - 3);
   }
 
-  termsToShow(price) {
-    if (price > 1000) return [24, 36, 48];
-    if (price > 500) return [12, 18, 24];
-    if (price > 300) return [6, 9, 12];
-    return [3, 6, 9];
+  formatLTterms() {
+    const localeAPR = (apr) => {
+      const str = String(apr);
+      return this.language === "en" ? str : str.replace(".", ",");
+    };
+    return this.translations.LTterms3
+      .replace("%%minAPR%%", escapeHTML(localeAPR(this.minAPR)))
+      .replace("%%maxAPR%%", escapeHTML(localeAPR(this.maxAPR)))
+      .replace("%%minTermMonths%%", escapeHTML(String(this.minTermMonths)))
+      .replace("%%maxTermMonths%%", escapeHTML(String(this.maxTermMonths)));
+  }
+
+  termsToShow(priceInCents) {
+    const config = this.termsToShowConfig || {};
+    const thresholds = Object.keys(config)
+      .filter((k) => k !== "default")
+      .map(Number)
+      .filter((n) => Number.isFinite(n))
+      .sort((a, b) => b - a);
+    for (const threshold of thresholds) {
+      if (priceInCents > threshold) return config[threshold];
+    }
+    return config.default || [3, 6, 9];
   }
 
   currencySymbol(priceText) {
@@ -771,9 +828,9 @@ class AwesomeSezzle {
       : priceString.replace(",", "");
     const safeCurrency = escapeHTML(currency);
     const safePrice = escapeHTML(this.addDelimiters(priceString, this.parseMode));
-    const safeBestAPR = escapeHTML(String(this.bestAPR));
-    const terms = this.termsToShow(priceString);
+    const safeMedianAPR = escapeHTML(String(this.medianAPR));
     const priceInCents = HelperClass.parsePrice(this.amount, this.parseMode) * 100;
+    const terms = this.termsToShow(priceInCents);
     const isLTEligible = this.isProductEligibleLT(this.amount);
     const isPI4Eligible = priceInCents <= this.maxPrice;
     const isPI5Eligible = this.numberOfPayments === 5 && priceInCents >= 5000 && priceInCents <= this.maxPrice;
@@ -782,9 +839,9 @@ class AwesomeSezzle {
     const fourPayPrice = this.getFormattedPrice(4, this.amount, true);
     const fivePayPrice = this.getFormattedPrice(5, this.amount, true);
     const ltAmounts = terms.map((term) => ({
-      monthly: safeCurrency + escapeHTML(this.formatMonthly(priceString, this.parseMode, term, this.bestAPR)),
-      totalInterest: safeCurrency + escapeHTML(this.formatTotalInterest(priceString, this.parseMode, term, this.bestAPR)),
-      adjustedTotal: safeCurrency + escapeHTML(this.formatAdjustedTotal(priceString, this.parseMode, term, this.bestAPR)),
+      monthly: safeCurrency + escapeHTML(this.formatMonthly(priceString, this.parseMode, term, this.medianAPR)),
+      totalInterest: safeCurrency + escapeHTML(this.formatTotalInterest(priceString, this.parseMode, term, this.medianAPR)),
+      adjustedTotal: safeCurrency + escapeHTML(this.formatAdjustedTotal(priceString, this.parseMode, term, this.medianAPR)),
     }));
 
     return `
@@ -1108,9 +1165,9 @@ class AwesomeSezzle {
                                 </div>
                             </div>
                             <div class="plan-details monthly-plan-details">
-                                <div class="monthly-detail-row" aria-label="${this.translations.LTreadApr} ${safeBestAPR} ${this.translations.LTpercent}">
+                                <div class="monthly-detail-row" aria-label="${this.translations.LTreadApr} ${safeMedianAPR} ${this.translations.LTpercent}">
                                     <span class="detail-label" aria-hidden="true">${this.translations.LTsampleApr}</span>
-                                    <span class="detail-value monthly-apr" aria-hidden="true">${safeBestAPR}%</span>
+                                    <span class="detail-value monthly-apr" aria-hidden="true">${safeMedianAPR}%</span>
                                 </div>
                                 <div class="monthly-detail-row">
                                     <span class="detail-label">${this.translations.LTinterest}</span>
@@ -1144,9 +1201,9 @@ class AwesomeSezzle {
                                 </div>
                             </div>
                             <div class="plan-details monthly-plan-details">
-                                <div class="monthly-detail-row" aria-label="${this.translations.LTreadApr} ${safeBestAPR} ${this.translations.LTpercent}">
+                                <div class="monthly-detail-row" aria-label="${this.translations.LTreadApr} ${safeMedianAPR} ${this.translations.LTpercent}">
                                     <span class="detail-label" aria-hidden="true">${this.translations.LTsampleApr}</span>
-                                    <span class="detail-value monthly-apr" aria-hidden="true">${safeBestAPR}%</span>
+                                    <span class="detail-value monthly-apr" aria-hidden="true">${safeMedianAPR}%</span>
                                 </div>
                                 <div class="monthly-detail-row">
                                     <span class="detail-label">${this.translations.LTinterest}</span>
@@ -1180,9 +1237,9 @@ class AwesomeSezzle {
                                 </div>
                             </div>
                             <div class="plan-details monthly-plan-details">
-                                <div class="monthly-detail-row" aria-label="${this.translations.LTreadApr} ${safeBestAPR} ${this.translations.LTpercent}">
+                                <div class="monthly-detail-row" aria-label="${this.translations.LTreadApr} ${safeMedianAPR} ${this.translations.LTpercent}">
                                     <span class="detail-label" aria-hidden="true">${this.translations.LTsampleApr}</span>
-                                    <span class="detail-value monthly-apr" aria-hidden="true">${safeBestAPR}%</span>
+                                    <span class="detail-value monthly-apr" aria-hidden="true">${safeMedianAPR}%</span>
                                 </div>
                                 <div class="monthly-detail-row">
                                     <span class="detail-label">${this.translations.LTinterest}</span>
@@ -1420,7 +1477,7 @@ class AwesomeSezzle {
                     <br />
                     <span>${this.translations.linkToCompleteTerms}</span>
                 </p>
-                <p class="terms lt-terms" ${isLTEligible ? `style="display: block"` : `style="display: none"`}>${this.translations.LTterms3}</p>
+                <p class="terms lt-terms" ${isLTEligible ? `style="display: block"` : `style="display: none"`}>${this.formatLTterms()}</p>
             </div>
             </div></div></div>
         `;
@@ -1483,7 +1540,8 @@ class AwesomeSezzle {
         const monthlySection = modalNode.querySelector(".payment-cards-monthly");
         if (monthlySection) monthlySection.style.display = isInputLTEligible ? "block" : "none";
         if (isInputLTEligible) {
-          const newTerms = this.termsToShow(priceString);
+          const newPriceInCents = HelperClass.parsePrice(priceString, this.parseMode) * 100;
+          const newTerms = this.termsToShow(newPriceInCents);
           monthlyCards.forEach((card, idx) => {
             const term = newTerms[[2, 1, 0][idx]];
             if (term === undefined) {
@@ -1493,9 +1551,9 @@ class AwesomeSezzle {
             card.style.display = "block";
             card.dataset.months = term;
             card.querySelector(".pill").textContent = `${term} ${this.translations.LTtermLength}`;
-            card.querySelector(".monthly-amount").textContent = safeCurrency + escapeHTML(this.formatMonthly(priceString, this.parseMode, term, this.bestAPR));
-            card.querySelector(".monthly-interest").textContent = safeCurrency + escapeHTML(this.formatTotalInterest(priceString, this.parseMode, term, this.bestAPR));
-            card.querySelector(".monthly-total").textContent = safeCurrency + escapeHTML(this.formatAdjustedTotal(priceString, this.parseMode, term, this.bestAPR));
+            card.querySelector(".monthly-amount").textContent = safeCurrency + escapeHTML(this.formatMonthly(priceString, this.parseMode, term, this.medianAPR));
+            card.querySelector(".monthly-interest").textContent = safeCurrency + escapeHTML(this.formatTotalInterest(priceString, this.parseMode, term, this.medianAPR));
+            card.querySelector(".monthly-total").textContent = safeCurrency + escapeHTML(this.formatAdjustedTotal(priceString, this.parseMode, term, this.medianAPR));
           });
         }
 

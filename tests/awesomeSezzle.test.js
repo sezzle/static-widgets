@@ -632,4 +632,153 @@ describe("AwesomeSezzle Widget", () => {
       expect(String.fromCharCode(inr)).toBe("₹");
     });
   });
+
+  describe("LT Partner Alias Configuration", () => {
+    test("defaults to partner 'a' (Bread) values when no partner is provided", () => {
+      const widget = new AwesomeSezzle({});
+      expect(widget.partner).toBeNull();
+      expect(widget.maxPriceLT).toBe(1500000);
+      expect(widget.minAPR).toBe(9.99);
+      expect(widget.medianAPR).toBe(21.99);
+      expect(widget.maxAPR).toBe(34.99);
+      // minPriceLT stays opt-in (0) when partner is not explicit
+      expect(widget.minPriceLT).toBe(0);
+    });
+
+    test("partner 'a' enables LT and applies Bread defaults including minPriceLT", () => {
+      const widget = new AwesomeSezzle({ partner: "a" });
+      expect(widget.partner).toBe("a");
+      expect(widget.minPriceLT).toBe(15000);
+      expect(widget.maxPriceLT).toBe(1500000);
+      expect(widget.minAPR).toBe(9.99);
+      expect(widget.medianAPR).toBe(21.99);
+      expect(widget.maxAPR).toBe(34.99);
+    });
+
+    test("partner 'b' applies Pagaya defaults", () => {
+      const widget = new AwesomeSezzle({ partner: "b" });
+      expect(widget.partner).toBe("b");
+      expect(widget.minPriceLT).toBe(40000);
+      expect(widget.maxPriceLT).toBe(800000);
+      expect(widget.minAPR).toBe(24.99);
+      expect(widget.medianAPR).toBe(25.99);
+      expect(widget.maxAPR).toBe(35.99);
+    });
+
+    test("explicit options override partner defaults", () => {
+      const widget = new AwesomeSezzle({
+        partner: "b",
+        minAPR: 19.99,
+        maxPriceLT: 999999,
+      });
+      expect(widget.partner).toBe("b");
+      expect(widget.minAPR).toBe(19.99);
+      expect(widget.maxPriceLT).toBe(999999);
+      // unspecified fields still come from partner 'b'
+      expect(widget.medianAPR).toBe(25.99);
+      expect(widget.maxAPR).toBe(35.99);
+    });
+
+    test("unknown partner is rejected (this.partner stays null) and Bread defaults apply", () => {
+      const widget = new AwesomeSezzle({ partner: "nonexistent" });
+      expect(widget.partner).toBeNull();
+      expect(widget.medianAPR).toBe(21.99);
+      expect(widget.maxAPR).toBe(34.99);
+    });
+
+    test("setting minPriceLT without partner auto-overrides partner to 'a' (Bread defaults for other fields)", () => {
+      const widget = new AwesomeSezzle({ minPriceLT: 50000 });
+      expect(widget.partner).toBe("a");
+      expect(widget.minPriceLT).toBe(50000);
+      expect(widget.medianAPR).toBe(21.99);
+      expect(widget.maxAPR).toBe(34.99);
+    });
+  });
+
+  describe("bestAPR backward compatibility", () => {
+    test("bestAPR maps to medianAPR when medianAPR is not set", () => {
+      const widget = new AwesomeSezzle({ bestAPR: 19.5 });
+      expect(widget.medianAPR).toBe(19.5);
+    });
+
+    test("medianAPR takes precedence over bestAPR", () => {
+      const widget = new AwesomeSezzle({ bestAPR: 19.5, medianAPR: 22.5 });
+      expect(widget.medianAPR).toBe(22.5);
+    });
+
+    test("partner default still applies when neither bestAPR nor medianAPR is set", () => {
+      const widget = new AwesomeSezzle({ partner: "b" });
+      expect(widget.medianAPR).toBe(25.99);
+    });
+  });
+
+  describe("termsToShow - Config-driven term selection", () => {
+    test("uses partner 'a' Bread thresholds (cents) by default", () => {
+      const widget = new AwesomeSezzle({});
+      // priceInCents > 100000 -> top tier
+      expect(widget.termsToShow(150000)).toEqual([24, 36, 48]);
+      // priceInCents > 50000 -> mid tier
+      expect(widget.termsToShow(60000)).toEqual([12, 18, 24]);
+      // priceInCents > 30000 -> low tier
+      expect(widget.termsToShow(40000)).toEqual([6, 9, 12]);
+      // below all thresholds -> default
+      expect(widget.termsToShow(10000)).toEqual([3, 6, 9]);
+    });
+
+    test("uses partner 'b' Pagaya thresholds when partner is 'b'", () => {
+      const widget = new AwesomeSezzle({ partner: "b" });
+      expect(widget.termsToShow(150000)).toEqual([12, 24, 36]);
+      expect(widget.termsToShow(90000)).toEqual([9, 12, 24]);
+      expect(widget.termsToShow(70000)).toEqual([6, 9, 12]);
+      expect(widget.termsToShow(10000)).toEqual([3, 6, 9]);
+    });
+
+    test("explicit termsToShow option overrides partner default", () => {
+      const widget = new AwesomeSezzle({
+        partner: "a",
+        termsToShow: { 200000: [60], default: [12] },
+      });
+      expect(widget.termsToShow(300000)).toEqual([60]);
+      expect(widget.termsToShow(100000)).toEqual([12]);
+    });
+
+    test("derives minTermMonths and maxTermMonths from termsToShow union", () => {
+      const widgetA = new AwesomeSezzle({ partner: "a" });
+      expect(widgetA.minTermMonths).toBe(3);
+      expect(widgetA.maxTermMonths).toBe(48);
+
+      const widgetB = new AwesomeSezzle({ partner: "b" });
+      expect(widgetB.minTermMonths).toBe(3);
+      expect(widgetB.maxTermMonths).toBe(36);
+
+      const custom = new AwesomeSezzle({
+        termsToShow: { 100000: [60, 72], default: [6] },
+      });
+      expect(custom.minTermMonths).toBe(6);
+      expect(custom.maxTermMonths).toBe(72);
+    });
+  });
+
+  describe("formatLTterms - LTterms3 placeholder substitution", () => {
+    test("substitutes APR range and term range from partner 'a'", () => {
+      const widget = new AwesomeSezzle({ partner: "a", language: "en" });
+      const out = widget.formatLTterms();
+      expect(out).toContain("9.99% - 34.99%");
+      expect(out).toContain("3 months – 48 months");
+    });
+
+    test("substitutes APR range and term range from partner 'b'", () => {
+      const widget = new AwesomeSezzle({ partner: "b", language: "en" });
+      const out = widget.formatLTterms();
+      expect(out).toContain("24.99% - 35.99%");
+      expect(out).toContain("3 months – 36 months");
+    });
+
+    test("formats APR with comma decimal in French", () => {
+      const widget = new AwesomeSezzle({ partner: "a", language: "fr" });
+      const out = widget.formatLTterms();
+      expect(out).toContain("9,99");
+      expect(out).toContain("34,99");
+    });
+  });
 });
