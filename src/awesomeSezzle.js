@@ -171,9 +171,9 @@ const COMPETITOR_CONFIG = {
   }
 };
 
-// Long-term lending partner default config sets. Aliases are deliberately neutral so the lending partner's name is not exposed in merchant-facing config.
+// Long-term lending group default config sets. Aliases are deliberately neutral so the lending partner's name is not exposed in merchant-facing config.
 // termsToShow keys are price thresholds in cents; values are term arrays in months.
-const LT_PARTNER_DEFAULTS = {
+const LT_GROUP_DEFAULTS = {
   a: {
     minPriceLT: 15000,
     maxPriceLT: 1500000,
@@ -191,7 +191,7 @@ const LT_PARTNER_DEFAULTS = {
     termsToShow: { 100000: [12, 24, 36], 80000: [9, 12, 24], 60000: [6, 9, 12], default: [3, 6, 9] },
   },
 };
-const DEFAULT_LT_PARTNER = "a";
+const DEFAULT_LT_GROUP = "a";
 
 const isValidTermsToShow = (cfg) =>
   !!cfg &&
@@ -233,32 +233,32 @@ class AwesomeSezzle {
     this.amount = options.amount || null;
     this.minPrice = options.minPrice || 0;
     this.maxPrice = options.maxPrice || 250000;
-    if (options.partner != null && !LT_PARTNER_DEFAULTS[options.partner]) {
+    if (options.LTgroup != null && !LT_GROUP_DEFAULTS[options.LTgroup]) {
       console.warn(
-        `[Sezzle] Unknown partner "${options.partner}"; falling back to default. ` +
-        `Expected one of: ${Object.keys(LT_PARTNER_DEFAULTS).join(", ")}.`
+        `[Sezzle] Unknown LTgroup "${options.LTgroup}"; falling back to default. ` +
+        `Expected one of: ${Object.keys(LT_GROUP_DEFAULTS).join(", ")}.`
       );
     }
-    const explicitPartner = LT_PARTNER_DEFAULTS[options.partner] ? options.partner : null;
-    // Backcompat: pre-partner configs enabled LT via minPriceLT alone. When that's set without an explicit partner, auto-override to "a" so the rest of the LT defaults come from the original (Bread) preset.
+    const explicitLTgroup = LT_GROUP_DEFAULTS[options.LTgroup] ? options.LTgroup : null;
+    // Backcompat: pre-LTgroup configs enabled LT via minPriceLT alone. When that's set without an explicit LTgroup, auto-override to "a" so the rest of the LT defaults come from the original (Bread) preset.
     const minPriceLTSet = !!options.minPriceLT;
-    this.partner = explicitPartner || (minPriceLTSet ? DEFAULT_LT_PARTNER : null);
-    const partnerDefaults = LT_PARTNER_DEFAULTS[this.partner] || LT_PARTNER_DEFAULTS[DEFAULT_LT_PARTNER];
-    this.minPriceLT = options.minPriceLT || (this.partner ? partnerDefaults.minPriceLT : 0);
-    this.maxPriceLT = options.maxPriceLT || partnerDefaults.maxPriceLT;
-    this.minAPR = options.minAPR || partnerDefaults.minAPR;
-    this.medianAPR = options.medianAPR || partnerDefaults.medianAPR;
-    this.maxAPR = options.maxAPR || partnerDefaults.maxAPR;
+    this.LTgroup = explicitLTgroup || (minPriceLTSet ? DEFAULT_LT_GROUP : null);
+    const groupDefaults = LT_GROUP_DEFAULTS[this.LTgroup] || LT_GROUP_DEFAULTS[DEFAULT_LT_GROUP];
+    this.minPriceLT = options.minPriceLT || (this.LTgroup ? groupDefaults.minPriceLT : 0);
+    this.maxPriceLT = options.maxPriceLT || groupDefaults.maxPriceLT;
+    this.minAPR = options.minAPR || groupDefaults.minAPR;
+    this.medianAPR = options.medianAPR || groupDefaults.medianAPR;
+    this.maxAPR = options.maxAPR || groupDefaults.maxAPR;
     let termsToShow = options.termsToShow;
     if (termsToShow != null && !isValidTermsToShow(termsToShow)) {
       console.warn(
-        "[Sezzle] Invalid `termsToShow` config; falling back to partner default. " +
+        "[Sezzle] Invalid `termsToShow` config; falling back to LTgroup default. " +
         "Expected an object whose values are arrays of term-length numbers, e.g. " +
         "{ 100000: [24, 36, 48], default: [3, 6, 9] }."
       );
       termsToShow = null;
     }
-    this.termsToShowConfig = termsToShow || partnerDefaults.termsToShow;
+    this.termsToShowConfig = termsToShow || groupDefaults.termsToShow;
     this._warnedNoDefault = false;
     const allTerms = Object.values(this.termsToShowConfig)
       .filter((v) => Array.isArray(v))

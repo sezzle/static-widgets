@@ -355,9 +355,9 @@ Once the widget is rendering, additional configurations can be added to the Awes
 
 ### <b>The following are reserved for merchants enrolled in our long-term payment program. Please discuss with Sezzle point of contact before using the below config options:</b>
 
-The default values listed below for each long-term option correspond to the `partner: "a"` preset. Setting `partner` to a different value shifts those defaults to that partner's preset (see each option's **Additional Details**). Individual options always take precedence over both the partner preset and the listed default.
+The default values listed below for each long-term option correspond to the `LTgroup: "a"` preset. Setting `LTgroup` to a different value shifts those defaults to that group's preset (see each option's **Additional Details**). Individual options always take precedence over both the LTgroup preset and the listed default.
 
-`partner` (optional)
+`LTgroup` (optional)
 
 **Purpose**: Applies long-term settings based on your lending package. Please confirm the applicable value for your enrollment with your account manager.
 **Type**: string
@@ -370,16 +370,16 @@ The default values listed below for each long-term option correspond to the `par
 **Purpose**: Minimum price in cents override for which purchase is eligible for long-term lending. Above this amount, the monthly installments with interest will be reflected in the widget and modal. Below this amount, the bi-weekly widget and modal will render.
 **Type**: number
 **Default**: 0
-**Additional Details**: When `partner` is set, defaults to `15000` for `a` or `40000` for `b`.
+**Additional Details**: When `LTgroup` is set, defaults to `15000` for `a` or `40000` for `b`.
 
-Deprecation notice: This was previously the crucial config option for enabling long-term widgets. For backwards compatibility, if this value is set but `partner` is unset, the value of `partner` will automatically override to `a`.
+Deprecation notice: This was previously the crucial config option for enabling long-term widgets. For backwards compatibility, if this value is set but `LTgroup` is unset, the value of `LTgroup` will automatically override to `a`.
 
 `maxPriceLT` (optional)
 
 **Purpose**: Maximum price in cents override for which purchase is eligible for long-term lending. Below this amount, the monthly installments with interest will be reflected in the widget and modal. Above this amount, the widget and modal will not render.
 **Type**: number
 **Default**: 1500000
-**Additional Details**: When `partner` is set, defaults to `1500000` for `a` or `800000` for `b`.
+**Additional Details**: When `LTgroup` is set, defaults to `1500000` for `a` or `800000` for `b`.
 
 The `maxPrice` option corresponds to the biweekly installments only. Between these two prices, the long-term widget will render, and the biweekly installments will not show in the modal.
 
@@ -388,27 +388,27 @@ The `maxPrice` option corresponds to the biweekly installments only. Between the
 **Purpose**: Lowest APR offered by the lending partner. Displayed as the lower bound of the APR range in the modal disclaimer.
 **Type**: number
 **Default**: 9.99
-**Additional Details**: When `partner` is set, defaults to `9.99` for `a` or `24.99` for `b`.
+**Additional Details**: When `LTgroup` is set, defaults to `9.99` for `a` or `24.99` for `b`.
 
 `medianAPR` (optional)
 
 **Purpose**: Representative APR used to calculate the monthly installment amount shown in the widget and on each long-term installment card in the modal.
 **Type**: number
 **Default**: 21.99
-**Additional Details**: When `partner` is set, defaults to `21.99` for `a` or `29.99` for `b`.
+**Additional Details**: When `LTgroup` is set, defaults to `21.99` for `a` or `29.99` for `b`.
 
 `maxAPR` (optional)
 
 **Purpose**: Highest APR offered by the lending partner. Displayed as the upper bound of the APR range in the modal disclaimer.
 **Type**: number
 **Default**: 34.99
-**Additional Details**: When `partner` is set, defaults to `34.99` for `a` or `35.99` for `b`.
+**Additional Details**: When `LTgroup` is set, defaults to `34.99` for `a` or `35.99` for `b`.
 
 `termsToShow` (optional)
 
 **Purpose**: Defines which loan term lengths (in months) appear in the modal based on the order amount. Keys are price thresholds **in cents**; the widget picks the term array whose threshold the price exceeds (highest match wins). The `default` key is used when no threshold matches. The min and max term lengths shown in the modal disclaimer are derived from the union of all term arrays.
 **Type**: object
-**Default**: Partner preset. 
+**Default**: LTgroup preset. 
   - `a`: `{ 100000: [24,36,48], 50000: [12,18,24], 30000: [6,9,12], default: [3,6,9] }`
   - `b`: `{ 100000: [12,24,36], 80000: [9,12,24], 60000: [6,9,12], default: [3,6,9] }`
 

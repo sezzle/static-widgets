@@ -545,7 +545,7 @@ describe("AwesomeSezzle Widget", () => {
       expect(widget.isProductEligibleLT("16000.00")).toBe(false);
     });
 
-    test("should return false when LT is disabled (minPriceLT and partner both unset)", () => {
+    test("should return false when LT is disabled (minPriceLT and LTgroup both unset)", () => {
       const widget = new AwesomeSezzle({ maxPriceLT: 1500000 });
       expect(widget.isProductEligibleLT("500.00")).toBe(false);
     });
@@ -632,21 +632,21 @@ describe("AwesomeSezzle Widget", () => {
     });
   });
 
-  describe("LT Partner Alias Configuration", () => {
-    test("partner is null when no LT options are provided, but Bread defaults still seed the LT fields", () => {
+  describe("LT Group Alias Configuration", () => {
+    test("LTgroup is null when no LT options are provided, but Bread defaults still seed the LT fields", () => {
       const widget = new AwesomeSezzle({});
-      expect(widget.partner).toBeNull();
+      expect(widget.LTgroup).toBeNull();
       expect(widget.maxPriceLT).toBe(1500000);
       expect(widget.minAPR).toBe(9.99);
       expect(widget.medianAPR).toBe(21.99);
       expect(widget.maxAPR).toBe(34.99);
-      // minPriceLT stays opt-in (0) when partner is not explicit
+      // minPriceLT stays opt-in (0) when LTgroup is not explicit
       expect(widget.minPriceLT).toBe(0);
     });
 
-    test("partner 'a' enables LT and applies Bread defaults including minPriceLT", () => {
-      const widget = new AwesomeSezzle({ partner: "a" });
-      expect(widget.partner).toBe("a");
+    test("LTgroup 'a' enables LT and applies Bread defaults including minPriceLT", () => {
+      const widget = new AwesomeSezzle({ LTgroup: "a" });
+      expect(widget.LTgroup).toBe("a");
       expect(widget.minPriceLT).toBe(15000);
       expect(widget.maxPriceLT).toBe(1500000);
       expect(widget.minAPR).toBe(9.99);
@@ -654,9 +654,9 @@ describe("AwesomeSezzle Widget", () => {
       expect(widget.maxAPR).toBe(34.99);
     });
 
-    test("partner 'b' applies Pagaya defaults", () => {
-      const widget = new AwesomeSezzle({ partner: "b" });
-      expect(widget.partner).toBe("b");
+    test("LTgroup 'b' applies Pagaya defaults", () => {
+      const widget = new AwesomeSezzle({ LTgroup: "b" });
+      expect(widget.LTgroup).toBe("b");
       expect(widget.minPriceLT).toBe(40000);
       expect(widget.maxPriceLT).toBe(800000);
       expect(widget.minAPR).toBe(24.99);
@@ -664,39 +664,39 @@ describe("AwesomeSezzle Widget", () => {
       expect(widget.maxAPR).toBe(35.99);
     });
 
-    test("explicit options override partner defaults", () => {
+    test("explicit options override LTgroup defaults", () => {
       const widget = new AwesomeSezzle({
-        partner: "b",
+        LTgroup: "b",
         minAPR: 19.99,
         maxPriceLT: 999999,
       });
-      expect(widget.partner).toBe("b");
+      expect(widget.LTgroup).toBe("b");
       expect(widget.minAPR).toBe(19.99);
       expect(widget.maxPriceLT).toBe(999999);
-      // unspecified fields still come from partner 'b'
+      // unspecified fields still come from LTgroup 'b'
       expect(widget.medianAPR).toBe(29.99);
       expect(widget.maxAPR).toBe(35.99);
     });
 
-    test("unknown partner is rejected (this.partner stays null), Bread defaults apply, and a warning is logged", () => {
+    test("unknown LTgroup is rejected (this.LTgroup stays null), Bread defaults apply, and a warning is logged", () => {
       const warnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
       try {
-        const widget = new AwesomeSezzle({ partner: "nonexistent" });
-        expect(widget.partner).toBeNull();
+        const widget = new AwesomeSezzle({ LTgroup: "nonexistent" });
+        expect(widget.LTgroup).toBeNull();
         expect(widget.medianAPR).toBe(21.99);
         expect(widget.maxAPR).toBe(34.99);
         expect(warnSpy).toHaveBeenCalledTimes(1);
-        expect(warnSpy.mock.calls[0][0]).toContain('Unknown partner "nonexistent"');
+        expect(warnSpy.mock.calls[0][0]).toContain('Unknown LTgroup "nonexistent"');
       } finally {
         warnSpy.mockRestore();
       }
     });
 
-    test("does not warn for known partners or when partner is omitted", () => {
+    test("does not warn for known LTgroups or when LTgroup is omitted", () => {
       const warnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
       try {
-        new AwesomeSezzle({ partner: "a" });
-        new AwesomeSezzle({ partner: "b" });
+        new AwesomeSezzle({ LTgroup: "a" });
+        new AwesomeSezzle({ LTgroup: "b" });
         new AwesomeSezzle({});
         expect(warnSpy).not.toHaveBeenCalled();
       } finally {
@@ -704,9 +704,9 @@ describe("AwesomeSezzle Widget", () => {
       }
     });
 
-    test("setting minPriceLT without partner auto-overrides partner to 'a' (Bread defaults for other fields)", () => {
+    test("setting minPriceLT without LTgroup auto-overrides LTgroup to 'a' (Bread defaults for other fields)", () => {
       const widget = new AwesomeSezzle({ minPriceLT: 50000 });
-      expect(widget.partner).toBe("a");
+      expect(widget.LTgroup).toBe("a");
       expect(widget.minPriceLT).toBe(50000);
       expect(widget.medianAPR).toBe(21.99);
       expect(widget.maxAPR).toBe(34.99);
@@ -714,7 +714,7 @@ describe("AwesomeSezzle Widget", () => {
   });
 
   describe("termsToShow - Config-driven term selection", () => {
-    test("uses partner 'a' Bread thresholds (cents) by default", () => {
+    test("uses LTgroup 'a' Bread thresholds (cents) by default", () => {
       const widget = new AwesomeSezzle({});
       // priceInCents > 100000 -> top tier
       expect(widget.termsToShow(150000)).toEqual([24, 36, 48]);
@@ -726,24 +726,24 @@ describe("AwesomeSezzle Widget", () => {
       expect(widget.termsToShow(10000)).toEqual([3, 6, 9]);
     });
 
-    test("uses partner 'b' Pagaya thresholds when partner is 'b'", () => {
-      const widget = new AwesomeSezzle({ partner: "b" });
+    test("uses LTgroup 'b' Pagaya thresholds when LTgroup is 'b'", () => {
+      const widget = new AwesomeSezzle({ LTgroup: "b" });
       expect(widget.termsToShow(150000)).toEqual([12, 24, 36]);
       expect(widget.termsToShow(90000)).toEqual([9, 12, 24]);
       expect(widget.termsToShow(70000)).toEqual([6, 9, 12]);
       expect(widget.termsToShow(10000)).toEqual([3, 6, 9]);
     });
 
-    test("explicit termsToShow option overrides partner default", () => {
+    test("explicit termsToShow option overrides LTgroup default", () => {
       const widget = new AwesomeSezzle({
-        partner: "a",
+        LTgroup: "a",
         termsToShow: { 200000: [60], default: [12] },
       });
       expect(widget.termsToShow(300000)).toEqual([60]);
       expect(widget.termsToShow(100000)).toEqual([12]);
     });
 
-    test("warns and falls back to partner default when termsToShow is malformed", () => {
+    test("warns and falls back to LTgroup default when termsToShow is malformed", () => {
       const warnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
       try {
         const cases = [
@@ -755,11 +755,11 @@ describe("AwesomeSezzle Widget", () => {
         ];
         for (const bad of cases) {
           warnSpy.mockClear();
-          const widget = new AwesomeSezzle({ partner: "b", termsToShow: bad });
+          const widget = new AwesomeSezzle({ LTgroup: "b", termsToShow: bad });
           // Assert on the message rather than count — robust to additional unrelated warnings
           const calls = warnSpy.mock.calls.map((args) => args[0]);
           expect(calls.some((msg) => typeof msg === "string" && msg.includes("Invalid `termsToShow`"))).toBe(true);
-          // Falls back to partner 'b' default
+          // Falls back to LTgroup 'b' default
           expect(widget.termsToShowConfig).toEqual({
             100000: [12, 24, 36],
             80000: [9, 12, 24],
@@ -775,7 +775,7 @@ describe("AwesomeSezzle Widget", () => {
     test("does not warn when termsToShow is omitted", () => {
       const warnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
       try {
-        new AwesomeSezzle({ partner: "a" });
+        new AwesomeSezzle({ LTgroup: "a" });
         expect(warnSpy).not.toHaveBeenCalled();
       } finally {
         warnSpy.mockRestore();
@@ -786,7 +786,7 @@ describe("AwesomeSezzle Widget", () => {
       const warnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
       try {
         const widget = new AwesomeSezzle({
-          partner: "a",
+          LTgroup: "a",
           termsToShow: { 100000: [12, 24] }, // no default key
         });
         // Above-threshold price returns the configured array, no warning yet
@@ -827,11 +827,11 @@ describe("AwesomeSezzle Widget", () => {
     });
 
     test("derives minTermMonths and maxTermMonths from termsToShow union", () => {
-      const widgetA = new AwesomeSezzle({ partner: "a" });
+      const widgetA = new AwesomeSezzle({ LTgroup: "a" });
       expect(widgetA.minTermMonths).toBe(3);
       expect(widgetA.maxTermMonths).toBe(48);
 
-      const widgetB = new AwesomeSezzle({ partner: "b" });
+      const widgetB = new AwesomeSezzle({ LTgroup: "b" });
       expect(widgetB.minTermMonths).toBe(3);
       expect(widgetB.maxTermMonths).toBe(36);
 
@@ -844,22 +844,22 @@ describe("AwesomeSezzle Widget", () => {
   });
 
   describe("formatLTterms - LTterms3 placeholder substitution", () => {
-    test("substitutes APR range and term range from partner 'a'", () => {
-      const widget = new AwesomeSezzle({ partner: "a", language: "en" });
+    test("substitutes APR range and term range from LTgroup 'a'", () => {
+      const widget = new AwesomeSezzle({ LTgroup: "a", language: "en" });
       const out = widget.formatLTterms();
       expect(out).toContain("9.99% - 34.99%");
       expect(out).toContain("3 months – 48 months");
     });
 
-    test("substitutes APR range and term range from partner 'b'", () => {
-      const widget = new AwesomeSezzle({ partner: "b", language: "en" });
+    test("substitutes APR range and term range from LTgroup 'b'", () => {
+      const widget = new AwesomeSezzle({ LTgroup: "b", language: "en" });
       const out = widget.formatLTterms();
       expect(out).toContain("24.99% - 35.99%");
       expect(out).toContain("3 months – 36 months");
     });
 
     test("formats APR with comma decimal in French", () => {
-      const widget = new AwesomeSezzle({ partner: "a", language: "fr" });
+      const widget = new AwesomeSezzle({ LTgroup: "a", language: "fr" });
       const out = widget.formatLTterms();
       expect(out).toContain("9,99");
       expect(out).toContain("34,99");
@@ -884,7 +884,7 @@ describe("AwesomeSezzle Widget", () => {
       const widget = new AwesomeSezzle({
         amount: "$500.00",
         parseMode: "default",
-        partner: "a",
+        LTgroup: "a",
         language: "fr",
       });
       const html = widget.buildModalHTML();
