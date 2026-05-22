@@ -193,13 +193,16 @@ const LT_GROUP_DEFAULTS = {
 };
 const DEFAULT_LT_GROUP = "a";
 
-const isValidTermsToShow = (cfg) =>
-  !!cfg &&
-  typeof cfg === "object" &&
-  !Array.isArray(cfg) &&
-  Object.values(cfg).some(
-    (v) => Array.isArray(v) && v.length > 0 && v.every(Number.isFinite)
+const isValidTermsToShow = (cfg) => {
+  if (!cfg || typeof cfg !== "object" || Array.isArray(cfg)) return false;
+  const values = Object.values(cfg);
+  return (
+    values.length > 0 &&
+    values.every(
+      (v) => Array.isArray(v) && v.length > 0 && v.every(Number.isFinite)
+    )
   );
+};
 
 class AwesomeSezzle {
   constructor(options) {

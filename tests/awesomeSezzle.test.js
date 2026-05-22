@@ -751,7 +751,10 @@ describe("AwesomeSezzle Widget", () => {
           "not an object",       // wrong type
           [[24, 36], [12]],      // array instead of object
           { 100000: [] },        // empty array
-          { 100000: ["a", "b"] },// non-numeric entries
+          { 100000: ["a", "b" ]},// non-numeric entries
+          {},                    // empty object
+          { 100000: [24, 36], default: "garbage" }, // one valid array, one invalid value
+          { 100000: [24, 36], 50000: [NaN] },       // valid array alongside non-finite entry
         ];
         for (const bad of cases) {
           warnSpy.mockClear();
