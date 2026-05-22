@@ -674,7 +674,7 @@ class AwesomeSezzle {
       .filter((n) => Number.isFinite(n))
       .sort((a, b) => b - a);
     for (const threshold of thresholds) {
-      if (priceInCents > threshold) return config[threshold];
+      if (priceInCents > threshold) return [...config[threshold]];
     }
     if (!config.default && !this._warnedNoDefault) {
       this._warnedNoDefault = true;
@@ -683,7 +683,7 @@ class AwesomeSezzle {
         "LT cards will be hidden and the widget falls back to the bi-weekly installment price."
       );
     }
-    return config.default || [];
+    return config.default ? [...config.default] : [];
   }
 
   currencySymbol(priceText) {

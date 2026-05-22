@@ -829,6 +829,21 @@ describe("AwesomeSezzle Widget", () => {
       }
     });
 
+    test("returned array is a copy — mutations do not corrupt the config", () => {
+      const widget = new AwesomeSezzle({
+        LTgroup: "a",
+        termsToShow: { 100000: [24, 36, 48], default: [3, 6, 9] },
+      });
+      const aboveFirst = widget.termsToShow(150000);
+      aboveFirst.reverse();
+      aboveFirst.push(999);
+      expect(widget.termsToShow(150000)).toEqual([24, 36, 48]);
+
+      const belowFirst = widget.termsToShow(50000);
+      belowFirst.length = 0;
+      expect(widget.termsToShow(50000)).toEqual([3, 6, 9]);
+    });
+
     test("derives minTermMonths and maxTermMonths from termsToShow union", () => {
       const widgetA = new AwesomeSezzle({ LTgroup: "a" });
       expect(widgetA.minTermMonths).toBe(3);
