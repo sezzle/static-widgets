@@ -243,7 +243,7 @@ class AwesomeSezzle {
       );
     }
     const explicitLTgroup = LT_GROUP_DEFAULTS[options.LTgroup] ? options.LTgroup : null;
-    // Backcompat: pre-LTgroup configs enabled LT via minPriceLT alone. When that's set without an explicit LTgroup, auto-override to "a" so the rest of the LT defaults come from the original (Bread) preset.
+    // Backcompat: pre-LTgroup configs enabled LT via minPriceLT alone. When that's set without an explicit LTgroup, auto-override to "a" so the rest of the LT defaults come from the original preset.
     const minPriceLTSet = !!options.minPriceLT;
     this.LTgroup = explicitLTgroup || (minPriceLTSet ? DEFAULT_LT_GROUP : null);
     const groupDefaults = LT_GROUP_DEFAULTS[this.LTgroup] || LT_GROUP_DEFAULTS[DEFAULT_LT_GROUP];
