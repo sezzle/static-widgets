@@ -633,7 +633,7 @@ describe("AwesomeSezzle Widget", () => {
   });
 
   describe("LT Group Alias Configuration", () => {
-    test("LTgroup is null when no LT options are provided, but Bread defaults still seed the LT fields", () => {
+    test("LTgroup is null when no LT options are provided, but Option A defaults still seed the LT fields", () => {
       const widget = new AwesomeSezzle({});
       expect(widget.LTgroup).toBeNull();
       expect(widget.maxPriceLT).toBe(1500000);
@@ -644,7 +644,7 @@ describe("AwesomeSezzle Widget", () => {
       expect(widget.minPriceLT).toBe(0);
     });
 
-    test("LTgroup 'a' enables LT and applies Bread defaults including minPriceLT", () => {
+    test("LTgroup 'a' enables LT and applies Option A defaults including minPriceLT", () => {
       const widget = new AwesomeSezzle({ LTgroup: "a" });
       expect(widget.LTgroup).toBe("a");
       expect(widget.minPriceLT).toBe(15000);
@@ -654,7 +654,7 @@ describe("AwesomeSezzle Widget", () => {
       expect(widget.maxAPR).toBe(34.99);
     });
 
-    test("LTgroup 'b' applies Pagaya defaults", () => {
+    test("LTgroup 'b' applies Option B defaults", () => {
       const widget = new AwesomeSezzle({ LTgroup: "b" });
       expect(widget.LTgroup).toBe("b");
       expect(widget.minPriceLT).toBe(40000);
@@ -678,7 +678,7 @@ describe("AwesomeSezzle Widget", () => {
       expect(widget.maxAPR).toBe(35.99);
     });
 
-    test("unknown LTgroup is rejected (this.LTgroup stays null), Bread defaults apply, and a warning is logged", () => {
+    test("unknown LTgroup is rejected (this.LTgroup stays null), Option A defaults apply, and a warning is logged", () => {
       const warnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
       try {
         const widget = new AwesomeSezzle({ LTgroup: "nonexistent" });
@@ -704,34 +704,34 @@ describe("AwesomeSezzle Widget", () => {
       }
     });
 
-    test("setting minPriceLT without LTgroup auto-overrides LTgroup to 'a' (Bread defaults for other fields)", () => {
-      const widget = new AwesomeSezzle({ minPriceLT: 50000 });
-      expect(widget.LTgroup).toBe("a");
-      expect(widget.minPriceLT).toBe(50000);
-      expect(widget.medianAPR).toBe(21.99);
-      expect(widget.maxAPR).toBe(34.99);
+    test("setting minPriceLT without LTgroup auto-overrides LTgroup to 'a' (Option A defaults for other fields)", () => {
+        const widget = new AwesomeSezzle({ minPriceLT: 50000 });
+        expect(widget.LTgroup).toBe("a");
+        expect(widget.minPriceLT).toBe(50000);
+        expect(widget.medianAPR).toBe(21.99);
+        expect(widget.maxAPR).toBe(34.99);
     });
   });
 
   describe("termsToShow - Config-driven term selection", () => {
-    test("uses LTgroup 'a' Bread thresholds (cents) by default", () => {
-      const widget = new AwesomeSezzle({});
-      // priceInCents > 100000 -> top tier
-      expect(widget.termsToShow(150000)).toEqual([24, 36, 48]);
-      // priceInCents > 50000 -> mid tier
-      expect(widget.termsToShow(60000)).toEqual([12, 18, 24]);
-      // priceInCents > 30000 -> low tier
-      expect(widget.termsToShow(40000)).toEqual([6, 9, 12]);
-      // below all thresholds -> default
-      expect(widget.termsToShow(10000)).toEqual([3, 6, 9]);
+    test("uses LTgroup 'a' Option A thresholds (cents) by default", () => {
+        const widget = new AwesomeSezzle({});
+        // priceInCents > 100000 -> top tier
+        expect(widget.termsToShow(150000)).toEqual([24, 36, 48]);
+        // priceInCents > 50000 -> mid tier
+        expect(widget.termsToShow(60000)).toEqual([12, 18, 24]);
+        // priceInCents > 30000 -> low tier
+        expect(widget.termsToShow(40000)).toEqual([6, 9, 12]);
+        // below all thresholds -> default
+        expect(widget.termsToShow(10000)).toEqual([3, 6, 9]);
     });
 
-    test("uses LTgroup 'b' Pagaya thresholds when LTgroup is 'b'", () => {
-      const widget = new AwesomeSezzle({ LTgroup: "b" });
-      expect(widget.termsToShow(150000)).toEqual([12, 24, 36]);
-      expect(widget.termsToShow(90000)).toEqual([9, 12, 24]);
-      expect(widget.termsToShow(70000)).toEqual([6, 9, 12]);
-      expect(widget.termsToShow(10000)).toEqual([3, 6, 9]);
+    test("uses LTgroup 'b' thresholds when LTgroup is 'b'", () => {
+        const widget = new AwesomeSezzle({ LTgroup: "b" });
+        expect(widget.termsToShow(150000)).toEqual([12, 24, 36]);
+        expect(widget.termsToShow(90000)).toEqual([9, 12, 24]);
+        expect(widget.termsToShow(70000)).toEqual([6, 9, 12]);
+        expect(widget.termsToShow(10000)).toEqual([3, 6, 9]);
     });
 
     test("explicit termsToShow option overrides LTgroup default", () => {
