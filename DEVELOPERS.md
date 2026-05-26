@@ -17,7 +17,6 @@ Now we are using Localise tool here where we keep translations for widget servic
 ### If you want to add a new key of translation and upload it to Localise
 
 1. Add a new message to the component's `en.json` file with default message. For example:
-
 ```json
   "myNewMessage" :  "Default message"
 ```
