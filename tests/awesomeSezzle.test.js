@@ -497,7 +497,7 @@ describe("AwesomeSezzle Widget", () => {
         parseMode: "default",
         minPriceLT: 15000,
         maxPriceLT: 1500000,
-        bestAPR: 21.99,
+        medianAPR: 21.99,
       });
 
       const forced = widget.getFormattedPrice(4, "$500.00", true);
@@ -545,8 +545,8 @@ describe("AwesomeSezzle Widget", () => {
       expect(widget.isProductEligibleLT("16000.00")).toBe(false);
     });
 
-    test("should return false when minPriceLT is 0 (disabled)", () => {
-      const widget = new AwesomeSezzle({ minPriceLT: 0, maxPriceLT: 1500000 });
+    test("should return false when LT is disabled (minPriceLT and LTgroup both unset)", () => {
+      const widget = new AwesomeSezzle({ maxPriceLT: 1500000 });
       expect(widget.isProductEligibleLT("500.00")).toBe(false);
     });
   });
@@ -569,7 +569,6 @@ describe("AwesomeSezzle Widget", () => {
       const widget = new AwesomeSezzle({
         minPrice: 2000,
         maxPrice: 250000,
-        minPriceLT: 0,
       });
       expect(widget.isProductEligible("2500.00")).toBe(true);
       expect(widget.isProductEligible("2500.01")).toBe(false);
@@ -630,6 +629,286 @@ describe("AwesomeSezzle Widget", () => {
       expect(String.fromCharCode(eur)).toBe("€");
       expect(String.fromCharCode(gbp)).toBe("£");
       expect(String.fromCharCode(inr)).toBe("₹");
+    });
+  });
+
+  describe("LT Group Alias Configuration", () => {
+    test("LTgroup is null when no LT options are provided, but Option A defaults still seed the LT fields", () => {
+      const widget = new AwesomeSezzle({});
+      expect(widget.LTgroup).toBeNull();
+      expect(widget.maxPriceLT).toBe(1500000);
+      expect(widget.minAPR).toBe(9.99);
+      expect(widget.medianAPR).toBe(21.99);
+      expect(widget.maxAPR).toBe(34.99);
+      // minPriceLT stays opt-in (0) when LTgroup is not explicit
+      expect(widget.minPriceLT).toBe(0);
+    });
+
+    test("LTgroup 'a' enables LT and applies Option A defaults including minPriceLT", () => {
+      const widget = new AwesomeSezzle({ LTgroup: "a" });
+      expect(widget.LTgroup).toBe("a");
+      expect(widget.minPriceLT).toBe(15000);
+      expect(widget.maxPriceLT).toBe(1500000);
+      expect(widget.minAPR).toBe(9.99);
+      expect(widget.medianAPR).toBe(21.99);
+      expect(widget.maxAPR).toBe(34.99);
+    });
+
+    test("LTgroup 'b' applies Option B defaults", () => {
+      const widget = new AwesomeSezzle({ LTgroup: "b" });
+      expect(widget.LTgroup).toBe("b");
+      expect(widget.minPriceLT).toBe(40000);
+      expect(widget.maxPriceLT).toBe(800000);
+      expect(widget.minAPR).toBe(24.99);
+      expect(widget.medianAPR).toBe(29.99);
+      expect(widget.maxAPR).toBe(35.99);
+    });
+
+    test("explicit options override LTgroup defaults", () => {
+      const widget = new AwesomeSezzle({
+        LTgroup: "b",
+        minAPR: 19.99,
+        maxPriceLT: 999999,
+      });
+      expect(widget.LTgroup).toBe("b");
+      expect(widget.minAPR).toBe(19.99);
+      expect(widget.maxPriceLT).toBe(999999);
+      // unspecified fields still come from LTgroup 'b'
+      expect(widget.medianAPR).toBe(29.99);
+      expect(widget.maxAPR).toBe(35.99);
+    });
+
+    test("unknown LTgroup is rejected (this.LTgroup stays null), Option A defaults apply, and a warning is logged", () => {
+      const warnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
+      try {
+        const widget = new AwesomeSezzle({ LTgroup: "nonexistent" });
+        expect(widget.LTgroup).toBeNull();
+        expect(widget.medianAPR).toBe(21.99);
+        expect(widget.maxAPR).toBe(34.99);
+        expect(warnSpy).toHaveBeenCalledTimes(1);
+        expect(warnSpy.mock.calls[0][0]).toContain('Unknown LTgroup "nonexistent"');
+      } finally {
+        warnSpy.mockRestore();
+      }
+    });
+
+    test("does not warn for known LTgroups or when LTgroup is omitted", () => {
+      const warnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
+      try {
+        new AwesomeSezzle({ LTgroup: "a" });
+        new AwesomeSezzle({ LTgroup: "b" });
+        new AwesomeSezzle({});
+        expect(warnSpy).not.toHaveBeenCalled();
+      } finally {
+        warnSpy.mockRestore();
+      }
+    });
+
+    test("setting minPriceLT without LTgroup auto-overrides LTgroup to 'a' (Option A defaults for other fields)", () => {
+        const widget = new AwesomeSezzle({ minPriceLT: 50000 });
+        expect(widget.LTgroup).toBe("a");
+        expect(widget.minPriceLT).toBe(50000);
+        expect(widget.medianAPR).toBe(21.99);
+        expect(widget.maxAPR).toBe(34.99);
+    });
+  });
+
+  describe("termsToShow - Config-driven term selection", () => {
+    test("uses LTgroup 'a' Option A thresholds (cents) by default", () => {
+        const widget = new AwesomeSezzle({});
+        // priceInCents > 100000 -> top tier
+        expect(widget.termsToShow(150000)).toEqual([24, 36, 48]);
+        // priceInCents > 50000 -> mid tier
+        expect(widget.termsToShow(60000)).toEqual([12, 18, 24]);
+        // priceInCents > 30000 -> low tier
+        expect(widget.termsToShow(40000)).toEqual([6, 9, 12]);
+        // below all thresholds -> default
+        expect(widget.termsToShow(10000)).toEqual([3, 6, 9]);
+    });
+
+    test("uses LTgroup 'b' thresholds when LTgroup is 'b'", () => {
+        const widget = new AwesomeSezzle({ LTgroup: "b" });
+        expect(widget.termsToShow(150000)).toEqual([12, 24, 36]);
+        expect(widget.termsToShow(90000)).toEqual([9, 12, 24]);
+        expect(widget.termsToShow(70000)).toEqual([6, 9, 12]);
+        expect(widget.termsToShow(10000)).toEqual([3, 6, 9]);
+    });
+
+    test("explicit termsToShow option overrides LTgroup default", () => {
+      const widget = new AwesomeSezzle({
+        LTgroup: "a",
+        termsToShow: { 200000: [60], default: [12] },
+      });
+      expect(widget.termsToShow(300000)).toEqual([60]);
+      expect(widget.termsToShow(100000)).toEqual([12]);
+    });
+
+    test("warns and falls back to LTgroup default when termsToShow is malformed", () => {
+      const warnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
+      try {
+        const cases = [
+          { foo: "bar" },        // values are not arrays
+          "not an object",       // wrong type
+          [[24, 36], [12]],      // array instead of object
+          { 100000: [] },        // empty array
+          { 100000: ["a", "b" ]},// non-numeric entries
+          {},                    // empty object
+          { 100000: [24, 36], default: "garbage" }, // one valid array, one invalid value
+          { 100000: [24, 36], 50000: [NaN] },       // valid array alongside non-finite entry
+        ];
+        for (const bad of cases) {
+          warnSpy.mockClear();
+          const widget = new AwesomeSezzle({ LTgroup: "b", termsToShow: bad });
+          // Assert on the message rather than count — robust to additional unrelated warnings
+          const calls = warnSpy.mock.calls.map((args) => args[0]);
+          expect(calls.some((msg) => typeof msg === "string" && msg.includes("Invalid `termsToShow`"))).toBe(true);
+          // Falls back to LTgroup 'b' default
+          expect(widget.termsToShowConfig).toEqual({
+            100000: [12, 24, 36],
+            80000: [9, 12, 24],
+            60000: [6, 9, 12],
+            default: [3, 6, 9],
+          });
+        }
+      } finally {
+        warnSpy.mockRestore();
+      }
+    });
+
+    test("does not warn when termsToShow is omitted", () => {
+      const warnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
+      try {
+        new AwesomeSezzle({ LTgroup: "a" });
+        expect(warnSpy).not.toHaveBeenCalled();
+      } finally {
+        warnSpy.mockRestore();
+      }
+    });
+
+    test("returns [] and warns once when no threshold matches and no default is set", () => {
+      const warnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
+      try {
+        const widget = new AwesomeSezzle({
+          LTgroup: "a",
+          termsToShow: { 100000: [12, 24] }, // no default key
+        });
+        // Above-threshold price returns the configured array, no warning yet
+        expect(widget.termsToShow(150000)).toEqual([12, 24]);
+        expect(warnSpy).not.toHaveBeenCalled();
+
+        // Below-threshold price returns [] and triggers the warning
+        expect(widget.termsToShow(50000)).toEqual([]);
+        expect(warnSpy).toHaveBeenCalledTimes(1);
+        expect(warnSpy.mock.calls[0][0]).toContain("no `default` key");
+
+        // Subsequent below-threshold lookups do not re-warn
+        widget.termsToShow(40000);
+        widget.termsToShow(30000);
+        expect(warnSpy).toHaveBeenCalledTimes(1);
+      } finally {
+        warnSpy.mockRestore();
+      }
+    });
+
+    test("getFormattedPrice falls back to bi-weekly price when LT-eligible but termsToShow yields no terms", () => {
+      const warnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
+      try {
+        const widget = new AwesomeSezzle({
+          amount: "$200.00",
+          parseMode: "default",
+          minPriceLT: 5000,                   // LT enabled at $50
+          termsToShow: { 100000: [12, 24] },  // but no default and threshold above $200
+        });
+        // $200 is LT-eligible by minPriceLT but has no matching terms
+        const formatted = widget.getFormattedPrice(4, "$200.00", false);
+        // $200 / 4 = $50.00 — confirms fallback to bi-weekly path, not NaN
+        expect(formatted).toContain("50.00");
+        expect(formatted).not.toContain("NaN");
+      } finally {
+        warnSpy.mockRestore();
+      }
+    });
+
+    test("returned array is a copy — mutations do not corrupt the config", () => {
+      const widget = new AwesomeSezzle({
+        LTgroup: "a",
+        termsToShow: { 100000: [24, 36, 48], default: [3, 6, 9] },
+      });
+      const aboveFirst = widget.termsToShow(150000);
+      aboveFirst.reverse();
+      aboveFirst.push(999);
+      expect(widget.termsToShow(150000)).toEqual([24, 36, 48]);
+
+      const belowFirst = widget.termsToShow(50000);
+      belowFirst.length = 0;
+      expect(widget.termsToShow(50000)).toEqual([3, 6, 9]);
+    });
+
+    test("derives minTermMonths and maxTermMonths from termsToShow union", () => {
+      const widgetA = new AwesomeSezzle({ LTgroup: "a" });
+      expect(widgetA.minTermMonths).toBe(3);
+      expect(widgetA.maxTermMonths).toBe(48);
+
+      const widgetB = new AwesomeSezzle({ LTgroup: "b" });
+      expect(widgetB.minTermMonths).toBe(3);
+      expect(widgetB.maxTermMonths).toBe(36);
+
+      const custom = new AwesomeSezzle({
+        termsToShow: { 100000: [60, 72], default: [6] },
+      });
+      expect(custom.minTermMonths).toBe(6);
+      expect(custom.maxTermMonths).toBe(72);
+    });
+  });
+
+  describe("formatLTterms - LTterms3 placeholder substitution", () => {
+    test("substitutes APR range and term range from LTgroup 'a'", () => {
+      const widget = new AwesomeSezzle({ LTgroup: "a", language: "en" });
+      const out = widget.formatLTterms();
+      expect(out).toContain("9.99% - 34.99%");
+      expect(out).toContain("3 months – 48 months");
+    });
+
+    test("substitutes APR range and term range from LTgroup 'b'", () => {
+      const widget = new AwesomeSezzle({ LTgroup: "b", language: "en" });
+      const out = widget.formatLTterms();
+      expect(out).toContain("24.99% - 35.99%");
+      expect(out).toContain("3 months – 36 months");
+    });
+
+    test("formats APR with comma decimal in French", () => {
+      const widget = new AwesomeSezzle({ LTgroup: "a", language: "fr" });
+      const out = widget.formatLTterms();
+      expect(out).toContain("9,99");
+      expect(out).toContain("34,99");
+    });
+  });
+
+  describe("formatAPR - locale-aware APR formatting", () => {
+    test("uses dot decimal in English", () => {
+      const widget = new AwesomeSezzle({ language: "en" });
+      expect(widget.formatAPR(21.99)).toBe("21.99");
+    });
+
+    test("uses comma decimal in French and Spanish", () => {
+      const widgetFr = new AwesomeSezzle({ language: "fr" });
+      expect(widgetFr.formatAPR(21.99)).toBe("21,99");
+
+      const widgetEs = new AwesomeSezzle({ language: "es" });
+      expect(widgetEs.formatAPR(21.99)).toBe("21,99");
+    });
+
+    test("per-card APR in modal HTML uses localized formatting (French)", () => {
+      const widget = new AwesomeSezzle({
+        amount: "$500.00",
+        parseMode: "default",
+        LTgroup: "a",
+        language: "fr",
+      });
+      const html = widget.buildModalHTML();
+      // Disclaimer (already localized) and per-card APR rows now agree
+      expect(html).toContain("21,99%");
+      expect(html).not.toContain("21.99%");
     });
   });
 });

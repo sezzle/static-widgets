@@ -19,7 +19,7 @@
   <form onsubmit="testing()">
     <h1>Test Sezzle SDK</h1>
 
-    <p id='price'><span class="currency">$</span><span class="amount">150</span></p>
+    <p id='price'><span class="currency">$</span><span class="amount">400</span></p>
     <div id='sezzle-widget'></div>
 
     <!-- To test renderElement array, disable L21, enable L24-28 -->
@@ -63,9 +63,12 @@
     // ineligibleWidgetTemplate: "%%logo%% Pay in 4 payments on purchases $35-$2,500. %%info%%",
     // minPrice: 3500, // Amount in cents
     // maxPrice: 200000, // Amount in cents
-    // bestAPR: 29.99,
+    // LTgroup: 'a',
+    // minAPR: 9.99,
+    // medianAPR: 21.99,
+    // maxAPR: 34.99,
     // minPriceLT: 20000,
-    // maxPriceLT: 800000,
+    // maxPriceLT: 500000,
   });
     renderSezzle.init();
 

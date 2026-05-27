@@ -343,40 +343,76 @@ Une fois le rendu du widget, des configurations supplémentaires peuvent être a
 **Type**: chaîne
 **Défaut**: ''
 
-### <b>Les éléments suivants sont réservés aux commerçants inscrits à notre programme de paiement à long terme. Veuillez en discuter avec le point de contact Sezzle avant d'utiliser les options de configuration ci-dessous :</b>
+### <b>Les éléments suivants sont réservés aux commerçants inscrits à notre programme de paiement à long terme. Veuillez en discuter avec le point de contact Sezzle avant d’utiliser les options de configuration ci-dessous :</b>
+
+Les valeurs par défaut indiquées ci-dessous pour chaque option à long terme correspondent au préréglage `LTgroup : "a"`. Définir `LTgroup` sur une autre valeur fait basculer ces valeurs par défaut vers le préréglage de ce groupe (voir les **Détails supplémentaires** de chaque option). Les options individuelles l’emportent toujours sur le préréglage du LTgroup et la valeur par défaut indiquée.
+
+`LTgroup` (groupe de prêt à long terme, facultatif)
+
+**objetif**: Applique les paramètres à long terme correspondant à votre forfait de prêt. Veuillez confirmer la valeur applicable à votre inscription auprès de votre gestionnaire de compte.
+**Type**: chaîne
+**Options**: `a` ou `b`
+**Défaut**: null
+**Détails supplémentaires**: Il s’agit de l’option de configuration essentielle pour activer les widgets à long terme.
 
 `minPriceLT` (prix minimum à long terme, facultatif)
 
-**objetif**: Prix minimum en centimes pour lequel l'achat est éligible au prêt à long terme. Au-dessus de ce montant, les mensualités avec intérêts seront répercutées dans le widget et le modal. En dessous de ce montant, le widget et le modal à 4 paiements seront rendus.
+**objetif**: Remplacement du prix minimum en centimes pour lequel l’achat est éligible au prêt à long terme. Au-dessus de ce montant, les mensualités avec intérêts seront répercutées dans le widget et le modal. En dessous de ce montant, le widget et le modal bimensuels seront rendus.
 **Type**: numéro
 **Défaut**: 0
-**Détails supplémentaires**: Il s'agit de l'option de configuration essentielle pour activer les widgets à long terme.
+**Détails supplémentaires**: Lorsque `LTgroup` est défini, la valeur par défaut est `15000` pour `a` ou `40000` pour `b`.
+
+Avis de dépréciation : Il s’agissait auparavant de l’option de configuration essentielle pour activer les widgets à long terme. Pour la rétrocompatibilité, si cette valeur est définie mais que `LTgroup` ne l’est pas, la valeur de `LTgroup` sera automatiquement remplacée par `a`.
 
 `maxPriceLT` (prix maximum à long terme, facultatif)
 
-**objetif**: Prix maximum en centimes pour lequel l'achat est éligible au prêt à long terme. En dessous de ce montant, les mensualités avec intérêts seront répercutées dans le widget et le modal. Au-dessus de ce montant, le widget et le modal ne seront pas rendus.
+**objetif**: Remplacement du prix maximum en centimes pour lequel l’achat est éligible au prêt à long terme. En dessous de ce montant, les mensualités avec intérêts seront répercutées dans le widget et le modal. Au-dessus de ce montant, le widget et le modal ne seront pas rendus.
 **Type**: numéro
 **Défaut**: 1500000
-**Détails supplémentaires**: L'option `maxPrice` correspond uniquement aux paiements bimensuels. Entre ces deux prix, le widget à long terme sera rendu et les paiements bimensuels ne seront pas affichés dans le modal.
+**Détails supplémentaires**: Lorsque `LTgroup` est défini, la valeur par défaut est `1500000` pour `a` ou `800000` pour `b`.
 
-`bestAPR` (meilleur APR, facultatif)
+L’option `maxPrice` correspond uniquement aux paiements bimensuels. Entre ces deux prix, le widget à long terme sera rendu et les paiements bimensuels ne seront pas affichés dans le modal.
 
-**objetif**: taux TAEG standard selon lequel les intérêts doivent être calculés.
+`minAPR` (TAEG minimum, facultatif)
+
+**objetif**: TAEG le plus bas proposé par le partenaire de prêt. Affiché comme la borne inférieure de la plage de TAEG dans la mention légale du modal.
+**Type**: numéro
+**Défaut**: 9.99
+**Détails supplémentaires**: Lorsque `LTgroup` est défini, la valeur par défaut est `9.99` pour `a` ou `24.99` pour `b`.
+
+`medianAPR` (TAEG médian, facultatif)
+
+**objetif**: TAEG représentatif utilisé pour calculer le montant de la mensualité affichée dans le widget et sur chaque carte de mensualité à long terme dans le modal.
 **Type**: numéro
 **Défaut**: 21.99
+**Détails supplémentaires**: Lorsque `LTgroup` est défini, la valeur par défaut est `21.99` pour `a` ou `29.99` pour `b`.
+
+`maxAPR` (TAEG maximum, facultatif)
+
+**objetif**: TAEG le plus élevé proposé par le partenaire de prêt. Affiché comme la borne supérieure de la plage de TAEG dans la mention légale du modal.
+**Type**: numéro
+**Défaut**: 34.99
+**Détails supplémentaires**: Lorsque `LTgroup` est défini, la valeur par défaut est `34.99` pour `a` ou `35.99` pour `b`.
+
+`termsToShow` (durées à afficher, facultatif)
+
+**objetif**: Définit les durées de prêt (en mois) qui apparaissent dans le modal en fonction du montant de la commande. Les clés sont des seuils de prix **en centimes** ; le widget choisit le tableau de durées dont le seuil est dépassé par le prix (le seuil le plus élevé qui correspond l’emporte). La clé `default` est utilisée lorsqu’aucun seuil ne correspond. Les durées minimum et maximum affichées dans la mention légale du modal sont dérivées de l’union de tous les tableaux de durées.
+**Type**: objet
+**Défaut**: Préréglage du LTgroup.
+  - `a` : `{ 100000: [24,36,48], 50000: [12,18,24], 30000: [6,9,12], default: [3,6,9] }`
+  - `b` : `{ 100000: [12,24,36], 80000: [9,12,24], 60000: [6,9,12], default: [3,6,9] }`
 
 `widgetTemplateLT` (modèle de widget à long terme, facultatif)
 
-**objetif**: Contenu texte du widget. Modifie également la disposition du prix, du logo et de l'icône d'informations/en savoir plus dans le widget.
+**objetif**: Contenu texte du widget lorsque le prix ≥ `minPriceLT`. Modifie également la disposition du prix, du logo et de l’icône d’informations/en savoir plus dans le widget.
 **Type**: chaîne, ou objet
 **Défaut**: `or monthly payments as low as %%price%% with %%logo%% %%info%%`
-**Détails supplémentaires**: Les modèles disponibles incluent `%%price%%` (prix), `%%logo%%`, `%%link%%` (lien), `%%info%%`, `%%question-mark%%` (point d'interrogation), `%%line-break%%` (saut de ligne).
+**Détails supplémentaires**: Les modèles disponibles incluent `%%price%%` (prix), `%%logo%%`, `%%link%%` (lien), `%%info%%`, `%%question-mark%%` (point d’interrogation), `%%line-break%%` (saut de ligne).
 
 `ltAltModalHTML` (HTML modal alternatif à long terme, facultatif)
 
-**objetif**: remplace la conception modale par défaut par l'extrait de code fourni.
+**objetif**: Remplace la conception modale par défaut par l’extrait de code fourni lorsque le prix ≥ `minPriceLT`.
 **Type**: chaîne
-
 
 ## Functions
 Les fonctions suivantes sont intégrées au widget statique et sont prêtes à être utilisées pour l'installation de votre widget. Ajoutez simplement l'extrait applicable au code de votre page Web, en mettant à jour l'écouteur d'événement et les variables si nécessaire.
