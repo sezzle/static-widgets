@@ -58,9 +58,8 @@ build_npm:production:
 deploy_cloudfront:affirm_modals:
   extends:
     - .deploy_cloudfront
+    - ".cluster:production"
   environment: "affirm_modals/${env_production}"
-  tags:
-    - ${tag_deploy_us}
   variables:
     S3_BUCKET: "sezzlemedia/affirm"
     CF_DIST: "EFV0KW59BE883"
@@ -80,9 +79,8 @@ deploy_cloudfront:affirm_modals:
 deploy_cloudfront:afterpay_modals:
   extends:
     - .deploy_cloudfront
+    - ".cluster:production"
   environment: "afterpay_modals/${env_production}"
-  tags:
-    - ${tag_deploy_us}
   variables:
     S3_BUCKET: "sezzlemedia/afterpay"
     CF_DIST: "EFV0KW59BE883"
@@ -102,9 +100,8 @@ deploy_cloudfront:afterpay_modals:
 deploy_cloudfront:klarna_modals:
   extends:
     - .deploy_cloudfront
+    - ".cluster:production"
   environment: "klarna_modals/${env_production}"
-  tags:
-    - ${tag_deploy_us}
   variables:
     S3_BUCKET: "sezzlemedia/klarna"
     CF_DIST: "EFV0KW59BE883"
@@ -124,9 +121,8 @@ deploy_cloudfront:klarna_modals:
 deploy_cloudfront:zip_modals:
   extends:
     - .deploy_cloudfront
+    - ".cluster:production"
   environment: "zip_modals/${env_production}"
-  tags:
-    - ${tag_deploy_us}
   variables:
     S3_BUCKET: "sezzlemedia/zip"
     CF_DIST: "EFV0KW59BE883"
@@ -146,9 +142,8 @@ deploy_cloudfront:zip_modals:
 deploy_cloudfront:cash_app_afterpay_modals:
   extends:
     - .deploy_cloudfront
+    - ".cluster:production"
   environment: "cash_app_afterpay_modals/${env_production}"
-  tags:
-    - ${tag_deploy_us}
   variables:
     S3_BUCKET: "sezzlemedia/cash-app-afterpay"
     CF_DIST: "EFV0KW59BE883"
@@ -168,9 +163,8 @@ deploy_cloudfront:cash_app_afterpay_modals:
 deploy_cloudfront:shoppay_modals:
   extends:
     - .deploy_cloudfront
+    - ".cluster:production"
   environment: "shoppay_modals/${env_production}"
-  tags:
-    - ${tag_deploy_us}
   variables:
     S3_BUCKET: "sezzlemedia/shoppay"
     CF_DIST: "EFV0KW59BE883"
