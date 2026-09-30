@@ -27,7 +27,7 @@ Sezzle does not offer an express checkout option at this time. This banner clari
 
 <img src="./assets/express-alt-banner.png"/>
 
-**<a href="./addons/sezzle-checkout-installment-widget/sezzle-checkout-installment-widget.js" >Sezzle Checkout Installment Widget</a>**
+**<a href="https://docs.sezzle.com/docs/guides/widgets/checkout-installments" >Sezzle Checkout Installment Widget</a>**
 
 The Sezzle Checkout Installment Widget presents a payment pie and installment schedule at checkout below the Sezzle payment option. This product is compatible with multiple platforms, provided the merchant account has access to edit the checkout page (for example, Shopify merchants must be on Shopify Plus).
  - This product has a direct integration with the Sezzle WooCommerce extension.<br/>
