@@ -1,4 +1,5 @@
 import "./style.scss";
+import { markup as sezzleModalMarkup, load as loadSezzleModal } from "@sezzle/sezzle-modal";
 import enTranslations from "./translations/en.json";
 import frTranslations from "./translations/fr.json";
 import esTranslations from "./translations/es.json";
@@ -69,57 +70,52 @@ class SezzleBanner {
     }
 
     addModalCloseListeners(modalNode) {
-        Array.prototype.forEach.call(
-            document.querySelectorAll(".close-sezzle-modal, .close-btn"),
-            (el) => {
-                el.addEventListener("click", (event) => {
-                    this.handleModalClose(modalNode);
-                });
+        // Bound once, on the lightbox rather than on the buttons:
+        // ModalUI.load() rebuilds the modal's inner content, so listeners on
+        // elements inside it would be lost
+        if (this.modalListenersBound) {
+            return;
+        }
+        this.modalListenersBound = true;
+        modalNode.addEventListener("click", (event) => {
+            // the lightbox itself is the backdrop; inside the modal, only the
+            // close buttons close it
+            if (
+                event.target === modalNode ||
+                event.target.closest(".close-btn, button.close-sezzle-modal")
+            ) {
+                this.handleModalClose(modalNode);
             }
-        );
-        // prevent modal close on modal body click
-        let sezzleModal = document.querySelector("#sezzle-modal-core-content");
-        sezzleModal?.addEventListener("click", (event) => {
-                event.stopPropagation()
+        });
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && modalNode.style.display === "block") {
+                this.handleModalClose(modalNode);
             }
-        );
+        });
     }
 
     executeModalScript() {
-        if (ModalUI) {
-            ModalUI.load();
-        } else {
-            console.log(
-                "ModalUI is undefined. Problem adding modal script to the document"
-            );
-            this.widgetEventLogger.logEvent(
-                Events.Error,
-                "ModalUI is undefined. Problem adding modal script to the document"
-            );
-        }
+        // The banner has no product price, so it always shows the classic
+        // modal, even if another Sezzle widget on the page left a multi-plan
+        // config behind
+        document.modalMultiPlan = null;
+        window.ModalUI.load();
     }
 
-    async getModalContent(modalNode) {
-        const sezzleModalURL =
-            "https://media.sezzle.com/shopify-app/assets/sezzle-modal-4.0.4.html";
-        try {
-            const modalNodeContent = document.getElementById(
-                "sezzle-modal-core-content"
-            )
-            if(modalNodeContent?.innerHTML){
-                return;
-            };
-            const response = await httpRequestWrapper("GET", sezzleModalURL);
-            modalNode.innerHTML = response;
-            // // append modal JS to document head
-            const head = document.head;
-            const script = document.createElement("script");
-            script.innerHTML = modalNode.querySelector("script").innerHTML;
-            head.appendChild(script);
-            this.executeModalScript();
-        } catch (e) {
-            console.error("Unable to fetch Sezzle modal content", e);
+    // The modal markup and ModalUI come bundled from @sezzle/sezzle-modal, so
+    // nothing is fetched from media.sezzle.com or re-executed at runtime
+    // (MERCHANT-4918)
+    getModalContent(modalNode) {
+        const modalNodeContent = document.getElementById(
+            "sezzle-modal-core-content"
+        );
+        if (modalNodeContent?.innerHTML) {
+            return;
         }
+        modalNode.innerHTML = sezzleModalMarkup;
+        // sezzle-widget.js may already have set ModalUI on this page; keep it
+        window.ModalUI ??= { load: loadSezzleModal };
+        this.executeModalScript();
     }
 
     createModal() {
