@@ -44,9 +44,18 @@ const DANGEROUS_TAGS = new Set([
 ]);
 
 /**
- * Dangerous URL protocols
+ * URL schemes allowed in href/src. Anything else, including schemes not yet
+ * invented, is removed; relative URLs carry no scheme and are kept.
  */
-const DANGEROUS_PROTOCOLS = ['javascript:', 'data:', 'vbscript:', 'file:'];
+const ALLOWED_PROTOCOLS = new Set(['http:', 'https:', 'mailto:', 'tel:']);
+const URL_SCHEME_REGEX = /^[a-z][a-z0-9+.-]*:/;
+
+/**
+ * Browsers drop tab/LF/CR anywhere in a URL, and leading control characters and
+ * spaces, before reading its scheme. Removing every control character and space
+ * is a superset of that: it can expose a scheme the browser would see, never hide one.
+ */
+const URL_IGNORED_CHARS_REGEX = /[\x00-\x20\x7F]/g;
 
 const HTML_ESCAPE_MAP = {
   '&': '&amp;',
@@ -98,10 +107,11 @@ function isAllowedAttribute(attrName) {
  */
 function hasDangerousProtocol(url) {
   if (!url) return false;
-  const lowerUrl = url.toLowerCase().trim();
+  const normalizedUrl = url.replace(URL_IGNORED_CHARS_REGEX, '').toLowerCase();
   // Allow safe data: URIs for raster images (not SVG, which can contain scripts)
-  if (SAFE_DATA_IMAGE_REGEX.test(lowerUrl)) return false;
-  return DANGEROUS_PROTOCOLS.some((protocol) => lowerUrl.startsWith(protocol));
+  if (SAFE_DATA_IMAGE_REGEX.test(normalizedUrl)) return false;
+  const scheme = normalizedUrl.match(URL_SCHEME_REGEX);
+  return scheme !== null && !ALLOWED_PROTOCOLS.has(scheme[0]);
 }
 
 /**
