@@ -15,6 +15,19 @@
 
 import { sanitizeHTML, escapeHTML } from "../src/utils/sanitizer";
 
+// Schemes the browser would act on for each surviving href/src. Regex-matching the
+// serialised string misses values like "java\tscript:", which the URL parser
+// collapses to javascript: but a /javascript:/ pattern does not match.
+function resolvedSchemes(html) {
+  const temp = document.createElement("div");
+  temp.innerHTML = html;
+  return Array.from(temp.querySelectorAll("[href], [src]")).flatMap((el) =>
+    ["href", "src"]
+      .filter((name) => el.hasAttribute(name))
+      .map((name) => new URL(el.getAttribute(name), "https://merchant.example/").protocol)
+  );
+}
+
 describe("Sanitizer Module - XSS Protection", () => {
   describe("sanitizeHTML() - Basic Whitelisting", () => {
     test("should allow safe HTML tags", () => {
@@ -269,8 +282,53 @@ describe("Sanitizer Module - XSS Protection", () => {
         '<a href="jav&#x09;ascript:alert(1)">click</a>',
       ];
       attacks.forEach((attack) => {
-        const result = sanitizeHTML(attack);
-        expect(result).not.toMatch(/javascript:/i);
+        expect(resolvedSchemes(sanitizeHTML(attack))).not.toContain("javascript:");
+      });
+    });
+
+    test("should block schemes padded with control characters or whitespace", () => {
+      const attacks = [
+        '<a href="\x01javascript:alert(1)">click</a>',
+        '<a href="\x1Fjavascript:alert(1)">click</a>',
+        '<a href=" &#x0D;javascript:alert(1)">click</a>',
+        '<a href="JaVa&#x0D;ScRiPt:alert(1)">click</a>',
+        '<a href="vb&#x09;script:msgbox(1)">click</a>',
+        '<img src="java&#x0A;script:alert(1)">',
+      ];
+      attacks.forEach((attack) => {
+        const schemes = resolvedSchemes(sanitizeHTML(attack));
+        expect(schemes).not.toContain("javascript:");
+        expect(schemes).not.toContain("vbscript:");
+      });
+    });
+
+    test("should remove URLs whose scheme is not allowlisted", () => {
+      const attacks = [
+        '<a href="livescript:alert(1)">click</a>',
+        '<a href="data:text/html,<script>alert(1)</script>">click</a>',
+        '<a href="blob:https://evil.example/1234">click</a>',
+        '<img src="filesystem:https://evil.example/x">',
+      ];
+      attacks.forEach((attack) => {
+        expect(resolvedSchemes(sanitizeHTML(attack))).toEqual([]);
+      });
+    });
+
+    test("should keep allowlisted and relative URLs", () => {
+      const safe = [
+        "https://sezzle.com/how-it-works",
+        "http://sezzle.com",
+        "mailto:help@example.com",
+        "tel:+15555550100",
+        "/pages/sezzle",
+        "./terms:section",
+        "#terms",
+        "//sezzle.com/terms",
+      ];
+      safe.forEach((href) => {
+        const temp = document.createElement("div");
+        temp.innerHTML = sanitizeHTML(`<a href="${href}">link</a>`);
+        expect(temp.querySelector("a").getAttribute("href")).toBe(href);
       });
     });
 
