@@ -27,7 +27,7 @@ Sezzle n'offre pas d'option de paiement express pour le moment. Cette bannière 
 
 <img src="./assets/express-alt-banner.png"/>
 
-**<a href="./addons/sezzle-checkout-installment-widget/sezzle-checkout-installment-widget.js" > Widget de versement de paiement Sezzle </a>**
+**<a href="https://docs.sezzle.com/fr/docs/guides/widgets/checkout-installments" > Widget de versement de paiement Sezzle </a>**
 
 Le widget de paiement Sezzle Checkout Installment présente un diagramme de paiement et un calendrier de versement à la caisse, sous l'option de paiement Sezzle. Ce produit est compatible avec plusieurs plateformes, à condition que le compte marchand ait accès à la modification de la page de paiement (par exemple, les marchands Shopify doivent être sur Shopify Plus).
   - Ce produit a une intégration directe avec l'extension Sezzle WooCommerce.<br/>
