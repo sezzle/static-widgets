@@ -2,6 +2,12 @@
 
 Ajoutez une bannière Sezzle à votre boutique en ligne pour faire savoir aux clients qu'ils peuvent acheter maintenant et payer plus tard
 
+## Fenêtre « En savoir plus »
+
+Un clic sur « En savoir plus » ouvre le calculateur de paiement Sezzle, avec un montant d'exemple de 50 $ que l'acheteur peut modifier. Il affiche le paiement en 4 versements et, aux États-Unis et dans leurs territoires, le paiement en 5 versements à partir de 50 $. Les versions précédentes ouvraient plutôt une fenêtre explicative limitée au paiement en 4 versements.
+
+**Boutiques canadiennes :** ajoutez `countryCode: "CA"` à votre extrait de code pour que la fenêtre n'offre pas le paiement en 5 versements, qui n'est pas disponible au Canada. Sans cette option, la bannière utilise `"US"`.
+
 ## Installation
 
 Sélectionnez l'implémentation qui correspond à vos besoins :
@@ -32,16 +38,27 @@ Sélectionnez l'implémentation qui correspond à vos besoins :
 - [Trouvez-la ici](https://dashboard.sezzle.com/merchant/settings/business)
 
 ```
-{{ "//checkout-sdk.sezzle.com/sezzle-home-banner.min.js" | script_tag }}
+<script src="https://checkout-sdk.sezzle.com/banner/sezzle-home-banner.min.js" defer></script>
 <div id="sezzle-banner-render-reference"></div>
 <script>
-new SezzleBanner({
-    merchantUUID: "entrez l'ID ici",  <!-- Votre identifiant (format : xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
-    theme: "indigo",  <!-- Options: "indigo" and "black" -->
-    renderToContainer: "#sezzle-banner-render-reference", <!-- Cela utilisera `querySelector` pour afficher la bannière, utilisez donc un identifiant ou une classe unique -->
-}).init();
+// Le script de la bannière est différé : créez la bannière une fois qu'il est chargé
+function initSezzleBanner() {
+    new SezzleBanner({
+        merchantUUID: "entrez l'ID ici",  <!-- Votre identifiant (format : xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
+        theme: "indigo",  <!-- Options: "indigo" and "black" -->
+        renderToContainer: "#sezzle-banner-render-reference", <!-- Cela utilisera `querySelector` pour afficher la bannière, utilisez donc un identifiant ou une classe unique -->
+        countryCode: "US", <!-- Pays de l'acheteur. Par défaut "US" ; indiquez "CA" pour les boutiques canadiennes afin que la fenêtre n'affiche pas le paiement en 5 versements -->
+    }).init();
+}
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initSezzleBanner);
+} else {
+    initSezzleBanner();
+}
 </script>
 ```
+
+ - Remarque : le Theme Check de Shopify refuse le filtre `script_tag` et les balises script sans `defer` ni `async`. L'extrait charge la bannière avec `defer` ; il doit donc créer la bannière après `DOMContentLoaded`, comme indiqué. Un appel direct à `new SezzleBanner(...)` échoue avec `SezzleBanner is not defined`.
 
 #### Fichier local
 
@@ -51,23 +68,34 @@ new SezzleBanner({
 1. À côté du thème concerné, cliquez sur `Actions`, puis sur `Modifier le code`.
 1. Faites défiler jusqu'au dossier `Actifs`, puis cliquez sur `Ajouter un nouvel actif`.
 1. Cliquez sur `Créer un fichier vierge`, nommez la section `sezzle-home-banner`, sélectionnez `.js` comme type de fichier, puis cliquez sur `Ajouter un actif`.
-1. Dans le dossier `Actifs`, sélectionnez l'actif que vous venez de créer (vous devrez peut-être faire défiler la liste, car les fichiers ne sont pas classés par ordre alphabétique). 1. Remplacez le modèle de ressource par le code ici: `static-widgets/build/sezzle-home-banner.js`, puis cliquez sur `Enregistrer`.
+1. Dans le dossier `Actifs`, sélectionnez l'actif que vous venez de créer (vous devrez peut-être faire défiler la liste, car les fichiers ne sont pas classés par ordre alphabétique). 1. Remplacez le modèle de ressource par le code ici: `static-widgets/build/banner/sezzle-home-banner.js`, puis cliquez sur `Enregistrer`.
 1. Collez l'extrait suivant dans le fichier `sections/header.liquid` où la bannière doit apparaître.
 - Remarque : ce champ se trouve généralement sous la balise de fermeture `header` ou `sticky-header`. Ouvrez le fichier, puis recherchez (Cmd+F ou Ctrl+F) le mot `sticky-header`.
 1. Mettez à jour la valeur « merchantUUID », puis cliquez sur « Enregistrer »
 - [Trouvez-la ici](https://dashboard.sezzle.com/merchant/settings/business)
 
 ```
-{{ "sezzle-home-banner.js" | asset_url | script_tag }}
+<script src="{{ 'sezzle-home-banner.js' | asset_url }}" defer></script>
 <div id="sezzle-banner-render-reference"></div>
 <script>
-new SezzleBanner({
-    merchantUUID: "entrez l'ID ici",  <!-- Votre identifiant (format : xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
-    theme: "indigo",  <!-- Options: "indigo" and "black" -->
-    renderToContainer: "#sezzle-banner-render-reference", <!-- Cela utilisera `querySelector` pour afficher la bannière, utilisez donc un identifiant ou une classe unique -->
-}).init();
+// Le script de la bannière est différé : créez la bannière une fois qu'il est chargé
+function initSezzleBanner() {
+    new SezzleBanner({
+        merchantUUID: "entrez l'ID ici",  <!-- Votre identifiant (format : xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
+        theme: "indigo",  <!-- Options: "indigo" and "black" -->
+        renderToContainer: "#sezzle-banner-render-reference", <!-- Cela utilisera `querySelector` pour afficher la bannière, utilisez donc un identifiant ou une classe unique -->
+        countryCode: "US", <!-- Pays de l'acheteur. Par défaut "US" ; indiquez "CA" pour les boutiques canadiennes afin que la fenêtre n'affiche pas le paiement en 5 versements -->
+    }).init();
+}
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initSezzleBanner);
+} else {
+    initSezzleBanner();
+}
 </script>
 ```
+
+ - Remarque : le Theme Check de Shopify refuse le filtre `script_tag` et les balises script sans `defer` ni `async`. L'extrait charge la bannière avec `defer` ; il doit donc créer la bannière après `DOMContentLoaded`, comme indiqué. Un appel direct à `new SezzleBanner(...)` échoue avec `SezzleBanner is not defined`.
 
 ### Installer au format HTML
 
@@ -90,13 +118,14 @@ Collez le texte suivant à l'emplacement où la bannière doit apparaître, par 
 - [Trouvez-la ici](https://dashboard.sezzle.com/merchant/settings/business)
 
 ```
-<script src="https://checkout-sdk.sezzle.com/sezzle-home-banner.min.js"></script>
+<script src="https://checkout-sdk.sezzle.com/banner/sezzle-home-banner.min.js"></script>
 <div id="sezzle-banner-render-reference"></div>
 <script>
 new SezzleBanner({
     merchantUUID: "entrez l'ID ici",  <!-- Votre identifiant (format : xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
     theme: "indigo",  <!-- Options: "indigo" and "black" -->
     renderToContainer: "#sezzle-banner-render-reference", <!-- Cela utilisera `querySelector` pour afficher la bannière, utilisez donc un identifiant ou une classe unique -->
+    countryCode: "US", <!-- Pays de l'acheteur. Par défaut "US" ; indiquez "CA" pour les boutiques canadiennes afin que la fenêtre n'affiche pas le paiement en 5 versements -->
 }).init();
 </script>
 ```
@@ -104,7 +133,7 @@ new SezzleBanner({
 ### Fichier local
 
 Clonez/déposez le projet [Static-Widgets](https://github.com/sezzle/static-widgets/), puis exécutez `npm run build-banner`.
-Créez un fichier .js et intégrez-y le code suivant: `static-widgets/build/sezzle-home-banner.js`.
+Créez un fichier .js et intégrez-y le code suivant: `static-widgets/build/banner/sezzle-home-banner.js`.
 Collez le code suivant à l'emplacement où la bannière doit apparaître, par exemple sous `</header>`, puis modifiez le chemin d'accès au fichier et la valeur `merchantUUID`.
 - [Trouvez-la ici](https://dashboard.sezzle.com/merchant/settings/business)
 
@@ -116,6 +145,7 @@ new SezzleBanner({
     merchantUUID: "entrez l'ID ici",  <!-- Votre identifiant (format : xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
     theme: "indigo",  <!-- Options: "indigo" and "black" -->
     renderToContainer: "#sezzle-banner-render-reference", <!-- Cela utilisera `querySelector` pour afficher la bannière, utilisez donc un identifiant ou une classe unique -->
+    countryCode: "US", <!-- Pays de l'acheteur. Par défaut "US" ; indiquez "CA" pour les boutiques canadiennes afin que la fenêtre n'affiche pas le paiement en 5 versements -->
 }).init();
 </script>
 ```

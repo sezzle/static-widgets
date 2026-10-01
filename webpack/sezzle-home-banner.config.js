@@ -23,7 +23,9 @@ module.exports = {
         rules: [
             {
                 test: /\.js?$/,
-                exclude: /(node_modules)/,
+                // @sezzle/sezzle-modal ships ES2021; transpile it to the
+                // banner's target like the banner's own code
+                exclude: /node_modules\/(?!@sezzle\/sezzle-modal\/)/,
                 use: {
                     loader: "babel-loader",
                     options: {

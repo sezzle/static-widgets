@@ -1,4 +1,5 @@
 import "./style.scss";
+import { markup as sezzleModalMarkup, load as loadSezzleModal } from "@sezzle/sezzle-modal";
 import enTranslations from "./translations/en.json";
 import frTranslations from "./translations/fr.json";
 import esTranslations from "./translations/es.json";
@@ -9,6 +10,24 @@ const Events = Object.freeze({
     Error: "banner-error",
 });
 
+// The banner has no product price, so the multi-plan modal opens at $50, the
+// lowest price that shows both pay-in-4 and pay-in-5 (the banner offers no
+// long-term plans, so it doesn't need how-sezzle-works' $150 long-term
+// minimum); shoppers can change it in the modal
+// TODO: FIVE_PAY_COUNTRIES, FIVE_PAY_MIN_PRICE, MAX_MODAL_PRICE,
+// isCommaDelimited/parsePriceString and the amount-input and carousel
+// handlers are copied from installment-widget and depend on
+// @sezzle/sezzle-modal's markup. Move them into the package (e.g.
+// attachModalBehavior(root, { countryCode }) plus the price helpers) so
+// pay-in-5, parsing and a11y fixes land once, then drop this copy and
+// installment-widget's
+const DEFAULT_MODAL_PRICE = 50;
+const MAX_MODAL_PRICE = 2500;
+const FIVE_PAY_MIN_PRICE = 50;
+// Pay-in-5 is offered only in these countries (mirrors installment-widget)
+const FIVE_PAY_COUNTRIES = ["US", "GU", "PR", "VI", "AS", "MP"];
+const DEFAULT_COUNTRY_CODE = "US";
+
 class SezzleBanner {
     constructor(options) {
         this.translations = {
@@ -16,7 +35,12 @@ class SezzleBanner {
             es: esTranslations,
             fr: frTranslations,
         };
-        this.language = document.querySelector("html")?.lang || "en";
+        // <html lang> often carries a region ("en-US", "fr-CA"); match on the
+        // base language, and fall back to English for any other language
+        const pageLanguage = String(document.querySelector("html")?.lang || "")
+            .split("-")[0]
+            .toLowerCase();
+        this.language = this.translations[pageLanguage] ? pageLanguage : "en";
         this.template = this.translations[this.language];
         this.supportedThemes = ["indigo", "black"];
         this.theme =
@@ -25,6 +49,7 @@ class SezzleBanner {
                 : "indigo";
         this.renderToContainer =
             options.renderToContainer || "#sezzle-button-render-reference";
+        this.countryCode = normalizeCountryCode(options.countryCode);
         this.eventLogger = new EventLogger({
             merchantUUID: options.merchantUUID,
             widgetServerBaseUrl: "https://widget.sezzle.com",
@@ -54,6 +79,7 @@ class SezzleBanner {
     }
 
     handleModalClose(modalNode) {
+        this.modalOpen = false;
         this.disableBodyScroll(false);
         // hide modal and replace focus
         modalNode.style.display = "none";
@@ -69,56 +95,210 @@ class SezzleBanner {
     }
 
     addModalCloseListeners(modalNode) {
-        Array.prototype.forEach.call(
-            document.querySelectorAll(".close-sezzle-modal, .close-btn"),
-            (el) => {
-                el.addEventListener("click", (event) => {
-                    this.handleModalClose(modalNode);
-                });
+        // Bound once, on the lightbox rather than on the buttons:
+        // ModalUI.load() rebuilds the modal's inner content, so listeners on
+        // elements inside it would be lost. The lightbox can be shared with
+        // sezzle-widget.js and installment-widget, so both listeners act only
+        // while this banner is the one that opened it
+        if (this.modalListenersBound) {
+            return;
+        }
+        this.modalListenersBound = true;
+        modalNode.addEventListener("click", (event) => {
+            // the lightbox itself is the backdrop; inside the modal, only the
+            // close buttons close it
+            if (
+                this.modalOpen &&
+                (event.target === modalNode ||
+                    event.target.closest(
+                        ".close-btn, button.close-sezzle-modal"
+                    ))
+            ) {
+                this.handleModalClose(modalNode);
             }
-        );
-        // prevent modal close on modal body click
-        let sezzleModal = document.querySelector("#sezzle-modal-core-content");
-        sezzleModal?.addEventListener("click", (event) => {
-                event.stopPropagation()
+        });
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && this.modalOpen) {
+                this.handleModalClose(modalNode);
             }
+        });
+    }
+
+    isFivePayEligible(price) {
+        return (
+            FIVE_PAY_COUNTRIES.indexOf(this.countryCode) > -1 &&
+            price >= FIVE_PAY_MIN_PRICE
         );
     }
 
     executeModalScript() {
-        if (ModalUI) {
-            ModalUI.load();
-        } else {
-            console.log(
-                "ModalUI is undefined. Problem adding modal script to the document"
+        const formatAmount = (amount) => `$${amount.toFixed(2)}`;
+        document.modalLanguage = this.language;
+        // a falsy pi5InstallmentAmount hides the pay-in-5 card
+        document.modalMultiPlan = {
+            productPrice: formatAmount(DEFAULT_MODAL_PRICE),
+            pi4InstallmentAmount: formatAmount(DEFAULT_MODAL_PRICE / 4),
+            pi5InstallmentAmount: this.isFivePayEligible(DEFAULT_MODAL_PRICE)
+                ? formatAmount(DEFAULT_MODAL_PRICE / 5)
+                : "",
+        };
+        window.ModalUI.load();
+        this.addAmountInputListener();
+        this.addCarouselListeners();
+    }
+
+    addAmountInputListener() {
+        const modalElement = document.querySelector(
+            "#sezzle-modal-core-content"
+        );
+        const input = modalElement?.querySelector(".input-amount");
+        if (!input) {
+            return;
+        }
+        // announce the recalculated installments to screen readers
+        modalElement
+            .querySelector(".payment-cards-biweekly")
+            ?.setAttribute("aria-live", "polite");
+        input.addEventListener("input", () => {
+            const includeComma = isCommaDelimited(input.value);
+            const price = parsePriceString(input.value, includeComma);
+            if (isNaN(price) || price <= 0 || price > MAX_MODAL_PRICE) {
+                input.classList.add("input-amount-error");
+                input.setAttribute("aria-invalid", "true");
+                return;
+            }
+            input.classList.remove("input-amount-error");
+            input.removeAttribute("aria-invalid");
+
+            const currencyMatch = input.value.match(/[$€£₤₹]/);
+            const currency = currencyMatch ? currencyMatch[0] : "$";
+            const formatAmount = (amount) => {
+                const fixed = amount.toFixed(2);
+                return (
+                    currency + (includeComma ? fixed.replace(".", ",") : fixed)
+                );
+            };
+            setText(
+                modalElement.getElementsByClassName("4-pay-installment"),
+                formatAmount(price / 4)
             );
-            this.widgetEventLogger.logEvent(
-                Events.Error,
-                "ModalUI is undefined. Problem adding modal script to the document"
+            setText(
+                modalElement.getElementsByClassName("5-pay-installment"),
+                formatAmount(price / 5)
             );
+            const pay5Cards = modalElement.getElementsByClassName(
+                "5-pay-installment-card"
+            );
+            const showPay5 = this.isFivePayEligible(price);
+            for (let i = 0; i < pay5Cards.length; i++) {
+                pay5Cards[i].style.display = showPay5 ? "flex" : "none";
+            }
+        });
+    }
+
+    addCarouselListeners() {
+        // ModalUI.load() builds the carousel at position 1
+        let activeTab = 1;
+        const modalElement = document.querySelector(
+            "#sezzle-modal-core-content"
+        );
+        if (!modalElement) {
+            return;
+        }
+        const arrows = modalElement.getElementsByClassName("arrow");
+        // The package renders the arrows as <div>s, so expose them to
+        // keyboards and screen readers as buttons
+        const syncArrowState = () => {
+            for (let i = 0; i < arrows.length; i++) {
+                arrows[i].setAttribute(
+                    "aria-disabled",
+                    String(arrows[i].classList.contains("disabled"))
+                );
+            }
+        };
+        for (let i = 0; i < arrows.length; i++) {
+            arrows[i].setAttribute("role", "button");
+            arrows[i].setAttribute("tabindex", "0");
+            arrows[i].setAttribute(
+                "aria-label",
+                arrows[i].classList.contains("arrow-right")
+                    ? this.template.nextStep
+                    : this.template.previousStep
+            );
+            arrows[i].addEventListener("keydown", (event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    event.currentTarget.click();
+                }
+            });
+        }
+        syncArrowState();
+        setActiveDot(modalElement.querySelector(".carousel-dots"), 0);
+        for (let i = 0; i < arrows.length; i++) {
+            arrows[i].addEventListener("click", (event) => {
+                const btn = event.currentTarget;
+                const arrowGroup = btn.parentElement;
+                if (btn.className.indexOf("disabled") > -1 || !arrowGroup) {
+                    return;
+                }
+                if (btn.className.indexOf("arrow-right") > -1) {
+                    activeTab++;
+                    arrowGroup.firstElementChild.className = "arrow arrow-left";
+                    if (activeTab === 3) {
+                        btn.className = "arrow arrow-right disabled";
+                    }
+                } else {
+                    activeTab--;
+                    arrowGroup.lastElementChild.className = "arrow arrow-right";
+                    if (activeTab === 1) {
+                        btn.className = "arrow arrow-left disabled";
+                    }
+                }
+                syncArrowState();
+                const carouselWrapper = arrowGroup.parentElement?.parentElement;
+                if (!carouselWrapper) {
+                    return;
+                }
+                const carousel = carouselWrapper.querySelector(".carousel");
+                if (carousel) {
+                    carousel.className = `carousel position-${activeTab}`;
+                }
+                setActiveDot(
+                    carouselWrapper.querySelector(".carousel-dots"),
+                    activeTab - 1
+                );
+            });
         }
     }
 
-    async getModalContent(modalNode) {
-        const sezzleModalURL =
-            "https://media.sezzle.com/shopify-app/assets/sezzle-modal-4.0.4.html";
+    // The modal markup and ModalUI come bundled from @sezzle/sezzle-modal, so
+    // nothing is fetched from media.sezzle.com or re-executed at runtime
+    // (MERCHANT-4918).
+    // If another Sezzle widget on the page already filled the shared
+    // lightbox, the banner opens that widget's modal as it is: rebuilding it
+    // would overwrite the other widget's product price and drop its
+    // listeners. The banner's $50 multi-plan setup applies only when the
+    // banner builds the modal itself.
+    // Returns false if the modal couldn't be built, so it isn't opened
+    getModalContent(modalNode) {
+        const modalNodeContent = document.getElementById(
+            "sezzle-modal-core-content"
+        );
+        if (modalNodeContent?.innerHTML) {
+            return true;
+        }
         try {
-            const modalNodeContent = document.getElementById(
-                "sezzle-modal-core-content"
-            )
-            if(modalNodeContent?.innerHTML){
-                return;
-            };
-            const response = await httpRequestWrapper("GET", sezzleModalURL);
-            modalNode.innerHTML = response;
-            // // append modal JS to document head
-            const head = document.head;
-            const script = document.createElement("script");
-            script.innerHTML = modalNode.querySelector("script").innerHTML;
-            head.appendChild(script);
+            modalNode.innerHTML = sezzleModalMarkup;
+            // sezzle-widget.js may already have set ModalUI on this page; keep it
+            window.ModalUI ??= { load: loadSezzleModal };
             this.executeModalScript();
+            return true;
         } catch (e) {
-            console.error("Unable to fetch Sezzle modal content", e);
+            // clear the half-built modal so the next click rebuilds it
+            modalNode.innerHTML = "";
+            console.log("Failed to build Sezzle modal: ", e);
+            this.eventLogger.sendEvent(Events.Error, String(e));
+            return false;
         }
     }
 
@@ -150,8 +330,12 @@ class SezzleBanner {
     renderModal() {
         this.disableBodyScroll(true);
         let modalNode = this.createModal();
-        this.getModalContent(modalNode);
+        if (!modalNode || !this.getModalContent(modalNode)) {
+            this.disableBodyScroll(false);
+            return;
+        }
         this.addModalCloseListeners(modalNode);
+        this.modalOpen = true;
         modalNode.style.display = "block";
         modalNode.focus();
         const modals = modalNode.getElementsByClassName("sezzle-modal");
@@ -271,6 +455,88 @@ async function httpRequestWrapper(method, url, body = null) {
     } catch (e) {
         console.log(e.message);
     }
+}
+
+function setActiveDot(dotsContainer, activeIndex) {
+    const dots = dotsContainer?.children || [];
+    for (let i = 0; i < dots.length; i++) {
+        dots[i].className = activeIndex === i ? "dot active" : "dot";
+        if (activeIndex === i) {
+            dots[i].setAttribute("aria-current", "step");
+        } else {
+            dots[i].removeAttribute("aria-current");
+        }
+    }
+}
+
+function setText(elements, text) {
+    for (let i = 0; i < elements.length; i++) {
+        elements[i].textContent = text;
+    }
+}
+
+// Runs in the constructor, outside init()'s try/catch, so it must not throw on
+// whatever a merchant's snippet passes
+function normalizeCountryCode(countryCode) {
+    if (countryCode == null || countryCode === "") {
+        return DEFAULT_COUNTRY_CODE;
+    }
+    const code = String(countryCode).trim().toUpperCase();
+    if (!/^[A-Z]{2}$/.test(code)) {
+        console.warn(
+            `Sezzle banner: countryCode "${countryCode}" is not a 2-letter ISO country code; using "${DEFAULT_COUNTRY_CODE}"`
+        );
+        return DEFAULT_COUNTRY_CODE;
+    }
+    return code;
+}
+
+// Price parsing for the modal's amount input, ported from installment-widget's
+// Helper so both widgets read "$1.234,56" and "$1,234.56" the same way
+function isCommaDelimited(priceText) {
+    // drop a symbol's "." ("Rs.") the same way parsePriceString does
+    const priceOnly = priceText
+        .replace(/([a-zA-Z])\./g, "$1")
+        .replace(/[^0-9.,]/g, "");
+    const commaPos = priceOnly.indexOf(",");
+    const decimalPos = priceOnly.indexOf(".");
+    if (commaPos > -1 && decimalPos > -1) {
+        return commaPos > decimalPos;
+    }
+    // With a single kind of separator, it's a thousands separator only when
+    // exactly 3 digits follow it ("1.234", "1,234"); otherwise it's the
+    // decimal ("12.5", "1,5"), including mid-typing ("50.5" on the way to
+    // "50.50")
+    if (commaPos > -1) {
+        return priceOnly.length - priceOnly.lastIndexOf(",") - 1 !== 3;
+    }
+    if (decimalPos > -1) {
+        return priceOnly.length - priceOnly.lastIndexOf(".") - 1 === 3;
+    }
+    return false;
+}
+
+function parsePriceString(price, includeComma) {
+    let formattedPrice = "";
+    for (let i = 0; i < price.length; i++) {
+        const char = price[i];
+        if (
+            /[0-9]/.test(char) ||
+            (!includeComma && char === ".") ||
+            (includeComma && char === ",")
+        ) {
+            const prev = price.charAt(i - 1).toLowerCase();
+            // a "." right after a letter belongs to a symbol like "Rs."
+            if (char === "." && prev >= "a" && prev <= "z") {
+                continue;
+            }
+            formattedPrice += char;
+        }
+    }
+    if (includeComma) {
+        formattedPrice = formattedPrice.replace(",", ".");
+    }
+    return parseFloat(formattedPrice);
 }
 
 export default SezzleBanner;

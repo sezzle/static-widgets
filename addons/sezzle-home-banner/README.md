@@ -2,6 +2,12 @@
 
 Add a Sezzle banner to your online store to let customers know they can shop now and pay later
 
+## Learn More modal
+
+Clicking "Learn more" opens the Sezzle payment calculator, starting at an example amount of $50 that shoppers can change. It shows Pay in 4 and, in the US and its territories, Pay in 5 for amounts from $50. Earlier versions opened a Pay in 4-only explainer instead.
+
+**Canadian stores:** add `countryCode: "CA"` to your snippet so the modal doesn't offer Pay in 5, which isn't available in Canada. Without it, the banner assumes `"US"`.
+
 ## Installation
 
 Select the implementation that fits your needs:
@@ -32,16 +38,27 @@ Select the implementation that fits your needs:
  - [Find it here](https://dashboard.sezzle.com/merchant/settings/business)
 
 ```
-{{ "//checkout-sdk.sezzle.com/banner/sezzle-home-banner.min.js" | script_tag }}
+<script src="https://checkout-sdk.sezzle.com/banner/sezzle-home-banner.min.js" defer></script>
 <div id="sezzle-banner-render-reference"></div>
 <script>
-new SezzleBanner({
-    merchantUUID: "enter merchant ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
-    theme: "indigo",  <!-- Options: "indigo" and "black" -->
-    renderToContainer: "#sezzle-banner-render-reference", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
-}).init();
+// The banner script is deferred, so create the banner once it has loaded
+function initSezzleBanner() {
+    new SezzleBanner({
+        merchantUUID: "enter merchant ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
+        theme: "indigo",  <!-- Options: "indigo" and "black" -->
+        renderToContainer: "#sezzle-banner-render-reference", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
+        countryCode: "US", <!-- Shopper country. Defaults to "US"; set "CA" for Canadian stores so the modal does not offer Pay in 5 -->
+    }).init();
+}
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initSezzleBanner);
+} else {
+    initSezzleBanner();
+}
 </script>
 ```
+
+ - Note: Shopify's Theme Check rejects the `script_tag` filter and script tags without `defer` or `async`. The snippet loads the banner with `defer`, so it must create the banner after `DOMContentLoaded` as shown. Calling `new SezzleBanner(...)` directly fails with `SezzleBanner is not defined`.
 
 #### Local File
 
@@ -52,23 +69,34 @@ new SezzleBanner({
 1. Scroll to the Assets folder, then click `Add A New Asset`
 1. Click `Create a Blank File`, name the section `sezzle-home-banner`, select `.js` as the file type, then click `Add Asset`
 1. In the Assets folder, select the asset you just created (you may need to scroll, files are not in alphabetical order).
-1. Overwrite the asset template with the code contents here: `static-widgets/build/sezzle-home-banner.js`, then click `Save`.
+1. Overwrite the asset template with the code contents here: `static-widgets/build/banner/sezzle-home-banner.js`, then click `Save`.
 1. Paste the following snippet into the `sections/header.liquid` file where the banner should appear:
  - Note: this is typically below the `header` or `sticky-header` closing tag. Open the file, then search (Cmd+F or Ctrl+F) for the word "sticky-header"
 1. Update the `merchantUUID` value, then click `Save`
  - [Find it here](https://dashboard.sezzle.com/merchant/settings/business)
 
 ```
-{{ "sezzle-home-banner.js" | asset_url | script_tag }}
+<script src="{{ 'sezzle-home-banner.js' | asset_url }}" defer></script>
 <div id="sezzle-banner-render-reference"></div>
 <script>
-new SezzleBanner({
-    merchantUUID: "enter merchant ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
-    theme: "indigo",  <!-- Options: "indigo" and "black" -->
-    renderToContainer: "#sezzle-banner-render-reference", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
-}).init();
+// The banner script is deferred, so create the banner once it has loaded
+function initSezzleBanner() {
+    new SezzleBanner({
+        merchantUUID: "enter merchant ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
+        theme: "indigo",  <!-- Options: "indigo" and "black" -->
+        renderToContainer: "#sezzle-banner-render-reference", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
+        countryCode: "US", <!-- Shopper country. Defaults to "US"; set "CA" for Canadian stores so the modal does not offer Pay in 5 -->
+    }).init();
+}
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initSezzleBanner);
+} else {
+    initSezzleBanner();
+}
 </script>
 ```
+
+ - Note: Shopify's Theme Check rejects the `script_tag` filter and script tags without `defer` or `async`. The snippet loads the banner with `defer`, so it must create the banner after `DOMContentLoaded` as shown. Calling `new SezzleBanner(...)` directly fails with `SezzleBanner is not defined`.
 
 ### Install as HTML
 
@@ -98,6 +126,7 @@ new SezzleBanner({
     merchantUUID: "enter merchant ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
     theme: "indigo",  <!-- Options: "indigo" and "black" -->
     renderToContainer: "#sezzle-banner-render-reference", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
+    countryCode: "US", <!-- Shopper country. Defaults to "US"; set "CA" for Canadian stores so the modal does not offer Pay in 5 -->
 }).init();
 </script>
 ```
@@ -105,7 +134,7 @@ new SezzleBanner({
 ### Local File
 
 Clone/pull down the [Static-Widgets](https://github.com/sezzle/static-widgets/) project, then run `npm run build-banner`
-Create a new .js file and populate it with the code contents from here: `static-widgets/build/sezzle-home-banner.js`
+Create a new .js file and populate it with the code contents from here: `static-widgets/build/banner/sezzle-home-banner.js`
 Paste the following where the banner should appear, such as below `</header>`, then update the file path and `merchantUUID` value
  - [Find it here](https://dashboard.sezzle.com/merchant/settings/business)
 
@@ -117,6 +146,7 @@ new SezzleBanner({
     merchantUUID: "enter merchant ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
     theme: "indigo",  <!-- Options: "indigo" and "black" -->
     renderToContainer: "#sezzle-banner-render-reference", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
+    countryCode: "US", <!-- Shopper country. Defaults to "US"; set "CA" for Canadian stores so the modal does not offer Pay in 5 -->
 }).init();
 </script>
 ```
