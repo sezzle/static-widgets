@@ -14,6 +14,13 @@ const Events = Object.freeze({
 // lowest price that shows both pay-in-4 and pay-in-5 (the banner offers no
 // long-term plans, so it doesn't need how-sezzle-works' $150 long-term
 // minimum); shoppers can change it in the modal
+// TODO: FIVE_PAY_COUNTRIES, FIVE_PAY_MIN_PRICE, MAX_MODAL_PRICE,
+// isCommaDelimited/parsePriceString and the amount-input and carousel
+// handlers are copied from installment-widget and depend on
+// @sezzle/sezzle-modal's markup. Move them into the package (e.g.
+// attachModalBehavior(root, { countryCode }) plus the price helpers) so
+// pay-in-5, parsing and a11y fixes land once, then drop this copy and
+// installment-widget's
 const DEFAULT_MODAL_PRICE = 50;
 const MAX_MODAL_PRICE = 2500;
 const FIVE_PAY_MIN_PRICE = 50;
