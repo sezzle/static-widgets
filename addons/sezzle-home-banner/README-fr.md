@@ -2,6 +2,12 @@
 
 Ajoutez une bannière Sezzle à votre boutique en ligne pour faire savoir aux clients qu'ils peuvent acheter maintenant et payer plus tard
 
+## Fenêtre « En savoir plus »
+
+Un clic sur « En savoir plus » ouvre le calculateur de paiement Sezzle, avec un montant d'exemple de 50 $ que l'acheteur peut modifier. Il affiche le paiement en 4 versements et, aux États-Unis et dans leurs territoires, le paiement en 5 versements à partir de 50 $. Les versions précédentes ouvraient plutôt une fenêtre explicative limitée au paiement en 4 versements.
+
+**Boutiques canadiennes :** ajoutez `countryCode: "CA"` à votre extrait de code pour que la fenêtre n'offre pas le paiement en 5 versements, qui n'est pas disponible au Canada. Sans cette option, la bannière utilise `"US"`.
+
 ## Installation
 
 Sélectionnez l'implémentation qui correspond à vos besoins :

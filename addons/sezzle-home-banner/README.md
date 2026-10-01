@@ -2,6 +2,12 @@
 
 Add a Sezzle banner to your online store to let customers know they can shop now and pay later
 
+## Learn More modal
+
+Clicking "Learn more" opens the Sezzle payment calculator, starting at an example amount of $50 that shoppers can change. It shows Pay in 4 and, in the US and its territories, Pay in 5 for amounts from $50. Earlier versions opened a Pay in 4-only explainer instead.
+
+**Canadian stores:** add `countryCode: "CA"` to your snippet so the modal doesn't offer Pay in 5, which isn't available in Canada. Without it, the banner assumes `"US"`.
+
 ## Installation
 
 Select the implementation that fits your needs:
