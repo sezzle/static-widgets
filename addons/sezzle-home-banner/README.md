@@ -38,17 +38,27 @@ Select the implementation that fits your needs:
  - [Find it here](https://dashboard.sezzle.com/merchant/settings/business)
 
 ```
-{{ "//checkout-sdk.sezzle.com/banner/sezzle-home-banner.min.js" | script_tag }}
+<script src="https://checkout-sdk.sezzle.com/banner/sezzle-home-banner.min.js" defer></script>
 <div id="sezzle-banner-render-reference"></div>
 <script>
-new SezzleBanner({
-    merchantUUID: "enter merchant ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
-    theme: "indigo",  <!-- Options: "indigo" and "black" -->
-    renderToContainer: "#sezzle-banner-render-reference", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
-    countryCode: "US", <!-- Shopper country. Defaults to "US"; set "CA" for Canadian stores so the modal does not offer Pay in 5 -->
-}).init();
+// The banner script is deferred, so create the banner once it has loaded
+function initSezzleBanner() {
+    new SezzleBanner({
+        merchantUUID: "enter merchant ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
+        theme: "indigo",  <!-- Options: "indigo" and "black" -->
+        renderToContainer: "#sezzle-banner-render-reference", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
+        countryCode: "US", <!-- Shopper country. Defaults to "US"; set "CA" for Canadian stores so the modal does not offer Pay in 5 -->
+    }).init();
+}
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initSezzleBanner);
+} else {
+    initSezzleBanner();
+}
 </script>
 ```
+
+ - Note: Shopify's Theme Check rejects the `script_tag` filter and script tags without `defer` or `async`. The snippet loads the banner with `defer`, so it must create the banner after `DOMContentLoaded` as shown. Calling `new SezzleBanner(...)` directly fails with `SezzleBanner is not defined`.
 
 #### Local File
 
@@ -66,17 +76,27 @@ new SezzleBanner({
  - [Find it here](https://dashboard.sezzle.com/merchant/settings/business)
 
 ```
-{{ "sezzle-home-banner.js" | asset_url | script_tag }}
+<script src="{{ 'sezzle-home-banner.js' | asset_url }}" defer></script>
 <div id="sezzle-banner-render-reference"></div>
 <script>
-new SezzleBanner({
-    merchantUUID: "enter merchant ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
-    theme: "indigo",  <!-- Options: "indigo" and "black" -->
-    renderToContainer: "#sezzle-banner-render-reference", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
-    countryCode: "US", <!-- Shopper country. Defaults to "US"; set "CA" for Canadian stores so the modal does not offer Pay in 5 -->
-}).init();
+// The banner script is deferred, so create the banner once it has loaded
+function initSezzleBanner() {
+    new SezzleBanner({
+        merchantUUID: "enter merchant ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
+        theme: "indigo",  <!-- Options: "indigo" and "black" -->
+        renderToContainer: "#sezzle-banner-render-reference", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
+        countryCode: "US", <!-- Shopper country. Defaults to "US"; set "CA" for Canadian stores so the modal does not offer Pay in 5 -->
+    }).init();
+}
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initSezzleBanner);
+} else {
+    initSezzleBanner();
+}
 </script>
 ```
+
+ - Note: Shopify's Theme Check rejects the `script_tag` filter and script tags without `defer` or `async`. The snippet loads the banner with `defer`, so it must create the banner after `DOMContentLoaded` as shown. Calling `new SezzleBanner(...)` directly fails with `SezzleBanner is not defined`.
 
 ### Install as HTML
 
