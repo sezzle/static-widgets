@@ -236,17 +236,27 @@ class SezzleBanner {
     // would overwrite the other widget's product price and drop its
     // listeners. The banner's $50 multi-plan setup applies only when the
     // banner builds the modal itself.
+    // Returns false if the modal couldn't be built, so it isn't opened
     getModalContent(modalNode) {
         const modalNodeContent = document.getElementById(
             "sezzle-modal-core-content"
         );
         if (modalNodeContent?.innerHTML) {
-            return;
+            return true;
         }
-        modalNode.innerHTML = sezzleModalMarkup;
-        // sezzle-widget.js may already have set ModalUI on this page; keep it
-        window.ModalUI ??= { load: loadSezzleModal };
-        this.executeModalScript();
+        try {
+            modalNode.innerHTML = sezzleModalMarkup;
+            // sezzle-widget.js may already have set ModalUI on this page; keep it
+            window.ModalUI ??= { load: loadSezzleModal };
+            this.executeModalScript();
+            return true;
+        } catch (e) {
+            // clear the half-built modal so the next click rebuilds it
+            modalNode.innerHTML = "";
+            console.log("Failed to build Sezzle modal: ", e);
+            this.eventLogger.sendEvent(Events.Error, String(e));
+            return false;
+        }
     }
 
     createModal() {
@@ -277,7 +287,10 @@ class SezzleBanner {
     renderModal() {
         this.disableBodyScroll(true);
         let modalNode = this.createModal();
-        this.getModalContent(modalNode);
+        if (!modalNode || !this.getModalContent(modalNode)) {
+            this.disableBodyScroll(false);
+            return;
+        }
         this.addModalCloseListeners(modalNode);
         this.modalOpen = true;
         modalNode.style.display = "block";
