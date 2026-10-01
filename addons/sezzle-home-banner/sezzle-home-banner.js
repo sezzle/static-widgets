@@ -35,7 +35,12 @@ class SezzleBanner {
             es: esTranslations,
             fr: frTranslations,
         };
-        this.language = document.querySelector("html")?.lang || "en";
+        // <html lang> often carries a region ("en-US", "fr-CA"); match on the
+        // base language, and fall back to English for any other language
+        const pageLanguage = String(document.querySelector("html")?.lang || "")
+            .split("-")[0]
+            .toLowerCase();
+        this.language = this.translations[pageLanguage] ? pageLanguage : "en";
         this.template = this.translations[this.language];
         this.supportedThemes = ["indigo", "black"];
         this.theme =
