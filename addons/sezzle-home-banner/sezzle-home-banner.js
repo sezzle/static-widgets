@@ -37,9 +37,7 @@ class SezzleBanner {
                 : "indigo";
         this.renderToContainer =
             options.renderToContainer || "#sezzle-button-render-reference";
-        this.countryCode = (
-            options.countryCode || DEFAULT_COUNTRY_CODE
-        ).toUpperCase();
+        this.countryCode = normalizeCountryCode(options.countryCode);
         this.eventLogger = new EventLogger({
             merchantUUID: options.merchantUUID,
             widgetServerBaseUrl: "https://widget.sezzle.com",
@@ -395,6 +393,22 @@ function setText(elements, text) {
     for (let i = 0; i < elements.length; i++) {
         elements[i].textContent = text;
     }
+}
+
+// Runs in the constructor, outside init()'s try/catch, so it must not throw on
+// whatever a merchant's snippet passes
+function normalizeCountryCode(countryCode) {
+    if (countryCode == null || countryCode === "") {
+        return DEFAULT_COUNTRY_CODE;
+    }
+    const code = String(countryCode).trim().toUpperCase();
+    if (!/^[A-Z]{2}$/.test(code)) {
+        console.warn(
+            `Sezzle banner: countryCode "${countryCode}" is not a 2-letter ISO country code; using "${DEFAULT_COUNTRY_CODE}"`
+        );
+        return DEFAULT_COUNTRY_CODE;
+    }
+    return code;
 }
 
 // Price parsing for the modal's amount input, ported from installment-widget's
