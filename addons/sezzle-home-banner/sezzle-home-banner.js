@@ -150,14 +150,20 @@ class SezzleBanner {
         if (!input) {
             return;
         }
+        // announce the recalculated installments to screen readers
+        modalElement
+            .querySelector(".payment-cards-biweekly")
+            ?.setAttribute("aria-live", "polite");
         input.addEventListener("input", () => {
             const includeComma = isCommaDelimited(input.value);
             const price = parsePriceString(input.value, includeComma);
             if (isNaN(price) || price <= 0 || price > MAX_MODAL_PRICE) {
                 input.classList.add("input-amount-error");
+                input.setAttribute("aria-invalid", "true");
                 return;
             }
             input.classList.remove("input-amount-error");
+            input.removeAttribute("aria-invalid");
 
             const currencyMatch = input.value.match(/[$€£₤₹]/);
             const currency = currencyMatch ? currencyMatch[0] : "$";
@@ -195,6 +201,34 @@ class SezzleBanner {
             return;
         }
         const arrows = modalElement.getElementsByClassName("arrow");
+        // The package renders the arrows as <div>s, so expose them to
+        // keyboards and screen readers as buttons
+        const syncArrowState = () => {
+            for (let i = 0; i < arrows.length; i++) {
+                arrows[i].setAttribute(
+                    "aria-disabled",
+                    String(arrows[i].classList.contains("disabled"))
+                );
+            }
+        };
+        for (let i = 0; i < arrows.length; i++) {
+            arrows[i].setAttribute("role", "button");
+            arrows[i].setAttribute("tabindex", "0");
+            arrows[i].setAttribute(
+                "aria-label",
+                arrows[i].classList.contains("arrow-right")
+                    ? this.template.nextStep
+                    : this.template.previousStep
+            );
+            arrows[i].addEventListener("keydown", (event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    event.currentTarget.click();
+                }
+            });
+        }
+        syncArrowState();
+        setActiveDot(modalElement.querySelector(".carousel-dots"), 0);
         for (let i = 0; i < arrows.length; i++) {
             arrows[i].addEventListener("click", (event) => {
                 const btn = event.currentTarget;
@@ -215,6 +249,7 @@ class SezzleBanner {
                         btn.className = "arrow arrow-left disabled";
                     }
                 }
+                syncArrowState();
                 const carouselWrapper = arrowGroup.parentElement?.parentElement;
                 if (!carouselWrapper) {
                     return;
@@ -223,14 +258,10 @@ class SezzleBanner {
                 if (carousel) {
                     carousel.className = `carousel position-${activeTab}`;
                 }
-                const dots =
-                    carouselWrapper.querySelector(".carousel-dots")?.children;
-                if (dots) {
-                    for (let j = 0; j < dots.length; j++) {
-                        dots[j].className =
-                            activeTab - 1 === j ? "dot active" : "dot";
-                    }
-                }
+                setActiveDot(
+                    carouselWrapper.querySelector(".carousel-dots"),
+                    activeTab - 1
+                );
             });
         }
     }
@@ -418,6 +449,18 @@ async function httpRequestWrapper(method, url, body = null) {
         return await response.text();
     } catch (e) {
         console.log(e.message);
+    }
+}
+
+function setActiveDot(dotsContainer, activeIndex) {
+    const dots = dotsContainer?.children || [];
+    for (let i = 0; i < dots.length; i++) {
+        dots[i].className = activeIndex === i ? "dot active" : "dot";
+        if (activeIndex === i) {
+            dots[i].setAttribute("aria-current", "step");
+        } else {
+            dots[i].removeAttribute("aria-current");
+        }
     }
 }
 
