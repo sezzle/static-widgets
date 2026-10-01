@@ -414,17 +414,24 @@ function normalizeCountryCode(countryCode) {
 // Price parsing for the modal's amount input, ported from installment-widget's
 // Helper so both widgets read "$1.234,56" and "$1,234.56" the same way
 function isCommaDelimited(priceText) {
-    const priceOnly = priceText.replace(/[^0-9.,]/g, "");
+    // drop a symbol's "." ("Rs.") the same way parsePriceString does
+    const priceOnly = priceText
+        .replace(/([a-zA-Z])\./g, "$1")
+        .replace(/[^0-9.,]/g, "");
     const commaPos = priceOnly.indexOf(",");
     const decimalPos = priceOnly.indexOf(".");
     if (commaPos > -1 && decimalPos > -1) {
         return commaPos > decimalPos;
     }
+    // With a single kind of separator, it's a thousands separator only when
+    // exactly 3 digits follow it ("1.234", "1,234"); otherwise it's the
+    // decimal ("12.5", "1,5"), including mid-typing ("50.5" on the way to
+    // "50.50")
     if (commaPos > -1) {
-        return priceOnly[priceOnly.length - 3] === ",";
+        return priceOnly.length - priceOnly.lastIndexOf(",") - 1 !== 3;
     }
     if (decimalPos > -1) {
-        return priceOnly[priceOnly.length - 3] !== ".";
+        return priceOnly.length - priceOnly.lastIndexOf(".") - 1 === 3;
     }
     return false;
 }
