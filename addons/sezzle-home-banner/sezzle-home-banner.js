@@ -67,6 +67,7 @@ class SezzleBanner {
     }
 
     handleModalClose(modalNode) {
+        this.modalOpen = false;
         this.disableBodyScroll(false);
         // hide modal and replace focus
         modalNode.style.display = "none";
@@ -84,7 +85,9 @@ class SezzleBanner {
     addModalCloseListeners(modalNode) {
         // Bound once, on the lightbox rather than on the buttons:
         // ModalUI.load() rebuilds the modal's inner content, so listeners on
-        // elements inside it would be lost
+        // elements inside it would be lost. The lightbox can be shared with
+        // sezzle-widget.js and installment-widget, so both listeners act only
+        // while this banner is the one that opened it
         if (this.modalListenersBound) {
             return;
         }
@@ -93,14 +96,17 @@ class SezzleBanner {
             // the lightbox itself is the backdrop; inside the modal, only the
             // close buttons close it
             if (
-                event.target === modalNode ||
-                event.target.closest(".close-btn, button.close-sezzle-modal")
+                this.modalOpen &&
+                (event.target === modalNode ||
+                    event.target.closest(
+                        ".close-btn, button.close-sezzle-modal"
+                    ))
             ) {
                 this.handleModalClose(modalNode);
             }
         });
         document.addEventListener("keydown", (event) => {
-            if (event.key === "Escape" && modalNode.style.display === "block") {
+            if (event.key === "Escape" && this.modalOpen) {
                 this.handleModalClose(modalNode);
             }
         });
@@ -224,7 +230,12 @@ class SezzleBanner {
 
     // The modal markup and ModalUI come bundled from @sezzle/sezzle-modal, so
     // nothing is fetched from media.sezzle.com or re-executed at runtime
-    // (MERCHANT-4918)
+    // (MERCHANT-4918).
+    // If another Sezzle widget on the page already filled the shared
+    // lightbox, the banner opens that widget's modal as it is: rebuilding it
+    // would overwrite the other widget's product price and drop its
+    // listeners. The banner's $50 multi-plan setup applies only when the
+    // banner builds the modal itself.
     getModalContent(modalNode) {
         const modalNodeContent = document.getElementById(
             "sezzle-modal-core-content"
@@ -268,6 +279,7 @@ class SezzleBanner {
         let modalNode = this.createModal();
         this.getModalContent(modalNode);
         this.addModalCloseListeners(modalNode);
+        this.modalOpen = true;
         modalNode.style.display = "block";
         modalNode.focus();
         const modals = modalNode.getElementsByClassName("sezzle-modal");
