@@ -10,6 +10,17 @@ const Events = Object.freeze({
     Error: "banner-error",
 });
 
+// The banner has no product price, so the multi-plan modal opens at $50, the
+// lowest price that shows both pay-in-4 and pay-in-5 (the banner offers no
+// long-term plans, so it doesn't need how-sezzle-works' $150 long-term
+// minimum); shoppers can change it in the modal
+const DEFAULT_MODAL_PRICE = 50;
+const MAX_MODAL_PRICE = 2500;
+const FIVE_PAY_MIN_PRICE = 50;
+// Pay-in-5 is offered only in these countries (mirrors installment-widget)
+const FIVE_PAY_COUNTRIES = ["US", "GU", "PR", "VI", "AS", "MP"];
+const DEFAULT_COUNTRY_CODE = "US";
+
 class SezzleBanner {
     constructor(options) {
         this.translations = {
@@ -26,6 +37,9 @@ class SezzleBanner {
                 : "indigo";
         this.renderToContainer =
             options.renderToContainer || "#sezzle-button-render-reference";
+        this.countryCode = (
+            options.countryCode || DEFAULT_COUNTRY_CODE
+        ).toUpperCase();
         this.eventLogger = new EventLogger({
             merchantUUID: options.merchantUUID,
             widgetServerBaseUrl: "https://widget.sezzle.com",
@@ -94,12 +108,120 @@ class SezzleBanner {
         });
     }
 
+    isFivePayEligible(price) {
+        return (
+            FIVE_PAY_COUNTRIES.indexOf(this.countryCode) > -1 &&
+            price >= FIVE_PAY_MIN_PRICE
+        );
+    }
+
     executeModalScript() {
-        // The banner has no product price, so it always shows the classic
-        // modal, even if another Sezzle widget on the page left a multi-plan
-        // config behind
-        document.modalMultiPlan = null;
+        const formatAmount = (amount) => `$${amount.toFixed(2)}`;
+        document.modalLanguage = this.language;
+        // a falsy pi5InstallmentAmount hides the pay-in-5 card
+        document.modalMultiPlan = {
+            productPrice: formatAmount(DEFAULT_MODAL_PRICE),
+            pi4InstallmentAmount: formatAmount(DEFAULT_MODAL_PRICE / 4),
+            pi5InstallmentAmount: this.isFivePayEligible(DEFAULT_MODAL_PRICE)
+                ? formatAmount(DEFAULT_MODAL_PRICE / 5)
+                : "",
+        };
         window.ModalUI.load();
+        this.addAmountInputListener();
+        this.addCarouselListeners();
+    }
+
+    addAmountInputListener() {
+        const modalElement = document.querySelector(
+            "#sezzle-modal-core-content"
+        );
+        const input = modalElement?.querySelector(".input-amount");
+        if (!input) {
+            return;
+        }
+        input.addEventListener("input", () => {
+            const includeComma = isCommaDelimited(input.value);
+            const price = parsePriceString(input.value, includeComma);
+            if (isNaN(price) || price <= 0 || price > MAX_MODAL_PRICE) {
+                input.classList.add("input-amount-error");
+                return;
+            }
+            input.classList.remove("input-amount-error");
+
+            const currencyMatch = input.value.match(/[$€£₤₹]/);
+            const currency = currencyMatch ? currencyMatch[0] : "$";
+            const formatAmount = (amount) => {
+                const fixed = amount.toFixed(2);
+                return (
+                    currency + (includeComma ? fixed.replace(".", ",") : fixed)
+                );
+            };
+            setText(
+                modalElement.getElementsByClassName("4-pay-installment"),
+                formatAmount(price / 4)
+            );
+            setText(
+                modalElement.getElementsByClassName("5-pay-installment"),
+                formatAmount(price / 5)
+            );
+            const pay5Cards = modalElement.getElementsByClassName(
+                "5-pay-installment-card"
+            );
+            const showPay5 = this.isFivePayEligible(price);
+            for (let i = 0; i < pay5Cards.length; i++) {
+                pay5Cards[i].style.display = showPay5 ? "flex" : "none";
+            }
+        });
+    }
+
+    addCarouselListeners() {
+        // ModalUI.load() builds the carousel at position 1
+        let activeTab = 1;
+        const modalElement = document.querySelector(
+            "#sezzle-modal-core-content"
+        );
+        if (!modalElement) {
+            return;
+        }
+        const arrows = modalElement.getElementsByClassName("arrow");
+        for (let i = 0; i < arrows.length; i++) {
+            arrows[i].addEventListener("click", (event) => {
+                const btn = event.currentTarget;
+                const arrowGroup = btn.parentElement;
+                if (btn.className.indexOf("disabled") > -1 || !arrowGroup) {
+                    return;
+                }
+                if (btn.className.indexOf("arrow-right") > -1) {
+                    activeTab++;
+                    arrowGroup.firstElementChild.className = "arrow arrow-left";
+                    if (activeTab === 3) {
+                        btn.className = "arrow arrow-right disabled";
+                    }
+                } else {
+                    activeTab--;
+                    arrowGroup.lastElementChild.className = "arrow arrow-right";
+                    if (activeTab === 1) {
+                        btn.className = "arrow arrow-left disabled";
+                    }
+                }
+                const carouselWrapper = arrowGroup.parentElement?.parentElement;
+                if (!carouselWrapper) {
+                    return;
+                }
+                const carousel = carouselWrapper.querySelector(".carousel");
+                if (carousel) {
+                    carousel.className = `carousel position-${activeTab}`;
+                }
+                const dots =
+                    carouselWrapper.querySelector(".carousel-dots")?.children;
+                if (dots) {
+                    for (let j = 0; j < dots.length; j++) {
+                        dots[j].className =
+                            activeTab - 1 === j ? "dot active" : "dot";
+                    }
+                }
+            });
+        }
     }
 
     // The modal markup and ModalUI come bundled from @sezzle/sezzle-modal, so
@@ -267,6 +389,52 @@ async function httpRequestWrapper(method, url, body = null) {
     } catch (e) {
         console.log(e.message);
     }
+}
+
+function setText(elements, text) {
+    for (let i = 0; i < elements.length; i++) {
+        elements[i].textContent = text;
+    }
+}
+
+// Price parsing for the modal's amount input, ported from installment-widget's
+// Helper so both widgets read "$1.234,56" and "$1,234.56" the same way
+function isCommaDelimited(priceText) {
+    const priceOnly = priceText.replace(/[^0-9.,]/g, "");
+    const commaPos = priceOnly.indexOf(",");
+    const decimalPos = priceOnly.indexOf(".");
+    if (commaPos > -1 && decimalPos > -1) {
+        return commaPos > decimalPos;
+    }
+    if (commaPos > -1) {
+        return priceOnly[priceOnly.length - 3] === ",";
+    }
+    if (decimalPos > -1) {
+        return priceOnly[priceOnly.length - 3] !== ".";
+    }
+    return false;
+}
+
+function parsePriceString(price, includeComma) {
+    let formattedPrice = "";
+    for (let i = 0; i < price.length; i++) {
+        const char = price[i];
+        if (
+            /[0-9]/.test(char) ||
+            (!includeComma && char === ".") ||
+            (includeComma && char === ",")
+        ) {
+            // a "." right after a letter belongs to a symbol like "Rs."
+            if (i > 0 && char === "." && /[a-zA-Z]/.test(price[i - 1])) {
+                continue;
+            }
+            formattedPrice += char;
+        }
+    }
+    if (includeComma) {
+        formattedPrice = formattedPrice.replace(",", ".");
+    }
+    return parseFloat(formattedPrice);
 }
 
 export default SezzleBanner;

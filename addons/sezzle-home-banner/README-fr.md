@@ -39,6 +39,7 @@ new SezzleBanner({
     merchantUUID: "entrez l'ID ici",  <!-- Votre identifiant (format : xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
     theme: "indigo",  <!-- Options: "indigo" and "black" -->
     renderToContainer: "#sezzle-banner-render-reference", <!-- Cela utilisera `querySelector` pour afficher la bannière, utilisez donc un identifiant ou une classe unique -->
+    countryCode: "US", <!-- Pays de l'acheteur. Par défaut "US" ; indiquez "CA" pour les boutiques canadiennes afin que la fenêtre n'affiche pas le paiement en 5 versements -->
 }).init();
 </script>
 ```
@@ -65,6 +66,7 @@ new SezzleBanner({
     merchantUUID: "entrez l'ID ici",  <!-- Votre identifiant (format : xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
     theme: "indigo",  <!-- Options: "indigo" and "black" -->
     renderToContainer: "#sezzle-banner-render-reference", <!-- Cela utilisera `querySelector` pour afficher la bannière, utilisez donc un identifiant ou une classe unique -->
+    countryCode: "US", <!-- Pays de l'acheteur. Par défaut "US" ; indiquez "CA" pour les boutiques canadiennes afin que la fenêtre n'affiche pas le paiement en 5 versements -->
 }).init();
 </script>
 ```
@@ -97,6 +99,7 @@ new SezzleBanner({
     merchantUUID: "entrez l'ID ici",  <!-- Votre identifiant (format : xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
     theme: "indigo",  <!-- Options: "indigo" and "black" -->
     renderToContainer: "#sezzle-banner-render-reference", <!-- Cela utilisera `querySelector` pour afficher la bannière, utilisez donc un identifiant ou une classe unique -->
+    countryCode: "US", <!-- Pays de l'acheteur. Par défaut "US" ; indiquez "CA" pour les boutiques canadiennes afin que la fenêtre n'affiche pas le paiement en 5 versements -->
 }).init();
 </script>
 ```
@@ -116,6 +119,7 @@ new SezzleBanner({
     merchantUUID: "entrez l'ID ici",  <!-- Votre identifiant (format : xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
     theme: "indigo",  <!-- Options: "indigo" and "black" -->
     renderToContainer: "#sezzle-banner-render-reference", <!-- Cela utilisera `querySelector` pour afficher la bannière, utilisez donc un identifiant ou une classe unique -->
+    countryCode: "US", <!-- Pays de l'acheteur. Par défaut "US" ; indiquez "CA" pour les boutiques canadiennes afin que la fenêtre n'affiche pas le paiement en 5 versements -->
 }).init();
 </script>
 ```

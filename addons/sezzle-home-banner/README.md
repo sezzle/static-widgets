@@ -39,6 +39,7 @@ new SezzleBanner({
     merchantUUID: "enter merchant ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
     theme: "indigo",  <!-- Options: "indigo" and "black" -->
     renderToContainer: "#sezzle-banner-render-reference", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
+    countryCode: "US", <!-- Shopper country. Defaults to "US"; set "CA" for Canadian stores so the modal does not offer Pay in 5 -->
 }).init();
 </script>
 ```
@@ -66,6 +67,7 @@ new SezzleBanner({
     merchantUUID: "enter merchant ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
     theme: "indigo",  <!-- Options: "indigo" and "black" -->
     renderToContainer: "#sezzle-banner-render-reference", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
+    countryCode: "US", <!-- Shopper country. Defaults to "US"; set "CA" for Canadian stores so the modal does not offer Pay in 5 -->
 }).init();
 </script>
 ```
@@ -98,6 +100,7 @@ new SezzleBanner({
     merchantUUID: "enter merchant ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
     theme: "indigo",  <!-- Options: "indigo" and "black" -->
     renderToContainer: "#sezzle-banner-render-reference", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
+    countryCode: "US", <!-- Shopper country. Defaults to "US"; set "CA" for Canadian stores so the modal does not offer Pay in 5 -->
 }).init();
 </script>
 ```
@@ -117,6 +120,7 @@ new SezzleBanner({
     merchantUUID: "enter merchant ID here",  <!-- Your ID(format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) -->
     theme: "indigo",  <!-- Options: "indigo" and "black" -->
     renderToContainer: "#sezzle-banner-render-reference", <!-- This will use `querySelector` to render the banner, so use a unique ID or class -->
+    countryCode: "US", <!-- Shopper country. Defaults to "US"; set "CA" for Canadian stores so the modal does not offer Pay in 5 -->
 }).init();
 </script>
 ```
