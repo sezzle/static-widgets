@@ -525,8 +525,9 @@ function parsePriceString(price, includeComma) {
             (!includeComma && char === ".") ||
             (includeComma && char === ",")
         ) {
+            const prev = price.charAt(i - 1).toLowerCase();
             // a "." right after a letter belongs to a symbol like "Rs."
-            if (i > 0 && char === "." && /[a-zA-Z]/.test(price[i - 1])) {
+            if (char === "." && prev >= "a" && prev <= "z") {
                 continue;
             }
             formattedPrice += char;
