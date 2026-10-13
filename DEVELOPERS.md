@@ -45,6 +45,12 @@ This project ships a `bun.lock` for local development and a `package-lock.json` 
 
 If you run `npm install <pkg>` first, npm has no release-age filter and may pick a freshly-published version; the next `bun install` will then accept it from the lockfile and silently bypass the guard.
 
+`@sezzle/sezzle-modal` is bundled into the home banner, so it is pinned to an exact version and is not exempt from the release-age guard (MERCHANT-5275). To ship a new modal version before it is 3 days old, bump it explicitly and get the MR reviewed:
+
+1. `bun add --exact --minimum-release-age=0 @sezzle/sezzle-modal@<version>`
+2. `npm install`
+3. Commit both lockfiles.
+
 ## Releasing updates to NPM:
 
 1. Do not update version in package.json
