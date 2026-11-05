@@ -13,6 +13,7 @@
  * - Real-world widget scenarios
  */
 
+import { JSDOM } from "jsdom";
 import { sanitizeHTML, escapeHTML } from "../src/utils/sanitizer";
 
 // Schemes the browser would act on for each surviving href/src. Regex-matching the
@@ -682,6 +683,68 @@ describe("Sanitizer Module - XSS Protection", () => {
       expect(result).toContain("aria-label");
       expect(result).toContain("aria-description");
       expect(result).toContain('role="button"');
+    });
+  });
+
+  // The suite's shared jsdom never runs scripts, so a handler attached during the
+  // parse would go unnoticed there. These run sanitizeHTML against a page that
+  // does run inline handlers and record any that fire, both while sanitizing and
+  // after the output is inserted into the page.
+  describe("Event handlers in a script-enabled DOM (MERCHANT-6084)", () => {
+    // jsdom fetches no media and fires no image errors, so of these only the
+    // details ontoggle fired under the old live-document parse; the rest reproduce
+    // in a real browser and are kept here so the payload list matches the report.
+    const payloads = [
+      '<video src=x onerror="window.hits.push(\'video\')"></video>',
+      '<audio src=x onerror="window.hits.push(\'audio-error\')"></audio>',
+      '<audio src=x onloadstart="window.hits.push(\'audio-loadstart\')"></audio>',
+      '<video><source src=x onerror="window.hits.push(\'source\')"></video>',
+      '<video><track src=x onerror="window.hits.push(\'track\')"></video>',
+      '<details open ontoggle="window.hits.push(\'details\')"></details>',
+      '<details><img src=x onerror="window.hits.push(\'img-in-details\')"></details>',
+      '<div><details open ontoggle="window.hits.push(\'nested-details\')"></details></div>',
+    ];
+
+    function withScriptedPage(run) {
+      const page = new JSDOM("<!DOCTYPE html><html><body></body></html>", {
+        url: "https://merchant.example/",
+        runScripts: "dangerously",
+      });
+      page.window.hits = [];
+      const saved = { document: globalThis.document, DOMParser: globalThis.DOMParser, Node: globalThis.Node };
+      Object.assign(globalThis, {
+        document: page.window.document,
+        DOMParser: page.window.DOMParser,
+        Node: page.window.Node,
+      });
+      try {
+        return run(page.window);
+      } finally {
+        Object.assign(globalThis, saved);
+      }
+    }
+
+    // Toggle and error events are queued as tasks, so let them run before checking.
+    const settle = () => new Promise((resolve) => setTimeout(resolve, 50));
+
+    test.each(payloads)("runs no handler while sanitizing or once inserted: %s", async (payload) => {
+      const win = withScriptedPage((w) => {
+        w.document.body.innerHTML = sanitizeHTML(payload);
+        return w;
+      });
+      await settle();
+      expect(win.hits).toEqual([]);
+      expect(win.document.body.innerHTML).not.toMatch(/\bon[a-z]+=/i);
+    });
+
+    test("the scripted page does run a handler that reaches it", async () => {
+      // Guards the tests above against passing only because handlers never fire here.
+      const win = withScriptedPage((w) => {
+        w.document.body.innerHTML = '<details open ontoggle="window.hits.push(1)"></details>';
+        return w;
+      });
+      await settle();
+      expect(win.hits).toEqual([1]);
     });
   });
 });

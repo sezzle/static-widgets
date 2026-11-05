@@ -40,7 +40,11 @@ const ALLOWED_ATTR_PREFIXES = ['aria-', 'data-'];
  */
 const DANGEROUS_TAGS = new Set([
   'script', 'iframe', 'object', 'embed', 'style', 'link', 'meta', 'base',
-  'form', 'input', 'textarea', 'select', 'option', 'frame', 'frameset'
+  'form', 'input', 'textarea', 'select', 'option', 'frame', 'frameset',
+  // DOMParser parses with scripting off, so noscript content becomes markup here
+  // but raw text once the output is inserted into a live page. Keeping it would
+  // let an attribute value in it turn into a tag on the page (mutation XSS).
+  'noscript'
 ]);
 
 /**
@@ -125,14 +129,20 @@ function sanitizeHTML(html, strict = true) {
     return '';
   }
 
-  // Create a temporary DOM element to parse HTML
-  const temp = document.createElement('div');
-  temp.innerHTML = html;
+  // Parse into an inert document, never the live one. A DOMParser document has no
+  // browsing context, so nothing in it loads and no event handler on it can fire,
+  // including on elements cleanNode removes without stripping their attributes.
+  // Parsing into a div of the live document attached those handlers during the
+  // parse, and media onerror, details ontoggle and the like ran (MERCHANT-6084).
+  // The prefix starts the parse inside <body> in no-quirks mode, as a div on a
+  // standard page would: otherwise leading head-only tags (noscript, title, meta)
+  // are hoisted out of the body and quirks mode changes how tables nest.
+  const body = new DOMParser().parseFromString('<!DOCTYPE html><body>' + html, 'text/html').body;
 
   // Recursively clean the DOM tree
-  cleanNode(temp, strict);
+  cleanNode(body, strict);
 
-  return temp.innerHTML;
+  return body.innerHTML;
 }
 
 /**
