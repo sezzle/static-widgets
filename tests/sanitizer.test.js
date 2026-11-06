@@ -746,5 +746,19 @@ describe("Sanitizer Module - XSS Protection", () => {
       await settle();
       expect(win.hits).toEqual([1]);
     });
+
+    test("the scripted page runs a handler queued from a detached parse", async () => {
+      // The old sanitizer parsed into a detached div in the live document, and jsdom
+      // queued ontoggle from there. If jsdom stops doing that, the tests above would
+      // also pass against the old implementation, so fail here to flag it.
+      const win = withScriptedPage((w) => {
+        const temp = w.document.createElement("div");
+        temp.innerHTML = '<details open ontoggle="window.hits.push(1)"></details>';
+        temp.firstChild.remove();
+        return w;
+      });
+      await settle();
+      expect(win.hits).toEqual([1]);
+    });
   });
 });
