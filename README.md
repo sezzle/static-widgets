@@ -2,6 +2,13 @@
 
 This SDK is a way to install the Sezzle widget onto a merchant's website that does not communicate with Sezzle's server. All the widget code, custom configuration, images, and stylesheets are stored locally within the store theme. This approach means slightly faster load speed, and greater merchant control over the widget - the Sezzle team cannot make changes to the widget, for better or for worse.
 
+## Keeping the widget up to date
+
+The widget runs from your own copy, so Sezzle cannot update it for you. Version 3.2.7 contains security fixes to how the widget cleans the custom modal HTML options (such as `altLightboxHTML` and `apModalHTML`). If your site uses an earlier version, update it:
+
+- npm: run `npm install @sezzle/sezzle-static-widget@latest`, then rebuild and redeploy your site.
+- A pasted copy (HTML or Shopify implementation below): replace the whole contents of your file with the current [`dist/bundle.js`](./dist/bundle.js), then save and publish. If you're not sure when your copy was made, replace it.
+
 ## NPM Implementation
 
 Using npm:

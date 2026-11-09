@@ -2,6 +2,13 @@
 
 Ce SDK est un moyen d'installer le widget Sezzle sur le site Web d'un commerçant qui ne communique pas avec le serveur de Sezzle. Tout le code du widget, la configuration personnalisée, les images et les feuilles de style sont stockés localement dans le thème du magasin. Cette approche signifie une vitesse de chargement légèrement plus rapide et un plus grand contrôle du commerçant sur le widget - l'équipe Sezzle ne peut pas apporter de modifications au widget, pour le meilleur ou pour le pire.
 
+## Maintenir le widget à jour
+
+Le widget s'exécute à partir de votre propre copie, donc Sezzle ne peut pas le mettre à jour pour vous. La version 3.2.7 contient des correctifs de sécurité concernant la façon dont le widget nettoie le code HTML des options de modale personnalisées (comme `altLightboxHTML` et `apModalHTML`). Si votre site utilise une version antérieure, mettez-le à jour :
+
+* npm : exécutez `npm install @sezzle/sezzle-static-widget@latest`, puis reconstruisez et redéployez votre site.
+* Une copie collée (implémentations HTML ou Shopify ci-dessous) : remplacez tout le contenu de votre fichier par le fichier [`dist/bundle.js`](./dist/bundle.js) actuel, puis enregistrez et publiez. Si vous ne savez pas de quand date votre copie, remplacez-la.
+
 ## Implémentation du NPM
 
 Utilisation de npm :

@@ -46,6 +46,7 @@ globalThis.getComputedStyle = window.getComputedStyle.bind(window);
 // half-configured state.
 const additionalGlobals = [
   "Node",
+  "DOMParser",
   "Event",
   "CustomEvent",
   "MouseEvent",
